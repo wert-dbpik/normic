@@ -31,3 +31,4 @@ client/client.iml
 .idea/compiler.xml
 /target
 *.xml
+/target/

@@ -70,14 +70,14 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>НормИК-1.0</finalName>
+                    <finalName>NormIC-1.0</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <mainClass>ru.wert.normik.StartNormik</mainClass>
+                            <mainClass>ru.wert.normic.StartNormic</mainClass>
                         </manifest>
                     </archive>
                     <appendAssemblyId>true</appendAssemblyId>

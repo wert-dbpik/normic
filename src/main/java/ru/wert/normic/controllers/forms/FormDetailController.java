@@ -246,6 +246,8 @@ public class FormDetailController implements IFormController {
         opData.setMechTime(mechanicalTime);
         opData.setPaintTime(paintingTime);
 
+        OpData d =  controller.getAddedOperations().get(0);
+
         controller.countSumNormTimeByShops();
 
         if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)){

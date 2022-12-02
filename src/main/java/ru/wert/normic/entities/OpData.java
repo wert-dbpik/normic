@@ -22,5 +22,16 @@ public class OpData {
 
     private double totalTime; //Общее время
 
-
+    @Override
+    public String toString() {
+        return "OpData{" +
+                "normType=" + normType +
+                ", opType=" + opType +
+                ", mechTime=" + mechTime +
+                ", paintTime=" + paintTime +
+                ", assmTime=" + assmTime +
+                ", packTime=" + packTime +
+                ", totalTime=" + totalTime +
+                '}';
+    }
 }

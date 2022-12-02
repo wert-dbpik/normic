@@ -31,8 +31,6 @@ public class MenuCalculator extends ContextMenu {
         this.addedPlates = addedPlates;
         this.listViewTechOperations = listViewTechOperations;
         this.addedOperations = addedOperations;
-        if(calculator instanceof FormAssmController)
-            System.out.println("Создан меню сборки");
     }
 
 
@@ -41,7 +39,6 @@ public class MenuCalculator extends ContextMenu {
         MenuItem addDetail = new MenuItem("Добавить деталь");
         addDetail.setOnAction(event -> {
             OpDetail opDetail = new OpDetail();
-            System.out.println("Новая плашка на деталь : " + opDetail);
             addDetailPlate(opDetail);
         });
         return addDetail;
@@ -198,6 +195,7 @@ public class MenuCalculator extends ContextMenu {
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(detail);
             addedOperations.add(opData);
+            System.out.println("addedOperations : " + addedOperations);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -63,7 +63,7 @@ public class FormAssmController implements IFormController {
     private TextField tfTotalTime;
 
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
-    @Getter private List<OpData> assmAddedOperations;
+    @Getter private List<OpData> addedOperations;
 
     private IFormController controller;
 
@@ -76,7 +76,7 @@ public class FormAssmController implements IFormController {
 
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();
-        assmAddedOperations = new ArrayList<>();
+        addedOperations = new ArrayList<>();
 
         //Инициализируем наименование
         if(tfName != null) {
@@ -116,7 +116,7 @@ public class FormAssmController implements IFormController {
 
     private void createMenu() {
 
-        MenuCalculator menu = new MenuCalculator(this, addedPlates, listViewTechOperations, assmAddedOperations);
+        MenuCalculator menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
 
         menu.getItems().add(menu.createItemAddDetail());
         menu.getItems().add(new SeparatorMenuItem());
@@ -144,9 +144,9 @@ public class FormAssmController implements IFormController {
         double assemblingTime = 0.0;
         double packingTime = 0.0;
 
-        System.out.println("operations: " + assmAddedOperations);
+        System.out.println("operations: " + addedOperations);
 
-        for(OpData cn: assmAddedOperations){
+        for(OpData cn: addedOperations){
             if(cn instanceof OpDetail)
                 System.out.println("Имя операции:" + ((OpDetail) cn).getName() + ", mech=" +  cn.getMechTime());
 

@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.*;
+import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpData;
@@ -19,7 +21,6 @@ import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.interfaces.IOpPlate;
-import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
 
@@ -60,8 +61,9 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     private static int nameIndex = 0;
     private String detailName;
 
-    private IFormController controller;
-    private FormDetailController partController;
+
+    private IFormController prevController;
+    private FormDetailController detailController;
 
     private OpDetail opData;
     public void setOpData(OpDetail opData){
@@ -75,9 +77,11 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     private ETimeMeasurement measure;
 
-    public void init(IFormController controller, OpDetail opData){
-        this.controller = controller;
+    public void init(IFormController prevController, OpDetail opData){
+        this.prevController = prevController;
         this.opData = opData;
+
+        new TFColoredInteger(tfN, null);
 
         fillOpData();
 
@@ -92,29 +96,34 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         ivEdit.setOnMouseClicked(e->{
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorPart.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorDetail.fxml"));
                 Parent parent = loader.load();
                 parent.setId("calculator");
-                partController = loader.getController();
-                //!!!!!!!!!!!!!!!controller
-                partController.init(controller, tfName, this.opData);
-               Decoration windowDecoration = new Decoration("Добавить деталь", parent, false, (Stage)lblOperationName.getScene().getWindow());
+                detailController = loader.getController();
+                detailController.init(prevController, tfName, this.opData);
+                Decoration windowDecoration = new Decoration("Добавить деталь", parent, false, (Stage) lblOperationName.getScene().getWindow());
                 ImageView closer = windowDecoration.getImgCloseWindow();
-                closer.setOnMousePressed(ev->collectOpData());
+                closer.setOnMousePressed(ev -> collectOpData());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         });
 
-        ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+        tfN.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.opData.setQuantity(IntegerParser.getValue(tfN));
+            prevController.countSumNormTimeByShops();
 
-            controller.countSumNormTimeByShops();
         });
 
-        controller.getAddedPlates().add(this);
+        ivDeleteOperation.setOnMouseClicked(e->{
+            prevController.getAddedPlates().remove(this);
+            VBox box = prevController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            prevController.getListViewTechOperations().getItems().remove(box);
+
+            prevController.countSumNormTimeByShops();
+        });
+
+        prevController.getAddedPlates().add(this);
 //        setNormTime();
     }
 
@@ -125,6 +134,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         double mechanicalTime = 0;
         double paintTime = 0;
+
         for(OpData op : opData.getOperations()){
             mechanicalTime += op.getMechTime();
             paintTime += op.getPaintTime();
@@ -133,7 +143,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
         collectOpData();
-        if (partController != null)
+        if (detailController != null)
             setTimeMeasurement(measure);
     }
 
@@ -142,16 +152,16 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
      */
     private void countInitialValues() {
         quantity = IntegerParser.getValue(tfN);
-        measure = controller.getCmbxTimeMeasurement().getValue();
+        measure = prevController.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData() {
-        if(partController != null){
-            opData.setName(partController.getTfPartName().getText());
-            opData.setMaterial(partController.getCmbxMaterial().getValue());
-            opData.setParamA(IntegerParser.getValue(partController.getTfA()));
-            opData.setParamB(IntegerParser.getValue(partController.getTfB()));
-            opData.setOperations(new ArrayList<>(partController.getAddedOperations()));
+        if(detailController != null){
+            opData.setName(detailController.getTfPartName().getText());
+            opData.setMaterial(detailController.getCmbxMaterial().getValue());
+            opData.setParamA(IntegerParser.getValue(detailController.getTfA()));
+            opData.setParamB(IntegerParser.getValue(detailController.getTfB()));
+            opData.setOperations(new ArrayList<>(detailController.getAddedOperations()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
     }

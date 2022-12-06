@@ -15,6 +15,8 @@ public class OpData {
     protected ENormType normType; //Тип нормы по участкам (МК, ППК и т.д.)
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))
 
+    private int quantity = 1; //количество
+
     private double mechTime; //МК
     private double paintTime; //ППК
     private double assmTime; //Сборка
@@ -22,16 +24,4 @@ public class OpData {
 
     private double totalTime; //Общее время
 
-    @Override
-    public String toString() {
-        return "OpData{" +
-                "normType=" + normType +
-                ", opType=" + opType +
-                ", mechTime=" + mechTime +
-                ", paintTime=" + paintTime +
-                ", assmTime=" + assmTime +
-                ", packTime=" + packTime +
-                ", totalTime=" + totalTime +
-                '}';
-    }
 }

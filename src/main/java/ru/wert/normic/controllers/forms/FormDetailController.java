@@ -13,6 +13,7 @@ import ru.wert.normic.AbstractOpPlate;
 import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.components.BXTimeMeasurement;
+import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
 import ru.wert.normic.enums.ETimeMeasurement;
@@ -120,6 +121,8 @@ public class FormDetailController implements IFormController {
     }
 
     private void initViews() {
+
+
 
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
             countSumNormTimeByShops();
@@ -244,8 +247,6 @@ public class FormDetailController implements IFormController {
 
         opData.setMechTime(mechanicalTime);
         opData.setPaintTime(paintingTime);
-
-        OpData d =  controller.getAddedOperations().get(0);
 
         controller.countSumNormTimeByShops();
 

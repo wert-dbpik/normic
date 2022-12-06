@@ -130,10 +130,10 @@ public class MainController implements IFormController {
         double packingTime = 0.0;
 
         for(OpData cn: addedOperations){
-            mechanicalTime += cn.getMechTime();
-            paintingTime += cn.getPaintTime();
-            assemblingTime += cn.getAssmTime();
-            packingTime += cn.getPackTime();
+            mechanicalTime += cn.getMechTime() * cn.getQuantity();
+            paintingTime += cn.getPaintTime() * cn.getQuantity();
+            assemblingTime += cn.getAssmTime() * cn.getQuantity();
+            packingTime += cn.getPackTime() * cn.getQuantity();
         }
 
         if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)){

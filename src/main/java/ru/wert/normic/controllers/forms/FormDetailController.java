@@ -92,7 +92,6 @@ public class FormDetailController implements IFormController {
     public void init(IFormController controller, TextField tfName, OpData opData) {
         this.opData = (OpDetail) opData;
         this.controller = controller;
-        System.out.println();
 
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();

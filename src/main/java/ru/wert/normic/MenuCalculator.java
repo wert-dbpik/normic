@@ -195,7 +195,6 @@ public class MenuCalculator extends ContextMenu {
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(detail);
             addedOperations.add(opData);
-            System.out.println("addedOperations : " + addedOperations);
         } catch (IOException e) {
             e.printStackTrace();
         }

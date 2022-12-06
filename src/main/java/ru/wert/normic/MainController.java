@@ -129,12 +129,7 @@ public class MainController implements IFormController {
         double assemblingTime = 0.0;
         double packingTime = 0.0;
 
-        System.out.println("operations: " + addedOperations);
-
         for(OpData cn: addedOperations){
-            if(cn instanceof OpDetail)
-                System.out.println("Имя операции:" + ((OpDetail) cn).getName() + ", mech=" +  cn.getMechTime());
-
             mechanicalTime += cn.getMechTime();
             paintingTime += cn.getPaintTime();
             assemblingTime += cn.getAssmTime();

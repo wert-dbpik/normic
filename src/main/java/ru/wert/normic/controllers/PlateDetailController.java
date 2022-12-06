@@ -152,9 +152,6 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             opData.setParamA(IntegerParser.getValue(partController.getTfA()));
             opData.setParamB(IntegerParser.getValue(partController.getTfB()));
             opData.setOperations(new ArrayList<>(partController.getAddedOperations()));
-
-            opData.setMechTime(DoubleParser.getValue(partController.getTfMechanicalTime()));
-            opData.setPaintTime(DoubleParser.getValue(partController.getTfPaintingTime()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
     }

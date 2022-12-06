@@ -13,9 +13,9 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.*;
 import ru.wert.normic.components.TFColoredInteger;
-import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
@@ -83,6 +83,15 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         new TFColoredInteger(tfN, null);
 
+        ivDeleteOperation.setOnMouseClicked(e->{
+            prevController.getAddedPlates().remove(this);
+            VBox box = prevController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            prevController.getListViewTechOperations().getItems().remove(box);
+            prevController.getAddedOperations().remove(this.opData);
+            prevController.countSumNormTimeByShops();
+            System.out.println(((OpAssm)prevController.getOpData()).getOperations().size());
+        });
+
         fillOpData();
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
@@ -101,7 +110,11 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
                 parent.setId("calculator");
                 detailController = loader.getController();
                 detailController.init(prevController, tfName, this.opData);
-                Decoration windowDecoration = new Decoration("Добавить деталь", parent, false, (Stage) lblOperationName.getScene().getWindow());
+                Decoration windowDecoration = new Decoration(
+                        "Добавить деталь",
+                        parent,
+                        false,
+                        (Stage) lblOperationName.getScene().getWindow());
                 ImageView closer = windowDecoration.getImgCloseWindow();
                 closer.setOnMousePressed(ev -> collectOpData());
             } catch (IOException ex) {
@@ -111,15 +124,6 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            prevController.countSumNormTimeByShops();
-
-        });
-
-        ivDeleteOperation.setOnMouseClicked(e->{
-            prevController.getAddedPlates().remove(this);
-            VBox box = prevController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            prevController.getListViewTechOperations().getItems().remove(box);
-
             prevController.countSumNormTimeByShops();
         });
 

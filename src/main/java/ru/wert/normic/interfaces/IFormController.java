@@ -25,4 +25,6 @@ public interface IFormController extends IForm{
 
     ComboBox<ETimeMeasurement> getCmbxTimeMeasurement();
 
+    OpData getOpData();
+
 }

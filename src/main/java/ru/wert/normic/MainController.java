@@ -61,7 +61,7 @@ public class MainController implements IFormController {
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
     @Getter private List<OpData> addedOperations;
 
-
+    @Getter //IFormController
     private OpAssm opData;
 
     @FXML
@@ -69,10 +69,13 @@ public class MainController implements IFormController {
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();
         addedOperations = new ArrayList<>();
+        opData = new OpAssm();
 
         //Инициализируем комбобоксы
         new BXTimeMeasurement().create(cmbxTimeMeasurement);
 
+        //Заполняем поля формы
+        fillOpData();
 
         initViews();
         createMenu();

@@ -78,6 +78,8 @@ public class FormDetailController implements IFormController {
     private TextField tfTotalTime;
 
     private MenuCalculator menu;
+
+    @Getter //IFormController
     private OpDetail opData;
 
     private double ro; //Плотность

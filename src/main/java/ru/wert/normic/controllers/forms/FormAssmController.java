@@ -67,6 +67,7 @@ public class FormAssmController implements IFormController {
 
     private IFormController controller;
 
+    @Getter //IFormController
     private OpAssm opData;
 
     @Override

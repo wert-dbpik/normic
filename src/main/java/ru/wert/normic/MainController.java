@@ -107,6 +107,7 @@ public class MainController implements IFormController {
         MenuCalculator menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
 
         menu.getItems().add(menu.createItemAddDetail());
+        menu.getItems().add(menu.createItemAddAssm());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
         menu.getItems().add(new SeparatorMenuItem());
@@ -174,7 +175,7 @@ public class MainController implements IFormController {
                 case PAINTING:
                     menu.addPaintPlate((OpPaint) op);
                     break;
-                case PAINTING_ASSM:
+                case PAINT_ASSM:
                     menu.addPaintAssmPlate((OpPaintAssm) op);
                     break;
                 case WELD_CONTINUOUS:

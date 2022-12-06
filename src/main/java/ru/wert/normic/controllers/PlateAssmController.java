@@ -11,25 +11,24 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.*;
+import ru.wert.normic.AbstractOpPlate;
 import ru.wert.normic.components.TFColoredInteger;
-import ru.wert.normic.controllers.forms.FormDetailController;
+import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
+public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
     @FXML
-    private TextField tfName;
+    private TextField tfAssmName;
 
     @FXML
     private TextField tfN;
@@ -58,14 +57,13 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     //Переменные для ИМЕНИ
     private static int nameIndex = 0;
-    private String detailName;
-
+    private String assmName;
 
     private IFormController prevController;
-    private FormDetailController detailController;
+    private FormAssmController nextController;
 
-    private OpDetail opData;
-    public void setOpData(OpDetail opData){
+    private OpAssm opData;
+    public void setOpData(OpAssm opData){
         this.opData = opData;
     }
 
@@ -76,7 +74,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     private ETimeMeasurement measure;
 
-    public void init(IFormController prevController, OpDetail opData){
+    public void init(IFormController prevController, OpAssm opData){
         this.prevController = prevController;
         this.opData = opData;
 
@@ -98,20 +96,20 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         lblQuantity.setStyle("-fx-text-fill: #8b4513");
 
         if(this.opData.getName() == null &&
-                tfName.getText() == null || tfName.getText().equals("")) {
-            detailName = String.format("Деталь #%s", ++nameIndex);
-            tfName.setText(detailName);
+                tfAssmName.getText() == null || tfAssmName.getText().equals("")) {
+            assmName = String.format("Деталь #%s", ++nameIndex);
+            tfAssmName.setText(assmName);
         }
 
         ivEdit.setOnMouseClicked(e->{
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorDetail.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorAssm.fxml"));
                 Parent parent = loader.load();
                 parent.setId("calculator");
-                detailController = loader.getController();
-                detailController.init(prevController, tfName, this.opData);
+                nextController = loader.getController();
+                nextController.init(prevController, tfAssmName, this.opData);
                 Decoration windowDecoration = new Decoration(
-                        "Добавить деталь",
+                        "Добавить сборка",
                         parent,
                         false,
                         (Stage) lblOperationName.getScene().getWindow());
@@ -147,7 +145,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
         collectOpData();
-        if (detailController != null)
+        if (nextController != null)
             setTimeMeasurement(measure);
     }
 
@@ -160,18 +158,15 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     }
 
     private void collectOpData() {
-        if(detailController != null){
-            opData.setName(detailController.getTfDetailName().getText());
-            opData.setMaterial(detailController.getCmbxMaterial().getValue());
-            opData.setParamA(IntegerParser.getValue(detailController.getTfA()));
-            opData.setParamB(IntegerParser.getValue(detailController.getTfB()));
-            opData.setOperations(new ArrayList<>(detailController.getAddedOperations()));
+        if(nextController != null){
+            opData.setName(nextController.getTfAssmName().getText());
+            opData.setOperations(new ArrayList<>(nextController.getAddedOperations()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
     }
 
     private void fillOpData(){
-        tfName.setText(opData.getName());
+        tfAssmName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }
 

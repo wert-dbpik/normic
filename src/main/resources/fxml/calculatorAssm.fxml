@@ -67,7 +67,7 @@
                   </HBox>
                   <ImageView fx:id="ivAddOperation" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../chogori-pics/btns/add.png" />
+                        <Image url="@../pics/btns/add.png" />
                      </image>
                   </ImageView>
                </children>

@@ -13,7 +13,6 @@ import ru.wert.normic.AbstractOpPlate;
 import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.components.BXTimeMeasurement;
-import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
 import ru.wert.normic.enums.ETimeMeasurement;
@@ -27,7 +26,7 @@ import static ru.wert.normic.AbstractOpPlate.*;
 public class FormDetailController implements IFormController {
 
     @FXML @Getter
-    private TextField tfPartName;
+    private TextField tfDetailName;
 
     @FXML @Getter
     private ComboBox<Material> cmbxMaterial;
@@ -103,8 +102,8 @@ public class FormDetailController implements IFormController {
         //Инициализируем наименование
         if(tfName != null) {
             this.opData.setName(tfName.getText());
-            tfPartName.setText(tfName.getText());
-            tfName.textProperty().bindBidirectional(tfPartName.textProperty());
+            tfDetailName.setText(tfName.getText());
+            tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
         }
 
         //Инициализируем комбобоксы
@@ -176,7 +175,7 @@ public class FormDetailController implements IFormController {
                 case PAINTING:
                     menu.addPaintPlate((OpPaint) op);
                     break;
-                case PAINTING_ASSM:
+                case PAINT_ASSM:
                     menu.addPaintAssmPlate((OpPaintAssm) op);
                     break;
                 case WELD_CONTINUOUS:

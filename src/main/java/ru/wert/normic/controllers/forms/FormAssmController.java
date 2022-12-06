@@ -24,7 +24,7 @@ import static ru.wert.normic.AbstractOpPlate.*;
 
 public class FormAssmController implements IFormController {
 
-    @FXML
+    @FXML @Getter
     private TextField tfAssmName;
 
     @FXML @Getter
@@ -120,6 +120,7 @@ public class FormAssmController implements IFormController {
         MenuCalculator menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
 
         menu.getItems().add(menu.createItemAddDetail());
+        menu.getItems().add(menu.createItemAddAssm());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
         menu.getItems().add(new SeparatorMenuItem());
@@ -191,7 +192,7 @@ public class FormAssmController implements IFormController {
                 case PAINTING:
                     menu.addPaintPlate((OpPaint) op);
                     break;
-                case PAINTING_ASSM:
+                case PAINT_ASSM:
                     menu.addPaintAssmPlate((OpPaintAssm) op);
                     break;
                 case WELD_CONTINUOUS:

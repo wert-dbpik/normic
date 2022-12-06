@@ -44,6 +44,16 @@ public class MenuCalculator extends ContextMenu {
         return addDetail;
     }
 
+    //ДОБАВИТЬ СБОРКУ
+    public MenuItem createItemAddAssm(){
+        MenuItem addAssm = new MenuItem("Добавить сборку");
+        addAssm.setOnAction(event -> {
+            OpAssm opAssm = new OpAssm();
+            addAssmPlate(opAssm);
+        });
+        return addAssm;
+    }
+
 
     //РАСКРОЙ И ЗАЧИСТКА
     public MenuItem createItemAddCutting(){
@@ -194,6 +204,23 @@ public class MenuCalculator extends ContextMenu {
             PlateDetailController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(detail);
+            addedOperations.add(opData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ДОБАВЛЕНИЕ СБОРКИ
+     */
+    public void addAssmPlate(OpAssm opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssm.fxml"));
+            VBox assm = loader.load();
+            assm.setId("calculator");
+            PlateAssmController controller = loader.getController();
+            controller.init(calculator, opData);
+            listViewTechOperations.getItems().add(assm);
             addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();

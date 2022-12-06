@@ -17,6 +17,6 @@ public class OpPaintAssm extends OpData {
 
     public OpPaintAssm() {
         super.normType = ENormType.NORM_PAINTING;
-        super.opType = EOpType.PAINTING_ASSM;
+        super.opType = EOpType.PAINT_ASSM;
     }
 }

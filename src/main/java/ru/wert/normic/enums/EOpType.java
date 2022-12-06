@@ -8,7 +8,7 @@ public enum EOpType {
     BENDING,
     LOCKSMITH,
     PAINTING,
-    PAINTING_ASSM,
+    PAINT_ASSM,
     WELD_CONTINUOUS,
     WELD_DOTTED,
     ASSM_CUTTINGS,

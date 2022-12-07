@@ -63,6 +63,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
             format = integerFormat;
         }
 
-        tfNormTime.setText(String.format(format,time));
+        if(tfNormTime != null)
+            tfNormTime.setText(String.format(format,time));
     }
 }

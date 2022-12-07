@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="calculator" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormAssmController">
+<VBox prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormAssmController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -42,16 +42,11 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label text="Состав и тех.операции">
+                  <Label text="Состав и технологические операции">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="ivHelpOnTechnologicalProcessing" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/help.png" />
-                     </image>
-                  </ImageView>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
@@ -90,11 +85,6 @@
                         <Insets bottom="5.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ImageView fx:id="ivHelpOnPartParameters1" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../chogori-pics/btns/help.png" />
-                     </image>
-                  </ImageView>
                </children>
             </HBox>
             <HBox spacing="5.0">

@@ -33,12 +33,6 @@ public class MainController implements IFormController {
     private ImageView ivAddOperation;
 
     @FXML
-    private ImageView ivErase;
-
-    @FXML
-    private ImageView ivHelpOnTechnologicalProcessing;
-
-    @FXML
     private TextField tfMechanicalTime;
 
     @FXML

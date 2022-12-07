@@ -9,15 +9,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="calculator" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.MainController">
+<VBox prefHeight="600.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.MainController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
-            <Label text="ПАНЕЛЬ ИНСТРУМЕНТОВ">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
+            <Pane fx:id="paneButton">
+               <children>
+                  <ImageView fx:id="ivSave" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pics/btns/save.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="paneButton">
+               <children>
+                  <ImageView fx:id="ivOpen" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pics/btns/open.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Ед.изм. ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbxTimeMeasurement" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="80.0" />
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" />
@@ -32,25 +55,16 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label text="Состав и тех.операции">
+                  <Label text="Состав и технологические операции">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="ivHelpOnTechnologicalProcessing" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/help.png" />
-                     </image>
-                  </ImageView>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER_RIGHT">
-                     <children>
-                        <Label text="Ед.изм." />
-                        <ComboBox fx:id="cmbxTimeMeasurement" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
-                     </children>
                      <HBox.margin>
                         <Insets bottom="4.0" />
                      </HBox.margin>
@@ -84,11 +98,6 @@
                         <Insets bottom="5.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ImageView fx:id="ivHelpOnPartParameters1" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/help.png" />
-                     </image>
-                  </ImageView>
                </children>
             </HBox>
             <HBox spacing="5.0">

@@ -53,7 +53,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     private int across; //Параметр B поперек штанги
     private double area; //Площадь развертки
     private double pantingSpeed;// Скорость нанесения покрытия
-    private ETimeMeasurement measure; //Ед. измерения нормы времени
 
     public void init(IFormController controller, OpPaintAssm opData){
         this.controller = controller;
@@ -119,14 +118,13 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
         currentNormTime = time;//результат в минутах
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
     private void countInitialValues() {
-        measure = controller.getCmbxTimeMeasurement().getValue();
         area = DoubleParser.getValue(tfArea);
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);

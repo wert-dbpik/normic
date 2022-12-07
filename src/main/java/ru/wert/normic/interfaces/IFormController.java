@@ -23,7 +23,6 @@ public interface IFormController extends IForm{
 
     void countSumNormTimeByShops();
 
-    ComboBox<ETimeMeasurement> getCmbxTimeMeasurement();
 
     OpData getOpData();
 

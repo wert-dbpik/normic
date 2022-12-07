@@ -53,7 +53,6 @@ public class PlateLocksmithController extends AbstractOpPlate {
     private int threadings; //Количество нарезаемых резьб
     private int smallSawings; //Количество резов на малой пиле
     private int bigSawings; //Количество резов на большой пиле
-    private ETimeMeasurement measure;
 
     public void init(IFormController controller, OpLocksmith opData){
         this.controller = controller;
@@ -104,7 +103,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -117,7 +116,6 @@ public class PlateLocksmithController extends AbstractOpPlate {
         threadings = IntegerParser.getValue(tfThreadings);
         smallSawings = IntegerParser.getValue(tfSmallSawings);
         bigSawings = IntegerParser.getValue(tfBigSawings);
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

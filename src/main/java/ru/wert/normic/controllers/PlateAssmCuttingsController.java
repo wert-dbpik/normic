@@ -46,8 +46,6 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
     private double selfAdhSealer; //Уплотнитель самоклеющийся
     private double insulation; //Утеплитель
 
-    private ETimeMeasurement measure;
-
     public void init(IFormController controller, OpAssmCutting opData){
         this.controller = controller;
         this.opData = opData;
@@ -89,7 +87,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -101,7 +99,6 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         selfAdhSealer = DoubleParser.getValue(tfSelfAdhSealer);
         insulation = DoubleParser.getValue(tfInsulation);
 
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

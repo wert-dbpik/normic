@@ -66,10 +66,17 @@ public class MainController implements IFormController {
 
     @FXML
     void initialize(){
+        AppStatics.MEASURE = cmbxTimeMeasurement;
+
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();
         addedOperations = new ArrayList<>();
         opData = new OpAssm();
+
+        //Создаем меню
+        createMenu();
+
+        initViews();
 
         //Инициализируем комбобоксы
         new BXTimeMeasurement().create(cmbxTimeMeasurement);
@@ -77,8 +84,6 @@ public class MainController implements IFormController {
         //Заполняем поля формы
         fillOpData();
 
-        initViews();
-        createMenu();
     }
 
 
@@ -95,7 +100,7 @@ public class MainController implements IFormController {
 
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             for(AbstractOpPlate nc : addedPlates){
-                nc.setTimeMeasurement(newValue);
+                nc.setTimeMeasurement();
             }
             lblTimeMeasure.setText(newValue.getTimeName());
         });
@@ -204,4 +209,5 @@ public class MainController implements IFormController {
     public void init(IFormController controller, TextField tfName, OpData opData) {
         //НЕ ИСПОЛЬЗУЕТСЯ
     }
+
 }

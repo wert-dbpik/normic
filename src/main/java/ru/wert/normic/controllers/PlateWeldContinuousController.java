@@ -77,7 +77,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private int connectionLength; //Длина сединения на которую расчитывается количество точек
     private int step; //шаг точек
     private double assemblingTime; //Время сборки свариваемого узла
-    private ETimeMeasurement measure;
 
     public void init(IFormController controller, OpWeldContinuous opData){
         this.controller = controller;
@@ -151,7 +150,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -166,7 +165,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         step = IntegerParser.getValue(tfStep);
         stripping = chbxStripping.isSelected();
         assemblingTime = cmbxPartBigness.getValue().getTime();
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

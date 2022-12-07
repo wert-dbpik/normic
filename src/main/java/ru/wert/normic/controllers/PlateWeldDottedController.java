@@ -45,7 +45,6 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     private int parts; //Количество элементов
     private int dots; //Количество точек
     private int drops; //Количество прихваток
-    private ETimeMeasurement measure;
 
     public void init(IFormController controller, OpWeldDotted opData){
         this.controller = controller;
@@ -86,7 +85,7 @@ public class PlateWeldDottedController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -98,7 +97,6 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         dots = IntegerParser.getValue(tfDots);
         drops = IntegerParser.getValue(tfDrops);
 
-        measure = controller.getCmbxTimeMeasurement().getValue();
         collectOpData();
     }
 

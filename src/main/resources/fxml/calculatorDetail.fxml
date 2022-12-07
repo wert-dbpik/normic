@@ -139,10 +139,6 @@
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER_RIGHT">
-                     <children>
-                        <Label text="Ед.изм." />
-                        <ComboBox fx:id="cmbxTimeMeasurement" maxWidth="1.7976931348623157E308" minWidth="-Infinity" />
-                     </children>
                      <HBox.margin>
                         <Insets bottom="4.0" />
                      </HBox.margin>

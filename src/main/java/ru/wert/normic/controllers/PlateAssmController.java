@@ -72,8 +72,6 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         return opData;
     }
 
-    private ETimeMeasurement measure;
-
     public void init(IFormController prevController, OpAssm opData){
         this.prevController = prevController;
         this.opData = opData;
@@ -146,7 +144,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         currentPaintNormTime = paintTime * quantity;
         collectOpData();
         if (nextController != null)
-            setTimeMeasurement(measure);
+            setTimeMeasurement();
     }
 
     /**
@@ -154,7 +152,6 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
      */
     private void countInitialValues() {
         quantity = IntegerParser.getValue(tfN);
-        measure = prevController.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData() {

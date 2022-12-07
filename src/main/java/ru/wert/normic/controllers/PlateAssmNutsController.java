@@ -61,8 +61,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     private int groundSets; //Количество комплектов заземления с этикеткой
     private int others; //Количество другого крепежа
 
-    private ETimeMeasurement measure;
-
     public void init(IFormController controller, OpAssmNut opData){
         this.controller = controller;
         controller.getAddedPlates().add(this);
@@ -114,7 +112,7 @@ public class PlateAssmNutsController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
 
@@ -130,7 +128,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         groundSets = IntegerParser.getValue(tfGroundSets);
         others = IntegerParser.getValue(tfOthers);
 
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

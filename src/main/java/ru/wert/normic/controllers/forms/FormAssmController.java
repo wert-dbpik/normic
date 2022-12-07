@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AbstractOpPlate;
+import ru.wert.normic.AppStatics;
 import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.entities.*;
@@ -26,9 +27,6 @@ public class FormAssmController implements IFormController {
 
     @FXML @Getter
     private TextField tfAssmName;
-
-    @FXML @Getter
-    private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
 
     @FXML @Getter
     private ListView<VBox> listViewTechOperations;
@@ -79,6 +77,11 @@ public class FormAssmController implements IFormController {
         addedPlates = FXCollections.observableArrayList();
         addedOperations = new ArrayList<>();
 
+        //Создаем меню
+        createMenu();
+
+        initViews();
+
         //Инициализируем наименование
         if(tfName != null) {
             tfAssmName.setText(tfName.getText());
@@ -88,11 +91,6 @@ public class FormAssmController implements IFormController {
         //Заполняем поля формы
         fillOpData();
 
-        //Инициализируем комбобоксы
-        new BXTimeMeasurement().create(cmbxTimeMeasurement);
-
-        initViews();
-        createMenu();
     }
 
     private void fillOpData(){
@@ -105,19 +103,11 @@ public class FormAssmController implements IFormController {
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
             countSumNormTimeByShops();
         });
-
-        cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
-            for(AbstractOpPlate nc : addedPlates){
-                nc.setTimeMeasurement(newValue);
-            }
-            lblTimeMeasure.setText(newValue.getTimeName());
-        });
-
     }
 
     private void createMenu() {
 
-        MenuCalculator menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
+        menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
 
         menu.getItems().add(menu.createItemAddDetail());
         menu.getItems().add(menu.createItemAddAssm());
@@ -157,7 +147,7 @@ public class FormAssmController implements IFormController {
         if (controller != null)
             controller.countSumNormTimeByShops();
 
-        if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)){
+        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
@@ -165,7 +155,7 @@ public class FormAssmController implements IFormController {
         }
 
         String format = doubleFormat;
-        if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)) format = integerFormat;
+        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)) format = integerFormat;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime));
         tfPaintingTime.setText(String.format(format, paintingTime));

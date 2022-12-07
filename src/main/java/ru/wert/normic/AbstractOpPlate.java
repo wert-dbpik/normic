@@ -7,6 +7,8 @@ import lombok.Getter;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpPlate;
 
+import static ru.wert.normic.AppStatics.MEASURE;
+
 
 /**
  * Класс наследует интерфейс IOpPlate
@@ -53,11 +55,10 @@ public abstract class AbstractOpPlate implements IOpPlate {
     /**
      * Метод устанавливает поле с расчитанной нормой в значением требуемой размерности
      */
-    public void setTimeMeasurement(ETimeMeasurement measure){
+    public void setTimeMeasurement(){
         double time = currentNormTime;
         String format = doubleFormat;
-        lblNormTimeMeasure.setText(measure.getTimeName());
-        if (measure.equals(ETimeMeasurement.SEC)) {
+        if (MEASURE.getValue().equals(ETimeMeasurement.SEC)) {
             time = currentNormTime * MIN_TO_SEC;
             format = integerFormat;
         }

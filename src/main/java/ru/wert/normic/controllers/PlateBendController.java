@@ -49,7 +49,6 @@ public class PlateBendController extends AbstractOpPlate {
     private int bends;
     private int men;
     private double toolRatio;
-    private ETimeMeasurement measure;
 
     public void init(IFormController controller, OpBending opData){
         this.controller = controller;
@@ -93,7 +92,7 @@ public class PlateBendController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -104,7 +103,6 @@ public class PlateBendController extends AbstractOpPlate {
         bends = IntegerParser.getValue(tfBends);
         men = IntegerParser.getValue(tfMen);
         toolRatio = cmbxBendingTool.getValue().getToolRatio();
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

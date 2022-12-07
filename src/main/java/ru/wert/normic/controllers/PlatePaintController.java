@@ -61,7 +61,6 @@ public class PlatePaintController extends AbstractOpPlate {
     private double area; //Площадь развертки
     private double difficulty; //Сложность окрашивания
     private int hangingTime; //Время навешивания
-    private ETimeMeasurement measure; //Ед. измерения нормы времени
 
     public void init(IFormController controller, OpPaint opData){
         this.controller = controller;
@@ -134,7 +133,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
         currentNormTime = time;//результат в минутах
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
 
@@ -156,7 +155,6 @@ public class PlatePaintController extends AbstractOpPlate {
         }
         difficulty = cmbxDifficulty.getValue().getDifficultyRatio();
         hangingTime = IntegerParser.getValue(tfHangingTime);
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

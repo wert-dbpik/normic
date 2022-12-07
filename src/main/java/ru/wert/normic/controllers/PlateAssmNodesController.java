@@ -57,8 +57,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     private int detectors; //Количество извещателей ИО-102
     private int connectionBoxes; //Количество еоробок соединительных КС-4
 
-    private ETimeMeasurement measure;
-
     public void init(IFormController controller, OpAssmNode opData){
         this.controller = controller;
         this.opData = opData;
@@ -107,7 +105,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -120,8 +118,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         mirrors = IntegerParser.getValue(tfMirrors);
         detectors = IntegerParser.getValue(tfDetectors);
         connectionBoxes = IntegerParser.getValue(tfConnectionBoxes);
-
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
     private void collectOpData(){

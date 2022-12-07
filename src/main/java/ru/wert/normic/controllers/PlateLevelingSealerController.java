@@ -62,8 +62,6 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     private int paramB;//Размер Б
     private double perimeter; //
 
-    private ETimeMeasurement measure;
-
     public void init(IFormController controller, OpLevelingSealer opData){
         this.controller = controller;
         this.opData = opData;
@@ -112,7 +110,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
         currentNormTime = time;
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
     /**
@@ -122,7 +120,6 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         paramA = IntegerParser.getValue(tfA);
         paramB = IntegerParser.getValue(tfB);
         perimeter = 2 * (paramA + paramB) * MM_TO_M;
-        measure = controller.getCmbxTimeMeasurement().getValue();
     }
 
 

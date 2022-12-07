@@ -64,7 +64,6 @@ public class PlateCuttingController extends AbstractOpPlate {
     private boolean stripping = false; //Применить зачистку
     private int holes; //Количество отверстий в развертке
     private int perfHoles; //Количество перфораций в развертке
-    private ETimeMeasurement measure; //Ед. измерения нормы времени
 
 
     public void init(IFormController controller, OpCutting opData){
@@ -147,7 +146,7 @@ public class PlateCuttingController extends AbstractOpPlate {
 
         currentNormTime = time;//результат в минутах
         collectOpData();
-        setTimeMeasurement(measure);
+        setTimeMeasurement();
     }
 
 
@@ -165,7 +164,6 @@ public class PlateCuttingController extends AbstractOpPlate {
         stripping = chbxStripping.isSelected();
         holes = IntegerParser.getValue(tfHoles);
         perfHoles = IntegerParser.getValue(tfPerfHoles);
-        measure = controller.getCmbxTimeMeasurement().getValue();
 
     }
 

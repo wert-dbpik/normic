@@ -8,7 +8,7 @@ public class TFNormTime {
 
     public TFNormTime(TextField tf, IFormController controller) {
 
-        tf.textProperty().addListener((observable, oldValue, newValue) -> {
+        tf.textProperty().addListener((observable) -> {
             controller.countSumNormTimeByShops();
         });
 

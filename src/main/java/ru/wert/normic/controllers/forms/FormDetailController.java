@@ -148,46 +148,6 @@ public class FormDetailController implements IFormController {
         });
     }
 
-    private void deployData(OpDetail opData) {
-        List<OpData> operations = opData.getOperations();
-        for (OpData op : operations) {
-            switch (op.getOpType()) {
-                case CUTTING:
-                    menu.addCattingPlate((OpCutting) op);
-                    break;
-                case BENDING:
-                    menu.addBendingPlate((OpBending) op);
-                    break;
-                case LOCKSMITH:
-                    menu.addLocksmithPlate((OpLocksmith) op);
-                    break;
-                case PAINTING:
-                    menu.addPaintPlate((OpPaint) op);
-                    break;
-                case PAINT_ASSM:
-                    menu.addPaintAssmPlate((OpPaintAssm) op);
-                    break;
-                case WELD_CONTINUOUS:
-                    menu.addWeldContinuousPlate((OpWeldContinuous) op);
-                    break;
-                case WELD_DOTTED:
-                    menu.addWeldDottedPlate((OpWeldDotted) op);
-                    break;
-                case ASSM_CUTTINGS:
-                    menu.addAssmCuttingsPlate((OpAssmCutting) op);
-                    break;
-                case ASSM_NUTS:
-                    menu.addAssmNutsPlate((OpAssmNut) op);
-                    break;
-                case ASSM_NODES:
-                    menu.addAssmNodesPlate((OpAssmNode) op);
-                    break;
-                case LEVELING_SEALER:
-                    menu.addLevelingSealerPlate((OpLevelingSealer) op);
-                    break;
-            }
-        }
-    }
 
     private void createMenu(){
         menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
@@ -229,11 +189,13 @@ public class FormDetailController implements IFormController {
      */
     public void countSumNormTimeByShops(){
         String measure = MIN.getTimeName();
+
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
-        for(AbstractOpPlate cn: addedPlates){
-            mechanicalTime += cn.getOpData().getMechTime();
-            paintingTime += cn.getOpData().getPaintTime();
+
+        for(OpData cn: addedOperations){
+            mechanicalTime += cn.getMechTime();
+            paintingTime += cn.getPaintTime();
         }
 
         opData.setMechTime(mechanicalTime);
@@ -258,6 +220,53 @@ public class FormDetailController implements IFormController {
 
         lblTimeMeasure.setText(measure);
 
+    }
+
+    private void deployData(OpDetail opData) {
+        List<OpData> operations = opData.getOperations();
+        for (OpData op : operations) {
+            switch (op.getOpType()) {
+                case DETAIL:
+                    menu.addDetailPlate((OpDetail) op);
+                    break;
+                case ASSM:
+                    menu.addAssmPlate((OpAssm) op);
+                    break;
+                case CUTTING:
+                    menu.addCattingPlate((OpCutting) op);
+                    break;
+                case BENDING:
+                    menu.addBendingPlate((OpBending) op);
+                    break;
+                case LOCKSMITH:
+                    menu.addLocksmithPlate((OpLocksmith) op);
+                    break;
+                case PAINTING:
+                    menu.addPaintPlate((OpPaint) op);
+                    break;
+                case PAINT_ASSM:
+                    menu.addPaintAssmPlate((OpPaintAssm) op);
+                    break;
+                case WELD_CONTINUOUS:
+                    menu.addWeldContinuousPlate((OpWeldContinuous) op);
+                    break;
+                case WELD_DOTTED:
+                    menu.addWeldDottedPlate((OpWeldDotted) op);
+                    break;
+                case ASSM_CUTTINGS:
+                    menu.addAssmCuttingsPlate((OpAssmCutting) op);
+                    break;
+                case ASSM_NUTS:
+                    menu.addAssmNutsPlate((OpAssmNut) op);
+                    break;
+                case ASSM_NODES:
+                    menu.addAssmNodesPlate((OpAssmNode) op);
+                    break;
+                case LEVELING_SEALER:
+                    menu.addLevelingSealerPlate((OpLevelingSealer) op);
+                    break;
+            }
+        }
     }
 
     private void fillOpData(){

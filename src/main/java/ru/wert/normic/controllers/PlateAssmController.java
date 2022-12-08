@@ -17,7 +17,6 @@ import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
@@ -54,13 +53,17 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     private double currentMechanicalNormTime;
     @Setter@Getter
     private double currentPaintNormTime;
+    @Setter@Getter
+    private double currentAssmNormTime;
+    @Setter@Getter
+    private double currentPackNormTime;
 
     //Переменные для ИМЕНИ
     private static int nameIndex = 0;
     private String assmName;
 
     private IFormController prevController;
-    private FormAssmController nextController;
+    private FormAssmController assmController;
 
     private OpAssm opData;
     public void setOpData(OpAssm opData){
@@ -103,8 +106,8 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorAssm.fxml"));
                 Parent parent = loader.load();
-                nextController = loader.getController();
-                nextController.init(prevController, tfAssmName, this.opData);
+                assmController = loader.getController();
+                assmController.init(prevController, tfAssmName, this.opData);
                 Decoration windowDecoration = new Decoration(
                         "СБОРКА",
                         parent,
@@ -135,16 +138,23 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
         double mechanicalTime = 0;
         double paintTime = 0;
+        double assmTime = 0;
+        double packTime = 0;
 
         for(OpData op : opData.getOperations()){
             mechanicalTime += op.getMechTime();
             paintTime += op.getPaintTime();
+            assmTime += op.getAssmTime();
+            packTime += op.getPackTime();
         }
 
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
+        currentAssmNormTime = assmTime * quantity;
+        currentPackNormTime = packTime * quantity;
+
         collectOpData();
-        if (nextController != null)
+        if (assmController != null)
             setTimeMeasurement();
     }
 
@@ -156,9 +166,10 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     }
 
     private void collectOpData() {
-        if(nextController != null){
-            opData.setName(nextController.getTfAssmName().getText());
-            opData.setOperations(new ArrayList<>(nextController.getAddedOperations()));
+        if(assmController != null){
+            opData.setName(assmController.getTfAssmName().getText());
+            //Сохраняем операции
+            opData.setOperations(new ArrayList<>(assmController.getAddedOperations()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
     }

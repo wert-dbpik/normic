@@ -70,7 +70,8 @@ public class PlateCuttingController extends AbstractOpPlate {
         this.controller = controller;
         this.partController = (FormDetailController) controller;
         this.opData = opData;
-        controller.getAddedPlates().add(this);
+//        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
 
         new TFColoredInteger(tfHoles, this);
         new TFColoredInteger(tfPerfHoles, this);
@@ -98,7 +99,6 @@ public class PlateCuttingController extends AbstractOpPlate {
         });
 
         countNorm();
-        controller.countSumNormTimeByShops();
 
     }
 

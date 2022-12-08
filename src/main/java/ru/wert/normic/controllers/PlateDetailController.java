@@ -145,6 +145,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
+
         collectOpData();
         if (detailController != null)
             setTimeMeasurement();
@@ -163,6 +164,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             opData.setMaterial(detailController.getCmbxMaterial().getValue());
             opData.setParamA(IntegerParser.getValue(detailController.getTfA()));
             opData.setParamB(IntegerParser.getValue(detailController.getTfB()));
+            //Сохраняем операции
             opData.setOperations(new ArrayList<>(detailController.getAddedOperations()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));

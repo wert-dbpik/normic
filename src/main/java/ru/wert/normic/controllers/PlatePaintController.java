@@ -1,5 +1,6 @@
 package ru.wert.normic.controllers;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -90,6 +91,9 @@ public class PlatePaintController extends AbstractOpPlate {
 
         controller.getAddedPlates().add(this);
         countNorm();
+        //Запускаем слушатель изменения текста
+        tfNormTime.setText(tfNormTime.getText());
+        controller.countSumNormTimeByShops();
     }
 
     @Override//AbstractOpPlate

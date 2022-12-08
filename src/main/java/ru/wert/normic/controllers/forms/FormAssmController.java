@@ -86,6 +86,7 @@ public class FormAssmController implements IFormController {
 
         //Инициализируем наименование
         if(tfName != null) {
+            this.opData.setName(tfName.getText());
             tfAssmName.setText(tfName.getText());
             tfAssmName.textProperty().bindBidirectional(tfName.textProperty());
         }
@@ -94,11 +95,6 @@ public class FormAssmController implements IFormController {
         fillOpData();
         countSumNormTimeByShops();
 
-    }
-
-    private void fillOpData(){
-        if(!opData.getOperations().isEmpty())
-            deployData(opData);
     }
 
     private void initViews() {
@@ -142,15 +138,18 @@ public class FormAssmController implements IFormController {
         double packingTime = 0.0;
 
         for(OpData cn: addedOperations){
-
             mechanicalTime += cn.getMechTime();
             paintingTime += cn.getPaintTime();
             assemblingTime += cn.getAssmTime();
             packingTime += cn.getPackTime();
         }
 
-        if (controller != null)
-            controller.countSumNormTimeByShops();
+        opData.setMechTime(mechanicalTime);
+        opData.setPaintTime(paintingTime);
+        opData.setAssmTime(assemblingTime);
+        opData.setPackTime(packingTime);
+
+        controller.countSumNormTimeByShops();
 
         if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
@@ -179,6 +178,12 @@ public class FormAssmController implements IFormController {
         List<OpData> operations = opData.getOperations();
         for (OpData op : operations) {
             switch (op.getOpType()) {
+                case DETAIL:
+                    menu.addDetailPlate((OpDetail) op);
+                    break;
+                case ASSM:
+                    menu.addAssmPlate((OpAssm) op);
+                    break;
                 case CUTTING:
                     menu.addCattingPlate((OpCutting) op);
                     break;
@@ -214,6 +219,11 @@ public class FormAssmController implements IFormController {
                     break;
             }
         }
+    }
+
+    private void fillOpData(){
+        if(!opData.getOperations().isEmpty())
+            deployData(opData);
     }
 
 }

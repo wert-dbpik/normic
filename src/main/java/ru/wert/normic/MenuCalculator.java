@@ -200,7 +200,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateDetail.fxml"));
             VBox detail = loader.load();
-            detail.setId("calculator");
             PlateDetailController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(detail);
@@ -217,7 +216,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssm.fxml"));
             VBox assm = loader.load();
-            assm.setId("calculator");
             PlateAssmController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assm);
@@ -235,11 +233,10 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateCutting.fxml"));
             VBox cutting = loader.load();
-            cutting.setId("calculator");
             PlateCuttingController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(cutting);
-            addedOperations.add(opData);
+//            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -252,7 +249,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateBend.fxml"));
             VBox bending = loader.load();
-            bending.setId("calculator");
             PlateBendController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(bending);
@@ -269,7 +265,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateLocksmith.fxml"));
             VBox locksmith = loader.load();
-            locksmith.setId("calculator");
             PlateLocksmithController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(locksmith);
@@ -288,7 +283,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/platePaint.fxml"));
             VBox paint = loader.load();
-            paint.setId("calculator");
             PlatePaintController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(paint);
@@ -305,7 +299,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/platePaintAssm.fxml"));
             VBox paintAssm = loader.load();
-            paintAssm.setId("calculator");
             PlatePaintAssmController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(paintAssm);
@@ -324,7 +317,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateWeldContinuous.fxml"));
             VBox weldLongSeam = loader.load();
-            weldLongSeam.setId("calculator");
             PlateWeldContinuousController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(weldLongSeam);
@@ -341,7 +333,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateWeldDotted.fxml"));
             VBox weldDotted = loader.load();
-            weldDotted.setId("calculator");
             PlateWeldDottedController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(weldDotted);
@@ -360,7 +351,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssmNuts.fxml"));
             VBox assmNuts = loader.load();
-            assmNuts.setId("calculator");
             PlateAssmNutsController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assmNuts);
@@ -377,7 +367,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssmCuttings.fxml"));
             VBox assmCuttings = loader.load();
-            assmCuttings.setId("calculator");
             PlateAssmCuttingsController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assmCuttings);
@@ -394,7 +383,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssmNodes.fxml"));
             VBox assmNodes = loader.load();
-            assmNodes.setId("calculator");
             PlateAssmNodesController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assmNodes);
@@ -413,7 +401,6 @@ public class MenuCalculator extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateLevelingSealer.fxml"));
             VBox levelingSealer = loader.load();
-            levelingSealer.setId("calculator");
             PlateLevelingSealerController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(levelingSealer);

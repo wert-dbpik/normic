@@ -1,12 +1,14 @@
 package ru.wert.normic;
 
 
+import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.BXTimeMeasurement;
@@ -24,6 +26,10 @@ import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 
 public class MainController implements IFormController {
+
+    @FXML
+    private ImageView ivSave;
+
 
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
@@ -92,6 +98,9 @@ public class MainController implements IFormController {
 
     private void initViews() {
 
+        ivSave.setOnMouseClicked(this::save);
+
+
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
             countSumNormTimeByShops();
         });
@@ -101,6 +110,14 @@ public class MainController implements IFormController {
             countSumNormTimeByShops();
         });
 
+    }
+
+    private void save(MouseEvent e){
+        opData.setOperations(new ArrayList<>(addedOperations));
+
+        Gson gson = new Gson();
+        String json = gson.toJson(opData);
+        System.out.println("saved :" + json);
     }
 
     private void createMenu() {
@@ -142,6 +159,11 @@ public class MainController implements IFormController {
             assemblingTime += cn.getAssmTime() * cn.getQuantity();
             packingTime += cn.getPackTime() * cn.getQuantity();
         }
+
+        opData.setMechTime(mechanicalTime);
+        opData.setPaintTime(paintingTime);
+        opData.setAssmTime(assemblingTime);
+        opData.setPackTime(packingTime);
 
         if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;

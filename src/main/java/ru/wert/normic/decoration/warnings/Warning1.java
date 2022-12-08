@@ -14,6 +14,7 @@ import ru.wert.normic.decoration.ModalWindow;
 
 import java.io.IOException;
 
+import static ru.wert.normic.AppStatics.THEME_STYLE;
 import static ru.wert.normic.decoration.DecorationStatic.WF_MAIN_STAGE;
 
 
@@ -26,7 +27,6 @@ public class Warning1 extends ModalWindow {
             Stage stage = new Stage();
             FXMLLoader userDialogLoader = new FXMLLoader(Warning1.class.getResource("/fxml/warnings/warning1.fxml"));
             Parent parent = userDialogLoader.load();
-            parent.getStylesheets().add(Warning2.class.getResource("/css/pik-dark.css").toString());
             stage.setScene(new Scene(parent));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);

@@ -43,7 +43,7 @@ public class DecorationStatic {
     }
 
 
-    public static void centerWindow(Stage window, Boolean fullScreen, int mainMonitor){
+    public static void centerWindow(Stage window, Boolean fullScreen, int mainMonitor, int shift){
 
         List<Screen> screenList = Screen.getScreens();
         //Если всего один монитор, то открываем на нем
@@ -60,8 +60,8 @@ public class DecorationStatic {
             double screenWidth = screenList.get(monitor).getVisualBounds().getWidth();
             double screenHeight = screenList.get(monitor).getVisualBounds().getHeight();
 
-            window.setX(screenMinX + ((screenWidth - window.getWidth()) / 2));
-            window.setY(screenMinY + ((screenHeight - window.getHeight()) / 2));
+            window.setX(screenMinX + ((screenWidth - window.getWidth()) / 2) + shift);
+            window.setY(screenMinY + ((screenHeight - window.getHeight()) / 2) + shift);
         }
 
     }

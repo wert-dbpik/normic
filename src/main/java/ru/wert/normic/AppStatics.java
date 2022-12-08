@@ -5,5 +5,12 @@ import ru.wert.normic.enums.ETimeMeasurement;
 
 public class AppStatics {
 
+    //Текущая версия программы
+    public static final String PROJECT_VERSION = "1.0";
+
+    //Комбобокс, где переключается единица измерения (мин, сек)
     public static ComboBox<ETimeMeasurement> MEASURE;
+
+    //Используемая схема CSS
+    public static String THEME_STYLE = "/css/calculator-sandy.css";
 }

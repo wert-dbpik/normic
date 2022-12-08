@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormDetailController">
+<VBox fx:id="detail" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormDetailController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -186,13 +186,13 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfMechanicalTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <TextField fx:id="tfMechanicalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                   <Label text="ППК:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfPaintingTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <TextField fx:id="tfPaintingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                   <HBox alignment="CENTER_RIGHT" spacing="5.0">
                      <children>
                         <Label text="Всего : ">
@@ -203,7 +203,7 @@
                               <Insets bottom="5.0" top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="tfTotalTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                        <TextField fx:id="tfTotalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                         <Label fx:id="lblTimeMeasure" text="мин">
                            <font>
                               <Font name="System Bold" size="16.0" />

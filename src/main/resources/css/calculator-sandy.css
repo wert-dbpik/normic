@@ -1,11 +1,26 @@
-/* VARIABLE DEFINITIONS: Only these 4 variables have to be adjusted, the rest is copy-paste */
-
-.root{
-    -fx-background-color: #f8f5eb;
+#decoration-main{
+    -fx-background-color: #fcdfae;
 }
 
+#decoration-assm{
+    -fx-background-color: #ecf6c6;
+}
+
+#decoration-detail{
+    -fx-background-color: #f5f5b7;
+}
+
+#decoration-main .label{
+    -fx-text-fill: #4f412f;
+}
+
+#main, #assm, #detail{
+    -fx-background-color: #f8f3e2;
+}
+
+
 .label{
-    -fx-text-fill: black;
+    -fx-text-fill: #4f412f;
 }
 
 .list-view{
@@ -17,12 +32,12 @@
 
 .list-view .list-cell{
     -fx-background-color: #f8f5eb;
-    -fx-text-fill: black;
+    -fx-text-fill: #4f412f;
 }
 
 .list-view .list-cell:selected{
     -fx-background-color: #f8edc8;
-    -fx-text-fill: black;
+    -fx-text-fill: #4f412f;
 }
 
 .list-view .list-cell:hover{

@@ -18,6 +18,8 @@ import ru.wert.normic.decoration.warnings.Warning1;
 
 import java.io.IOException;
 
+import static ru.wert.normic.AppStatics.PROJECT_VERSION;
+import static ru.wert.normic.AppStatics.THEME_STYLE;
 import static ru.wert.normic.ChogoriServices.initQuickServices;
 import static ru.wert.normic.ChogoriServices.initServices;
 
@@ -45,8 +47,7 @@ public class StartNormic extends Application {
 
     public void start(Stage stage) throws Exception {
         if (!initStatus) {
-            Warning1.create("Внимание!", "Не удалось загрузить чертежи с сервера", "Работа программы будет прекращена" +
-                    "\nдля перезагрузки сервера обратитесь к администратору");
+            Warning1.create("Внимание!", "Не удалось загрузить данные с сервера", "Работа программы будет прекращена");
             System.exit(0);
         }
         DecorationStatic.WF_MAIN_STAGE = stage;
@@ -55,32 +56,33 @@ public class StartNormic extends Application {
             //Загружаем WindowDecoration
             FXMLLoader decorationLoader = new FXMLLoader(Decoration.class.getResource("/fxml/decoration/decoration.fxml"));
             Parent decoration = decorationLoader.load();
+            decoration.setId("decoration-main");
             DecorationController controller = decorationLoader.getController();
 
             //Загружаем loginWindow
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-            Parent mainWindow = mainWindowLoader.load();
+            Parent root = mainWindowLoader.load();
 
             //loginWindow помещаем в WindowDecoration
             DecorationStatic.CH_DECORATION_ROOT_PANEL = (StackPane)decoration.lookup("#mainPane");
-            DecorationStatic.CH_DECORATION_ROOT_PANEL.getChildren().add(mainWindow);
+            DecorationStatic.CH_DECORATION_ROOT_PANEL.getChildren().add(root);
 
 
             //Меняем заголовок окна
             Label windowName = (Label)decoration.lookup("#windowName");
-            String headerName = "";
-            windowName.setText(headerName);
+
+            windowName.setText("НормИК-" + PROJECT_VERSION);
 
             Scene scene = new Scene(decoration);
             stage.setScene(scene);
             stage.initStyle(StageStyle.UNDECORATED);
-            scene.getStylesheets().add(this.getClass().getResource("/css/pik-dark.css").toString());
+            scene.getStylesheets().add(this.getClass().getResource(THEME_STYLE).toString());
 
 
             stage.sizeToScene();
             stage.setResizable(true);
             stage.getIcons().add(new Image("/pics/logo.png"));
-            stage.setTitle("Нормик");
+            stage.setTitle("НормИК-" + PROJECT_VERSION);
 
             stage.show();
             controller.centerInitialWindow(stage, false, 0);

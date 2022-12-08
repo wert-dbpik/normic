@@ -58,12 +58,17 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public void setTimeMeasurement(){
         double time = currentNormTime;
         String format = doubleFormat;
+        String measure = "мин";
         if (MEASURE.getValue().equals(ETimeMeasurement.SEC)) {
             time = currentNormTime * MIN_TO_SEC;
             format = integerFormat;
+            measure = "сек";
         }
 
-        if(tfNormTime != null)
+        if(tfNormTime != null){
             tfNormTime.setText(String.format(format,time));
+            lblNormTimeMeasure.setText(measure);
+        }
+
     }
 }

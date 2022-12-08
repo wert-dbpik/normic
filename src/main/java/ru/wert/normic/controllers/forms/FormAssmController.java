@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AbstractOpPlate.*;
+import static ru.wert.normic.enums.ETimeMeasurement.MIN;
+import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 public class FormAssmController implements IFormController {
 
@@ -90,6 +92,7 @@ public class FormAssmController implements IFormController {
 
         //Заполняем поля формы
         fillOpData();
+        countSumNormTimeByShops();
 
     }
 
@@ -131,6 +134,8 @@ public class FormAssmController implements IFormController {
      */
     @Override //IFormController
     public void countSumNormTimeByShops(){
+        String measure = MIN.getTimeName();
+
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
         double assemblingTime = 0.0;
@@ -152,6 +157,8 @@ public class FormAssmController implements IFormController {
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
             packingTime = packingTime * MIN_TO_SEC;
+
+            measure = SEC.getTimeName();
         }
 
         String format = doubleFormat;
@@ -163,6 +170,8 @@ public class FormAssmController implements IFormController {
         tfPackingTime.setText(String.format(format, packingTime));
 
         tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime));
+
+        lblTimeMeasure.setText(measure);
 
     }
 

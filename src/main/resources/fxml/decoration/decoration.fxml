@@ -19,31 +19,24 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBox" onKeyTyped="#OnKeyEscapeTyped" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.decoration.DecorationController">
+<VBox fx:id="decoration" onKeyTyped="#OnKeyEscapeTyped" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.decoration.DecorationController">
    <children>
-      <HBox fx:id="hbox" alignment="CENTER_LEFT" onMouseClicked="#TitleBarOnMouseClicked" onMousePressed="#onMousePressed" style="-fx-background-color: royalblue; -fx-text-fill: rgb( 255,255,255);">
+      <HBox fx:id="hbox" alignment="CENTER_LEFT" onMouseClicked="#TitleBarOnMouseClicked" onMousePressed="#onMousePressed">
          <children>
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMouseDragged="#onMouseDragged" HBox.hgrow="ALWAYS">
                <children>
-                  <Label contentDisplay="CENTER" text="НормИК-" textFill="WHITE">
+                  <Label fx:id="windowName" contentDisplay="CENTER" text=" Наименование окна" textFill="#140000">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblVersion" contentDisplay="CENTER" text="6.0" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="windowName" contentDisplay="CENTER" text=" : Наименование окна" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </Label>
                </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </HBox>
             <AnchorPane maxWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
@@ -68,6 +61,9 @@
                </padding>
             </AnchorPane>
          </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </HBox>
       <GridPane VBox.vgrow="ALWAYS">
         <columnConstraints>

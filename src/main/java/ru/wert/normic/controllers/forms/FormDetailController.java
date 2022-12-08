@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AbstractOpPlate.*;
+import static ru.wert.normic.enums.ETimeMeasurement.MIN;
+import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 public class FormDetailController implements IFormController {
 
@@ -115,6 +117,7 @@ public class FormDetailController implements IFormController {
         //Заполняем поля формы
         fillOpData();
         countWeightAndArea();
+        countSumNormTimeByShops();
     }
 
     private void initViews() {
@@ -225,6 +228,7 @@ public class FormDetailController implements IFormController {
      * Метод расчитывает суммарное время по участкам
      */
     public void countSumNormTimeByShops(){
+        String measure = MIN.getTimeName();
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
         for(AbstractOpPlate cn: addedPlates){
@@ -237,18 +241,22 @@ public class FormDetailController implements IFormController {
 
         controller.countSumNormTimeByShops();
 
-        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)){
+        if(AppStatics.MEASURE.getValue().equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
+
+            measure = SEC.getTimeName();
         }
 
         String format = doubleFormat;
-        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)) format = integerFormat;
+        if(AppStatics.MEASURE.getValue().equals(SEC)) format = integerFormat;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime));
         tfPaintingTime.setText(String.format(format, paintingTime));
 
         tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime ));
+
+        lblTimeMeasure.setText(measure);
 
     }
 

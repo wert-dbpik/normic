@@ -52,11 +52,6 @@ public class DecorationController {
 
     }
 
-    @FXML
-    void initialize(){
-        lblVersion.setText(DecorationStatic.CURRENT_PROJECT_VERSION);
-    }
-
 //===========================================    КНОПКИ     ========================================================
 
     /**

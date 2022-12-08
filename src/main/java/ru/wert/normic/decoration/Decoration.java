@@ -16,8 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static ru.wert.normic.decoration.DecorationStatic.CURRENT_PROJECT_VERSION;
-
+import static ru.wert.normic.AppStatics.THEME_STYLE;
 
 @Slf4j
 public class Decoration {
@@ -31,17 +30,20 @@ public class Decoration {
     private boolean waiting = false;
     private DecorationController decorationController;
     @Getter private ImageView imgCloseWindow;
+    private int shift;
+    private String decorationId;
 
 //=============================================    НАЧАЛО    =========================================================
     /**
      * Конструктор
      * 1 - С указанием владельца
      */
-    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner){
-        this.headerName = !headerName.equals("") ? " : " + headerName : "";
+    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, int shift){
+        this.headerName = headerName;
         this.rootPane = rootPane;
-        this.waiting = waiting;
         this.resizable = resizable;
+        this.decorationId = decorationId;
+        this.shift = shift;
         log.debug("{} создан", this.getClass().getSimpleName());
         createWindow(owner);
     }
@@ -55,7 +57,7 @@ public class Decoration {
      * @param waiting - Ожидание ответа
      */
     public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, boolean waiting ){
-        this.headerName = !headerName.equals("") ? " : " + headerName : "";
+        this.headerName = headerName;
         this.rootPane = rootPane;
         this.waiting = waiting;
         this.resizable = resizable;
@@ -76,20 +78,18 @@ public class Decoration {
         try {
             decorationLoader = new FXMLLoader(getClass().getResource("/fxml/decoration/decoration.fxml"));
             decoration = decorationLoader.load();
+            decoration.setId(decorationId);
             decorationController = decorationLoader.getController();
 
             StackPane pane = (StackPane)decoration.lookup("#mainPane");
             pane.getChildren().add(rootPane);
-
-            Label lblVersion = (Label)decoration.lookup("#lblVersion");
-            lblVersion.setText(CURRENT_PROJECT_VERSION);
 
             //Меняем заголовок окна
             windowName = (Label)decoration.lookup("#windowName");
             windowName.setText(headerName);
 
             Scene scene = new Scene(decoration);
-            scene.getStylesheets().add(this.getClass().getResource("/css/pik-dark.css").toString());
+            scene.getStylesheets().add(this.getClass().getResource(THEME_STYLE).toString());
 
             window = new Stage();
             window.setScene(scene);
@@ -108,7 +108,7 @@ public class Decoration {
                 window.setMinWidth(window.getWidth());
                 window.setMinHeight(window.getHeight());
                 int monitor = ModalWindow.findCurrentMonitorByMainStage(owner);
-                DecorationStatic.centerWindow(window, false, monitor);
+                DecorationStatic.centerWindow(window, false, monitor, shift);
                 window.toFront();
             });
 

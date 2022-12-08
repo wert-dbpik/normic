@@ -95,7 +95,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
         if(this.opData.getName() == null &&
                 tfAssmName.getText() == null || tfAssmName.getText().equals("")) {
-            assmName = String.format("Деталь #%s", ++nameIndex);
+            assmName = String.format("Сборка #%s", ++nameIndex);
             tfAssmName.setText(assmName);
         }
 
@@ -103,14 +103,15 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorAssm.fxml"));
                 Parent parent = loader.load();
-                parent.setId("calculator");
                 nextController = loader.getController();
                 nextController.init(prevController, tfAssmName, this.opData);
                 Decoration windowDecoration = new Decoration(
-                        "Добавить сборка",
+                        "СБОРКА",
                         parent,
                         false,
-                        (Stage) lblOperationName.getScene().getWindow());
+                        (Stage) lblOperationName.getScene().getWindow(),
+                        "decoration-assm",
+                        50);
                 ImageView closer = windowDecoration.getImgCloseWindow();
                 closer.setOnMousePressed(ev -> collectOpData());
             } catch (IOException ex) {

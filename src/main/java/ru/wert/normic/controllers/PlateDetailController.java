@@ -105,14 +105,15 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorDetail.fxml"));
                 Parent parent = loader.load();
-                parent.setId("calculator");
                 detailController = loader.getController();
                 detailController.init(prevController, tfName, this.opData);
                 Decoration windowDecoration = new Decoration(
-                        "Добавить деталь",
+                        "ДЕТАЛЬ",
                         parent,
                         false,
-                        (Stage) lblOperationName.getScene().getWindow());
+                        (Stage) lblOperationName.getScene().getWindow(),
+                        "decoration-detail",
+                        100);
                 ImageView closer = windowDecoration.getImgCloseWindow();
                 closer.setOnMousePressed(ev -> collectOpData());
             } catch (IOException ex) {

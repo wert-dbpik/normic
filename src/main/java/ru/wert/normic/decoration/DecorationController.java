@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.Setter;
@@ -28,19 +27,20 @@ public class DecorationController {
     @FXML private ImageView imgBtnMaximize;
     @FXML private ImageView imgBtnMinimize;
     @FXML private Label windowName;
-    @FXML private Label lblVersion;
-    @FXML private VBox vBox;
     @FXML private Pane paneR;
     @FXML private Pane paneX;
     @FXML private Pane paneB;
+
+    //Состояние окна
+    private int winX;
+    private int winY;
+    private int winWidth;
+    private int winHeight;
 
     private Stage window;
     private double dragOffsetX;
     private double dragOffsetY;
     @Setter private boolean isExpanded;
-
-    private double windowCurrentWidth;
-    private double windowCurrentHeight;
 
 
 //===========================================    НАЧАЛО     ========================================================
@@ -60,9 +60,16 @@ public class DecorationController {
      */
     @FXML
     void minimizeWindow(Event e){
-        windowCurrentWidth = WF_MAIN_STAGE.getWidth();
-        windowCurrentHeight = WF_MAIN_STAGE.getHeight();
+        window = (Stage) ((Node)e.getSource()).getScene().getWindow();
+        saveWindowCoordinates(window);
         ((Stage) ((Node)e.getSource()).getScene().getWindow()).setIconified(true);
+    }
+
+    private void saveWindowCoordinates(Stage window) {
+        winX = (int) window.getX();
+        winY = (int) window.getY();
+        winWidth = (int) window.getWidth();
+        winHeight = (int) window.getHeight();
     }
 
     /**
@@ -73,7 +80,12 @@ public class DecorationController {
     @FXML
     void maximizeWindow(MouseEvent e){
         window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        changeSizeOfWindow(window, e);
+        if(!isExpanded){
+            saveWindowCoordinates(window);
+            changeSizeOfWindow(window, e);
+        } else
+            changeSizeOfWindow(window, e);
+
     }
 
     /**
@@ -111,17 +123,13 @@ public class DecorationController {
      * Условием является состояние флага isExpanded (развернут на весь экран)
      */
     private void changeSizeOfWindow(Stage window, MouseEvent e) {
-        List<Screen> screenList = Screen.getScreens();
-        int monitor = ModalWindow.findCurrentMonitorByMousePointer(e);
 
         if (isExpanded) {
-            window.setWidth(windowCurrentWidth);
+            window.setWidth(winWidth);
+            window.setHeight(winHeight);
+            window.setX(winX);
+            window.setY(winY);
 
-            window.setHeight(windowCurrentHeight);
-
-            window.setY((screenList.get(monitor).getBounds().getHeight() - window.getHeight()) / 2);
-
-            ModalWindow.centerWindow(window, WF_MAIN_STAGE, e);
             isExpanded = false;
         } else {
 
@@ -134,6 +142,8 @@ public class DecorationController {
      * Разворачивает окно на весь экран с учетом видимой области
      */
     private void setWindowToFullScreen(Stage window){
+
+        saveWindowCoordinates(window);
 
         List<Screen> screenList = Screen.getScreens();
         int monitor = ModalWindow.findCurrentMonitorByMainStage(window);
@@ -227,26 +237,6 @@ public class DecorationController {
         window.setY(mouseEvent.getScreenY() - this.dragOffsetY);
     }
 
-    /**
-     * Метод вызывается только из StartChogori, когда наличие укаханного в настройках монитора еще не известно
-     */
-    public void centerInitialWindow(Stage window, Boolean fullScreen, int mainMonitor){
-
-        List<Screen> screenList = Screen.getScreens();
-        //Если всего один монитор, то открываем на нем
-        int monitor = Math.min(mainMonitor, screenList.size() - 1);
-
-        if(fullScreen) {
-            window.setWidth(screenList.get(monitor).getVisualBounds().getWidth());
-            window.setHeight(screenList.get(monitor).getVisualBounds().getHeight());
-            window.setX(screenList.get(monitor).getVisualBounds().getMinX());
-            window.setY(screenList.get(monitor).getVisualBounds().getMinY());
-            setExpanded(true);
-        }
-//        ModalWindow.mountStage(window, monitor);
-
-    }
-
 
 //===========================================    СОБЫТИЯ КЛАВИАТУРЫ     ===============================================
     /**
@@ -259,14 +249,6 @@ public class DecorationController {
         if (window.isFocused() &&
             keyEvent.getCode() == KeyCode.ESCAPE)
             window.hide();
-    }
-//=================================================   ГЕТТЕРЫ   =====================================================
-    protected Stage getWindow(){
-        return window;
-    }
-
-    public Pane getPaneR(){
-        return paneR;
     }
 
 }

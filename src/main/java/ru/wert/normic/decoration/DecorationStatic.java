@@ -2,7 +2,6 @@ package ru.wert.normic.decoration;
 
 import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -14,9 +13,7 @@ import java.util.List;
 @Slf4j
 public class DecorationStatic {
 
-    public static StackPane CH_DECORATION_ROOT_PANEL;
     public static Stage WF_MAIN_STAGE;
-
 
     /**
      * Метод обеспечивает закрытие любого окна
@@ -63,7 +60,7 @@ public class DecorationStatic {
 
     }
 
-    public static void centerShiftWindow(Stage window, Boolean fullScreen, int mainMonitor, Stage owner){
+    public static void centerShiftedWindow(Stage window, Boolean fullScreen, int mainMonitor, Stage owner){
 
         List<Screen> screenList = Screen.getScreens();
         //Если всего один монитор, то открываем на нем

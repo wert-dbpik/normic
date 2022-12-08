@@ -97,7 +97,7 @@ public class Decoration {
                 if (!shift)
                     DecorationStatic.centerWindow(window, false, monitor);
                 else
-                    DecorationStatic.centerShiftWindow(window, false, monitor, owner);
+                    DecorationStatic.centerShiftedWindow(window, false, monitor, owner);
                 window.toFront();
             });
 
@@ -122,18 +122,5 @@ public class Decoration {
         ImageView imgMaximizeWindow = (ImageView)decoration.lookup("#imgBtnMaximize");
         imgMaximizeWindow.setVisible(resizable);
         imgCloseWindow = (ImageView)decoration.lookup("#imgBtnClose");
-    }
-
-
-    public FXMLLoader getDecorationLoader(){
-        return decorationLoader;
-    }
-
-    public Stage getWindow(){
-        return window;
-    }
-
-    public Label getWindowName(){
-        return windowName;
     }
 }

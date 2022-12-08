@@ -53,39 +53,49 @@ public class StartNormic extends Application {
         DecorationStatic.WF_MAIN_STAGE = stage;
 
         try {
-            //Загружаем WindowDecoration
-            FXMLLoader decorationLoader = new FXMLLoader(Decoration.class.getResource("/fxml/decoration/decoration.fxml"));
-            Parent decoration = decorationLoader.load();
-            decoration.setId("decoration-main");
-            DecorationController controller = decorationLoader.getController();
+//            //Загружаем WindowDecoration
+//            FXMLLoader decorationLoader = new FXMLLoader(Decoration.class.getResource("/fxml/decoration/decoration.fxml"));
+//            Parent decoration = decorationLoader.load();
+//            decoration.setId("decoration-main");
+//            DecorationController controller = decorationLoader.getController();
+//
+//            //Загружаем loginWindow
+//            FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+//            Parent root = mainWindowLoader.load();
+//
+//            //loginWindow помещаем в WindowDecoration
+//            DecorationStatic.CH_DECORATION_ROOT_PANEL = (StackPane)decoration.lookup("#mainPane");
+//            DecorationStatic.CH_DECORATION_ROOT_PANEL.getChildren().add(root);
+//
+//
+//            //Меняем заголовок окна
+//            Label windowName = (Label)decoration.lookup("#windowName");
+//
+//            windowName.setText("НормИК-" + PROJECT_VERSION);
+//
+//            Scene scene = new Scene(decoration);
+//            stage.setScene(scene);
+//            stage.initStyle(StageStyle.UNDECORATED);
+//            scene.getStylesheets().add(this.getClass().getResource(THEME_STYLE).toString());
+//
+//
+//            stage.sizeToScene();
+//            stage.setResizable(true);
+//            stage.getIcons().add(new Image("/pics/logo.png"));
+//            stage.setTitle("НормИК-" + PROJECT_VERSION);
+//
+//            stage.show();
+//            controller.centerInitialWindow(stage, false, 0);
 
-            //Загружаем loginWindow
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
             Parent root = mainWindowLoader.load();
-
-            //loginWindow помещаем в WindowDecoration
-            DecorationStatic.CH_DECORATION_ROOT_PANEL = (StackPane)decoration.lookup("#mainPane");
-            DecorationStatic.CH_DECORATION_ROOT_PANEL.getChildren().add(root);
-
-
-            //Меняем заголовок окна
-            Label windowName = (Label)decoration.lookup("#windowName");
-
-            windowName.setText("НормИК-" + PROJECT_VERSION);
-
-            Scene scene = new Scene(decoration);
-            stage.setScene(scene);
-            stage.initStyle(StageStyle.UNDECORATED);
-            scene.getStylesheets().add(this.getClass().getResource(THEME_STYLE).toString());
-
-
-            stage.sizeToScene();
-            stage.setResizable(true);
-            stage.getIcons().add(new Image("/pics/logo.png"));
-            stage.setTitle("НормИК-" + PROJECT_VERSION);
-
-            stage.show();
-            controller.centerInitialWindow(stage, false, 0);
+            Decoration windowDecoration = new Decoration(
+                    "НормИК-" + PROJECT_VERSION,
+                    root,
+                    true,
+                    null,
+                    "decoration-main",
+                    false);
 
 
         }catch (IOException e) {

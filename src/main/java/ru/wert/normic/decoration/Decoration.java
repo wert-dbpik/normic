@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -30,7 +31,7 @@ public class Decoration {
     private boolean waiting = false;
     private DecorationController decorationController;
     @Getter private ImageView imgCloseWindow;
-    private int shift;
+    private boolean shift;
     private String decorationId;
 
 //=============================================    НАЧАЛО    =========================================================
@@ -38,29 +39,12 @@ public class Decoration {
      * Конструктор
      * 1 - С указанием владельца
      */
-    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, int shift){
+    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, boolean shift){
         this.headerName = headerName;
         this.rootPane = rootPane;
         this.resizable = resizable;
         this.decorationId = decorationId;
         this.shift = shift;
-        log.debug("{} создан", this.getClass().getSimpleName());
-        createWindow(owner);
-    }
-
-    /**
-     * Окно для ожидания ответа
-     * @param headerName
-     * @param rootPane
-     * @param resizable
-     * @param owner
-     * @param waiting - Ожидание ответа
-     */
-    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, boolean waiting ){
-        this.headerName = headerName;
-        this.rootPane = rootPane;
-        this.waiting = waiting;
-        this.resizable = resizable;
         log.debug("{} создан", this.getClass().getSimpleName());
         createWindow(owner);
     }
@@ -104,11 +88,16 @@ public class Decoration {
 
             if(!waiting) window.show();
 
+            window.getIcons().add(new Image("/pics/logo3.png"));
+
             Platform.runLater(()->{
                 window.setMinWidth(window.getWidth());
                 window.setMinHeight(window.getHeight());
                 int monitor = ModalWindow.findCurrentMonitorByMainStage(owner);
-                DecorationStatic.centerWindow(window, false, monitor, shift);
+                if (!shift)
+                    DecorationStatic.centerWindow(window, false, monitor);
+                else
+                    DecorationStatic.centerShiftWindow(window, false, monitor, owner);
                 window.toFront();
             });
 

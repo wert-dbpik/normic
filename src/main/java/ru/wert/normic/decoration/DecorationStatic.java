@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -17,7 +15,6 @@ import java.util.List;
 public class DecorationStatic {
 
     public static StackPane CH_DECORATION_ROOT_PANEL;
-    public static String CURRENT_PROJECT_VERSION = "1.0"; //Версия приложения обновляется вручную
     public static Stage WF_MAIN_STAGE;
 
 
@@ -43,7 +40,7 @@ public class DecorationStatic {
     }
 
 
-    public static void centerWindow(Stage window, Boolean fullScreen, int mainMonitor, int shift){
+    public static void centerWindow(Stage window, Boolean fullScreen, int mainMonitor){
 
         List<Screen> screenList = Screen.getScreens();
         //Если всего один монитор, то открываем на нем
@@ -60,21 +57,28 @@ public class DecorationStatic {
             double screenWidth = screenList.get(monitor).getVisualBounds().getWidth();
             double screenHeight = screenList.get(monitor).getVisualBounds().getHeight();
 
-            window.setX(screenMinX + ((screenWidth - window.getWidth()) / 2) + shift);
-            window.setY(screenMinY + ((screenHeight - window.getHeight()) / 2) + shift);
+            window.setX(screenMinX + ((screenWidth - window.getWidth()) / 2));
+            window.setY(screenMinY + ((screenHeight - window.getHeight()) / 2));
         }
 
     }
 
-    /**
-     * Метод парсит LocalDateTime к читаемому виду
-     */
-    public static String parseLDTtoNormalDate(String localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        LocalDateTime ldt = LocalDateTime.parse(localDateTime);
-        return ldt.format(formatter);
+    public static void centerShiftWindow(Stage window, Boolean fullScreen, int mainMonitor, Stage owner){
+
+        List<Screen> screenList = Screen.getScreens();
+        //Если всего один монитор, то открываем на нем
+        int monitor = Math.min(mainMonitor, screenList.size() - 1);
+
+        if(fullScreen) {
+            window.setWidth(screenList.get(monitor).getVisualBounds().getWidth());
+            window.setHeight(screenList.get(monitor).getVisualBounds().getHeight());
+            window.setX(screenList.get(monitor).getVisualBounds().getMinX());
+            window.setY(screenList.get(monitor).getVisualBounds().getMinY());
+        } else {
+            window.setX(owner.getX() + 40);
+            window.setY(owner.getY() + 40);
+        }
+
     }
-
-
 
 }

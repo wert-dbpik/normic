@@ -13,8 +13,6 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpCutting;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 /**
@@ -48,14 +46,6 @@ public class PlateCuttingController extends AbstractOpPlate {
     @FXML
     private ImageView ivHelpOnUseStripping;
 
-    private IFormController controller;
-    private FormDetailController partController;
-    private OpCutting opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private double perimeter; //Периметр контура развертки
     private double area; //Площадь развертки
     private int extraPerimeter; //Дополнительный периметр обработки
@@ -67,37 +57,28 @@ public class PlateCuttingController extends AbstractOpPlate {
     private int perfHoles; //Количество перфораций в развертке
 
 
-    public void init(IFormController controller, OpCutting opData){
-        this.controller = controller;
-        this.partController = (FormDetailController) controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpCutting opData = (OpCutting) data;
 
         new TFColoredInteger(tfHoles, this);
         new TFColoredInteger(tfPerfHoles, this);
         new TFColoredInteger(tfExtraPerimeter, this);
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new ChBox(chbxStripping, this);
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0; //Обнуляем значение, чтобы вычесть его из суммарных норм
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
-
-        countNorm();
-
     }
 
     /**
@@ -107,7 +88,8 @@ public class PlateCuttingController extends AbstractOpPlate {
      * плашки вместе с полученным значением нормы времени сохраняются в класс OpData
      */
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpCutting opData = (OpCutting) data;
 
         countInitialValues();
 
@@ -143,7 +125,7 @@ public class PlateCuttingController extends AbstractOpPlate {
         if(area == 0.0) time = 0.0;
 
         currentNormTime = time;//результат в минутах
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -153,9 +135,9 @@ public class PlateCuttingController extends AbstractOpPlate {
      */
     private void countInitialValues() {
 
-        paramA = IntegerParser.getValue(partController.getTfA());
-        paramB = IntegerParser.getValue(partController.getTfB());
-        t = partController.getCmbxMaterial().getValue().getParamS();
+        paramA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
+        paramB = IntegerParser.getValue(((FormDetailController)formController).getTfB());
+        t = ((FormDetailController)formController).getCmbxMaterial().getValue().getParamS();
         perimeter = 2 * (paramA + paramB) * MM_TO_M;
         area = paramA * paramB * MM2_TO_M2;
         extraPerimeter = IntegerParser.getValue(tfExtraPerimeter);
@@ -169,7 +151,7 @@ public class PlateCuttingController extends AbstractOpPlate {
      * Метод собирает данные с полей плашки на операцию в класс OpData
      * Вызывается при изменении любого значения на операционной плашке
      */
-    private void collectOpData(){
+    private void collectOpData(OpCutting opData){
         opData.setHoles(holes);
         opData.setPerfHoles(perfHoles);
         opData.setExtraPerimeter(extraPerimeter);
@@ -178,11 +160,10 @@ public class PlateCuttingController extends AbstractOpPlate {
         opData.setMechTime(currentNormTime);
     }
 
-    /**
-     * Метод устанавливает/восстанавливает начальные значения полей
-     * согласно данным в классе OpData
-     */
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpCutting opData = (OpCutting) data;
+
         stripping = opData.isStripping();
         chbxStripping.setSelected(stripping);
 

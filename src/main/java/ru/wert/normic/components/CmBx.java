@@ -9,7 +9,7 @@ public class CmBx {
     public CmBx(ComboBox<?> cmbx, AbstractOpPlate counter) {
 
         cmbx.valueProperty().addListener((observable, oldValue, newValue) -> {
-            counter.countNorm();
+            counter.countNorm(counter.getOpData());
         });
 
     }

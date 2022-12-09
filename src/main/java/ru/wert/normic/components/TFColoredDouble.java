@@ -22,7 +22,7 @@ public class TFColoredDouble {
             try {
                 Double.parseDouble(tf.getText().trim());
                 tf.setStyle(style);
-                counter.countNorm();
+                counter.countNorm(counter.getOpData());
             } catch (Exception e) {
                 tf.setStyle("-fx-border-color: #FF5555");
 //                return;

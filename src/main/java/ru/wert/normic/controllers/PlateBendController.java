@@ -15,8 +15,6 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpBending;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.EBendingTool;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 public class PlateBendController extends AbstractOpPlate {
@@ -39,28 +37,16 @@ public class PlateBendController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private IFormController controller;
-    private OpBending opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int bends;
     private int men;
     private double toolRatio;
 
-    public void init(IFormController controller, OpBending opData){
-        this.controller = controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpBending opData = (OpBending)data;
 
         new BXBendingTool().create(cmbxBendingTool);
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfBends, this);
         new TFColoredInteger(tfMen, this);
 
@@ -69,19 +55,19 @@ public class PlateBendController extends AbstractOpPlate {
         new CmBx(cmbxBendingTool, this);
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
-        countNorm();
     }
 
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpBending opData = (OpBending)data;
 
         countInitialValues();
 
@@ -92,7 +78,7 @@ public class PlateBendController extends AbstractOpPlate {
                 * BENDING_SERVICE_RATIO;
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -106,7 +92,7 @@ public class PlateBendController extends AbstractOpPlate {
         toolRatio = cmbxBendingTool.getValue().getToolRatio();
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpBending opData){
         opData.setBends(bends);
         opData.setMen(men);
         opData.setTool(cmbxBendingTool.getValue());
@@ -114,7 +100,10 @@ public class PlateBendController extends AbstractOpPlate {
         opData.setMechTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpBending opData = (OpBending)data;
+
         bends = opData.getBends();
         tfBends.setText(String.valueOf(bends));
 
@@ -125,8 +114,5 @@ public class PlateBendController extends AbstractOpPlate {
             toolRatio = opData.getTool().getToolRatio();
             cmbxBendingTool.setValue(opData.getTool());
         }
-
     }
-
-
 }

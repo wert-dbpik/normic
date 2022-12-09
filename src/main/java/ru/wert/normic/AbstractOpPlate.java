@@ -4,7 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.Getter;
+import ru.wert.normic.controllers.forms.FormDetailController;
+import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
+import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.interfaces.IOpPlate;
 
 import static ru.wert.normic.AppStatics.MEASURE;
@@ -30,6 +34,28 @@ public abstract class AbstractOpPlate implements IOpPlate {
     //Переменные
     protected double currentNormTime;
 
+    protected IFormController formController;
+    protected FormDetailController detailController;
+    protected OpData opData;
+
+    public void setOpData(OpDetail opData){
+        this.opData = opData;
+    }
+
+    @Override //IOpData
+    public OpData getOpData(){
+        return opData;
+    }
+
+    /**
+     * Метод устанавливает/восстанавливает начальные значения полей
+     * согласно данным в классе OpData
+     */
+    public abstract void fillOpData(OpData opData);
+
+    public abstract void initViews(OpData opData);
+
+    public abstract void countNorm(OpData opData);
 
     @FXML @Getter
     private TextField tfNormTime;
@@ -37,15 +63,28 @@ public abstract class AbstractOpPlate implements IOpPlate {
     @FXML
     private Label lblNormTimeMeasure;
 
+    public void init(IFormController controller, OpData opData, FormDetailController detailController) {
+        this.detailController = detailController;
+        init(controller, opData);
+    }
 
+    public void init(IFormController formController, OpData opData) {
+        this.formController = formController;
+        this.opData = opData;
 
+        formController.getAddedPlates().add(this);
+        formController.getAddedOperations().add(opData);
+
+        fillOpData(opData); //Должен стоять до навешивагия слушателей на TextField
+
+        initViews(opData);
+
+        countNorm(opData);
+
+    }
 
     public AbstractOpPlate() {
     }
-    /**
-     * Метод расчитывает норму времени в минутах
-     */
-    public abstract void countNorm();
 
     /**
      * Метод возвращает текущее расчитанное

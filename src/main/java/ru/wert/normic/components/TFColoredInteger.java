@@ -21,7 +21,7 @@ public class TFColoredInteger{
             tf.setStyle(style);
             if (counter != null) {
                 counter.getTfNormTime().setStyle(normStyle);
-                counter.countNorm();
+                counter.countNorm(counter.getOpData());
             }
         });
 

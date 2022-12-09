@@ -11,7 +11,6 @@ import ru.wert.normic.components.TFColoredInteger;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpAssmNut;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -47,13 +46,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     @FXML
     private TextField tfScrews;
 
-    private IFormController controller;
-    private OpAssmNut opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int screws; //Количество винтов
     private int vshgs; //Количество комплектов ВШГ
     private int rivets; //Количество заклепок
@@ -61,17 +53,11 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     private int groundSets; //Количество комплектов заземления с этикеткой
     private int others; //Количество другого крепежа
 
-    public void init(IFormController controller, OpAssmNut opData){
-        this.controller = controller;
-        this.opData = opData;
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpAssmNut opData = (OpAssmNut)data;
 
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
-
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfScrews, this);
         new TFColoredInteger(tfVSHGs, this);
         new TFColoredInteger(tfRivets, this);
@@ -82,19 +68,18 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
-
-        countNorm();
     }
 
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpAssmNut opData = (OpAssmNut)data;
 
         countInitialValues();
 
@@ -114,7 +99,7 @@ public class PlateAssmNutsController extends AbstractOpPlate {
                 + others * OTHERS_SPEED;   //мин
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -133,7 +118,7 @@ public class PlateAssmNutsController extends AbstractOpPlate {
 
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpAssmNut opData){
         opData.setScrews(screws);
         opData.setVshgs(vshgs);
         opData.setRivets(rivets);
@@ -144,7 +129,10 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         opData.setAssmTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpAssmNut opData = (OpAssmNut)data;
+
         screws = opData.getScrews();
         tfScrews.setText(String.valueOf(screws));
 

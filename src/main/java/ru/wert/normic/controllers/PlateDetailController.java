@@ -17,8 +17,6 @@ import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -59,46 +57,28 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     //Переменные для ИМЕНИ
     public static int nameIndex = 0;
     private String detailName;
+    
 
-
-    private IFormController prevController;
-    private FormDetailController detailController;
-
-    private OpDetail opData;
-    public void setOpData(OpDetail opData){
-        this.opData = opData;
-    }
-
-    @Override //IOpData
-    public OpData getOpData(){
-        return opData;
-    }
-
-    public void init(IFormController prevController, OpDetail opData){
-        this.prevController = prevController;
-        this.opData = opData;
-
-        prevController.getAddedPlates().add(this);
-        prevController.getAddedOperations().add(opData);
-
-        fillOpData();
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpDetail opData = (OpDetail)data;
 
         new TFColoredInteger(tfN, null);
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            prevController.getAddedPlates().remove(this);
+            formController.getAddedPlates().remove(this);
 
-            VBox box = prevController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            prevController.getListViewTechOperations().getItems().remove(box);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
 
-            prevController.getAddedOperations().remove(this.opData);
-            prevController.countSumNormTimeByShops();
+            formController.getAddedOperations().remove(this.opData);
+            formController.countSumNormTimeByShops();
         });
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
         lblQuantity.setStyle("-fx-text-fill: #8b4513");
 
-        if(this.opData.getName() == null &&
+        if(opData.getName() == null &&
                 tfName.getText() == null || tfName.getText().equals("")) {
             detailName = String.format("Деталь #%s", ++nameIndex);
             tfName.setText(detailName);
@@ -108,8 +88,8 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorDetail.fxml"));
                 Parent parent = loader.load();
-                detailController = loader.getController();
-                detailController.init(prevController, tfName, this.opData);
+                formController = loader.getController();
+                formController.init(formController, tfName, this.opData);
                 Decoration windowDecoration = new Decoration(
                         "ДЕТАЛЬ",
                         parent,
@@ -118,7 +98,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
                         "decoration-detail",
                         true);
                 ImageView closer = windowDecoration.getImgCloseWindow();
-                closer.setOnMousePressed(ev -> collectOpData());
+                closer.setOnMousePressed(ev -> collectOpData(opData));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -126,15 +106,14 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            prevController.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
-
-        countNorm();
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpDetail opData = (OpDetail)data;
 
         countInitialValues();
 
@@ -149,8 +128,8 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
 
-        collectOpData();
-        if (detailController != null)
+        collectOpData(opData);
+        if (formController != null)
             setTimeMeasurement();
     }
 
@@ -161,19 +140,22 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         quantity = IntegerParser.getValue(tfN);
     }
 
-    private void collectOpData() {
-        if(detailController != null){
-            opData.setName(detailController.getTfDetailName().getText());
-            opData.setMaterial(detailController.getCmbxMaterial().getValue());
-            opData.setParamA(IntegerParser.getValue(detailController.getTfA()));
-            opData.setParamB(IntegerParser.getValue(detailController.getTfB()));
+    private void collectOpData(OpDetail opData) {
+        if(formController != null && formController instanceof FormDetailController){
+            opData.setName(((FormDetailController)formController).getTfDetailName().getText());
+            opData.setMaterial(((FormDetailController)formController).getCmbxMaterial().getValue());
+            opData.setParamA(IntegerParser.getValue(((FormDetailController)formController).getTfA()));
+            opData.setParamB(IntegerParser.getValue(((FormDetailController)formController).getTfB()));
             //Сохраняем операции
-            opData.setOperations(new ArrayList<>(detailController.getAddedOperations()));
+            opData.setOperations(new ArrayList<>(formController.getAddedOperations()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpDetail opData = (OpDetail)data;
+
         tfName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }

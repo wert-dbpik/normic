@@ -11,8 +11,6 @@ import ru.wert.normic.components.TFColoredInteger;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpWeldDotted;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 public class PlateWeldDottedController extends AbstractOpPlate {
@@ -35,46 +33,33 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private IFormController controller;
-    private OpWeldDotted opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int parts; //Количество элементов
     private int dots; //Количество точек
     private int drops; //Количество прихваток
 
-    public void init(IFormController controller, OpWeldDotted opData){
-        this.controller = controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpWeldDotted opData = (OpWeldDotted)data;
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfParts, this);
         new TFColoredInteger(tfDots, this);
         new TFColoredInteger(tfDrops, this);
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
-
-        countNorm();
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpWeldDotted opData = (OpWeldDotted)data;
 
         countInitialValues();
 
@@ -86,7 +71,7 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         time =  parts * WELDING_PARTS_SPEED + dots * WELDING_DOTTED_SPEED + drops * WELDING_DROP_SPEED;   //мин
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -98,11 +83,9 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         parts = IntegerParser.getValue(tfParts);
         dots = IntegerParser.getValue(tfDots);
         drops = IntegerParser.getValue(tfDrops);
-
-        collectOpData();
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpWeldDotted opData){
         opData.setParts(parts);
         opData.setDots(dots);
         opData.setDrops(drops);
@@ -110,7 +93,10 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         opData.setMechTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpWeldDotted opData = (OpWeldDotted)data;
+
         parts = opData.getParts();
         tfParts.setText(String.valueOf(parts));
 

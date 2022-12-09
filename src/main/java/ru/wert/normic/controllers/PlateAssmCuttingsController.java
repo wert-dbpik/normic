@@ -11,7 +11,6 @@ import ru.wert.normic.components.TFColoredDouble;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpAssmCutting;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.DoubleParser;
 
@@ -35,27 +34,15 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
     @FXML
     private Label lblOperationName;
 
-    private IFormController controller;
-    private OpAssmCutting opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private double sealer; //Уплотнитель на ребро корпуса
     private double selfAdhSealer; //Уплотнитель самоклеющийся
     private double insulation; //Утеплитель
 
-    public void init(IFormController controller, OpAssmCutting opData){
-        this.controller = controller;
-        this.opData = opData;
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpAssmCutting opData = (OpAssmCutting)data;
 
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
-
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredDouble(tfSealer, this);
         new TFColoredDouble(tfSelfAdhSealer, this);
         new TFColoredDouble(tfInsulation, this);
@@ -63,19 +50,18 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
-
-        countNorm();
     }
 
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpAssmCutting opData = (OpAssmCutting)data;
 
          countInitialValues();
 
@@ -89,7 +75,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
                 + insulation * INSULATION_SPEED;//мин
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -104,7 +90,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpAssmCutting opData){
         opData.setSealer(sealer);
         opData.setSelfAdhSealer(selfAdhSealer);
         opData.setInsulation(insulation);
@@ -112,7 +98,10 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         opData.setAssmTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpAssmCutting opData = (OpAssmCutting)data;
+
         sealer = opData.getSealer();
         tfSealer.setText(String.valueOf(sealer));
 

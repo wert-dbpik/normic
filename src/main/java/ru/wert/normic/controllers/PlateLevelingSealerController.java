@@ -15,8 +15,6 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 public class PlateLevelingSealerController extends AbstractOpPlate {
@@ -51,28 +49,16 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @FXML
     private Label lblNormTimeMeasure;
 
-    private IFormController controller;
-    private OpLevelingSealer opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int paramA; //Размер А
     private int paramB;//Размер Б
     private double perimeter; //
 
-    public void init(IFormController controller, OpLevelingSealer opData){
-        this.controller = controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpLevelingSealer opData = (OpLevelingSealer)data;
 
         new BXSealersWidth().create(cmbxSealerWidth);
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfA, this);
         new TFColoredInteger(tfB, this);
 
@@ -81,20 +67,19 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         new CmBx(cmbxSealerWidth, this);
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
-
-        countNorm();
     }
 
 
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpLevelingSealer opData = (OpLevelingSealer)data;
 
         countInitialValues();
 
@@ -110,7 +95,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         }
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -124,7 +109,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     }
 
 
-    private void collectOpData(){
+    private void collectOpData(OpLevelingSealer opData){
         opData.setSealersWidth(cmbxSealerWidth.getValue());
         opData.setParamA(paramA);
         opData.setParamB(paramB);
@@ -132,7 +117,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         opData.setAssmTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpLevelingSealer opData = (OpLevelingSealer)data;
 
         cmbxSealerWidth.setValue(opData.getSealersWidth());
 

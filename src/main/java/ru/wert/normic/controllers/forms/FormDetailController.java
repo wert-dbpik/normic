@@ -13,10 +13,8 @@ import ru.wert.normic.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
-import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 
 import java.util.ArrayList;
@@ -88,12 +86,12 @@ public class FormDetailController implements IFormController {
 
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
     @Getter private List<OpData> addedOperations;
-    private IFormController controller;
+    private IFormController formController;
 
     @Override //IFormController
-    public void init(IFormController controller, TextField tfName, OpData opData) {
+    public void init(IFormController formController, TextField tfName, OpData opData) {
         this.opData = (OpDetail) opData;
-        this.controller = controller;
+        this.formController = formController;
 
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();
@@ -129,21 +127,21 @@ public class FormDetailController implements IFormController {
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
             countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm();
+                nc.countNorm(opData);
             }
         });
 
         tfA.textProperty().addListener((observable, oldValue, newValue) -> {
             countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm();
+                nc.countNorm(opData);
             }
         });
 
         tfB.textProperty().addListener((observable, oldValue, newValue) -> {
             countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm();
+                nc.countNorm(opData);
             }
         });
 
@@ -209,7 +207,7 @@ public class FormDetailController implements IFormController {
         opData.setMechTime(mechanicalTime);
         opData.setPaintTime(paintingTime);
 
-        controller.countSumNormTimeByShops();
+        formController.countSumNormTimeByShops();
 
         if(AppStatics.MEASURE.getValue().equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;

@@ -11,7 +11,6 @@ import ru.wert.normic.components.TFColoredInteger;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpAssmNode;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -44,29 +43,17 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     @FXML
     private Label lblOperationName;
 
-    private IFormController controller;
-    private OpAssmNode opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int postLocks; //Количество почтовых замков
     private int doubleLocks; //Количество замков с рычагами
     private int mirrors; //Количество стекол
     private int detectors; //Количество извещателей ИО-102
     private int connectionBoxes; //Количество еоробок соединительных КС-4
 
-    public void init(IFormController controller, OpAssmNode opData){
-        this.controller = controller;
-        this.opData = opData;
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpAssmNode opData = (OpAssmNode)data;
 
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
-
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfPostLocks, this);
         new TFColoredInteger(tfDoubleLocks, this);
         new TFColoredInteger(tfMirrors, this);
@@ -76,19 +63,19 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
-        countNorm();
     }
 
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpAssmNode opData = (OpAssmNode)data;
 
         countInitialValues();
 
@@ -106,7 +93,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
                 + connectionBoxes * CONNECTION_BOXES_SPEED;   //мин
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -122,7 +109,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         connectionBoxes = IntegerParser.getValue(tfConnectionBoxes);
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpAssmNode opData){
         opData.setPostLocks(postLocks);
         opData.setDoubleLocks(doubleLocks);
         opData.setMirrors(mirrors);
@@ -132,7 +119,10 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         opData.setAssmTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpAssmNode opData = (OpAssmNode)data;
+
         postLocks = opData.getPostLocks();
         tfPostLocks.setText(String.valueOf(postLocks));
 

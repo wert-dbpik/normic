@@ -1,6 +1,5 @@
 package ru.wert.normic.controllers;
 
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,8 +15,6 @@ import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpPaint;
 import ru.wert.normic.enums.EPaintingDifficulty;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 public class PlatePaintController extends AbstractOpPlate {
@@ -46,15 +43,6 @@ public class PlatePaintController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private IFormController controller;
-    private FormDetailController partController;
-    private OpPaint opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
-
     private int razvA; //Параметр А развертки
     private int razvB; //Параметр B развертки
     private int along; //Параметр А - габарит сложенной детали вдоль штанги
@@ -63,18 +51,12 @@ public class PlatePaintController extends AbstractOpPlate {
     private double difficulty; //Сложность окрашивания
     private int hangingTime; //Время навешивания
 
-    public void init(IFormController controller, OpPaint opData){
-        this.controller = controller;
-        this.partController = (FormDetailController)controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpPaint opData = (OpPaint)data;
 
         new BXPaintingDifficulty().create(cmbxDifficulty);
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);
         new TFColoredInteger(tfHangingTime, this);
@@ -84,18 +66,18 @@ public class PlatePaintController extends AbstractOpPlate {
         new CmBx(cmbxDifficulty, this);
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
-        countNorm();
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpPaint opData = (OpPaint)data;
 
         countInitialValues();
 
@@ -134,7 +116,7 @@ public class PlatePaintController extends AbstractOpPlate {
         if(area == 0.0) time = 0.0;
 
         currentNormTime = time;//результат в минутах
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -144,8 +126,8 @@ public class PlatePaintController extends AbstractOpPlate {
      */
     private void countInitialValues() {
 
-        razvA = IntegerParser.getValue(partController.getTfA());
-        razvB = IntegerParser.getValue(partController.getTfB());
+        razvA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
+        razvB = IntegerParser.getValue(((FormDetailController)formController).getTfB());
 
         area = razvA * razvB * MM2_TO_M2;
 
@@ -159,7 +141,7 @@ public class PlatePaintController extends AbstractOpPlate {
         hangingTime = IntegerParser.getValue(tfHangingTime);
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpPaint opData){
         opData.setAlong(along);
         opData.setAcross(across);
         opData.setDifficulty(cmbxDifficulty.getValue());
@@ -168,7 +150,10 @@ public class PlatePaintController extends AbstractOpPlate {
         opData.setPaintTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpPaint opData = (OpPaint)data;
+
         along = opData.getAlong();
         tfAlong.setText(String.valueOf(along));
 

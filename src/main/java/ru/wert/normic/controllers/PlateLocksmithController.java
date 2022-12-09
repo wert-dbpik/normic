@@ -11,8 +11,6 @@ import ru.wert.normic.components.TFColoredInteger;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpLocksmith;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 public class PlateLocksmithController extends AbstractOpPlate {
@@ -41,29 +39,17 @@ public class PlateLocksmithController extends AbstractOpPlate {
     @FXML
     private Label lblOperationName;
 
-    private IFormController controller;
-    private OpLocksmith opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int rivets; //Количество заклепок
     private int countersinkings; //количество зенкуемых отверстий
     private int threadings; //Количество нарезаемых резьб
     private int smallSawings; //Количество резов на малой пиле
     private int bigSawings; //Количество резов на большой пиле
 
-    public void init(IFormController controller, OpLocksmith opData){
-        this.controller = controller;
-        this.opData = opData;
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpLocksmith opData = (OpLocksmith)data;
 
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
-
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfRivets, this);
         new TFColoredInteger(tfCountersinkings, this);
         new TFColoredInteger(tfThreadings, this);
@@ -73,20 +59,20 @@ public class PlateLocksmithController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
-        countNorm();
     }
 
 
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpLocksmith opData = (OpLocksmith)data;
 
         countInitialValues();
 
@@ -104,7 +90,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
                 + bigSawings * BIG_SAWING_SPEED;   //мин
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -120,7 +106,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
         bigSawings = IntegerParser.getValue(tfBigSawings);
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpLocksmith opData){
         opData.setRivets(rivets);
         opData.setCountersinkings(countersinkings);
         opData.setThreadings(threadings);
@@ -130,7 +116,10 @@ public class PlateLocksmithController extends AbstractOpPlate {
         opData.setMechTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpLocksmith opData = (OpLocksmith)data;
+
         rivets = opData.getRivets();
         tfRivets.setText(String.valueOf(rivets));
 

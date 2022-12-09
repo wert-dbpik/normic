@@ -11,8 +11,6 @@ import ru.wert.normic.components.*;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -42,52 +40,37 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private IFormController controller;
-    private OpPaintAssm opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int along; //Параметр А вдоль штанги
     private int across; //Параметр B поперек штанги
     private double area; //Площадь развертки
     private double pantingSpeed;// Скорость нанесения покрытия
 
-    public void init(IFormController controller, OpPaintAssm opData){
-        this.controller = controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpPaintAssm opData = (OpPaintAssm)data;
 
         new BXAssemblingType().create(cmbxAssemblingType);
-        new TFNormTime(tfNormTime, controller);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredDouble(tfArea, this);
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);
-
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new CmBx(cmbxAssemblingType, this);
 
         ivDeleteOperation.setOnMouseClicked(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
-
-        countNorm();
-
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpPaintAssm opData = (OpPaintAssm)data;
 
         countInitialValues();
 
@@ -118,7 +101,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         if(area == 0.0) time = 0.0;
 
         currentNormTime = time;//результат в минутах
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -133,7 +116,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpPaintAssm opData){
         opData.setArea(area);
         opData.setAlong(along);
         opData.setAcross(across);
@@ -142,7 +125,10 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         opData.setPaintTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpPaintAssm opData = (OpPaintAssm)data;
+
         area = opData.getArea();
         tfArea.setText(String.valueOf(area));
 

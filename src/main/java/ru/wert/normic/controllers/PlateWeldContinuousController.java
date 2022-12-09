@@ -13,8 +13,6 @@ import ru.wert.normic.components.*;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
-import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.IntegerParser;
 
 
@@ -62,13 +60,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private IFormController controller;
-    private OpWeldContinuous opData;
-
-    public OpData getOpData(){
-        return opData;
-    }
-
     private int seamLength; //Длина шва
     private int seamsCounted; //Количество швов расчетное
     private int seams; //Количество швов заданное пользователем
@@ -78,22 +69,15 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private int step; //шаг точек
     private double assemblingTime; //Время сборки свариваемого узла
 
-    public void init(IFormController controller, OpWeldContinuous opData){
-        this.controller = controller;
-        this.opData = opData;
-
-        controller.getAddedPlates().add(this);
-        controller.getAddedOperations().add(opData);
-
-        new BXPartBigness().create(cmbxPartBigness);
+    @Override //AbstractOpPlate
+    public void initViews(OpData data){
+        OpWeldContinuous opData = (OpWeldContinuous)data;
 
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
         tfStep.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
-
-        new TFNormTime(tfNormTime, controller);
+        new BXPartBigness().create(cmbxPartBigness);
+        new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfSeamLength, this);
         new TFColoredInteger(tfSeams, this);
         new TFColoredInteger(tfMen, this);
@@ -101,24 +85,23 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         new TFColoredInteger(tfStep, this);
         new ChBox(chbxPreEnterSeams, this);
         new ChBox(chbxStripping, this);
+        new CmBx(cmbxPartBigness, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
-        new CmBx(cmbxPartBigness, this);
-
         ivDeleteOperation.setOnMousePressed(e->{
-            controller.getAddedPlates().remove(this);
-            VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            controller.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
             currentNormTime = 0.0;
-            controller.countSumNormTimeByShops();
+            formController.countSumNormTimeByShops();
         });
 
-        countNorm();
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(){
+    public void countNorm(OpData data){
+        OpWeldContinuous opData = (OpWeldContinuous)data;
 
         countInitialValues();
 
@@ -152,7 +135,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         if(sumWeldLength == 0.0) time = 0.0;
 
         currentNormTime = time;
-        collectOpData();
+        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -170,7 +153,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         assemblingTime = cmbxPartBigness.getValue().getTime();
     }
 
-    private void collectOpData(){
+    private void collectOpData(OpWeldContinuous opData){
         opData.setSeamLength(seamLength);
         opData.setPartBigness(cmbxPartBigness.getValue());
         opData.setMen(men);
@@ -183,7 +166,10 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         opData.setMechTime(currentNormTime);
     }
 
-    private void fillOpData(){
+    @Override//AbstractOpPlate
+    public void fillOpData(OpData data){
+        OpWeldContinuous opData = (OpWeldContinuous)data;
+
         seamLength = opData.getSeamLength();
         tfSeamLength.setText(String.valueOf(seamLength));
 

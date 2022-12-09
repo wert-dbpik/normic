@@ -82,6 +82,9 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         this.controller = controller;
         this.opData = opData;
 
+        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
+
         new BXPartBigness().create(cmbxPartBigness);
 
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
@@ -110,7 +113,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
             controller.countSumNormTimeByShops();
         });
 
-        controller.getAddedPlates().add(this);
         countNorm();
     }
 

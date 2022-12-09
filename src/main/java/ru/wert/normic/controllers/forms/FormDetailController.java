@@ -150,7 +150,7 @@ public class FormDetailController implements IFormController {
 
 
     private void createMenu(){
-        menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
+        menu = new MenuCalculator(this, listViewTechOperations, addedOperations);
 
         menu.getItems().addAll(menu.createItemAddCutting(), menu.createItemAddBending(), menu.createItemAddLocksmith());
         menu.getItems().add(new SeparatorMenuItem());

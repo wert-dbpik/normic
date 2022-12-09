@@ -122,7 +122,7 @@ public class MainController implements IFormController {
 
     private void createMenu() {
 
-        MenuCalculator menu = new MenuCalculator(this, addedPlates, listViewTechOperations, addedOperations);
+        MenuCalculator menu = new MenuCalculator(this, listViewTechOperations, addedOperations);
 
         menu.getItems().add(menu.createItemAddDetail());
         menu.getItems().add(menu.createItemAddAssm());

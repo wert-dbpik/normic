@@ -63,8 +63,11 @@ public class PlateAssmNutsController extends AbstractOpPlate {
 
     public void init(IFormController controller, OpAssmNut opData){
         this.controller = controller;
-        controller.getAddedPlates().add(this);
         this.opData = opData;
+
+        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
+
 
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
 

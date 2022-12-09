@@ -70,7 +70,8 @@ public class PlateCuttingController extends AbstractOpPlate {
         this.controller = controller;
         this.partController = (FormDetailController) controller;
         this.opData = opData;
-        controller.getAddedPlates().add(this);55555555!!!!!
+
+        controller.getAddedPlates().add(this);
         controller.getAddedOperations().add(opData);
 
         new TFColoredInteger(tfHoles, this);

@@ -7,10 +7,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.*;
-import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.entities.*;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IFormController;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -18,17 +17,14 @@ import java.util.List;
 public class MenuCalculator extends ContextMenu {
 
     private final IFormController calculator;
-    private final ObservableList<AbstractOpPlate> addedPlates;
-
     private final ListView<VBox> listViewTechOperations;
     private final List<OpData> addedOperations;
 
     /**
      * Create a new ContextMenu
      */
-    public MenuCalculator(IFormController calculator, ObservableList<AbstractOpPlate> addedPlates, ListView<VBox> listViewTechOperations, List<OpData> addedOperations) {
+    public MenuCalculator(IFormController calculator, ListView<VBox> listViewTechOperations, List<OpData> addedOperations) {
         this.calculator = calculator;
-        this.addedPlates = addedPlates;
         this.listViewTechOperations = listViewTechOperations;
         this.addedOperations = addedOperations;
     }
@@ -59,7 +55,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddCutting(){
         MenuItem addCutting = new MenuItem("Резка и зачистка");
         addCutting.setOnAction(event -> {
-            if(isDuplicate(PlateCuttingController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.CUTTING)) return ;
             addCattingPlate(new OpCutting());
         });
         return addCutting;
@@ -69,7 +65,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddBending(){
         MenuItem addBending = new MenuItem("Гибка");
         addBending.setOnAction(event -> {
-            if(isDuplicate(PlateBendController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.BENDING)) return ;
             addBendingPlate(new OpBending());
         });
         return addBending;
@@ -80,7 +76,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddLocksmith(){
         MenuItem addLocksmith = new MenuItem("Слесарные операции");
         addLocksmith.setOnAction(event -> {
-            if(isDuplicate(PlateLocksmithController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.LOCKSMITH)) return ;
             addLocksmithPlate(new OpLocksmith());
         });
         return addLocksmith;
@@ -102,7 +98,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddWeldingDotted(){
         MenuItem addWeldingDotted = new MenuItem("Сварка точечная");
         addWeldingDotted.setOnAction(event -> {
-            if(isDuplicate(PlateWeldDottedController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.WELD_DOTTED)) return ;
             addWeldDottedPlate(new OpWeldDotted());
         });
         return addWeldingDotted;
@@ -115,7 +111,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddPainting(){
         MenuItem addPainting = new MenuItem("Покраска детали");
         addPainting.setOnAction(event -> {
-            if(isDuplicate(PlatePaintController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.PAINTING)) return ;
             addPaintPlate(new OpPaint());
         });
         return addPainting;
@@ -127,7 +123,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddPaintAssm(){
         MenuItem addPaintAssm = new MenuItem("Покраска сборочной единицы");
         addPaintAssm.setOnAction(event -> {
-            if(isDuplicate(PlatePaintAssmController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.PAINT_ASSM)) return ;
             addPaintAssmPlate(new OpPaintAssm());
         });
         return addPaintAssm;
@@ -139,7 +135,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddAssmNuts(){
         MenuItem addAssmNuts = new MenuItem("Сборка крепежа");
         addAssmNuts.setOnAction(event -> {
-            if(isDuplicate(PlateAssmNutsController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.ASSM_NUTS)) return ;
             addAssmNutsPlate(new OpAssmNut());
         });
         return addAssmNuts;
@@ -150,7 +146,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddAssmCuttings(){
         MenuItem addAssmCuttings = new MenuItem("Сборка раскройного материала");
         addAssmCuttings.setOnAction(event -> {
-            if(isDuplicate(PlateAssmCuttingsController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.ASSM_CUTTINGS)) return ;
             addAssmCuttingsPlate(new OpAssmCutting());
         });
         return addAssmCuttings;
@@ -161,7 +157,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddAssmNodes(){
         MenuItem addAssmNodes = new MenuItem("Сборка стандартных узлов");
         addAssmNodes.setOnAction(event -> {
-            if(isDuplicate(PlateAssmNodesController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.ASSM_NODES)) return ;
             addAssmNodesPlate(new OpAssmNode());
         });
         return addAssmNodes;
@@ -172,7 +168,7 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddLevelingSealer(){
         MenuItem addLevelingSealer = new MenuItem("Нанесение наливного утеплителя");
         addLevelingSealer.setOnAction(event -> {
-            if(isDuplicate(PlateLevelingSealerController.class.getSimpleName())) return ;
+            if(isDuplicate(EOpType.LEVELING_SEALER)) return ;
             addLevelingSealerPlate(new OpLevelingSealer());
         });
         return addLevelingSealer;
@@ -181,9 +177,9 @@ public class MenuCalculator extends ContextMenu {
     /**
      * Ищем дубликат операции в списке addedOperations по clazz
      */
-    private boolean isDuplicate(String clazz){
-        for(AbstractOpPlate cn: addedPlates){
-            if(cn.getClass().getSimpleName().equals(clazz))
+    private boolean isDuplicate(EOpType opType){
+        for(OpData cn: addedOperations){
+            if(cn.getOpType().equals(opType))
                 return true;
         }
         return false;
@@ -203,7 +199,6 @@ public class MenuCalculator extends ContextMenu {
             PlateDetailController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(detail);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -219,7 +214,6 @@ public class MenuCalculator extends ContextMenu {
             PlateAssmController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assm);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -236,7 +230,6 @@ public class MenuCalculator extends ContextMenu {
             PlateCuttingController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(cutting);
-//            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -252,7 +245,6 @@ public class MenuCalculator extends ContextMenu {
             PlateBendController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(bending);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -268,7 +260,6 @@ public class MenuCalculator extends ContextMenu {
             PlateLocksmithController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(locksmith);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -286,7 +277,6 @@ public class MenuCalculator extends ContextMenu {
             PlatePaintController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(paint);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -302,7 +292,6 @@ public class MenuCalculator extends ContextMenu {
             PlatePaintAssmController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(paintAssm);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -320,7 +309,6 @@ public class MenuCalculator extends ContextMenu {
             PlateWeldContinuousController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(weldLongSeam);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -336,7 +324,6 @@ public class MenuCalculator extends ContextMenu {
             PlateWeldDottedController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(weldDotted);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -354,7 +341,6 @@ public class MenuCalculator extends ContextMenu {
             PlateAssmNutsController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assmNuts);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -370,7 +356,6 @@ public class MenuCalculator extends ContextMenu {
             PlateAssmCuttingsController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assmCuttings);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -386,7 +371,6 @@ public class MenuCalculator extends ContextMenu {
             PlateAssmNodesController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(assmNodes);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -404,7 +388,6 @@ public class MenuCalculator extends ContextMenu {
             PlateLevelingSealerController controller = loader.getController();
             controller.init(calculator, opData);
             listViewTechOperations.getItems().add(levelingSealer);
-            addedOperations.add(opData);
         } catch (IOException e) {
             e.printStackTrace();
         }

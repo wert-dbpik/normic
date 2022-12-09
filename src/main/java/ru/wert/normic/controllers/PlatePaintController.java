@@ -68,6 +68,9 @@ public class PlatePaintController extends AbstractOpPlate {
         this.partController = (FormDetailController)controller;
         this.opData = opData;
 
+        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
+
         new BXPaintingDifficulty().create(cmbxDifficulty);
 
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
@@ -89,11 +92,7 @@ public class PlatePaintController extends AbstractOpPlate {
             controller.countSumNormTimeByShops();
         });
 
-        controller.getAddedPlates().add(this);
         countNorm();
-        //Запускаем слушатель изменения текста
-        tfNormTime.setText(tfNormTime.getText());
-        controller.countSumNormTimeByShops();
     }
 
     @Override//AbstractOpPlate

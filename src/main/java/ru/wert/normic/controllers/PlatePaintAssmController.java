@@ -58,6 +58,9 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         this.controller = controller;
         this.opData = opData;
 
+        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
+
         new BXAssemblingType().create(cmbxAssemblingType);
 
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
@@ -80,7 +83,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
             controller.countSumNormTimeByShops();
         });
 
-        controller.getAddedPlates().add(this);
         countNorm();
 
     }

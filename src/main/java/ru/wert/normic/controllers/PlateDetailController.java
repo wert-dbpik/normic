@@ -78,6 +78,9 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         this.prevController = prevController;
         this.opData = opData;
 
+        prevController.getAddedPlates().add(this);
+        prevController.getAddedOperations().add(opData);
+
         new TFColoredInteger(tfN, null);
 
         ivDeleteOperation.setOnMouseClicked(e->{
@@ -126,8 +129,8 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             prevController.countSumNormTimeByShops();
         });
 
-        prevController.getAddedPlates().add(this);
-//        setNormTime();
+
+        countNorm();
     }
 
     @Override//AbstractOpPlate

@@ -66,6 +66,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         this.controller = controller;
         this.opData = opData;
 
+        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
+
         new BXSealersWidth().create(cmbxSealerWidth);
 
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
@@ -86,7 +89,6 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
             controller.countSumNormTimeByShops();
         });
 
-        controller.getAddedPlates().add(this);
         countNorm();
     }
 

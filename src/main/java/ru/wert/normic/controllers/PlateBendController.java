@@ -54,6 +54,9 @@ public class PlateBendController extends AbstractOpPlate {
         this.controller = controller;
         this.opData = opData;
 
+        controller.getAddedPlates().add(this);
+        controller.getAddedOperations().add(opData);
+
         new BXBendingTool().create(cmbxBendingTool);
 
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
@@ -74,7 +77,6 @@ public class PlateBendController extends AbstractOpPlate {
             controller.countSumNormTimeByShops();
         });
 
-        controller.getAddedPlates().add(this);
         countNorm();
     }
 

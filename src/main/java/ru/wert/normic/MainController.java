@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.BXTimeMeasurement;
+import ru.wert.normic.controllers.PlateAssmController;
+import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
@@ -39,6 +41,9 @@ public class MainController implements IFormController {
 
     @FXML
     private ImageView ivAddOperation;
+
+    @FXML
+    private ImageView ivErase;
 
     @FXML
     private TextField tfMechanicalTime;
@@ -100,6 +105,16 @@ public class MainController implements IFormController {
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             lblTimeMeasure.setText(newValue.getTimeName());
             countSumNormTimeByShops();
+        });
+
+        ivErase.setOnMouseClicked(e->{
+            opData.getOperations().clear();
+            addedPlates.clear();
+            addedOperations.clear();
+            listViewTechOperations.getItems().clear();
+            countSumNormTimeByShops();
+            PlateDetailController.nameIndex = 0;
+            PlateAssmController.nameIndex = 0;
         });
 
     }

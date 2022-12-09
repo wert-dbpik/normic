@@ -13,6 +13,7 @@ import ru.wert.normic.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
+import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
@@ -100,6 +101,14 @@ public class FormAssmController implements IFormController {
     private void initViews() {
 
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
+            countSumNormTimeByShops();
+        });
+
+        ivErase.setOnMouseClicked(e->{
+            opData.getOperations().clear();
+            addedPlates.clear();
+            addedOperations.clear();
+            listViewTechOperations.getItems().clear();
             countSumNormTimeByShops();
         });
     }

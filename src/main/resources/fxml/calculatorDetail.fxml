@@ -21,7 +21,7 @@
             <TextField fx:id="tfDetailName" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="0.0">
                <children>
-                  <ImageView fx:id="ivErase1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ivErase" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../pics/btns/erase.png" />
                      </image>

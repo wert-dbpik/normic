@@ -31,11 +31,24 @@
                   </ImageView>
                </children>
             </Pane>
-            <ImageView fx:id="ivOpen" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-               <image>
-                  <Image url="@../pics/btns/settings.png" />
-               </image>
-            </ImageView>
+            <Pane>
+               <children>
+                  <ImageView fx:id="ivErase" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pics/btns/erase.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane>
+               <children>
+                  <ImageView fx:id="ivOpen" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                     <image>
+                        <Image url="@../pics/btns/settings.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
             <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Ед.изм. ">

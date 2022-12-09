@@ -57,7 +57,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     private double currentPaintNormTime;
 
     //Переменные для ИМЕНИ
-    private static int nameIndex = 0;
+    public static int nameIndex = 0;
     private String detailName;
 
 

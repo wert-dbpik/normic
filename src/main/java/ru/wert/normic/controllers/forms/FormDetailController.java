@@ -146,6 +146,14 @@ public class FormDetailController implements IFormController {
                 nc.countNorm();
             }
         });
+
+        ivErase.setOnMouseClicked(e->{
+            opData.getOperations().clear();
+            addedPlates.clear();
+            addedOperations.clear();
+            listViewTechOperations.getItems().clear();
+            countSumNormTimeByShops();
+        });
     }
 
 

@@ -59,7 +59,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     private double currentPackNormTime;
 
     //Переменные для ИМЕНИ
-    private static int nameIndex = 0;
+    public static int nameIndex = 0;
     private String assmName;
 
     private IFormController prevController;

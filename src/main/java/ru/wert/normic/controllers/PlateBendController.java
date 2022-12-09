@@ -57,10 +57,9 @@ public class PlateBendController extends AbstractOpPlate {
         controller.getAddedPlates().add(this);
         controller.getAddedOperations().add(opData);
 
-        new BXBendingTool().create(cmbxBendingTool);
-
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
 
+        new BXBendingTool().create(cmbxBendingTool);
         new TFNormTime(tfNormTime, controller);
         new TFColoredInteger(tfBends, this);
         new TFColoredInteger(tfMen, this);

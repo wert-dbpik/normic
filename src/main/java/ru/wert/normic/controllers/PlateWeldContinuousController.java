@@ -105,6 +105,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new CmBx(cmbxPartBigness, this);
+
         ivDeleteOperation.setOnMousePressed(e->{
             controller.getAddedPlates().remove(this);
             VBox box = controller.getListViewTechOperations().getSelectionModel().getSelectedItem();

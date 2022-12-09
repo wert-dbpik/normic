@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.AbstractOpPlate;
+import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFColoredInteger;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.forms.FormDetailController;
@@ -74,21 +75,17 @@ public class PlateCuttingController extends AbstractOpPlate {
         controller.getAddedPlates().add(this);
         controller.getAddedOperations().add(opData);
 
+        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
+
         new TFColoredInteger(tfHoles, this);
         new TFColoredInteger(tfPerfHoles, this);
         new TFColoredInteger(tfExtraPerimeter, this);
-
-        fillOpData(); //Должен стоять до навешивагия слушателей на TextField
-
         new TFNormTime(tfNormTime, controller);
+        new ChBox(chbxStripping, this);
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             controller.countSumNormTimeByShops();
-        });
-
-        chbxStripping.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            countNorm();
         });
 
         ivDeleteOperation.setOnMouseClicked(e->{
@@ -186,6 +183,9 @@ public class PlateCuttingController extends AbstractOpPlate {
      * согласно данным в классе OpData
      */
     private void fillOpData(){
+        stripping = opData.isStripping();
+        chbxStripping.setSelected(stripping);
+
         holes = opData.getHoles();
         tfHoles.setText(String.valueOf(holes));
 
@@ -194,10 +194,6 @@ public class PlateCuttingController extends AbstractOpPlate {
 
         extraPerimeter = opData.getExtraPerimeter();
         tfExtraPerimeter.setText(String.valueOf(extraPerimeter));
-
-        stripping = opData.isStripping();
-        chbxStripping.setSelected(stripping);
-
     }
 
 }

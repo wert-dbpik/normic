@@ -82,6 +82,8 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         prevController.getAddedPlates().add(this);
         prevController.getAddedOperations().add(opData);
 
+        fillOpData();
+
         new TFColoredInteger(tfN, null);
 
         ivDeleteOperation.setOnMouseClicked(e->{
@@ -93,8 +95,6 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
             prevController.getAddedOperations().remove(this.opData);
             prevController.countSumNormTimeByShops();
         });
-
-        fillOpData();
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
         lblQuantity.setStyle("-fx-text-fill: #8b4513");

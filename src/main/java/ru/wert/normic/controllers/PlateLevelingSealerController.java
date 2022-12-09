@@ -69,10 +69,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         controller.getAddedPlates().add(this);
         controller.getAddedOperations().add(opData);
 
-        new BXSealersWidth().create(cmbxSealerWidth);
-
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
 
+        new BXSealersWidth().create(cmbxSealerWidth);
         new TFNormTime(tfNormTime, controller);
         new TFColoredInteger(tfA, this);
         new TFColoredInteger(tfB, this);

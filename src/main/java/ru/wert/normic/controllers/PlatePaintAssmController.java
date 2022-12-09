@@ -61,10 +61,9 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         controller.getAddedPlates().add(this);
         controller.getAddedOperations().add(opData);
 
-        new BXAssemblingType().create(cmbxAssemblingType);
-
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
 
+        new BXAssemblingType().create(cmbxAssemblingType);
         new TFNormTime(tfNormTime, controller);
         new TFColoredDouble(tfArea, this);
         new TFColoredInteger(tfAlong, this);

@@ -71,10 +71,9 @@ public class PlatePaintController extends AbstractOpPlate {
         controller.getAddedPlates().add(this);
         controller.getAddedOperations().add(opData);
 
-        new BXPaintingDifficulty().create(cmbxDifficulty);
-
         fillOpData(); //Должен стоять до навешивагия слушателей на TextField
 
+        new BXPaintingDifficulty().create(cmbxDifficulty);
         new TFNormTime(tfNormTime, controller);
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);

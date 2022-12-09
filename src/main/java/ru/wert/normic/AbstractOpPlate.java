@@ -38,6 +38,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
     private Label lblNormTimeMeasure;
 
 
+
+
     public AbstractOpPlate() {
     }
     /**

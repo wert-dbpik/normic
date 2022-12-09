@@ -65,6 +65,7 @@
             <Insets left="10.0" />
          </padding>
       </HBox>
+      <Separator prefWidth="200.0" />
       <GridPane VBox.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="3.0" minWidth="3.0" prefWidth="3.0" />

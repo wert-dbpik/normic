@@ -194,8 +194,8 @@ public class FormDetailController implements IFormController {
         double paintingTime = 0.0;
 
         for(OpData cn: addedOperations){
-            mechanicalTime += cn.getMechTime();
-            paintingTime += cn.getPaintTime();
+            mechanicalTime += cn.getMechTime() * cn.getQuantity();
+            paintingTime += cn.getPaintTime() * cn.getQuantity();
         }
 
         opData.setMechTime(mechanicalTime);

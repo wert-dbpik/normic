@@ -2,6 +2,8 @@ package ru.wert.normic;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,10 +25,10 @@ import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,6 @@ public class MainController implements IFormController {
     @FXML
     private ImageView ivSave;
 
-
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
 
@@ -52,6 +53,9 @@ public class MainController implements IFormController {
 
     @FXML
     private ImageView ivErase;
+
+    @FXML
+    private ImageView ivOpen;
 
     @FXML
     private TextField tfMechanicalTime;
@@ -83,6 +87,7 @@ public class MainController implements IFormController {
     void initialize(){
         AppStatics.MEASURE = cmbxTimeMeasurement;
         opData = new OpAssm();
+
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();
         addedOperations = new ArrayList<>();
@@ -110,6 +115,8 @@ public class MainController implements IFormController {
 
         ivSave.setOnMouseClicked(this::save);
 
+        ivOpen.setOnMouseClicked(this::open);
+
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             lblTimeMeasure.setText(newValue.getTimeName());
             countSumNormTimeByShops();
@@ -128,8 +135,6 @@ public class MainController implements IFormController {
     }
 
     private void save(MouseEvent e){
-
-
             FileChooser chooser = new FileChooser();
             chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
             chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
@@ -155,9 +160,31 @@ public class MainController implements IFormController {
         }
     }
 
+    private void open(MouseEvent e){
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
+        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
+        if(file == null) return;
+        try {
+            String str = new String(Files.readAllBytes(Paths.get(file.toString())));
+            System.out.println(str);
+            Gson gson = new Gson();
+            Type listType = new TypeToken<OpAssm>(){}.getType();
+            opData = gson.fromJson(str, listType);
+
+            deployData(opData);
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+
     private void createMenu() {
 
-        MenuCalculator menu = new MenuCalculator(this, listViewTechOperations, addedOperations);
+        menu = new MenuCalculator(this, listViewTechOperations, addedOperations);
 
         menu.getItems().add(menu.createItemAddDetail());
         menu.getItems().add(menu.createItemAddAssm());
@@ -227,6 +254,12 @@ public class MainController implements IFormController {
         List<OpData> operations = opData.getOperations();
         for (OpData op : operations) {
             switch (op.getOpType()) {
+                case DETAIL:
+                    menu.addDetailPlate((OpDetail) op);
+                    break;
+                case ASSM:
+                    menu.addAssmPlate((OpAssm) op);
+                    break;
                 case CUTTING:
                     menu.addCattingPlate((OpCutting) op);
                     break;

@@ -35,7 +35,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     protected double currentNormTime;
 
     protected IFormController formController;
-    protected FormDetailController detailController;
+//    protected FormDetailController detailController;
     protected OpData opData;
 
     public void setOpData(OpDetail opData){
@@ -63,10 +63,10 @@ public abstract class AbstractOpPlate implements IOpPlate {
     @FXML
     private Label lblNormTimeMeasure;
 
-    public void init(IFormController controller, OpData opData, FormDetailController detailController) {
-        this.detailController = detailController;
-        init(controller, opData);
-    }
+//    public void init(IFormController controller, OpData opData, FormDetailController detailController) {
+//        this.detailController = detailController;
+//        init(controller, opData);
+//    }
 
     public void init(IFormController formController, OpData opData) {
         this.formController = formController;

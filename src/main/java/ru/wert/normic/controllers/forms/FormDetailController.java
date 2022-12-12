@@ -86,12 +86,12 @@ public class FormDetailController implements IFormController {
 
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
     @Getter private List<OpData> addedOperations;
-    private IFormController formController;
+    private IFormController controller;
 
     @Override //IFormController
-    public void init(IFormController formController, TextField tfName, OpData opData) {
+    public void init(IFormController controller, TextField tfName, OpData opData) {
         this.opData = (OpDetail) opData;
-        this.formController = formController;
+        this.controller = controller;
 
         //Инициализируем список операционных плашек
         addedPlates = FXCollections.observableArrayList();
@@ -207,7 +207,7 @@ public class FormDetailController implements IFormController {
         opData.setMechTime(mechanicalTime);
         opData.setPaintTime(paintingTime);
 
-        formController.countSumNormTimeByShops();
+        controller.countSumNormTimeByShops();
 
         if(AppStatics.MEASURE.getValue().equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;

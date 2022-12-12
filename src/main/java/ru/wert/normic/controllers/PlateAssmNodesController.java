@@ -62,14 +62,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
-        ivDeleteOperation.setOnMouseClicked(e->{
-            formController.getAddedPlates().remove(this);
-            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            formController.getListViewTechOperations().getItems().remove(box);
-            currentNormTime = 0.0;
-            formController.countSumNormTimeByShops();
-        });
-
     }
 
 

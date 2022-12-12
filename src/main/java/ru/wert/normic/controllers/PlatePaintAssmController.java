@@ -58,14 +58,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new CmBx(cmbxAssemblingType, this);
-
-        ivDeleteOperation.setOnMouseClicked(e->{
-            formController.getAddedPlates().remove(this);
-            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            formController.getListViewTechOperations().getItems().remove(box);
-            currentNormTime = 0.0;
-            formController.countSumNormTimeByShops();
-        });
     }
 
     @Override//AbstractOpPlate

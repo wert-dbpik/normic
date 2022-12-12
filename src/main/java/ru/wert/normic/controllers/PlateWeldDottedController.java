@@ -48,13 +48,6 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         new TFColoredInteger(tfDots, this);
         new TFColoredInteger(tfDrops, this);
 
-        ivDeleteOperation.setOnMouseClicked(e->{
-            formController.getAddedPlates().remove(this);
-            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            formController.getListViewTechOperations().getItems().remove(box);
-            currentNormTime = 0.0;
-            formController.countSumNormTimeByShops();
-        });
     }
 
     @Override//AbstractOpPlate

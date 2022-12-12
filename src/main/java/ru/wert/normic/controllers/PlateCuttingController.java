@@ -72,13 +72,7 @@ public class PlateCuttingController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
-        ivDeleteOperation.setOnMouseClicked(e->{
-            formController.getAddedPlates().remove(this);
-            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            formController.getListViewTechOperations().getItems().remove(box);
-            currentNormTime = 0.0; //Обнуляем значение, чтобы вычесть его из суммарных норм
-            formController.countSumNormTimeByShops();
-        });
+
     }
 
     /**

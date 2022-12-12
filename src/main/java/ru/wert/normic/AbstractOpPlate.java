@@ -3,6 +3,8 @@ package ru.wert.normic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
@@ -63,10 +65,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
     @FXML
     private Label lblNormTimeMeasure;
 
-//    public void init(IFormController controller, OpData opData, FormDetailController detailController) {
-//        this.detailController = detailController;
-//        init(controller, opData);
-//    }
+    @FXML
+    private ImageView ivDeleteOperation;
 
     public void init(IFormController formController, OpData opData) {
         this.formController = formController;
@@ -78,6 +78,14 @@ public abstract class AbstractOpPlate implements IOpPlate {
         fillOpData(opData); //Должен стоять до навешивагия слушателей на TextField
 
         initViews(opData);
+
+        ivDeleteOperation.setOnMouseClicked(e->{
+            formController.getAddedPlates().remove(this);
+            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+            formController.getListViewTechOperations().getItems().remove(box);
+            formController.getAddedOperations().remove(this.getOpData());
+            formController.countSumNormTimeByShops();
+        });
 
         countNorm(opData);
 

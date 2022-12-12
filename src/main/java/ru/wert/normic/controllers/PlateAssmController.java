@@ -69,16 +69,6 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
         new TFColoredInteger(tfN, null);
 
-        ivDeleteOperation.setOnMouseClicked(e->{
-            formController.getAddedPlates().remove(this);
-
-            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            formController.getListViewTechOperations().getItems().remove(box);
-
-            formController.getAddedOperations().remove(this.opData);
-            formController.countSumNormTimeByShops();
-        });
-
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
         lblQuantity.setStyle("-fx-text-fill: #8b4513");
 

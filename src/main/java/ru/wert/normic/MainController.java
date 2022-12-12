@@ -168,7 +168,6 @@ public class MainController implements IFormController {
         if(file == null) return;
         try {
             String str = new String(Files.readAllBytes(Paths.get(file.toString())));
-            System.out.println(str);
             Gson gson = new Gson();
             Type listType = new TypeToken<OpAssm>(){}.getType();
             opData = gson.fromJson(str, listType);

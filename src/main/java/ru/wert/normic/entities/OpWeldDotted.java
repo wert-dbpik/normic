@@ -5,6 +5,8 @@ import lombok.Setter;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 public class OpWeldDotted extends OpData {

@@ -6,6 +6,7 @@ import ru.wert.normic.decoration.warnings.Warning1;
 import java.io.*;
 import java.util.Properties;
 
+
 @Slf4j
 public class AppProperties {
 
@@ -20,8 +21,8 @@ public class AppProperties {
 
     private int attempt = 0;
     private Properties connectionProps;
-    private String homeDir = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "BazaPIK";
-    private String appConfigPath = homeDir + File.separator + "connectionSettings.properties";
+    private String homeDir = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
+    private String appConfigPath = homeDir + File.separator + "settings.properties";
 
 
     /**
@@ -53,7 +54,7 @@ public class AppProperties {
      * @param appConfigPath String, путь к файлу connectionSettings.properties
      */
     private void createFileOfConnectionSettings(String appConfigPath) {
-        log.debug("createFileOfConnectionSettings : connectionSettings.properties создается  ...");
+        log.debug("createFileOfSettings : settings.properties создается  ...");
         try {
             log.debug("File of application settings is creating...");
             File dir = new File(homeDir);
@@ -66,8 +67,7 @@ public class AppProperties {
             FileWriter writer = new FileWriter (props);
             writer.write("IP_ADDRESS=192.168.2.132\n");
             writer.write("PORT = 8080\n");
-            writer.write("MONITOR=0\n");
-            writer.write("LAST_USER=0\n");
+            writer.write("SAVES_DIR=C:/\n");
             writer.close();
         } catch (IOException e) {
             if(++attempt < 3) new AppProperties();
@@ -93,59 +93,19 @@ public class AppProperties {
         return connectionProps.getProperty("PORT");
     }
 
-    public int getMonitor(){
-        log.debug("MONITOR returns...{}", connectionProps.getProperty("MONITOR"));
-        return Integer.parseInt(connectionProps.getProperty("MONITOR"));
+    public String getSavesDir(){
+        log.debug("SAVES_DIR returns...{}", connectionProps.getProperty("SAVES_DIR"));
+        return connectionProps.getProperty("SAVES_DIR");
     }
 
-    public long getLastUser(){
-        log.debug("LAST_USER returns...{}", connectionProps.getProperty("LAST_USER"));
-        return Integer.parseInt(connectionProps.getProperty("LAST_USER"));
-    }
-
-    public void setIpAddress(final String ipAddress){
+    public void setSavesDirectory(final String dir){
         try {
             FileOutputStream fos = new FileOutputStream(appConfigPath);
-            connectionProps.setProperty("IP_ADDRESS", ipAddress);
+            connectionProps.setProperty("SAVES_DIR", dir);
             connectionProps.store(fos, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void setPort(final String port){
-        try {
-            FileOutputStream fos = new FileOutputStream(appConfigPath);
-            connectionProps.setProperty("PORT", port);
-            connectionProps.store(fos, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setMonitor(final int monitor){
-        try {
-            FileOutputStream fos = new FileOutputStream(appConfigPath);
-            connectionProps.setProperty("MONITOR", String.valueOf(monitor));
-            connectionProps.store(fos, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setLastUser(final long userId){
-        log.debug("setLastUser : устанавливается последний пользователь LAST_USER");
-        try {
-            FileOutputStream fos = new FileOutputStream(appConfigPath);
-            connectionProps.setProperty("LAST_USER", String.valueOf(userId));
-            connectionProps.store(fos, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        log.debug("setLastUser : последний пользователь LAST_USER успешно установлен");
-    }
-
-
-
 
 }

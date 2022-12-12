@@ -6,19 +6,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.controllers.PlateAssmController;
 import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
+import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +34,7 @@ import static ru.wert.normic.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
-
+@Slf4j
 public class MainController implements IFormController {
 
     @FXML
@@ -120,11 +128,31 @@ public class MainController implements IFormController {
     }
 
     private void save(MouseEvent e){
-        opData.setOperations(new ArrayList<>(addedOperations));
 
-        Gson gson = new Gson();
-        String json = gson.toJson(opData);
-        System.out.println("saved :" + json);
+
+            FileChooser chooser = new FileChooser();
+            chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
+            chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+            File file = chooser.showSaveDialog(((Node)e.getSource()).getScene().getWindow());
+            if(file == null) return;
+            AppProperties.getInstance().setSavesDirectory(file.getParent());
+            opData.setOperations(new ArrayList<>(addedOperations));
+            Gson gson = new Gson();
+            String json = gson.toJson(opData);
+            saveTextToFile(json, file);
+
+    }
+
+    private void saveTextToFile(String content, File file) {
+        try {
+            PrintWriter writer;
+            writer = new PrintWriter(file, "UTF-8");
+            writer.println(content);
+            writer.close();
+        } catch (FileNotFoundException | UnsupportedEncodingException exception) {
+            log.error(String.format("Не удалось записать файл %s", file.getName()));
+            exception.printStackTrace();
+        }
     }
 
     private void createMenu() {

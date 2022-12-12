@@ -75,7 +75,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         formController.getAddedPlates().add(this);
         formController.getAddedOperations().add(opData);
 
-        fillOpData(opData); //Должен стоять до навешивагия слушателей на TextField
+        fillOpData(opData);
 
         initViews(opData);
 

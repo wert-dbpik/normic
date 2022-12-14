@@ -1,6 +1,7 @@
 package ru.wert.normic.interfaces;
 
 import javafx.scene.control.TextField;
+import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.entities.OpData;
 
 /**
@@ -10,5 +11,5 @@ import ru.wert.normic.entities.OpData;
  */
 public interface IForm {
 
-    void init(IFormController controller, TextField tfName, OpData opData);
+    void init(AbstractFormController controller, TextField tfName, OpData opData);
 }

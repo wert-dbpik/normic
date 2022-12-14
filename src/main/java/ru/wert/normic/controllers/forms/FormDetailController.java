@@ -11,11 +11,10 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
-import ru.wert.normic.MenuCalculator;
+import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
-import ru.wert.normic.interfaces.IFormController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
-public class FormDetailController implements IFormController {
+public class FormDetailController extends AbstractFormController {
 
     @FXML @Getter
     private TextField tfDetailName;
@@ -76,7 +75,7 @@ public class FormDetailController implements IFormController {
 
     private MenuCalculator menu;
 
-    @Getter //IFormController
+    @Getter //AbstractFormController
     private OpDetail opData;
 
     private double ro; //Плотность
@@ -86,10 +85,10 @@ public class FormDetailController implements IFormController {
 
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
     @Getter private List<OpData> addedOperations;
-    private IFormController controller;
+    private AbstractFormController controller;
 
-    @Override //IFormController
-    public void init(IFormController controller, TextField tfName, OpData opData) {
+    @Override //AbstractFormController
+    public void init(AbstractFormController controller, TextField tfName, OpData opData) {
         this.opData = (OpDetail) opData;
         this.controller = controller;
 

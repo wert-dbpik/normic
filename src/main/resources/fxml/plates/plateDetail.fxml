@@ -14,7 +14,14 @@
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
-            <fx:include fx:id="mover" source="mover.fxml" />
+            <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../pics/btns/operation.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ImageView>
             <Label fx:id="lblOperationName" text="ДЕТАЛЬ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />

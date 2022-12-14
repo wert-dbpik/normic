@@ -1,4 +1,4 @@
-package ru.wert.normic;
+package ru.wert.normic.menus;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
@@ -8,21 +8,21 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.*;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.interfaces.IFormController;
+import ru.wert.normic.controllers.forms.AbstractFormController;
 
 import java.io.IOException;
 import java.util.List;
 
 public class MenuCalculator extends ContextMenu {
 
-    private final IFormController formController;
+    private final AbstractFormController formController;
     private final ListView<VBox> listViewTechOperations;
     private final List<OpData> addedOperations;
 
     /**
      * Create a new ContextMenu
      */
-    public MenuCalculator(IFormController formController, ListView<VBox> listViewTechOperations, List<OpData> addedOperations) {
+    public MenuCalculator(AbstractFormController formController, ListView<VBox> listViewTechOperations, List<OpData> addedOperations) {
         this.formController = formController;
         this.listViewTechOperations = listViewTechOperations;
         this.addedOperations = addedOperations;

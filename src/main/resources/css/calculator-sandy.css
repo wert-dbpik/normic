@@ -18,6 +18,10 @@
     -fx-background-color: #f8f1db;
 }
 
+#contextMenu{
+    -fx-background-color: #ebf6f8;
+}
+
 .text-field{
     -fx-font-family: "Arial";
     -fx-text-fill: darkblue;

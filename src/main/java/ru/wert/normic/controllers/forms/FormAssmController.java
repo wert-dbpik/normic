@@ -11,10 +11,9 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
-import ru.wert.normic.MenuCalculator;
+import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
-public class FormAssmController implements IFormController {
+public class FormAssmController extends AbstractFormController {
 
     @FXML @Getter
     private TextField tfAssmName;
@@ -64,13 +63,13 @@ public class FormAssmController implements IFormController {
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
     @Getter private List<OpData> addedOperations;
 
-    private IFormController controller;
+    private AbstractFormController controller;
 
-    @Getter //IFormController
+    @Getter //AbstractFormController
     private OpAssm opData;
 
     @Override
-    public void init(IFormController controller, TextField tfName, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, OpData opData) {
         this.opData = (OpAssm) opData;
         this.controller = controller;
 
@@ -135,7 +134,7 @@ public class FormAssmController implements IFormController {
     /**
      * Метод расчитывает суммарное время по участкам
      */
-    @Override //IFormController
+    @Override //AbstractFormController
     public void countSumNormTimeByShops(){
         String measure = MIN.getTimeName();
 

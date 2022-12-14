@@ -24,6 +24,9 @@ import java.util.ArrayList;
 public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
     @FXML
+    private ImageView ivOperation;
+
+    @FXML
     private TextField tfAssmName;
 
     @FXML

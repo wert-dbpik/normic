@@ -1,17 +1,19 @@
 package ru.wert.normic.controllers;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
+import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpPlate;
+import ru.wert.normic.menus.MenuPlate;
 
 import static ru.wert.normic.AppStatics.MEASURE;
 
@@ -36,7 +38,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     //Переменные
     protected double currentNormTime;
 
-    protected IFormController formController;
+    protected AbstractFormController formController;
 //    protected FormDetailController detailController;
     protected OpData opData;
 
@@ -59,6 +61,9 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
     public abstract void countNorm(OpData opData);
 
+    @FXML
+    private ImageView ivOperation;
+
     @FXML @Getter
     private TextField tfNormTime;
 
@@ -68,7 +73,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     @FXML
     private ImageView ivDeleteOperation;
 
-    public void init(IFormController formController, OpData opData) {
+    public void init(AbstractFormController formController, OpData opData) {
         this.formController = formController;
         this.opData = opData;
 
@@ -78,6 +83,12 @@ public abstract class AbstractOpPlate implements IOpPlate {
         fillOpData(opData);
 
         initViews(opData);
+
+        ivOperation.setOnMouseClicked(e->{
+            if(e.getButton().equals(MouseButton.SECONDARY)){
+                new MenuPlate().create().show(ivOperation, Side.RIGHT, 0.0, 30.0);
+            }
+        });
 
         ivDeleteOperation.setOnMouseClicked(e->{
             formController.getAddedPlates().remove(this);

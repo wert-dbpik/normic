@@ -14,6 +14,9 @@ import ru.wert.normic.utils.IntegerParser;
 public class PlateAssmNodesController extends AbstractOpPlate {
 
     @FXML
+    private ImageView ivOperation;
+
+    @FXML
     private TextField tfMirrors;
 
     @FXML

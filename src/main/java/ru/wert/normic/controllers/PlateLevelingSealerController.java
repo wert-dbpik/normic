@@ -18,6 +18,9 @@ import ru.wert.normic.utils.IntegerParser;
 public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @FXML
+    private ImageView ivOperation;
+
+    @FXML
     private Label lblOperationName;
 
     @FXML

@@ -2,7 +2,6 @@ package ru.wert.normic.controllers.forms;
 
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +17,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import ru.wert.normic.AppStatics;
-import ru.wert.normic.MenuCalculator;
+import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.PlateAssmController;
@@ -26,7 +25,6 @@ import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.interfaces.IFormController;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 
@@ -42,7 +40,7 @@ import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 @Slf4j
-public class MainController implements IFormController {
+public class MainController extends AbstractFormController {
 
     @FXML
     private ImageView ivSave;
@@ -77,15 +75,16 @@ public class MainController implements IFormController {
     @FXML
     private Label lblTimeMeasure;
 
-    private MenuCalculator menu;
-
     @FXML @Getter
     private TextField tfTotalTime;
+
+    private MenuCalculator menu;
+
 
     @Getter private ObservableList<AbstractOpPlate> addedPlates;
     @Getter private List<OpData> addedOperations;
 
-    @Getter //IFormController
+    @Getter //AbstractFormController
     private OpAssm opData;
 
     @FXML
@@ -215,7 +214,7 @@ public class MainController implements IFormController {
     /**
      * Метод расчитывает суммарное время по участкам
      */
-    @Override //IFormController
+    @Override //AbstractFormController
     public void countSumNormTimeByShops(){
         String measure = MIN.getTimeName();
 
@@ -316,7 +315,7 @@ public class MainController implements IFormController {
     }
 
     @Override
-    public void init(IFormController controller, TextField tfName, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, OpData opData) {
         //НЕ ИСПОЛЬЗУЕТСЯ
     }
 

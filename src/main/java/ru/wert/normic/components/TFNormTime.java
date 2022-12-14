@@ -1,12 +1,12 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.interfaces.IFormController;
+import ru.wert.normic.controllers.forms.AbstractFormController;
 
 public class TFNormTime {
 
 
-    public TFNormTime(TextField tf, IFormController controller) {
+    public TFNormTime(TextField tf, AbstractFormController controller) {
 
         tf.textProperty().addListener((observable) -> {
             controller.countSumNormTimeByShops();

@@ -15,6 +15,9 @@ import ru.wert.normic.utils.IntegerParser;
 public class PlatePaintAssmController extends AbstractOpPlate {
 
     @FXML
+    private ImageView ivOperation;
+
+    @FXML
     private Label lblOperationName;
 
     @FXML

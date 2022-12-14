@@ -2,6 +2,7 @@ package ru.wert.normic.utils;
 
 import com.google.gson.Gson;
 
+import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ public class OpDataJsonConverter {
     static Gson gson;
 
     public static OpData convert(String jsonString) throws JSONException {
-        gson = new Gson();
+        gson = new GsonBuilder().disableHtmlEscaping().create();
         return convertOpData(new JSONObject(jsonString));
     }
 

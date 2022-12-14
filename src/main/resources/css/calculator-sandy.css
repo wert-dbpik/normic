@@ -18,6 +18,11 @@
     -fx-background-color: #f8f1db;
 }
 
+.text-field{
+    -fx-font-family: "Arial";
+    -fx-text-fill: darkblue;
+}
+
 
 .label{
     -fx-text-fill: #4f412f;

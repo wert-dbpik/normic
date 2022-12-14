@@ -2,6 +2,7 @@ package ru.wert.normic.controllers.forms;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -159,10 +160,10 @@ public class MainController implements IFormController {
     private void saveTextToFile(String content, File file) {
         try {
             PrintWriter writer;
-            writer = new PrintWriter(file, "UTF-8");
+            writer = new PrintWriter(file);
             writer.println(content);
             writer.close();
-        } catch (FileNotFoundException | UnsupportedEncodingException exception) {
+        } catch (FileNotFoundException exception) {
             log.error(String.format("Не удалось записать файл %s", file.getName()));
             exception.printStackTrace();
         }
@@ -182,7 +183,7 @@ public class MainController implements IFormController {
             opData = gson.fromJson(str, listType);
 
             deployJson(str);
-
+            countSumNormTimeByShops();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

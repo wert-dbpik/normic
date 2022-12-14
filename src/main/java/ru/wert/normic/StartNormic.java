@@ -11,6 +11,7 @@ import ru.wert.normic.decoration.DecorationStatic;
 import ru.wert.normic.decoration.warnings.Warning1;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import static ru.wert.normic.AppStatics.PROJECT_VERSION;
 import static ru.wert.normic.ChogoriServices.initQuickServices;
@@ -35,6 +36,7 @@ public class StartNormic extends Application {
     }
 
     public static void main(String[] args) {
+        Locale.setDefault(new Locale("ru"));
         LauncherImpl.launchApplication(StartNormic.class, args);
     }
 

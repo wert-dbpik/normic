@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.AbstractOpPlate;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
@@ -20,7 +20,7 @@ import ru.wert.normic.interfaces.IFormController;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.wert.normic.AbstractOpPlate.*;
+import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 

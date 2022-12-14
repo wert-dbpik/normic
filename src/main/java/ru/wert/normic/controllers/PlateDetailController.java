@@ -11,9 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.*;
 import ru.wert.normic.components.TFColoredInteger;
-import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpData;
@@ -26,6 +24,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
+
+    @FXML
+    private VBox vbPlate;
 
     @FXML
     private TextField tfName;
@@ -48,6 +49,12 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     @FXML
     private Label lblQuantity;
 
+    @FXML
+    private Parent mover; //embeddedElement
+
+    @FXML
+    private MoverController moverController;
+
     //Переменные
     private int quantity;
     @Setter@Getter
@@ -60,11 +67,15 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     private String detailName;
 
     private FormDetailController formDetailController;
-    
+
+    protected static double dragOffsetX;
+    protected static double dragOffsetY;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpDetail opData = (OpDetail)data;
+
+        moverController.init(this, vbPlate);
 
         new TFColoredInteger(tfN, null);
 

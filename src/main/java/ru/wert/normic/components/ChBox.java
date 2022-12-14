@@ -1,7 +1,7 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.CheckBox;
-import ru.wert.normic.AbstractOpPlate;
+import ru.wert.normic.controllers.AbstractOpPlate;
 
 public class ChBox {
 

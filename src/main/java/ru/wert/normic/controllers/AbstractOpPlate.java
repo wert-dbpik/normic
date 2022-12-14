@@ -1,4 +1,4 @@
-package ru.wert.normic;
+package ru.wert.normic.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

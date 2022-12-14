@@ -1,7 +1,7 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.AbstractOpPlate;
+import ru.wert.normic.controllers.AbstractOpPlate;
 
 /**
  * Класс перехватывает ошибочно введенные значения,

@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import ru.wert.normic.AbstractOpPlate;
 import ru.wert.normic.components.TFColoredInteger;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpData;

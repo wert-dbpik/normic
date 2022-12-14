@@ -1,8 +1,7 @@
-package ru.wert.normic;
+package ru.wert.normic.controllers.forms;
 
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,13 +15,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import ru.wert.normic.AppStatics;
+import ru.wert.normic.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.PlateAssmController;
 import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IFormController;
+import ru.wert.normic.utils.OpDataJsonConverter;
 
 
 import java.io.*;
@@ -32,7 +36,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.wert.normic.AbstractOpPlate.*;
+import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
@@ -123,15 +127,19 @@ public class MainController implements IFormController {
         });
 
         ivErase.setOnMouseClicked(e->{
-            opData.getOperations().clear();
-            addedPlates.clear();
-            addedOperations.clear();
-            listViewTechOperations.getItems().clear();
-            countSumNormTimeByShops();
-            PlateDetailController.nameIndex = 0;
-            PlateAssmController.nameIndex = 0;
+            clearAll();
         });
 
+    }
+
+    private void clearAll() {
+        opData.getOperations().clear();
+        addedPlates.clear();
+        addedOperations.clear();
+        listViewTechOperations.getItems().clear();
+        countSumNormTimeByShops();
+        PlateDetailController.nameIndex = 0;
+        PlateAssmController.nameIndex = 0;
     }
 
     private void save(MouseEvent e){
@@ -166,13 +174,14 @@ public class MainController implements IFormController {
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
         File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
         if(file == null) return;
+        clearAll();
         try {
             String str = new String(Files.readAllBytes(Paths.get(file.toString())));
             Gson gson = new Gson();
             Type listType = new TypeToken<OpAssm>(){}.getType();
             opData = gson.fromJson(str, listType);
 
-            deployData(opData);
+            deployJson(str);
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -293,6 +302,15 @@ public class MainController implements IFormController {
                     menu.addLevelingSealerPlate((OpLevelingSealer) op);
                     break;
             }
+        }
+    }
+
+    private void deployJson(String jsonString) {
+        try {
+            opData = (OpAssm) OpDataJsonConverter.convert(jsonString);
+            deployData(opData);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

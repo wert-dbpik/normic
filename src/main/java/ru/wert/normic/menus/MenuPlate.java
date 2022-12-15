@@ -32,7 +32,9 @@ public class MenuPlate {
         delete.setOnAction(plate::deleteOperation);
         delete.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/close.png").toString(), 24, 24, true, true)));
 
+        if(!plate.isPastePossible(null)) paste.setDisable(true);
         contextMenu.getItems().addAll(copy, cut, paste, delete);
+
 
         return contextMenu;
     }

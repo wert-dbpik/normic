@@ -35,7 +35,8 @@ import static ru.wert.normic.enums.EOpType.*;
  */
 public abstract class AbstractOpPlate implements IOpPlate {
 
-    public static OpData bufferedOpData;
+    public static OpData bufferedOpData = null;
+    public static boolean deleteWhenPaste;
     private final List<EOpType> restrictedForDetail = Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
     private final List<EOpType> restrictedForAssm = Arrays.asList(CUTTING, BENDING, PAINTING);
 
@@ -129,25 +130,34 @@ public abstract class AbstractOpPlate implements IOpPlate {
         bufferedOpData = formController.getAddedOperations().get(selectedIndex);
     }
 
-    public void pasteOperation(Event e) {
-        if(bufferedOpData == null) return;
+    public boolean isPastePossible(Event e){
+        if(bufferedOpData == null) return false;
 
         int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
         OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
-        if(selectedOpData.equals(bufferedOpData)) return;
+        if(selectedOpData.equals(bufferedOpData)) return false;
         if(selectedOpData instanceof OpDetail) {
-            if (restrictedForDetail.contains(bufferedOpData.getOpType())) return;
+            return !restrictedForDetail.contains(bufferedOpData.getOpType());
+        }
+        else if(selectedOpData instanceof OpAssm) {
+            return !restrictedForAssm.contains(bufferedOpData.getOpType());
+        }
+        return true;
+    }
+
+    public void pasteOperation(Event e) {
+        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
+        if(selectedOpData instanceof OpDetail) {
             ((OpDetail) selectedOpData).getOperations().add(bufferedOpData);
             bufferedOpData = null;
         }
         else if(selectedOpData instanceof OpAssm) {
-            if (restrictedForAssm.contains(bufferedOpData.getOpType())) return;
             ((OpAssm) selectedOpData).getOperations().add(bufferedOpData);
             bufferedOpData = null;
         }
         formController.fillOpData();
         formController.countSumNormTimeByShops();
-
     }
 
     /**

@@ -29,6 +29,9 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     private ImageView ivOperation;
 
     @FXML
+    private ImageView hbOperation;
+
+    @FXML
     private VBox vbPlate;
 
     @FXML

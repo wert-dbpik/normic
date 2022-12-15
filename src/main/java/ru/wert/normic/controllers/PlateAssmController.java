@@ -27,6 +27,9 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     private ImageView ivOperation;
 
     @FXML
+    private ImageView hbOperation;
+
+    @FXML
     private TextField tfAssmName;
 
     @FXML

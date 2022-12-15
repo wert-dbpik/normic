@@ -17,6 +17,9 @@ public class PlateLocksmithController extends AbstractOpPlate {
     private ImageView ivOperation;
 
     @FXML
+    private ImageView hbOperation;
+
+    @FXML
     private TextField tfNormTime;
 
     @FXML

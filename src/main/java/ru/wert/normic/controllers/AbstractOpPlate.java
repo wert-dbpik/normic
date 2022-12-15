@@ -1,21 +1,29 @@
 package ru.wert.normic.controllers;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.menus.MenuPlate;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static ru.wert.normic.AppStatics.MEASURE;
+import static ru.wert.normic.enums.EOpType.*;
 
 
 /**
@@ -24,6 +32,10 @@ import static ru.wert.normic.AppStatics.MEASURE;
  * Конвертация в секунды происходит в методе setTimeMeasurement()
  */
 public abstract class AbstractOpPlate implements IOpPlate {
+
+    public static OpData bufferedOpData;
+    private final List<EOpType> restrictedForDetail = Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
+    private final List<EOpType> restrictedForAssm = Arrays.asList(CUTTING, BENDING, PAINTING);
 
     // КОНСТАНТЫ
     public static final double MM_TO_M = 0.001; //перевод мм в метры
@@ -62,7 +74,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public abstract void countNorm(OpData opData);
 
     @FXML
-    private ImageView ivOperation;
+    private HBox hbOperation;
 
     @FXML @Getter
     private TextField tfNormTime;
@@ -72,6 +84,9 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
     @FXML
     private ImageView ivDeleteOperation;
+
+    public AbstractOpPlate() {
+    }
 
     public void init(AbstractFormController formController, OpData opData) {
         this.formController = formController;
@@ -84,25 +99,50 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         initViews(opData);
 
-        ivOperation.setOnMouseClicked(e->{
+        hbOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.SECONDARY)){
-                new MenuPlate().create().show(ivOperation, Side.RIGHT, 0.0, 30.0);
+                new MenuPlate().create(this).show(null, Side.RIGHT, 0.0, 0.0);
             }
         });
 
-        ivDeleteOperation.setOnMouseClicked(e->{
-            formController.getAddedPlates().remove(this);
-            VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-            formController.getListViewTechOperations().getItems().remove(box);
-            formController.getAddedOperations().remove(this.getOpData());
-            formController.countSumNormTimeByShops();
-        });
+        ivDeleteOperation.setOnMouseClicked(this::deleteOperation);
 
         countNorm(opData);
 
     }
 
-    public AbstractOpPlate() {
+    public void deleteOperation(Event e) {
+        formController.getAddedPlates().remove(this);
+        VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+        formController.getListViewTechOperations().getItems().remove(box);
+        formController.getAddedOperations().remove(this.getOpData());
+        formController.countSumNormTimeByShops();
+    }
+
+    public void copyOperation(Event e){
+        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        bufferedOpData = formController.getAddedOperations().get(selectedIndex);
+    }
+
+    public void pasteOperation(Event e) {
+        if(bufferedOpData == null) return;
+
+        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
+        if(selectedOpData.equals(bufferedOpData)) return;
+        if(selectedOpData instanceof OpDetail) {
+            if (restrictedForDetail.contains(bufferedOpData.getOpType())) return;
+            ((OpDetail) selectedOpData).getOperations().add(bufferedOpData);
+            bufferedOpData = null;
+        }
+        else if(selectedOpData instanceof OpAssm) {
+            if (restrictedForAssm.contains(bufferedOpData.getOpType())) return;
+            ((OpAssm) selectedOpData).getOperations().add(bufferedOpData);
+            bufferedOpData = null;
+        }
+        formController.fillOpData();
+        formController.countSumNormTimeByShops();
+
     }
 
     /**

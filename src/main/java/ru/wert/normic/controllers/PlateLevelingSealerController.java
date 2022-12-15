@@ -21,6 +21,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     private ImageView ivOperation;
 
     @FXML
+    private ImageView hbOperation;
+
+    @FXML
     private Label lblOperationName;
 
     @FXML

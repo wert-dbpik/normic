@@ -227,7 +227,8 @@ public class FormAssmController extends AbstractFormController {
         }
     }
 
-    private void fillOpData(){
+    @Override //AbstractFormController
+    public void fillOpData(){
         if(!opData.getOperations().isEmpty())
             deployData(opData);
     }

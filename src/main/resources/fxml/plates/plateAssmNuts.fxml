@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxWidth="1.7976931348623157E308" prefHeight="273.0" prefWidth="441.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.PlateAssmNutsController">
+<VBox fx:id="hbOperation" maxWidth="1.7976931348623157E308" prefHeight="273.0" prefWidth="441.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.PlateAssmNutsController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>

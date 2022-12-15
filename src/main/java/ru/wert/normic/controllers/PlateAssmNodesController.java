@@ -17,6 +17,9 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     private ImageView ivOperation;
 
     @FXML
+    private ImageView hbOperation;
+
+    @FXML
     private TextField tfMirrors;
 
     @FXML

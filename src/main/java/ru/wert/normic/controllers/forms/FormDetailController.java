@@ -274,7 +274,8 @@ public class FormDetailController extends AbstractFormController {
         }
     }
 
-    private void fillOpData(){
+    @Override //AbstractFormController
+    public void fillOpData(){
 
         if(opData.getMaterial() != null)
             cmbxMaterial.setValue(opData.getMaterial());

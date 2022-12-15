@@ -26,5 +26,7 @@ public abstract class AbstractFormController implements IForm {
 
     public abstract OpData getOpData();
 
+    public abstract void fillOpData();
+
 
 }

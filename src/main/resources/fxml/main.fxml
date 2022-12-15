@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="main" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.MainController">
+<VBox fx:id="main" prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.MainController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -127,7 +127,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfMechanicalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
+                        <TextField fx:id="tfMechanicalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="5.0">
@@ -137,7 +137,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfPaintingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
+                        <TextField fx:id="tfPaintingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="5.0">
@@ -147,7 +147,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfAssemblingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
+                        <TextField fx:id="tfAssemblingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" spacing="5.0">
@@ -157,33 +157,29 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="tfPackingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
+                        <TextField fx:id="tfPackingTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                      </children>
                   </VBox>
                   <Separator orientation="VERTICAL" />
-                  <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                  <VBox alignment="TOP_CENTER" spacing="5.0">
                      <children>
-                        <VBox alignment="TOP_CENTER">
+                        <HBox alignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER">
-                                 <children>
-                                    <Label text="Всего, ">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="lblTimeMeasure" text="мин">
-                                       <font>
-                                          <Font name="System Bold" size="16.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <TextField fx:id="tfTotalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                              <Label text="Всего, ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblTimeMeasure" text="мин">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </VBox>
+                        </HBox>
+                        <TextField fx:id="tfTotalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="90.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </HBox>
          </children>

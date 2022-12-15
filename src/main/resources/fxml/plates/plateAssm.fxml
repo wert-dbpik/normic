@@ -12,7 +12,7 @@
 
 <VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.PlateAssmController">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -27,21 +27,22 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfAssmName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="tfAssmName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></TextField>
+            <Label fx:id="lblQuantity1" text="ППК*" textFill="#2f23d0">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="chbxPPK" mnemonicParsing="false" />
             <Label fx:id="lblQuantity" text="КОЛ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="tfN" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
-            <ImageView fx:id="ivCopy" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../pics/btns/copy.png" />
-               </image>
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-            </ImageView>
+            <TextField fx:id="tfN" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
             <ImageView fx:id="ivEdit" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../pics/btns/edit.png" />
@@ -50,8 +51,16 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
             </ImageView>
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
+                  <ImageView fx:id="ivContextMenu" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../pics/btns/control.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <ImageView fx:id="ivDeleteOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../pics/btns/close.png" />
@@ -66,6 +75,6 @@
       </HBox>
    </children>
    <padding>
-      <Insets left="10.0" right="10.0" />
+      <Insets left="5.0" right="5.0" />
    </padding>
 </VBox>

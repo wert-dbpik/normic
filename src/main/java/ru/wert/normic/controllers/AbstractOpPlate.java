@@ -2,15 +2,12 @@ package ru.wert.normic.controllers;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Window;
 import lombok.Getter;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
@@ -115,13 +112,13 @@ public abstract class AbstractOpPlate implements IOpPlate {
             }
         });
 
-        ivDeleteOperation.setOnMouseClicked(this::deleteOperation);
+        ivDeleteOperation.setOnMouseClicked(this::deleteSelectedOperation);
 
         countNorm(opData);
 
     }
 
-    public void deleteOperation(Event e) {
+    public void deleteSelectedOperation(Event e) {
         formController.getAddedPlates().remove(this);
         VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
         formController.getListViewTechOperations().getItems().remove(box);
@@ -161,14 +158,12 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public void pasteOperation(Event e) {
         int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
         OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
-
-        ((IOpWithOperations) selectedOpData).getOperations().add(bufferedOpData);
+        //Сначала удаляем bufferedOpData из whereFromController
         if (deleteWhenPaste) {
-            ((IOpWithOperations)whereFromController.getOpData()).getOperations().remove(bufferedOpData);
-            whereFromController.getListViewTechOperations().getItems().remove(bufferedOpData);
-            whereFromController.getAddedPlates().clear();
-            whereFromController.countSumNormTimeByShops();
+            whereFromController.deleteOperation(bufferedOpData);
         }
+        //Потом вставляем bufferedOpData в selectedOpData
+        ((IOpWithOperations) selectedOpData).getOperations().add(bufferedOpData);
 
         bufferedOpData = null;
         whereFromController = null;

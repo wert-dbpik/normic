@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.*;
@@ -75,16 +76,11 @@ public class FormDetailController extends AbstractFormController {
 
     private MenuCalculator menu;
 
-    @Getter //AbstractFormController
-    private OpDetail opData;
-
     private double ro; //Плотность
     private double t; //Толщина
     private int paramA; //параметр А
     private int paramB; //параметр B
 
-    @Getter private ObservableList<AbstractOpPlate> addedPlates;
-    @Getter private List<OpData> addedOperations;
     private AbstractFormController controller;
 
     @Override //AbstractFormController
@@ -103,7 +99,7 @@ public class FormDetailController extends AbstractFormController {
 
         //Инициализируем наименование
         if(tfName != null) {
-            this.opData.setName(tfName.getText());
+            ((OpDetail)this.opData).setName(tfName.getText());
             tfDetailName.setText(tfName.getText());
             tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
         }
@@ -145,7 +141,7 @@ public class FormDetailController extends AbstractFormController {
         });
 
         ivErase.setOnMouseClicked(e->{
-            opData.getOperations().clear();
+            ((IOpWithOperations)opData).getOperations().clear();
             addedPlates.clear();
             addedOperations.clear();
             listViewTechOperations.getItems().clear();
@@ -227,8 +223,8 @@ public class FormDetailController extends AbstractFormController {
 
     }
 
-    private void deployData(OpDetail opData) {
-        List<OpData> operations = opData.getOperations();
+    private void deployData(OpData opData) {
+        List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for (OpData op : operations) {
             switch (op.getOpType()) {
                 case DETAIL:
@@ -277,16 +273,16 @@ public class FormDetailController extends AbstractFormController {
     @Override //AbstractFormController
     public void fillOpData(){
 
-        if(opData.getMaterial() != null)
-            cmbxMaterial.setValue(opData.getMaterial());
+        if(((OpDetail)opData).getMaterial() != null)
+            cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
-        paramA = opData.getParamA();
+        paramA = ((OpDetail)opData).getParamA();
         tfA.setText(String.valueOf(paramA));
 
-        paramB = opData.getParamB();
+        paramB = ((OpDetail)opData).getParamB();
         tfB.setText(String.valueOf(paramB));
 
-        if(!opData.getOperations().isEmpty())
+        if(!((IOpWithOperations)opData).getOperations().isEmpty())
             deployData(opData);
     }
 

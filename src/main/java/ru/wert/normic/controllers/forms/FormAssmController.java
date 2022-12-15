@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.ETimeMeasurement;
@@ -60,13 +61,7 @@ public class FormAssmController extends AbstractFormController {
     @FXML @Getter
     private TextField tfTotalTime;
 
-    @Getter private ObservableList<AbstractOpPlate> addedPlates;
-    @Getter private List<OpData> addedOperations;
-
     private AbstractFormController controller;
-
-    @Getter //AbstractFormController
-    private OpAssm opData;
 
     @Override
     public void init(AbstractFormController controller, TextField tfName, OpData opData) {
@@ -84,7 +79,7 @@ public class FormAssmController extends AbstractFormController {
 
         //Инициализируем наименование
         if(tfName != null) {
-            this.opData.setName(tfName.getText());
+            ((OpAssm)this.opData).setName(tfName.getText());
             tfAssmName.setText(tfName.getText());
             tfAssmName.textProperty().bindBidirectional(tfName.textProperty());
         }
@@ -102,7 +97,7 @@ public class FormAssmController extends AbstractFormController {
         });
 
         ivErase.setOnMouseClicked(e->{
-            opData.getOperations().clear();
+            ((IOpWithOperations)opData).getOperations().clear();
             addedPlates.clear();
             addedOperations.clear();
             listViewTechOperations.getItems().clear();
@@ -180,8 +175,8 @@ public class FormAssmController extends AbstractFormController {
 
     }
 
-    private void deployData(OpAssm opData) {
-        List<OpData> operations = opData.getOperations();
+    private void deployData(OpData opData) {
+        List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for (OpData op : operations) {
             switch (op.getOpType()) {
                 case DETAIL:
@@ -229,7 +224,7 @@ public class FormAssmController extends AbstractFormController {
 
     @Override //AbstractFormController
     public void fillOpData(){
-        if(!opData.getOperations().isEmpty())
+        if(!((IOpWithOperations)opData).getOperations().isEmpty())
             deployData(opData);
     }
 

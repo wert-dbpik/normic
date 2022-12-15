@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.controllers.AbstractOpPlate;
@@ -82,12 +83,6 @@ public class MainController extends AbstractFormController {
     private MenuCalculator menu;
 
 
-    @Getter private ObservableList<AbstractOpPlate> addedPlates;
-    @Getter private List<OpData> addedOperations;
-
-    @Getter //AbstractFormController
-    private OpAssm opData;
-
     @FXML
     void initialize(){
         MAIN_CONTROLLER = this;
@@ -114,7 +109,7 @@ public class MainController extends AbstractFormController {
 
     @Override //AbstractFormController
     public void fillOpData(){
-        if(!opData.getOperations().isEmpty())
+        if(!((IOpWithOperations)opData).getOperations().isEmpty())
             deployData(opData);
     }
 
@@ -136,7 +131,7 @@ public class MainController extends AbstractFormController {
     }
 
     private void clearAll() {
-        opData.getOperations().clear();
+        ((IOpWithOperations)opData).getOperations().clear();
         addedPlates.clear();
         addedOperations.clear();
         listViewTechOperations.getItems().clear();
@@ -145,17 +140,17 @@ public class MainController extends AbstractFormController {
         PlateAssmController.nameIndex = 0;
     }
 
-    private void save(MouseEvent e){
-            FileChooser chooser = new FileChooser();
-            chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
-            chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
-            File file = chooser.showSaveDialog(((Node)e.getSource()).getScene().getWindow());
-            if(file == null) return;
-            AppProperties.getInstance().setSavesDirectory(file.getParent());
-            opData.setOperations(new ArrayList<>(addedOperations));
-            Gson gson = new Gson();
-            String json = gson.toJson(opData);
-            saveTextToFile(json, file);
+    private void save(MouseEvent e) {
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
+        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File file = chooser.showSaveDialog(((Node) e.getSource()).getScene().getWindow());
+        if (file == null) return;
+        AppProperties.getInstance().setSavesDirectory(file.getParent());
+        ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
+        Gson gson = new Gson();
+        String json = gson.toJson(opData);
+        saveTextToFile(json, file);
 
     }
 
@@ -261,8 +256,8 @@ public class MainController extends AbstractFormController {
 
     }
 
-    private void deployData(OpAssm opData) {
-        List<OpData> operations = opData.getOperations();
+    private void deployData(OpData opData) {
+        List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for (OpData op : operations) {
             switch (op.getOpType()) {
                 case DETAIL:

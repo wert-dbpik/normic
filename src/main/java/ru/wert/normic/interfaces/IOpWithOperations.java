@@ -7,4 +7,6 @@ import java.util.List;
 public interface IOpWithOperations {
 
     List<OpData> getOperations();
+
+    void setOperations(List<OpData> operations);
 }

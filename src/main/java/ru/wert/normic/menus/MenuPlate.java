@@ -1,6 +1,5 @@
 package ru.wert.normic.menus;
 
-import javafx.event.Event;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -30,7 +29,7 @@ public class MenuPlate {
         paste.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/paste.png").toString(), 24, 24, true, true)));
 
         MenuItem delete = new MenuItem("Удалить");
-        delete.setOnAction(plate::deleteOperation);
+        delete.setOnAction(plate::deleteSelectedOperation);
         delete.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/close.png").toString(), 24, 24, true, true)));
 
         if(!plate.isPastePossible(null)) paste.setDisable(true);

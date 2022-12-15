@@ -18,7 +18,7 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     private ImageView ivOperation;
 
     @FXML
-    private VBox hbOperation;
+    private VBox vbOperation;
 
     @FXML
     private Label lblOperationName;

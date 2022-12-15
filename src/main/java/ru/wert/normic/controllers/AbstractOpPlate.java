@@ -3,12 +3,14 @@ package ru.wert.normic.controllers;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 import lombok.Getter;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
@@ -74,7 +76,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public abstract void countNorm(OpData opData);
 
     @FXML
-    private HBox hbOperation;
+    private VBox vbOperation;
 
     @FXML @Getter
     private TextField tfNormTime;
@@ -99,9 +101,12 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         initViews(opData);
 
-        hbOperation.setOnMouseClicked(e->{
+        vbOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.SECONDARY)){
-                new MenuPlate().create(this).show(null, Side.RIGHT, 0.0, 0.0);
+                new MenuPlate().create(this).show(
+                        ((Node)e.getSource()).getScene().getWindow(),
+                        e.getScreenX(),
+                        e.getScreenY());
             }
         });
 

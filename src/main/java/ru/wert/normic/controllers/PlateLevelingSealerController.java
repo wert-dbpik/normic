@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXSealersWidth;
 import ru.wert.normic.components.CmBx;
 import ru.wert.normic.components.TFColoredInteger;
@@ -21,7 +22,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     private ImageView ivOperation;
 
     @FXML
-    private ImageView hbOperation;
+    private VBox vbOperation;
 
     @FXML
     private Label lblOperationName;

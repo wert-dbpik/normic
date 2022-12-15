@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     private ImageView ivOperation;
 
     @FXML
-    private ImageView hbOperation;
+    private VBox vbOperation;
 
     @FXML
     private TextField tfAssmName;

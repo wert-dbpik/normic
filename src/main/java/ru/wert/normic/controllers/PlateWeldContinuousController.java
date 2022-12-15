@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpWeldContinuous;
@@ -20,7 +21,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private ImageView ivOperation;
 
     @FXML
-    private ImageView hbOperation;
+    private VBox vbOperation;
 
     @FXML
     private Label lblOperationName;

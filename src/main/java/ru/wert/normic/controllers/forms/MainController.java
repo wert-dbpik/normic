@@ -35,6 +35,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -89,6 +90,8 @@ public class MainController extends AbstractFormController {
 
     @FXML
     void initialize(){
+        MAIN_CONTROLLER = this;
+
         AppStatics.MEASURE = cmbxTimeMeasurement;
         opData = new OpAssm();
 

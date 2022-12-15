@@ -19,6 +19,7 @@ import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpPlate;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuPlate;
 
 import java.util.Arrays;
@@ -35,10 +36,13 @@ import static ru.wert.normic.enums.EOpType.*;
  */
 public abstract class AbstractOpPlate implements IOpPlate {
 
-    public static OpData bufferedOpData = null;
-    public static boolean deleteWhenPaste;
-    private final List<EOpType> restrictedForDetail = Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
-    private final List<EOpType> restrictedForAssm = Arrays.asList(CUTTING, BENDING, PAINTING);
+    public static OpData bufferedOpData = null; //Операция, хранимая для копирования/вырезания
+    public static AbstractFormController whereFromController; //Операция в которой находится bufferedOpData
+    public static boolean deleteWhenPaste; //Флаг удаления bufferedOpData после вставки
+    private final List<EOpType> restrictedForDetail =  //Перечень операций, которые нельзя добавить в Деталь
+            Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
+    private final List<EOpType> restrictedForAssm = //Перечень операций, которые нельзя добавить в Сборку
+            Arrays.asList(CUTTING, BENDING, PAINTING);
 
     // КОНСТАНТЫ
     public static final double MM_TO_M = 0.001; //перевод мм в метры
@@ -125,9 +129,18 @@ public abstract class AbstractOpPlate implements IOpPlate {
         formController.countSumNormTimeByShops();
     }
 
+    public void cutOperation(Event e){
+        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        bufferedOpData = formController.getAddedOperations().get(selectedIndex);
+        whereFromController = formController;
+        deleteWhenPaste = true;
+    }
+
     public void copyOperation(Event e){
         int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
         bufferedOpData = formController.getAddedOperations().get(selectedIndex);
+        whereFromController = formController;
+        deleteWhenPaste = false;
     }
 
     public boolean isPastePossible(Event e){
@@ -148,14 +161,18 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public void pasteOperation(Event e) {
         int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
         OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
-        if(selectedOpData instanceof OpDetail) {
-            ((OpDetail) selectedOpData).getOperations().add(bufferedOpData);
-            bufferedOpData = null;
+
+        ((IOpWithOperations) selectedOpData).getOperations().add(bufferedOpData);
+        if (deleteWhenPaste) {
+            ((IOpWithOperations)whereFromController.getOpData()).getOperations().remove(bufferedOpData);
+            whereFromController.getListViewTechOperations().getItems().remove(bufferedOpData);
+            whereFromController.getAddedPlates().clear();
+            whereFromController.countSumNormTimeByShops();
         }
-        else if(selectedOpData instanceof OpAssm) {
-            ((OpAssm) selectedOpData).getOperations().add(bufferedOpData);
-            bufferedOpData = null;
-        }
+
+        bufferedOpData = null;
+        whereFromController = null;
+
         formController.fillOpData();
         formController.countSumNormTimeByShops();
     }

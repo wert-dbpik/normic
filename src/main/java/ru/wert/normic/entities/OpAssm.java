@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class OpAssm extends OpData {
+public class OpAssm extends OpData  implements IOpWithOperations {
 
     private String name = null;
     private List<OpData> operations = new ArrayList<>();

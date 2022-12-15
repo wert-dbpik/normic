@@ -6,6 +6,7 @@ import lombok.Setter;
 import ru.wert.normic.entities.db_connection.Material;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class OpDetail extends OpData {
+public class OpDetail extends OpData implements IOpWithOperations {
 
     private String name = null;
     private Material material = null;

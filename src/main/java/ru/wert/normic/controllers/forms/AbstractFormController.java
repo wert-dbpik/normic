@@ -28,5 +28,4 @@ public abstract class AbstractFormController implements IForm {
 
     public abstract void fillOpData();
 
-
 }

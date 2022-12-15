@@ -22,6 +22,7 @@ public class MenuPlate {
         copy.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/copy.png").toString(), 24, 24, true, true)));
 
         MenuItem cut = new MenuItem("Вырезать");
+        cut.setOnAction(plate::cutOperation);
         cut.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/cut.png").toString(), 24, 24, true, true)));
 
         MenuItem paste = new MenuItem("Вставить");

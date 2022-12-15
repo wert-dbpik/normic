@@ -72,8 +72,13 @@ public class DecorationStatic {
             window.setX(screenList.get(monitor).getVisualBounds().getMinX());
             window.setY(screenList.get(monitor).getVisualBounds().getMinY());
         } else {
-            window.setX(owner.getX() + 40);
-            window.setY(owner.getY() + 40);
+            if(WF_MAIN_STAGE.isFullScreen()){
+                centerWindow(window, false, monitor);
+            } else {
+                window.setX(owner.getX() + 40);
+                window.setY(owner.getY() + 40);
+            }
+
         }
 
     }

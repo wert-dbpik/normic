@@ -78,13 +78,18 @@ public class DecorationController {
      * или сворчивание окна до предыдущего состояния
      */
     @FXML
-    void maximizeWindow(MouseEvent e){
-        window = (Stage) ((Node)e.getSource()).getScene().getWindow();
-        if(!isExpanded){
+    void maximizeWindow(MouseEvent e) {
+        window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        if (!isExpanded) {
             saveWindowCoordinates(window);
             changeSizeOfWindow(window, e);
-        } else
+            //При условии, что на весь экран раскрывается только главное окно
+            WF_MAIN_STAGE.setFullScreen(true);
+        } else {
             changeSizeOfWindow(window, e);
+            //При условии, что на весь экран раскрывается только главное окно
+            WF_MAIN_STAGE.setFullScreen(false);
+        }
 
     }
 

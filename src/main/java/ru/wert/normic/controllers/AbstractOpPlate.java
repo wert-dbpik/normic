@@ -77,6 +77,10 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
     public abstract void countNorm(OpData opData);
 
+
+    @FXML
+    private ImageView ivContextMenu;
+
     @FXML
     private VBox vbOperation;
 
@@ -103,8 +107,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         initViews(opData);
 
-        vbOperation.setOnMouseClicked(e->{
-            if(e.getButton().equals(MouseButton.SECONDARY)){
+        ivContextMenu.setOnMouseClicked(e->{
+            if(e.getButton().equals(MouseButton.PRIMARY)){
                 new MenuPlate().create(this).show(
                         ((Node)e.getSource()).getScene().getWindow(),
                         e.getScreenX(),

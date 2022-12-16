@@ -25,14 +25,14 @@ import java.util.ArrayList;
 
 public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
+
+    @FXML
+    private ImageView ivContextMenu;
     @FXML
     private ImageView ivOperation;
 
     @FXML
     private VBox vbOperation;
-
-    @FXML
-    private VBox vbPlate;
 
     @FXML
     private TextField tfName;

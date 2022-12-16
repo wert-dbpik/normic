@@ -74,8 +74,6 @@ public class FormDetailController extends AbstractFormController {
     @FXML @Getter
     private TextField tfTotalTime;
 
-    private MenuCalculator menu;
-
     private double ro; //Плотность
     private double t; //Толщина
     private int paramA; //параметр А
@@ -159,9 +157,7 @@ public class FormDetailController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddPainting());
 
-        ivAddOperation.setOnMouseClicked(e->{
-            menu.show(ivAddOperation, Side.LEFT, -15.0, 30.0);
-        });
+        tyeMenuToButton();
     }
 
     private void countWeightAndArea() {

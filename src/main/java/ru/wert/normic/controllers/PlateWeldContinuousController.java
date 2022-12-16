@@ -18,6 +18,9 @@ import ru.wert.normic.utils.IntegerParser;
 public class PlateWeldContinuousController extends AbstractOpPlate {
 
     @FXML
+    private ImageView ivContextMenu;
+
+    @FXML
     private ImageView ivOperation;
 
     @FXML

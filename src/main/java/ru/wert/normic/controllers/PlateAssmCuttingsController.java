@@ -15,6 +15,9 @@ import ru.wert.normic.utils.DoubleParser;
 public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @FXML
+    private ImageView ivContextMenu;
+
+    @FXML
     private ImageView ivOperation;
 
     @FXML

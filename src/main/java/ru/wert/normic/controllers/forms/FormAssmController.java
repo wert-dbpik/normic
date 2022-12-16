@@ -56,8 +56,6 @@ public class FormAssmController extends AbstractFormController {
     @FXML
     private Label lblTimeMeasure;
 
-    private MenuCalculator menu;
-
     @FXML @Getter
     private TextField tfTotalTime;
 
@@ -120,9 +118,7 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddLevelingSealer());
 
-        ivAddOperation.setOnMouseClicked(e->{
-            menu.show(ivAddOperation, Side.LEFT, -15.0, 30.0);
-        });
+        tyeMenuToButton();
     }
 
 

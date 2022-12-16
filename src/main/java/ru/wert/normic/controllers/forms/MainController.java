@@ -10,6 +10,7 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -26,6 +27,7 @@ import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
+import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 
@@ -80,7 +82,7 @@ public class MainController extends AbstractFormController {
     @FXML @Getter
     private TextField tfTotalTime;
 
-    private MenuCalculator menu;
+
 
 
     @FXML
@@ -203,9 +205,8 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddLevelingSealer());
 
-        ivAddOperation.setOnMouseClicked(e->{
-            menu.show(ivAddOperation, Side.LEFT, -15.0, 30.0);
-        });
+        tyeMenuToButton();
+
     }
 
 

@@ -129,11 +129,6 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="ivHelpOnTechnologicalProcessing" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/help.png" />
-                     </image>
-                  </ImageView>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">

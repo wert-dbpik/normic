@@ -22,6 +22,9 @@ import ru.wert.normic.utils.IntegerParser;
 public class PlateCuttingController extends AbstractOpPlate {
 
     @FXML
+    private ImageView ivContextMenu;
+
+    @FXML
     private ImageView ivOperation;
 
     @FXML

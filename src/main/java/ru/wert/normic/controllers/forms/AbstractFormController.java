@@ -49,7 +49,7 @@ public abstract class AbstractFormController implements IForm {
         List<OpData> ops = getAddedOperations();
         for(OpData op : ops){
             if(op instanceof IOpWithOperations)
-                area += ((IOpWithOperations) op).getArea();
+                area += ((IOpWithOperations) op).getArea() * op.getQuantity();
         }
         formAreaProperty.set(area);
     }

@@ -14,6 +14,7 @@ import java.util.List;
 public class OpAssm extends OpData  implements IOpWithOperations {
 
     private String name = null;
+    private double area = 0.0;
     private List<OpData> operations = new ArrayList<>();
 
     public OpAssm() {

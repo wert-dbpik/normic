@@ -1,5 +1,8 @@
 package ru.wert.normic.controllers.forms;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
@@ -12,8 +15,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.interfaces.IForm;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 
 import java.util.List;
@@ -26,19 +32,27 @@ public abstract class AbstractFormController implements IForm {
     @Getter protected ObservableList<AbstractOpPlate> addedPlates;
     @Getter protected List<OpData> addedOperations;
 
-    @FXML
-    @Getter
+    @Getter protected DoubleProperty formAreaProperty = new SimpleDoubleProperty(0.0);
+
+    @FXML @Getter
     private ListView<VBox> listViewTechOperations;
 
     @FXML
     private ImageView ivAddOperation;
 
-
-    public abstract ListView<VBox> getListViewTechOperations();
-
     public abstract void countSumNormTimeByShops();
 
     public abstract void fillOpData();
+
+    public void calculateAreaByDetails(){
+        double area = 0.0;
+        List<OpData> ops = getAddedOperations();
+        for(OpData op : ops){
+            if(op instanceof IOpWithOperations)
+                area += ((IOpWithOperations) op).getArea();
+        }
+        formAreaProperty.set(area);
+    }
 
     protected void tyeMenuToButton(){
 

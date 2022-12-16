@@ -10,10 +10,11 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpPaintAssm extends OpData {
 
-    private double area = 0.0;
-    private Integer along = 0;
-    private Integer across = 0;
-    private EAssemblingType assmType = EAssemblingType.SOLID;
+    private boolean calculatedArea = true; //использовать расчитанную площадь спокрытия
+    private double area = 0.0; //Площадь покрытия введенная пользователем
+    private Integer along = 0; //длина сборки вдоль штанги
+    private Integer across = 0; //длина сборки поперек штанги
+    private EAssemblingType assmType = EAssemblingType.SOLID; //Тип сборочной единицы
 
     public OpPaintAssm() {
         super.normType = ENormType.NORM_PAINTING;

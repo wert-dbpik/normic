@@ -64,11 +64,6 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="ivHelpOnPartParameters" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../pics/btns/help.png" />
-                           </image>
-                        </ImageView>
                      </children>
                   </HBox>
                   <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
@@ -84,7 +79,21 @@
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="5.0">
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Label text="K отх">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="tfWasteRatio" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
@@ -93,24 +102,20 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fx:id="ivHelpOnWeight" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../pics/btns/help.png" />
-                           </image>
-                        </ImageView>
                      </children>
                   </HBox>
-                  <TextField fx:id="tfWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
+                  <TextField fx:id="tfWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="5.0">
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label text="Покрытие, м.кв">
+                  <Label text="Покр, м.кв">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfCoat" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
+                  <TextField fx:id="tfCoat" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
                </children>
             </VBox>
          </children>
@@ -159,7 +164,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label text="Нормы времени по участок">
+                  <Label text="Нормы времени по участкам :">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -167,11 +172,6 @@
                         <Insets bottom="5.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <ImageView fx:id="ivHelpOnPartParameters1" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/help.png" />
-                     </image>
-                  </ImageView>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="490.0" spacing="5.0">

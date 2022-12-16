@@ -167,7 +167,6 @@ public class MenuCalculator extends ContextMenu {
     public MenuItem createItemAddLevelingSealer(){
         MenuItem addLevelingSealer = new MenuItem("Нанесение наливного утеплителя");
         addLevelingSealer.setOnAction(event -> {
-            if(isDuplicate(EOpType.LEVELING_SEALER)) return ;
             addLevelingSealerPlate(new OpLevelingSealer());
         });
         return addLevelingSealer;

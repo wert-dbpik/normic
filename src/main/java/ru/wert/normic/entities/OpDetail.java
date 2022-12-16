@@ -20,6 +20,9 @@ public class OpDetail extends OpData implements IOpWithOperations {
     private Material material = null;
     private Integer paramA = 0;
     private Integer paramB = 0;
+    private double wasteRatio = 1.1;
+    private double weight = 0.0;
+    private double area = 0.0;
     private List<OpData> operations = new ArrayList<>();
 
     public OpDetail() {

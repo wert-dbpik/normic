@@ -51,16 +51,13 @@ public class FormDetailController extends AbstractFormController {
     private TextField tfB;
 
     @FXML
-    private ImageView ivHelpOnWeight;
+    private TextField tfWasteRatio;
 
     @FXML
     private TextField tfWeight;
 
     @FXML
     private TextField tfCoat;
-
-    @FXML
-    private ImageView ivHelpOnTechnologicalProcessing;
 
     @FXML @Getter
     private TextField tfMechanicalTime;
@@ -76,6 +73,7 @@ public class FormDetailController extends AbstractFormController {
 
     private double ro; //Плотность
     private double t; //Толщина
+    private double wasteRatio; //Коэффициент, учитывающий отход материала
     private int paramA; //параметр А
     private int paramB; //параметр B
 
@@ -138,6 +136,13 @@ public class FormDetailController extends AbstractFormController {
             }
         });
 
+        tfWasteRatio.textProperty().addListener((observable, oldValue, newValue) -> {
+            countWeightAndArea();
+            for(AbstractOpPlate nc : addedPlates){
+                nc.countNorm(nc.getOpData());
+            }
+        });
+
         ivErase.setOnMouseClicked(e->{
             ((IOpWithOperations)opData).getOperations().clear();
             addedPlates.clear();
@@ -166,18 +171,24 @@ public class FormDetailController extends AbstractFormController {
             t = cmbxMaterial.getValue().getParamS();
             paramA = Integer.parseInt(tfA.getText().trim());
             paramB = Integer.parseInt(tfB.getText().trim());
-            if(paramA <= 0 || paramB <= 0) throw new NumberFormatException();
+            wasteRatio = Double.parseDouble(tfWasteRatio.getText().trim());
+            if(paramA <= 0 || paramB <= 0 || paramA > 2500 || paramB > 2500 || wasteRatio < 1.0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
             tfWeight.setText("");
             tfCoat.setText("");
             return;
         }
 
-        double weight = t * paramA * paramB * ro * MM2_TO_M2 * 1.1;
+        double weight = t * paramA * paramB * ro * MM2_TO_M2 * wasteRatio;
         double area = 2 * paramA * paramB * MM2_TO_M2;
 
         tfWeight.setText(String.format(doubleFormat, weight));
         tfCoat.setText(String.format(doubleFormat, area));
+
+        ((OpDetail)opData).setWeight(weight);
+        ((OpDetail)opData).setArea(area);
+
+        controller.calculateAreaByDetails();
     }
 
 
@@ -277,6 +288,9 @@ public class FormDetailController extends AbstractFormController {
 
         paramB = ((OpDetail)opData).getParamB();
         tfB.setText(String.valueOf(paramB));
+
+        wasteRatio = ((OpDetail)opData).getWasteRatio();
+        tfWasteRatio.setText(String.valueOf(wasteRatio));
 
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             deployData(opData);

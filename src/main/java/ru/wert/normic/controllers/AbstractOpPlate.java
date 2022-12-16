@@ -2,6 +2,7 @@ package ru.wert.normic.controllers;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -110,9 +111,10 @@ public abstract class AbstractOpPlate implements IOpPlate {
         ivContextMenu.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY)){
                 new MenuPlate().create(this).show(
-                        ((Node)e.getSource()).getScene().getWindow(),
-                        e.getScreenX(),
-                        e.getScreenY());
+                        ivContextMenu,
+                        Side.LEFT,
+                        0.0,
+                        24.0);
             }
         });
 

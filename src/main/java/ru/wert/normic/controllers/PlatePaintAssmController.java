@@ -1,6 +1,9 @@
 package ru.wert.normic.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -8,10 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.entities.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
+
+import java.util.List;
 
 public class PlatePaintAssmController extends AbstractOpPlate {
 
@@ -34,7 +40,13 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     private ComboBox<EAssemblingType> cmbxAssemblingType;
 
     @FXML
-    private TextField tfArea;
+    private CheckBox chbxCalculatedArea;
+
+    @FXML
+    private TextField tfCalculatedArea;
+
+    @FXML
+    private TextField tfManualArea;
 
     @FXML
     private TextField tfAlong;
@@ -50,22 +62,39 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
     private int along; //Параметр А вдоль штанги
     private int across; //Параметр B поперек штанги
-    private double area; //Площадь развертки
+    private double area; //Площадь покрытия введенная вручную
     private double pantingSpeed;// Скорость нанесения покрытия
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPaintAssm opData = (OpPaintAssm)data;
 
+        tfCalculatedArea.disableProperty().bind(chbxCalculatedArea.selectedProperty().not());
+        tfManualArea.disableProperty().bind(chbxCalculatedArea.selectedProperty());
+        formController.getFormAreaProperty().addListener((observable, oldValue, newValue) -> {
+            if(opData.isCalculatedArea()) tfCalculatedArea.setText(String.valueOf(newValue));
+        });
+
+        if(chbxCalculatedArea.isSelected()){
+            area = formController.getFormAreaProperty().get();
+            tfCalculatedArea.setText(String.valueOf(area));
+        }
+
+        tfCalculatedArea.textProperty().addListener((observable) -> {
+            countNorm(opData);
+        });
+
         new BXAssemblingType().create(cmbxAssemblingType);
         new TFNormTime(tfNormTime, formController);
-        new TFColoredDouble(tfArea, this);
+        new TFColoredDouble(tfManualArea, this);
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);
+        new ChBox(chbxCalculatedArea, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new CmBx(cmbxAssemblingType, this);
+
     }
 
     @Override//AbstractOpPlate
@@ -109,14 +138,19 @@ public class PlatePaintAssmController extends AbstractOpPlate {
      * Устанавливает и расчитывает значения, заданные пользователем
      */
     private void countInitialValues() {
-        area = DoubleParser.getValue(tfArea);
+        if(!chbxCalculatedArea.isSelected()){
+            area = DoubleParser.getValue(tfManualArea);//Использовать введенную пользователем площадь
+        } else {
+            formController.calculateAreaByDetails();//Суммировать площадь входящих деталей
+            area = formController.getFormAreaProperty().get();
+        }
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
         pantingSpeed = cmbxAssemblingType.getValue().getSpeed();
-
     }
 
     private void collectOpData(OpPaintAssm opData){
+        opData.setCalculatedArea(chbxCalculatedArea.isSelected());
         opData.setArea(area);
         opData.setAlong(along);
         opData.setAcross(across);
@@ -129,8 +163,16 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     public void fillOpData(OpData data){
         OpPaintAssm opData = (OpPaintAssm)data;
 
+        chbxCalculatedArea.setSelected(opData.isCalculatedArea());
+
         area = opData.getArea();
-        tfArea.setText(String.valueOf(area));
+        if(opData.isCalculatedArea()){
+            tfCalculatedArea.setText(String.valueOf(area));
+            tfManualArea.setText("0.0");
+        } else {
+            tfCalculatedArea.setText("0.0");
+            tfManualArea.setText(String.valueOf(area));
+        }
 
         along = opData.getAlong();
         tfAlong.setText(String.valueOf(along));

@@ -2,14 +2,11 @@ package ru.wert.normic.controllers.forms;
 
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
@@ -157,8 +154,8 @@ public class FormAssmController extends AbstractFormController {
             measure = SEC.getTimeName();
         }
 
-        String format = doubleFormat;
-        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)) format = integerFormat;
+        String format = DOUBLE_FORMAT;
+        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime));
         tfPaintingTime.setText(String.format(format, paintingTime));

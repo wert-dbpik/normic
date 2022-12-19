@@ -90,8 +90,8 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
         if(perimeter == 0) time = 0.0;
         else {
-            tfCompA.setText(String.format(doubleFormat, perimeter * cmbxSealerWidth.getValue().getCompA()));
-            tfCompB.setText(String.format(doubleFormat, perimeter * cmbxSealerWidth.getValue().getCompB()));
+            tfCompA.setText(String.format(DOUBLE_FORMAT, perimeter * cmbxSealerWidth.getValue().getCompA()));
+            tfCompB.setText(String.format(DOUBLE_FORMAT, perimeter * cmbxSealerWidth.getValue().getCompB()));
         }
 
         currentNormTime = time;

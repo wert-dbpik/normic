@@ -4,30 +4,28 @@ package ru.wert.normic.controllers.forms;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
-import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.PlateAssmController;
 import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 
@@ -63,6 +61,9 @@ public class MainController extends AbstractFormController {
 
     @FXML
     private ImageView ivOpen;
+
+    @FXML
+    private ImageView ivReport;
 
     @FXML
     private TextField tfMechanicalTime;
@@ -121,6 +122,8 @@ public class MainController extends AbstractFormController {
 
         ivOpen.setOnMouseClicked(this::open);
 
+        ivReport.setOnMouseClicked(this::report);
+
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             lblTimeMeasure.setText(newValue.getTimeName());
             countSumNormTimeByShops();
@@ -148,11 +151,31 @@ public class MainController extends AbstractFormController {
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
         File file = chooser.showSaveDialog(((Node) e.getSource()).getScene().getWindow());
         if (file == null) return;
+        ((OpAssm)opData).setName(file.getName());
         AppProperties.getInstance().setSavesDirectory(file.getParent());
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
         Gson gson = new Gson();
         String json = gson.toJson(opData);
         saveTextToFile(json, file);
+
+    }
+
+    private void report(MouseEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"));
+            VBox report = loader.load();
+            ReportController controller = loader.getController();
+            controller.init((OpAssm) opData);
+            new Decoration(
+                    "ОТЧЕТ",
+                    report,
+                    false,
+                    (Stage) ((Node)e.getSource()).getScene().getWindow(),
+                    "decoration-main",
+                    true);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -243,8 +266,8 @@ public class MainController extends AbstractFormController {
             measure = SEC.getTimeName();
         }
 
-        String format = doubleFormat;
-        if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)) format = integerFormat;
+        String format = DOUBLE_FORMAT;
+        if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime));
         tfPaintingTime.setText(String.format(format, paintingTime));

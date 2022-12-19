@@ -2,9 +2,7 @@ package ru.wert.normic.controllers.forms;
 
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -198,8 +196,8 @@ public class FormDetailController extends AbstractFormController {
         double weight = t * paramA * paramB * ro * MM2_TO_M2 * wasteRatio;
         double area = 2 * paramA * paramB * MM2_TO_M2;
 
-        tfWeight.setText(String.format(doubleFormat, weight));
-        tfCoat.setText(String.format(doubleFormat, area));
+        tfWeight.setText(String.format(DOUBLE_FORMAT, weight));
+        tfCoat.setText(String.format(DOUBLE_FORMAT, area));
 
         ((OpDetail)opData).setWeight(weight);
         ((OpDetail)opData).setArea(area);
@@ -234,8 +232,8 @@ public class FormDetailController extends AbstractFormController {
             measure = SEC.getTimeName();
         }
 
-        String format = doubleFormat;
-        if(AppStatics.MEASURE.getValue().equals(SEC)) format = integerFormat;
+        String format = DOUBLE_FORMAT;
+        if(AppStatics.MEASURE.getValue().equals(SEC)) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime));
         tfPaintingTime.setText(String.format(format, paintingTime));

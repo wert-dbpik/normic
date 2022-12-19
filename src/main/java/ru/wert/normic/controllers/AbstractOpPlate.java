@@ -3,7 +3,6 @@ package ru.wert.normic.controllers;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -49,8 +48,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public static final double MIN_TO_SEC = 60; //перевод минут в секунды
     public static final double SEC_TO_MIN = 1.0/60; //перевод минут в секунды
     public static final double RO = 0.00000785; //плотность стали кг/м3
-    public static final String doubleFormat = "%5.3f";
-    public static final String integerFormat = "%10.0f";
+    public static final String DOUBLE_FORMAT = "%5.3f";
+    public static final String INTEGER_FORMAT = "%10.0f";
 
     //Переменные
     protected double currentNormTime;
@@ -190,11 +189,11 @@ public abstract class AbstractOpPlate implements IOpPlate {
      */
     public void setTimeMeasurement(){
         double time = currentNormTime;
-        String format = doubleFormat;
+        String format = DOUBLE_FORMAT;
         String measure = "мин";
         if (MEASURE.getValue().equals(ETimeMeasurement.SEC)) {
             time = currentNormTime * MIN_TO_SEC;
-            format = integerFormat;
+            format = INTEGER_FORMAT;
             measure = "сек";
         }
 

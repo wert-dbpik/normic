@@ -88,7 +88,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
         ivEdit.setOnMouseClicked(e->{
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorAssm.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
                 Parent parent = loader.load();
                 formAssmController = loader.getController();
                 formAssmController.init(formController, tfAssmName, this.opData);

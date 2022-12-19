@@ -88,7 +88,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
         ivEdit.setOnMouseClicked(e->{
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/calculatorDetail.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
                 Parent parent = loader.load();
                 formDetailController = loader.getController();
                 formDetailController.init(formController, tfName, this.opData);

@@ -42,7 +42,16 @@
             </Pane>
             <Pane>
                <children>
-                  <ImageView fx:id="ivSettings" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                  <ImageView fx:id="ivReport" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                     <image>
+                        <Image url="@../pics/btns/report.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane>
+               <children>
+                  <ImageView fx:id="ivSettings1" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
                         <Image url="@../pics/btns/settings.png" />
                      </image>
@@ -67,6 +76,86 @@
       <Separator maxWidth="1.7976931348623157E308">
          <VBox.margin>
             <Insets />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" spacing="5.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Label text="Краска, г/м2">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="tfA1" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="89.0" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Label text="RAL-I">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="80.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Label text="RAL-II">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="tfB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <CheckBox mnemonicParsing="false" />
+                        <Label text="RAL-III">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="tfB1" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Краска, кг">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfDyeWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Separator maxWidth="1.7976931348623157E308">
+         <VBox.margin>
+            <Insets top="10.0" />
          </VBox.margin>
       </Separator>
       <HBox alignment="BOTTOM_LEFT" fillHeight="false" spacing="10.0">

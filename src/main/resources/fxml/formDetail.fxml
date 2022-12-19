@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="detail" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormDetailController">
+<VBox fx:id="detail" prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormDetailController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -55,7 +55,7 @@
       <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="5.0" />
       <HBox alignment="CENTER_LEFT" fillHeight="false" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" spacing="5.0" VBox.vgrow="NEVER">
          <children>
-            <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="5.0">
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
@@ -66,16 +66,16 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
+                  <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="5.0">
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <Label text="B, мм">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <TextField fx:id="tfB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="115.0" />
+                  <TextField fx:id="tfB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -110,12 +110,33 @@
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
+                  <Label text="Цвет">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbxColor" prefWidth="60.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
                   <Label text="Покр, м.кв">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <TextField fx:id="tfCoat" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Краска, кг">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfDyeWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
                </children>
             </VBox>
          </children>

@@ -9,8 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
+import ru.wert.normic.components.BXColor;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
@@ -57,7 +59,13 @@ public class FormDetailController extends AbstractFormController {
     private TextField tfWeight;
 
     @FXML
+    private ComboBox<EColor> cmbxColor;
+
+    @FXML
     private TextField tfCoat;
+
+    @FXML
+    private TextField tfDyeWeight;
 
     @FXML @Getter
     private TextField tfMechanicalTime;
@@ -102,6 +110,7 @@ public class FormDetailController extends AbstractFormController {
 
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
+        new BXColor().create(cmbxColor);
 
         //Заполняем поля формы
         fillOpData();
@@ -116,6 +125,13 @@ public class FormDetailController extends AbstractFormController {
         });
 
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
+            countWeightAndArea();
+            for(AbstractOpPlate nc : addedPlates){
+                nc.countNorm(nc.getOpData());
+            }
+        });
+
+        cmbxColor.valueProperty().addListener((observable, oldValue, newValue) -> {
             countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());

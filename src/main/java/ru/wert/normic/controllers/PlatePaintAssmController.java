@@ -14,6 +14,7 @@ import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.entities.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -32,6 +33,15 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
+
+    @FXML
+    private ComboBox<EColor> cmbxColor;
+
+    @FXML
+    private TextField tfDyeWeight;
+
+    @FXML
+    private CheckBox chbxTwoSides;
 
     @FXML
     private ImageView ivDeleteOperation;
@@ -64,10 +74,12 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     private int across; //Параметр B поперек штанги
     private double area; //Площадь покрытия введенная вручную
     private double pantingSpeed;// Скорость нанесения покрытия
+    private boolean twoSides; //Красить с двух сторон
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPaintAssm opData = (OpPaintAssm)data;
+        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         tfCalculatedArea.disableProperty().bind(chbxCalculatedArea.selectedProperty().not());
         tfManualArea.disableProperty().bind(chbxCalculatedArea.selectedProperty());
@@ -75,10 +87,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
             if(opData.isCalculatedArea()) tfCalculatedArea.setText(String.valueOf(newValue));
         });
 
-        if(chbxCalculatedArea.isSelected()){
-            area = formController.getFormAreaProperty().get();
-            tfCalculatedArea.setText(String.valueOf(area));
-        }
+        countCalculatedArea();
 
         tfCalculatedArea.textProperty().addListener((observable) -> {
             countNorm(opData);
@@ -90,11 +99,19 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);
         new ChBox(chbxCalculatedArea, this);
-
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
+        new ChBox(chbxTwoSides, this);
+        new CmBx(cmbxColor, this);
         new CmBx(cmbxAssemblingType, this);
 
+    }
+
+    private void countCalculatedArea() {
+        if(chbxCalculatedArea.isSelected()){
+            double kArea = 1.0; //С двух сторон
+            if(!twoSides) kArea = 0.5; //С одной стороны
+            area = formController.getFormAreaProperty().get() * kArea;
+            tfCalculatedArea.setText(String.valueOf(area));
+        }
     }
 
     @Override//AbstractOpPlate
@@ -102,6 +119,9 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         OpPaintAssm opData = (OpPaintAssm)data;
 
         countInitialValues();
+
+        double paintWeight = EColor.getConsumption(cmbxColor.getValue()) * area;
+        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, paintWeight));
 
         final int DELTA = 300; //расстояние между сборками
 
@@ -132,12 +152,15 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         currentNormTime = time;//результат в минутах
         collectOpData(opData);
         setTimeMeasurement();
+
     }
 
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
     private void countInitialValues() {
+        twoSides = chbxTwoSides.isSelected();
+
         if(!chbxCalculatedArea.isSelected()){
             area = DoubleParser.getValue(tfManualArea);//Использовать введенную пользователем площадь
         } else {
@@ -147,9 +170,14 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
         pantingSpeed = cmbxAssemblingType.getValue().getSpeed();
+
+        countCalculatedArea();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     private void collectOpData(OpPaintAssm opData){
+
+        opData.setColor(cmbxColor.getValue());
+        opData.setTwoSides(twoSides);
         opData.setCalculatedArea(chbxCalculatedArea.isSelected());
         opData.setArea(area);
         opData.setAlong(along);
@@ -162,6 +190,11 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpPaintAssm opData = (OpPaintAssm)data;
+
+        cmbxColor.setValue(opData.getColor());
+
+        twoSides = opData.isTwoSides();
+        chbxTwoSides.setSelected(twoSides);
 
         chbxCalculatedArea.setSelected(opData.isCalculatedArea());
 

@@ -2,6 +2,7 @@ package ru.wert.normic.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.EPaintingDifficulty;
@@ -10,6 +11,9 @@ import ru.wert.normic.enums.EPaintingDifficulty;
 @Setter
 public class OpPaint extends OpData {
 
+    private EColor color = EColor.COLOR_I;
+    private boolean twoSides = true;
+    private double dyeWeight = 0.0;
     private Integer along = 0;
     private Integer across = 0;
     private EPaintingDifficulty difficulty = EPaintingDifficulty.SIMPLE;

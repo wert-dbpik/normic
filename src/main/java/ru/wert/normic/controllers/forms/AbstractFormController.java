@@ -1,23 +1,20 @@
 package ru.wert.normic.controllers.forms;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
@@ -38,7 +35,7 @@ public abstract class AbstractFormController implements IForm {
     private ListView<VBox> listViewTechOperations;
 
     @FXML
-    private ImageView ivAddOperation;
+    private Button btnAddOperation;
 
     public abstract void countSumNormTimeByShops();
 
@@ -55,11 +52,12 @@ public abstract class AbstractFormController implements IForm {
     }
 
     protected void tyeMenuToButton(){
-
-        ivAddOperation.setOnMouseClicked(e->{
+        btnAddOperation.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/add.png")), 44,44, true, true)));
+        btnAddOperation.setTooltip(new Tooltip("Добавить операцию"));
+        btnAddOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY)){
                 menu.show(
-                        ivAddOperation,
+                        btnAddOperation,
                         Side.LEFT,
                         0.0,
                         32.0);

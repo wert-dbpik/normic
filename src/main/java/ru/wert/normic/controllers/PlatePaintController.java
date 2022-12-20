@@ -1,18 +1,17 @@
 package ru.wert.normic.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import ru.wert.normic.components.BXPaintingDifficulty;
-import ru.wert.normic.components.CmBx;
-import ru.wert.normic.components.TFColoredInteger;
-import ru.wert.normic.components.TFNormTime;
+import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpPaint;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -26,6 +25,18 @@ public class PlatePaintController extends AbstractOpPlate {
 
     @FXML
     private VBox vbOperation;
+
+    @FXML
+    private ComboBox<EColor> cmbxColor;
+
+    @FXML
+    private TextField tfCoatArea;
+
+    @FXML
+    private TextField tfDyeWeight;
+
+    @FXML
+    private CheckBox chbxTwoSides;
 
     @FXML
     private Label lblOperationName;
@@ -55,24 +66,25 @@ public class PlatePaintController extends AbstractOpPlate {
     private int razvB; //Параметр B развертки
     private int along; //Параметр А - габарит сложенной детали вдоль штанги
     private int across; //Параметр B - габарит сложенной детали поперек штанги
-    private double area; //Площадь развертки
+    private double coatArea; //Площадь развертки
     private double difficulty; //Сложность окрашивания
     private int hangingTime; //Время навешивания
+    private boolean twoSides; //Красить с двух сторон
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPaint opData = (OpPaint)data;
+        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new BXPaintingDifficulty().create(cmbxDifficulty);
         new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);
         new TFColoredInteger(tfHangingTime, this);
-
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
+        new CmBx(cmbxColor, this);
         new CmBx(cmbxDifficulty, this);
-
+        new ChBox(chbxTwoSides, this);
+        new BXColor().create(cmbxColor);
     }
 
     @Override//AbstractOpPlate
@@ -80,6 +92,13 @@ public class PlatePaintController extends AbstractOpPlate {
         OpPaint opData = (OpPaint)data;
 
         countInitialValues();
+
+        double kArea = 1.0; //С двух сторон
+        if(!twoSides) kArea = 0.5; //С одной стороны
+        tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea * kArea));
+
+        double paintWeight = EColor.getConsumption(cmbxColor.getValue()) * coatArea * kArea;
+        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, paintWeight));
 
         final int DELTA = 100; //расстояние между деталями
 
@@ -111,9 +130,9 @@ public class PlatePaintController extends AbstractOpPlate {
         double time;
         time = HOLDING_TIME //Время навешивания
                 + (WASHING + WINDING + DRYING/dryingBars)/partsOnBar //Время подготовки к окрашиванию
-                + Math.pow(2* area, 0.7) * difficulty //Время нанесения покрытия
+                + Math.pow(2* coatArea, 0.7) * difficulty //Время нанесения покрытия
                 + 40.0/bakeBars/partsOnBar;  //Время полимеризации
-        if(area == 0.0) time = 0.0;
+        if(coatArea == 0.0) time = 0.0;
 
         currentNormTime = time;//результат в минутах
         collectOpData(opData);
@@ -126,10 +145,12 @@ public class PlatePaintController extends AbstractOpPlate {
      */
     private void countInitialValues() {
 
+        twoSides = chbxTwoSides.isSelected();
+
         razvA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
         razvB = IntegerParser.getValue(((FormDetailController)formController).getTfB());
 
-        area = razvA * razvB * MM2_TO_M2;
+        coatArea = razvA * razvB * 2 * MM2_TO_M2; //Площадь покрытия с двух сторон
 
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
@@ -142,6 +163,8 @@ public class PlatePaintController extends AbstractOpPlate {
     }
 
     private void collectOpData(OpPaint opData){
+        opData.setColor(cmbxColor.getValue());
+        opData.setTwoSides(twoSides);
         opData.setAlong(along);
         opData.setAcross(across);
         opData.setDifficulty(cmbxDifficulty.getValue());
@@ -153,6 +176,11 @@ public class PlatePaintController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpPaint opData = (OpPaint)data;
+
+        cmbxColor.setValue(opData.getColor());
+
+        twoSides = opData.isTwoSides();
+        chbxTwoSides.setSelected(twoSides);
 
         along = opData.getAlong();
         tfAlong.setText(String.valueOf(along));

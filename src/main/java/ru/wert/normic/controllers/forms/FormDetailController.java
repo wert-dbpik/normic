@@ -36,46 +36,26 @@ public class FormDetailController extends AbstractFormController {
     private ListView<VBox> listViewTechOperations;
 
     @FXML
-    private ImageView ivAddOperation;
+    private Button btnAddOperation;
 
     @FXML
     private ImageView ivErase;
 
-    @FXML
-    private ImageView ivHelpOnPartParameters;
-
     @FXML @Getter
-    private TextField tfA;
-
-    @FXML @Getter
-    private TextField tfB;
+    private TextField tfA, tfB;
 
     @FXML
-    private TextField tfWasteRatio;
-
-    @FXML
-    private TextField tfWeight;
-
-    @FXML
-    private ComboBox<EColor> cmbxColor;
+    private TextField tfWasteRatio, tfWeight;
 
     @FXML
     private TextField tfCoat;
 
-    @FXML
-    private TextField tfDyeWeight;
 
     @FXML @Getter
-    private TextField tfMechanicalTime;
-
-    @FXML @Getter
-    private TextField tfPaintingTime;
+    private TextField tfMechanicalTime, tfPaintingTime, tfTotalTime;
 
     @FXML
     private Label lblTimeMeasure;
-
-    @FXML @Getter
-    private TextField tfTotalTime;
 
     private double ro; //Плотность
     private double t; //Толщина
@@ -108,7 +88,7 @@ public class FormDetailController extends AbstractFormController {
 
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
-        new BXColor().create(cmbxColor);
+
 
         //Заполняем поля формы
         fillOpData();
@@ -123,13 +103,6 @@ public class FormDetailController extends AbstractFormController {
         });
 
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
-            countWeightAndArea();
-            for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm(nc.getOpData());
-            }
-        });
-
-        cmbxColor.valueProperty().addListener((observable, oldValue, newValue) -> {
             countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());

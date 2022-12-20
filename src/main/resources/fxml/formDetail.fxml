@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="detail" prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormDetailController">
+<VBox fx:id="detail" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.FormDetailController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -66,7 +66,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
+                  <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER_LEFT" spacing="5.0">
@@ -75,7 +75,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <TextField fx:id="tfB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="60.0" />
+                  <TextField fx:id="tfB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -104,20 +104,10 @@
                         </Label>
                      </children>
                   </HBox>
-                  <TextField fx:id="tfWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+                  <TextField fx:id="tfWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox alignment="CENTER_LEFT" spacing="5.0">
-               <children>
-                  <Label text="Цвет">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="cmbxColor" prefWidth="60.0" />
-               </children>
-            </VBox>
             <VBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <Label text="Покр, м.кв">
@@ -125,18 +115,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfCoat" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
-               </children>
-            </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox alignment="CENTER_LEFT" spacing="5.0">
-               <children>
-                  <Label text="Краска, кг">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfDyeWeight" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
+                  <TextField fx:id="tfCoat" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
          </children>
@@ -159,16 +138,7 @@
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_RIGHT">
-                     <HBox.margin>
-                        <Insets bottom="4.0" />
-                     </HBox.margin>
-                  </HBox>
-                  <ImageView fx:id="ivAddOperation" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/add.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" />
                </children>
             </HBox>
          </children>

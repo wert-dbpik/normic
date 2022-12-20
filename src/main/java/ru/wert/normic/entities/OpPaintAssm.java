@@ -3,6 +3,7 @@ package ru.wert.normic.entities;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.enums.EAssemblingType;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
@@ -10,6 +11,9 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpPaintAssm extends OpData {
 
+    private EColor color = EColor.COLOR_I;
+    private boolean twoSides = true;
+    private double dyeWeight = 0.0;
     private boolean calculatedArea = true; //использовать расчитанную площадь спокрытия
     private double area = 0.0; //Площадь покрытия введенная пользователем
     private Integer along = 0; //длина сборки вдоль штанги

@@ -51,16 +51,11 @@
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_RIGHT">
+                  <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0">
                      <HBox.margin>
-                        <Insets bottom="4.0" />
+                        <Insets top="5.0" />
                      </HBox.margin>
-                  </HBox>
-                  <ImageView fx:id="ivAddOperation" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/add.png" />
-                     </image>
-                  </ImageView>
+                  </Button>
                </children>
             </HBox>
          </children>

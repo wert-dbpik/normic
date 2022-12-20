@@ -16,4 +16,9 @@ public class AppStatics {
 
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";
+
+    //Краска и расход г/м2
+    public static String RAL_I = "RAL7035"; public static int CONSUMPTION_I = 150;
+    public static String RAL_II = "RAL9006"; public static int CONSUMPTION_II = 150;
+    public static String RAL_III = "RAL7035"; public static int CONSUMPTION_III = 150;
 }

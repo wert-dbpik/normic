@@ -1,25 +1,44 @@
 #decoration-main{
-    -fx-background-color: #fcdfae;
+    -fx-background-color: #fad79c;
 }
 
-#decoration-assm{
-    -fx-background-color: #ecf6c6;
+#decoration-assm, #decoration-report, #decoration-settings{
+    -fx-background-color: #f8c878;
 }
 
 #decoration-detail{
-    -fx-background-color: #f5f5b7;
+    -fx-background-color: #fdd590;
 }
 
 #decoration-main .label{
     -fx-text-fill: #4f412f;
 }
 
-#main, #assm, #detail{
+#main, #assm, #detail, #report, #settings{
     -fx-background-color: #f8f1db;
 }
 
 #contextMenu{
     -fx-background-color: #ebf6f8;
+    -fx-text-fill: #4f412f;
+}
+
+.tooltip{
+    -fx-background-color: #ebf6f8;
+    -fx-text-fill: #4f412f;
+    -fx-font-size: 12;
+}
+
+.button{
+    -fx-background-color: #f8f1db;
+}
+
+.button:hover{
+    -fx-background-color: #f8e5ab;
+}
+
+.button:pressed{
+    -fx-background-color: #f6df96;
 }
 
 .text-field{

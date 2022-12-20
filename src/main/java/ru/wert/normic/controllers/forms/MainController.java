@@ -4,10 +4,12 @@ package ru.wert.normic.controllers.forms;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -44,9 +46,6 @@ import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 @Slf4j
 public class MainController extends AbstractFormController {
 
-    @FXML
-    private ImageView ivSave;
-
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
 
@@ -54,36 +53,16 @@ public class MainController extends AbstractFormController {
     private ListView<VBox> listViewTechOperations;
 
     @FXML
-    private ImageView ivAddOperation;
+    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnSettings, btnAddOperation;
 
     @FXML
-    private ImageView ivErase;
-
-    @FXML
-    private ImageView ivOpen;
-
-    @FXML
-    private ImageView ivReport;
-
-    @FXML
-    private TextField tfMechanicalTime;
-
-    @FXML
-    private TextField tfPaintingTime;
-
-    @FXML
-    private TextField tfAssemblingTime;
-
-    @FXML
-    private TextField tfPackingTime;
-
-    @FXML
-    private Label lblTimeMeasure;
+    private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;
 
     @FXML @Getter
     private TextField tfTotalTime;
 
-
+    @FXML
+    private Label lblTimeMeasure;
 
 
     @FXML
@@ -117,25 +96,45 @@ public class MainController extends AbstractFormController {
     }
 
     private void initViews() {
+        //СОХРАНИТЬ
+        btnSave.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32,32, true, true)));
+        btnSave.setTooltip(new Tooltip("Сохранить"));
+        btnSave.setOnAction(this::save);
+        //ОТКРЫТЬ
+        btnOpen.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32,32, true, true)));
+        btnOpen.setTooltip(new Tooltip("Открыть"));
+        btnOpen.setOnAction(this::open);
+        //ОЧИСТИТЬ
+        btnErase.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32,32, true, true)));
+        btnErase.setTooltip(new Tooltip("Очистить"));
+        btnErase.setOnAction(this::clearAll);
+        //ОТЧЕТ
+        btnReport.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32,32, true, true)));
+        btnReport.setTooltip(new Tooltip("Отчет"));
+        btnReport.setOnAction(this::report);
+        //ПОКРЫТИЕ
+        btnColors.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/colors.png")), 32,32, true, true)));
+        btnColors.setTooltip(new Tooltip("Покрытие"));
+        btnColors.setOnAction(this::colors);
+        //НАСТРОЙКИ
+        btnSettings.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/settings.png")), 32,32, true, true)));
+        btnSettings.setTooltip(new Tooltip("Настройки"));
+//        btnSettings.setOnAction(this::settings);
 
-        ivSave.setOnMouseClicked(this::save);
-
-        ivOpen.setOnMouseClicked(this::open);
-
-        ivReport.setOnMouseClicked(this::report);
 
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             lblTimeMeasure.setText(newValue.getTimeName());
             countSumNormTimeByShops();
         });
 
-        ivErase.setOnMouseClicked(e->{
-            clearAll();
-        });
+
 
     }
 
-    private void clearAll() {
+    /**
+     * ОЧИСТИТЬ ВСЕ
+     */
+    private void clearAll(Event e) {
         ((IOpWithOperations)opData).getOperations().clear();
         addedPlates.clear();
         addedOperations.clear();
@@ -145,7 +144,10 @@ public class MainController extends AbstractFormController {
         PlateAssmController.nameIndex = 0;
     }
 
-    private void save(MouseEvent e) {
+    /**
+     * СОХРАНИТЬ ИЗДЕЛИЕ
+     */
+    private void save(Event e) {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
@@ -160,19 +162,51 @@ public class MainController extends AbstractFormController {
 
     }
 
-    private void report(MouseEvent e) {
+    /**
+     * ОТЧЕТ
+     */
+    private void report(Event e) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"));
             VBox report = loader.load();
             ReportController controller = loader.getController();
             controller.init((OpAssm) opData);
+
             new Decoration(
                     "ОТЧЕТ",
                     report,
                     false,
                     (Stage) ((Node)e.getSource()).getScene().getWindow(),
-                    "decoration-main",
+                    "decoration-report",
                     true);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    /**
+     * НАСТРОЙКИ ИЗДЕЛИЯ
+     */
+    private void colors(Event e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/colors.fxml"));
+            VBox settings = loader.load();
+            ColorsController controller = loader.getController();
+            controller.init();
+            Decoration decoration = new Decoration(
+                    "НАСТРОЙКИ ИЗДЕЛИЯ",
+                    settings,
+                    false,
+                    (Stage) ((Node)e.getSource()).getScene().getWindow(),
+                    "decoration-settings",
+                    true);
+
+            decoration.getImgCloseWindow().setOnMousePressed(ev->{
+                controller.saveSettings();
+            });
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -191,13 +225,16 @@ public class MainController extends AbstractFormController {
         }
     }
 
-    private void open(MouseEvent e){
+    /**
+     * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
+     */
+    private void open(Event e){
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
         File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
         if(file == null) return;
-        clearAll();
+        clearAll(e);
         try {
             String str = new String(Files.readAllBytes(Paths.get(file.toString())));
             Gson gson = new Gson();

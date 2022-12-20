@@ -30,7 +30,7 @@ public class FormAssmController extends AbstractFormController {
     private ListView<VBox> listViewTechOperations;
 
     @FXML
-    private ImageView ivAddOperation;
+    private Button btnAddOperation;
 
     @FXML
     private ImageView ivErase;

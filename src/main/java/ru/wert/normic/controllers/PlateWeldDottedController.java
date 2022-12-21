@@ -79,7 +79,8 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         parts = IntegerParser.getValue(tfParts);
         dots = IntegerParser.getValue(tfDots);

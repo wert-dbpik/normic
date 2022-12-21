@@ -85,7 +85,8 @@ public class PlateBendController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         bends = IntegerParser.getValue(tfBends);
         men = IntegerParser.getValue(tfMen);

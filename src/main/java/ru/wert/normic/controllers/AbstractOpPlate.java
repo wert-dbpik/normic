@@ -79,6 +79,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
     public abstract void countNorm(OpData opData);
 
+    public abstract void countInitialValues();
+
 
     @FXML
     private ImageView ivContextMenu;

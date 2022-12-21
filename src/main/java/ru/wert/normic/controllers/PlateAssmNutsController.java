@@ -106,7 +106,8 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public void countInitialValues() {
 
         screws = IntegerParser.getValue(tfScrews);
         vshgs = IntegerParser.getValue(tfVSHGs);

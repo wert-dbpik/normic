@@ -41,7 +41,7 @@ public abstract class AbstractFormController implements IForm {
 
     public abstract void fillOpData();
 
-    public void calculateAreaByDetails(){
+    public double calculateAreaByDetails(){
         double area = 0.0;
         List<OpData> ops = getAddedOperations();
         for(OpData op : ops){
@@ -49,6 +49,7 @@ public abstract class AbstractFormController implements IForm {
                 area += ((IOpWithOperations) op).getArea() * op.getQuantity();
         }
         formAreaProperty.set(area);
+        return area;
     }
 
     protected void tyeMenuToButton(){

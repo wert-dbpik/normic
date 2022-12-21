@@ -143,7 +143,8 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         seamLength = IntegerParser.getValue(tfSeamLength);
         seams = IntegerParser.getValue(tfSeams);

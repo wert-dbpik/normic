@@ -135,7 +135,8 @@ public class PlateCuttingController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         paramA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
         paramB = IntegerParser.getValue(((FormDetailController)formController).getTfB());

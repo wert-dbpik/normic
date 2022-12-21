@@ -139,7 +139,8 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
         quantity = IntegerParser.getValue(tfN);
     }
 

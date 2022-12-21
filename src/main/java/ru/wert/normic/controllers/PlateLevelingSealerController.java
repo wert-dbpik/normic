@@ -102,7 +102,8 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
         paramA = IntegerParser.getValue(tfA);
         paramB = IntegerParser.getValue(tfB);
         perimeter = 2 * (paramA + paramB) * MM_TO_M;

@@ -95,7 +95,8 @@ public class PlateLocksmithController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         rivets = IntegerParser.getValue(tfRivets);
         countersinkings = IntegerParser.getValue(tfCountersinkings);

@@ -82,7 +82,8 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         sealer = DoubleParser.getValue(tfSealer);
         selfAdhSealer = DoubleParser.getValue(tfSelfAdhSealer);

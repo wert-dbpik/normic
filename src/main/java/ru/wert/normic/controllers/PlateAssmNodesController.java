@@ -99,7 +99,8 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         postLocks = IntegerParser.getValue(tfPostLocks);
         doubleLocks = IntegerParser.getValue(tfDoubleLocks);

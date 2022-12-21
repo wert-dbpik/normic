@@ -143,7 +143,8 @@ public class PlatePaintController extends AbstractOpPlate {
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */
-    private void countInitialValues() {
+    @Override //AbstractOpPlate
+    public  void countInitialValues() {
 
         twoSides = chbxTwoSides.isSelected();
 

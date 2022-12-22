@@ -9,6 +9,7 @@ import ru.wert.normic.controllers.*;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers.forms.AbstractFormController;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.io.IOException;
 import java.util.List;
@@ -192,11 +193,22 @@ public class MenuCalculator extends ContextMenu {
      */
     public void addDetailPlate(OpDetail opData) {
         try {
+            int index = 0;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateDetail.fxml"));
-            VBox detail = loader.load();
+            VBox box = loader.load();
             PlateDetailController controller = loader.getController();
+            if(!addedOperations.contains(opData))
+                for(OpData op : addedOperations){
+                    boolean detail = op instanceof OpDetail;
+                    if(detail) index++;
+                    else {
+                        addedOperations.add(index, opData);
+                        break;
+                    }
+                }
+            List<VBox> plates = listViewTechOperations.getItems();
+            plates.add(index, box);
             controller.init(formController, opData);
-            listViewTechOperations.getItems().add(detail);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -207,11 +219,23 @@ public class MenuCalculator extends ContextMenu {
      */
     public void addAssmPlate(OpAssm opData) {
         try {
+            int index = 0;
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssm.fxml"));
-            VBox assm = loader.load();
+            VBox box = loader.load();
             PlateAssmController controller = loader.getController();
+            if(!addedOperations.contains(opData))
+                for(OpData op : addedOperations){
+                    boolean detail = op instanceof OpDetail;
+                    boolean assm = op instanceof OpAssm;
+                    if (detail || assm) index ++ ;
+                    else {
+                        addedOperations.add(index, opData);
+                        break;
+                    }
+                }
+            List<VBox> plates = listViewTechOperations.getItems();
+            plates.add(index, box);
             controller.init(formController, opData);
-            listViewTechOperations.getItems().add(assm);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -19,14 +19,16 @@ public class MenuCalculator extends ContextMenu {
     private final AbstractFormController formController;
     private final ListView<VBox> listViewTechOperations;
     private final List<OpData> addedOperations;
+    private final IOpWithOperations opData;
 
     /**
      * Create a new ContextMenu
      */
-    public MenuCalculator(AbstractFormController formController, ListView<VBox> listViewTechOperations, List<OpData> addedOperations) {
+    public MenuCalculator(AbstractFormController formController, ListView<VBox> listViewTechOperations, IOpWithOperations opData) {
         this.formController = formController;
         this.listViewTechOperations = listViewTechOperations;
-        this.addedOperations = addedOperations;
+        this.opData = opData;
+        this.addedOperations = opData.getOperations();
     }
 
 
@@ -184,6 +186,55 @@ public class MenuCalculator extends ContextMenu {
         return false;
     }
 
+    /*==================================================================================================================
+     *                                         В О С С Т А Н О В Л Е Н И Е
+     * ==================================================================================================================*/
+    public void deployData() {
+        List<OpData> operations = ((IOpWithOperations)opData).getOperations();
+        for (OpData op : operations) {
+            switch (op.getOpType()) {
+                case DETAIL:
+                    addDetailPlate((OpDetail) op);
+                    break;
+                case ASSM:
+                    addAssmPlate((OpAssm) op);
+                    break;
+                case CUTTING:
+                    addCattingPlate((OpCutting) op);
+                    break;
+                case BENDING:
+                    addBendingPlate((OpBending) op);
+                    break;
+                case LOCKSMITH:
+                    addLocksmithPlate((OpLocksmith) op);
+                    break;
+                case PAINTING:
+                    addPaintPlate((OpPaint) op);
+                    break;
+                case PAINT_ASSM:
+                    addPaintAssmPlate((OpPaintAssm) op);
+                    break;
+                case WELD_CONTINUOUS:
+                    addWeldContinuousPlate((OpWeldContinuous) op);
+                    break;
+                case WELD_DOTTED:
+                    addWeldDottedPlate((OpWeldDotted) op);
+                    break;
+                case ASSM_CUTTINGS:
+                    addAssmCuttingsPlate((OpAssmCutting) op);
+                    break;
+                case ASSM_NUTS:
+                    addAssmNutsPlate((OpAssmNut) op);
+                    break;
+                case ASSM_NODES:
+                    addAssmNodesPlate((OpAssmNode) op);
+                    break;
+                case LEVELING_SEALER:
+                    addLevelingSealerPlate((OpLevelingSealer) op);
+                    break;
+            }
+        }
+    }
     /*==================================================================================================================
     *                                                М Е Т О Д Ы
     * ==================================================================================================================*/
@@ -414,5 +465,7 @@ public class MenuCalculator extends ContextMenu {
             e.printStackTrace();
         }
     }
+    
+    
 
 }

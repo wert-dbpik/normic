@@ -102,7 +102,7 @@ public class FormAssmController extends AbstractFormController {
 
     private void createMenu() {
 
-        menu = new MenuCalculator(this, listViewTechOperations, addedOperations);
+        menu = new MenuCalculator(this, listViewTechOperations, (IOpWithOperations) opData);
 
         menu.getItems().add(menu.createItemAddDetail());
         menu.getItems().add(menu.createItemAddAssm());
@@ -168,57 +168,11 @@ public class FormAssmController extends AbstractFormController {
 
     }
 
-    private void deployData(OpData opData) {
-        List<OpData> operations = ((IOpWithOperations)opData).getOperations();
-        for (OpData op : operations) {
-            switch (op.getOpType()) {
-                case DETAIL:
-                    menu.addDetailPlate((OpDetail) op);
-                    break;
-                case ASSM:
-                    menu.addAssmPlate((OpAssm) op);
-                    break;
-                case CUTTING:
-                    menu.addCattingPlate((OpCutting) op);
-                    break;
-                case BENDING:
-                    menu.addBendingPlate((OpBending) op);
-                    break;
-                case LOCKSMITH:
-                    menu.addLocksmithPlate((OpLocksmith) op);
-                    break;
-                case PAINTING:
-                    menu.addPaintPlate((OpPaint) op);
-                    break;
-                case PAINT_ASSM:
-                    menu.addPaintAssmPlate((OpPaintAssm) op);
-                    break;
-                case WELD_CONTINUOUS:
-                    menu.addWeldContinuousPlate((OpWeldContinuous) op);
-                    break;
-                case WELD_DOTTED:
-                    menu.addWeldDottedPlate((OpWeldDotted) op);
-                    break;
-                case ASSM_CUTTINGS:
-                    menu.addAssmCuttingsPlate((OpAssmCutting) op);
-                    break;
-                case ASSM_NUTS:
-                    menu.addAssmNutsPlate((OpAssmNut) op);
-                    break;
-                case ASSM_NODES:
-                    menu.addAssmNodesPlate((OpAssmNode) op);
-                    break;
-                case LEVELING_SEALER:
-                    menu.addLevelingSealerPlate((OpLevelingSealer) op);
-                    break;
-            }
-        }
-    }
 
     @Override //AbstractFormController
     public void fillOpData(){
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
-            deployData(opData);
+            menu.deployData();
     }
 
 }

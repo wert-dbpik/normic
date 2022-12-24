@@ -7,9 +7,9 @@ public enum ETimeMeasurement {
     SEC("сек"),
     MIN("мин");
 
-    @Getter String timeName;
+    @Getter String name;
 
-    ETimeMeasurement(String timeName) {
-        this.timeName = timeName;
+    ETimeMeasurement(String name) {
+        this.name = name;
     }
 }

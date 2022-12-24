@@ -53,14 +53,14 @@ public class PlateBendController extends AbstractOpPlate {
     public void initViews(OpData data){
         OpBending opData = (OpBending)data;
 
-        new BXBendingTool().create(cmbxBendingTool);
+        new BXBendingTool().create(cmbxBendingTool, opData.getTool(), this);
         new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfBends, this);
         new TFColoredInteger(tfMen, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
-        new CmBx(cmbxBendingTool, this);
+//        new CmBx(cmbxBendingTool, this);
 
     }
 

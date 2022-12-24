@@ -15,7 +15,6 @@ import ru.wert.normic.enums.ETimeMeasurement;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
@@ -124,7 +123,7 @@ public class FormAssmController extends AbstractFormController {
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
-        String measure = MIN.getTimeName();
+        String measure = MIN.getName();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -151,7 +150,7 @@ public class FormAssmController extends AbstractFormController {
             assemblingTime = assemblingTime * MIN_TO_SEC;
             packingTime = packingTime * MIN_TO_SEC;
 
-            measure = SEC.getTimeName();
+            measure = SEC.getName();
         }
 
         String format = DOUBLE_FORMAT;

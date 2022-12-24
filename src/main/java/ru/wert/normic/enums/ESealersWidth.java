@@ -12,12 +12,12 @@ public enum ESealersWidth {
 
 
 
-    @Getter String width;
+    @Getter String name;
     @Getter Double compA;
     @Getter Double compB;
 
-    ESealersWidth(String width, Double compA, Double compB) {
-        this.width = width;
+    ESealersWidth(String name, Double compA, Double compB) {
+        this.name = name;
         this.compA = compA;
         this.compB = compB;
     }

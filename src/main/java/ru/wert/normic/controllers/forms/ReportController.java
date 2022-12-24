@@ -53,10 +53,10 @@ public class ReportController {
         double k = 1.0;
         report.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
 
-        report.append("Изготовление : ").append(String.format(DOUBLE_FORMAT, opAssm.getMechTime() * k)).append(" ").append(tm.getTimeName()).append("\n");
-        report.append("Покраска \t: ").append(String.format(DOUBLE_FORMAT, opAssm.getPaintTime() * k)).append(" ").append(tm.getTimeName()).append("\n");
-        report.append("Сборка \t\t: ").append(String.format(DOUBLE_FORMAT, opAssm.getAssmTime() * k)).append(" ").append(tm.getTimeName()).append("\n");
-        report.append("Упаковка \t: ").append(String.format(DOUBLE_FORMAT, opAssm.getPackTime() * k)).append(" ").append(tm.getTimeName()).append("\n");
+        report.append("Изготовление : ").append(String.format(DOUBLE_FORMAT, opAssm.getMechTime() * k)).append(" ").append(tm.getName()).append("\n");
+        report.append("Покраска \t: ").append(String.format(DOUBLE_FORMAT, opAssm.getPaintTime() * k)).append(" ").append(tm.getName()).append("\n");
+        report.append("Сборка \t\t: ").append(String.format(DOUBLE_FORMAT, opAssm.getAssmTime() * k)).append(" ").append(tm.getName()).append("\n");
+        report.append("Упаковка \t: ").append(String.format(DOUBLE_FORMAT, opAssm.getPackTime() * k)).append(" ").append(tm.getName()).append("\n");
 
         taReport.setText(report.toString());
 

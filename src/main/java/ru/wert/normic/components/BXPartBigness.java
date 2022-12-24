@@ -5,39 +5,49 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.enums.EPartBigness;
 
 
 public class BXPartBigness {
 
-    public static EPartBigness LAST_PART_BIGNESS;
-    private ComboBox<EPartBigness> bxPartBigness;
+    public static EPartBigness LAST_VAL;
+    private ComboBox<EPartBigness> cmbx;
 
-    public void create(ComboBox<EPartBigness> bxPartBigness){
-        this.bxPartBigness = bxPartBigness;
-        ObservableList<EPartBigness> partBignesses = FXCollections.observableArrayList(EPartBigness.values());
-        bxPartBigness.setItems(partBignesses);
+    public void create(ComboBox<EPartBigness> cmbx, EPartBigness initVal, AbstractOpPlate counter){
+        this.cmbx = cmbx;
+        ObservableList<EPartBigness> values = FXCollections.observableArrayList(EPartBigness.values());
+        cmbx.setItems(values);
 
         createCellFactory();
         //Выделяем префикс по умолчанию
         createConverter();
 
-        if(LAST_PART_BIGNESS == null)
-            LAST_PART_BIGNESS = EPartBigness.SMALL;
-        bxPartBigness.setValue(LAST_PART_BIGNESS);
+        cmbx.valueProperty().addListener((observable, oldValue, newValue) -> {
+            counter.countNorm(counter.getOpData());
+        });
+
+        if(LAST_VAL == null)
+            LAST_VAL = EPartBigness.SMALL;
+
+        if (initVal == null) {
+            cmbx.setValue(LAST_VAL);
+        } else {
+            cmbx.setValue(initVal);
+        }
 
     }
 
     private void createCellFactory() {
         //CellFactory определяет вид элементов комбобокса - только имя префикса
-        bxPartBigness.setCellFactory(i -> new ListCell<EPartBigness>() {
+        cmbx.setCellFactory(i -> new ListCell<EPartBigness>() {
             @Override
             protected void updateItem (EPartBigness item, boolean empty){
                 super.updateItem(item, empty);
                 if (item == null || empty) {
                     setText(null);
                 } else {
-                    setText(item.getToolName());
+                    setText(item.getName());
                 }
             }
 
@@ -45,11 +55,11 @@ public class BXPartBigness {
     }
 
     private void createConverter() {
-        bxPartBigness.setConverter(new StringConverter<EPartBigness>() {
+        cmbx.setConverter(new StringConverter<EPartBigness>() {
             @Override
-            public String toString(EPartBigness partBigness) {
-                LAST_PART_BIGNESS = partBigness; //последний выбранный префикс становится префиксом по умолчанию
-                return partBigness.getToolName();
+            public String toString(EPartBigness val) {
+                LAST_VAL = val; //последний выбранный префикс становится префиксом по умолчанию
+                return val.getName();
             }
 
             @Override

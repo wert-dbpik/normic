@@ -5,32 +5,42 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.enums.EBendingTool;
 
 
 public class BXBendingTool {
+    //татическое поле сохраняет последний выбранный инструмент
+    public static EBendingTool LAST_VAL;
+    private ComboBox<EBendingTool> cmbx;
 
-    public static EBendingTool LAST_BENDING_TOOL;
-    private ComboBox<EBendingTool> bxBendingTool;
-
-    public void create(ComboBox<EBendingTool> bxBendingTool){
-        this.bxBendingTool = bxBendingTool;
-        ObservableList<EBendingTool> bendingTools = FXCollections.observableArrayList(EBendingTool.values());
-        bxBendingTool.setItems(bendingTools);
+    public void create(ComboBox<EBendingTool> cmbx, EBendingTool initVal, AbstractOpPlate counter){
+        this.cmbx = cmbx;
+        ObservableList<EBendingTool> values = FXCollections.observableArrayList(EBendingTool.values());
+        cmbx.setItems(values);
 
         createCellFactory();
         //Выделяем префикс по умолчанию
         createConverter();
 
-        if(LAST_BENDING_TOOL == null)
-            LAST_BENDING_TOOL = EBendingTool.UNIVERSAL;
-        bxBendingTool.setValue(LAST_BENDING_TOOL);
+        cmbx.valueProperty().addListener((observable, oldValue, newValue) -> {
+            counter.countNorm(counter.getOpData());
+        });
+
+        if(LAST_VAL == null)
+            LAST_VAL = EBendingTool.UNIVERSAL;
+
+        if (initVal == null) {
+            cmbx.setValue(LAST_VAL);
+        } else {
+            cmbx.setValue(initVal);
+        }
 
     }
 
     private void createCellFactory() {
         //CellFactory определяет вид элементов комбобокса - только имя префикса
-        bxBendingTool.setCellFactory(i -> new ListCell<EBendingTool>() {
+        cmbx.setCellFactory(i -> new ListCell<EBendingTool>() {
             @Override
             protected void updateItem (EBendingTool item, boolean empty){
                 super.updateItem(item, empty);
@@ -45,11 +55,11 @@ public class BXBendingTool {
     }
 
     private void createConverter() {
-        bxBendingTool.setConverter(new StringConverter<EBendingTool>() {
+        cmbx.setConverter(new StringConverter<EBendingTool>() {
             @Override
-            public String toString(EBendingTool bendingTool) {
-                LAST_BENDING_TOOL = bendingTool; //последний выбранный префикс становится префиксом по умолчанию
-                return bendingTool.getToolName();
+            public String toString(EBendingTool val) {
+                LAST_VAL = val; //последний выбранный префикс становится префиксом по умолчанию
+                return val.getToolName();
             }
 
             @Override

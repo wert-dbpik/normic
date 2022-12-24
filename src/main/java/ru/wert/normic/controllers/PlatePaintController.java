@@ -76,7 +76,8 @@ public class PlatePaintController extends AbstractOpPlate {
         OpPaint opData = (OpPaint)data;
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
-        new BXPaintingDifficulty().create(cmbxDifficulty);
+        new BXPaintingDifficulty().create(cmbxDifficulty, opData.getDifficulty(), this);
+        new BXColor().create(cmbxColor, opData.getColor(), this);
         new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfAlong, this);
         new TFColoredInteger(tfAcross, this);
@@ -84,7 +85,7 @@ public class PlatePaintController extends AbstractOpPlate {
         new CmBx(cmbxColor, this);
         new CmBx(cmbxDifficulty, this);
         new ChBox(chbxTwoSides, this);
-        new BXColor().create(cmbxColor);
+
     }
 
     @Override//AbstractOpPlate

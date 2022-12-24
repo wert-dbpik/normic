@@ -12,11 +12,11 @@ import static ru.wert.normic.ChogoriServices.CH_QUICK_MATERIALS;
 
 public class BXMaterial {
 
-    private static Material LAST_MATERIAL;
-    private ComboBox<Material> bxMaterial;
+    private static Material LAST_VAL;
+    private ComboBox<Material> cmbx;
 
-    public void create(ComboBox<Material> bxMaterial){
-        this.bxMaterial = bxMaterial;
+    public void create(ComboBox<Material> bxMaterial, Material initVal){
+        this.cmbx = bxMaterial;
         ObservableList<Material> materials = FXCollections.observableArrayList(CH_QUICK_MATERIALS.findAll());
         bxMaterial.setItems(materials);
 
@@ -24,15 +24,16 @@ public class BXMaterial {
         //Выделяем префикс по умолчанию
         createConverter();
 
-        if(LAST_MATERIAL == null)
-            LAST_MATERIAL = CH_QUICK_MATERIALS.findByName("лист 1");
-        bxMaterial.setValue(LAST_MATERIAL);
+        if(LAST_VAL == null)
+            LAST_VAL = CH_QUICK_MATERIALS.findByName("лист 1");
+
+        bxMaterial.setValue(LAST_VAL);
 
     }
 
     private void createCellFactory() {
         //CellFactory определяет вид элементов комбобокса - только имя префикса
-        bxMaterial.setCellFactory(i -> new ListCell<Material>() {
+        cmbx.setCellFactory(i -> new ListCell<Material>() {
             @Override
             protected void updateItem (Material item,boolean empty){
                 super.updateItem(item, empty);
@@ -47,10 +48,10 @@ public class BXMaterial {
     }
 
     private void createConverter() {
-        bxMaterial.setConverter(new StringConverter<Material>() {
+        cmbx.setConverter(new StringConverter<Material>() {
             @Override
             public String toString(Material material) {
-                LAST_MATERIAL = material; //последний выбранный префикс становится префиксом по умолчанию
+                LAST_VAL = material; //последний выбранный префикс становится префиксом по умолчанию
                 return material.getName();
             }
 

@@ -8,12 +8,12 @@ public enum EPartBigness {
     BIG("Крупная", 6.0);
 
 
-    @Getter String toolName;
+    @Getter String name;
     @Getter double time;
 
 
-    EPartBigness(String toolName, double time) {
-        this.toolName = toolName;
+    EPartBigness(String name, double time) {
+        this.name = name;
         this.time = time;
     }
 }

@@ -8,11 +8,11 @@ public enum EAssemblingType {
     FRAME("Рама (кросс)", 2.4);
 
 
-    @Getter String type;
+    @Getter String name;
     @Getter Double speed;
 
-    EAssemblingType(String type, Double speed) {
-        this.type = type;
+    EAssemblingType(String name, Double speed) {
+        this.name = name;
         this.speed = speed;
     }
 }

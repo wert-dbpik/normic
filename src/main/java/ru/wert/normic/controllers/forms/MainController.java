@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,7 +35,6 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
@@ -82,7 +80,7 @@ public class MainController extends AbstractFormController {
         initViews();
 
         //Инициализируем комбобоксы
-        new BXTimeMeasurement().create(cmbxTimeMeasurement);
+        new BXTimeMeasurement().create(cmbxTimeMeasurement, MIN);
 
         //Заполняем поля формы
         fillOpData();
@@ -123,7 +121,7 @@ public class MainController extends AbstractFormController {
 
 
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
-            lblTimeMeasure.setText(newValue.getTimeName());
+            lblTimeMeasure.setText(newValue.getName());
             countSumNormTimeByShops();
         });
 
@@ -275,7 +273,7 @@ public class MainController extends AbstractFormController {
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
-        String measure = MIN.getTimeName();
+        String measure = MIN.getName();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -300,7 +298,7 @@ public class MainController extends AbstractFormController {
             assemblingTime = assemblingTime * MIN_TO_SEC;
             packingTime = packingTime * MIN_TO_SEC;
 
-            measure = SEC.getTimeName();
+            measure = SEC.getName();
         }
 
         String format = DOUBLE_FORMAT;

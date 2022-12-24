@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 import static ru.wert.normic.AppStatics.*;
 
-public enum EColor {
+public enum EColor{
 
     COLOR_NO("б/п"),
     COLOR_I("I"),

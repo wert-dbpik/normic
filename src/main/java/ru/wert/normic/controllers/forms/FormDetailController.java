@@ -7,10 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.components.BXColor;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
-import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
@@ -18,8 +16,8 @@ import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import static ru.wert.normic.ChogoriServices.CH_QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -87,7 +85,7 @@ public class FormDetailController extends AbstractFormController {
         }
 
         //Инициализируем комбобоксы
-        new BXMaterial().create(cmbxMaterial);
+        new BXMaterial().create(cmbxMaterial, ((OpDetail) opData).getMaterial());
 
 
         //Заполняем поля формы
@@ -183,7 +181,7 @@ public class FormDetailController extends AbstractFormController {
      * Метод расчитывает суммарное время по участкам
      */
     public void countSumNormTimeByShops(){
-        String measure = MIN.getTimeName();
+        String measure = MIN.getName();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -202,7 +200,7 @@ public class FormDetailController extends AbstractFormController {
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
 
-            measure = SEC.getTimeName();
+            measure = SEC.getName();
         }
 
         String format = DOUBLE_FORMAT;

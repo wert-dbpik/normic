@@ -85,7 +85,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
         tfStep.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
 
-        new BXPartBigness().create(cmbxPartBigness);
+        new BXPartBigness().create(cmbxPartBigness, opData.getPartBigness(), this);
         new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfSeamLength, this);
         new TFColoredInteger(tfSeams, this);

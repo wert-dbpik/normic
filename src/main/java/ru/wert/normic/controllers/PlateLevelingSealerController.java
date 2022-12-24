@@ -65,7 +65,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     public void initViews(OpData data){
         OpLevelingSealer opData = (OpLevelingSealer)data;
 
-        new BXSealersWidth().create(cmbxSealerWidth);
+        new BXSealersWidth().create(cmbxSealerWidth, opData.getSealersWidth(), this);
         new TFNormTime(tfNormTime, formController);
         new TFColoredInteger(tfA, this);
         new TFColoredInteger(tfB, this);

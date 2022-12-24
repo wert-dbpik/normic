@@ -5,32 +5,42 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.enums.EPaintingDifficulty;
 
 
 public class BXPaintingDifficulty {
 
-    public static EPaintingDifficulty LAST_PAINTING_DIFFICULTY;
-    private ComboBox<EPaintingDifficulty> bxPaintingDifficulty;
+    public static EPaintingDifficulty LAST_VAL;
+    private ComboBox<EPaintingDifficulty> cmbx;
 
-    public void create(ComboBox<EPaintingDifficulty> bxPaintingDifficulty){
-        this.bxPaintingDifficulty = bxPaintingDifficulty;
-        ObservableList<EPaintingDifficulty> paintingDifficulties = FXCollections.observableArrayList(EPaintingDifficulty.values());
-        bxPaintingDifficulty.setItems(paintingDifficulties);
+    public void create(ComboBox<EPaintingDifficulty> cmbx, EPaintingDifficulty initVal, AbstractOpPlate counter){
+        this.cmbx = cmbx;
+        ObservableList<EPaintingDifficulty> values = FXCollections.observableArrayList(EPaintingDifficulty.values());
+        cmbx.setItems(values);
 
         createCellFactory();
         //Выделяем префикс по умолчанию
         createConverter();
 
-        if(LAST_PAINTING_DIFFICULTY == null)
-            LAST_PAINTING_DIFFICULTY = EPaintingDifficulty.MIDDLE;
-        bxPaintingDifficulty.setValue(LAST_PAINTING_DIFFICULTY);
+        cmbx.valueProperty().addListener((observable, oldValue, newValue) -> {
+            counter.countNorm(counter.getOpData());
+        });
+
+        if(LAST_VAL == null)
+            LAST_VAL = EPaintingDifficulty.MIDDLE;
+
+        if (initVal == null) {
+            cmbx.setValue(LAST_VAL);
+        } else {
+            cmbx.setValue(initVal);
+        }
 
     }
 
     private void createCellFactory() {
         //CellFactory определяет вид элементов комбобокса - только имя префикса
-        bxPaintingDifficulty.setCellFactory(i -> new ListCell<EPaintingDifficulty>() {
+        cmbx.setCellFactory(i -> new ListCell<EPaintingDifficulty>() {
             @Override
             protected void updateItem (EPaintingDifficulty item, boolean empty){
                 super.updateItem(item, empty);
@@ -45,11 +55,11 @@ public class BXPaintingDifficulty {
     }
 
     private void createConverter() {
-        bxPaintingDifficulty.setConverter(new StringConverter<EPaintingDifficulty>() {
+        cmbx.setConverter(new StringConverter<EPaintingDifficulty>() {
             @Override
-            public String toString(EPaintingDifficulty paintingDifficulty) {
-                LAST_PAINTING_DIFFICULTY = paintingDifficulty; //последний выбранный префикс становится префиксом по умолчанию
-                return paintingDifficulty.getDifficultyName();
+            public String toString(EPaintingDifficulty val) {
+                LAST_VAL = val; //последний выбранный префикс становится префиксом по умолчанию
+                return val.getDifficultyName();
             }
 
             @Override

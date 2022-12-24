@@ -108,8 +108,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
             countNorm(opData);
         });
 
-        new BXColor().create(cmbxColor);
-        new BXAssemblingType().create(cmbxAssemblingType);
+        new BXColor().create(cmbxColor, opData.getColor(), this);
+        new BXAssemblingType().create(cmbxAssemblingType, opData.getAssmType(), this);
         new TFNormTime(tfNormTime, formController);
         new TFColoredDouble(tfManualArea, this);
         new TFColoredInteger(tfAlong, this);

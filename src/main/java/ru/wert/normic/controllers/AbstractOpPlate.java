@@ -104,12 +104,9 @@ public abstract class AbstractOpPlate implements IOpPlate {
         this.formController = formController;
         this.opData = opData;
 
-        formController.getAddedPlates().add(this);
-        if (index == null || index >= formController.getAddedOperations().size()) {
-            formController.getAddedOperations().add(opData);
-        } else {
-            formController.getAddedOperations().add(index, opData);
-        }
+        formController.getAddedPlates().add(index, this);
+        formController.getAddedOperations().add(index, opData);
+
 
         fillOpData(opData);
 

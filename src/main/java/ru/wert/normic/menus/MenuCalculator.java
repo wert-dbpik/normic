@@ -28,7 +28,7 @@ public class MenuCalculator extends ContextMenu {
         this.formController = formController;
         this.listViewTechOperations = listViewTechOperations;
         this.opData = opData;
-        this.addedOperations = opData.getOperations();
+        this.addedOperations = formController.getAddedOperations();
     }
 
 
@@ -248,18 +248,15 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateDetail.fxml"));
             VBox box = loader.load();
             PlateDetailController controller = loader.getController();
-            if(!addedOperations.contains(opData))
-                for(OpData op : addedOperations){
-                    boolean detail = op instanceof OpDetail;
-                    if(detail) index++;
-                    else {
-                        addedOperations.add(index, opData);
-                        break;
-                    }
-                }
-            List<VBox> plates = listViewTechOperations.getItems();
-            plates.add(index, box);
-            controller.init(formController, opData);
+            for (OpData op : addedOperations) {
+                boolean detail = op instanceof OpDetail;
+                if (op instanceof OpDetail) index ++;
+                else break;
+            }
+
+            controller.init(formController, opData, index);
+            listViewTechOperations.getItems().add(index, box);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -274,19 +271,13 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssm.fxml"));
             VBox box = loader.load();
             PlateAssmController controller = loader.getController();
-            if(!addedOperations.contains(opData))
-                for(OpData op : addedOperations){
-                    boolean detail = op instanceof OpDetail;
-                    boolean assm = op instanceof OpAssm;
-                    if (detail || assm) index ++ ;
-                    else {
-                        addedOperations.add(index, opData);
-                        break;
-                    }
-                }
-            List<VBox> plates = listViewTechOperations.getItems();
-            plates.add(index, box);
-            controller.init(formController, opData);
+            for (OpData op : addedOperations) {
+                if (op instanceof OpDetail || op instanceof OpAssm) index++;
+                else break;
+            }
+            controller.init(formController, opData, index);
+            listViewTechOperations.getItems().add(index, box);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -301,7 +292,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateCutting.fxml"));
             VBox cutting = loader.load();
             PlateCuttingController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(cutting);
         } catch (IOException e) {
             e.printStackTrace();
@@ -316,7 +307,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateBend.fxml"));
             VBox bending = loader.load();
             PlateBendController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(bending);
         } catch (IOException e) {
             e.printStackTrace();
@@ -331,7 +322,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateLocksmith.fxml"));
             VBox locksmith = loader.load();
             PlateLocksmithController controller = loader.getController();
-            controller.init(this.formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(locksmith);
         } catch (IOException e) {
             e.printStackTrace();
@@ -348,7 +339,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/platePaint.fxml"));
             VBox paint = loader.load();
             PlatePaintController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(paint);
         } catch (IOException e) {
             e.printStackTrace();
@@ -363,7 +354,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/platePaintAssm.fxml"));
             VBox paintAssm = loader.load();
             PlatePaintAssmController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(paintAssm);
         } catch (IOException e) {
             e.printStackTrace();
@@ -380,7 +371,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateWeldContinuous.fxml"));
             VBox weldLongSeam = loader.load();
             PlateWeldContinuousController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(weldLongSeam);
         } catch (IOException e) {
             e.printStackTrace();
@@ -395,7 +386,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateWeldDotted.fxml"));
             VBox weldDotted = loader.load();
             PlateWeldDottedController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(weldDotted);
         } catch (IOException e) {
             e.printStackTrace();
@@ -412,7 +403,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssmNuts.fxml"));
             VBox assmNuts = loader.load();
             PlateAssmNutsController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(assmNuts);
         } catch (IOException e) {
             e.printStackTrace();
@@ -427,7 +418,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssmCuttings.fxml"));
             VBox assmCuttings = loader.load();
             PlateAssmCuttingsController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(assmCuttings);
         } catch (IOException e) {
             e.printStackTrace();
@@ -442,7 +433,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateAssmNodes.fxml"));
             VBox assmNodes = loader.load();
             PlateAssmNodesController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(assmNodes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -459,7 +450,7 @@ public class MenuCalculator extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateLevelingSealer.fxml"));
             VBox levelingSealer = loader.load();
             PlateLevelingSealerController controller = loader.getController();
-            controller.init(formController, opData);
+            controller.init(formController, opData, null);
             listViewTechOperations.getItems().add(levelingSealer);
         } catch (IOException e) {
             e.printStackTrace();

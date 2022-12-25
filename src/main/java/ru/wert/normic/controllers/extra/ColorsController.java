@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.forms;
+package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -19,7 +19,7 @@ public class ColorsController {
     int consumption1, consumption2, consumption3;
 
 
-    void init(){
+    public void init(){
 
         new TFColoredInteger(tfConsumption1, null);
         new TFColoredInteger(tfConsumption2, null);

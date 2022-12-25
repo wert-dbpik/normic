@@ -166,6 +166,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
     private void collectOpData(OpPaint opData){
         opData.setColor(cmbxColor.getValue());
+        opData.setArea(coatArea);
         opData.setTwoSides(twoSides);
         opData.setAlong(along);
         opData.setAcross(across);

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="settings" prefHeight="170.0" prefWidth="375.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.forms.ColorsController">
+<VBox fx:id="settings" prefHeight="170.0" prefWidth="375.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.extra.ColorsController">
    <children>
       <GridPane alignment="CENTER" VBox.vgrow="ALWAYS">
         <columnConstraints>

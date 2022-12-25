@@ -1,13 +1,14 @@
-package ru.wert.normic.controllers.forms;
+package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import ru.wert.normic.entities.OpAssm;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpDetail;
+import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ETimeMeasurement;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +42,11 @@ public class ReportController {
         }
 
         //Покрытие
-        String sp = "9.999";
-        String ral = "RAL7035";
-        String ralw = "0.782";
+
         report.append("\n\n").append("ПОКРЫТИЕ :\n");
-        report.append("Суммарная площадь : ").append(sp).append(" м2\n");
-        report.append("Расход краски ").append("'").append(ral).append("'").append(" : ").append(ralw).append(" кг.\n");
+        List<Double> ral1 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_I);
+        report.append("Краска '").append(EColor.COLOR_I.getName()).append("'").append(" : площадь = ").append(ral1.get(0)).append(" м2\n");
+        report.append("расход = ").append(ral1.get(1)).append(" кг.\n");
 
         //НОРМЫ ВРЕМЕНИ
         ETimeMeasurement tm = ETimeMeasurement.MIN;
@@ -81,6 +81,28 @@ public class ReportController {
 }
 
         }
+    }
+
+    private List<Double> collectListOfOperationsInOpData(IOpWithOperations op, EColor color){
+        double area = 0.0;
+        double weight = 0.0;
+        for(OpData o : op.getOperations()){
+            if(o instanceof IOpWithOperations) {
+                List<Double> ress = collectListOfOperationsInOpData((IOpWithOperations) o, color);
+                area += ress.get(0);
+                weight += ress.get(1);
+            }else{
+                if(o instanceof OpPaint && ((OpPaint)o).getColor().equals(color)) {
+                    area += ((OpPaint) o).getArea();
+                    weight += ((OpPaint) o).getDyeWeight();
+                }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
+                    area += ((OpPaintAssm) o).getArea();
+                    weight += ((OpPaintAssm) o).getDyeWeight();
+                }
+            }
+
+        }
+        return Arrays.asList(area, weight);
     }
 
 }

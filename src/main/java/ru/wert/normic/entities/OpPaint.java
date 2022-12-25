@@ -12,6 +12,7 @@ import ru.wert.normic.enums.EPaintingDifficulty;
 public class OpPaint extends OpData {
 
     private EColor color = EColor.COLOR_I;
+    private double area = 0.0;
     private boolean twoSides = true;
     private double dyeWeight = 0.0;
     private Integer along = 0;

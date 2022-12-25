@@ -18,6 +18,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.controllers.extra.ColorsController;
+import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;

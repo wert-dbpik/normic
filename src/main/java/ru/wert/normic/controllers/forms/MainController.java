@@ -170,6 +170,7 @@ public class MainController extends AbstractFormController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/report.fxml"));
             VBox report = loader.load();
             ReportController controller = loader.getController();
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             controller.init((OpAssm) opData);
 
             new Decoration(

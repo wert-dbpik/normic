@@ -68,9 +68,6 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     private FormDetailController formDetailController;
 
-    protected static double dragOffsetX;
-    protected static double dragOffsetY;
-
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpDetail opData = (OpDetail)data;
@@ -145,15 +142,15 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     }
 
     private void collectOpData(OpDetail opData) {
+        opData.setName(tfName.getText());
+        opData.setQuantity(IntegerParser.getValue(tfN));
         if(formDetailController != null){
-            opData.setName(formDetailController.getTfDetailName().getText());
             opData.setMaterial(formDetailController.getCmbxMaterial().getValue());
             opData.setParamA(IntegerParser.getValue(formDetailController.getTfA()));
             opData.setParamB(IntegerParser.getValue(formDetailController.getTfB()));
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formDetailController.getAddedOperations()));
         }
-        opData.setQuantity(IntegerParser.getValue(tfN));
     }
 
     @Override//AbstractOpPlate

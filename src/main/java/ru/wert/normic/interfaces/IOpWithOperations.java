@@ -4,7 +4,7 @@ import ru.wert.normic.entities.OpData;
 
 import java.util.List;
 
-public interface IOpWithOperations {
+public interface IOpWithOperations extends IOpPlate{
 
     List<OpData> getOperations();
 

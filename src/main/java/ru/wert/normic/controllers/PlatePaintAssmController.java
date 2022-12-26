@@ -72,6 +72,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private EColor color; //Цвет краски
+    private double dyeWeight; //Вес краски
     private int along; //Параметр А вдоль штанги
     private int across; //Параметр B поперек штанги
     private double area; //Площадь покрытия введенная вручную
@@ -133,8 +135,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
         countInitialValues();
 
-        double paintWeight = EColor.getConsumption(cmbxColor.getValue()) * area;
-        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, paintWeight));
+        dyeWeight = color.getConsumption() * 0.001 * area;
+        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
 
         final int DELTA = 300; //расстояние между сборками
 
@@ -174,6 +176,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         twoSides = chbxTwoSides.isSelected();
         kArea = twoSides ? 1.0 : 0.5;
 
+        color = cmbxColor.getValue();
+
         if(!chbxCalculatedArea.isSelected()){
             area = DoubleParser.getValue(tfManualArea);//Использовать введенную пользователем площадь
         } else {
@@ -189,7 +193,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
     private void collectOpData(OpPaintAssm opData){
 
-        opData.setColor(cmbxColor.getValue());
+        opData.setColor(color);
+        opData.setDyeWeight(dyeWeight);
         opData.setTwoSides(twoSides);
         opData.setCalculatedArea(chbxCalculatedArea.isSelected());
         opData.setArea(area);

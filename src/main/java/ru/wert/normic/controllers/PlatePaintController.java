@@ -62,11 +62,14 @@ public class PlatePaintController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private double kArea; //С двух сторон
     private int razvA; //Параметр А развертки
     private int razvB; //Параметр B развертки
     private int along; //Параметр А - габарит сложенной детали вдоль штанги
     private int across; //Параметр B - габарит сложенной детали поперек штанги
+    private EColor color; //Цвет покрытия
     private double coatArea; //Площадь развертки
+    private double dyeWeight; //Вес краски
     private double difficulty; //Сложность окрашивания
     private int hangingTime; //Время навешивания
     private boolean twoSides; //Красить с двух сторон
@@ -94,12 +97,10 @@ public class PlatePaintController extends AbstractOpPlate {
 
         countInitialValues();
 
-        double kArea = 1.0; //С двух сторон
-        if(!twoSides) kArea = 0.5; //С одной стороны
         tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea * kArea));
 
-        double paintWeight = EColor.getConsumption(cmbxColor.getValue()) * coatArea * kArea;
-        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, paintWeight));
+        dyeWeight = color.getConsumption() * 0.001 * coatArea * kArea;
+        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
 
         final int DELTA = 100; //расстояние между деталями
 
@@ -146,8 +147,10 @@ public class PlatePaintController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-
         twoSides = chbxTwoSides.isSelected();
+        kArea = twoSides ? 1.0 : 0.5;
+
+        color = cmbxColor.getValue();
 
         razvA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
         razvB = IntegerParser.getValue(((FormDetailController)formController).getTfB());
@@ -165,8 +168,9 @@ public class PlatePaintController extends AbstractOpPlate {
     }
 
     private void collectOpData(OpPaint opData){
-        opData.setColor(cmbxColor.getValue());
+        opData.setColor(color);
         opData.setArea(coatArea);
+        opData.setDyeWeight(dyeWeight);
         opData.setTwoSides(twoSides);
         opData.setAlong(along);
         opData.setAcross(across);

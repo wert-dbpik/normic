@@ -29,4 +29,13 @@ public class OpDetail extends OpData implements IOpWithOperations {
         super.normType = ENormType.NORM_DETAIL;
         super.opType = EOpType.DETAIL;
     }
+
+    /**
+     * Метод возвращает данные по операции, в том числе и нормы времени по участкам
+     * Используется для восстановления закрытых плашек и сохранения расчетов
+     */
+    @Override
+    public OpData getOpData() {
+        return this;
+    }
 }

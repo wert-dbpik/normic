@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ru.wert.normic.AppStatics.RAL_I;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class ReportController {
@@ -45,8 +46,13 @@ public class ReportController {
 
         report.append("\n\n").append("ПОКРЫТИЕ :\n");
         List<Double> ral1 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_I);
-        report.append("Краска '").append(EColor.COLOR_I.getName()).append("'").append(" : площадь = ").append(ral1.get(0)).append(" м2\n");
-        report.append("расход = ").append(ral1.get(1)).append(" кг.\n");
+        report.append("Краска '").append(EColor.COLOR_I.getRal()).append("', площадь = ").append(ral1.get(0)).append(" м2, ").append("расход = ").append(ral1.get(1)).append(" кг.\n");
+
+        List<Double> ral2 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_II);
+        report.append("Краска '").append(EColor.COLOR_II.getRal()).append("', площадь = ").append(ral2.get(0)).append(" м2, ").append("расход = ").append(ral2.get(1)).append(" кг.\n");
+
+        List<Double> ral3 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_III);
+        report.append("Краска '").append(EColor.COLOR_III.getRal()).append("', площадь = ").append(ral3.get(0)).append(" м2, ").append("расход = ").append(ral3.get(1)).append(" кг.\n");
 
         //НОРМЫ ВРЕМЕНИ
         ETimeMeasurement tm = ETimeMeasurement.MIN;
@@ -93,11 +99,11 @@ public class ReportController {
                 weight += ress.get(1);
             }else{
                 if(o instanceof OpPaint && ((OpPaint)o).getColor().equals(color)) {
-                    area += ((OpPaint) o).getArea();
-                    weight += ((OpPaint) o).getDyeWeight();
+                    area += ((OpPaint) o).getArea() * op.getOpData().getQuantity();
+                    weight += ((OpPaint) o).getDyeWeight() * op.getOpData().getQuantity();
                 }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
-                    area += ((OpPaintAssm) o).getArea();
-                    weight += ((OpPaintAssm) o).getDyeWeight();
+                    area += ((OpPaintAssm) o).getArea() * op.getOpData().getQuantity();
+                    weight += ((OpPaintAssm) o).getDyeWeight() * op.getOpData().getQuantity();
                 }
             }
 

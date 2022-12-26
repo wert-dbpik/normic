@@ -143,9 +143,9 @@ public class FormDetailController extends AbstractFormController {
 
         menu.getItems().addAll(menu.createItemAddCutting(), menu.createItemAddBending(), menu.createItemAddLocksmith());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
-        menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddPainting());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
 
         tyeMenuToButton();
     }

@@ -106,9 +106,9 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(menu.createItemAddDetail());
         menu.getItems().add(menu.createItemAddAssm());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
-        menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddPaintAssm());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddAssmNuts(), menu.createItemAddAssmCuttings(), menu.createItemAddAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());

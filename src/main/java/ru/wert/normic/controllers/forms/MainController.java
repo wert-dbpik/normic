@@ -21,6 +21,8 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.extra.AppColor;
+import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
@@ -29,6 +31,7 @@ import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
+import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 
@@ -37,9 +40,12 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.enums.EColor.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
@@ -157,8 +163,16 @@ public class MainController extends AbstractFormController {
         AppProperties.getInstance().setSavesDirectory(file.getParent());
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
         Gson gson = new Gson();
+        ProductSettings settings = new ProductSettings();
+        settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
+        settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));
+        settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));
+
+        String productSettings = gson.toJson(settings);
         String json = gson.toJson(opData);
-        saveTextToFile(json, file);
+
+        List<String> content = Arrays.asList(productSettings, json);
+        saveTextToFile(content, file);
 
     }
 
@@ -214,11 +228,13 @@ public class MainController extends AbstractFormController {
 
     }
 
-    private void saveTextToFile(String content, File file) {
+    private void saveTextToFile(List<String> content, File file) {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
-            writer.println(content);
+            for(String line : content) {
+                writer.println(line);
+            }
             writer.close();
         } catch (FileNotFoundException exception) {
             log.error(String.format("Не удалось записать файл %s", file.getName()));
@@ -237,8 +253,21 @@ public class MainController extends AbstractFormController {
         if(file == null) return;
         clearAll(e);
         try {
-            String str = new String(Files.readAllBytes(Paths.get(file.toString())));
+            BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
+            ArrayList<String> store = new ArrayList<>();
+            String line;
+            while((line = reader.readLine())!= null){
+                store.add(line);
+            }
+            String settings = store.get(0); //Настройки
             Gson gson = new Gson();
+            Type settingsType = new TypeToken<ProductSettings>(){}.getType();
+            ProductSettings productSettings = gson.fromJson(settings, settingsType);
+            deployProductSettings(productSettings);
+
+            String str = store.get(1); //Структура
+//            String str = new String(Files.readAllBytes(Paths.get(file.toString())));
+
             Type listType = new TypeToken<OpAssm>(){}.getType();
             opData = gson.fromJson(str, listType);
 
@@ -318,6 +347,15 @@ public class MainController extends AbstractFormController {
 
     }
 
+    private void deployProductSettings(ProductSettings settings) {
+        COLOR_I.setRal(settings.getColor1().getRal());
+        COLOR_II.setRal(settings.getColor2().getRal());
+        COLOR_III.setRal(settings.getColor3().getRal());
+
+        COLOR_I.setConsumption(settings.getColor1().getConsumption());
+        COLOR_II.setConsumption(settings.getColor2().getConsumption());
+        COLOR_III.setConsumption(settings.getColor3().getConsumption());
+    }
 
 
     private void deployJson(String jsonString) {

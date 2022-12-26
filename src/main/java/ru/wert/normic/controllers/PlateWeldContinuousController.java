@@ -14,6 +14,8 @@ import ru.wert.normic.entities.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.WELDING_SPEED;
+
 
 public class PlateWeldContinuousController extends AbstractOpPlate {
 
@@ -105,8 +107,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         OpWeldContinuous opData = (OpWeldContinuous)data;
 
         countInitialValues();
-
-        final double WELDING_SPEED = 4.0; //скорость сваркм, мин/гиб
 
         if(!chbxPreEnterSeams.isSelected()){
             if(step == 0){ //Деление на ноль

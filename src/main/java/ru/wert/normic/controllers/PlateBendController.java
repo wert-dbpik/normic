@@ -16,6 +16,9 @@ import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.BENDING_SERVICE_RATIO;
+import static ru.wert.normic.entities.settings.AppSettings.BENDING_SPEED;
+
 public class PlateBendController extends AbstractOpPlate {
 
     @FXML
@@ -71,8 +74,6 @@ public class PlateBendController extends AbstractOpPlate {
 
         countInitialValues();
 
-        final double BENDING_SERVICE_RATIO = 1.25; //коэфффициент, учитывающий 25% времени на обслуживание при гибке
-        final double BENDING_SPEED = 0.15; //корость гибки, мин/гиб
         double time;
         time =  bends * BENDING_SPEED * toolRatio * men  //мин
                 * BENDING_SERVICE_RATIO;

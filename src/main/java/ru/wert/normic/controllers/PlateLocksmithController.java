@@ -12,6 +12,8 @@ import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpLocksmith;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlateLocksmithController extends AbstractOpPlate {
 
     @FXML
@@ -73,12 +75,6 @@ public class PlateLocksmithController extends AbstractOpPlate {
         OpLocksmith opData = (OpLocksmith)data;
 
         countInitialValues();
-
-        final double RIVETS_SPEED = 18 * SEC_TO_MIN; //скорость установки вытяжной заклепки
-        final double COUNTERSINKING_SPEED = 0.31; //скорость сверления и зенковки
-        final double THREADING_SPEED = 0.37; //скорость нарезания резьбы
-        final double SMALL_SAWING_SPEED = 0.2; //скорость пиления на малой пиле
-        final double BIG_SAWING_SPEED = 1.0; //скорость пиления на большой пиле
 
         double time;
         time =  rivets * RIVETS_SPEED

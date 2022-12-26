@@ -14,6 +14,8 @@ import ru.wert.normic.entities.OpCutting;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 /**
  * При создании класса создается экзепляр класса OpCutting
  * В этом классе хранятся все актуальные значения полей, введенные пользователем,
@@ -95,9 +97,6 @@ public class PlateCuttingController extends AbstractOpPlate {
 
         countInitialValues();
 
-        final double REVOLVER_SPEED = 0.057; //скорость вырубки одного элемента револьвером, мин/уд
-        final double PERFORATION_SPEED = 0.007; //корость перфорирования, мин/уд
-        final double CUTTING_SERVICE_RATIO = 1.22; //коэфффициент, учитывающий 22% времени на обслуживание при резке
         final double PLUS_LENGTH = extraPerimeter * MM_TO_M;
 
         double speed;

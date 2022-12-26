@@ -12,6 +12,8 @@ import ru.wert.normic.entities.OpAssmNut;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlateAssmNutsController extends AbstractOpPlate {
 
     @FXML
@@ -81,13 +83,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         OpAssmNut opData = (OpAssmNut)data;
 
         countInitialValues();
-
-        final double SCREWS_SPEED = 0.25; //скорость установки вытяжных винтов
-        final double VSHGS_SPEED = 0.4; //скорость установки комплектов ВШГ
-        final double RIVETS_SPEED = 18 * SEC_TO_MIN; //скорость установки заклепок
-        final double RIVET_NUTS_SPEED = 22 * SEC_TO_MIN; //скорость установки заклепочных гаек
-        final double GROUND_SETS_SPEED = 1.0; //скорость установки комплекта заземления с этикеткой
-        final double OTHERS_SPEED = 15 * SEC_TO_MIN; //скорость установки другого крепежа
 
         double time;
         time =  screws * SCREWS_SPEED

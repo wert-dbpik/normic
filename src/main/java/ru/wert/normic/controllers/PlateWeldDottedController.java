@@ -12,6 +12,8 @@ import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlateWeldDottedController extends AbstractOpPlate {
 
     @FXML
@@ -63,10 +65,6 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         OpWeldDotted opData = (OpWeldDotted)data;
 
         countInitialValues();
-
-        final double WELDING_PARTS_SPEED = 0.13; //скорость онденсаторной сварки точкой, мин/элемент
-        final double WELDING_DOTTED_SPEED = 0.3; //скорость контактной сварки, мин/точку
-        final double WELDING_DROP_SPEED = 0.07; //скорость сварки прихватками, мин/прихватку
 
         double time;
         time =  parts * WELDING_PARTS_SPEED + dots * WELDING_DOTTED_SPEED + drops * WELDING_DROP_SPEED;   //мин

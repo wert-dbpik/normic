@@ -15,6 +15,8 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlatePaintController extends AbstractOpPlate {
 
     @FXML
@@ -102,15 +104,10 @@ public class PlatePaintController extends AbstractOpPlate {
         dyeWeight = color.getConsumption() * 0.001 * coatArea * kArea;
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
 
-        final int DELTA = 100; //расстояние между деталями
-
-        final double WASHING = 12/60.0; //мойка, мин
-        final double WINDING = 6/60.0; //продувка, мин
-        final double DRYING = 20/60.0; //сушка, мин
         final double HOLDING_TIME = hangingTime /60.0; //время навешивания, мин
 
-        final int alongSize = Math.max(along, across) + DELTA;
-        final int acrossSize = Math.min(along, across) + DELTA;
+        final int alongSize = Math.max(along, across) + DETAIL_DELTA;
+        final int acrossSize = Math.min(along, across) + DETAIL_DELTA;
 
         //Количество штанг в сушилке
         int dryingBars;

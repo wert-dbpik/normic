@@ -12,6 +12,8 @@ import ru.wert.normic.entities.OpAssmNode;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlateAssmNodesController extends AbstractOpPlate {
 
     @FXML
@@ -77,12 +79,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         OpAssmNode opData = (OpAssmNode)data;
 
         countInitialValues();
-
-        final double POST_LOCKS_SPEED = 0.25; //скорость установки вытяжных винтов
-        final double DOUBLE_LOCKS_SPEED = 0.4; //скорость установки комплектов ВШГ
-        final double MIRRORS_SPEED = 18 * SEC_TO_MIN; //скорость установки заклепок
-        final double DETECTORS_SPEED = 22 * SEC_TO_MIN; //скорость установки заклепочных гаек
-        final double CONNECTION_BOXES_SPEED = 1.0; //скорость установки комплекта заземления с этикеткой
 
         double time;
         time =  postLocks * POST_LOCKS_SPEED

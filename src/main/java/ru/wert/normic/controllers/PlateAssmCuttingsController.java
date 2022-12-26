@@ -12,6 +12,8 @@ import ru.wert.normic.entities.OpAssmCutting;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.utils.DoubleParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @FXML
@@ -64,10 +66,6 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         OpAssmCutting opData = (OpAssmCutting)data;
 
          countInitialValues();
-
-        final double SEALER_SPEED = 40 * SEC_TO_MIN; //скорость монтажа уплотнителя
-        final double SELF_ADH_SEALER_SPEED =  20 * SEC_TO_MIN; //скорость наклейки уплотнителя
-        final double INSULATION_SPEED = 5.5; //скорость разметки, резки и укладки уплотнителя
 
         double time;
         time =  sealer * SEALER_SPEED

@@ -22,6 +22,8 @@ import ru.wert.normic.utils.IntegerParser;
 
 import java.util.List;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 public class PlatePaintAssmController extends AbstractOpPlate {
 
     @FXML
@@ -138,13 +140,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         dyeWeight = color.getConsumption() * 0.001 * area;
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
 
-        final int DELTA = 300; //расстояние между сборками
-
-        final double HANGING_TIME = 0.34; //ремя навески и снятия после полимеризации
-        final double WINDING_MOVING_SPEED = 1.4; //продувка после промывки и перемещение изделя на штанге, мин/1 м.кв.
-
-        final int alongSize = along + DELTA;
-        final int acrossSize = across + DELTA;
+        final int alongSize = along + ASSM_DELTA;
+        final int acrossSize = across + ASSM_DELTA;
 
         int partsOnBar = 2500/alongSize;
 

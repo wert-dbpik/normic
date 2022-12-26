@@ -16,6 +16,9 @@ import ru.wert.normic.entities.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.entities.settings.AppSettings.LEVELING_SPEED;
+import static ru.wert.normic.entities.settings.AppSettings.PREPARED_TIME;
+
 public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @FXML
@@ -83,10 +86,8 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
         countInitialValues();
 
-        final double TIME = 0.32; //ПЗ время, мин
-        final double LEVELING_SPEED = 0.16; //скорость нанесения, м/мин
         double time;
-        time =  perimeter * LEVELING_SPEED + TIME;  //мин
+        time =  perimeter * LEVELING_SPEED + PREPARED_TIME;  //мин
 
         if(perimeter == 0) time = 0.0;
         else {

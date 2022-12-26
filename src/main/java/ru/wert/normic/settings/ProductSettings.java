@@ -2,8 +2,7 @@ package ru.wert.normic.settings;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.entities.extra.AppColor;
-import ru.wert.normic.enums.EColor;
+import ru.wert.normic.entities.settings.AppColor;
 
 @Getter
 @Setter

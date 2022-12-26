@@ -21,8 +21,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.extra.AppColor;
-import ru.wert.normic.enums.EColor;
+import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
@@ -37,8 +36,6 @@ import ru.wert.normic.utils.OpDataJsonConverter;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -162,17 +159,18 @@ public class MainController extends AbstractFormController {
         ((OpAssm)opData).setName(file.getName());
         AppProperties.getInstance().setSavesDirectory(file.getParent());
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
+
         Gson gson = new Gson();
         ProductSettings settings = new ProductSettings();
         settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
         settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));
         settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));
 
+        //Создаем строки для сохранения в коллекцию
         String productSettings = gson.toJson(settings);
-        String json = gson.toJson(opData);
-
-        List<String> content = Arrays.asList(productSettings, json);
-        saveTextToFile(content, file);
+        String productData = gson.toJson(opData);
+        List<String> product = Arrays.asList(productSettings, productData);
+        saveTextToFile(product, file);
 
     }
 
@@ -228,11 +226,16 @@ public class MainController extends AbstractFormController {
 
     }
 
-    private void saveTextToFile(List<String> content, File file) {
+    /**
+     * Сохранение строк в созданный файл
+     * @param product, List<String>
+     * @param file, File
+     */
+    private void saveTextToFile(List<String> product, File file) {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
-            for(String line : content) {
+            for(String line : product) {
                 writer.println(line);
             }
             writer.close();
@@ -253,25 +256,29 @@ public class MainController extends AbstractFormController {
         if(file == null) return;
         clearAll(e);
         try {
+            //Читаем строки из файла
             BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
             ArrayList<String> store = new ArrayList<>();
             String line;
             while((line = reader.readLine())!= null){
                 store.add(line);
             }
-            String settings = store.get(0); //Настройки
+
+            //Настройки
+            String settings = store.get(0);
             Gson gson = new Gson();
             Type settingsType = new TypeToken<ProductSettings>(){}.getType();
             ProductSettings productSettings = gson.fromJson(settings, settingsType);
+            //Применяем настройки
             deployProductSettings(productSettings);
 
-            String str = store.get(1); //Структура
-//            String str = new String(Files.readAllBytes(Paths.get(file.toString())));
+            //Структура
+            String product = store.get(1);
+            Type opDataType = new TypeToken<OpAssm>(){}.getType();
+            opData = gson.fromJson(product, opDataType);
+            //Применяем структуру
+            deployJson(product);
 
-            Type listType = new TypeToken<OpAssm>(){}.getType();
-            opData = gson.fromJson(str, listType);
-
-            deployJson(str);
             countSumNormTimeByShops();
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -347,6 +354,9 @@ public class MainController extends AbstractFormController {
 
     }
 
+    /**
+     * Применение НАСТРОЕК
+     */
     private void deployProductSettings(ProductSettings settings) {
         COLOR_I.setRal(settings.getColor1().getRal());
         COLOR_II.setRal(settings.getColor2().getRal());
@@ -357,7 +367,9 @@ public class MainController extends AbstractFormController {
         COLOR_III.setConsumption(settings.getColor3().getConsumption());
     }
 
-
+    /**
+     * Применение СТРУКТУРЫ
+     */
     private void deployJson(String jsonString) {
         try {
             opData = (OpAssm) OpDataJsonConverter.convert(jsonString);

@@ -17,7 +17,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-import static ru.wert.normic.decoration.DecorationStatic.WF_MAIN_STAGE;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 
 //@Slf4j
@@ -84,11 +84,11 @@ public class DecorationController {
             saveWindowCoordinates(window);
             changeSizeOfWindow(window, e);
             //При условии, что на весь экран раскрывается только главное окно
-            WF_MAIN_STAGE.setFullScreen(true);
+            MAIN_STAGE.setFullScreen(true);
         } else {
             changeSizeOfWindow(window, e);
             //При условии, что на весь экран раскрывается только главное окно
-            WF_MAIN_STAGE.setFullScreen(false);
+            MAIN_STAGE.setFullScreen(false);
         }
 
     }

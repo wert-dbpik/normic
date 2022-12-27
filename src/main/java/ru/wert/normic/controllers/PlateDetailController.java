@@ -28,6 +28,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     @FXML
     private ImageView ivContextMenu;
+
     @FXML
     private ImageView ivOperation;
 
@@ -42,9 +43,6 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     @FXML
     private ImageView ivEdit;
-
-    @FXML
-    private ImageView ivCopy;
 
     @FXML
     private ImageView ivDeleteOperation;

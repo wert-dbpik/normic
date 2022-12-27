@@ -13,7 +13,7 @@ import java.util.List;
 @Slf4j
 public class DecorationStatic {
 
-    public static Stage WF_MAIN_STAGE;
+    public static Stage MAIN_STAGE;
 
     /**
      * Метод обеспечивает закрытие любого окна
@@ -21,7 +21,7 @@ public class DecorationStatic {
      */
     public static void closeWindow(Event event) {
         Window window = ((Node) event.getSource()).getScene().getWindow();
-        if (window.equals(DecorationStatic.WF_MAIN_STAGE)) {
+        if (window.equals(DecorationStatic.MAIN_STAGE)) {
             exitApplication(event);
         } else
             window.hide();
@@ -72,7 +72,7 @@ public class DecorationStatic {
             window.setX(screenList.get(monitor).getVisualBounds().getMinX());
             window.setY(screenList.get(monitor).getVisualBounds().getMinY());
         } else {
-            if(WF_MAIN_STAGE.isFullScreen()){
+            if(MAIN_STAGE.isFullScreen()){
                 centerWindow(window, false, monitor);
             } else {
                 window.setX(owner.getX() + 40);

@@ -169,7 +169,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
         //Сначала удаляем bufferedOpData из whereFromController
         if (deleteWhenPaste) {
-            whereFromController.deleteOperation(bufferedOpData);
+//            whereFromController.deleteOperation(bufferedOpData);
         }
         //Потом вставляем bufferedOpData в selectedOpData
         ((IOpWithOperations) selectedOpData).getOperations().add(bufferedOpData);

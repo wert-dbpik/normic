@@ -1,5 +1,6 @@
 package ru.wert.normic.controllers.extra;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import ru.wert.normic.components.TFColoredInteger;
@@ -42,7 +43,7 @@ public class ColorsController {
         tfRAL3.setText(ral3);
         tfConsumption3.setText(String.valueOf(consumption3));
 
-        tfRAL1.requestFocus();
+        Platform.runLater(()->tfRAL1.requestFocus());
     }
 
     public void saveSettings(){

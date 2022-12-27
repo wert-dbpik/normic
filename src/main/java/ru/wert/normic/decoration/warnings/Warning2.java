@@ -18,8 +18,7 @@ import ru.wert.normic.decoration.ModalWindow;
 
 import java.io.IOException;
 
-import static ru.wert.normic.AppStatics.THEME_STYLE;
-import static ru.wert.normic.decoration.DecorationStatic.WF_MAIN_STAGE;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 
 public class Warning2 extends ModalWindow {
@@ -67,7 +66,7 @@ public class Warning2 extends ModalWindow {
             ModalWindow.setMovingPane(parent);
 
             Platform.runLater(()->{
-                ModalWindow.centerWindow(stage, WF_MAIN_STAGE, null);
+                ModalWindow.centerWindow(stage, MAIN_STAGE, null);
             });
 
             stage.showAndWait();

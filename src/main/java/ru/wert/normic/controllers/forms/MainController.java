@@ -3,6 +3,7 @@ package ru.wert.normic.controllers.forms;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -40,8 +41,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.wert.normic.AppStatics.KEYS_NOW_PRESSED;
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 import static ru.wert.normic.enums.EColor.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -72,6 +75,9 @@ public class MainController extends AbstractFormController {
     void initialize(){
         MAIN_CONTROLLER = this;
 
+        //Запускаем  перехват нажатых клавишь
+        Platform.runLater(()->createButtonInterceptor());
+
         AppStatics.MEASURE = cmbxTimeMeasurement;
         opData = new OpAssm();
 
@@ -83,6 +89,8 @@ public class MainController extends AbstractFormController {
         createMenu();
 
         initViews();
+
+        setCell();
 
         //Инициализируем комбобоксы
         new BXTimeMeasurement().create(cmbxTimeMeasurement, MIN);
@@ -99,6 +107,7 @@ public class MainController extends AbstractFormController {
     }
 
     private void initViews() {
+
         //СОХРАНИТЬ
         btnSave.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32,32, true, true)));
         btnSave.setTooltip(new Tooltip("Сохранить"));
@@ -383,6 +392,24 @@ public class MainController extends AbstractFormController {
     @Override
     public void init(AbstractFormController controller, TextField tfName, OpData opData) {
         //НЕ ИСПОЛЬЗУЕТСЯ
+    }
+
+    /**
+     * Перехватчик нажатых клавиш
+     * При нажатии, клавиша сохраняется в CH_KEYS_NOW_PRESSED,
+     * при отпускании, клавиша удаляется из CH_KEYS_NOW_PRESSED
+     */
+    private void createButtonInterceptor() {
+
+        KEYS_NOW_PRESSED = new ArrayList<>();
+
+        MAIN_STAGE.getScene().setOnKeyPressed((e)->{
+            KEYS_NOW_PRESSED.add(e.getCode());
+        });
+
+        MAIN_STAGE.getScene().setOnKeyReleased((e)->{
+            KEYS_NOW_PRESSED.remove(e.getCode());
+        });
     }
 
 }

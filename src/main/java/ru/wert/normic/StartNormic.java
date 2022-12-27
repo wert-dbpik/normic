@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.decoration.DecorationStatic;
 import ru.wert.normic.decoration.warnings.Warning1;
 
 import java.io.IOException;
@@ -45,7 +44,6 @@ public class StartNormic extends Application {
             Warning1.create("Внимание!", "Не удалось загрузить данные с сервера", "Работа программы будет прекращена");
             System.exit(0);
         }
-        DecorationStatic.WF_MAIN_STAGE = stage;
 
         try {
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
@@ -58,9 +56,12 @@ public class StartNormic extends Application {
                     "decoration-main",
                     false);
 
-
         }catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
+
+
 }

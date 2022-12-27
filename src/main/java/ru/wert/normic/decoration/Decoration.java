@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 import static ru.wert.normic.AppStatics.THEME_STYLE;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 @Slf4j
 public class Decoration {
@@ -77,6 +78,8 @@ public class Decoration {
 
             window = new Stage();
             window.setScene(scene);
+
+            MAIN_STAGE = window;
 
             window.initStyle(StageStyle.UNDECORATED);
             if (owner != null) settingOwner(owner);

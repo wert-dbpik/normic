@@ -22,7 +22,7 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 @Slf4j
 public class Decoration {
-    private Stage window = null;
+    @Getter private Stage window = null;
     private final String headerName; //название окна
     private FXMLLoader decorationLoader;
     private final Parent rootPane;
@@ -78,9 +78,6 @@ public class Decoration {
 
             window = new Stage();
             window.setScene(scene);
-
-            MAIN_STAGE = window;
-
             window.initStyle(StageStyle.UNDECORATED);
             if (owner != null) settingOwner(owner);
 

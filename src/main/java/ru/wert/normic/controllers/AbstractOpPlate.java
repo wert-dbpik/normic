@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
@@ -14,18 +12,13 @@ import lombok.Getter;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuPlate;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static ru.wert.normic.AppStatics.MEASURE;
-import static ru.wert.normic.enums.EOpType.*;
+import static ru.wert.normic.AppStatics.*;
 
 
 /**
@@ -38,10 +31,6 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public static OpData bufferedOpData = null; //Операция, хранимая для копирования/вырезания
     public static AbstractFormController whereFromController; //Операция в которой находится bufferedOpData
     public static boolean deleteWhenPaste; //Флаг удаления bufferedOpData после вставки
-    private final List<EOpType> restrictedForDetail =  //Перечень операций, которые нельзя добавить в Деталь
-            Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
-    private final List<EOpType> restrictedForAssm = //Перечень операций, которые нельзя добавить в Сборку
-            Arrays.asList(CUTTING, BENDING, PAINTING);
 
     // КОНСТАНТЫ
     public static final double MM_TO_M = 0.001; //перевод мм в метры
@@ -156,10 +145,10 @@ public abstract class AbstractOpPlate implements IOpPlate {
         OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
         if(selectedOpData.equals(bufferedOpData)) return false;
         if(selectedOpData instanceof OpDetail) {
-            return !restrictedForDetail.contains(bufferedOpData.getOpType());
+            return !RESTRICTED_FOR_DETAILS.contains(bufferedOpData.getOpType());
         }
         else if(selectedOpData instanceof OpAssm) {
-            return !restrictedForAssm.contains(bufferedOpData.getOpType());
+            return !RESTRICTED_FOR_ASSM.contains(bufferedOpData.getOpType());
         }
         return true;
     }

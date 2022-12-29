@@ -99,7 +99,8 @@ public class FormAssmController extends AbstractFormController {
         });
     }
 
-    private void createMenu() {
+    @Override
+    public  void createMenu() {
 
         menu = new MenuCalculator(this, listViewTechOperations, (IOpWithOperations) opData);
 

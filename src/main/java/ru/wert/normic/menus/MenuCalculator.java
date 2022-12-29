@@ -1,5 +1,6 @@
 package ru.wert.normic.menus;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;

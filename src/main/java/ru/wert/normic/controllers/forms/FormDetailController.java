@@ -137,8 +137,8 @@ public class FormDetailController extends AbstractFormController {
         });
     }
 
-
-    private void createMenu(){
+    @Override
+    public void createMenu(){
         menu = new MenuCalculator(this, listViewTechOperations, (IOpWithOperations) opData);
 
         menu.getItems().addAll(menu.createItemAddCutting(), menu.createItemAddBending(), menu.createItemAddLocksmith());

@@ -90,7 +90,7 @@ public class MainController extends AbstractFormController {
 
         initViews();
 
-        setCell();
+        setDragAndDropCellFactory();
 
         //Инициализируем комбобоксы
         new BXTimeMeasurement().create(cmbxTimeMeasurement, MIN);
@@ -296,7 +296,8 @@ public class MainController extends AbstractFormController {
     }
 
 
-    private void createMenu() {
+    @Override
+    public void createMenu() {
 
         menu = new MenuCalculator(this, listViewTechOperations, (IOpWithOperations) opData);
 

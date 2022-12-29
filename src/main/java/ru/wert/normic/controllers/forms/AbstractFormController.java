@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.forms;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -9,27 +8,25 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.PlateAssmController;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +39,6 @@ public abstract class AbstractFormController implements IForm {
     public static List<AbstractOpPlate> clipOpPlateList = new ArrayList<>();
     public static List<VBox> clipBoxList = new ArrayList<>();
     public static boolean copy;
-    private ClipboardContent cc;
 
     protected MenuCalculator menu;
     @Getter protected OpData opData;
@@ -65,6 +61,8 @@ public abstract class AbstractFormController implements IForm {
 
     public abstract void countSumNormTimeByShops();
 
+    public abstract void createMenu();
+
     public abstract void fillOpData();
 
     ImageCursor copyCursor;
@@ -81,7 +79,7 @@ public abstract class AbstractFormController implements IForm {
         return area;
     }
 
-    protected void setCell(){
+    protected void setDragAndDropCellFactory(){
         copyCursor = new ImageCursor(imageCopy);
         cutCursor = new ImageCursor(imageCut);
 
@@ -100,8 +98,7 @@ public abstract class AbstractFormController implements IForm {
                 cell.setOnDragDetected(e->{
                     if (!cell.isEmpty()) {
                         Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
-
-                        cc = new ClipboardContent();
+                        ClipboardContent cc = new ClipboardContent();
                         List<Integer> indices = listViewTechOperations.getSelectionModel().getSelectedIndices();
                         if(indices.isEmpty()) return;
                         for(int index : indices){
@@ -109,9 +106,13 @@ public abstract class AbstractFormController implements IForm {
                             clipOpPlateList.add(addedPlates.get(index));
                             clipBoxList.add(listViewTechOperations.getItems().get(index));
                         }
-                        copy = e.isControlDown();
+                            copy = e.getButton().equals(MouseButton.SECONDARY);
 
-//                        db.setDragView(cell.getItem().snapshot(null, null));
+                        if(copy) {
+
+                            WritableImage image = new Text("Копируем").snapshot(null, null);
+                            db.setDragView(image, 5.0 + image.getWidth(), 0.0);
+                        }
                         cc.putString("data");
                         db.setContent(cc);
                         e.consume();
@@ -119,50 +120,68 @@ public abstract class AbstractFormController implements IForm {
                 });
 
                 cell.setOnDragOver(e -> {
-                    listViewTechOperations.getSelectionModel().clearSelection();
-                    listViewTechOperations.getSelectionModel().select(cell.getItem());
+                    if(cell.getItem() != null) {
+                        listViewTechOperations.getSelectionModel().clearSelection();
+                        listViewTechOperations.getSelectionModel().select(cell.getItem());
 
-                    Dragboard db = e.getDragboard();
-                    copy = KEYS_NOW_PRESSED.contains(KeyCode.CONTROL);
+                        Dragboard db = e.getDragboard();
 
-                    OpData targetOpData = addedOperations.get(cell.getIndex());
-                    if(db.hasString() && dropIsPossible(targetOpData)) {
-                        e.acceptTransferModes(TransferMode.MOVE);
-                    } else {
-                        e.acceptTransferModes(TransferMode.NONE);
-
+                        OpData targetOpData = addedOperations.get(cell.getIndex());
+                        if (clipOpDataList.contains(targetOpData))
+                            e.acceptTransferModes(TransferMode.MOVE);
+                        else if (db.hasString() && dropIsPossible(targetOpData)) {
+                            e.acceptTransferModes(TransferMode.MOVE);
+                        } else {
+                            e.acceptTransferModes(TransferMode.NONE);
+                        }
+                    } else{
+                        if(copy) e.acceptTransferModes(TransferMode.MOVE);
+                        else e.acceptTransferModes(TransferMode.NONE);
                     }
 
                     e.consume();
                 });
 
-                cell.setOnDragDone(e -> {
-                    if(!copy) {
-                        for(int i = 0; i < clipOpDataList.size(); i++){
-                            addedOperations.remove(clipOpDataList.get(i));
-                            addedPlates.remove(clipOpPlateList.get(i));
-                            listViewTechOperations.getItems().remove(clipBoxList.get(i));
+                cell.setOnDragDone(ev -> {
+                    if (ev.isAccepted()) {
+                        if (!copy) {
+                            for (int i = 0; i < clipOpDataList.size(); i++) {
+                                addedOperations.remove(clipOpDataList.get(i));
+                                addedPlates.remove(clipOpPlateList.get(i));
+                                listViewTechOperations.getItems().remove(clipBoxList.get(i));
+                            }
                         }
-                    }
 
+                        ((IOpWithOperations) opData).setOperations(addedOperations);
+//                        createMenu();
+//                        Platform.runLater(()->{
+                            fillOpData();
+
+//                        });
+                        countSumNormTimeByShops();
+                    }
                     clipOpDataList.clear();
                     clipOpPlateList.clear();
                     clipBoxList.clear();
                     copy = false;
 
-                    countSumNormTimeByShops();
-                    e.consume();
+                    ev.consume();
                 });
 
-                cell.setOnDragDropped(e -> {
-                    Dragboard db = e.getDragboard();
-                    OpData targetOpData = addedOperations.get(cell.getIndex());
-                    if (e.getTransferMode().equals(TransferMode.MOVE) && !clipOpDataList.contains(targetOpData)) {
-                        addOperation(addedOperations.get(cell.getIndex()));
-                        e.setDropCompleted(true);
-                    } else {
-                        e.setDropCompleted(false);
 
+                cell.setOnDragDropped(e -> {
+                    if(cell.getItem() != null) {
+                        OpData targetOpData = addedOperations.get(cell.getIndex());
+                        if (e.getTransferMode().equals(TransferMode.MOVE) && !clipOpDataList.contains(targetOpData)) {
+                            addOperation(addedOperations.get(cell.getIndex()));
+                            e.setDropCompleted(true);
+                        } else {
+                            e.setDropCompleted(false);
+
+                        }
+                    } else if(e.getTransferMode().equals(TransferMode.MOVE)){
+                        addOperation(opData);
+                        e.setDropCompleted(true);
                     }
                 });
                 return cell;
@@ -199,30 +218,65 @@ public abstract class AbstractFormController implements IForm {
         });
     };
 
+    /**
+     * Метод добавляет данные "clipOpData" в targetOpData
+     * В случае если targetOpData и opData формы совпадают, приходится проходить весь цикл добавления новой операции
+     * и не ограничиваться только добавлением clipOpData
+     */
     public void addOperation(OpData targetOpData) {
-        List<OpData> targetOperations = ((IOpWithOperations)targetOpData).getOperations();
+        List<OpData> targetOperations = targetOpData.equals(opData) ?
+                addedOperations :
+                ((IOpWithOperations)targetOpData).getOperations();
+        //Перед добавление новых операций снимаем выделение
+        if(targetOpData.equals(opData)) {
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
+            listViewTechOperations.getSelectionModel().clearSelection();
+        }
 
         for(OpData clipOpData : clipOpDataList) {
-            int index = 0;
-            if (clipOpData instanceof OpDetail) {
-                for (OpData op : targetOperations) {
-                    if (op instanceof OpDetail) index++;
-                    else break;
-                }
-                targetOperations.add(index, clipOpData);
 
-            } else if (clipOpData instanceof OpAssm) {
+            int targetIndex = 0; //Индекс позиции, куда происходит добавление clipOpData
+            int sourceIndex = clipOpDataList.indexOf(clipOpData); //Индекс clipOpData в списке clip
+
+            if (clipOpData instanceof OpDetail) { //Деталь добавляет после всех деталей
                 for (OpData op : targetOperations) {
-                    if (op instanceof OpDetail || op instanceof OpAssm) index++;
+                    if (op instanceof OpDetail) targetIndex++;
                     else break;
                 }
-                targetOperations.add(index, clipOpData);
-            } else {
-                targetOperations.add(clipOpData);
+                addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex, sourceIndex);
+            } else if (clipOpData instanceof OpAssm) {
+                for (OpData op : targetOperations) { //Сборка добавляет после всех деталей и сборок
+                    if (op instanceof OpDetail || op instanceof OpAssm) targetIndex++;
+                    else break;
+                }
+                addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex, sourceIndex);
+            } else { //Оставшиеся операции добавляются в конец списка
+                addToTargetOpDataToTheEndOfList(targetOpData, targetOperations, clipOpData, sourceIndex);
             }
         }
 
-        countSumNormTimeByShops();
+    }
+
+    private void addToTargetOpDataToTheEndOfList(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int sourceIndex) {
+        if(targetOpData.equals(opData)){
+            targetOperations.add(opData);
+
+            addedPlates.add(clipOpPlateList.get(sourceIndex));
+            listViewTechOperations.getItems().add(clipBoxList.get(sourceIndex));
+            listViewTechOperations.getSelectionModel().select(clipBoxList.get(sourceIndex));
+        } else
+            targetOperations.add(clipOpData);
+    }
+
+    private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex, int sourceIndex) {
+        if(targetOpData.equals(opData)){
+            targetOperations.add(targetIndex, opData);
+//            ((IOpWithOperations) opData).setOperations(targetOperations);
+//            addedPlates.add(targetIndex, clipOpPlateList.get(sourceIndex));
+//            listViewTechOperations.getItems().add(targetIndex, clipBoxList.get(sourceIndex));
+//            listViewTechOperations.getSelectionModel().select(targetIndex);
+        } else
+            targetOperations.add(targetIndex, clipOpData);
     }
 
 }

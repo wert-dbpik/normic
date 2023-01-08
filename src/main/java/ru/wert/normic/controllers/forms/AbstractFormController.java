@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import lombok.Getter;
+import org.apache.commons.lang3.SerializationUtils;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.PlateAssmController;
 import ru.wert.normic.entities.OpAssm;
@@ -153,11 +154,9 @@ public abstract class AbstractFormController implements IForm {
                         }
 
                         ((IOpWithOperations) opData).setOperations(addedOperations);
-//                        createMenu();
-//                        Platform.runLater(()->{
-                            fillOpData();
 
-//                        });
+                        fillOpData();
+
                         countSumNormTimeByShops();
                     }
                     clipOpDataList.clear();
@@ -270,7 +269,8 @@ public abstract class AbstractFormController implements IForm {
 
     private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex, int sourceIndex) {
         if(targetOpData.equals(opData)){
-            targetOperations.add(targetIndex, opData);
+            OpData addedOpData = SerializationUtils.clone(opData);
+            targetOperations.add(targetIndex, addedOpData);
 //            ((IOpWithOperations) opData).setOperations(targetOperations);
 //            addedPlates.add(targetIndex, clipOpPlateList.get(sourceIndex));
 //            listViewTechOperations.getItems().add(targetIndex, clipBoxList.get(sourceIndex));

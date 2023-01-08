@@ -5,12 +5,14 @@ import lombok.Setter;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
+import java.io.Serializable;
+
 /**
  * Класс наследуется всеми entities
  */
 @Getter
 @Setter
-public class OpData {
+public class OpData implements Serializable {
 
     protected ENormType normType; //Тип нормы по участкам (МК, ППК и т.д.)
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))

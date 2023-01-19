@@ -36,10 +36,13 @@ import static ru.wert.normic.AppStatics.*;
 
 public abstract class AbstractFormController implements IForm {
 
-    public static List<OpData> clipOpDataList = new ArrayList<>();
-    public static List<AbstractOpPlate> clipOpPlateList = new ArrayList<>();
-    public static List<VBox> clipBoxList = new ArrayList<>();
-    public static boolean copy;
+    //Коллекции переносимых элементов
+    //При переносе какого-либо узла переносится одновременно соответственно элементу OpData = AbstractOpPlate = VBox
+    public static List<OpData> clipOpDataList = new ArrayList<>(); //Коллекция переносимых операций
+    public static List<AbstractOpPlate> clipOpPlateList = new ArrayList<>(); //Коллекция переносимых плашек
+    public static List<VBox> clipBoxList = new ArrayList<>(); //Колеекция переносимых Бксов
+    public static boolean copy; //true - (КОПИРОВАТЬ) переносимые элементы не удаляются, false - (ВЫРЕЗАТЬ) удаляются
+    //------------------------
 
     protected MenuCalculator menu;
     @Getter protected OpData opData;
@@ -103,7 +106,7 @@ public abstract class AbstractFormController implements IForm {
                         List<Integer> indices = listViewTechOperations.getSelectionModel().getSelectedIndices();
                         if(indices.isEmpty()) return;
                         for(int index : indices){
-                            clipOpDataList.add(addedOperations.get(index));
+                            clipOpDataList.add(addedOperations.get(index)); //
                             clipOpPlateList.add(addedPlates.get(index));
                             clipBoxList.add(listViewTechOperations.getItems().get(index));
                         }
@@ -147,15 +150,14 @@ public abstract class AbstractFormController implements IForm {
                     if (ev.isAccepted()) {
                         if (!copy) {
                             for (int i = 0; i < clipOpDataList.size(); i++) {
-                                addedOperations.remove(clipOpDataList.get(i));
                                 addedPlates.remove(clipOpPlateList.get(i));
                                 listViewTechOperations.getItems().remove(clipBoxList.get(i));
+                                addedOperations.remove(clipOpDataList.get(i));
                             }
+
                         }
 
                         ((IOpWithOperations) opData).setOperations(addedOperations);
-
-                        fillOpData();
 
                         countSumNormTimeByShops();
                     }
@@ -185,6 +187,13 @@ public abstract class AbstractFormController implements IForm {
                 });
                 return cell;
             }
+        });
+
+        listViewTechOperations.setOnMouseClicked(e->{
+            if(e.getButton().equals(MouseButton.SECONDARY)){
+
+            }
+
         });
     }
 

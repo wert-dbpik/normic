@@ -43,9 +43,6 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     private ImageView ivEdit;
 
     @FXML
-    private ImageView ivCopy;
-
-    @FXML
     private ImageView ivDeleteOperation;
     
     @FXML

@@ -193,47 +193,51 @@ public class MenuCalculator extends ContextMenu {
     public void deployData() {
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for (OpData op : operations) {
-            switch (op.getOpType()) {
-                case DETAIL:
-                    addDetailPlate((OpDetail) op);
-                    break;
-                case ASSM:
-                    addAssmPlate((OpAssm) op);
-                    break;
-                case CUTTING:
-                    addCattingPlate((OpCutting) op);
-                    break;
-                case BENDING:
-                    addBendingPlate((OpBending) op);
-                    break;
-                case LOCKSMITH:
-                    addLocksmithPlate((OpLocksmith) op);
-                    break;
-                case PAINTING:
-                    addPaintPlate((OpPaint) op);
-                    break;
-                case PAINT_ASSM:
-                    addPaintAssmPlate((OpPaintAssm) op);
-                    break;
-                case WELD_CONTINUOUS:
-                    addWeldContinuousPlate((OpWeldContinuous) op);
-                    break;
-                case WELD_DOTTED:
-                    addWeldDottedPlate((OpWeldDotted) op);
-                    break;
-                case ASSM_CUTTINGS:
-                    addAssmCuttingsPlate((OpAssmCutting) op);
-                    break;
-                case ASSM_NUTS:
-                    addAssmNutsPlate((OpAssmNut) op);
-                    break;
-                case ASSM_NODES:
-                    addAssmNodesPlate((OpAssmNode) op);
-                    break;
-                case LEVELING_SEALER:
-                    addLevelingSealerPlate((OpLevelingSealer) op);
-                    break;
-            }
+            createPlate(op);
+        }
+    }
+
+    public void createPlate(OpData op) {
+        switch (op.getOpType()) {
+            case DETAIL:
+                addDetailPlate((OpDetail) op);
+                break;
+            case ASSM:
+                addAssmPlate((OpAssm) op);
+                break;
+            case CUTTING:
+                addCattingPlate((OpCutting) op);
+                break;
+            case BENDING:
+                addBendingPlate((OpBending) op);
+                break;
+            case LOCKSMITH:
+                addLocksmithPlate((OpLocksmith) op);
+                break;
+            case PAINTING:
+                addPaintPlate((OpPaint) op);
+                break;
+            case PAINT_ASSM:
+                addPaintAssmPlate((OpPaintAssm) op);
+                break;
+            case WELD_CONTINUOUS:
+                addWeldContinuousPlate((OpWeldContinuous) op);
+                break;
+            case WELD_DOTTED:
+                addWeldDottedPlate((OpWeldDotted) op);
+                break;
+            case ASSM_CUTTINGS:
+                addAssmCuttingsPlate((OpAssmCutting) op);
+                break;
+            case ASSM_NUTS:
+                addAssmNutsPlate((OpAssmNut) op);
+                break;
+            case ASSM_NODES:
+                addAssmNodesPlate((OpAssmNode) op);
+                break;
+            case LEVELING_SEALER:
+                addLevelingSealerPlate((OpLevelingSealer) op);
+                break;
         }
     }
     /*==================================================================================================================

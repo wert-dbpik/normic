@@ -6,9 +6,11 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,17 +29,20 @@ import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
+import ru.wert.normic.menus.MenuPlate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 
 public abstract class AbstractFormController implements IForm {
 
     //Коллекции переносимых элементов
     //При переносе какого-либо узла переносится одновременно соответственно элементу OpData = AbstractOpPlate = VBox
+    public static AbstractFormController whereFromController;
     public static List<OpData> clipOpDataList = new ArrayList<>(); //Коллекция переносимых операций
     public static List<AbstractOpPlate> clipOpPlateList = new ArrayList<>(); //Коллекция переносимых плашек
     public static List<VBox> clipBoxList = new ArrayList<>(); //Колеекция переносимых Бксов
@@ -57,11 +62,9 @@ public abstract class AbstractFormController implements IForm {
     private final Image imageCut = new Image(String.valueOf(getClass().getResource("/pics/btns/cursor_cut.png")),
             32, 32, true, true);
 
-    @FXML @Getter
-    private ListView<VBox> listViewTechOperations;
 
-    @FXML
-    private Button btnAddOperation;
+//    @FXML
+//    private Button btnAddOperation;
 
     public abstract void countSumNormTimeByShops();
 
@@ -69,8 +72,15 @@ public abstract class AbstractFormController implements IForm {
 
     public abstract void fillOpData();
 
+    public abstract ListView<VBox> getListViewTechOperations();
+    public abstract Button getBtnAddOperation();
+
+
     ImageCursor copyCursor;
     ImageCursor cutCursor;
+
+    public AbstractFormController() {
+    }
 
     public double calculateAreaByDetails(){
         double area = 0.0;
@@ -87,8 +97,8 @@ public abstract class AbstractFormController implements IForm {
         copyCursor = new ImageCursor(imageCopy);
         cutCursor = new ImageCursor(imageCut);
 
-        listViewTechOperations.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        listViewTechOperations.setCellFactory(new Callback<ListView<VBox>, ListCell<VBox>>() {
+        getListViewTechOperations().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        getListViewTechOperations().setCellFactory(new Callback<ListView<VBox>, ListCell<VBox>>() {
             @Override
             public ListCell<VBox> call(ListView<VBox> operationsListView) {
                 ListCell<VBox> cell = new ListCell<VBox>(){
@@ -103,12 +113,12 @@ public abstract class AbstractFormController implements IForm {
                     if (!cell.isEmpty()) {
                         Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
                         ClipboardContent cc = new ClipboardContent();
-                        List<Integer> indices = listViewTechOperations.getSelectionModel().getSelectedIndices();
+                        List<Integer> indices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
                         if(indices.isEmpty()) return;
                         for(int index : indices){
                             clipOpDataList.add(addedOperations.get(index)); //
                             clipOpPlateList.add(addedPlates.get(index));
-                            clipBoxList.add(listViewTechOperations.getItems().get(index));
+                            clipBoxList.add(getListViewTechOperations().getItems().get(index));
                         }
                             copy = e.getButton().equals(MouseButton.SECONDARY);
 
@@ -125,8 +135,8 @@ public abstract class AbstractFormController implements IForm {
 
                 cell.setOnDragOver(e -> {
                     if(cell.getItem() != null) {
-                        listViewTechOperations.getSelectionModel().clearSelection();
-                        listViewTechOperations.getSelectionModel().select(cell.getItem());
+                        getListViewTechOperations().getSelectionModel().clearSelection();
+                        getListViewTechOperations().getSelectionModel().select(cell.getItem());
 
                         Dragboard db = e.getDragboard();
 
@@ -151,7 +161,7 @@ public abstract class AbstractFormController implements IForm {
                         if (!copy) {
                             for (int i = 0; i < clipOpDataList.size(); i++) {
                                 addedPlates.remove(clipOpPlateList.get(i));
-                                listViewTechOperations.getItems().remove(clipBoxList.get(i));
+                                getListViewTechOperations().getItems().remove(clipBoxList.get(i));
                                 addedOperations.remove(clipOpDataList.get(i));
                             }
 
@@ -189,11 +199,13 @@ public abstract class AbstractFormController implements IForm {
             }
         });
 
-        listViewTechOperations.setOnMouseClicked(e->{
-            if(e.getButton().equals(MouseButton.SECONDARY)){
-
+        getListViewTechOperations().setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.SECONDARY)) {
+                new MenuPlate().create(this).show(
+                        ((Node)e.getSource()).getScene().getWindow(),
+                        e.getScreenX(),
+                        e.getScreenY());
             }
-
         });
     }
 
@@ -212,13 +224,13 @@ public abstract class AbstractFormController implements IForm {
     }
 
     protected void tyeMenuToButton(){
-        btnAddOperation.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/add.png")),
+        getBtnAddOperation().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/add.png")),
                 44,44, true, true)));
-        btnAddOperation.setTooltip(new Tooltip("Добавить операцию"));
-        btnAddOperation.setOnMouseClicked(e->{
+        getBtnAddOperation().setTooltip(new Tooltip("Добавить операцию"));
+        getBtnAddOperation().setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY)){
                 menu.show(
-                        btnAddOperation,
+                        getBtnAddOperation(),
                         Side.LEFT,
                         0.0,
                         32.0);
@@ -227,21 +239,27 @@ public abstract class AbstractFormController implements IForm {
     };
 
     /**
+     * ДОБАВИТЬ ОПЕРАЦИЮ
+     *
      * Метод добавляет данные "clipOpData" в targetOpData
      * В случае если targetOpData и opData формы совпадают, приходится проходить весь цикл добавления новой операции
      * и не ограничиваться только добавлением clipOpData
      */
     public void addOperation(OpData targetOpData) {
+        //Определяем список Целевых операций, если Целевой OpData яаляется текущим OpData,
+        //то есть добавление в корень открытой оперции, то список Целевых операций = текущему списку,
+        //иначе - из Целевой OpData находим Список оперций
         List<OpData> targetOperations = targetOpData.equals(opData) ?
                 addedOperations :
                 ((IOpWithOperations)targetOpData).getOperations();
         //Перед добавление новых операций снимаем выделение
         if(targetOpData.equals(opData)) {
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
-            listViewTechOperations.getSelectionModel().clearSelection();
+            getListViewTechOperations().getSelectionModel().clearSelection();
         }
 
-        for(OpData clipOpData : clipOpDataList) {
+        //Добавление новых операций производится в цикле
+        for (OpData clipOpData : clipOpDataList) {
 
             int targetIndex = 0; //Индекс позиции, куда происходит добавление clipOpData
             int sourceIndex = clipOpDataList.indexOf(clipOpData); //Индекс clipOpData в списке clip
@@ -265,27 +283,147 @@ public abstract class AbstractFormController implements IForm {
 
     }
 
+    /**
+     * ДОБАВИТЬ ОПЕРАЦИЮ В КОНЕЦ СПИСКА
+     * @param targetOpData OpData - Целевая OpData, куда происходит добавление
+     * @param targetOperations List<OpData> - Список операций в который добавляются новая операция
+     * @param clipOpData OpData - Добавляемая OpData
+     * @param sourceIndex
+     */
     private void addToTargetOpDataToTheEndOfList(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int sourceIndex) {
+        //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
             targetOperations.add(opData);
 
             addedPlates.add(clipOpPlateList.get(sourceIndex));
-            listViewTechOperations.getItems().add(clipBoxList.get(sourceIndex));
-            listViewTechOperations.getSelectionModel().select(clipBoxList.get(sourceIndex));
+            getListViewTechOperations().getItems().add(clipBoxList.get(sourceIndex));
+            getListViewTechOperations().getSelectionModel().select(clipBoxList.get(sourceIndex));
         } else
             targetOperations.add(clipOpData);
     }
 
+    /**
+     * ДОБАВИТЬ ОПЕРАЦИЮ ПО ИНДЕКСУ В СЕРЕДИНУ СПИСКА
+     * @param targetOpData
+     * @param targetOperations
+     * @param clipOpData
+     * @param targetIndex
+     * @param sourceIndex
+     */
     private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex, int sourceIndex) {
+        //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
-            OpData addedOpData = SerializationUtils.clone(opData);
+            OpData addedOpData = SerializationUtils.clone(clipOpData);
+            renameWithCopy(addedOpData);
             targetOperations.add(targetIndex, addedOpData);
-//            ((IOpWithOperations) opData).setOperations(targetOperations);
+            ((IOpWithOperations)opData).setOperations(targetOperations);
+            menu.deployData();
 //            addedPlates.add(targetIndex, clipOpPlateList.get(sourceIndex));
-//            listViewTechOperations.getItems().add(targetIndex, clipBoxList.get(sourceIndex));
-//            listViewTechOperations.getSelectionModel().select(targetIndex);
+//            getListViewTechOperations().getItems().add(targetIndex, clipBoxList.get(sourceIndex));
+            getListViewTechOperations().getSelectionModel().select(targetIndex);
+
         } else
             targetOperations.add(targetIndex, clipOpData);
+    }
+
+    /**
+     * Метод добавляет -(копия) в конец наименования при копировании
+     */
+    private void renameWithCopy(OpData addedOpData) {
+        if(addedOpData instanceof OpAssm)
+            ((OpAssm)addedOpData).setName(((OpAssm)addedOpData).getName() + "-(копия)");
+        else if(addedOpData instanceof OpDetail)
+            ((OpDetail)addedOpData).setName(((OpDetail)addedOpData).getName() + "-(копия)");
+    }
+
+    /**
+     * ВЫРЕЗАТЬ
+     */
+    public void cutOperation(Event e){
+        List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
+        for(int index : selectedIndices){
+            clipOpDataList.add(getAddedOperations().get(index));
+            clipOpPlateList.add(addedPlates.get(index));
+            clipBoxList.add(getListViewTechOperations().getItems().get(index));
+        }
+        whereFromController = this;
+        copy = false;
+    }
+
+    /**
+     * КОПИРОВАТЬ
+     */
+    public void copyOperation(Event e){
+        List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
+        for(int index : selectedIndices){
+            clipOpDataList.add(getAddedOperations().get(index));
+            clipOpPlateList.add(addedPlates.get(index));
+            clipBoxList.add(getListViewTechOperations().getItems().get(index));
+        }
+        whereFromController = this;
+        copy = true;
+    }
+
+    /**
+     * ВСТАВИТЬ
+     */
+    public void pasteOperation(Event e) {
+        int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        OpData selectedOpData = selectedIndex < 0 ? opData : getAddedOperations().get(selectedIndex);
+
+        if (!clipOpDataList.contains(selectedOpData))
+            addOperation(selectedOpData);
+
+        if (!copy) {
+            for (int i = 0; i < clipOpDataList.size(); i++) {
+                addedPlates.remove(clipOpPlateList.get(i));
+                getListViewTechOperations().getItems().remove(clipBoxList.get(i));
+                addedOperations.remove(clipOpDataList.get(i));
+            }
+
+        }
+
+        ((IOpWithOperations) opData).setOperations(addedOperations);
+
+        countSumNormTimeByShops();
+
+        clipOpDataList.clear();
+        clipOpPlateList.clear();
+        clipBoxList.clear();
+        copy = false;
+
+    }
+
+    public boolean isPastePossible(Event e){
+        if(clipOpDataList == null) return false;
+        //Определяем целевой узел вставки OpData
+        int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        OpData targetOpData = selectedIndex < 0 ? opData : getAddedOperations().get(selectedIndex);
+        //Исключаем автовставку
+        if(clipOpDataList.contains(targetOpData)) return false;
+
+        for(OpData op : clipOpDataList){
+            if (op instanceof OpDetail) {
+                return !RESTRICTED_FOR_DETAILS.contains(op.getOpType());
+            } else if (op instanceof OpAssm) {
+                return !RESTRICTED_FOR_ASSM.contains(op.getOpType());
+            }
+        }
+
+        return true;
+    }
+
+
+
+    public void deleteSelectedOperation(Event e) {
+        List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
+        for(int index : selectedIndices){
+            addedOperations.remove(getAddedOperations().get(index));
+            getListViewTechOperations().getItems().remove(getListViewTechOperations().getItems().get(index));
+            addedPlates.remove(addedPlates.get(index));
+        }
+
+        countSumNormTimeByShops();
     }
 
 }

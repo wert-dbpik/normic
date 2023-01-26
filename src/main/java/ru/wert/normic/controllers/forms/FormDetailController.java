@@ -33,7 +33,7 @@ public class FormDetailController extends AbstractFormController {
     @FXML @Getter
     private ListView<VBox> listViewTechOperations;
 
-    @FXML
+    @FXML @Getter
     private Button btnAddOperation;
 
     @FXML
@@ -76,6 +76,8 @@ public class FormDetailController extends AbstractFormController {
         createMenu();
 
         initViews();
+
+        setDragAndDropCellFactory();
 
         //Инициализируем наименование
         if(tfName != null) {

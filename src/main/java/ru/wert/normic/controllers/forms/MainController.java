@@ -55,11 +55,14 @@ public class MainController extends AbstractFormController {
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
 
-    @FXML @Getter
+    @FXML @Getter //AbstractFormController
     private ListView<VBox> listViewTechOperations;
 
+    @FXML @Getter
+    private Button btnAddOperation;
+
     @FXML
-    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnSettings, btnAddOperation;
+    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnSettings;
 
     @FXML
     private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;

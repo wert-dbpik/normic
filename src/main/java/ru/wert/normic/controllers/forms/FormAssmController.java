@@ -28,14 +28,11 @@ public class FormAssmController extends AbstractFormController {
     @FXML @Getter
     private ListView<VBox> listViewTechOperations;
 
-    @FXML
+    @FXML @Getter
     private Button btnAddOperation;
 
     @FXML
     private ImageView ivErase;
-
-    @FXML
-    private ImageView ivHelpOnTechnologicalProcessing;
 
     @FXML
     private TextField tfMechanicalTime;
@@ -57,6 +54,9 @@ public class FormAssmController extends AbstractFormController {
 
     private AbstractFormController controller;
 
+    public FormAssmController() {
+    }
+
     @Override
     public void init(AbstractFormController controller, TextField tfName, OpData opData) {
         this.opData = (OpAssm) opData;
@@ -70,6 +70,8 @@ public class FormAssmController extends AbstractFormController {
         createMenu();
 
         initViews();
+
+        setDragAndDropCellFactory();
 
         //Инициализируем наименование
         if(tfName != null) {

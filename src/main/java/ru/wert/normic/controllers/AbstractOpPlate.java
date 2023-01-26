@@ -2,23 +2,20 @@ package ru.wert.normic.controllers;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.entities.OpAssm;
+import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
-import ru.wert.normic.controllers.forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpPlate;
-import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuPlate;
 
-import static ru.wert.normic.AppStatics.*;
+import java.io.Serializable;
+
+import static ru.wert.normic.AppStatics.MEASURE;
 
 
 /**
@@ -100,16 +97,6 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         initViews(opData);
 
-        ivContextMenu.setOnMouseClicked(e->{
-            if(e.getButton().equals(MouseButton.PRIMARY)){
-                new MenuPlate().create(this).show(
-                        ivContextMenu,
-                        Side.LEFT,
-                        0.0,
-                        24.0);
-            }
-        });
-
         ivDeleteOperation.setOnMouseClicked(this::deleteSelectedOperation);
 
         countNorm(opData);
@@ -124,51 +111,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         formController.countSumNormTimeByShops();
     }
 
-    public void cutOperation(Event e){
-        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        bufferedOpData = formController.getAddedOperations().get(selectedIndex);
-        whereFromController = formController;
-        deleteWhenPaste = true;
-    }
 
-    public void copyOperation(Event e){
-        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        bufferedOpData = formController.getAddedOperations().get(selectedIndex);
-        whereFromController = formController;
-        deleteWhenPaste = false;
-    }
-
-    public boolean isPastePossible(Event e){
-        if(bufferedOpData == null) return false;
-
-        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
-        if(selectedOpData.equals(bufferedOpData)) return false;
-        if(selectedOpData instanceof OpDetail) {
-            return !RESTRICTED_FOR_DETAILS.contains(bufferedOpData.getOpType());
-        }
-        else if(selectedOpData instanceof OpAssm) {
-            return !RESTRICTED_FOR_ASSM.contains(bufferedOpData.getOpType());
-        }
-        return true;
-    }
-
-    public void pasteOperation(Event e) {
-        int selectedIndex = formController.getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        OpData selectedOpData = formController.getAddedOperations().get(selectedIndex);
-        //Сначала удаляем bufferedOpData из whereFromController
-        if (deleteWhenPaste) {
-//            whereFromController.deleteOperation(bufferedOpData);
-        }
-        //Потом вставляем bufferedOpData в selectedOpData
-        ((IOpWithOperations) selectedOpData).getOperations().add(bufferedOpData);
-
-        bufferedOpData = null;
-        whereFromController = null;
-
-        formController.fillOpData();
-        formController.countSumNormTimeByShops();
-    }
 
     /**
      * Метод возвращает текущее расчитанное

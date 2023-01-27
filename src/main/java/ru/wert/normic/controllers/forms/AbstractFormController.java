@@ -313,10 +313,17 @@ public abstract class AbstractFormController implements IForm {
     private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex, int sourceIndex) {
         //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
+            //Клонируем копируемый OpData, меняем имя +(копия)
+            //К текущему OpData добавляем измененный addedOperations
             OpData addedOpData = SerializationUtils.clone(clipOpData);
             renameWithCopy(addedOpData);
-            targetOperations.add(targetIndex, addedOpData);
-            ((IOpWithOperations)opData).setOperations(targetOperations);
+            addedOperations.add(targetIndex, addedOpData);
+            ((IOpWithOperations)opData).setOperations(addedOperations);
+            //Удаляем все данные, чтобы перестроить список операций
+            addedOperations.clear();
+            addedPlates.clear();
+            getListViewTechOperations().getItems().clear();
+            createMenu();
             menu.deployData();
 //            addedPlates.add(targetIndex, clipOpPlateList.get(sourceIndex));
 //            getListViewTechOperations().getItems().add(targetIndex, clipBoxList.get(sourceIndex));

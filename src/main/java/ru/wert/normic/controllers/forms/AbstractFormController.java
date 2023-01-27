@@ -5,6 +5,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -51,8 +52,8 @@ public abstract class AbstractFormController implements IForm {
 
     protected MenuCalculator menu;
     @Getter protected OpData opData;
-    @Getter protected ObservableList<AbstractOpPlate> addedPlates;
-    @Getter protected List<OpData> addedOperations;
+    @Getter protected List<AbstractOpPlate> addedPlates = new ArrayList<>();
+    @Getter protected List<OpData> addedOperations = new ArrayList<>();
 
     @Getter protected DoubleProperty formAreaProperty = new SimpleDoubleProperty(0.0);
 
@@ -320,10 +321,16 @@ public abstract class AbstractFormController implements IForm {
             addedOperations.add(targetIndex, addedOpData);
             ((IOpWithOperations)opData).setOperations(addedOperations);
             //Удаляем все данные, чтобы перестроить список операций
-            addedOperations.clear();
+//
+
+
+
             addedPlates.clear();
             getListViewTechOperations().getItems().clear();
+
+            addedOperations.clear();
             createMenu();
+
             menu.deployData();
 //            addedPlates.add(targetIndex, clipOpPlateList.get(sourceIndex));
 //            getListViewTechOperations().getItems().add(targetIndex, clipBoxList.get(sourceIndex));

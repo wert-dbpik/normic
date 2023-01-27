@@ -62,10 +62,6 @@ public class FormAssmController extends AbstractFormController {
         this.opData = (OpAssm) opData;
         this.controller = controller;
 
-        //Инициализируем список операционных плашек
-        addedPlates = FXCollections.observableArrayList();
-        addedOperations = new ArrayList<>();
-
         //Создаем меню
         createMenu();
 

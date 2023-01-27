@@ -84,10 +84,6 @@ public class MainController extends AbstractFormController {
         AppStatics.MEASURE = cmbxTimeMeasurement;
         opData = new OpAssm();
 
-        //Инициализируем список операционных плашек
-        addedPlates = FXCollections.observableArrayList();
-        addedOperations = new ArrayList<>();
-
         //Создаем меню
         createMenu();
 

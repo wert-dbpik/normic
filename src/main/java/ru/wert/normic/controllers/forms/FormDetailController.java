@@ -68,10 +68,6 @@ public class FormDetailController extends AbstractFormController {
         this.opData = (OpDetail) opData;
         this.controller = controller;
 
-        //Инициализируем список операционных плашек
-        addedPlates = FXCollections.observableArrayList();
-        addedOperations = new ArrayList<>();
-
         //Создаем меню
         createMenu();
 

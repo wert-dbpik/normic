@@ -270,13 +270,13 @@ public abstract class AbstractFormController implements IForm {
                     if (op instanceof OpDetail) targetIndex++;
                     else break;
                 }
-                addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex, sourceIndex);
+                addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex);
             } else if (clipOpData instanceof OpAssm) {
                 for (OpData op : targetOperations) { //Сборка добавляет после всех деталей и сборок
                     if (op instanceof OpDetail || op instanceof OpAssm) targetIndex++;
                     else break;
                 }
-                addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex, sourceIndex);
+                addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex);
             } else { //Оставшиеся операции добавляются в конец списка
                 addToTargetOpDataToTheEndOfList(targetOpData, targetOperations, clipOpData, sourceIndex);
             }
@@ -309,9 +309,8 @@ public abstract class AbstractFormController implements IForm {
      * @param targetOperations
      * @param clipOpData
      * @param targetIndex
-     * @param sourceIndex
      */
-    private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex, int sourceIndex) {
+    private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex) {
         //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
             //Клонируем копируемый OpData, меняем имя +(копия)
@@ -319,21 +318,10 @@ public abstract class AbstractFormController implements IForm {
             OpData addedOpData = SerializationUtils.clone(clipOpData);
             renameWithCopy(addedOpData);
             addedOperations.add(targetIndex, addedOpData);
-            ((IOpWithOperations)opData).setOperations(addedOperations);
-            //Удаляем все данные, чтобы перестроить список операций
-//
+            ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
+            //Перестраиваем список операций
+            rebuildListOfOperations();
 
-
-
-            addedPlates.clear();
-            getListViewTechOperations().getItems().clear();
-
-            addedOperations.clear();
-            createMenu();
-
-            menu.deployData();
-//            addedPlates.add(targetIndex, clipOpPlateList.get(sourceIndex));
-//            getListViewTechOperations().getItems().add(targetIndex, clipBoxList.get(sourceIndex));
             getListViewTechOperations().getSelectionModel().select(targetIndex);
 
         } else
@@ -341,13 +329,25 @@ public abstract class AbstractFormController implements IForm {
     }
 
     /**
+     * Метод перестраивает список операций
+     */
+    private void rebuildListOfOperations() {
+        //Удаляем все данные, чтобы перестроить список операций
+        addedPlates.clear();
+        getListViewTechOperations().getItems().clear();
+        addedOperations.clear();
+        //Строим список заново
+        menu.deployData();
+    }
+
+    /**
      * Метод добавляет -(копия) в конец наименования при копировании
      */
     private void renameWithCopy(OpData addedOpData) {
         if(addedOpData instanceof OpAssm)
-            ((OpAssm)addedOpData).setName(((OpAssm)addedOpData).getName() + "-(копия)");
+            ((OpAssm)addedOpData).setName(((OpAssm)addedOpData).getName() + "(копия)");
         else if(addedOpData instanceof OpDetail)
-            ((OpDetail)addedOpData).setName(((OpDetail)addedOpData).getName() + "-(копия)");
+            ((OpDetail)addedOpData).setName(((OpDetail)addedOpData).getName() + "(копия)");
     }
 
     /**

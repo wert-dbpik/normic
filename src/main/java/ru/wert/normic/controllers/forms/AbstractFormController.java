@@ -278,7 +278,7 @@ public abstract class AbstractFormController implements IForm {
                 }
                 addToTargetOpDataByIndex(targetOpData, targetOperations, clipOpData, targetIndex);
             } else { //Оставшиеся операции добавляются в конец списка
-                addToTargetOpDataToTheEndOfList(targetOpData, targetOperations, clipOpData, sourceIndex);
+                addToTargetOpDataToTheEndOfList(targetOpData, targetOperations, clipOpData);
             }
         }
 
@@ -289,16 +289,23 @@ public abstract class AbstractFormController implements IForm {
      * @param targetOpData OpData - Целевая OpData, куда происходит добавление
      * @param targetOperations List<OpData> - Список операций в который добавляются новая операция
      * @param clipOpData OpData - Добавляемая OpData
-     * @param sourceIndex
      */
-    private void addToTargetOpDataToTheEndOfList(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int sourceIndex) {
+    private void addToTargetOpDataToTheEndOfList(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData) {
+
         //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
-            targetOperations.add(opData);
 
-            addedPlates.add(clipOpPlateList.get(sourceIndex));
-            getListViewTechOperations().getItems().add(clipBoxList.get(sourceIndex));
-            getListViewTechOperations().getSelectionModel().select(clipBoxList.get(sourceIndex));
+            //Клонируем копируемый OpData, меняем имя +(копия)
+            //К текущему OpData добавляем измененный addedOperations
+            OpData addedOpData = SerializationUtils.clone(clipOpData);
+            renameWithCopy(addedOpData);
+            addedOperations.add(addedOpData);
+            ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
+            //Перестраиваем список операций
+            rebuildListOfOperations();
+
+            getListViewTechOperations().getSelectionModel().select(addedOperations.size()-1);
+
         } else
             targetOperations.add(clipOpData);
     }

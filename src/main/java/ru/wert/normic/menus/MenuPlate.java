@@ -41,15 +41,17 @@ public class MenuPlate {
         delete.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/close.png").toString(), 24, 24, true, true)));
 
         List<VBox> selectedItems = formController.getListViewTechOperations().getSelectionModel().getSelectedItems();
-        if(AbstractFormController.clipOpDataList.isEmpty()) showPaste = false;
+        //Если буфер обмена пустой или вставка невозможна
+        if(AbstractFormController.clipOpDataList.isEmpty() ||
+                !formController.isPastePossible(null))
+            showPaste = false;
         if(cellIsEmpty){
             showCopy = false;
             showCut = false;
             showDelete = false;
         } else {
-            //Если выделенных элементов не 1 либо вставка невозможна
-            if(selectedItems.size() != 1 ||
-                    formController.isPastePossible(null)) showPaste = false;
+            //Если выделенных элементов не 1
+            if(selectedItems.size() != 1) showPaste = false;
         }
 
         if(showCopy) contextMenu.getItems().add(copy);

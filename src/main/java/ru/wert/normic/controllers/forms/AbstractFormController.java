@@ -1,14 +1,10 @@
 package ru.wert.normic.controllers.forms;
 
-import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -23,7 +19,6 @@ import javafx.util.Callback;
 import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.PlateAssmController;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
@@ -36,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 
 public abstract class AbstractFormController implements IForm {
@@ -81,6 +75,10 @@ public abstract class AbstractFormController implements IForm {
     ImageCursor cutCursor;
 
     public AbstractFormController() {
+    }
+
+    AbstractFormController getThisController(){
+        return this;
     }
 
     public double calculateAreaByDetails(){
@@ -159,23 +157,8 @@ public abstract class AbstractFormController implements IForm {
 
                 cell.setOnDragDone(ev -> {
                     if (ev.isAccepted()) {
-                        if (!copy) {
-                            for (int i = 0; i < clipOpDataList.size(); i++) {
-                                addedPlates.remove(clipOpPlateList.get(i));
-                                getListViewTechOperations().getItems().remove(clipBoxList.get(i));
-                                addedOperations.remove(clipOpDataList.get(i));
-                            }
-
-                        }
-
-                        ((IOpWithOperations) opData).setOperations(addedOperations);
-
-                        countSumNormTimeByShops();
+                        finishWithPaste(opData);
                     }
-                    clipOpDataList.clear();
-                    clipOpPlateList.clear();
-                    clipBoxList.clear();
-                    copy = false;
 
                     ev.consume();
                 });
@@ -196,18 +179,31 @@ public abstract class AbstractFormController implements IForm {
                         e.setDropCompleted(true);
                     }
                 });
+
+
+                cell.setOnMouseClicked(e -> {
+                    if (e.getButton().equals(MouseButton.SECONDARY)) {
+                        boolean cellIsEmpty = cell.isEmpty();
+                        new MenuPlate().create(getThisController(), cellIsEmpty).show(
+                                ((Node)e.getSource()).getScene().getWindow(),
+                                e.getScreenX(),
+                                e.getScreenY());
+                    }
+                });
+
                 return cell;
             }
         });
 
-        getListViewTechOperations().setOnMouseClicked(e -> {
-            if (e.getButton().equals(MouseButton.SECONDARY)) {
-                new MenuPlate().create(this).show(
+        //Вызывеает меню при пустом списке операций
+        getListViewTechOperations().setOnMouseClicked(e->{
+            if(e.getButton().equals(MouseButton.SECONDARY))
+                new MenuPlate().create(getThisController(), true).show(
                         ((Node)e.getSource()).getScene().getWindow(),
                         e.getScreenX(),
                         e.getScreenY());
-            }
         });
+
     }
 
     public boolean dropIsPossible(OpData targetOpData){
@@ -243,8 +239,7 @@ public abstract class AbstractFormController implements IForm {
      * ДОБАВИТЬ ОПЕРАЦИЮ
      *
      * Метод добавляет данные "clipOpData" в targetOpData
-     * В случае если targetOpData и opData формы совпадают, приходится проходить весь цикл добавления новой операции
-     * и не ограничиваться только добавлением clipOpData
+     * В случае если targetOpData и opData формы совпадают, форма перерисовывается
      */
     public void addOperation(OpData targetOpData) {
         //Определяем список Целевых операций, если Целевой OpData яаляется текущим OpData,
@@ -282,6 +277,41 @@ public abstract class AbstractFormController implements IForm {
             }
         }
 
+        finishWithPaste(targetOpData);
+
+    }
+
+    /**
+     * В методе происходит завершение операции вставки
+     * При переносе операций происходит их удаление из источника
+     */
+    private void finishWithPaste(OpData targetOpData) {
+        if (!copy) {
+            //Если источник совпадает с текущим контроллером
+            if(whereFromController.equals(this)) {
+                for (int i = 0; i < clipOpDataList.size(); i++) {
+                    addedPlates.remove(clipOpPlateList.get(i));
+                    getListViewTechOperations().getItems().remove(clipBoxList.get(i));
+                    addedOperations.remove(clipOpDataList.get(i));
+                }
+            }
+            //Иначе просто меняем список добавленных операций и закрепляем его в opData
+            else {
+                for (OpData data : clipOpDataList) {
+                    whereFromController.getAddedOperations().remove(data);
+                }
+            }
+        }
+
+        ((IOpWithOperations)whereFromController.getOpData())
+                .setOperations(new ArrayList<>(whereFromController.getAddedOperations()));
+
+        countSumNormTimeByShops();
+
+        clipOpDataList.clear();
+        clipOpPlateList.clear();
+        clipBoxList.clear();
+        copy = false;
     }
 
     /**
@@ -390,30 +420,33 @@ public abstract class AbstractFormController implements IForm {
     /**
      * ВСТАВИТЬ
      */
-    public void pasteOperation(Event e) {
+    public void pasteOperation(boolean cellIsEmpty) {
+
         int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        OpData selectedOpData = selectedIndex < 0 ? opData : getAddedOperations().get(selectedIndex);
+        OpData selectedOpData = cellIsEmpty ? opData : getAddedOperations().get(selectedIndex);
 
-        if (!clipOpDataList.contains(selectedOpData))
-            addOperation(selectedOpData);
+        addOperation(selectedOpData);
 
-        if (!copy) {
-            for (int i = 0; i < clipOpDataList.size(); i++) {
-                addedPlates.remove(clipOpPlateList.get(i));
-                getListViewTechOperations().getItems().remove(clipBoxList.get(i));
-                addedOperations.remove(clipOpDataList.get(i));
-            }
-
-        }
-
-        ((IOpWithOperations) opData).setOperations(addedOperations);
-
-        countSumNormTimeByShops();
-
-        clipOpDataList.clear();
-        clipOpPlateList.clear();
-        clipBoxList.clear();
-        copy = false;
+//        if (!clipOpDataList.contains(selectedOpData))
+//            addOperation(selectedOpData);
+//
+//        if (!copy) {
+//            for (int i = 0; i < clipOpDataList.size(); i++) {
+//                addedPlates.remove(clipOpPlateList.get(i));
+//                getListViewTechOperations().getItems().remove(clipBoxList.get(i));
+//                addedOperations.remove(clipOpDataList.get(i));
+//            }
+//
+//        }
+//
+//        ((IOpWithOperations) opData).setOperations(addedOperations);
+//
+//        countSumNormTimeByShops();
+//
+//        clipOpDataList.clear();
+//        clipOpPlateList.clear();
+//        clipBoxList.clear();
+//        copy = false;
 
     }
 

@@ -1,9 +1,11 @@
 package ru.wert.normic.menus;
 
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.AbstractFormController;
@@ -17,7 +19,7 @@ public class MenuPlate {
     boolean showPaste = true;
     boolean showDelete = true;
 
-    public ContextMenu create(AbstractFormController formController){
+    public ContextMenu create(AbstractFormController formController, boolean cellIsEmpty){
 
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.setId("contextMenu");
@@ -31,7 +33,7 @@ public class MenuPlate {
         cut.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/cut.png").toString(), 24, 24, true, true)));
 
         MenuItem paste = new MenuItem("Вставить");
-        paste.setOnAction(formController::pasteOperation);
+        paste.setOnAction(e->formController.pasteOperation(cellIsEmpty));
         paste.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/paste.png").toString(), 24, 24, true, true)));
 
         MenuItem delete = new MenuItem("Удалить");
@@ -40,7 +42,7 @@ public class MenuPlate {
 
         List<VBox> selectedItems = formController.getListViewTechOperations().getSelectionModel().getSelectedItems();
         if(AbstractFormController.clipOpDataList.isEmpty()) showPaste = false;
-        if(selectedItems.isEmpty()){
+        if(cellIsEmpty){
             showCopy = false;
             showCut = false;
             showDelete = false;

@@ -291,10 +291,10 @@ public abstract class AbstractFormController implements IForm {
      * @param clipOpData OpData - Добавляемая OpData
      */
     private void addToTargetOpDataToTheEndOfList(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData) {
-
+        if(!DUPLICATED_OPERATIONS.contains(clipOpData.getOpType()) &&
+                targetOperations.contains(clipOpData)) return;
         //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
-
             //Клонируем копируемый OpData, меняем имя +(копия)
             //К текущему OpData добавляем измененный addedOperations
             OpData addedOpData = SerializationUtils.clone(clipOpData);
@@ -318,6 +318,8 @@ public abstract class AbstractFormController implements IForm {
      * @param targetIndex
      */
     private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex) {
+        if(!DUPLICATED_OPERATIONS.contains(clipOpData.getOpType()) &&
+                targetOperations.contains(clipOpData)) return;
         //Если целевая операция совпадает с ткущей операцией
         if(targetOpData.equals(opData)){
             //Клонируем копируемый OpData, меняем имя +(копия)

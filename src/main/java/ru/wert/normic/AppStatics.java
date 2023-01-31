@@ -36,4 +36,6 @@ public class AppStatics {
             Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
     public static final List<EOpType> RESTRICTED_FOR_ASSM = //Перечень операций, которые нельзя добавить в Сборку
             Arrays.asList(CUTTING, BENDING, PAINTING);
+    public static final List<EOpType> DUPLICATED_OPERATIONS =  //Перечень операций, которые м.б. проудублированны
+            Arrays.asList(DETAIL, ASSM, LEVELING_SEALER);
 }

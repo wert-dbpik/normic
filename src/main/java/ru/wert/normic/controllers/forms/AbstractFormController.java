@@ -224,7 +224,7 @@ public abstract class AbstractFormController implements IForm {
         return true;
     }
 
-    protected void tyeMenuToButton(){
+    protected void linkMenuToButton(){
         getBtnAddOperation().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/add.png")),
                 44,44, true, true)));
         getBtnAddOperation().setTooltip(new Tooltip("Добавить операцию"));

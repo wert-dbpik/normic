@@ -4,7 +4,6 @@ package ru.wert.normic.controllers.forms;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -311,7 +310,7 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddLevelingSealer());
 
-        tyeMenuToButton();
+        linkMenuToButton();
 
     }
 

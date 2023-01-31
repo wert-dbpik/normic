@@ -17,9 +17,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateAssmNodesController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivContextMenu;
-
-    @FXML
     private ImageView ivOperation;
 
     @FXML

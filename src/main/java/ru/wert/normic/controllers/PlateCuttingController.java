@@ -24,9 +24,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateCuttingController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivContextMenu;
-
-    @FXML
     private ImageView ivOperation;
 
     @FXML

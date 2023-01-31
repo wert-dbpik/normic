@@ -25,10 +25,6 @@ import java.util.ArrayList;
 
 public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
-
-    @FXML
-    private ImageView ivContextMenu;
-
     @FXML
     private ImageView ivOperation;
 

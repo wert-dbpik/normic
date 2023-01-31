@@ -22,9 +22,6 @@ import static ru.wert.normic.entities.settings.AppSettings.PREPARED_TIME;
 public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivContextMenu;
-
-    @FXML
     private ImageView ivOperation;
 
     @FXML

@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.forms;
 
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -15,9 +14,6 @@ import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.Material;
 
-import java.util.ArrayList;
-
-import static ru.wert.normic.ChogoriServices.CH_QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -145,7 +141,7 @@ public class FormDetailController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
 
-        tyeMenuToButton();
+        linkMenuToButton();
     }
 
     private void countWeightAndArea() {

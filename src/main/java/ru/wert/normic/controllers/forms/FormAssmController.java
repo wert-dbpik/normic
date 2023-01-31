@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.forms;
 
 
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -13,8 +12,6 @@ import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.ETimeMeasurement;
 
-
-import java.util.ArrayList;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
@@ -113,7 +110,7 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddLevelingSealer());
 
-        tyeMenuToButton();
+        linkMenuToButton();
     }
 
 

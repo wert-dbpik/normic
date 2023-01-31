@@ -67,10 +67,6 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
     public abstract void countInitialValues();
 
-
-    @FXML
-    private ImageView ivContextMenu;
-
     @FXML
     private VBox vbOperation;
 

@@ -20,9 +20,6 @@ import static ru.wert.normic.entities.settings.AppSettings.WELDING_SPEED;
 public class PlateWeldContinuousController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivContextMenu;
-
-    @FXML
     private ImageView ivOperation;
 
     @FXML

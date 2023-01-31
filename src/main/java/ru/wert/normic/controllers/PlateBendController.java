@@ -22,9 +22,6 @@ import static ru.wert.normic.entities.settings.AppSettings.BENDING_SPEED;
 public class PlateBendController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivContextMenu;
-
-    @FXML
     private ImageView ivOperation;
 
     @FXML

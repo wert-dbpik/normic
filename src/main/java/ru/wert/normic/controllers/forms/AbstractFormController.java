@@ -343,7 +343,7 @@ public abstract class AbstractFormController implements IForm {
             //Клонируем копируемый OpData, меняем имя +(копия)
             //К текущему OpData добавляем измененный addedOperations
             OpData addedOpData = SerializationUtils.clone(clipOpData);
-            renameWithCopy(addedOpData);
+            if(copy) renameWithCopy(addedOpData);
             addedOperations.add(addedOpData);
             ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
             //Перестраиваем список операций
@@ -370,7 +370,7 @@ public abstract class AbstractFormController implements IForm {
             //Клонируем копируемый OpData, меняем имя +(копия)
             //К текущему OpData добавляем измененный addedOperations
             OpData addedOpData = SerializationUtils.clone(clipOpData);
-            renameWithCopy(addedOpData);
+            if(copy)  renameWithCopy(addedOpData);
             addedOperations.add(targetIndex, addedOpData);
             ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
             //Перестраиваем список операций
@@ -445,19 +445,21 @@ public abstract class AbstractFormController implements IForm {
         addOperation(selectedOpData);
     }
 
-    public boolean isPastePossible(AbstractFormController controller, boolean cellIsEmpty){
+    public boolean isPastePossible(boolean cellIsEmpty){
         if(clipOpDataList == null) return false;
         //Определяем целевой узел вставки OpData
-        int selectedIndex = controller.getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        OpData targetOpData = cellIsEmpty ? controller.getOpData() : controller.getAddedOperations().get(selectedIndex);
+        int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        OpData targetOpData = cellIsEmpty ? getOpData() : getAddedOperations().get(selectedIndex);
         //Исключаем автовставку
         if(clipOpDataList.contains(targetOpData)) return false;
 
         for(OpData op : clipOpDataList){
-            if (op instanceof OpDetail) {
-                return !RESTRICTED_FOR_DETAILS.contains(op.getOpType());
-            } else if (op instanceof OpAssm) {
-                return !RESTRICTED_FOR_ASSM.contains(op.getOpType());
+            if (targetOpData instanceof OpDetail) {
+                if (RESTRICTED_FOR_DETAILS.contains(op.getOpType())) return false;
+                if (getAddedOperations().contains(op) && !DUPLICATED_OPERATIONS.contains(op.getOpType())) return false;
+            } else if (targetOpData instanceof OpAssm) {
+                if (RESTRICTED_FOR_ASSM.contains(op.getOpType())) return false;
+                if (getAddedOperations().contains(op) && !DUPLICATED_OPERATIONS.contains(op.getOpType())) return false;
             }
         }
 

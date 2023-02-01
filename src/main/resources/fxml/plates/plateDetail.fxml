@@ -30,7 +30,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <TextField fx:id="tfName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin></TextField>

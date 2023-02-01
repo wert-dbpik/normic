@@ -43,7 +43,7 @@ public class MenuPlate {
         List<VBox> selectedItems = formController.getListViewTechOperations().getSelectionModel().getSelectedItems();
         //Если буфер обмена пустой или вставка невозможна
         if(AbstractFormController.clipOpDataList.isEmpty() ||
-                !formController.isPastePossible(null))
+                formController.isPastePossible(formController, cellIsEmpty))
             showPaste = false;
         if(cellIsEmpty){
             showCopy = false;

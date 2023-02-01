@@ -114,6 +114,7 @@ public abstract class AbstractFormController implements IForm {
                         ClipboardContent cc = new ClipboardContent();
                         List<Integer> indices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
                         if(indices.isEmpty()) return;
+                        clearClipboard();
                         for(int index : indices){
                             clipOpDataList.add(addedOperations.get(index)); //
                             clipOpPlateList.add(addedPlates.get(index));
@@ -207,6 +208,16 @@ public abstract class AbstractFormController implements IForm {
         });
 
     }
+
+    /**
+     * Метод обнуляет данные буфера обмена
+     */
+    private void clearClipboard() {
+        clipOpDataList.clear();
+        clipOpPlateList.clear();
+        clipBoxList.clear();
+    }
+
 
     public boolean dropIsPossible(OpData targetOpData){
         if(targetOpData instanceof OpDetail){
@@ -397,6 +408,7 @@ public abstract class AbstractFormController implements IForm {
      * ВЫРЕЗАТЬ
      */
     public void cutOperation(Event e){
+        clearClipboard();
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
         for(int index : selectedIndices){
             clipOpDataList.add(getAddedOperations().get(index));
@@ -411,6 +423,7 @@ public abstract class AbstractFormController implements IForm {
      * КОПИРОВАТЬ (MenuPlate)
      */
     public void copyOperation(Event e){
+        clearClipboard();
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
         for(int index : selectedIndices){
             clipOpDataList.add(getAddedOperations().get(index));
@@ -432,11 +445,11 @@ public abstract class AbstractFormController implements IForm {
         addOperation(selectedOpData);
     }
 
-    public boolean isPastePossible(Event e){
+    public boolean isPastePossible(AbstractFormController controller, boolean cellIsEmpty){
         if(clipOpDataList == null) return false;
         //Определяем целевой узел вставки OpData
-        int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        OpData targetOpData = selectedIndex < 0 ? opData : getAddedOperations().get(selectedIndex);
+        int selectedIndex = controller.getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        OpData targetOpData = cellIsEmpty ? controller.getOpData() : controller.getAddedOperations().get(selectedIndex);
         //Исключаем автовставку
         if(clipOpDataList.contains(targetOpData)) return false;
 

@@ -63,7 +63,7 @@ public class MainController extends AbstractFormController {
     private Button btnAddOperation;
 
     @FXML
-    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnConstants;
+    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnConstants, btnMaterials;
 
     @FXML
     private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;
@@ -128,10 +128,14 @@ public class MainController extends AbstractFormController {
         btnColors.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/colors.png")), 32,32, true, true)));
         btnColors.setTooltip(new Tooltip("Покрытие"));
         btnColors.setOnAction(this::colors);
-        //НАСТРОЙКИ
+        //РАСЧЕТНЫЕ КОНСТАНТЫ
         btnConstants.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/constants.png")), 32,32, true, true)));
         btnConstants.setTooltip(new Tooltip("Расчетные константы"));
-        btnConstants.setOnAction(this::settings);
+        btnConstants.setOnAction(this::constants);
+        //МАТЕРИАЛЫ
+        btnMaterials.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 32,32, true, true)));
+        btnMaterials.setTooltip(new Tooltip("Материалы"));
+        btnMaterials.setOnAction(this::materials);
 
 
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -236,13 +240,37 @@ public class MainController extends AbstractFormController {
 
     }
 
-    private void settings(ActionEvent event) {
+
+    /**
+     * РАСЧЕТНЫЕ КОНСТАНТЫ
+     */
+    private void constants(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/settings.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/constants.fxml"));
             Parent parent = loader.load();
             Decoration decoration = new Decoration(
                     "РАСЧЕТНЫЕ КОНСТАНТЫ",
+                    parent,
+                    false,
+                    (Stage) ((Node)event.getSource()).getScene().getWindow(),
+                    "decoration-settings",
+                    true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * РАСЧЕТНЫЕ КОНСТАНТЫ
+     */
+    private void materials(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialsTV.fxml"));
+            Parent parent = loader.load();
+            Decoration decoration = new Decoration(
+                    "МАТЕРИАЛЫ",
                     parent,
                     false,
                     (Stage) ((Node)event.getSource()).getScene().getWindow(),

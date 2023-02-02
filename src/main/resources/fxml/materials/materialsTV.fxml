@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialsTVController">
+   <children>
+      <TableView fx:id="tableView" prefHeight="400.0" prefWidth="700.0">
+        <columns>
+          <TableColumn fx:id="tcName" prefWidth="75.0" text="Материал" />
+          <TableColumn fx:id="tcType" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Группа" />
+            <TableColumn fx:id="tcParamS" maxWidth="80.0" minWidth="80.0" resizable="false" text="S" />
+            <TableColumn fx:id="tcParamX" maxWidth="80.0" minWidth="80.0" resizable="false" text="X" />
+            <TableColumn fx:id="tcNote" prefWidth="75.0" text="Примечание" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </children>
+</VBox>

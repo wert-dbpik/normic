@@ -65,8 +65,8 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
          countInitialValues();
 
         double time;
-        time =  sealer * SEALER_SPEED
-                + selfAdhSealer * SELF_ADH_SEALER_SPEED
+        time =  sealer * SEALER_SPEED * SEC_TO_MIN
+                + selfAdhSealer * SELF_ADH_SEALER_SPEED * SEC_TO_MIN
                 + insulation * INSULATION_SPEED;//мин
 
         currentNormTime = time;

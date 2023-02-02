@@ -80,7 +80,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         double time;
         time =  postLocks * POST_LOCKS_SPEED
                 + doubleLocks * DOUBLE_LOCKS_SPEED
-                + mirrors * MIRRORS_SPEED
+                + mirrors * GLASS_SPEED
                 + detectors * DETECTORS_SPEED
                 + connectionBoxes * CONNECTION_BOXES_SPEED;   //мин
 

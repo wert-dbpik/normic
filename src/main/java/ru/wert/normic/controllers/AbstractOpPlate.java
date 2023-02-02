@@ -14,6 +14,7 @@ import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpPlate;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import static ru.wert.normic.AppStatics.MEASURE;
 
@@ -36,6 +37,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public static final double MIN_TO_SEC = 60; //перевод минут в секунды
     public static final double SEC_TO_MIN = 1.0/60; //перевод минут в секунды
     public static final double RO = 0.00000785; //плотность стали кг/м3
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###.###");
     public static final String DOUBLE_FORMAT = "%5.3f";
     public static final String INTEGER_FORMAT = "%10.0f";
 

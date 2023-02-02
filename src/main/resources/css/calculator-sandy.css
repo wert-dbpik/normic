@@ -88,3 +88,36 @@
     -fx-background-color: #f6caa8;
 }
 
+/*НАСТРОЙКИ*/
+
+.settings-vb-main{
+    -fx-spacing: 5;
+    -fx-pref-width: 500;
+    -fx-padding: 5 20 5 5;
+    -fx-background-color: #f8f5eb;
+}
+
+.settings-vb-block{
+    -fx-spacing: 5;
+}
+
+.settings-hb-value-block{
+
+}
+
+.settings-lb-title{
+    -fx-font-family: "Arial";
+    -fx-text-fill: darkblue;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+}
+
+.settings-lb-name{
+    -fx-padding: 0 0 0 10 ;
+}
+
+.settings-tf-value{
+    -fx-pref-width: 80;
+    -fx-alignment: baseline-center;
+    -fx-background-color: #f8f5eb;
+}

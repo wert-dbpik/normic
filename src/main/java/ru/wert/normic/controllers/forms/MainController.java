@@ -4,10 +4,12 @@ package ru.wert.normic.controllers.forms;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,7 +63,7 @@ public class MainController extends AbstractFormController {
     private Button btnAddOperation;
 
     @FXML
-    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnSettings;
+    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnConstants;
 
     @FXML
     private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;
@@ -127,9 +129,9 @@ public class MainController extends AbstractFormController {
         btnColors.setTooltip(new Tooltip("Покрытие"));
         btnColors.setOnAction(this::colors);
         //НАСТРОЙКИ
-        btnSettings.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/settings.png")), 32,32, true, true)));
-        btnSettings.setTooltip(new Tooltip("Настройки"));
-//        btnSettings.setOnAction(this::settings);
+        btnConstants.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/constants.png")), 32,32, true, true)));
+        btnConstants.setTooltip(new Tooltip("Расчетные константы"));
+        btnConstants.setOnAction(this::settings);
 
 
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -140,6 +142,7 @@ public class MainController extends AbstractFormController {
 
 
     }
+
 
     /**
      * ОЧИСТИТЬ ВСЕ
@@ -231,6 +234,23 @@ public class MainController extends AbstractFormController {
             ex.printStackTrace();
         }
 
+    }
+
+    private void settings(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/settings.fxml"));
+            Parent parent = loader.load();
+            Decoration decoration = new Decoration(
+                    "РАСЧЕТНЫЕ КОНСТАНТЫ",
+                    parent,
+                    false,
+                    (Stage) ((Node)event.getSource()).getScene().getWindow(),
+                    "decoration-settings",
+                    true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -84,10 +84,10 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         double time;
         time =  screws * SCREWS_SPEED
                 + vshgs * VSHGS_SPEED
-                + rivets * RIVETS_SPEED
-                + rivetNuts * RIVET_NUTS_SPEED
+                + rivets * RIVETS_SPEED * SEC_TO_MIN
+                + rivetNuts * RIVET_NUTS_SPEED * SEC_TO_MIN
                 + groundSets * GROUND_SETS_SPEED
-                + others * OTHERS_SPEED;   //мин
+                + others * OTHERS_SPEED * SEC_TO_MIN;   //мин
 
         currentNormTime = time;
         collectOpData(opData);

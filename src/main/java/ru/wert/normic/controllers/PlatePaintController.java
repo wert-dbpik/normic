@@ -125,7 +125,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
         double time;
         time = HOLDING_TIME //Время навешивания
-                + (WASHING + WINDING + DRYING/dryingBars)/partsOnBar //Время подготовки к окрашиванию
+                + ((WASHING/60.0) + (WINDING/60.0) + (DRYING/60.0)/dryingBars)/partsOnBar //Время подготовки к окрашиванию
                 + Math.pow(2* coatArea, 0.7) * difficulty //Время нанесения покрытия
                 + 40.0/bakeBars/partsOnBar;  //Время полимеризации
         if(coatArea == 0.0) time = 0.0;

@@ -74,7 +74,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
         countInitialValues();
 
         double time;
-        time =  rivets * RIVETS_SPEED
+        time =  rivets * RIVETS_SPEED  * SEC_TO_MIN
                 + countersinkings * COUNTERSINKING_SPEED
                 + threadings * THREADING_SPEED
                 + smallSawings * SMALL_SAWING_SPEED

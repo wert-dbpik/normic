@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <VBox>
          <children>
@@ -27,7 +27,7 @@
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin></Label>
-                  <TextField fx:id="txtFldThickness" maxHeight="35.0" minHeight="35.0" onKeyTyped="#textFieldOnKeyTyped" prefHeight="35.0" prefWidth="248.0" promptText="1,5" GridPane.columnIndex="1">
+                  <TextField fx:id="txtFldThickness" maxHeight="35.0" minHeight="35.0"  prefHeight="35.0" prefWidth="248.0" promptText="1,5" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets right="10.0" />
                      </GridPane.margin></TextField>

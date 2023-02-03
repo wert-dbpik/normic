@@ -1,7 +1,8 @@
-package ru.wert.normic.entities.db_connection;
+package ru.wert.normic.entities.db_connection.density;
 
 import retrofit2.Call;
 import retrofit2.http.*;
+import ru.wert.normic.entities.db_connection.density.Density;
 
 import java.util.List;
 

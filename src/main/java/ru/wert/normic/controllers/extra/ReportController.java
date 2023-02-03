@@ -3,7 +3,7 @@ package ru.wert.normic.controllers.extra;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import ru.wert.normic.entities.*;
-import ru.wert.normic.entities.db_connection.Material;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ru.wert.normic.AppStatics.RAL_I;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class ReportController {

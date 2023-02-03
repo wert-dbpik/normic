@@ -5,37 +5,38 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
-import ru.wert.normic.entities.db_connection.material.Material;
-
-import static ru.wert.normic.ChogoriServices.CH_QUICK_MATERIALS;
+import ru.wert.normic.entities.db_connection.density.Density;
 
 
-public class BXMaterial {
+import static ru.wert.normic.ChogoriServices.CH_DENSITIES;
 
-    private static Material LAST_VAL;
-    private ComboBox<Material> cmbx;
 
-    public void create(ComboBox<Material> bxMaterial, Material initVal){
-        this.cmbx = bxMaterial;
-        ObservableList<Material> materials = FXCollections.observableArrayList(CH_QUICK_MATERIALS.findAll());
-        bxMaterial.setItems(materials);
+public class BXDensity {
+
+    private static Density LAST_VAL;
+    private ComboBox<Density> cmbx;
+
+    public void create(ComboBox<Density> bxDensity){
+        this.cmbx = bxDensity;
+        ObservableList<Density> materials = FXCollections.observableArrayList(CH_DENSITIES.findAll());
+        bxDensity.setItems(materials);
 
         createCellFactory();
         //Выделяем префикс по умолчанию
         createConverter();
 
         if(LAST_VAL == null)
-            LAST_VAL = CH_QUICK_MATERIALS.findByName("лист 1");
+            LAST_VAL = CH_DENSITIES.findByName("Сталь");
 
-        bxMaterial.setValue(LAST_VAL);
+        bxDensity.setValue(LAST_VAL);
 
     }
 
     private void createCellFactory() {
         //CellFactory определяет вид элементов комбобокса - только имя префикса
-        cmbx.setCellFactory(i -> new ListCell<Material>() {
+        cmbx.setCellFactory(i -> new ListCell<Density>() {
             @Override
-            protected void updateItem (Material item,boolean empty){
+            protected void updateItem (Density item,boolean empty){
                 super.updateItem(item, empty);
                 if (item == null || empty) {
                     setText(null);
@@ -48,15 +49,15 @@ public class BXMaterial {
     }
 
     private void createConverter() {
-        cmbx.setConverter(new StringConverter<Material>() {
+        cmbx.setConverter(new StringConverter<Density>() {
             @Override
-            public String toString(Material material) {
+            public String toString(Density material) {
                 LAST_VAL = material; //последний выбранный префикс становится префиксом по умолчанию
                 return material.getName();
             }
 
             @Override
-            public Material fromString(String string) {
+            public Density fromString(String string) {
                 return null;
             }
         });

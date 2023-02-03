@@ -255,7 +255,7 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)event.getSource()).getScene().getWindow(),
                     "decoration-settings",
-                    true);
+                    false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -275,7 +275,7 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)event.getSource()).getScene().getWindow(),
                     "decoration-settings",
-                    true);
+                    false);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,10 +1,9 @@
-package ru.wert.normic.entities.db_connection;
-
+package ru.wert.normic.entities.db_connection.density;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.Serializable;
+import ru.wert.normic.entities.db_connection.Item;
+import ru.wert.normic.entities.db_connection._BaseEntity;
 
 @Slf4j
 @Getter
@@ -12,9 +11,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"name"}, callSuper = false)
-public class MatType extends _BaseEntity implements Item, Serializable {
+public class Density extends _BaseEntity implements Item {
 
     private String name;
+    private double amount;
     private String note;
 
     @Override

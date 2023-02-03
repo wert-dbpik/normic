@@ -121,3 +121,9 @@
     -fx-alignment: baseline-center;
     -fx-background-color: #f8f5eb;
 }
+
+/*МАТЕРИАЛЫ*/
+
+.materials-vb{
+    -fx-background-color: #f8f5eb;
+}

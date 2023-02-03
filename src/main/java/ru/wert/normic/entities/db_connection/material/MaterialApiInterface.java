@@ -1,4 +1,4 @@
-package ru.wert.normic.entities.db_connection;
+package ru.wert.normic.entities.db_connection.material;
 
 import retrofit2.Call;
 import retrofit2.http.*;

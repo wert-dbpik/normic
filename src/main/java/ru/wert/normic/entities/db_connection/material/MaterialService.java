@@ -1,7 +1,10 @@
-package ru.wert.normic.entities.db_connection;
+package ru.wert.normic.entities.db_connection.material;
 
 
 import retrofit2.Call;
+import ru.wert.normic.entities.db_connection.Item;
+import ru.wert.normic.entities.db_connection.ItemService;
+import ru.wert.normic.entities.db_connection.PartItem;
 import ru.wert.normic.entities.db_connection.retrofit.BLlinks;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 

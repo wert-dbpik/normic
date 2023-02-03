@@ -1,13 +1,17 @@
 package ru.wert.normic.materials;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import ru.wert.normic.entities.db_connection.Material;
+import javafx.scene.input.MouseButton;
+import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.enums.EMatOperations;
 
 import java.util.List;
 
@@ -56,5 +60,39 @@ public class MaterialsTVController {
         tcParamX.setStyle("-fx-alignment: CENTER;");
 
         tcNote.setCellValueFactory(new PropertyValueFactory<>("note"));
+
+        tableView.setRowFactory(tableView-> {
+            final TableRow<Material> tableRow = new TableRow<>();
+            final ContextMenu menu = new MaterialContextMenu(this, tableRow);
+
+            tableRow.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(tableRow.itemProperty())).then(menu)
+                    .otherwise((ContextMenu) null));
+
+            tableRow.setOnMouseClicked(e -> {
+                if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+
+                }
+            });
+
+            return tableRow;
+        });
+
+
+    }
+
+    public void addMaterial(){
+        final MaterialACC materialACC = new MaterialACC(EMatOperations.ADD, tableView, null);
+    }
+
+    public void copyMaterial(TableRow<Material> tableRow){
+        final MaterialACC materialACC = new MaterialACC(EMatOperations.COPY, tableView, tableRow);
+    }
+
+    public void changeMaterial(TableRow<Material> tableRow){
+        final MaterialACC materialACC = new MaterialACC(EMatOperations.CHANGE, tableView, tableRow);
+    }
+
+    public void deleteMaterial(TableRow<Material> tableRow){
+        tableView.getItems().remove(tableRow.getItem());
     }
 }

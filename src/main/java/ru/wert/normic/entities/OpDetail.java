@@ -3,7 +3,7 @@ package ru.wert.normic.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.entities.db_connection.Material;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;

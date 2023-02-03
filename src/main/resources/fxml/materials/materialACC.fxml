@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.Material_ACCController">
+<VBox styleClass="materials-vb" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialsACCController">
    <children>
       <GridPane>
         <columnConstraints>
@@ -74,7 +74,8 @@
                         </Button>
                      </children>
                   </HBox>
-               </children></StackPane>
+               </children>
+            </StackPane>
             <TextArea fx:id="taMaterialNote" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="5.0" right="10.0" top="10.0" />

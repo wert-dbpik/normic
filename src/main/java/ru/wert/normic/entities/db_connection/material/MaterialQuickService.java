@@ -1,9 +1,11 @@
-package ru.wert.normic.entities.db_connection;
+package ru.wert.normic.entities.db_connection.material;
+
+import ru.wert.normic.entities.db_connection.CatalogService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialQuickService implements IMaterialService , CatalogService<Material> {
+public class MaterialQuickService implements IMaterialService, CatalogService<Material> {
 
     private static MaterialQuickService instance;
     private static List<Material> materials;

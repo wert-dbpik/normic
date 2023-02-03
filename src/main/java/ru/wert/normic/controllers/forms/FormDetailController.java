@@ -12,7 +12,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.*;
-import ru.wert.normic.entities.db_connection.Material;
+import ru.wert.normic.entities.db_connection.material.Material;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;

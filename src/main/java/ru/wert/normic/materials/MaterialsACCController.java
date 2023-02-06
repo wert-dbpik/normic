@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import ru.wert.normic.components.BXColor;
 import ru.wert.normic.components.BXDensity;
 import ru.wert.normic.components.BXMatTypes;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EMatType;
 
 public class MaterialsACCController {
@@ -37,10 +38,18 @@ public class MaterialsACCController {
     @FXML
     private StackPane stackPaneForButtons;
 
-    @FXML
-    void initialize(){
+    private Material material;
+    private MatTypeController matTypeController;
+
+
+    public void init(Material material, MatTypeController matTypeController){
+        this.material = material;
+        this.matTypeController = matTypeController;
+
         new BXMatTypes().create(bxMatType, EMatType.LIST, this);
-        new BXDensity().create(bxMatType);
+
+        matTypeController.fillData(material);
+        fillData();
     }
 
     @FXML
@@ -52,4 +61,11 @@ public class MaterialsACCController {
     void ok(ActionEvent event) {
 
     }
+
+    private void fillData(){
+        tfMaterialName.setText(material.getName());
+        bxMatType.setValue(EMatType.getTypeByName(material.getMatType().getName()));
+    }
+
+
 }

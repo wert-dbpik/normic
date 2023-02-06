@@ -81,15 +81,21 @@ public class MaterialsTVController {
     }
 
     public void addMaterial(){
-        final MaterialACC materialACC = new MaterialACC(EMatOperations.ADD, tableView, null);
+        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.ADD, tableView, null);
     }
 
     public void copyMaterial(TableRow<Material> tableRow){
-        final MaterialACC materialACC = new MaterialACC(EMatOperations.COPY, tableView, tableRow);
+        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.COPY, tableView, tableRow);
+        final MaterialsACCController mainController = materialACCLoader.getMainController();
+        final MatTypeController matTypeController = materialACCLoader.getMatTypeController();
+        mainController.init(tableRow.getItem(), matTypeController);
     }
 
     public void changeMaterial(TableRow<Material> tableRow){
-        final MaterialACC materialACC = new MaterialACC(EMatOperations.CHANGE, tableView, tableRow);
+        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.CHANGE, tableView, tableRow);
+        final MaterialsACCController mainController = materialACCLoader.getMainController();
+        final MatTypeController matTypeController = materialACCLoader.getMatTypeController();
+        mainController.init(tableRow.getItem(), matTypeController);
     }
 
     public void deleteMaterial(TableRow<Material> tableRow){

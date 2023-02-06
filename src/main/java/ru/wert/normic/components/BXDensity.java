@@ -28,8 +28,6 @@ public class BXDensity {
         if(LAST_VAL == null)
             LAST_VAL = CH_DENSITIES.findByName("Сталь");
 
-        bxDensity.setValue(LAST_VAL);
-
     }
 
     private void createCellFactory() {
@@ -51,9 +49,9 @@ public class BXDensity {
     private void createConverter() {
         cmbx.setConverter(new StringConverter<Density>() {
             @Override
-            public String toString(Density material) {
-                LAST_VAL = material; //последний выбранный префикс становится префиксом по умолчанию
-                return material.getName();
+            public String toString(Density density) {
+                LAST_VAL = density; //последний выбранный префикс становится префиксом по умолчанию
+                return density.getName();
             }
 
             @Override

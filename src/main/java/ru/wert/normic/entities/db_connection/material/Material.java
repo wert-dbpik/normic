@@ -3,6 +3,7 @@ package ru.wert.normic.entities.db_connection.material;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.entities.db_connection.*;
+import ru.wert.normic.entities.db_connection.anyPart.AnyPart;
 import ru.wert.normic.entities.db_connection.matType.MatType;
 import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
 

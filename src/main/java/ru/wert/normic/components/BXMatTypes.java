@@ -15,7 +15,7 @@ public class BXMatTypes {
     public static EMatType LAST_VAL;
     private ComboBox<EMatType> cmbx;
 
-    public void create(ComboBox<EMatType> cmbx, EMatType initVal, MaterialsACCController controller){
+    public void create(ComboBox<EMatType> cmbx){
         this.cmbx = cmbx;
         ObservableList<EMatType> values = FXCollections.observableArrayList(EMatType.values());
         cmbx.setItems(values);
@@ -24,18 +24,8 @@ public class BXMatTypes {
         //Выделяем префикс по умолчанию
         createConverter();
 
-//        cmbx.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            controller.countNorm(controller.getOpData());
-//        });
-
         if(LAST_VAL == null)
             LAST_VAL = EMatType.LIST;
-
-        if (initVal == null) {
-            cmbx.setValue(LAST_VAL);
-        } else {
-            cmbx.setValue(initVal);
-        }
 
     }
 

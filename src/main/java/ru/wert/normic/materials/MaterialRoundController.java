@@ -32,12 +32,16 @@ public class MaterialRoundController implements MatTypeController{
     }
 
     @Override //MatTypeController
-    public double[] readData(){
-        double[] sx = new double[2];
-        sx[0]  = DoubleParser.getValue(txtFldDiametre);//paramS
-        sx[1]  = DoubleParser.getValue(txtFldMassMetre);//paramX
-        return sx;
+    public double readParamS(){
+        return DoubleParser.getValue(txtFldDiametre);//paramS
     }
+
+    @Override //MatTypeController
+    public double readParamX(){
+        return DoubleParser.getValue(txtFldMassMetre);//paramX
+    }
+
+
 
     @Override //MatTypeController
     public MatTypeController getController(){

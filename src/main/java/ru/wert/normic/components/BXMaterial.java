@@ -7,7 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
 import ru.wert.normic.entities.db_connection.material.Material;
 
-import static ru.wert.normic.NormicServices.CH_QUICK_MATERIALS;
+import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 
 
 public class BXMaterial {
@@ -17,7 +17,7 @@ public class BXMaterial {
 
     public void create(ComboBox<Material> bxMaterial, Material initVal){
         this.cmbx = bxMaterial;
-        ObservableList<Material> materials = FXCollections.observableArrayList(CH_QUICK_MATERIALS.findAll());
+        ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
         bxMaterial.setItems(materials);
 
         createCellFactory();
@@ -25,7 +25,7 @@ public class BXMaterial {
         createConverter();
 
         if(LAST_VAL == null)
-            LAST_VAL = CH_QUICK_MATERIALS.findByName("лист 1");
+            LAST_VAL = QUICK_MATERIALS.findByName("лист 1");
 
         bxMaterial.setValue(LAST_VAL);
 

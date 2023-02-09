@@ -22,9 +22,14 @@ public interface MatTypeController {
     boolean checkData();
 
     /**
-     * Метод считывает paramS и paramX с формы
+     * Метод считывает paramS с формы
      */
-    double[] readData();
+    double readParamS();
+
+    /**
+     * Метод считывает paramX с формы
+     */
+    double readParamX();
 
 
 }

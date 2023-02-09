@@ -15,7 +15,7 @@ import ru.wert.normic.enums.EMatOperations;
 
 import java.util.List;
 
-import static ru.wert.normic.NormicServices.CH_QUICK_MATERIALS;
+import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class MaterialsTVController {
@@ -43,7 +43,7 @@ public class MaterialsTVController {
 
         initializeColumns();
 
-        List<Material> materials = FXCollections.observableArrayList(CH_QUICK_MATERIALS.findAll());
+        List<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
         tableView.getItems().addAll(FXCollections.observableArrayList(materials));
     }
 
@@ -80,22 +80,34 @@ public class MaterialsTVController {
 
     }
 
+    public void updateTableView(Material selectedMaterial){
+        tableView.getItems().clear();
+        tableView.refresh();
+        List<Material> list = QUICK_MATERIALS.findAll();
+        tableView.setItems(FXCollections.observableArrayList(list));
+
+        tableView.scrollTo(selectedMaterial);
+        tableView.getSelectionModel().select(selectedMaterial);
+    }
+
     public void addMaterial(){
         final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.ADD, tableView, null);
+        final MaterialsACCController mainController = materialACCLoader.getMainController();
+        mainController.init(this, null, null, EMatOperations.ADD);
     }
 
     public void copyMaterial(TableRow<Material> tableRow){
         final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.COPY, tableView, tableRow);
         final MaterialsACCController mainController = materialACCLoader.getMainController();
         final MatTypeController matTypeController = materialACCLoader.getMatTypeController();
-        mainController.init(tableRow.getItem(), matTypeController);
+        mainController.init(this, tableRow.getItem(), matTypeController, EMatOperations.COPY);
     }
 
     public void changeMaterial(TableRow<Material> tableRow){
         final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.CHANGE, tableView, tableRow);
         final MaterialsACCController mainController = materialACCLoader.getMainController();
         final MatTypeController matTypeController = materialACCLoader.getMatTypeController();
-        mainController.init(tableRow.getItem(), matTypeController);
+        mainController.init(this, tableRow.getItem(), matTypeController, EMatOperations.CHANGE);
     }
 
     public void deleteMaterial(TableRow<Material> tableRow){

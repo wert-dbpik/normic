@@ -38,13 +38,14 @@ public class MaterialListController implements MatTypeController{
     }
 
     @Override //MatTypeController
-    public double[] readData(){
-        double[] sx = new double[2];
-        sx[0]  = DoubleParser.getValue(txtFldThickness);//paramS
-        sx[1]  = bxDensity.getValue().getAmount();//paramX
-        return sx;
+    public double readParamS(){
+        return DoubleParser.getValue(txtFldThickness);//paramS
     }
 
+    @Override //MatTypeController
+    public double readParamX(){
+        return bxDensity.getValue().getAmount();//paramX
+    }
 
 
     @Override //MatTypeController

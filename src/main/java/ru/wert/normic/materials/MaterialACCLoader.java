@@ -42,6 +42,8 @@ public class MaterialACCLoader {
                     (Stage)tableView.getScene().getWindow(),
                     "decoration-settings",
                     false);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }

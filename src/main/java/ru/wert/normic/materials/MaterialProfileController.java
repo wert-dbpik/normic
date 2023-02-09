@@ -9,6 +9,10 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class MaterialProfileController implements MatTypeController{
 
+    public static void createForm(){
+
+    }
+
 
     @FXML
     private TextField tfPerimeter;
@@ -33,11 +37,13 @@ public class MaterialProfileController implements MatTypeController{
     }
 
     @Override //MatTypeController
-    public double[] readData(){
-        double[] sx = new double[2];
-        sx[0]  = DoubleParser.getValue(tfPerimeter);//paramS
-        sx[1]  = DoubleParser.getValue(tfMassMetre);//paramX
-        return sx;
+    public double readParamS(){
+        return DoubleParser.getValue(tfPerimeter);//paramS
+    }
+
+    @Override //MatTypeController
+    public double readParamX(){
+        return DoubleParser.getValue(tfMassMetre);//paramX
     }
 
     @Override //MatTypeController

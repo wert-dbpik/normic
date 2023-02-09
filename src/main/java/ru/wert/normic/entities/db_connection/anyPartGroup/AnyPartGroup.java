@@ -1,7 +1,9 @@
-package ru.wert.normic.entities.db_connection;
+package ru.wert.normic.entities.db_connection.anyPartGroup;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import ru.wert.normic.entities.db_connection.Item;
+import ru.wert.normic.entities.db_connection._BaseEntity;
 
 import java.io.Serializable;
 

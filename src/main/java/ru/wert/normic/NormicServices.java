@@ -1,6 +1,9 @@
 package ru.wert.normic;
 
 
+import ru.wert.normic.entities.db_connection.anyPart.AnyPartQuickService;
+import ru.wert.normic.entities.db_connection.anyPart.AnyPartService;
+import ru.wert.normic.entities.db_connection.anyPartGroup.AnyPartGroupService;
 import ru.wert.normic.entities.db_connection.density.DensityService;
 import ru.wert.normic.entities.db_connection.density.IDensityService;
 import ru.wert.normic.entities.db_connection.matType.IMatTypeService;
@@ -17,8 +20,11 @@ public class NormicServices {
     public static IDensityService DENSITIES;
     public static IMatTypeService MAT_TYPES;
     public static IMaterialGroupService MATERIAL_GROUPS;
+    public static AnyPartGroupService ANY_PART_GROUPS;
+    public static AnyPartService ANY_PART;
 
-    public static MaterialQuickService CH_QUICK_MATERIALS;
+    public static MaterialQuickService QUICK_MATERIALS;
+    public static AnyPartQuickService QUICK_ANY_PARTS;
 
     public static void initServices(){
 
@@ -26,11 +32,15 @@ public class NormicServices {
         DENSITIES = DensityService.getInstance();
         MAT_TYPES = MatTypeService.getInstance();
         MATERIAL_GROUPS = MaterialGroupService.getInstance();
+        ANY_PART = AnyPartService.getInstance();
+        ANY_PART_GROUPS = AnyPartGroupService.getInstance();
+
 
     }
 
     public static void initQuickServices(){
-        CH_QUICK_MATERIALS = MaterialQuickService.getInstance();
+        QUICK_MATERIALS = MaterialQuickService.getInstance();
+        QUICK_ANY_PARTS = AnyPartQuickService.getInstance();
     }
 
 

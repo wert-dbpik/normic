@@ -11,6 +11,9 @@ public class MaterialContextMenu extends ContextMenu {
     public MaterialContextMenu(MaterialsTVController controller, TableRow<Material> tableRow) {
         this.tableRow = tableRow;
 
+        final MenuItem addItem = new MenuItem("Добавить");
+        addItem.setOnAction(e-> controller.addMaterial());
+
         final MenuItem copyItem = new MenuItem("Добавить копированием");
         copyItem.setOnAction(e-> controller.copyMaterial(tableRow));
 
@@ -20,7 +23,7 @@ public class MaterialContextMenu extends ContextMenu {
         final MenuItem deleteItem = new MenuItem("Удалить");
         deleteItem.setOnAction(e-> controller.deleteMaterial(tableRow));
 
-        getItems().addAll(copyItem, changeItem, deleteItem);
+        getItems().addAll(addItem, copyItem, changeItem, deleteItem);
 
     }
 

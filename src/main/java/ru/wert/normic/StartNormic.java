@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import static ru.wert.normic.AppStatics.PROJECT_VERSION;
-import static ru.wert.normic.ChogoriServices.initQuickServices;
-import static ru.wert.normic.ChogoriServices.initServices;
+import static ru.wert.normic.NormicServices.initQuickServices;
+import static ru.wert.normic.NormicServices.initServices;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 @Slf4j

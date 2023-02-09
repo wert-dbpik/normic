@@ -15,7 +15,7 @@ import ru.wert.normic.enums.EMatOperations;
 
 import java.util.List;
 
-import static ru.wert.normic.ChogoriServices.CH_QUICK_MATERIALS;
+import static ru.wert.normic.NormicServices.CH_QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class MaterialsTVController {

@@ -1,39 +1,47 @@
-package ru.wert.normic.entities.db_connection.material;
-
+package ru.wert.normic.entities.db_connection.material_group;
 
 import retrofit2.Call;
-import ru.wert.normic.entities.db_connection.Item;
 import ru.wert.normic.entities.db_connection.ItemService;
-import ru.wert.normic.entities.db_connection.PartItem;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 
 
 import java.io.IOException;
 import java.util.List;
 
-public class MaterialService implements IMaterialService, ItemService<Material>, PartItem {
+public class MaterialGroupService implements IMaterialGroupService, ItemService<MaterialGroup> {
 
-    private static MaterialService instance;
-    private MaterialApiInterface api;
+    private static MaterialGroupService instance;
+    private MaterialGroupApiInterface api;
 
-    private MaterialService() {
-        api = RetrofitClient.getInstance().getRetrofit().create(MaterialApiInterface.class);
+    private MaterialGroupService() {
+        api = RetrofitClient.getInstance().getRetrofit().create(MaterialGroupApiInterface.class);
     }
 
-    public MaterialApiInterface getApi() {
+    public MaterialGroupApiInterface getApi() {
         return api;
     }
 
-    public static MaterialService getInstance() {
+    public static MaterialGroupService getInstance() {
         if (instance == null)
-            return new MaterialService();
+            return new MaterialGroupService();
         return instance;
     }
 
     @Override
-    public Material findById(Long id) {
+    public MaterialGroup findById(Long id) {
         try {
-            Call<Material> call = api.getById(id);
+            Call<MaterialGroup> call = api.getById(id);
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public MaterialGroup findByName(String name) {
+        try {
+            Call<MaterialGroup> call = api.getByName(name);
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,9 +50,9 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public Material findByName(String name) {
+    public List<MaterialGroup> findAll() {
         try {
-            Call<Material> call = api.getByName(name);
+            Call<List<MaterialGroup>> call = api.getAll();
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,9 +61,9 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public List<Material> findAll() {
+    public List<MaterialGroup> findAllByText(String text) {
         try {
-            Call<List<Material>> call = api.getAll();
+            Call<List<MaterialGroup>> call = api.getAllByText(text);
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,20 +72,9 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public List<Material> findAllByText(String text) {
+    public MaterialGroup save(MaterialGroup entity) {
         try {
-            Call<List<Material>> call = api.getAllByText(text);
-            return call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Material save(Material entity) {
-        try {
-            Call<Material> call = api.create(entity);
+            Call<MaterialGroup> call = api.create(entity);
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +83,7 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public boolean update(Material entity) {
+    public boolean update(MaterialGroup entity) {
         try {
             Call<Void> call = api.update(entity);
             return call.execute().isSuccessful();
@@ -97,7 +94,7 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public boolean delete(Material entity) {
+    public boolean delete(MaterialGroup entity) {
         Long id = entity.getId();
         try {
             Call<Void> call = api.deleteById(id);
@@ -109,15 +106,11 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     //Получаем строку из модели Класса, там ее удобнее написать
-
     @Override
-    public Material createFakeProduct(String name){
-        return new Material(name);
-    }
-
-    @Override
-    public String getPartName(Item material) {
-        return material.getName();
+    public MaterialGroup getRootItem(){
+        MaterialGroup rootItem = new MaterialGroup(0L, 555L,"Материалы");
+        rootItem.setId(1L);
+        return rootItem;
     }
 
 

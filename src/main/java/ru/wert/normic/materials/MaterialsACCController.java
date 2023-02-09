@@ -10,8 +10,13 @@ import javafx.scene.layout.StackPane;
 import ru.wert.normic.components.BXColor;
 import ru.wert.normic.components.BXDensity;
 import ru.wert.normic.components.BXMatTypes;
+import ru.wert.normic.components.BXMaterialGroups;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
 import ru.wert.normic.enums.EMatType;
+
+import static ru.wert.normic.NormicServices.MATERIAL_GROUPS;
+import static ru.wert.normic.NormicServices.MAT_TYPES;
 
 public class MaterialsACCController {
     @FXML
@@ -21,16 +26,19 @@ public class MaterialsACCController {
     private Button btnOk;
 
     @FXML
-    private ComboBox<EMatType> bxMatType;
-
-    @FXML
     private StackPane spForCalculation;
 
     @FXML
-    private TextArea taMaterialNote;
+    private ComboBox<MaterialGroup> bxMaterialGroup;
+
+    @FXML
+    private ComboBox<EMatType> bxMatType;
 
     @FXML
     private TextField tfMaterialName;
+
+    @FXML
+    private TextArea taMaterialNote;
 
     @FXML
     private StackPane spIndicator;
@@ -47,6 +55,7 @@ public class MaterialsACCController {
         this.matTypeController = matTypeController;
 
         new BXMatTypes().create(bxMatType, EMatType.LIST, this);
+        new BXMaterialGroups().create(bxMaterialGroup);
 
         matTypeController.fillData(material);
         fillData();
@@ -65,7 +74,34 @@ public class MaterialsACCController {
     private void fillData(){
         tfMaterialName.setText(material.getName());
         bxMatType.setValue(EMatType.getTypeByName(material.getMatType().getName()));
+        bxMaterialGroup.setValue(material.getCatalogGroup());
+        taMaterialNote.setText(material.getNote());
     }
+
+    private boolean checkData(){
+        if(tfMaterialName.getText().isEmpty()) return false;
+        else if(bxMatType.getValue() == null) return false;
+        else if(bxMaterialGroup.getValue() == null) return false;
+        return true;
+    }
+
+    private void readData(){
+        material.setName(tfMaterialName.getText().trim());
+        material.setNote(tfMaterialName.getText().trim());
+        material.setMatType(MAT_TYPES.findByName(bxMatType.getValue().getName()));
+    }
+
+    private Material creatNewMaterial(){
+        Material newMaterial = new Material();
+        newMaterial.setName(tfMaterialName.getText().trim());
+        newMaterial.setMatType(MAT_TYPES.findByName(bxMatType.getValue().getName()));
+        newMaterial.setCatalogGroup(MATERIAL_GROUPS.findByName(bxMaterialGroup.getValue().getName()));
+        newMaterial.setNote(tfMaterialName.getText().trim());
+
+        return newMaterial;
+    }
+
+
 
 
 }

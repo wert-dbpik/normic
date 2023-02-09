@@ -1,39 +1,47 @@
-package ru.wert.normic.entities.db_connection.material;
-
+package ru.wert.normic.entities.db_connection.matType;
 
 import retrofit2.Call;
-import ru.wert.normic.entities.db_connection.Item;
 import ru.wert.normic.entities.db_connection.ItemService;
-import ru.wert.normic.entities.db_connection.PartItem;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 
 
 import java.io.IOException;
 import java.util.List;
 
-public class MaterialService implements IMaterialService, ItemService<Material>, PartItem {
+public class MatTypeService implements IMatTypeService, ItemService<MatType> {
 
-    private static MaterialService instance;
-    private MaterialApiInterface api;
+    private static MatTypeService instance;
+    private MatTypeApiInterface api;
 
-    private MaterialService() {
-        api = RetrofitClient.getInstance().getRetrofit().create(MaterialApiInterface.class);
+    private MatTypeService() {
+        api = RetrofitClient.getInstance().getRetrofit().create(MatTypeApiInterface.class);
     }
 
-    public MaterialApiInterface getApi() {
+    public MatTypeApiInterface getApi() {
         return api;
     }
 
-    public static MaterialService getInstance() {
+    public static MatTypeService getInstance() {
         if (instance == null)
-            return new MaterialService();
+            return new MatTypeService();
         return instance;
     }
 
     @Override
-    public Material findById(Long id) {
+    public MatType findById(Long id) {
         try {
-            Call<Material> call = api.getById(id);
+            Call<MatType> call = api.getById(id);
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public MatType findByName(String name) {
+        try {
+            Call<MatType> call = api.getByName(name);
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,9 +50,9 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public Material findByName(String name) {
+    public List<MatType> findAll() {
         try {
-            Call<Material> call = api.getByName(name);
+            Call<List<MatType>> call = api.getAll();
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,9 +61,9 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public List<Material> findAll() {
+    public List<MatType> findAllByText(String text) {
         try {
-            Call<List<Material>> call = api.getAll();
+            Call<List<MatType>> call = api.getAllByText(text);
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,20 +72,9 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public List<Material> findAllByText(String text) {
+    public MatType save(MatType entity) {
         try {
-            Call<List<Material>> call = api.getAllByText(text);
-            return call.execute().body();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public Material save(Material entity) {
-        try {
-            Call<Material> call = api.create(entity);
+            Call<MatType> call = api.create(entity);
             return call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +83,7 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public boolean update(Material entity) {
+    public boolean update(MatType entity) {
         try {
             Call<Void> call = api.update(entity);
             return call.execute().isSuccessful();
@@ -97,7 +94,7 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     }
 
     @Override
-    public boolean delete(Material entity) {
+    public boolean delete(MatType entity) {
         Long id = entity.getId();
         try {
             Call<Void> call = api.deleteById(id);
@@ -106,18 +103,6 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
             e.printStackTrace();
             return false;
         }
-    }
-
-    //Получаем строку из модели Класса, там ее удобнее написать
-
-    @Override
-    public Material createFakeProduct(String name){
-        return new Material(name);
-    }
-
-    @Override
-    public String getPartName(Item material) {
-        return material.getName();
     }
 
 

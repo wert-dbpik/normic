@@ -2,7 +2,6 @@ package ru.wert.normic.entities.db_connection.density;
 
 import retrofit2.Call;
 import ru.wert.normic.entities.db_connection.ItemService;
-import ru.wert.normic.entities.db_connection.retrofit.BLlinks;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ public class DensityService implements IDensityService, ItemService<Density> {
     private DensityApiInterface api;
 
     private DensityService() {
-        BLlinks.densityService = this;
         api = RetrofitClient.getInstance().getRetrofit().create(DensityApiInterface.class);
     }
 

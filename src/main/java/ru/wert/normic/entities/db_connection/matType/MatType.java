@@ -1,4 +1,4 @@
-package ru.wert.normic.entities.db_connection.material;
+package ru.wert.normic.entities.db_connection.matType;
 
 
 import lombok.*;

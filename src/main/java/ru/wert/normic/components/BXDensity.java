@@ -8,7 +8,7 @@ import javafx.util.StringConverter;
 import ru.wert.normic.entities.db_connection.density.Density;
 
 
-import static ru.wert.normic.ChogoriServices.CH_DENSITIES;
+import static ru.wert.normic.NormicServices.DENSITIES;
 
 
 public class BXDensity {
@@ -18,7 +18,7 @@ public class BXDensity {
 
     public void create(ComboBox<Density> bxDensity){
         this.cmbx = bxDensity;
-        ObservableList<Density> materials = FXCollections.observableArrayList(CH_DENSITIES.findAll());
+        ObservableList<Density> materials = FXCollections.observableArrayList(DENSITIES.findAll());
         bxDensity.setItems(materials);
 
         createCellFactory();
@@ -26,7 +26,7 @@ public class BXDensity {
         createConverter();
 
         if(LAST_VAL == null)
-            LAST_VAL = CH_DENSITIES.findByName("Сталь");
+            LAST_VAL = DENSITIES.findByName("Сталь");
 
     }
 

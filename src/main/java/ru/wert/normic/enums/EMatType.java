@@ -1,7 +1,9 @@
 package ru.wert.normic.enums;
 
 import lombok.Getter;
+import ru.wert.normic.entities.db_connection.matType.MatType;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public enum EMatType {
@@ -34,4 +36,5 @@ public enum EMatType {
         }
         throw new NoSuchElementException(String.format("Тип материала '%s' не найден!", name));
     }
+
 }

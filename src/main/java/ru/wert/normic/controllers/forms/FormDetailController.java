@@ -2,18 +2,27 @@ package ru.wert.normic.controllers.forms;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.materials.detailPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.material.Material;
 
+import java.io.IOException;
+
+import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -44,6 +53,8 @@ public class FormDetailController extends AbstractFormController {
     @FXML
     private TextField tfCoat;
 
+    @FXML
+    private StackPane spDetailParams;
 
     @FXML @Getter
     private TextField tfMechanicalTime, tfPaintingTime, tfTotalTime;
@@ -51,11 +62,9 @@ public class FormDetailController extends AbstractFormController {
     @FXML
     private Label lblTimeMeasure;
 
-    private double ro; //Плотность
-    private double t; //Толщина
-    private double wasteRatio; //Коэффициент, учитывающий отход материала
-    private int paramA; //параметр А
-    private int paramB; //параметр B
+    private AbstractMatPatchController abstractMatPatchController;
+
+    private AbstractMatPatchController matPatchController;
 
     private AbstractFormController controller;
 
@@ -79,13 +88,43 @@ public class FormDetailController extends AbstractFormController {
         }
 
         //Инициализируем комбобоксы
-        new BXMaterial().create(cmbxMaterial, ((OpDetail) opData).getMaterial());
-
+        new BXMaterial().create(cmbxMaterial);
+        cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
+            EMatType matType = EMatType.getTypeByName(newValue.getMatType().getName());
+            changeMatPatch(matType);
+            matPatchController.countWeightAndArea();
+            for(AbstractOpPlate nc : addedPlates){
+                nc.countNorm(nc.getOpData());
+            }
+        });
+        Material initMaterial = QUICK_MATERIALS.findByName("лист 1");
+        if(initMaterial == null) cmbxMaterial.getSelectionModel().select(0);
+        else  cmbxMaterial.setValue(initMaterial);
 
         //Заполняем поля формы
         fillOpData();
-        countWeightAndArea();
+        matPatchController.countWeightAndArea();
         countSumNormTimeByShops();
+    }
+
+    private void changeMatPatch(EMatType newValue) {
+        try {
+            FXMLLoader loader = null;
+            switch (newValue){
+                case LIST:
+                    loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/listPatch.fxml")); break;
+                case ROUND:
+                    loader = new FXMLLoader(getClass().getResource("fxml/materials/materialPatches/roundPatch.fxml")); break;
+                case PROFILE:
+                    loader = new FXMLLoader(getClass().getResource("fxml/materials/materialPatches/profilePatch.fxml"));break;
+            }
+            assert loader != null;
+            Parent parent = loader.load();
+            matPatchController = loader.getController();
+            spDetailParams.getChildren().add(parent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initViews() {
@@ -94,33 +133,13 @@ public class FormDetailController extends AbstractFormController {
             countSumNormTimeByShops();
         });
 
-        cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
-            countWeightAndArea();
-            for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm(nc.getOpData());
-            }
-        });
+//        cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            matPatchController.countWeightAndArea();
+//            for(AbstractOpPlate nc : addedPlates){
+//                nc.countNorm(nc.getOpData());
+//            }
+//        });
 
-        tfA.textProperty().addListener((observable, oldValue, newValue) -> {
-            countWeightAndArea();
-            for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm(nc.getOpData());
-            }
-        });
-
-        tfB.textProperty().addListener((observable, oldValue, newValue) -> {
-            countWeightAndArea();
-            for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm(nc.getOpData());
-            }
-        });
-
-        tfWasteRatio.textProperty().addListener((observable, oldValue, newValue) -> {
-            countWeightAndArea();
-            for(AbstractOpPlate nc : addedPlates){
-                nc.countNorm(nc.getOpData());
-            }
-        });
 
         ivErase.setOnMouseClicked(e->{
             ((IOpWithOperations)opData).getOperations().clear();
@@ -144,31 +163,7 @@ public class FormDetailController extends AbstractFormController {
         linkMenuToButton();
     }
 
-    private void countWeightAndArea() {
-        try {
-            ro = cmbxMaterial.getValue().getParamX();
-            t = cmbxMaterial.getValue().getParamS();
-            paramA = Integer.parseInt(tfA.getText().trim());
-            paramB = Integer.parseInt(tfB.getText().trim());
-            wasteRatio = Double.parseDouble(tfWasteRatio.getText().trim());
-            if(paramA <= 0 || paramB <= 0 || paramA > 2500 || paramB > 2500 || wasteRatio < 1.0) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
-            tfWeight.setText("");
-            tfCoat.setText("");
-            return;
-        }
 
-        double weight = t * paramA * paramB * ro * MM2_TO_M2 * wasteRatio;
-        double area = 2 * paramA * paramB * MM2_TO_M2;
-
-        tfWeight.setText(String.format(DOUBLE_FORMAT, weight));
-        tfCoat.setText(String.format(DOUBLE_FORMAT, area));
-
-        ((OpDetail)opData).setWeight(weight);
-        ((OpDetail)opData).setArea(area);
-
-        controller.calculateAreaByDetails();
-    }
 
 
     /**
@@ -216,14 +211,14 @@ public class FormDetailController extends AbstractFormController {
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
-        paramA = ((OpDetail)opData).getParamA();
-        tfA.setText(String.valueOf(paramA));
+        matPatchController.setParamA(((OpDetail)opData).getParamA());
+        tfA.setText(String.valueOf(matPatchController.getParamA()));
 
-        paramB = ((OpDetail)opData).getParamB();
-        tfB.setText(String.valueOf(paramB));
+        matPatchController.setParamB(((OpDetail)opData).getParamB());
+        tfB.setText(String.valueOf(matPatchController.getParamB()));
 
-        wasteRatio = ((OpDetail)opData).getWasteRatio();
-        tfWasteRatio.setText(String.valueOf(wasteRatio));
+        matPatchController.setWasteRatio(((OpDetail)opData).getWasteRatio());
+        tfWasteRatio.setText(String.valueOf(matPatchController.getWasteRatio()));
 
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.deployData();

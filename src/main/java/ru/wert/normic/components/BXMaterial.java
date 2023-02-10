@@ -15,7 +15,7 @@ public class BXMaterial {
     private static Material LAST_VAL;
     private ComboBox<Material> cmbx;
 
-    public void create(ComboBox<Material> bxMaterial, Material initVal){
+    public void create(ComboBox<Material> bxMaterial){
         this.cmbx = bxMaterial;
         ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
         bxMaterial.setItems(materials);
@@ -24,8 +24,8 @@ public class BXMaterial {
         //Выделяем префикс по умолчанию
         createConverter();
 
-        if(LAST_VAL == null)
-            LAST_VAL = QUICK_MATERIALS.findByName("лист 1");
+//        if(LAST_VAL == null)
+//            LAST_VAL = QUICK_MATERIALS.findByName("лист 1");
 
         bxMaterial.setValue(LAST_VAL);
 

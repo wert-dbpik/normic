@@ -122,9 +122,9 @@ public class MaterialsACCController {
 
         }
         Material finalSelectedMaterial = selectedMaterial;
-        Platform.runLater(()->{
-            tableViewController.updateTableView(finalSelectedMaterial);
-        });
+
+        tableViewController.updateTableView(null, finalSelectedMaterial);
+
 
         ((Node) event.getSource()).getScene().getWindow().hide();
     }

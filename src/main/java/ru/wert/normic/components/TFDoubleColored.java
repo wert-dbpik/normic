@@ -8,9 +8,9 @@ import ru.wert.normic.controllers.AbstractOpPlate;
  * а так же ограничивает введение чисел только цифрами от 0 до 9 и знаками , и .
  * запятую меняет на точку
  */
-public class TFColoredDouble {
+public class TFDoubleColored {
 
-    public TFColoredDouble(TextField tf, AbstractOpPlate counter) {
+    public TFDoubleColored(TextField tf, AbstractOpPlate counter) {
         String style = tf.getStyle();
 
         tf.textProperty().addListener((observable, oldValue, newValue) -> {

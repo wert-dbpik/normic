@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import ru.wert.normic.components.TFColoredDouble;
+import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpAssmCutting;
 import ru.wert.normic.entities.OpData;
@@ -49,9 +49,9 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         OpAssmCutting opData = (OpAssmCutting)data;
 
         new TFNormTime(tfNormTime, formController);
-        new TFColoredDouble(tfSealer, this);
-        new TFColoredDouble(tfSelfAdhSealer, this);
-        new TFColoredDouble(tfInsulation, this);
+        new TFDoubleColored(tfSealer, this);
+        new TFDoubleColored(tfSelfAdhSealer, this);
+        new TFDoubleColored(tfInsulation, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

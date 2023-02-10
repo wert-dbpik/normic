@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpLocksmith;
@@ -57,11 +57,11 @@ public class PlateLocksmithController extends AbstractOpPlate {
         OpLocksmith opData = (OpLocksmith)data;
 
         new TFNormTime(tfNormTime, formController);
-        new TFColoredInteger(tfRivets, this);
-        new TFColoredInteger(tfCountersinkings, this);
-        new TFColoredInteger(tfThreadings, this);
-        new TFColoredInteger(tfSmallSawings, this);
-        new TFColoredInteger(tfBigSawings, this);
+        new TFIntegerColored(tfRivets, this);
+        new TFIntegerColored(tfCountersinkings, this);
+        new TFIntegerColored(tfThreadings, this);
+        new TFIntegerColored(tfSmallSawings, this);
+        new TFIntegerColored(tfBigSawings, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

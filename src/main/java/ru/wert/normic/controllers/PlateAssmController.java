@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpAssm;
@@ -69,7 +69,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     public void initViews(OpData data){
         OpAssm opData = (OpAssm)data;
 
-        new TFColoredInteger(tfN, null);
+        new TFIntegerColored(tfN, null);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
         lblQuantity.setStyle("-fx-text-fill: #8b4513");

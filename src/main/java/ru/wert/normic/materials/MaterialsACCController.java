@@ -1,7 +1,6 @@
 package ru.wert.normic.materials;
 
 import com.sun.istack.internal.NotNull;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,7 +54,7 @@ public class MaterialsACCController {
     @FXML
     private StackPane stackPaneForButtons;
 
-    private Material material;
+    private Material oldMaterial;
     private MatTypeController matTypeController;
     private MaterialsTVController tableViewController;
     private EMatOperations operation;
@@ -63,7 +62,7 @@ public class MaterialsACCController {
 
     public void init(MaterialsTVController tableViewController, Material material, MatTypeController matTypeController, EMatOperations operation){
         this.tableViewController = tableViewController;
-        this.material = material;
+        this.oldMaterial = material;
         this.matTypeController = matTypeController;
         this.operation = operation;
 
@@ -75,6 +74,7 @@ public class MaterialsACCController {
         new BXMaterialGroups().create(bxMaterialGroup);
 
         if(operation.equals(EMatOperations.COPY) || operation.equals(EMatOperations.CHANGE)) fillData();
+
     }
 
     private void changeMatType(EMatType newValue) {
@@ -107,16 +107,36 @@ public class MaterialsACCController {
     @FXML
     void ok(ActionEvent event) {
         Material selectedMaterial = null;
-        if(operation.equals(EMatOperations.ADD)){
+        if(operation.equals(EMatOperations.ADD) || operation.equals(EMatOperations.COPY)){
             if(!checkData()) return;
             Material newMaterial = creatNewMaterial();
             if(!isDuplicated(newMaterial, null)){
                 @NotNull AnyPart finalPart = createAnyPart(newMaterial);
                 newMaterial.setAnyPart(finalPart);
-                selectedMaterial = MATERIALS.save(newMaterial);
+                selectedMaterial = QUICK_MATERIALS.save(newMaterial);
+                if(selectedMaterial == null)
+                    Warning1.create("Ошибка!",
+                            "Не удалось сохранить материал!",
+                            "Возможно, сервер не доступен");
             }
 
-            else Warning1.create("Ошибка",
+            else Warning1.create("Ошибка!",
+                    "Такой материал уже существует!",
+                    "Материал должен быть уникальным");
+
+        }
+        else if(operation.equals(EMatOperations.CHANGE) ){
+            if(!checkData()) return;
+            Material newMaterial = creatNewMaterial();
+            if(!isDuplicated(newMaterial, oldMaterial)){
+                updateOldMaterial(newMaterial);
+                boolean res = QUICK_MATERIALS.update(oldMaterial);
+                if(!res)
+                    Warning1.create("Ошибка!",
+                            "Не удалось сохранить материал!",
+                            "Возможно, сервер не доступен");
+            }
+            else Warning1.create("Ошибка!",
                     "Такой материал уже существует!",
                     "Материал должен быть уникальным");
 
@@ -124,19 +144,30 @@ public class MaterialsACCController {
         Material finalSelectedMaterial = selectedMaterial;
 
         tableViewController.updateTableView(null, finalSelectedMaterial);
-
-
         ((Node) event.getSource()).getScene().getWindow().hide();
+    }
+
+    private void updateOldMaterial(Material newMaterial) {
+        //Изменяем AnyPart
+        AnyPart anyPart = oldMaterial.getAnyPart();
+        anyPart.setName(newMaterial.getName());
+        ANY_PART.update(anyPart);
+
+        oldMaterial.setName(newMaterial.getName());
+        oldMaterial.setNote(newMaterial.getNote());
+        oldMaterial.setParamX(matTypeController.readParamS());
+        oldMaterial.setParamX(matTypeController.readParamX());
+
     }
 
 
     private void fillData(){
-        tfMaterialName.setText(material.getName());
-        bxMatType.setValue(EMatType.getTypeByName(material.getMatType().getName()));
-        bxMaterialGroup.setValue(material.getCatalogGroup());
-        taMaterialNote.setText(material.getNote());
+        tfMaterialName.setText(oldMaterial.getName());
+        bxMatType.setValue(EMatType.getTypeByName(oldMaterial.getMatType().getName()));
+        bxMaterialGroup.setValue(oldMaterial.getCatalogGroup());
+        taMaterialNote.setText(oldMaterial.getNote());
         if(matTypeController != null)
-            matTypeController.fillData(material);
+            matTypeController.fillData(oldMaterial);
     }
 
     private boolean checkData(){
@@ -145,12 +176,6 @@ public class MaterialsACCController {
         else if(bxMaterialGroup.getValue() == null) return false;
         else if(!matTypeController.checkData()) return false;
         return true;
-    }
-
-    private void readData(){
-        material.setName(tfMaterialName.getText().trim());
-        material.setNote(taMaterialNote.getText().trim());
-        material.setMatType(MAT_TYPES.findByName(bxMatType.getValue().getName()));
     }
 
     private Material creatNewMaterial(){

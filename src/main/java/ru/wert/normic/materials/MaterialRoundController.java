@@ -2,6 +2,8 @@ package ru.wert.normic.materials;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import ru.wert.normic.components.TFDouble;
+import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.utils.DoubleParser;
 
@@ -17,6 +19,8 @@ public class MaterialRoundController implements MatTypeController{
 
     @FXML
     void initialize(){
+        new TFInteger(txtFldDiametre);
+        new TFDouble(txtFldMassMetre);
     }
 
     @Override //MatTypeController
@@ -40,8 +44,6 @@ public class MaterialRoundController implements MatTypeController{
     public double readParamX(){
         return DoubleParser.getValue(txtFldMassMetre);//paramX
     }
-
-
 
     @Override //MatTypeController
     public MatTypeController getController(){

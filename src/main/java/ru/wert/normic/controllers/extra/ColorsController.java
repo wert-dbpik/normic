@@ -3,11 +3,9 @@ package ru.wert.normic.controllers.extra;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.IntegerParser;
-
-import static ru.wert.normic.AppStatics.*;
 
 public class ColorsController {
 
@@ -23,9 +21,9 @@ public class ColorsController {
 
     public void init(){
 
-        new TFColoredInteger(tfConsumption1, null);
-        new TFColoredInteger(tfConsumption2, null);
-        new TFColoredInteger(tfConsumption3, null);
+        new TFIntegerColored(tfConsumption1, null);
+        new TFIntegerColored(tfConsumption2, null);
+        new TFIntegerColored(tfConsumption3, null);
 
         ral1 = EColor.COLOR_I.getRal();
         ral2 = EColor.COLOR_II.getRal();

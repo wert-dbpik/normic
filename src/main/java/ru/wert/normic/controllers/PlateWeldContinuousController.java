@@ -86,11 +86,11 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
         new BXPartBigness().create(cmbxPartBigness, opData.getPartBigness(), this);
         new TFNormTime(tfNormTime, formController);
-        new TFColoredInteger(tfSeamLength, this);
-        new TFColoredInteger(tfSeams, this);
-        new TFColoredInteger(tfMen, this);
-        new TFColoredInteger(tfConnectionLength, this);
-        new TFColoredInteger(tfStep, this);
+        new TFIntegerColored(tfSeamLength, this);
+        new TFIntegerColored(tfSeams, this);
+        new TFIntegerColored(tfMen, this);
+        new TFIntegerColored(tfConnectionLength, this);
+        new TFIntegerColored(tfStep, this);
         new ChBox(chbxPreEnterSeams, this);
         new ChBox(chbxStripping, this);
         new CmBx(cmbxPartBigness, this);

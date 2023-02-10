@@ -3,10 +3,10 @@ package ru.wert.normic.components;
 import javafx.scene.control.TextField;
 import ru.wert.normic.controllers.AbstractOpPlate;
 
-public class TFColoredInteger{
+public class TFIntegerColored {
 
 
-    public TFColoredInteger(TextField tf, AbstractOpPlate counter) {
+    public TFIntegerColored(TextField tf, AbstractOpPlate counter) {
         String style = tf.getStyle();
         String normStyle = counter == null ? "" : counter.getTfNormTime().getStyle();
 

@@ -20,6 +20,7 @@ import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
 import ru.wert.normic.enums.EMatOperations;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
@@ -68,8 +69,8 @@ public class MaterialsTVController {
 
         initializeColumns();
 
-        List<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
-        tableView.getItems().addAll(FXCollections.observableArrayList(materials));
+        updateTableView(null, null);
+
     }
 
     private void initializeColumns() {
@@ -95,7 +96,7 @@ public class MaterialsTVController {
 
             tableRow.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-
+                    changeMaterial(tableRow);
                 }
             });
 
@@ -116,6 +117,7 @@ public class MaterialsTVController {
             items = new ArrayList<>(QUICK_MATERIALS.findAllByGroupId(group.getId()));
         }
         Platform.runLater(()->{
+            items.sort(Comparator.comparing(Material::getName));
             tableView.setItems(FXCollections.observableArrayList(items));
             if(selectedMaterial != null) {
                 tableView.scrollTo(selectedMaterial);

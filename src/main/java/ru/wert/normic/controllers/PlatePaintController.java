@@ -81,9 +81,9 @@ public class PlatePaintController extends AbstractOpPlate {
         new BXPaintingDifficulty().create(cmbxDifficulty, opData.getDifficulty(), this);
         new BXColor().create(cmbxColor, opData.getColor(), this);
         new TFNormTime(tfNormTime, formController);
-        new TFColoredInteger(tfAlong, this);
-        new TFColoredInteger(tfAcross, this);
-        new TFColoredInteger(tfHangingTime, this);
+        new TFIntegerColored(tfAlong, this);
+        new TFIntegerColored(tfAcross, this);
+        new TFIntegerColored(tfHangingTime, this);
         new CmBx(cmbxColor, this);
         new CmBx(cmbxDifficulty, this);
         new ChBox(chbxTwoSides, this);

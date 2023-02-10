@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpAssmNode;
 import ru.wert.normic.entities.OpData;
@@ -60,11 +60,11 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         OpAssmNode opData = (OpAssmNode)data;
 
         new TFNormTime(tfNormTime, formController);
-        new TFColoredInteger(tfPostLocks, this);
-        new TFColoredInteger(tfDoubleLocks, this);
-        new TFColoredInteger(tfMirrors, this);
-        new TFColoredInteger(tfDetectors, this);
-        new TFColoredInteger(tfConnectionBoxes, this);
+        new TFIntegerColored(tfPostLocks, this);
+        new TFIntegerColored(tfDoubleLocks, this);
+        new TFIntegerColored(tfMirrors, this);
+        new TFIntegerColored(tfDetectors, this);
+        new TFIntegerColored(tfConnectionBoxes, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

@@ -1,9 +1,5 @@
 package ru.wert.normic.controllers;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -13,14 +9,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.entities.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.List;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
 
@@ -112,9 +105,9 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         new BXColor().create(cmbxColor, opData.getColor(), this);
         new BXAssemblingType().create(cmbxAssemblingType, opData.getAssmType(), this);
         new TFNormTime(tfNormTime, formController);
-        new TFColoredDouble(tfManualArea, this);
-        new TFColoredInteger(tfAlong, this);
-        new TFColoredInteger(tfAcross, this);
+        new TFDoubleColored(tfManualArea, this);
+        new TFIntegerColored(tfAlong, this);
+        new TFIntegerColored(tfAcross, this);
         new ChBox(chbxCalculatedArea, this);
         new CmBx(cmbxAssemblingType, this);
 

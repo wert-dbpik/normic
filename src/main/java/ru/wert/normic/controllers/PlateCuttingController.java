@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.ChBox;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpCutting;
@@ -68,9 +68,9 @@ public class PlateCuttingController extends AbstractOpPlate {
     public void initViews(OpData data){
         OpCutting opData = (OpCutting) data;
 
-        new TFColoredInteger(tfHoles, this);
-        new TFColoredInteger(tfPerfHoles, this);
-        new TFColoredInteger(tfExtraPerimeter, this);
+        new TFIntegerColored(tfHoles, this);
+        new TFIntegerColored(tfPerfHoles, this);
+        new TFIntegerColored(tfExtraPerimeter, this);
         new TFNormTime(tfNormTime, formController);
         new ChBox(chbxStripping, this);
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");

@@ -8,8 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXBendingTool;
-import ru.wert.normic.components.CmBx;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpBending;
 import ru.wert.normic.entities.OpData;
@@ -55,8 +54,8 @@ public class PlateBendController extends AbstractOpPlate {
 
         new BXBendingTool().create(cmbxBendingTool, opData.getTool(), this);
         new TFNormTime(tfNormTime, formController);
-        new TFColoredInteger(tfBends, this);
-        new TFColoredInteger(tfMen, this);
+        new TFIntegerColored(tfBends, this);
+        new TFIntegerColored(tfMen, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

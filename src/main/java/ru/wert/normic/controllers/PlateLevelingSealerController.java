@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXSealersWidth;
 import ru.wert.normic.components.CmBx;
-import ru.wert.normic.components.TFColoredInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpLevelingSealer;
@@ -67,8 +67,8 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
         new BXSealersWidth().create(cmbxSealerWidth, opData.getSealersWidth(), this);
         new TFNormTime(tfNormTime, formController);
-        new TFColoredInteger(tfA, this);
-        new TFColoredInteger(tfB, this);
+        new TFIntegerColored(tfA, this);
+        new TFIntegerColored(tfB, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

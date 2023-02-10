@@ -1,6 +1,7 @@
 package ru.wert.normic.entities.db_connection.material;
 
 import ru.wert.normic.entities.db_connection.CatalogService;
+import ru.wert.normic.entities.db_connection.anyPart.AnyPartQuickService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +84,8 @@ public class MaterialQuickService implements IMaterialService, CatalogService<Ma
     @Override
     public boolean delete(Material material){
         boolean res = service.delete(material);
-//        reload();
-//        AnyPartQuickService.reload();
-//        PassportQuickService.reload();
+        reload();
+        AnyPartQuickService.reload();
         return res;
     }
 

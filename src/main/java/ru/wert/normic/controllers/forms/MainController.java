@@ -228,7 +228,7 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)e.getSource()).getScene().getWindow(),
                     "decoration-settings",
-                    true);
+                    false);
 
             decoration.getImgCloseWindow().setOnMousePressed(ev->{
                 controller.saveSettings();

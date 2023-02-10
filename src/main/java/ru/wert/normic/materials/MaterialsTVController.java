@@ -13,8 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import lombok.Getter;
 import ru.wert.normic.components.BXMaterialGroups;
 import ru.wert.normic.components.BXMaterialGroupsWithAll;
+import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
 import ru.wert.normic.enums.EMatOperations;
@@ -53,13 +56,16 @@ public class MaterialsTVController {
     private TableColumn<Material, String> tcNote;
 
     private MaterialGroup allMaterials = new MaterialGroup(0L, "Все");
+    @Getter private MaterialGroup currentGroup;
 
     @FXML
     void initialize(){
 
         new BXMaterialGroupsWithAll().create(bxGroups);
+        currentGroup = bxGroups.getValue();
         bxGroups.valueProperty().addListener((observable, oldValue, newGroup) -> {
-            updateTableView(newGroup, null);
+            currentGroup = newGroup;
+            updateTableView(null);
         });
 
         btnAdd.setTooltip(new Tooltip("Добавить материал"));
@@ -69,7 +75,7 @@ public class MaterialsTVController {
 
         initializeColumns();
 
-        updateTableView(null, null);
+        updateTableView(null);
 
     }
 
@@ -106,15 +112,15 @@ public class MaterialsTVController {
 
     }
 
-    public void updateTableView(MaterialGroup group, Material selectedMaterial){
+    public void updateTableView( Material selectedMaterial){
         List<Material> items;
 
         tableView.getItems().clear();
         tableView.refresh();
-        if(group == null || group.equals(allMaterials)){
+        if(currentGroup.equals(allMaterials)){
             items = new ArrayList<>(QUICK_MATERIALS.findAll());
         } else {
-            items = new ArrayList<>(QUICK_MATERIALS.findAllByGroupId(group.getId()));
+            items = new ArrayList<>(QUICK_MATERIALS.findAllByGroupId(currentGroup.getId()));
         }
         Platform.runLater(()->{
             items.sort(Comparator.comparing(Material::getName));
@@ -147,6 +153,19 @@ public class MaterialsTVController {
     }
 
     public void deleteMaterial(TableRow<Material> tableRow){
-        tableView.getItems().remove(tableRow.getItem());
+        Material deletedMaterial = tableRow.getItem();
+        boolean ans = Warning2.create("Внимание!",String.format( "Вы уверены, что нужно удалить '%s'?", deletedMaterial.getName()),
+                "Восстановить будет невозможно!");
+        if(ans){
+            boolean res = QUICK_MATERIALS.delete(deletedMaterial);
+            if(!res)
+                Warning1.create("Ошибка!",
+                        "Удалить '%s' не получилось!",
+                        "Материал используется или сервер не дотупен");
+            else
+                updateTableView(null);
+        }
+
+
     }
 }

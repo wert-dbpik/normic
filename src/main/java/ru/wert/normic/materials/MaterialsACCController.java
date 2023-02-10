@@ -143,7 +143,7 @@ public class MaterialsACCController {
         }
         Material finalSelectedMaterial = selectedMaterial;
 
-        tableViewController.updateTableView(null, finalSelectedMaterial);
+        tableViewController.updateTableView(finalSelectedMaterial);
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 

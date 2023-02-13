@@ -24,6 +24,11 @@ public class RoundMatPatchController extends AbstractMatPatchController {
 
 
     @Override
+    public void fillOpData() {
+
+    }
+
+    @Override
     public void countWeightAndArea() {
 
     }

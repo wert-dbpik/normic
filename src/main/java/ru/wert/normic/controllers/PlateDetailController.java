@@ -140,8 +140,8 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         opData.setQuantity(IntegerParser.getValue(tfN));
         if(formDetailController != null){
             opData.setMaterial(formDetailController.getCmbxMaterial().getValue());
-            opData.setParamA(IntegerParser.getValue(formDetailController.getTfA()));
-            opData.setParamB(IntegerParser.getValue(formDetailController.getTfB()));
+            opData.setParamA(IntegerParser.getValue(formDetailController.getMatPatchController().getTfA()));
+            opData.setParamB(IntegerParser.getValue(formDetailController.getMatPatchController().getTfB()));
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formDetailController.getAddedOperations()));
         }

@@ -35,6 +35,8 @@ import static ru.wert.normic.AppStatics.*;
 
 public abstract class AbstractFormController implements IForm {
 
+
+
     //Коллекции переносимых элементов
     //При переносе какого-либо узла переносится одновременно соответственно элементу OpData = AbstractOpPlate = VBox
     public static AbstractFormController whereFromController;

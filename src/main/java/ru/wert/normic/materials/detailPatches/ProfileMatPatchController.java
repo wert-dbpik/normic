@@ -23,6 +23,11 @@ public class ProfileMatPatchController extends AbstractMatPatchController {
     private TextField tfCoat;
 
     @Override
+    public void fillOpData() {
+
+    }
+
+    @Override
     public void countWeightAndArea() {
 
     }

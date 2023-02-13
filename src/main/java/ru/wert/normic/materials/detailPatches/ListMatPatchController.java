@@ -27,6 +27,19 @@ public class ListMatPatchController extends AbstractMatPatchController {
 
 
     @Override
+    public void fillOpData() {
+
+        paramA = opData.getParamA();
+        getTfA().setText(String.valueOf(paramA));
+
+        paramB = opData.getParamB();
+        getTfB().setText(String.valueOf(paramB));
+
+        wasteRatio = opData.getWasteRatio();
+        tfWasteRatio.setText(String.valueOf(wasteRatio));
+    }
+
+    @Override
     public void countWeightAndArea() {
         try {
             ro = detailController.getCmbxMaterial().getValue().getParamX();
@@ -47,8 +60,8 @@ public class ListMatPatchController extends AbstractMatPatchController {
         tfWeight.setText(String.format(DOUBLE_FORMAT, weight));
         tfCoat.setText(String.format(DOUBLE_FORMAT, area));
 
-        ((OpDetail)opData).setWeight(weight);
-        ((OpDetail)opData).setArea(area);
+        opData.setWeight(weight);
+        opData.setArea(area);
 
         detailController.calculateAreaByDetails();
     }

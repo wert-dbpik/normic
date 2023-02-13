@@ -146,8 +146,8 @@ public class PlatePaintController extends AbstractOpPlate {
 
         color = cmbxColor.getValue();
 
-        razvA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
-        razvB = IntegerParser.getValue(((FormDetailController)formController).getTfB());
+        razvA = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfA());
+        razvB = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfB());
 
         coatArea = razvA * razvB * 2 * MM2_TO_M2; //Площадь покрытия с двух сторон
 

@@ -134,8 +134,8 @@ public class PlateCuttingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        paramA = IntegerParser.getValue(((FormDetailController)formController).getTfA());
-        paramB = IntegerParser.getValue(((FormDetailController)formController).getTfB());
+        paramA = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfA());
+        paramB = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfB());
         t = ((FormDetailController)formController).getCmbxMaterial().getValue().getParamS();
         perimeter = 2 * (paramA + paramB) * MM_TO_M;
         area = paramA * paramB * MM2_TO_M2;

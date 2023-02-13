@@ -8,8 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.Setter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.enums.EMatType;
@@ -64,9 +64,11 @@ public class FormDetailController extends AbstractFormController {
 
     private AbstractMatPatchController abstractMatPatchController;
 
-    private AbstractMatPatchController matPatchController;
+    @Getter private AbstractMatPatchController matPatchController;
 
     private AbstractFormController controller;
+
+
 
     @Override //AbstractFormController
     public void init(AbstractFormController controller, TextField tfName, OpData opData) {
@@ -90,16 +92,18 @@ public class FormDetailController extends AbstractFormController {
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
-            EMatType matType = EMatType.getTypeByName(newValue.getMatType().getName());
-            changeMatPatch(matType);
+            mountMatPatch(newValue);
             matPatchController.countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());
             }
         });
-        Material initMaterial = QUICK_MATERIALS.findByName("лист 1");
-        if(initMaterial == null) cmbxMaterial.getSelectionModel().select(0);
-        else  cmbxMaterial.setValue(initMaterial);
+//        cmbxMaterial.getSelectionModel().select(QUICK_MATERIALS.findByName("лист 1"));
+//        Material initMaterial = QUICK_MATERIALS.findByName("лист 1");
+//        if(initMaterial == null) cmbxMaterial.getSelectionModel().select(0);
+//        else
+//            cmbxMaterial.getSelectionModel().select(initMaterial);
+        mountMatPatch(cmbxMaterial.getValue());
 
         //Заполняем поля формы
         fillOpData();
@@ -107,20 +111,23 @@ public class FormDetailController extends AbstractFormController {
         countSumNormTimeByShops();
     }
 
-    private void changeMatPatch(EMatType newValue) {
+    private void mountMatPatch(Material material) {
+        EMatType matType = EMatType.getTypeByName(material.getMatType().getName());
         try {
             FXMLLoader loader = null;
-            switch (newValue){
+            switch (matType){
                 case LIST:
                     loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/listPatch.fxml")); break;
                 case ROUND:
-                    loader = new FXMLLoader(getClass().getResource("fxml/materials/materialPatches/roundPatch.fxml")); break;
+                    loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/roundPatch.fxml")); break;
                 case PROFILE:
-                    loader = new FXMLLoader(getClass().getResource("fxml/materials/materialPatches/profilePatch.fxml"));break;
+                    loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/profilePatch.fxml"));break;
             }
             assert loader != null;
             Parent parent = loader.load();
             matPatchController = loader.getController();
+            matPatchController.init((OpDetail) getOpData(), this, getAddedPlates());
+            spDetailParams.getChildren().clear();
             spDetailParams.getChildren().add(parent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,8 +169,6 @@ public class FormDetailController extends AbstractFormController {
 
         linkMenuToButton();
     }
-
-
 
 
     /**
@@ -211,14 +216,7 @@ public class FormDetailController extends AbstractFormController {
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
-        matPatchController.setParamA(((OpDetail)opData).getParamA());
-        tfA.setText(String.valueOf(matPatchController.getParamA()));
-
-        matPatchController.setParamB(((OpDetail)opData).getParamB());
-        tfB.setText(String.valueOf(matPatchController.getParamB()));
-
-        matPatchController.setWasteRatio(((OpDetail)opData).getWasteRatio());
-        tfWasteRatio.setText(String.valueOf(matPatchController.getWasteRatio()));
+        matPatchController.fillOpData();
 
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.deployData();

@@ -24,10 +24,10 @@ public class BXMaterial {
         //Выделяем префикс по умолчанию
         createConverter();
 
-//        if(LAST_VAL == null)
-//            LAST_VAL = QUICK_MATERIALS.findByName("лист 1");
+        if(LAST_VAL == null)
+            LAST_VAL = QUICK_MATERIALS.findByName("лист 1");
 
-        bxMaterial.setValue(LAST_VAL);
+        bxMaterial.getSelectionModel().select(LAST_VAL);
 
     }
 

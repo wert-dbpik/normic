@@ -23,7 +23,7 @@ public abstract class AbstractMatPatchController {
     public abstract TextField getTfWasteRatio();
     public abstract TextField getTfCoat();
     public abstract TextField getTfWeight();
-    public abstract void fillOpData();
+    public abstract void fillPatchOpData();
 
     protected FormDetailController detailController;
     protected List<AbstractOpPlate> addedPlates;
@@ -57,4 +57,6 @@ public abstract class AbstractMatPatchController {
             }
         });
     };
+
+
 }

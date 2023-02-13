@@ -23,9 +23,18 @@ public class ProfileMatPatchController extends AbstractMatPatchController {
     private TextField tfCoat;
 
     @Override
-    public void fillOpData() {
+    public void fillPatchOpData() {
 
+        paramA = opData.getParamA();
+        getTfA().setText(String.valueOf(paramA));
+
+        paramB = 5;
+        getTfB().setText(String.valueOf(paramB));
+
+        wasteRatio = opData.getWasteRatio();
+        getTfWasteRatio().setText(String.valueOf(wasteRatio));
     }
+
 
     @Override
     public void countWeightAndArea() {

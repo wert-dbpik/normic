@@ -23,15 +23,28 @@
             <TextField fx:id="tfA" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="120.0" />
          </children>
       </VBox>
-      <Separator orientation="VERTICAL" prefHeight="200.0" />
       <VBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
-            <Label text="S реза, мм">
+            <Label>
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="tfB" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="75.0" />
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label text="+">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfB" editable="false" prefHeight="25.0" prefWidth="25.0" text="5" HBox.hgrow="NEVER" />
+                  <Label text="мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Separator orientation="VERTICAL" prefHeight="200.0" />

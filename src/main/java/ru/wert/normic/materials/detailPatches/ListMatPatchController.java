@@ -25,9 +25,8 @@ public class ListMatPatchController extends AbstractMatPatchController {
     @FXML@Getter
     private TextField tfCoat;
 
-
     @Override
-    public void fillOpData() {
+    public void fillPatchOpData() {
 
         paramA = opData.getParamA();
         getTfA().setText(String.valueOf(paramA));
@@ -36,8 +35,9 @@ public class ListMatPatchController extends AbstractMatPatchController {
         getTfB().setText(String.valueOf(paramB));
 
         wasteRatio = opData.getWasteRatio();
-        tfWasteRatio.setText(String.valueOf(wasteRatio));
+        getTfWasteRatio().setText(String.valueOf(wasteRatio));
     }
+
 
     @Override
     public void countWeightAndArea() {

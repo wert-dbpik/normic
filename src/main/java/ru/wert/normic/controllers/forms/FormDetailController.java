@@ -129,6 +129,7 @@ public class FormDetailController extends AbstractFormController {
             matPatchController.init((OpDetail) getOpData(), this, getAddedPlates());
             spDetailParams.getChildren().clear();
             spDetailParams.getChildren().add(parent);
+            fillOpData();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -216,7 +217,7 @@ public class FormDetailController extends AbstractFormController {
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
-        matPatchController.fillOpData();
+        matPatchController.fillPatchOpData();
 
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.deployData();

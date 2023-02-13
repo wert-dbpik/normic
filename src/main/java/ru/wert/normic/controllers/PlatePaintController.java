@@ -13,6 +13,7 @@ import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
+import ru.wert.normic.materials.detailPatches.ListMatPatchController;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -74,8 +75,8 @@ public class PlatePaintController extends AbstractOpPlate {
     private boolean twoSides; //Красить с двух сторон
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data){
-        OpPaint opData = (OpPaint)data;
+    public void initViews(OpData data) {
+        OpPaint opData = (OpPaint) data;
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new BXPaintingDifficulty().create(cmbxDifficulty, opData.getDifficulty(), this);
@@ -91,44 +92,53 @@ public class PlatePaintController extends AbstractOpPlate {
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(OpData data){
-        OpPaint opData = (OpPaint)data;
+    public void countNorm(OpData data) {
+        OpPaint opData = (OpPaint) data;
 
         countInitialValues();
 
-        tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea * kArea));
+        if (((FormDetailController) formController).getMatPatchController() instanceof ListMatPatchController) {
+            //Площадь покрытия
+            tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea * kArea));
+            //Вес краски
+            dyeWeight = color.getConsumption() * 0.001 * coatArea * kArea;
+        } else {
+            //Площадь покрытия
+            tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea));
+            //Вес краски
+            dyeWeight = color.getConsumption() * 0.001 * coatArea;
+        }
 
-        dyeWeight = color.getConsumption() * 0.001 * coatArea * kArea;
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
 
-        final double HOLDING_TIME = hangingTime /60.0; //время навешивания, мин
+        final double HOLDING_TIME = hangingTime / 60.0; //время навешивания, мин
 
         final int alongSize = Math.max(along, across) + DETAIL_DELTA;
         final int acrossSize = Math.min(along, across) + DETAIL_DELTA;
 
         //Количество штанг в сушилке
         int dryingBars;
-        if(acrossSize < 99) dryingBars = 3;
-        else if(acrossSize >= 100 && acrossSize <= 300) dryingBars = 2;
+        if (acrossSize < 99) dryingBars = 3;
+        else if (acrossSize >= 100 && acrossSize <= 300) dryingBars = 2;
         else dryingBars = 1;
 
-        int partsOnBar = 2500/alongSize;
+        int partsOnBar = 2500 / alongSize;
 
         //Количество штанг в печи
         int bakeBars;
-        if(acrossSize < 49) bakeBars = 6;
-        else if(acrossSize >= 50 && acrossSize <= 99) bakeBars = 5;
-        else if(acrossSize >= 100 && acrossSize <= 199) bakeBars = 4;
-        else if(acrossSize >= 200 && acrossSize <= 299) bakeBars = 3;
-        else if(acrossSize >= 300 && acrossSize <= 399) bakeBars = 2;
+        if (acrossSize < 49) bakeBars = 6;
+        else if (acrossSize >= 50 && acrossSize <= 99) bakeBars = 5;
+        else if (acrossSize >= 100 && acrossSize <= 199) bakeBars = 4;
+        else if (acrossSize >= 200 && acrossSize <= 299) bakeBars = 3;
+        else if (acrossSize >= 300 && acrossSize <= 399) bakeBars = 2;
         else bakeBars = 1;
 
         double time;
         time = HOLDING_TIME //Время навешивания
-                + ((WASHING/60.0) + (WINDING/60.0) + (DRYING/60.0)/dryingBars)/partsOnBar //Время подготовки к окрашиванию
-                + Math.pow(2* coatArea, 0.7) * difficulty //Время нанесения покрытия
-                + 40.0/bakeBars/partsOnBar;  //Время полимеризации
-        if(coatArea == 0.0) time = 0.0;
+                + ((WASHING / 60.0) + (WINDING / 60.0) + (DRYING / 60.0) / dryingBars) / partsOnBar //Время подготовки к окрашиванию
+                + Math.pow(2 * coatArea, 0.7) * difficulty //Время нанесения покрытия
+                + 40.0 / bakeBars / partsOnBar;  //Время полимеризации
+        if (coatArea == 0.0) time = 0.0;
 
         currentNormTime = time;//результат в минутах
         collectOpData(opData);
@@ -140,17 +150,23 @@ public class PlatePaintController extends AbstractOpPlate {
      * Устанавливает и расчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
-    public  void countInitialValues() {
-        twoSides = chbxTwoSides.isSelected();
-        kArea = twoSides ? 1.0 : 0.5;
+    public void countInitialValues() {
+
+        razvA = IntegerParser.getValue(((FormDetailController) formController).getMatPatchController().getTfA());
+        razvB = IntegerParser.getValue(((FormDetailController) formController).getMatPatchController().getTfB());
 
         color = cmbxColor.getValue();
 
-        razvA = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfA());
-        razvB = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfB());
+        if (((FormDetailController) formController).getMatPatchController() instanceof ListMatPatchController) {
+            twoSides = chbxTwoSides.isSelected();
+            kArea = twoSides ? 1.0 : 0.5;
 
-        coatArea = razvA * razvB * 2 * MM2_TO_M2; //Площадь покрытия с двух сторон
-
+            coatArea = razvA * razvB * 2 * MM2_TO_M2; //Площадь покрытия с двух сторон
+        } else {
+            //Масса погонного метра
+            double meterWeight = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamX();
+            coatArea = 3.14 * meterWeight * (razvA + razvB) * MM_TO_M;
+        }
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
         if (along == 0 && across == 0) {
@@ -159,9 +175,11 @@ public class PlatePaintController extends AbstractOpPlate {
         }
         difficulty = cmbxDifficulty.getValue().getDifficultyRatio();
         hangingTime = IntegerParser.getValue(tfHangingTime);
+
+
     }
 
-    private void collectOpData(OpPaint opData){
+    private void collectOpData(OpPaint opData) {
         opData.setColor(color);
         opData.setArea(coatArea);
         opData.setDyeWeight(dyeWeight);
@@ -175,8 +193,8 @@ public class PlatePaintController extends AbstractOpPlate {
     }
 
     @Override//AbstractOpPlate
-    public void fillOpData(OpData data){
-        OpPaint opData = (OpPaint)data;
+    public void fillOpData(OpData data) {
+        OpPaint opData = (OpPaint) data;
 
         cmbxColor.setValue(opData.getColor());
 

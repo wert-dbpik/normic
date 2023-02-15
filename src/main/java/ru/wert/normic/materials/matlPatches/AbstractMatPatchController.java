@@ -1,6 +1,5 @@
-package ru.wert.normic.materials.detailPatches;
+package ru.wert.normic.materials.matlPatches;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.Setter;

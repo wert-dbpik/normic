@@ -13,7 +13,7 @@ import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
-import ru.wert.normic.materials.detailPatches.ListMatPatchController;
+import ru.wert.normic.materials.matlPatches.ListMatPatchController;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -101,12 +101,12 @@ public class PlatePaintController extends AbstractOpPlate {
             //Площадь покрытия
             tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea * kArea));
             //Вес краски
-            dyeWeight = color.getConsumption() * 0.001 * coatArea * kArea;
+            dyeWeight = (color.getConsumption() * 0.001) * coatArea * kArea;
         } else {
             //Площадь покрытия
             tfCoatArea.setText(String.format(DOUBLE_FORMAT, coatArea));
             //Вес краски
-            dyeWeight = color.getConsumption() * 0.001 * coatArea;
+            dyeWeight = (color.getConsumption()) * 0.001 * coatArea;
         }
 
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
@@ -164,8 +164,9 @@ public class PlatePaintController extends AbstractOpPlate {
             coatArea = razvA * razvB * 2 * MM2_TO_M2; //Площадь покрытия с двух сторон
         } else {
             //Масса погонного метра
-            double meterWeight = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamX();
-            coatArea = 3.14 * meterWeight * (razvA + razvB) * MM_TO_M;
+            double diameter
+                    = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
+            coatArea = 3.14 * diameter * (razvA + razvB) * MM2_TO_M2;
         }
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);

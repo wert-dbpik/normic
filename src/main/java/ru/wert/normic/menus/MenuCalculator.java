@@ -85,6 +85,26 @@ public class MenuCalculator extends ContextMenu {
         return addLocksmith;
     }
 
+    //==============================ТОКАРНЫЕ ОПЕРАЦИИ =======================
+
+    //УСТАНОВКА / СНЯТИЕ детали
+    public MenuItem createItemAddMountDismount(){
+        MenuItem addMountDismount = new MenuItem("Установка/снятие детали");
+        addMountDismount.setOnAction(event -> {
+            addMountDismountPlate(new OpMountDismount());
+        });
+        return addMountDismount;
+    }
+
+    //ТОЧЕНИЕ / РАСТАЧИВАНИЕ (многократное добавление)
+    public MenuItem createItemAddTurning(){
+        MenuItem addTurning = new MenuItem("Точение/растачивание");
+        addTurning.setOnAction(event -> {
+            addTurningPlate(new OpTurning());
+        });
+        return addTurning;
+    }
+
     //=======================================================================
 
     //СВАРКА НЕПРЕРЫВНАЯ
@@ -209,6 +229,12 @@ public class MenuCalculator extends ContextMenu {
                 case LOCKSMITH:
                     addLocksmithPlate((OpLocksmith) op);
                     break;
+                case TURNING:
+                    addTurningPlate((OpTurning) op);
+                    break;
+                case MOUNT_DISMOUNT:
+                    addMountDismountPlate((OpMountDismount) op);
+                    break;
                 case PAINTING:
                     addPaintPlate((OpPaint) op);
                     break;
@@ -330,6 +356,38 @@ public class MenuCalculator extends ContextMenu {
             e.printStackTrace();
         }
     }
+
+    //======================  ТОКАРНЫЕ ОПЕРАЦИИ   ==============================================================
+    /**
+     * ТОЧЕНИЕ/РАСТАЧИВАНИЕ
+     */
+    public void addTurningPlate(OpTurning opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateTurning.fxml"));
+            VBox turning = loader.load();
+            PlateTurningController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(turning);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА/СНЯТИЕ детали
+     */
+    public void addMountDismountPlate(OpMountDismount opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateMountDismount.fxml"));
+            VBox mountDismount = loader.load();
+            PlateMountDismountController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(mountDismount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //==================================================================================================================
 

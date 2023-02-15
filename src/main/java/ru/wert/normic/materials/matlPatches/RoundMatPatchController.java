@@ -1,9 +1,8 @@
-package ru.wert.normic.materials.detailPatches;
+package ru.wert.normic.materials.matlPatches;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import lombok.Getter;
-import ru.wert.normic.controllers.forms.FormDetailController;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 

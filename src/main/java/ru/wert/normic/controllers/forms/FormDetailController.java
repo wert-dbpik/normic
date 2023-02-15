@@ -9,20 +9,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import lombok.Setter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.enums.EMatType;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.materials.detailPatches.AbstractMatPatchController;
+import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.material.Material;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -44,15 +46,6 @@ public class FormDetailController extends AbstractFormController {
     @FXML
     private ImageView ivErase;
 
-    @FXML @Getter
-    private TextField tfA, tfB;
-
-    @FXML
-    private TextField tfWasteRatio, tfWeight;
-
-    @FXML
-    private TextField tfCoat;
-
     @FXML
     private StackPane spDetailParams;
 
@@ -62,21 +55,14 @@ public class FormDetailController extends AbstractFormController {
     @FXML
     private Label lblTimeMeasure;
 
-    private AbstractMatPatchController abstractMatPatchController;
-
     @Getter private AbstractMatPatchController matPatchController;
 
     private AbstractFormController controller;
-
-
 
     @Override //AbstractFormController
     public void init(AbstractFormController controller, TextField tfName, OpData opData) {
         this.opData = (OpDetail) opData;
         this.controller = controller;
-
-        //Создаем меню
-        createMenu();
 
         initViews();
 
@@ -93,22 +79,22 @@ public class FormDetailController extends AbstractFormController {
         new BXMaterial().create(cmbxMaterial);
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
             mountMatPatch(newValue);
+            createMenu();
             matPatchController.countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());
             }
         });
-//        cmbxMaterial.getSelectionModel().select(QUICK_MATERIALS.findByName("лист 1"));
-//        Material initMaterial = QUICK_MATERIALS.findByName("лист 1");
-//        if(initMaterial == null) cmbxMaterial.getSelectionModel().select(0);
-//        else
-//            cmbxMaterial.getSelectionModel().select(initMaterial);
+
         mountMatPatch(cmbxMaterial.getValue());
 
         //Заполняем поля формы
         fillOpData();
         matPatchController.countWeightAndArea();
         countSumNormTimeByShops();
+
+        //Создаем меню
+        createMenu();
     }
 
     private void mountMatPatch(Material material) {
@@ -141,14 +127,6 @@ public class FormDetailController extends AbstractFormController {
             countSumNormTimeByShops();
         });
 
-//        cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            matPatchController.countWeightAndArea();
-//            for(AbstractOpPlate nc : addedPlates){
-//                nc.countNorm(nc.getOpData());
-//            }
-//        });
-
-
         ivErase.setOnMouseClicked(e->{
             ((IOpWithOperations)opData).getOperations().clear();
             addedPlates.clear();
@@ -161,14 +139,55 @@ public class FormDetailController extends AbstractFormController {
     @Override
     public void createMenu(){
         menu = new MenuCalculator(this, listViewTechOperations, (IOpWithOperations) opData);
+        EMatType type = EMatType.getTypeByName(cmbxMaterial.getValue().getMatType().getName());
 
-        menu.getItems().addAll(menu.createItemAddCutting(), menu.createItemAddBending(), menu.createItemAddLocksmith());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddPainting());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
+        if(type.equals(EMatType.LIST)){ //ЛИСТЫ
+            menu.getItems().addAll(menu.createItemAddCutting(), menu.createItemAddBending(), menu.createItemAddLocksmith());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().addAll(menu.createItemAddPainting());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
+
+            deleteImproperOperations(AppStatics.LIST_OPERATIONS);
+
+        } else if (type.equals(EMatType.ROUND)){ //КРУГИ
+            menu.getItems().addAll(menu.createItemAddMountDismount());
+            menu.getItems().addAll(menu.createItemAddTurning());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().addAll(menu.createItemAddPainting());
+
+            deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
+
+        } else { //ПРОФИЛИ
+            menu.getItems().addAll(menu.createItemAddPainting());
+
+            deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
+        }
 
         linkMenuToButton();
+    }
+
+    /**
+     *
+     * @param properOperations
+     */
+    private void deleteImproperOperations(List<EOpType> properOperations) {
+        //Корректируем список операции, удаляем несовместимые
+        List<OpData> operations = new ArrayList<>(getAddedOperations());
+        if(getListViewTechOperations() == null || getListViewTechOperations().getItems().isEmpty()
+        ) return;
+
+        for (OpData op : operations) {
+            if (!properOperations.contains(op.getOpType())) {
+                int index = getAddedOperations().indexOf(op);
+
+                getListViewTechOperations().getItems().remove(index);
+                addedPlates.remove(index);
+                getAddedOperations().remove(index);
+            }
+        }
+
+        countSumNormTimeByShops();
     }
 
 
@@ -213,6 +232,7 @@ public class FormDetailController extends AbstractFormController {
 
     @Override //AbstractFormController
     public void fillOpData(){
+        if(menu == null) createMenu();
 
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());

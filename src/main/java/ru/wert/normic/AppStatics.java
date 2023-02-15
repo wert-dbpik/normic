@@ -25,17 +25,22 @@ public class AppStatics {
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";
 
-    //Краска и расход г/м2
-    public static String RAL_I = "RAL7035"; public static int CONSUMPTION_I = 150;
-    public static String RAL_II = "RAL9006"; public static int CONSUMPTION_II = 150;
-    public static String RAL_III = "RAL7035"; public static int CONSUMPTION_III = 150;
-
     public static List<KeyCode> KEYS_NOW_PRESSED; //Массив хранения нажатых клавиш
 
-    public static final List<EOpType> RESTRICTED_FOR_DETAILS =  //Перечень операций, которые нельзя добавить в Деталь
+    //Перечень операций, которые нельзя добавить в Деталь
+    public static final List<EOpType> RESTRICTED_FOR_DETAILS =
             Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
-    public static final List<EOpType> RESTRICTED_FOR_ASSM = //Перечень операций, которые нельзя добавить в Сборку
+
+    //Перечень операций, которые нельзя добавить в Сборку
+    public static final List<EOpType> RESTRICTED_FOR_ASSM =
             Arrays.asList(CUTTING, BENDING, PAINTING);
-    public static final List<EOpType> DUPLICATED_OPERATIONS =  //Перечень операций, которые м.б. проудублированны
-            Arrays.asList(DETAIL, ASSM, LEVELING_SEALER);
+
+    //Перечень операций, которые м.б. продублированны
+    public static final List<EOpType> DUPLICATED_OPERATIONS =
+            Arrays.asList(DETAIL, ASSM, LEVELING_SEALER, TURNING);
+
+    //Перечень допустимых операций по типу материала
+    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(MOUNT_DISMOUNT, PAINTING, TURNING); //Листовой
+    public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING, LOCKSMITH, PAINTING, WELD_CONTINUOUS, WELD_DOTTED);//Круглый
+    public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING); //Профильный
 }

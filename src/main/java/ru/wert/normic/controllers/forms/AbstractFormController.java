@@ -35,8 +35,6 @@ import static ru.wert.normic.AppStatics.*;
 
 public abstract class AbstractFormController implements IForm {
 
-
-
     //Коллекции переносимых элементов
     //При переносе какого-либо узла переносится одновременно соответственно элементу OpData = AbstractOpPlate = VBox
     public static AbstractFormController whereFromController;
@@ -59,9 +57,6 @@ public abstract class AbstractFormController implements IForm {
     private final Image imageCut = new Image(String.valueOf(getClass().getResource("/pics/btns/cursor_cut.png")),
             32, 32, true, true);
 
-
-//    @FXML
-//    private Button btnAddOperation;
 
     public abstract void countSumNormTimeByShops();
 

@@ -22,7 +22,6 @@ import ru.wert.normic.entities.db_connection.material.Material;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
@@ -159,7 +158,10 @@ public class FormDetailController extends AbstractFormController {
         } else if (type.equals(EMatType.ROUND)){ //КРУГИ
             menu.getItems().addAll(menu.createItemAddMountDismount());
             menu.getItems().addAll(menu.createItemAddTurning());
-            menu.getItems().addAll(menu.createItemAddСutGroove());
+            menu.getItems().addAll(menu.createItemAddCutGroove());
+            menu.getItems().addAll(menu.createItemAddThreading());
+            menu.getItems().addAll(menu.createItemAddDrilling());
+            menu.getItems().addAll(menu.createItemAddRolling());
             menu.getItems().addAll(menu.createItemAddCutOff());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().addAll(menu.createItemAddPainting());

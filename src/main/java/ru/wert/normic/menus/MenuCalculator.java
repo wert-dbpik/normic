@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.*;
+import ru.wert.normic.controllers.turning_plates.*;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers.forms.AbstractFormController;
@@ -106,7 +107,7 @@ public class MenuCalculator extends ContextMenu {
     }
 
     //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
-    public MenuItem createItemAddСutGroove(){
+    public MenuItem createItemAddCutGroove(){
         MenuItem addCutGroove = new MenuItem("Прорезание паза");
         addCutGroove.setOnAction(event -> {
             addCutGroovePlate(new OpCutGroove());
@@ -121,6 +122,33 @@ public class MenuCalculator extends ContextMenu {
             addCutOffPlate(new OpCutOff());
         });
         return addCatOff;
+    }
+
+    //НАРЕЗАНИЕ РЕЗЬБЫ (многократное добавление)
+    public MenuItem createItemAddThreading(){
+        MenuItem addThreading = new MenuItem("Нарезание резьбы");
+        addThreading.setOnAction(event -> {
+            addThreadingPlate(new OpThreading());
+        });
+        return addThreading;
+    }
+
+    //СВЕРЛЕНИЕ ОТВЕРСТИЯ (многократное добавление)
+    public MenuItem createItemAddDrilling(){
+        MenuItem addDrilling = new MenuItem("Сверление отверстия");
+        addDrilling.setOnAction(event -> {
+            addDrillingPlate(new OpDrilling());
+        });
+        return addDrilling;
+    }
+
+    //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
+    public MenuItem createItemAddRolling(){
+        MenuItem addRolling = new MenuItem("Нактывание рифления");
+        addRolling.setOnAction(event -> {
+            addRollingPlate(new OpRolling());
+        });
+        return addRolling;
     }
 
     //=======================================================================
@@ -252,6 +280,15 @@ public class MenuCalculator extends ContextMenu {
                     break;
                 case CUT_GROOVE:
                     addCutGroovePlate((OpCutGroove) op);
+                    break;
+                case THREADING:
+                    addThreadingPlate((OpThreading) op);
+                    break;
+                case DRILLING:
+                    addDrillingPlate((OpDrilling) op);
+                    break;
+                case ROLLING:
+                    addRollingPlate((OpRolling) op);
                     break;
                 case CUT_OFF:
                     addCutOffPlate((OpCutOff) op);
@@ -422,6 +459,51 @@ public class MenuCalculator extends ContextMenu {
             PlateCutGrooveController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
             listViewTechOperations.getItems().add(cutGroove);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * НАРЕЗАНИЕ РЕЗЬБЫ
+     */
+    public void addThreadingPlate(OpThreading opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateThreading.fxml"));
+            VBox threading = loader.load();
+            PlateThreadingController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(threading);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * СВЕРЛЕНИЕ ОТВЕРСТИЯ
+     */
+    public void addDrillingPlate(OpDrilling opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateDrilling.fxml"));
+            VBox drilling = loader.load();
+            PlateDrillingController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(drilling);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * НАКАТЫВАНИЕ РИФЛЕНИЯ
+     */
+    public void addRollingPlate(OpRolling opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateRolling.fxml"));
+            VBox rolling = loader.load();
+            PlateRollingController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(rolling);
         } catch (IOException e) {
             e.printStackTrace();
         }

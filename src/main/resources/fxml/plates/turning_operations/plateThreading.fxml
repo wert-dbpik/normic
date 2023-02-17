@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.turning_plates.PlateCutGrooveController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.turning_plates.PlateThreadingController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/btns/operation.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="ПРОРЕЗАНИЕ ПАЗА" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="НАРЕЗАНИЕ НАРУЖНОЙ РЕЗЬБЫ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -47,12 +47,22 @@
          <children>
             <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130.0" spacing="5.0">
                <children>
-                  <Label fx:id="lblNumOfSeams" prefHeight="20.0" text="T глубина паза, мм">
+                  <Label fx:id="lblNumOfSeams" prefHeight="20.0" text="D диаметр, мм">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfDepth" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="130.0" />
+                  <TextField fx:id="tfDiameter" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="130.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130.0" spacing="5.0">
+               <children>
+                  <Label fx:id="lblNumOfSeams1" prefHeight="20.0" text="L длина, мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfLength" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="130.0" />
                </children>
             </VBox>
          </children>

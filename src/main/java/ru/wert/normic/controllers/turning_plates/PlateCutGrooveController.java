@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.turning_plates;
 
 
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.TFDoubleColored;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpCutGroove;
 import ru.wert.normic.entities.OpData;

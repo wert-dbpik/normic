@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.turning_plates;
 
 
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpTurning;
@@ -40,6 +41,8 @@ public class PlateTurningController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private String initStyle;
+    private int paramA; //Длина заготовки
     private int length; //Длина точения
     private double diameter; //Диаметр заготовки
     private int passages; //Число токарных проходов
@@ -66,6 +69,7 @@ public class PlateTurningController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpTurning opData = (OpTurning) data;
+        initStyle = tfTurningLength.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfTurningLength, this);
         new TFIntegerColored(tfNumOfPassings, this);
@@ -118,7 +122,14 @@ public class PlateTurningController extends AbstractOpPlate {
     public  void countInitialValues() {
 
         diameter = ((FormDetailController)formController).getCmbxMaterial().getValue().getParamS();
+
+        paramA = ((FormDetailController) formController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfTurningLength);
+        if(length > paramA)
+            tfTurningLength.setStyle("-fx-border-color: #FF5555");
+        else
+            tfTurningLength.setStyle(initStyle);
+
         passages = IntegerParser.getValue(tfNumOfPassings);
 
     }

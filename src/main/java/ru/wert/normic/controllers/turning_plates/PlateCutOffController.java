@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.turning_plates;
 
 
 import javafx.beans.value.ChangeListener;
@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpCutOff;
 import ru.wert.normic.entities.OpData;

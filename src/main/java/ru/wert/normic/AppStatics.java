@@ -33,14 +33,14 @@ public class AppStatics {
 
     //Перечень операций, которые нельзя добавить в Сборку
     public static final List<EOpType> RESTRICTED_FOR_ASSM =
-            Arrays.asList(CUTTING, BENDING, PAINTING);
+            Arrays.asList(CUTTING, BENDING, PAINTING, TURNING, CUT_OFF);
 
     //Перечень операций, которые м.б. продублированны
     public static final List<EOpType> DUPLICATED_OPERATIONS =
-            Arrays.asList(DETAIL, ASSM, LEVELING_SEALER, TURNING);
+            Arrays.asList(DETAIL, ASSM, LEVELING_SEALER, TURNING, CUT_OFF, CUT_GROOVE);
 
     //Перечень допустимых операций по типу материала
-    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(MOUNT_DISMOUNT, PAINTING, TURNING); //Листовой
-    public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING, LOCKSMITH, PAINTING, WELD_CONTINUOUS, WELD_DOTTED);//Круглый
+    public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING, LOCKSMITH, PAINTING, WELD_CONTINUOUS, WELD_DOTTED);//Листовой
+    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(MOUNT_DISMOUNT, PAINTING, TURNING, CUT_OFF, CUT_GROOVE); //Круглый
     public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING); //Профильный
 }

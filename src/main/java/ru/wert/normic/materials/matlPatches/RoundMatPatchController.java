@@ -36,6 +36,9 @@ public class RoundMatPatchController extends AbstractMatPatchController {
 
         wasteRatio = opData.getWasteRatio();
         getTfWasteRatio().setText(String.valueOf(wasteRatio));
+
+        tfWeight.setText(String.valueOf(opData.getWeight()));
+        tfCoat.setText(String.valueOf(opData.getArea()));
     }
 
     @Override
@@ -46,7 +49,7 @@ public class RoundMatPatchController extends AbstractMatPatchController {
             paramA = Integer.parseInt(tfA.getText().trim()); //Длина отрезанной заготовки
             paramB = 0;
             wasteRatio = Double.parseDouble(tfWasteRatio.getText().trim());
-            if(paramA <= 0 || paramA > 6000 || wasteRatio < 1.0) throw new NumberFormatException();
+            if(paramA < 0 || paramA > 6000 || wasteRatio < 1.0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
             tfWeight.setText("");
             tfCoat.setText("");

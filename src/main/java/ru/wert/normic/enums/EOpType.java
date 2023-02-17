@@ -10,6 +10,8 @@ public enum EOpType {
     PAINTING,
     PAINT_ASSM,
     TURNING,
+    CUT_GROOVE,
+    CUT_OFF,
     MOUNT_DISMOUNT,
     WELD_CONTINUOUS,
     WELD_DOTTED,

@@ -1,20 +1,14 @@
 package ru.wert.normic.controllers;
 
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpMountDismount;
-import ru.wert.normic.entities.OpTurning;
-import ru.wert.normic.materials.matlPatches.RoundMatPatchController;
-import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
 
@@ -49,7 +43,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
     private double[] weights =       new double[]{0.3,  1.0,  3.0,  5.0,  10.0,  20.0};
-    private ELatheHolders currentHolder;
+    private ELatheHolders holder;
 
 
     enum ELatheHolders {
@@ -71,8 +65,13 @@ public class PlateMountDismountController extends AbstractOpPlate {
         rbHolder.setToggleGroup(toggleGroup);
         rbHolderWithCenter.setToggleGroup(toggleGroup);
 
+
         toggleGroup.selectedToggleProperty().addListener((ob, o, n) -> {
-            int l = n;
+            if(rbCenters.isSelected()) holder = ELatheHolders.CENTERS;
+            else if(rbHolder.isSelected()) holder = ELatheHolders.HOLDER;
+            else holder = ELatheHolders.HOLDER_AND_CENTER;
+
+            countNorm(opData);
             formController.countSumNormTimeByShops();
         });
 
@@ -99,8 +98,8 @@ public class PlateMountDismountController extends AbstractOpPlate {
         double countW = Math.min(weight, 20.0);
         double prevW = 0;
         for (int i = 0; i < weights.length; i++) {
-            if (countW > prevW && countW <= weights[i]) {
-                return currentHolder.getTimes()[i];
+            if (countW >= prevW && countW <= weights[i]) {
+                return holder.getTimes()[i];
             }
             prevW = weights[i];
         }
@@ -112,13 +111,13 @@ public class PlateMountDismountController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-
-        weight = Double.parseDouble((((FormDetailController)formController).getMatPatchController()).getTfWeight().getText().replace(",", "."));
+        String text = (((FormDetailController)formController).getMatPatchController()).getTfWeight().getText();
+        weight = text == null || text.isEmpty() ? 0.0 : Double.parseDouble(text.replace(",", "."));
 
     }
 
     private void collectOpData(OpMountDismount opData){
-        opData.setHolder(currentHolder.ordinal());
+        opData.setHolder(holder.ordinal());
 
         opData.setMechTime(currentNormTime);
     }
@@ -127,8 +126,8 @@ public class PlateMountDismountController extends AbstractOpPlate {
     public void fillOpData(OpData data){
         OpMountDismount opData = (OpMountDismount)data;
 
-        currentHolder = ELatheHolders.values()[opData.getHolder()];
-        switch (currentHolder.ordinal()){
+        holder = ELatheHolders.values()[opData.getHolder()];
+        switch (holder.ordinal()){
             case 0 : rbCenters.setSelected(true); break;
             case 1 : rbHolder.setSelected(true); break;
             case 2 : rbHolderWithCenter.setSelected(true); break;

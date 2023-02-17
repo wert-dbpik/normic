@@ -1,6 +1,5 @@
 package ru.wert.normic.menus;
 
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -89,8 +88,9 @@ public class MenuCalculator extends ContextMenu {
 
     //УСТАНОВКА / СНЯТИЕ детали
     public MenuItem createItemAddMountDismount(){
-        MenuItem addMountDismount = new MenuItem("Установка/снятие детали");
+        MenuItem addMountDismount = new MenuItem("Установка и снятие детали");
         addMountDismount.setOnAction(event -> {
+            if(isDuplicate(EOpType.CUT_OFF)) return ;
             addMountDismountPlate(new OpMountDismount());
         });
         return addMountDismount;
@@ -103,6 +103,24 @@ public class MenuCalculator extends ContextMenu {
             addTurningPlate(new OpTurning());
         });
         return addTurning;
+    }
+
+    //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
+    public MenuItem createItemAddСutGroove(){
+        MenuItem addCutGroove = new MenuItem("Прорезание паза");
+        addCutGroove.setOnAction(event -> {
+            addCutGroovePlate(new OpCutGroove());
+        });
+        return addCutGroove;
+    }
+
+    //ОТРЕЗАНИЕ / ТОЧЕНИЕ ПАЗА (многократное добавление)
+    public MenuItem createItemAddCutOff(){
+        MenuItem addCatOff = new MenuItem("Отрезание");
+        addCatOff.setOnAction(event -> {
+            addCutOffPlate(new OpCutOff());
+        });
+        return addCatOff;
     }
 
     //=======================================================================
@@ -231,6 +249,12 @@ public class MenuCalculator extends ContextMenu {
                     break;
                 case TURNING:
                     addTurningPlate((OpTurning) op);
+                    break;
+                case CUT_GROOVE:
+                    addCutGroovePlate((OpCutGroove) op);
+                    break;
+                case CUT_OFF:
+                    addCutOffPlate((OpCutOff) op);
                     break;
                 case MOUNT_DISMOUNT:
                     addMountDismountPlate((OpMountDismount) op);
@@ -363,7 +387,7 @@ public class MenuCalculator extends ContextMenu {
      */
     public void addTurningPlate(OpTurning opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateTurning.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateTurning.fxml"));
             VBox turning = loader.load();
             PlateTurningController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -374,11 +398,41 @@ public class MenuCalculator extends ContextMenu {
     }
 
     /**
+     * ОТРЕЗАНИЕ/ТОЧЕНИЕ ПАЗА
+     */
+    public void addCutOffPlate(OpCutOff opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateCutOff.fxml"));
+            VBox cutOff = loader.load();
+            PlateCutOffController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(cutOff);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ПРОРЕЗАНИЕ ПАЗА
+     */
+    public void addCutGroovePlate(OpCutGroove opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateCutGroove.fxml"));
+            VBox cutGroove = loader.load();
+            PlateCutGrooveController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(cutGroove);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * УСТАНОВКА/СНЯТИЕ детали
      */
     public void addMountDismountPlate(OpMountDismount opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateMountDismount.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateMountDismount.fxml"));
             VBox mountDismount = loader.load();
             PlateMountDismountController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());

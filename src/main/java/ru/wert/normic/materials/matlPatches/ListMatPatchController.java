@@ -35,6 +35,9 @@ public class ListMatPatchController extends AbstractMatPatchController {
 
         wasteRatio = opData.getWasteRatio();
         getTfWasteRatio().setText(String.valueOf(wasteRatio));
+
+        tfWeight.setText(String.valueOf(opData.getWeight()));
+        tfCoat.setText(String.valueOf(opData.getArea()));
     }
 
 

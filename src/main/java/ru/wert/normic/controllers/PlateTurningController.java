@@ -134,7 +134,6 @@ public class PlateTurningController extends AbstractOpPlate {
     public void fillOpData(OpData data){
         OpTurning opData = (OpTurning)data;
 
-        if(opData.getLength() == 0)
         length = opData.getLength() == 0 ?
                 Integer.parseInt(((FormDetailController)formController).getMatPatchController().getTfA().getText()) :
                 opData.getLength();

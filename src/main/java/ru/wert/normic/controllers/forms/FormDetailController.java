@@ -64,17 +64,6 @@ public class FormDetailController extends AbstractFormController {
         this.opData = (OpDetail) opData;
         this.controller = controller;
 
-        initViews();
-
-        setDragAndDropCellFactory();
-
-        //Инициализируем наименование
-        if(tfName != null) {
-            ((OpDetail)this.opData).setName(tfName.getText());
-            tfDetailName.setText(tfName.getText());
-            tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
-        }
-
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -86,6 +75,21 @@ public class FormDetailController extends AbstractFormController {
             }
         });
 
+        //Создаем меню
+        createMenu();
+
+        initViews();
+
+        setDragAndDropCellFactory();
+
+        //Инициализируем наименование
+        if(tfName != null) {
+            ((OpDetail)this.opData).setName(tfName.getText());
+            tfDetailName.setText(tfName.getText());
+            tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
+        }
+
+
         mountMatPatch(cmbxMaterial.getValue());
 
         //Заполняем поля формы
@@ -93,8 +97,6 @@ public class FormDetailController extends AbstractFormController {
         matPatchController.countWeightAndArea();
         countSumNormTimeByShops();
 
-        //Создаем меню
-        createMenu();
     }
 
     private void mountMatPatch(Material material) {
@@ -115,7 +117,11 @@ public class FormDetailController extends AbstractFormController {
             matPatchController.init((OpDetail) getOpData(), this, getAddedPlates());
             spDetailParams.getChildren().clear();
             spDetailParams.getChildren().add(parent);
-            fillOpData();
+
+//            fillOpData();
+            matPatchController.fillPatchOpData();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -153,6 +159,8 @@ public class FormDetailController extends AbstractFormController {
         } else if (type.equals(EMatType.ROUND)){ //КРУГИ
             menu.getItems().addAll(menu.createItemAddMountDismount());
             menu.getItems().addAll(menu.createItemAddTurning());
+            menu.getItems().addAll(menu.createItemAddСutGroove());
+            menu.getItems().addAll(menu.createItemAddCutOff());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().addAll(menu.createItemAddPainting());
 
@@ -168,8 +176,7 @@ public class FormDetailController extends AbstractFormController {
     }
 
     /**
-     *
-     * @param properOperations
+     * Метод удаляет операции не подходящие под операцию
      */
     private void deleteImproperOperations(List<EOpType> properOperations) {
         //Корректируем список операции, удаляем несовместимые
@@ -232,12 +239,11 @@ public class FormDetailController extends AbstractFormController {
 
     @Override //AbstractFormController
     public void fillOpData(){
-        if(menu == null) createMenu();
 
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
-        matPatchController.fillPatchOpData();
+//        matPatchController.fillPatchOpData();
 
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.deployData();

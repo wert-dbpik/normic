@@ -3,6 +3,7 @@ package ru.wert.normic.materials.matlPatches;
 import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.components.TFDouble;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpDetail;
@@ -55,6 +56,7 @@ public abstract class AbstractMatPatchController {
                 nc.countNorm(nc.getOpData());
             }
         });
+
     };
 
 

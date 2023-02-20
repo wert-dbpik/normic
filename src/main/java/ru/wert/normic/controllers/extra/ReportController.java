@@ -22,6 +22,7 @@ public class ReportController {
 
     private OpAssm opAssm;
     private Map<Material, Double> materials;
+    private  StringBuilder report;
 
     //Расход на наливное уплотнение
     private double componentA; //Компонент полиэфирный А
@@ -34,8 +35,7 @@ public class ReportController {
         componentA = 0.0;
         componentB = 0.0;
 
-
-        StringBuilder report = new StringBuilder();
+        report = new StringBuilder();
 
         //Наименование изделия
         String name = opAssm.getName();
@@ -45,40 +45,88 @@ public class ReportController {
         materials = new HashMap<>();
         List<OpData> ops = opAssm.getOperations();
         collectMaterialsByOpData(ops);
+        if(!materials.isEmpty())
+            addMaterialsReport();
+
+        //Наливной уплотнитель
+        collectComponentsABByOpData(ops);
+        if(componentA != 0.0)
+            addLevelingSealerReport();
+
+        //Покрытие
+
+        List<Double> ral1 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_I);
+        List<Double> ral2 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_II);
+        List<Double> ral3 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_III);
+
+        if(ral1.get(0) != 0.0 || ral2.get(0) != 0.0 || ral3.get(0) != 0.0)
+            addColorReport(ral1, ral2, ral3);
+
+
+
+        //НОРМЫ ВРЕМЕНИ
+
+        if(opAssm.getMechTime() != 0.0 ||
+                opAssm.getPaintTime() != 0.0 ||
+                opAssm.getAssmTime() != 0.0 ||
+                opAssm.getPackTime() != 0.0)
+            addNormTimesReport(opAssm);
+
+        taReport.setText(report.toString());
+
+    }
+
+    private void addNormTimesReport(OpAssm opAssm) {
+        report.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
+        ETimeMeasurement tm = ETimeMeasurement.MIN;
+        double k = 1.0;
+        if (opAssm.getMechTime() != 0.0)
+            report.append("Изготовление : ")
+                    .append(String.format(DOUBLE_FORMAT, opAssm.getMechTime() * k)).append(" ")
+                    .append(tm.getName()).append("\n");
+        if (opAssm.getPaintTime() != 0.0)
+            report.append("Покраска \t: ")
+                    .append(String.format(DOUBLE_FORMAT, opAssm.getPaintTime() * k)).append(" ")
+                    .append(tm.getName()).append("\n");
+        if (opAssm.getAssmTime() != 0.0)
+            report.append("Сборка \t\t: ")
+                    .append(String.format(DOUBLE_FORMAT, opAssm.getAssmTime() * k)).append(" ")
+                    .append(tm.getName()).append("\n");
+        if (opAssm.getPackTime() != 0.0)
+            report.append("Упаковка \t: "
+            ).append(String.format(DOUBLE_FORMAT, opAssm.getPackTime() * k)).append(" ")
+                    .append(tm.getName()).append("\n");
+    }
+
+    private void addColorReport(List<Double> ral1, List<Double> ral2, List<Double> ral3) {
+        report.append("\n\n").append("ПОКРЫТИЕ :\n");
+        if(ral1.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_I);
+        if(ral2.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_II);
+        if(ral3.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_III);
+    }
+
+    private void addRal1Report(List<Double> ral1, EColor color) {
+        report.append("Краска '")
+                .append(color.getRal())
+                .append("', площадь = ")
+                .append(ral1.get(0))
+                .append(" м2, ")
+                .append("расход = ")
+                .append(ral1.get(1))
+                .append(" кг.\n");
+    }
+
+    private void addMaterialsReport() {
         report.append("\n\n").append("МАТЕРИАЛЫ :\n");
         for(Material m : materials.keySet()){
             report.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
         }
+    }
 
-        //Наливной уплотнитель
+    private void addLevelingSealerReport() {
         report.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
-        collectComponentsABByOpData(ops);
-        report.append("Компонент полиэфирный А = ").append(componentA).append(" кг.\n");;
-        report.append("Компонент изцинат     Б = ").append(componentB).append(" кг.\n");;
-
-        //Покрытие
-        report.append("\n\n").append("ПОКРЫТИЕ :\n");
-        List<Double> ral1 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_I);
-        report.append("Краска '").append(EColor.COLOR_I.getRal()).append("', площадь = ").append(ral1.get(0)).append(" м2, ").append("расход = ").append(ral1.get(1)).append(" кг.\n");
-
-        List<Double> ral2 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_II);
-        report.append("Краска '").append(EColor.COLOR_II.getRal()).append("', площадь = ").append(ral2.get(0)).append(" м2, ").append("расход = ").append(ral2.get(1)).append(" кг.\n");
-
-        List<Double> ral3 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_III);
-        report.append("Краска '").append(EColor.COLOR_III.getRal()).append("', площадь = ").append(ral3.get(0)).append(" м2, ").append("расход = ").append(ral3.get(1)).append(" кг.\n");
-
-        //НОРМЫ ВРЕМЕНИ
-        ETimeMeasurement tm = ETimeMeasurement.MIN;
-        double k = 1.0;
-        report.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
-
-        report.append("Изготовление : ").append(String.format(DOUBLE_FORMAT, opAssm.getMechTime() * k)).append(" ").append(tm.getName()).append("\n");
-        report.append("Покраска \t: ").append(String.format(DOUBLE_FORMAT, opAssm.getPaintTime() * k)).append(" ").append(tm.getName()).append("\n");
-        report.append("Сборка \t\t: ").append(String.format(DOUBLE_FORMAT, opAssm.getAssmTime() * k)).append(" ").append(tm.getName()).append("\n");
-        report.append("Упаковка \t: ").append(String.format(DOUBLE_FORMAT, opAssm.getPackTime() * k)).append(" ").append(tm.getName()).append("\n");
-
-        taReport.setText(report.toString());
-
+        report.append("Компонент полиэфирный\tА = ").append(componentA).append(" кг.\n");
+        report.append("Компонент изоцинат\t\tБ = ").append(componentB).append(" кг.\n");
     }
 
     /**

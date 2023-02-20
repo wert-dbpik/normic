@@ -16,6 +16,7 @@ import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpAssm;
 import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -100,6 +101,12 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
             }
         });
 
+        //Сохраняем имя при изменении
+        tfAssmName.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpDetail)this.opData).setName(tfAssmName.getText());
+        });
+
+        //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
             formController.countSumNormTimeByShops();

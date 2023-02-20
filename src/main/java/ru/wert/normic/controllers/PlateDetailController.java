@@ -97,6 +97,12 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             }
         });
 
+        //Сохраняем имя при изменении
+        tfName.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpDetail)this.opData).setName(tfName.getText());
+        });
+
+        //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
             formController.countSumNormTimeByShops();

@@ -1,6 +1,8 @@
 package ru.wert.normic.controllers.forms;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -87,7 +89,7 @@ public class FormDetailController extends AbstractFormController {
             tfDetailName.setText(tfName.getText());
             tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
         }
-
+        
 
         mountMatPatch(cmbxMaterial.getValue());
 

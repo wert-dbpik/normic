@@ -153,15 +153,6 @@ public abstract class AbstractFormController implements IForm {
                     e.consume();
                 });
 
-//                cell.setOnDragDone(ev -> {
-//                    if (ev.isAccepted()) {
-//                        finishWithPaste(opData);
-//                    }
-//
-//                    ev.consume();
-//                });
-
-
                 cell.setOnDragDropped(e -> {
                     if(cell.getItem() != null) {
                         OpData targetOpData = addedOperations.get(cell.getIndex());
@@ -319,11 +310,6 @@ public abstract class AbstractFormController implements IForm {
                 .setOperations(new ArrayList<>(whereFromController.getAddedOperations()));
 
         countSumNormTimeByShops();
-
-//        clipOpDataList.clear();
-//        clipOpPlateList.clear();
-//        clipBoxList.clear();
-//        copy = false;
     }
 
     /**
@@ -435,6 +421,8 @@ public abstract class AbstractFormController implements IForm {
      * ВСТАВИТЬ (MenuPlate)
      */
     public void pasteOperation(boolean cellIsEmpty) {
+
+
 
         int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
         OpData selectedOpData = cellIsEmpty ? opData : getAddedOperations().get(selectedIndex);

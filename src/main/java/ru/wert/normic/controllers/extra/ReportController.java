@@ -71,6 +71,8 @@ public class ReportController {
         for(OpData op : ops){
             if(op instanceof OpDetail){
                 Material m = ((OpDetail) op).getMaterial();
+                //Детали, если не открывать редактор детали, материала не содержат
+                if(m == null) continue;
                 if(materials.containsKey(m)){
                     //Прибавляем новый вес к полученному ранее мвтериалу
                     double sumWeight = materials.get(m) + ((OpDetail)op).getWeight() * op.getQuantity();

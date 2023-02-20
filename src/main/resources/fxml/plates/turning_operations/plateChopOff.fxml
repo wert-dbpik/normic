@@ -10,16 +10,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.list_plates.PlateBendController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.turning_plates.PlateChopOffController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../pics/btns/operation.png" />
+                  <Image url="@../../../pics/btns/operation.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="ГИБКА" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="РУБКА В РАЗМЕР" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -29,57 +29,23 @@
             </Label>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../pics/btns/help.png" />
+                  <Image url="@../../../pics/btns/help.png" />
                </image>
             </ImageView>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fx:id="ivDeleteOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../pics/btns/close.png" />
+                        <Image url="@../../../pics/btns/close.png" />
                      </image>
                   </ImageView>
                </children>
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
-         <children>
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <Label text="N гибов">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfBends" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <Label text="N человек">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfMen" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" spacing="5.0">
-               <children>
-                  <Label text="Оборудование">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="cmbxBendingTool" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>
-            <Label text="T гиб : ">
+            <Label text="T руб. : ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

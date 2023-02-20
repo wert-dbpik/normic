@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.assm_plates;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;

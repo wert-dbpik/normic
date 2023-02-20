@@ -27,7 +27,7 @@ import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuCalculator;
 import ru.wert.normic.components.BXTimeMeasurement;
-import ru.wert.normic.controllers.PlateAssmController;
+import ru.wert.normic.controllers.assm_plates.PlateAssmController;
 import ru.wert.normic.controllers.PlateDetailController;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;

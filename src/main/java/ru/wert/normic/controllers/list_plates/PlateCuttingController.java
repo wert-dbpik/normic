@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.list_plates;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpCutting;
 import ru.wert.normic.entities.OpData;

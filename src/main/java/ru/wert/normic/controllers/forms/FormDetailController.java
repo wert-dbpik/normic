@@ -159,11 +159,15 @@ public class FormDetailController extends AbstractFormController {
 
         } else if (type.equals(EMatType.ROUND)){ //КРУГИ
             menu.getItems().addAll(menu.createItemAddMountDismount());
+            menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().addAll(menu.createItemAddTurning());
+            menu.getItems().addAll(menu.createItemAddDrilling());
             menu.getItems().addAll(menu.createItemAddCutGroove());
             menu.getItems().addAll(menu.createItemAddThreading());
-            menu.getItems().addAll(menu.createItemAddDrilling());
             menu.getItems().addAll(menu.createItemAddRolling());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().addAll(menu.createItemAddChopOff());
+            menu.getItems().addAll(menu.createItemAddCutOffOnTheSaw());
             menu.getItems().addAll(menu.createItemAddCutOff());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().addAll(menu.createItemAddPainting());
@@ -171,6 +175,9 @@ public class FormDetailController extends AbstractFormController {
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
         } else { //ПРОФИЛИ
+            menu.getItems().addAll(menu.createItemAddCutOffOnTheSaw());
+            menu.getItems().addAll(menu.createItemAddChopOff());
+            menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().addAll(menu.createItemAddPainting());
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);

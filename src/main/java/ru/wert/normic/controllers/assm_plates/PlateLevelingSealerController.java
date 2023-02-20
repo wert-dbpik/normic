@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.assm_plates;
 
 
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import ru.wert.normic.components.BXSealersWidth;
 import ru.wert.normic.components.CmBx;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;

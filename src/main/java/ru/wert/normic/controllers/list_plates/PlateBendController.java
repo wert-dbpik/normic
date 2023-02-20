@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.list_plates;
 
 
 import javafx.fxml.FXML;
@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpBending;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.EBendingTool;

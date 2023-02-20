@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers;
+package ru.wert.normic.controllers.assm_plates;
 
 
 import javafx.fxml.FXML;
@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.OpAssm;

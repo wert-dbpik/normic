@@ -6,6 +6,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.*;
+import ru.wert.normic.controllers.assm_plates.*;
+import ru.wert.normic.controllers.list_plates.PlateBendController;
+import ru.wert.normic.controllers.list_plates.PlateCuttingController;
+import ru.wert.normic.controllers.list_plates.PlatePaintController;
 import ru.wert.normic.controllers.turning_plates.*;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.EOpType;
@@ -115,13 +119,31 @@ public class MenuCalculator extends ContextMenu {
         return addCutGroove;
     }
 
-    //ОТРЕЗАНИЕ / ТОЧЕНИЕ ПАЗА (многократное добавление)
+    //ОТРЕЗАНИЕ
     public MenuItem createItemAddCutOff(){
-        MenuItem addCatOff = new MenuItem("Отрезание");
+        MenuItem addCatOff = new MenuItem("Отрезание на токарном станке");
         addCatOff.setOnAction(event -> {
             addCutOffPlate(new OpCutOff());
         });
         return addCatOff;
+    }
+
+    //ОТРЕЗАНИЕ НА ПИЛЕ
+    public MenuItem createItemAddCutOffOnTheSaw(){
+        MenuItem addCatOffOnTheSaw = new MenuItem("Отрезание на пиле");
+        addCatOffOnTheSaw.setOnAction(event -> {
+            addCutOffOnTheSawPlate(new OpCutOffOnTheSaw());
+        });
+        return addCatOffOnTheSaw;
+    }
+
+    //ОТРУБАНИЕ
+    public MenuItem createItemAddChopOff(){
+        MenuItem addChopOff = new MenuItem("Отрубание в размер");
+        addChopOff.setOnAction(event -> {
+            addChopOffPlate(new OpChopOff());
+        });
+        return addChopOff;
     }
 
     //НАРЕЗАНИЕ РЕЗЬБЫ (многократное добавление)
@@ -144,7 +166,7 @@ public class MenuCalculator extends ContextMenu {
 
     //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
     public MenuItem createItemAddRolling(){
-        MenuItem addRolling = new MenuItem("Нактывание рифления");
+        MenuItem addRolling = new MenuItem("Накатывание рифления");
         addRolling.setOnAction(event -> {
             addRollingPlate(new OpRolling());
         });
@@ -293,6 +315,12 @@ public class MenuCalculator extends ContextMenu {
                 case CUT_OFF:
                     addCutOffPlate((OpCutOff) op);
                     break;
+                case CUT_OFF_ON_SAW:
+                    addCutOffOnTheSawPlate((OpCutOffOnTheSaw) op);
+                    break;
+                case CHOP_OFF:
+                    addChopOffPlate((OpChopOff) op);
+                    break;
                 case MOUNT_DISMOUNT:
                     addMountDismountPlate((OpMountDismount) op);
                     break;
@@ -435,7 +463,7 @@ public class MenuCalculator extends ContextMenu {
     }
 
     /**
-     * ОТРЕЗАНИЕ/ТОЧЕНИЕ ПАЗА
+     * ОТРЕЗАНИЕ
      */
     public void addCutOffPlate(OpCutOff opData) {
         try {
@@ -444,6 +472,36 @@ public class MenuCalculator extends ContextMenu {
             PlateCutOffController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
             listViewTechOperations.getItems().add(cutOff);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ОТРЕЗАНИЕ НА ПИЛЕ
+     */
+    public void addCutOffOnTheSawPlate(OpCutOffOnTheSaw opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateCutOffOnTheSaw.fxml"));
+            VBox cutOffOnTheSaw = loader.load();
+            PlateCutOffOnTheSawController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(cutOffOnTheSaw);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ОТРУБАНИЕ
+     */
+    public void addChopOffPlate(OpChopOff opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateChopOff.fxml"));
+            VBox chopOff = loader.load();
+            PlateChopOffController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(chopOff);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -23,8 +23,17 @@ public class ReportController {
     private OpAssm opAssm;
     private Map<Material, Double> materials;
 
+    //Расход на наливное уплотнение
+    private double componentA; //Компонент полиэфирный А
+    private double componentB; //Компонент изоцинат Б
+
     public void init(OpAssm opAssm){
         this.opAssm = opAssm;
+
+        //Сбрасываем данные преред создание отчета
+        componentA = 0.0;
+        componentB = 0.0;
+
 
         StringBuilder report = new StringBuilder();
 
@@ -41,8 +50,13 @@ public class ReportController {
             report.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
         }
 
-        //Покрытие
+        //Наливной уплотнитель
+        report.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
+        collectComponentsABByOpData(ops);
+        report.append("Компонент полиэфирный А = ").append(componentA).append(" кг.\n");;
+        report.append("Компонент изцинат     Б = ").append(componentB).append(" кг.\n");;
 
+        //Покрытие
         report.append("\n\n").append("ПОКРЫТИЕ :\n");
         List<Double> ral1 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_I);
         report.append("Краска '").append(EColor.COLOR_I.getRal()).append("', площадь = ").append(ral1.get(0)).append(" м2, ").append("расход = ").append(ral1.get(1)).append(" кг.\n");
@@ -67,26 +81,42 @@ public class ReportController {
 
     }
 
+    /**
+     * Метод собирает материалы
+     * @param ops
+     */
     private void collectMaterialsByOpData(List<OpData> ops) {
-        for(OpData op : ops){
-            if(op instanceof OpDetail){
+        for (OpData op : ops) {
+            if (op instanceof OpDetail) {
                 Material m = ((OpDetail) op).getMaterial();
                 //Детали, если не открывать редактор детали, материала не содержат
-                if(m == null) continue;
-                if(materials.containsKey(m)){
+                if (m == null) continue;
+                if (materials.containsKey(m)) {
                     //Прибавляем новый вес к полученному ранее мвтериалу
-                    double sumWeight = materials.get(m) + ((OpDetail)op).getWeight() * op.getQuantity();
+                    double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity();
                     materials.put(m, sumWeight);
                 } else {
                     //Добавляем новый материал и массу
-                    materials.put(m, ((OpDetail)op).getWeight() * op.getQuantity());
+                    materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
                 }
-            }
-            else if (op instanceof OpAssm){
-                List<OpData> operations = ((OpAssm)op).getOperations();
+            } else if (op instanceof OpAssm) {
+                List<OpData> operations = ((OpAssm) op).getOperations();
                 collectMaterialsByOpData(operations);
-}
+            }
 
+        }
+    }
+
+    private void collectComponentsABByOpData(List<OpData> ops){
+        for (OpData op : ops) {
+            if(op instanceof OpAssm){
+                List<OpData> opsInAssm = ((OpAssm)op).getOperations();
+                collectComponentsABByOpData(opsInAssm);
+            }
+            else if(op instanceof OpLevelingSealer){
+                componentA += ((OpLevelingSealer) op).getCompA();
+                componentB += ((OpLevelingSealer) op).getCompB();
+            }
         }
     }
 

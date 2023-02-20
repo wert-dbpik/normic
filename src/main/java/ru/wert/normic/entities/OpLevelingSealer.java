@@ -11,6 +11,9 @@ import ru.wert.normic.enums.ESealersWidth;
 @Setter
 public class OpLevelingSealer extends OpData {
 
+    private double compA = 0.0; //Компонент полиэфирный А
+    private double compB = 0.0; //Компонент изоцинат Б
+
     private ESealersWidth sealersWidth = ESealersWidth.W10; //Ширина уплотнителя
     private Integer paramA = 0; //Размер А
     private Integer paramB = 0;//Размер Б

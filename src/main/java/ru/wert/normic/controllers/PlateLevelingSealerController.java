@@ -57,6 +57,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @FXML
     private Label lblNormTimeMeasure;
 
+    private double componentA; //Компонент полиэфирный А
+    private double componentB; //Компонент изоцинат B
+
     private int paramA; //Размер А
     private int paramB;//Размер Б
     private double perimeter; //
@@ -109,6 +112,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
 
     private void collectOpData(OpLevelingSealer opData){
+        opData.setCompA(tfCompA.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompA.getText().replace(",", ".")));
+        opData.setCompB(tfCompB.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompB.getText().replace(",", ".")));
+
         opData.setSealersWidth(cmbxSealerWidth.getValue());
         opData.setParamA(paramA);
         opData.setParamB(paramB);
@@ -121,6 +127,12 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         OpLevelingSealer opData = (OpLevelingSealer)data;
 
         cmbxSealerWidth.setValue(opData.getSealersWidth());
+
+//        componentA = opData.getCompA();
+//        tfCompA.setText(String.valueOf(componentA));
+//
+//        componentB = opData.getCompA();
+//        tfCompB.setText(String.valueOf(componentB));
 
         paramA = opData.getParamA();
         tfA.setText(String.valueOf(paramA));

@@ -1,7 +1,7 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.controllers.forms.AbstractFormController;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 
 public class TFNormTime {
 

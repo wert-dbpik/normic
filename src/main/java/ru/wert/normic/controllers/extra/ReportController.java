@@ -15,6 +15,9 @@ import java.util.Map;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 
+/**
+ * ОТЧЕТ
+ */
 public class ReportController {
 
     @FXML

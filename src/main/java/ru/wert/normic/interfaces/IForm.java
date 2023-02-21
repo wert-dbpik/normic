@@ -1,7 +1,7 @@
 package ru.wert.normic.interfaces;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.controllers.forms.AbstractFormController;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.OpData;
 
 /**

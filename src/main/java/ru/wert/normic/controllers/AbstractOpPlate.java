@@ -7,13 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.controllers.forms.AbstractFormController;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpPlate;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import static ru.wert.normic.AppStatics.MEASURE;

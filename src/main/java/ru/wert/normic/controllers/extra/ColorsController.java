@@ -7,6 +7,9 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.IntegerParser;
 
+/**
+ * ПРИМЕНЯЕМЫЕ ЦВЕТА ДЛЯ ПОКРАСКИ
+ */
 public class ColorsController {
 
     @FXML

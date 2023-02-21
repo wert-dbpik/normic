@@ -2,7 +2,7 @@ package ru.wert.normic;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
-import ru.wert.normic.controllers.forms.MainController;
+import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 

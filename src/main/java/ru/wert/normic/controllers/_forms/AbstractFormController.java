@@ -212,11 +212,11 @@ public abstract class AbstractFormController implements IForm {
     public boolean dropIsPossible(OpData targetOpData){
         if(targetOpData instanceof OpDetail){
             for(OpData op : clipOpDataList){
-                if(RESTRICTED_FOR_DETAILS.contains(op.getOpType())) return false;
+                if(!DETAIL_OPERATIONS.contains(op.getOpType())) return false;
             }
         } else if (targetOpData instanceof OpAssm) {
             for(OpData op : clipOpDataList){
-                if(RESTRICTED_FOR_ASSM.contains(op.getOpType())) return false;
+                if(!ASSM_OPERATIONS.contains(op.getOpType())) return false;
             }
         } else
             return false;
@@ -442,10 +442,10 @@ public abstract class AbstractFormController implements IForm {
 
         for(OpData op : clipOpDataList){
             if (targetOpData instanceof OpDetail) {
-                if (RESTRICTED_FOR_DETAILS.contains(op.getOpType())) return false;
+                if (!DETAIL_OPERATIONS.contains(op.getOpType())) return false;
                 if (getAddedOperations().contains(op) && !DUPLICATED_OPERATIONS.contains(op.getOpType())) return false;
             } else if (targetOpData instanceof OpAssm) {
-                if (RESTRICTED_FOR_ASSM.contains(op.getOpType())) return false;
+                if (!ASSM_OPERATIONS.contains(op.getOpType())) return false;
                 if (getAddedOperations().contains(op) && !DUPLICATED_OPERATIONS.contains(op.getOpType())) return false;
             }
         }

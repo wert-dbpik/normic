@@ -28,19 +28,36 @@ public class AppStatics {
     public static List<KeyCode> KEYS_NOW_PRESSED; //Массив хранения нажатых клавиш
 
     //Перечень операций, которые нельзя добавить в Деталь
-    public static final List<EOpType> RESTRICTED_FOR_DETAILS =
-            Arrays.asList(DETAIL, ASSM, ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES, PAINT_ASSM, LEVELING_SEALER);
+    public static final List<EOpType> DETAIL_OPERATIONS =
+            Arrays.asList(CUTTING, BENDING, WELD_CONTINUOUS, WELD_DOTTED,
+                    MOUNT_DISMOUNT, TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
+                    DRILLING_BY_MARKING, LOCKSMITH, CUT_OFF, CHOP_OFF,
+                    PAINTING
+                   );
 
     //Перечень операций, которые нельзя добавить в Сборку
-    public static final List<EOpType> RESTRICTED_FOR_ASSM =
-            Arrays.asList(CUTTING, BENDING, PAINTING, TURNING, CUT_OFF, THREADING, DRILLING, ROLLING);
+    public static final List<EOpType> ASSM_OPERATIONS =
+            Arrays.asList(DETAIL, ASSM,
+                    PAINT_ASSM,
+                    WELD_CONTINUOUS, WELD_DOTTED,
+                    ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES,
+                    LEVELING_SEALER);
 
     //Перечень операций, которые м.б. продублированны
     public static final List<EOpType> DUPLICATED_OPERATIONS =
-            Arrays.asList(DETAIL, ASSM, LEVELING_SEALER, TURNING, CUT_OFF, CUT_GROOVE, THREADING, DRILLING, ROLLING);
+            Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,
+                    TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
+                    DRILLING_BY_MARKING);
 
     //Перечень допустимых операций по типу материала
-    public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING, LOCKSMITH, PAINTING, WELD_CONTINUOUS, WELD_DOTTED);//Листовой
-    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(MOUNT_DISMOUNT, PAINTING, TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING, CUT_OFF); //Круглый
-    public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING); //Профильный
+    public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING,
+            LOCKSMITH, DRILLING_BY_MARKING,
+            PAINTING,
+            WELD_CONTINUOUS, WELD_DOTTED);//Листовой
+    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(MOUNT_DISMOUNT,
+            PAINTING, TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
+            CUT_OFF, CHOP_OFF); //Круглый
+    public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING,
+            LOCKSMITH, DRILLING_BY_MARKING,
+            CHOP_OFF, CUT_OFF_ON_SAW); //Профильный
 }

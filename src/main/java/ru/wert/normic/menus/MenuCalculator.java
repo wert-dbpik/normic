@@ -10,7 +10,7 @@ import ru.wert.normic.controllers.assm_plates.*;
 import ru.wert.normic.controllers.list_plates.PlateBendController;
 import ru.wert.normic.controllers.list_plates.PlateCuttingController;
 import ru.wert.normic.controllers.list_plates.PlatePaintController;
-import ru.wert.normic.controllers.turning_plates.*;
+import ru.wert.normic.controllers.turning_ops.*;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers.forms.AbstractFormController;
@@ -164,6 +164,15 @@ public class MenuCalculator extends ContextMenu {
         return addDrilling;
     }
 
+    //СВЕРЛЕНИЕ ОТВЕРСТИЯ ПО РАЗМЕТКЕ (многократное добавление)
+    public MenuItem createItemAddDrillingByMarking(){
+        MenuItem addDrillingByMarking = new MenuItem("Сверление по разметке");
+        addDrillingByMarking.setOnAction(event -> {
+            addDrillingByMarkingPlate(new OpDrillingByMarking());
+        });
+        return addDrillingByMarking;
+    }
+
     //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
     public MenuItem createItemAddRolling(){
         MenuItem addRolling = new MenuItem("Накатывание рифления");
@@ -308,6 +317,9 @@ public class MenuCalculator extends ContextMenu {
                     break;
                 case DRILLING:
                     addDrillingPlate((OpDrilling) op);
+                    break;
+                case DRILLING_BY_MARKING:
+                    addDrillingByMarkingPlate((OpDrillingByMarking) op);
                     break;
                 case ROLLING:
                     addRollingPlate((OpRolling) op);
@@ -547,6 +559,21 @@ public class MenuCalculator extends ContextMenu {
             PlateDrillingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
             listViewTechOperations.getItems().add(drilling);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ
+     */
+    public void addDrillingByMarkingPlate(OpDrillingByMarking opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateDrillingByMarking.fxml"));
+            VBox drillingByMarking = loader.load();
+            PlateDrillingByMarkingController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(drillingByMarking);
         } catch (IOException e) {
             e.printStackTrace();
         }

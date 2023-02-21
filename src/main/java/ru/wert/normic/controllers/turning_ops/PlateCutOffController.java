@@ -1,8 +1,6 @@
-package ru.wert.normic.controllers.turning_plates;
+package ru.wert.normic.controllers.turning_ops;
 
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -10,13 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpCutOff;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpTurning;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;

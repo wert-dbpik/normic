@@ -1,25 +1,25 @@
-package ru.wert.normic.controllers.turning_plates;
+package ru.wert.normic.controllers.turning_ops;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.components.TFDoubleColored;
+import ru.wert.normic.components.BXSawType;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
-import ru.wert.normic.entities.OpChopOff;
-import ru.wert.normic.entities.OpCutGroove;
+import ru.wert.normic.entities.OpCutOffOnTheSaw;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.EMeasure;
-import ru.wert.normic.utils.IntegerParser;
+import ru.wert.normic.enums.ESawType;
 
 import java.util.NoSuchElementException;
 
 
-public class PlateChopOffController extends AbstractOpPlate {
+public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @FXML
     private ImageView ivOperation;
@@ -34,14 +34,39 @@ public class PlateChopOffController extends AbstractOpPlate {
     private ImageView ivDeleteOperation;
 
     @FXML
+    private ComboBox<ESawType> cmbxSaw;
+
+    @FXML
     private TextField tfNormTime;
 
+    private ESawType sawType;
     private int length;
-    private double chopTime = 0.05;
+
+    enum ECutSolidDiameters { //page 123 (Р6М5)
+        CUT_SOLID_D10(10, 0.9),
+        CUT_SOLID_D20(20, 1.0),
+        CUT_SOLID_D30(30, 1.5),
+        CUT_SOLID_D40(40, 1.8),
+        CUT_SOLID_D60(60, 2.7),
+        CUT_SOLID_D80(80, 4.3),
+        CUT_SOLID_D90(90, 5.0),
+        CUT_SOLID_D100(100, 6.4);
+
+        @Getter int diam;
+        @Getter double time;
+        ECutSolidDiameters(int diam,  double time){
+            this.diam = diam;
+            this.time = time;}
+    }
+
+
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpChopOff opData = (OpChopOff) data;
+        OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw) data;
+
+        new BXSawType().create(cmbxSaw, ESawType.SMALL_SAW, this);
+
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
@@ -53,16 +78,19 @@ public class PlateChopOffController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpChopOff opData = (OpChopOff) data;
+        OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw) data;
 
         countInitialValues();
 
-        currentNormTime = findTime() + chopTime;
+        currentNormTime = findTime() + sawType.getSpeed();
         collectOpData(opData);
         setTimeMeasurement();
     }
 
-    private Double findTime() {
+    private Double findTime(){
+        EMeasure lastMeasure = EMeasure.values()[EMeasure.values().length-1];
+        if(length > lastMeasure.getLength())
+            return lastMeasure.getTime();
 
         int prevL = 0;
         for (EMeasure d : EMeasure.values()) {
@@ -81,19 +109,22 @@ public class PlateChopOffController extends AbstractOpPlate {
     public  void countInitialValues() {
 
         length = ((FormDetailController) formController).getMatPatchController().getParamA();
-
+        sawType = cmbxSaw.getValue();
     }
 
-    private void collectOpData(OpChopOff opData){
+    private void collectOpData(OpCutOffOnTheSaw opData){
+        opData.setSaw(cmbxSaw.getValue());
 
         opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpChopOff opData = (OpChopOff)data;
+        OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw)data;
 
-        //НИКАКИХ ДЕЙСТВИЙ
+        sawType = opData.getSaw();
+        cmbxSaw.setValue(sawType);
+
     }
 
 }

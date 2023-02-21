@@ -149,36 +149,42 @@ public class FormDetailController extends AbstractFormController {
         EMatType type = EMatType.getTypeByName(cmbxMaterial.getValue().getMatType().getName());
 
         if(type.equals(EMatType.LIST)){ //ЛИСТЫ
-            menu.getItems().addAll(menu.createItemAddCutting(), menu.createItemAddBending(), menu.createItemAddLocksmith());
+            menu.getItems().add(menu.createItemAddCutting());
+            menu.getItems().add(menu.createItemAddBending());
+            menu.getItems().add(menu.createItemAddDrillingByMarking());
+            menu.getItems().add(menu.createItemAddLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().addAll(menu.createItemAddPainting());
+            menu.getItems().add(menu.createItemAddPainting());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
+            menu.getItems().add(menu.createItemAddWeldLongSeam());
+            menu.getItems().add(menu.createItemAddWeldingDotted());
 
             deleteImproperOperations(AppStatics.LIST_OPERATIONS);
 
         } else if (type.equals(EMatType.ROUND)){ //КРУГИ
-            menu.getItems().addAll(menu.createItemAddMountDismount());
+            menu.getItems().add(menu.createItemAddMountDismount());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().addAll(menu.createItemAddTurning());
-            menu.getItems().addAll(menu.createItemAddDrilling());
-            menu.getItems().addAll(menu.createItemAddCutGroove());
-            menu.getItems().addAll(menu.createItemAddThreading());
-            menu.getItems().addAll(menu.createItemAddRolling());
+            menu.getItems().add(menu.createItemAddTurning());
+            menu.getItems().add(menu.createItemAddDrilling());
+            menu.getItems().add(menu.createItemAddCutGroove());
+            menu.getItems().add(menu.createItemAddThreading());
+            menu.getItems().add(menu.createItemAddRolling());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().addAll(menu.createItemAddChopOff());
-            menu.getItems().addAll(menu.createItemAddCutOffOnTheSaw());
-            menu.getItems().addAll(menu.createItemAddCutOff());
+            menu.getItems().add(menu.createItemAddChopOff());
+            menu.getItems().add(menu.createItemAddCutOffOnTheSaw());
+            menu.getItems().add(menu.createItemAddCutOff());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().addAll(menu.createItemAddPainting());
+            menu.getItems().add(menu.createItemAddPainting());
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
         } else { //ПРОФИЛИ
-            menu.getItems().addAll(menu.createItemAddCutOffOnTheSaw());
-            menu.getItems().addAll(menu.createItemAddChopOff());
+            menu.getItems().add(menu.createItemAddCutOffOnTheSaw());
+            menu.getItems().add(menu.createItemAddChopOff());
+            menu.getItems().add(menu.createItemAddDrillingByMarking());
+            menu.getItems().add(menu.createItemAddLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().addAll(menu.createItemAddPainting());
+            menu.getItems().add(menu.createItemAddPainting());
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
         }

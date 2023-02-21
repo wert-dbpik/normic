@@ -14,6 +14,7 @@ public enum EOpType {
     CHOP_OFF,
     THREADING,
     DRILLING,
+    DRILLING_BY_MARKING,
     ROLLING,
     CUT_OFF,
     CUT_OFF_ON_SAW,

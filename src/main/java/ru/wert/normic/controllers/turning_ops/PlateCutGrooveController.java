@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.turning_plates;
+package ru.wert.normic.controllers.turning_ops;
 
 
 import javafx.fxml.FXML;

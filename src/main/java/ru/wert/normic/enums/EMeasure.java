@@ -22,4 +22,5 @@ public enum EMeasure implements Serializable {
         this.length = length;
         this.time = time;
     }
+
 }

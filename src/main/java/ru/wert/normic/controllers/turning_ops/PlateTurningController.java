@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.turning_plates;
+package ru.wert.normic.controllers.turning_ops;
 
 
 import javafx.fxml.FXML;
@@ -12,7 +12,6 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpTurning;
-import ru.wert.normic.entities.OpWeldContinuous;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;

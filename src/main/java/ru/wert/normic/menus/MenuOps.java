@@ -9,6 +9,7 @@ import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.list.PlateBendController;
 import ru.wert.normic.controllers.list.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.PlateLocksmithController;
+import ru.wert.normic.controllers.packing.PlatePackFrameController;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.controllers.paint.PlatePaintController;
 import ru.wert.normic.controllers.locksmith.PlateChopOffController;
@@ -292,6 +293,16 @@ public class MenuOps extends ContextMenu {
         }
         return false;
     }
+    //=========================      УПАКОВКА    =================================
+    //УПАКОВКА КАРКАСА
+    public MenuItem createItemAddPackFrame(){
+        MenuItem addPackFrame = new MenuItem("Упаковка каркаса");
+        addPackFrame.setOnAction(event -> {
+            if(isDuplicate(EOpType.PACK_FRAME)) return ;
+            addPackFramePlate(new OpPackFrame());
+        });
+        return addPackFrame;
+    }
 
     /*==================================================================================================================
      *                                         В О С С Т А Н О В Л Е Н И Е
@@ -368,6 +379,9 @@ public class MenuOps extends ContextMenu {
                     break;
                 case LEVELING_SEALER:
                     addLevelingSealerPlate((OpLevelingSealer) op);
+                    break;
+                case PACK_FRAME:
+                    addPackFramePlate((OpPackFrame) op);
                     break;
             }
         }
@@ -746,7 +760,22 @@ public class MenuOps extends ContextMenu {
             e.printStackTrace();
         }
     }
-    
-    
+
+    //==================================================================================================================
+
+    /**
+     * УПАКОВКА КАРКАСА
+     */
+    public void addPackFramePlate(OpPackFrame opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/packing/platePackFrame.fxml"));
+            VBox packFrame = loader.load();
+            PlatePackFrameController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(packFrame);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

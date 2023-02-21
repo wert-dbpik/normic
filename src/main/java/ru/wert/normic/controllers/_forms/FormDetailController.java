@@ -159,6 +159,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemAddWeldLongSeam());
             menu.getItems().add(menu.createItemAddWeldingDotted());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createItemAddPackFrame());
 
             deleteImproperOperations(AppStatics.LIST_OPERATIONS);
 
@@ -176,6 +178,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemAddCutOff());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemAddPainting());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createItemAddPackFrame());
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
@@ -186,6 +190,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemAddLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemAddPainting());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createItemAddPackFrame());
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
         }

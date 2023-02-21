@@ -1,6 +1,5 @@
 package ru.wert.normic.materials;
 
-import com.sun.istack.internal.NotNull;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -111,7 +110,7 @@ public class MaterialsACCController {
             if(!checkData()) return;
             Material newMaterial = creatNewMaterial();
             if(!isDuplicated(newMaterial, null)){
-                @NotNull AnyPart finalPart = createAnyPart(newMaterial);
+                AnyPart finalPart = createAnyPart(newMaterial);
                 newMaterial.setAnyPart(finalPart);
                 selectedMaterial = QUICK_MATERIALS.save(newMaterial);
                 if(selectedMaterial == null)

@@ -115,6 +115,8 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(menu.createItemAddAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddLevelingSealer());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createItemAddPackFrame());
 
         linkMenuToButton();
     }

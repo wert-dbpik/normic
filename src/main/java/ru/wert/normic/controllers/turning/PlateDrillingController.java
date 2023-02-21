@@ -137,7 +137,7 @@ public class PlateDrillingController extends AbstractOpPlate {
 
         diameter = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
         turningDiameter = IntegerParser.getValue(tfDiameter);
-        if(turningDiameter > (diameter / 2))
+        if(turningDiameter > diameter)
             tfDiameter.setStyle("-fx-border-color: #FF5555");
         else
             tfDiameter.setStyle(initStyle);

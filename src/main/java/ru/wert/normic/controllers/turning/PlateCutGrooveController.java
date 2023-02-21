@@ -67,7 +67,6 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
         new TFDoubleColored(tfDepth, this);
 
-
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });

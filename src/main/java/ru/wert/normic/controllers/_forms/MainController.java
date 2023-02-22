@@ -364,9 +364,6 @@ public class MainController extends AbstractFormController {
         menu.getItems().addAll(menu.createItemAssmNuts(), menu.createItemAssmCuttings(), menu.createItemAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemLevelingSealer());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemPackTallCabinet());
-        menu.getItems().add(menu.createItemMountOnPallet());
 
         linkMenuToButton();
 

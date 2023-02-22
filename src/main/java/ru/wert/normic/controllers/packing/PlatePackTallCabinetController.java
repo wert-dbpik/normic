@@ -144,7 +144,7 @@ public class PlatePackTallCabinetController extends AbstractOpPlate {
 
     private void collectOpData(OpPackTallCabinet opData){
         opData.setCartoon(roofWrapL + sideWrapL);
-        opData.setStretchWrap(stretchWrapL);
+        opData.setStretchMachineWrap(stretchWrapL);
         opData.setBubbleWrap(bubbleWrapL);
         opData.setPolyWrap(polyWrapL);
         opData.setDuctTape(ductTapeL);

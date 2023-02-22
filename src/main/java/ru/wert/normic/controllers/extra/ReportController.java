@@ -5,6 +5,7 @@ import javafx.scene.control.TextArea;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EColor;
+import ru.wert.normic.enums.EPacks;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
@@ -13,7 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.enums.EPacks.*;
 
 /**
  * ОТЧЕТ
@@ -62,9 +65,20 @@ public class ReportController {
         List<Double> ral2 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_II);
         List<Double> ral3 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_III);
 
-        if(ral1.get(0) != 0.0 || ral2.get(0) != 0.0 || ral3.get(0) != 0.0)
+        if(ral1.get(0) + ral2.get(0) + ral3.get(0) != 0.0)
             addColorReport(ral1, ral2, ral3);
 
+        //УПАКОВКА
+        double cartoon = collectPacksOverOperations(ops, CARTOON, 0.0);
+        double stretchMachine = collectPacksOverOperations(ops, EPacks.STRETCH_MACHINE, 0.0);
+        double stretchHand = collectPacksOverOperations(ops, STRETCH_HAND, 0.0);
+        double polyTape = collectPacksOverOperations(ops, EPacks.POLY, 0.0);
+        double bubble = collectPacksOverOperations(ops, EPacks.BUBBLE, 0.0);
+        double duct = collectPacksOverOperations(ops, EPacks.DUCT, 0.0);
+        double pallet = collectPacksOverOperations(ops, EPacks.PALLET, 0.0);
+
+        if(cartoon + stretchMachine + stretchHand + polyTape + bubble + duct + pallet != 0.0)
+            addPackReport(cartoon, stretchMachine, stretchHand, polyTape, bubble, duct, pallet);
 
 
         //НОРМЫ ВРЕМЕНИ
@@ -77,6 +91,60 @@ public class ReportController {
 
         taReport.setText(report.toString());
 
+    }
+
+    private double collectPacksOverOperations(List<OpData> ops, EPacks pack, double res) {
+        for (OpData op : ops) {
+            if (op instanceof PackingData) {
+                switch(pack){
+                    case CARTOON : res += ((PackingData)op).getCartoon(); break;
+                    case STRETCH_MACHINE : res += ((PackingData)op).getStretchMachineWrap(); break;
+                    case STRETCH_HAND : res += ((PackingData)op).getStretchHandWrap(); break;
+                    case POLY : res += ((PackingData)op).getPolyWrap(); break;
+                    case BUBBLE : res += ((PackingData)op).getBubbleWrap(); break;
+                    case DUCT : res += ((PackingData)op).getDuctTape(); break;
+                    case PALLET : res += ((PackingData)op).getPallet(); break;
+                    default: break;
+                }
+            } else if (op instanceof IOpWithOperations) {
+                List<OpData> operations = ((IOpWithOperations) op).getOperations();
+                res += collectPacksOverOperations(operations, pack, res);
+            }
+
+        }
+        return res;
+    }
+
+    private void addPackReport(double cartoon, double stretchMachine, double stretchHand, double polyTape, double bubble, double duct, double pallet){
+        report.append("\n\n").append("УПАКОВКА :\n");
+        if (cartoon != 0.0)
+            report.append(CARTOON.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(cartoon)).append(" ")
+                    .append(CARTOON.getMeasuring()).append("\n");
+        if (stretchMachine != 0.0)
+            report.append(STRETCH_MACHINE.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(stretchMachine)).append(" ")
+                    .append(STRETCH_MACHINE.getMeasuring()).append("\n");
+        if (stretchHand != 0.0)
+            report.append(STRETCH_HAND.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(stretchHand)).append(" ")
+                    .append(STRETCH_HAND.getMeasuring()).append("\n");
+        if (polyTape != 0.0)
+            report.append(POLY.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(polyTape)).append(" ")
+                    .append(POLY.getMeasuring()).append("\n");
+        if (bubble != 0.0)
+            report.append(BUBBLE.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(bubble)).append(" ")
+                    .append(BUBBLE.getMeasuring()).append("\n");
+        if (duct != 0.0)
+            report.append(DUCT.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(duct)).append(" ")
+                    .append(DUCT.getMeasuring()).append("\n");
+        if (pallet != 0.0)
+            report.append(PALLET.getName()).append(" = ")
+                    .append(DECIMAL_FORMAT.format(pallet)).append(" ")
+                    .append(PALLET.getMeasuring()).append("\n");
     }
 
     private void addNormTimesReport(OpAssm opAssm) {

@@ -5,8 +5,11 @@ public interface PackingData {
     double getCartoon();
     void setCartoon(double cartoon);
 
-    double getStretchWrap();
-    void setStretchWrap(double stretchWrap);
+    double getStretchMachineWrap();
+    void setStretchMachineWrap(double stretchMachineWrap);
+
+    double getStretchHandWrap();
+    void setStretchHandWrap(double stretchHandWrap);
 
     double getBubbleWrap();
     void setBubbleWrap(double bubbleWrap);
@@ -16,5 +19,8 @@ public interface PackingData {
 
     double getDuctTape();
     void setDuctTape(double ductTape);
+
+    double getPallet();
+    void setPallet(double pallet);
 
 }

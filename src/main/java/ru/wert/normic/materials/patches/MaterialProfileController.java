@@ -31,8 +31,8 @@ public class MaterialProfileController implements MatTypeController {
 
     @Override //MatTypeController
     public void fillData(Material material){
-        tfPerimeter.setText(String.format(String.valueOf((DECIMAL_FORMAT)), material.getParamS()));
-        tfMassMetre.setText(String.format(String.valueOf((DECIMAL_FORMAT)), material.getParamX()));
+        tfPerimeter.setText(DECIMAL_FORMAT.format(material.getParamS()));
+        tfMassMetre.setText(DECIMAL_FORMAT.format(material.getParamX()));
     }
 
     @Override //MatTypeController

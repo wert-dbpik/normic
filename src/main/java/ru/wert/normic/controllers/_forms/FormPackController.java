@@ -103,21 +103,24 @@ public class FormPackController extends AbstractFormController {
         });
 
         tfWidth.textProperty().addListener((observable, oldValue, newValue) -> {
-            ((OpPack)opData).setWidth(IntegerParser.getValue(tfWidth));
+            width = IntegerParser.getValue(tfWidth);
+            ((OpPack)opData).setWidth(width);
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());
             }
         });
 
         tfDepth.textProperty().addListener((observable, oldValue, newValue) -> {
-            ((OpPack)opData).setDepth(IntegerParser.getValue(tfDepth));
+            depth = IntegerParser.getValue(tfDepth);
+            ((OpPack)opData).setDepth(depth);
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());
             }
         });
 
         tfHeight.textProperty().addListener((observable, oldValue, newValue) -> {
-            ((OpPack)opData).setHeight(IntegerParser.getValue(tfHeight));
+            height = IntegerParser.getValue(tfHeight);
+            ((OpPack)opData).setHeight(height);
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());
             }

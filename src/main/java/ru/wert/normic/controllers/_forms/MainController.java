@@ -353,18 +353,20 @@ public class MainController extends AbstractFormController {
 
         menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
 
-        menu.getItems().add(menu.createItemAddDetail());
-        menu.getItems().add(menu.createItemAddAssm());
+        menu.getItems().add(menu.createItemDetail());
+        menu.getItems().add(menu.createItemAssm());
+        menu.getItems().add(menu.createItemPack());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddPaintAssm());
+        menu.getItems().addAll(menu.createItemPaintAssm());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddWeldLongSeam(), menu.createItemAddWeldingDotted());
+        menu.getItems().addAll(menu.createItemWeldLongSeam(), menu.createItemWeldingDotted());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAddAssmNuts(), menu.createItemAddAssmCuttings(), menu.createItemAddAssmNodes());
+        menu.getItems().addAll(menu.createItemAssmNuts(), menu.createItemAssmCuttings(), menu.createItemAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddLevelingSealer());
+        menu.getItems().add(menu.createItemLevelingSealer());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddPackFrame());
+        menu.getItems().add(menu.createItemPackTallCabinet());
+        menu.getItems().add(menu.createItemMountOnPallet());
 
         linkMenuToButton();
 

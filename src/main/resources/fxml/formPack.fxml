@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="detail" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers._forms.FormPackController">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label text="Наименование">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfDetailName" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="0.0">
+               <children>
+                  <ImageView fx:id="ivErase" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../pics/btns/erase.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </HBox>
+      <Separator maxWidth="1.7976931348623157E308">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Label fx:id="lblNumOfSeams" prefHeight="20.0" text="Ширина, мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfWidth" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Label fx:id="lblNumOfSeams1" prefHeight="20.0" text="Глубина, мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfDepth" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Label fx:id="lblNumOfSeams11" prefHeight="20.0" text="Высота, мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfHeight" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <StackPane fx:id="spDetailParams" />
+      <Separator maxWidth="1.7976931348623157E308">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Separator>
+      <HBox alignment="BOTTOM_LEFT" fillHeight="false" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Виды упаковки">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <ListView fx:id="listViewTechOperations" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </ListView>
+      <VBox>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Нормы времени по участкам :">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="490.0" spacing="5.0">
+               <children>
+                  <Label text="Всего : ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tfTotalTime" alignment="CENTER" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <Label fx:id="lblTimeMeasure" text="мин">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="7.0" right="7.0" top="5.0" />
+   </padding>
+</VBox>

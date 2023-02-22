@@ -7,23 +7,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import lombok.Getter;
 import ru.wert.normic.components.ChBox;
-import ru.wert.normic.components.TFDouble;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.OpCutOff;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpPackFrame;
+import ru.wert.normic.entities.OpPackTallCabinet;
 import ru.wert.normic.utils.IntegerParser;
 
-import java.util.NoSuchElementException;
-
 /**
- * ОТРЕЗАНИЕ ДЕТАЛИ НА ТОКАРНОМ СТАНКЕ
+ * УПАКОВКА ВЫСОКОГО ШКАФА
  */
-public class PlatePackFrameController extends AbstractOpPlate {
+public class PlatePackTallCabinetController extends AbstractOpPlate {
 
 
     @FXML
@@ -58,14 +52,14 @@ public class PlatePackFrameController extends AbstractOpPlate {
 
     private String initStyle;
     private int width, depth, height;
-    private boolean roofWrap, sideWrap, stretchWrap, polyWrap, bubbleWrap, ductTape;
+    private boolean useRoofWrap, useSideWrap, useStretchWrap, usePolyWrap, useBubbleWrap, useDuctTape;
     private Double roofWrapL, sideWrapL, stretchWrapL, polyWrapL, bubbleWrapL, ductTapeL;
     private Integer totalCartoon;
 
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpPackFrame opData = (OpPackFrame) data;
+        OpPackTallCabinet opData = (OpPackTallCabinet) data;
         initStyle = tfWidth.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfWidth, this);
@@ -98,32 +92,32 @@ public class PlatePackFrameController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackFrame opData = (OpPackFrame) data;
+        OpPackTallCabinet opData = (OpPackTallCabinet) data;
 
         countInitialValues();
 
         roofWrapL = ((width * MM_TO_M + 0.1) * (depth * MM_TO_M + 0.1) * 1.2);
-        if(roofWrap) tfRoofWrap.setText(String.format(DOUBLE_FORMAT, roofWrapL));
+        if(useRoofWrap) tfRoofWrap.setText(String.format(DOUBLE_FORMAT, roofWrapL));
         else tfRoofWrap.setText("");
 
         sideWrapL = (height * MM_TO_M * 4.0 * 1.1);
-        if(sideWrap) tfSideWrap.setText(String.format(DOUBLE_FORMAT, sideWrapL));
+        if(useSideWrap) tfSideWrap.setText(String.format(DOUBLE_FORMAT, sideWrapL));
         else tfSideWrap.setText("");
 
         stretchWrapL = ((width * MM_TO_M + depth * MM_TO_M) * 2 * height * MM_TO_M / 0.3 * 2);
-        if(stretchWrap) tfStretchWrap.setText(String.format(DOUBLE_FORMAT, stretchWrapL));
+        if(useStretchWrap) tfStretchWrap.setText(String.format(DOUBLE_FORMAT, stretchWrapL));
         else tfStretchWrap.setText("");
 
         polyWrapL = (height * MM_TO_M * 1.15 * 4.0 + 2.0 * width * MM_TO_M);
-        if(polyWrap) tfPolyWrap.setText(String.format(DOUBLE_FORMAT, polyWrapL));
+        if(usePolyWrap) tfPolyWrap.setText(String.format(DOUBLE_FORMAT, polyWrapL));
         else tfPolyWrap.setText("");
 
         bubbleWrapL = ((width * MM_TO_M + depth * MM_TO_M) * 2.0 * height * MM_TO_M * 1.1);
-        if(bubbleWrap) tfBubbleWrap.setText(String.format(DOUBLE_FORMAT, bubbleWrapL));
+        if(useBubbleWrap) tfBubbleWrap.setText(String.format(DOUBLE_FORMAT, bubbleWrapL));
         else tfBubbleWrap.setText("");
 
         ductTapeL = ((width * MM_TO_M + depth * MM_TO_M) * 2.0 * 1.5 * height * MM_TO_M / 0.5);
-        if(ductTape) tfDuctTape.setText(String.format(DOUBLE_FORMAT, ductTapeL));
+        if(useDuctTape) tfDuctTape.setText(String.format(DOUBLE_FORMAT, ductTapeL));
         else tfDuctTape.setText("");
 
         currentNormTime = 0.0;
@@ -140,32 +134,38 @@ public class PlatePackFrameController extends AbstractOpPlate {
         depth = IntegerParser.getValue(tfDepth);
         height = IntegerParser.getValue(tfHeight);
 
-        roofWrap = chbxRoofWrap.isSelected();
-        sideWrap = chbxSideWrap.isSelected();
-        stretchWrap = chbxStretchWrap.isSelected();
-        polyWrap = chbxPolyWrap.isSelected();
-        bubbleWrap = chbxBubbleWrap.isSelected();
-        ductTape = chbxDuctTape.isSelected();
+        useRoofWrap = chbxRoofWrap.isSelected();
+        useSideWrap = chbxSideWrap.isSelected();
+        useStretchWrap = chbxStretchWrap.isSelected();
+        usePolyWrap = chbxPolyWrap.isSelected();
+        useBubbleWrap = chbxBubbleWrap.isSelected();
+        useDuctTape = chbxDuctTape.isSelected();
     }
 
-    private void collectOpData(OpPackFrame opData){
+    private void collectOpData(OpPackTallCabinet opData){
+        opData.setCartoon(roofWrapL + sideWrapL);
+        opData.setStretchWrap(stretchWrapL);
+        opData.setBubbleWrap(bubbleWrapL);
+        opData.setPolyWrap(polyWrapL);
+        opData.setDuctTape(ductTapeL);
+
         opData.setWidth(width);
         opData.setDepth(depth);
         opData.setHeight(height);
 
-        opData.setRoofWrap(chbxRoofWrap.isSelected());
-        opData.setSideWrap(chbxSideWrap.isSelected());
-        opData.setStretchWrap(chbxStretchWrap.isSelected());
-        opData.setPolyWrap(chbxPolyWrap.isSelected());
-        opData.setBubbleWrap(chbxBubbleWrap.isSelected());
-        opData.setDuctTape(chbxDuctTape.isSelected());
+        opData.setUseRoofWrap(chbxRoofWrap.isSelected());
+        opData.setUseSideWrap(chbxSideWrap.isSelected());
+        opData.setUseStretchWrap(chbxStretchWrap.isSelected());
+        opData.setUsePolyWrap(chbxPolyWrap.isSelected());
+        opData.setUseBubbleWrap(chbxBubbleWrap.isSelected());
+        opData.setUseDuctTape(chbxDuctTape.isSelected());
 
-        opData.setMechTime(currentNormTime);
+        opData.setPackTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpPackFrame opData = (OpPackFrame)data;
+        OpPackTallCabinet opData = (OpPackTallCabinet)data;
 
         width = opData.getWidth();
         tfWidth.setText(String.valueOf(width));
@@ -178,23 +178,23 @@ public class PlatePackFrameController extends AbstractOpPlate {
 
         //-------------------------------------------------
 
-        roofWrap = opData.isRoofWrap();
-        chbxRoofWrap.setSelected(roofWrap);
+        useRoofWrap = opData.isUseRoofWrap();
+        chbxRoofWrap.setSelected(useRoofWrap);
 
-        sideWrap = opData.isSideWrap();
-        chbxSideWrap.setSelected(sideWrap);
+        useSideWrap = opData.isUseSideWrap();
+        chbxSideWrap.setSelected(useSideWrap);
 
-        stretchWrap = opData.isStretchWrap();
-        chbxStretchWrap.setSelected(stretchWrap);
+        useStretchWrap = opData.isUseStretchWrap();
+        chbxStretchWrap.setSelected(useStretchWrap);
 
-        polyWrap = opData.isPolyWrap();
-        chbxPolyWrap.setSelected(polyWrap);
+        usePolyWrap = opData.isUsePolyWrap();
+        chbxPolyWrap.setSelected(usePolyWrap);
 
-        bubbleWrap = opData.isBubbleWrap();
-        chbxBubbleWrap.setSelected(bubbleWrap);
+        useBubbleWrap = opData.isUseBubbleWrap();
+        chbxBubbleWrap.setSelected(useBubbleWrap);
 
-        ductTape = opData.isDuctTape();
-        chbxDuctTape.setSelected(ductTape);
+        useDuctTape = opData.isUseDuctTape();
+        chbxDuctTape.setSelected(useDuctTape);
 
     }
 

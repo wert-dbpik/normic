@@ -424,8 +424,6 @@ public abstract class AbstractFormController implements IForm {
      */
     public void pasteOperation(boolean cellIsEmpty) {
 
-
-
         int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
         OpData selectedOpData = cellIsEmpty ? opData : getAddedOperations().get(selectedIndex);
 

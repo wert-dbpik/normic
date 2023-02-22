@@ -150,48 +150,48 @@ public class FormDetailController extends AbstractFormController {
         EMatType type = EMatType.getTypeByName(cmbxMaterial.getValue().getMatType().getName());
 
         if(type.equals(EMatType.LIST)){ //ЛИСТЫ
-            menu.getItems().add(menu.createItemAddCutting());
-            menu.getItems().add(menu.createItemAddBending());
-            menu.getItems().add(menu.createItemAddDrillingByMarking());
-            menu.getItems().add(menu.createItemAddLocksmith());
+            menu.getItems().add(menu.createItemCutting());
+            menu.getItems().add(menu.createItemBending());
+            menu.getItems().add(menu.createItemDrillingByMarking());
+            menu.getItems().add(menu.createItemLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddPainting());
+            menu.getItems().add(menu.createItemPainting());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddWeldLongSeam());
-            menu.getItems().add(menu.createItemAddWeldingDotted());
+            menu.getItems().add(menu.createItemWeldLongSeam());
+            menu.getItems().add(menu.createItemWeldingDotted());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddPackFrame());
+            menu.getItems().add(menu.createItemPackTallCabinet());
 
             deleteImproperOperations(AppStatics.LIST_OPERATIONS);
 
         } else if (type.equals(EMatType.ROUND)){ //КРУГИ
-            menu.getItems().add(menu.createItemAddMountDismount());
+            menu.getItems().add(menu.createItemMountDismount());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddTurning());
-            menu.getItems().add(menu.createItemAddDrilling());
-            menu.getItems().add(menu.createItemAddCutGroove());
-            menu.getItems().add(menu.createItemAddThreading());
-            menu.getItems().add(menu.createItemAddRolling());
+            menu.getItems().add(menu.createItemTurning());
+            menu.getItems().add(menu.createItemDrilling());
+            menu.getItems().add(menu.createItemCutGroove());
+            menu.getItems().add(menu.createItemThreading());
+            menu.getItems().add(menu.createItemRolling());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddChopOff());
-            menu.getItems().add(menu.createItemAddCutOffOnTheSaw());
-            menu.getItems().add(menu.createItemAddCutOff());
+            menu.getItems().add(menu.createItemChopOff());
+            menu.getItems().add(menu.createItemCutOffOnTheSaw());
+            menu.getItems().add(menu.createItemCutOff());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddPainting());
+            menu.getItems().add(menu.createItemPainting());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddPackFrame());
+            menu.getItems().add(menu.createItemPackTallCabinet());
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
         } else { //ПРОФИЛИ
-            menu.getItems().add(menu.createItemAddCutOffOnTheSaw());
-            menu.getItems().add(menu.createItemAddChopOff());
-            menu.getItems().add(menu.createItemAddDrillingByMarking());
-            menu.getItems().add(menu.createItemAddLocksmith());
+            menu.getItems().add(menu.createItemCutOffOnTheSaw());
+            menu.getItems().add(menu.createItemChopOff());
+            menu.getItems().add(menu.createItemDrillingByMarking());
+            menu.getItems().add(menu.createItemLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddPainting());
+            menu.getItems().add(menu.createItemPainting());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemAddPackFrame());
+            menu.getItems().add(menu.createItemPackTallCabinet());
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
         }

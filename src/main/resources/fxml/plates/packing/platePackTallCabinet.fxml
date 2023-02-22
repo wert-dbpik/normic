@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlatePackFrameController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlatePackTallCabinetController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -18,7 +18,7 @@
                   <Image url="@../../../pics/btns/operation.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="УПАКОВКА" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="УПАКОВКА ВЫСОКОГО ШКАФА" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -222,7 +222,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>
-            <Label text="T рез : ">
+            <Label text="T упак : ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

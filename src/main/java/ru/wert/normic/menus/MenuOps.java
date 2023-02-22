@@ -9,7 +9,9 @@ import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.list.PlateBendController;
 import ru.wert.normic.controllers.list.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.PlateLocksmithController;
-import ru.wert.normic.controllers.packing.PlatePackFrameController;
+import ru.wert.normic.controllers.packing.PlateMountOnPalletController;
+import ru.wert.normic.controllers.packing.PlatePackController;
+import ru.wert.normic.controllers.packing.PlatePackTallCabinetController;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.controllers.paint.PlatePaintController;
 import ru.wert.normic.controllers.locksmith.PlateChopOffController;
@@ -48,7 +50,7 @@ public class MenuOps extends ContextMenu {
 
 
     //ДОБАВИТЬ ДЕТАЛЬ
-    public MenuItem createItemAddDetail(){
+    public MenuItem createItemDetail(){
         MenuItem addDetail = new MenuItem("Добавить деталь");
         addDetail.setOnAction(event -> {
             OpDetail opDetail = new OpDetail();
@@ -58,7 +60,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ДОБАВИТЬ СБОРКУ
-    public MenuItem createItemAddAssm(){
+    public MenuItem createItemAssm(){
         MenuItem addAssm = new MenuItem("Добавить сборку");
         addAssm.setOnAction(event -> {
             OpAssm opAssm = new OpAssm();
@@ -67,9 +69,19 @@ public class MenuOps extends ContextMenu {
         return addAssm;
     }
 
+    //ДОБАВИТЬ УПАКОВКУ
+    public MenuItem createItemPack(){
+        MenuItem addPack = new MenuItem("Добавить упаковку");
+        addPack.setOnAction(event -> {
+            OpPack opPack = new OpPack();
+            addPackPlate(opPack);
+        });
+        return addPack;
+    }
+
 
     //РАСКРОЙ И ЗАЧИСТКА
-    public MenuItem createItemAddCutting(){
+    public MenuItem createItemCutting(){
         MenuItem addCutting = new MenuItem("Резка и зачистка");
         addCutting.setOnAction(event -> {
             if(isDuplicate(EOpType.CUTTING)) return ;
@@ -79,7 +91,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ГИБКА
-    public MenuItem createItemAddBending(){
+    public MenuItem createItemBending(){
         MenuItem addBending = new MenuItem("Гибка");
         addBending.setOnAction(event -> {
             if(isDuplicate(EOpType.BENDING)) return ;
@@ -90,7 +102,7 @@ public class MenuOps extends ContextMenu {
 
 
     //СЛЕСАРНЫЕ РАБОТЫ
-    public MenuItem createItemAddLocksmith(){
+    public MenuItem createItemLocksmith(){
         MenuItem addLocksmith = new MenuItem("Слесарные операции");
         addLocksmith.setOnAction(event -> {
             if(isDuplicate(EOpType.LOCKSMITH)) return ;
@@ -102,7 +114,7 @@ public class MenuOps extends ContextMenu {
     //==============================ТОКАРНЫЕ ОПЕРАЦИИ =======================
 
     //УСТАНОВКА / СНЯТИЕ детали
-    public MenuItem createItemAddMountDismount(){
+    public MenuItem createItemMountDismount(){
         MenuItem addMountDismount = new MenuItem("Установка и снятие детали");
         addMountDismount.setOnAction(event -> {
             if(isDuplicate(EOpType.CUT_OFF)) return ;
@@ -112,7 +124,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ТОЧЕНИЕ / РАСТАЧИВАНИЕ (многократное добавление)
-    public MenuItem createItemAddTurning(){
+    public MenuItem createItemTurning(){
         MenuItem addTurning = new MenuItem("Точение/растачивание");
         addTurning.setOnAction(event -> {
             addTurningPlate(new OpTurning());
@@ -121,7 +133,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
-    public MenuItem createItemAddCutGroove(){
+    public MenuItem createItemCutGroove(){
         MenuItem addCutGroove = new MenuItem("Прорезание паза");
         addCutGroove.setOnAction(event -> {
             addCutGroovePlate(new OpCutGroove());
@@ -130,7 +142,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ОТРЕЗАНИЕ
-    public MenuItem createItemAddCutOff(){
+    public MenuItem createItemCutOff(){
         MenuItem addCatOff = new MenuItem("Отрезание на токарном станке");
         addCatOff.setOnAction(event -> {
             addCutOffPlate(new OpCutOff());
@@ -139,7 +151,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ОТРЕЗАНИЕ НА ПИЛЕ
-    public MenuItem createItemAddCutOffOnTheSaw(){
+    public MenuItem createItemCutOffOnTheSaw(){
         MenuItem addCatOffOnTheSaw = new MenuItem("Отрезание на пиле");
         addCatOffOnTheSaw.setOnAction(event -> {
             addCutOffOnTheSawPlate(new OpCutOffOnTheSaw());
@@ -148,7 +160,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //ОТРУБАНИЕ
-    public MenuItem createItemAddChopOff(){
+    public MenuItem createItemChopOff(){
         MenuItem addChopOff = new MenuItem("Отрубание в размер");
         addChopOff.setOnAction(event -> {
             addChopOffPlate(new OpChopOff());
@@ -157,7 +169,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //НАРЕЗАНИЕ РЕЗЬБЫ (многократное добавление)
-    public MenuItem createItemAddThreading(){
+    public MenuItem createItemThreading(){
         MenuItem addThreading = new MenuItem("Нарезание резьбы");
         addThreading.setOnAction(event -> {
             addThreadingPlate(new OpThreading());
@@ -166,7 +178,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //СВЕРЛЕНИЕ ОТВЕРСТИЯ (многократное добавление)
-    public MenuItem createItemAddDrilling(){
+    public MenuItem createItemDrilling(){
         MenuItem addDrilling = new MenuItem("Сверление отверстия");
         addDrilling.setOnAction(event -> {
             addDrillingPlate(new OpDrilling());
@@ -175,7 +187,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //СВЕРЛЕНИЕ ОТВЕРСТИЯ ПО РАЗМЕТКЕ (многократное добавление)
-    public MenuItem createItemAddDrillingByMarking(){
+    public MenuItem createItemDrillingByMarking(){
         MenuItem addDrillingByMarking = new MenuItem("Сверление по разметке");
         addDrillingByMarking.setOnAction(event -> {
             addDrillingByMarkingPlate(new OpDrillingByMarking());
@@ -184,7 +196,7 @@ public class MenuOps extends ContextMenu {
     }
 
     //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
-    public MenuItem createItemAddRolling(){
+    public MenuItem createItemRolling(){
         MenuItem addRolling = new MenuItem("Накатывание рифления");
         addRolling.setOnAction(event -> {
             addRollingPlate(new OpRolling());
@@ -195,7 +207,7 @@ public class MenuOps extends ContextMenu {
     //=======================================================================
 
     //СВАРКА НЕПРЕРЫВНАЯ
-    public MenuItem createItemAddWeldLongSeam(){
+    public MenuItem createItemWeldLongSeam(){
         MenuItem addWeldLongSeam = new MenuItem("Сварка непрерывная");
         addWeldLongSeam.setOnAction(event -> {
             addWeldContinuousPlate(new OpWeldContinuous());
@@ -205,7 +217,7 @@ public class MenuOps extends ContextMenu {
 
 
     //СВАРКА ТОЧЕЧНАЯ
-    public MenuItem createItemAddWeldingDotted(){
+    public MenuItem createItemWeldingDotted(){
         MenuItem addWeldingDotted = new MenuItem("Сварка точечная");
         addWeldingDotted.setOnAction(event -> {
             if(isDuplicate(EOpType.WELD_DOTTED)) return ;
@@ -218,7 +230,7 @@ public class MenuOps extends ContextMenu {
     //=======================================================================
 
     //ПОКРАСКА
-    public MenuItem createItemAddPainting(){
+    public MenuItem createItemPainting(){
         MenuItem addPainting = new MenuItem("Покраска детали");
         addPainting.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINTING)) return ;
@@ -230,7 +242,7 @@ public class MenuOps extends ContextMenu {
 
 
     //ПОКРАСКА СБОРОЧНОЙ ЕДИНИЦЫ
-    public MenuItem createItemAddPaintAssm(){
+    public MenuItem createItemPaintAssm(){
         MenuItem addPaintAssm = new MenuItem("Покраска сборочной единицы");
         addPaintAssm.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINT_ASSM)) return ;
@@ -242,7 +254,7 @@ public class MenuOps extends ContextMenu {
 
     //=======================================================================
     //СБОРКА - КРЕПЕЖ
-    public MenuItem createItemAddAssmNuts(){
+    public MenuItem createItemAssmNuts(){
         MenuItem addAssmNuts = new MenuItem("Сборка крепежа");
         addAssmNuts.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_NUTS)) return ;
@@ -253,7 +265,7 @@ public class MenuOps extends ContextMenu {
 
 
     //СБОРКА - РАСКРОЙНЫЙ МАТЕРИАЛ
-    public MenuItem createItemAddAssmCuttings(){
+    public MenuItem createItemAssmCuttings(){
         MenuItem addAssmCuttings = new MenuItem("Сборка раскройного материала");
         addAssmCuttings.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_CUTTINGS)) return ;
@@ -264,7 +276,7 @@ public class MenuOps extends ContextMenu {
 
 
     //СБОРКА СТАНДАРТНЫХ УЗЛОВ
-    public MenuItem createItemAddAssmNodes(){
+    public MenuItem createItemAssmNodes(){
         MenuItem addAssmNodes = new MenuItem("Сборка стандартных узлов");
         addAssmNodes.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_NODES)) return ;
@@ -275,7 +287,7 @@ public class MenuOps extends ContextMenu {
 
 
     //НАНЕСЕНИЕ НАЛИВНОГО УПЛОТНИТЕЛЯ
-    public MenuItem createItemAddLevelingSealer(){
+    public MenuItem createItemLevelingSealer(){
         MenuItem addLevelingSealer = new MenuItem("Нанесение наливного утеплителя");
         addLevelingSealer.setOnAction(event -> {
             addLevelingSealerPlate(new OpLevelingSealer());
@@ -294,14 +306,22 @@ public class MenuOps extends ContextMenu {
         return false;
     }
     //=========================      УПАКОВКА    =================================
-    //УПАКОВКА КАРКАСА
-    public MenuItem createItemAddPackFrame(){
-        MenuItem addPackFrame = new MenuItem("Упаковка каркаса");
-        addPackFrame.setOnAction(event -> {
-            if(isDuplicate(EOpType.PACK_FRAME)) return ;
-            addPackFramePlate(new OpPackFrame());
+    //УПАКОВКА ВЫСОКОГО ШКАФА
+    public MenuItem createItemPackTallCabinet(){
+        MenuItem addPackTallCabinet = new MenuItem("Упаковка высокого шкафа");
+        addPackTallCabinet.setOnAction(event -> {
+            addPackTallCabinetPlate(new OpPackTallCabinet());
         });
-        return addPackFrame;
+        return addPackTallCabinet;
+    }
+
+    //КРЕПЛЕНИЕ К ПОДДОНУ
+    public MenuItem createItemMountOnPallet(){
+        MenuItem addMountOnPallet = new MenuItem("Крепление к поддону");
+        addMountOnPallet.setOnAction(event -> {
+            addMountOnPalletPlate(new OpMountOnPallet());
+        });
+        return addMountOnPallet;
     }
 
     /*==================================================================================================================
@@ -316,6 +336,9 @@ public class MenuOps extends ContextMenu {
                     break;
                 case ASSM:
                     addAssmPlate((OpAssm) op);
+                    break;
+                case PACK:
+                    addPackPlate((OpPack) op);
                     break;
                 case CUTTING:
                     addCattingPlate((OpCutting) op);
@@ -380,8 +403,11 @@ public class MenuOps extends ContextMenu {
                 case LEVELING_SEALER:
                     addLevelingSealerPlate((OpLevelingSealer) op);
                     break;
-                case PACK_FRAME:
-                    addPackFramePlate((OpPackFrame) op);
+                case PACK_CABINET:
+                    addPackTallCabinetPlate((OpPackTallCabinet) op);
+                    break;
+                case MOUNT_ON_PALLET:
+                    addMountOnPalletPlate((OpMountOnPallet) op);
                     break;
             }
         }
@@ -427,6 +453,28 @@ public class MenuOps extends ContextMenu {
                 if (op instanceof OpDetail || op instanceof OpAssm) index++;
                 else break;
             }
+            controller.init(formController, opData, index);
+            listViewTechOperations.getItems().add(index, box);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ДОБАВЛЕНИЕ УПАКОВКИ
+     */
+    public void addPackPlate(OpPack opData) {
+        try {
+            int index = 0;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/platePack.fxml"));
+            VBox box = loader.load();
+            PlatePackController controller = loader.getController();
+            for (OpData op : addedOperations) {
+                if (op instanceof OpDetail || op instanceof OpAssm || op instanceof OpPack) index ++;
+                else break;
+            }
+
             controller.init(formController, opData, index);
             listViewTechOperations.getItems().add(index, box);
 
@@ -766,13 +814,28 @@ public class MenuOps extends ContextMenu {
     /**
      * УПАКОВКА КАРКАСА
      */
-    public void addPackFramePlate(OpPackFrame opData) {
+    public void addPackTallCabinetPlate(OpPackTallCabinet opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/packing/platePackFrame.fxml"));
-            VBox packFrame = loader.load();
-            PlatePackFrameController controller = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/packing/platePackTallCabinet.fxml"));
+            VBox packTallCabinet = loader.load();
+            PlatePackTallCabinetController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
-            listViewTechOperations.getItems().add(packFrame);
+            listViewTechOperations.getItems().add(packTallCabinet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УПАКОВКА КАРКАСА
+     */
+    public void addMountOnPalletPlate(OpMountOnPallet opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/packing/plateMountOnPallet.fxml"));
+            VBox mountOnPallet = loader.load();
+            PlateMountOnPalletController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(mountOnPallet);
         } catch (IOException e) {
             e.printStackTrace();
         }

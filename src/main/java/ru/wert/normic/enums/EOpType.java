@@ -38,7 +38,9 @@ public enum EOpType {
     WELD_DOTTED,            //СВАРКА ТОЧЕЧНАЯ И ПРИХВАТКАМИ
 
     //УПАКОВКА
-    PACK_FRAME              //УПАКОВКА КАРКАСА
+    PACK,                   //УПАКОВКА
+    PACK_CABINET,           //УПАКОВКА КАРКАСА
+    MOUNT_ON_PALLET         //УСТАНОВКА НА ПАЛЛЕТ
 
     ;
 }

@@ -102,21 +102,23 @@ public class FormAssmController extends AbstractFormController {
 
         menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
 
-        menu.getItems().add(menu.createItemAddDetail());
-        menu.getItems().add(menu.createItemAddAssm());
+        menu.getItems().add(menu.createItemDetail());
+        menu.getItems().add(menu.createItemAssm());
+        menu.getItems().add(menu.createItemPack());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddPaintAssm());
+        menu.getItems().add(menu.createItemPaintAssm());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddWeldLongSeam());
-        menu.getItems().add(menu.createItemAddWeldingDotted());
+        menu.getItems().add(menu.createItemWeldLongSeam());
+        menu.getItems().add(menu.createItemWeldingDotted());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddAssmNuts());
-        menu.getItems().add(menu.createItemAddAssmCuttings());
-        menu.getItems().add(menu.createItemAddAssmNodes());
+        menu.getItems().add(menu.createItemAssmNuts());
+        menu.getItems().add(menu.createItemAssmCuttings());
+        menu.getItems().add(menu.createItemAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddLevelingSealer());
+        menu.getItems().add(menu.createItemLevelingSealer());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddPackFrame());
+        menu.getItems().add(menu.createItemPackTallCabinet());
+        menu.getItems().add(menu.createItemMountOnPallet());
 
         linkMenuToButton();
     }

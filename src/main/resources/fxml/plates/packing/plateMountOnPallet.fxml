@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.assembling.PlateAssmController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlateMountOnPalletController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/btns/operation.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="77.0" text="СБОРКА" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="КРЕПЛЕНИЕ НА ПОДДОН" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -27,26 +27,13 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfAssmName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="180.0" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin></TextField>
-            <Label fx:id="lblQuantity" text="КОЛ" textFill="#2f23d0">
-               <font>
-                  <Font name="System Bold Italic" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfN" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../pics/btns/help.png" />
+               </image>
+            </ImageView>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="ivEdit" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../pics/btns/edit.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                     </HBox.margin>
-                  </ImageView>
                   <ImageView fx:id="ivDeleteOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../pics/btns/close.png" />
@@ -55,12 +42,30 @@
                </children>
             </HBox>
          </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" spacing="10.0">
+         <children>
+            <Label text="T крепл. : ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfNormTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+            <Label fx:id="lblNormTimeMeasure" text="мин">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
+            <Insets />
          </VBox.margin>
       </HBox>
    </children>
    <padding>
-      <Insets left="5.0" right="5.0" />
+      <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
    </padding>
 </VBox>

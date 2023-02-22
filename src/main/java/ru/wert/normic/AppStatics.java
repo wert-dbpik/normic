@@ -27,7 +27,7 @@ public class AppStatics {
 
     public static List<KeyCode> KEYS_NOW_PRESSED; //Массив хранения нажатых клавиш
 
-    //Перечень операций, которые нельзя добавить в Деталь
+    //Перечень операций, которые можно добавить в Деталь
     public static final List<EOpType> DETAIL_OPERATIONS =
             Arrays.asList(CUTTING, BENDING, WELD_CONTINUOUS, WELD_DOTTED,
                     MOUNT_DISMOUNT, TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
@@ -35,19 +35,21 @@ public class AppStatics {
                     PAINTING
                    );
 
-    //Перечень операций, которые нельзя добавить в Сборку
+    //Перечень операций, которые можно добавить в Сборку
     public static final List<EOpType> ASSM_OPERATIONS =
             Arrays.asList(DETAIL, ASSM,
                     PAINT_ASSM,
                     WELD_CONTINUOUS, WELD_DOTTED,
                     ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES,
-                    LEVELING_SEALER);
+                    LEVELING_SEALER,
+                    PACK);
 
     //Перечень операций, которые м.б. продублированны
     public static final List<EOpType> DUPLICATED_OPERATIONS =
             Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,
                     TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
-                    DRILLING_BY_MARKING);
+                    DRILLING_BY_MARKING,
+                    PACK, PACK_CABINET, MOUNT_ON_PALLET);
 
     //Перечень допустимых операций по типу материала
     public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING,

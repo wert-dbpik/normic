@@ -22,7 +22,7 @@
                   <Insets />
                </HBox.margin>
             </ImageView>
-            <Label fx:id="lblOperationName" text="ДЕТАЛЬ" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="77.0" text="ДЕТАЛЬ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -40,16 +40,16 @@
                </font>
             </Label>
             <TextField fx:id="tfN" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
-            <ImageView fx:id="ivEdit" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../pics/btns/edit.png" />
-               </image>
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-            </ImageView>
             <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
+                  <ImageView fx:id="ivEdit" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../pics/btns/edit.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <ImageView fx:id="ivDeleteOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../pics/btns/close.png" />

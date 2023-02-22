@@ -4,6 +4,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Side;
 import javafx.scene.ImageCursor;
@@ -49,7 +51,7 @@ public abstract class AbstractFormController implements IForm {
     protected MenuOps menu;
     @Getter protected OpData opData;
     @Getter protected List<AbstractOpPlate> addedPlates = new ArrayList<>();
-    @Getter protected List<OpData> addedOperations = new ArrayList<>();
+    @Getter protected ObservableList<OpData> addedOperations = FXCollections.observableArrayList();
 
     @Getter protected DoubleProperty formAreaProperty = new SimpleDoubleProperty(0.0);
 

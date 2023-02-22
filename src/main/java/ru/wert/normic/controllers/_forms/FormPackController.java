@@ -1,6 +1,10 @@
 package ru.wert.normic.controllers._forms;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +26,7 @@ import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuOps;
+import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,10 +71,6 @@ public class FormPackController extends AbstractFormController {
         this.opData = (OpPack) opData;
         this.controller = controller;
 
-        new TFIntegerColored(tfWidth, null);
-        new TFIntegerColored(tfDepth, null);
-        new TFIntegerColored(tfHeight, null);
-
         //Создаем меню
         createMenu();
 
@@ -95,6 +96,31 @@ public class FormPackController extends AbstractFormController {
 
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
             countSumNormTimeByShops();
+        });
+
+        addedOperations.addListener((ListChangeListener<OpData>) c -> {
+            ((OpPack)opData).setOperations(addedOperations);
+        });
+
+        tfWidth.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpPack)opData).setWidth(IntegerParser.getValue(tfWidth));
+            for(AbstractOpPlate nc : addedPlates){
+                nc.countNorm(nc.getOpData());
+            }
+        });
+
+        tfDepth.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpPack)opData).setDepth(IntegerParser.getValue(tfDepth));
+            for(AbstractOpPlate nc : addedPlates){
+                nc.countNorm(nc.getOpData());
+            }
+        });
+
+        tfHeight.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpPack)opData).setHeight(IntegerParser.getValue(tfHeight));
+            for(AbstractOpPlate nc : addedPlates){
+                nc.countNorm(nc.getOpData());
+            }
         });
 
         ivErase.setOnMouseClicked(e->{

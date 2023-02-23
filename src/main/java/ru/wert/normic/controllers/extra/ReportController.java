@@ -34,6 +34,15 @@ public class ReportController {
     private double componentA; //Компонент полиэфирный А
     private double componentB; //Компонент изоцинат Б
 
+    //Расход на упаковку
+    private double cartoon;
+    private double stretchMachine;
+    private double stretchHand;
+    private double polyTape;
+    private double bubble;
+    private double duct;
+    private double pallet;
+
     public void init(OpAssm opAssm){
         this.opAssm = opAssm;
 
@@ -69,13 +78,7 @@ public class ReportController {
             addColorReport(ral1, ral2, ral3);
 
         //УПАКОВКА
-        double cartoon = collectPacksOverOperations(ops, CARTOON, 0.0);
-        double stretchMachine = collectPacksOverOperations(ops, EPacks.STRETCH_MACHINE, 0.0);
-        double stretchHand = collectPacksOverOperations(ops, STRETCH_HAND, 0.0);
-        double polyTape = collectPacksOverOperations(ops, EPacks.POLY, 0.0);
-        double bubble = collectPacksOverOperations(ops, EPacks.BUBBLE, 0.0);
-        double duct = collectPacksOverOperations(ops, EPacks.DUCT, 0.0);
-        double pallet = collectPacksOverOperations(ops, EPacks.PALLET, 0.0);
+        collectPack(ops);
 
         if(cartoon + stretchMachine + stretchHand + polyTape + bubble + duct + pallet != 0.0)
             addPackReport(cartoon, stretchMachine, stretchHand, polyTape, bubble, duct, pallet);
@@ -93,28 +96,147 @@ public class ReportController {
 
     }
 
-    private double collectPacksOverOperations(List<OpData> ops, EPacks pack, double res) {
+//==========   МАТЕРИАЛЫ  ===================================================
+
+    /**
+     * Добавить отчет по ИСПОЛЬЗУЕМЫМ МАТЕРИАЛАМ
+     */
+    private void addMaterialsReport() {
+        report.append("\n\n").append("МАТЕРИАЛЫ :\n");
+        for(Material m : materials.keySet()){
+            report.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
+        }
+    }
+
+    /**
+     * Сосчитать все МАТЕРИАЛЫ
+     */
+    private void collectMaterialsByOpData(List<OpData> ops) {
         for (OpData op : ops) {
-            if (op instanceof PackingData) {
-                switch(pack){
-                    case CARTOON : res += ((PackingData)op).getCartoon(); break;
-                    case STRETCH_MACHINE : res += ((PackingData)op).getStretchMachineWrap(); break;
-                    case STRETCH_HAND : res += ((PackingData)op).getStretchHandWrap(); break;
-                    case POLY : res += ((PackingData)op).getPolyWrap(); break;
-                    case BUBBLE : res += ((PackingData)op).getBubbleWrap(); break;
-                    case DUCT : res += ((PackingData)op).getDuctTape(); break;
-                    case PALLET : res += ((PackingData)op).getPallet(); break;
-                    default: break;
+            if (op instanceof OpDetail) {
+                Material m = ((OpDetail) op).getMaterial();
+                //Детали, если не открывать редактор детали, материала не содержат
+                if (m == null) continue;
+                if (materials.containsKey(m)) {
+                    //Прибавляем новый вес к полученному ранее мвтериалу
+                    double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity();
+                    materials.put(m, sumWeight);
+                } else {
+                    //Добавляем новый материал и массу
+                    materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
                 }
-            } else if (op instanceof IOpWithOperations) {
-                List<OpData> operations = ((IOpWithOperations) op).getOperations();
-                res += collectPacksOverOperations(operations, pack, res);
+            } else if (op instanceof OpAssm) {
+                List<OpData> operations = ((OpAssm) op).getOperations();
+                collectMaterialsByOpData(operations);
             }
 
         }
-        return res;
     }
 
+//==========   НАЛИВНОЙ УПЛОТНИТЕЛЬ  ===================================================
+
+    /**
+     * Добавить отчет по НАЛИВНОМУ УПЛОТНЕНИЮ
+     */
+    private void addLevelingSealerReport() {
+        report.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
+        report.append("Компонент полиэфирный\tА = ").append(componentA).append(" кг.\n");
+        report.append("Компонент изоцинат\t\tБ = ").append(componentB).append(" кг.\n");
+    }
+
+    /**
+     * Сосчитать матириалы по НАЛИВНОМУ УПЛОТНЕНИЮ
+     */
+    private void collectComponentsABByOpData(List<OpData> ops){
+        for (OpData op : ops) {
+            if(op instanceof OpAssm){
+                List<OpData> opsInAssm = ((OpAssm)op).getOperations();
+                collectComponentsABByOpData(opsInAssm);
+            }
+            else if(op instanceof OpLevelingSealer){
+                componentA += ((OpLevelingSealer) op).getCompA();
+                componentB += ((OpLevelingSealer) op).getCompB();
+            }
+        }
+    }
+
+//==========   ПОКРАСКА   ===================================================
+
+    /**
+     * Добавить отчет по РАСХОДУ КРАСКИ (начало)
+     */
+    private void addColorReport(List<Double> ral1, List<Double> ral2, List<Double> ral3) {
+        report.append("\n\n").append("ПОКРЫТИЕ :\n");
+        if(ral1.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_I);
+        if(ral2.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_II);
+        if(ral3.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_III);
+    }
+    /**
+     * Добавить отчет по РАСХОДУ КРАСКИ (по конкретной краске)
+     */
+    private void addRal1Report(List<Double> ral1, EColor color) {
+        report.append("Краска '")
+                .append(color.getRal())
+                .append("', площадь = ")
+                .append(ral1.get(0))
+                .append(" м2, ")
+                .append("расход = ")
+                .append(ral1.get(1))
+                .append(" кг.\n");
+    }
+
+    /**
+     * Сосчитать СУММАРНУЮ ПЛОЩАДЬ и РАСХОД краски
+     */
+    private List<Double> collectListOfOperationsInOpData(IOpWithOperations op, EColor color){
+        double area = 0.0;
+        double weight = 0.0;
+        for(OpData o : op.getOperations()){
+            if(o instanceof IOpWithOperations) {
+                List<Double> ress = collectListOfOperationsInOpData((IOpWithOperations) o, color);
+                area += ress.get(0);
+                weight += ress.get(1);
+            }else{
+                if(o instanceof OpPaint && ((OpPaint)o).getColor().equals(color)) {
+                    area += ((OpPaint) o).getArea() * op.getOpData().getQuantity();
+                    weight += ((OpPaint) o).getDyeWeight() * op.getOpData().getQuantity();
+                }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
+                    area += ((OpPaintAssm) o).getArea() * op.getOpData().getQuantity();
+                    weight += ((OpPaintAssm) o).getDyeWeight() * op.getOpData().getQuantity();
+                }
+            }
+
+        }
+        return Arrays.asList(area, weight);
+    }
+
+
+
+
+//==========   УПАКОВКА   ===================================================
+    /**
+     * Сосчитать всю упаковку
+     */
+    private void collectPack(List<OpData> ops) {
+        for (OpData op : ops) {
+            if (op instanceof OpAssm || op instanceof OpPack) {
+                List<OpData> opsInAssm = ((IOpWithOperations) op).getOperations();
+                collectPack(opsInAssm);
+            } else if (op instanceof PackingData) {
+                cartoon += ((PackingData) op).getCartoon();
+                stretchMachine += ((PackingData) op).getStretchMachineWrap();
+                stretchHand += ((PackingData) op).getStretchHandWrap();
+                polyTape += ((PackingData) op).getPolyWrap();
+                bubble += ((PackingData) op).getBubbleWrap();
+                duct += ((PackingData) op).getDuctTape();
+                pallet += ((PackingData) op).getPallet();
+            }
+        }
+    }
+
+    /**
+     * Добавить отчет по УПАКОВКЕ
+     */
     private void addPackReport(double cartoon, double stretchMachine, double stretchHand, double polyTape, double bubble, double duct, double pallet){
         report.append("\n\n").append("УПАКОВКА :\n");
         if (cartoon != 0.0)
@@ -147,6 +269,8 @@ public class ReportController {
                     .append(PALLET.getMeasuring()).append("\n");
     }
 
+//==========   НОРМЫ ВРЕМЕНИ   ===================================================
+
     private void addNormTimesReport(OpAssm opAssm) {
         report.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
         ETimeMeasurement tm = ETimeMeasurement.MIN;
@@ -168,100 +292,4 @@ public class ReportController {
             ).append(String.format(DOUBLE_FORMAT, opAssm.getPackTime() * k)).append(" ")
                     .append(tm.getName()).append("\n");
     }
-
-    private void addColorReport(List<Double> ral1, List<Double> ral2, List<Double> ral3) {
-        report.append("\n\n").append("ПОКРЫТИЕ :\n");
-        if(ral1.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_I);
-        if(ral2.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_II);
-        if(ral3.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_III);
-    }
-
-    private void addRal1Report(List<Double> ral1, EColor color) {
-        report.append("Краска '")
-                .append(color.getRal())
-                .append("', площадь = ")
-                .append(ral1.get(0))
-                .append(" м2, ")
-                .append("расход = ")
-                .append(ral1.get(1))
-                .append(" кг.\n");
-    }
-
-    private void addMaterialsReport() {
-        report.append("\n\n").append("МАТЕРИАЛЫ :\n");
-        for(Material m : materials.keySet()){
-            report.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
-        }
-    }
-
-    private void addLevelingSealerReport() {
-        report.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
-        report.append("Компонент полиэфирный\tА = ").append(componentA).append(" кг.\n");
-        report.append("Компонент изоцинат\t\tБ = ").append(componentB).append(" кг.\n");
-    }
-
-    /**
-     * Метод собирает материалы
-     * @param ops
-     */
-    private void collectMaterialsByOpData(List<OpData> ops) {
-        for (OpData op : ops) {
-            if (op instanceof OpDetail) {
-                Material m = ((OpDetail) op).getMaterial();
-                //Детали, если не открывать редактор детали, материала не содержат
-                if (m == null) continue;
-                if (materials.containsKey(m)) {
-                    //Прибавляем новый вес к полученному ранее мвтериалу
-                    double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity();
-                    materials.put(m, sumWeight);
-                } else {
-                    //Добавляем новый материал и массу
-                    materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
-                }
-            } else if (op instanceof OpAssm) {
-                List<OpData> operations = ((OpAssm) op).getOperations();
-                collectMaterialsByOpData(operations);
-            }
-
-        }
-    }
-
-    /**
-     *
-     */
-    private void collectComponentsABByOpData(List<OpData> ops){
-        for (OpData op : ops) {
-            if(op instanceof OpAssm){
-                List<OpData> opsInAssm = ((OpAssm)op).getOperations();
-                collectComponentsABByOpData(opsInAssm);
-            }
-            else if(op instanceof OpLevelingSealer){
-                componentA += ((OpLevelingSealer) op).getCompA();
-                componentB += ((OpLevelingSealer) op).getCompB();
-            }
-        }
-    }
-
-    private List<Double> collectListOfOperationsInOpData(IOpWithOperations op, EColor color){
-        double area = 0.0;
-        double weight = 0.0;
-        for(OpData o : op.getOperations()){
-            if(o instanceof IOpWithOperations) {
-                List<Double> ress = collectListOfOperationsInOpData((IOpWithOperations) o, color);
-                area += ress.get(0);
-                weight += ress.get(1);
-            }else{
-                if(o instanceof OpPaint && ((OpPaint)o).getColor().equals(color)) {
-                    area += ((OpPaint) o).getArea() * op.getOpData().getQuantity();
-                    weight += ((OpPaint) o).getDyeWeight() * op.getOpData().getQuantity();
-                }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
-                    area += ((OpPaintAssm) o).getArea() * op.getOpData().getQuantity();
-                    weight += ((OpPaintAssm) o).getDyeWeight() * op.getOpData().getQuantity();
-                }
-            }
-
-        }
-        return Arrays.asList(area, weight);
-    }
-
 }

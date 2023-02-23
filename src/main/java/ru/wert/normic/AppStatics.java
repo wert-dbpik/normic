@@ -37,12 +37,12 @@ public class AppStatics {
 
     //Перечень операций, которые можно добавить в Сборку
     public static final List<EOpType> ASSM_OPERATIONS =
-            Arrays.asList(DETAIL, ASSM,
+            Arrays.asList(DETAIL, ASSM, PACK,
                     PAINT_ASSM,
                     WELD_CONTINUOUS, WELD_DOTTED,
                     ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES,
-                    LEVELING_SEALER,
-                    PACK);
+                    LEVELING_SEALER
+                    );
 
     //Перечень операций, которые м.б. продублированны
     public static final List<EOpType> DUPLICATED_OPERATIONS =

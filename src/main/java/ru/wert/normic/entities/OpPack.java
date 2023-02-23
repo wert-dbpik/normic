@@ -26,7 +26,7 @@ public class OpPack extends OpData implements IOpWithOperations {
 
     public OpPack() {
         super.normType = ENormType.NORM_PACKING;
-        super.opType = EOpType.DETAIL;
+        super.opType = EOpType.PACK;
     }
 
     /**

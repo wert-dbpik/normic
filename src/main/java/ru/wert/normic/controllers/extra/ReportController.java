@@ -118,31 +118,31 @@ public class ReportController {
     private void addPackReport(double cartoon, double stretchMachine, double stretchHand, double polyTape, double bubble, double duct, double pallet){
         report.append("\n\n").append("УПАКОВКА :\n");
         if (cartoon != 0.0)
-            report.append(CARTOON.getName()).append(" = ")
+            report.append(CARTOON.getName())
                     .append(DECIMAL_FORMAT.format(cartoon)).append(" ")
                     .append(CARTOON.getMeasuring()).append("\n");
         if (stretchMachine != 0.0)
-            report.append(STRETCH_MACHINE.getName()).append(" = ")
+            report.append(STRETCH_MACHINE.getName())
                     .append(DECIMAL_FORMAT.format(stretchMachine)).append(" ")
                     .append(STRETCH_MACHINE.getMeasuring()).append("\n");
         if (stretchHand != 0.0)
-            report.append(STRETCH_HAND.getName()).append(" = ")
+            report.append(STRETCH_HAND.getName())
                     .append(DECIMAL_FORMAT.format(stretchHand)).append(" ")
                     .append(STRETCH_HAND.getMeasuring()).append("\n");
         if (polyTape != 0.0)
-            report.append(POLY.getName()).append(" = ")
+            report.append(POLY.getName())
                     .append(DECIMAL_FORMAT.format(polyTape)).append(" ")
                     .append(POLY.getMeasuring()).append("\n");
         if (bubble != 0.0)
-            report.append(BUBBLE.getName()).append(" = ")
+            report.append(BUBBLE.getName())
                     .append(DECIMAL_FORMAT.format(bubble)).append(" ")
                     .append(BUBBLE.getMeasuring()).append("\n");
         if (duct != 0.0)
-            report.append(DUCT.getName()).append(" = ")
+            report.append(DUCT.getName())
                     .append(DECIMAL_FORMAT.format(duct)).append(" ")
                     .append(DUCT.getMeasuring()).append("\n");
         if (pallet != 0.0)
-            report.append(PALLET.getName()).append(" = ")
+            report.append(PALLET.getName())
                     .append(DECIMAL_FORMAT.format(pallet)).append(" ")
                     .append(PALLET.getMeasuring()).append("\n");
     }
@@ -226,6 +226,9 @@ public class ReportController {
         }
     }
 
+    /**
+     *
+     */
     private void collectComponentsABByOpData(List<OpData> ops){
         for (OpData op : ops) {
             if(op instanceof OpAssm){

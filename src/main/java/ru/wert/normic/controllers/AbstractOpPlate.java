@@ -47,7 +47,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
 //    protected FormDetailController detailController;
     protected OpData opData;
 
-    public void setOpData(OpDetail opData){
+    public void setOpData(OpData opData){
         this.opData = opData;
     }
 

@@ -181,7 +181,7 @@ public class ReportController {
                 .append(ral1.get(0))
                 .append(" м2, ")
                 .append("расход = ")
-                .append(ral1.get(1))
+                .append(DECIMAL_FORMAT.format(ral1.get(1)))
                 .append(" кг.\n");
     }
 
@@ -276,20 +276,20 @@ public class ReportController {
         ETimeMeasurement tm = ETimeMeasurement.MIN;
         double k = 1.0;
         if (opAssm.getMechTime() != 0.0)
-            report.append("Изготовление : ")
-                    .append(String.format(DOUBLE_FORMAT, opAssm.getMechTime() * k)).append(" ")
+            report.append("Изготовление \t: ")
+                    .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append(" ")
                     .append(tm.getName()).append("\n");
         if (opAssm.getPaintTime() != 0.0)
-            report.append("Покраска \t: ")
-                    .append(String.format(DOUBLE_FORMAT, opAssm.getPaintTime() * k)).append(" ")
+            report.append("Покраска \t\t: ")
+                    .append(DECIMAL_FORMAT.format(opAssm.getPaintTime() * k)).append(" ")
                     .append(tm.getName()).append("\n");
         if (opAssm.getAssmTime() != 0.0)
-            report.append("Сборка \t\t: ")
-                    .append(String.format(DOUBLE_FORMAT, opAssm.getAssmTime() * k)).append(" ")
+            report.append("Сборка \t\t\t: ")
+                    .append(DECIMAL_FORMAT.format(opAssm.getAssmTime() * k)).append(" ")
                     .append(tm.getName()).append("\n");
         if (opAssm.getPackTime() != 0.0)
-            report.append("Упаковка \t: "
-            ).append(String.format(DOUBLE_FORMAT, opAssm.getPackTime() * k)).append(" ")
+            report.append("Упаковка \t\t: "
+            ).append(DECIMAL_FORMAT.format(opAssm.getPackTime() * k)).append(" ")
                     .append(tm.getName()).append("\n");
     }
 }

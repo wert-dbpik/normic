@@ -47,7 +47,6 @@ public class Decoration {
         this.resizable = resizable;
         this.decorationId = decorationId;
         this.shift = shift;
-        log.debug("{} создан", this.getClass().getSimpleName());
         createWindow(owner);
     }
 

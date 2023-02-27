@@ -14,7 +14,7 @@
     -fx-text-fill: #4f412f;
 }
 
-#main, #assm, #detail, #report, #settings{
+#main, #assm, #detail, #report, #settings, #executions{
     -fx-background-color: #f8f1db;
 }
 

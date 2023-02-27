@@ -41,6 +41,7 @@ public class MaterialACCLoader {
                     false,
                     (Stage)tableView.getScene().getWindow(),
                     "decoration-settings",
+                    false,
                     false);
 
 

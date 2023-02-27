@@ -55,6 +55,7 @@ public class StartNormic extends Application {
                     true,
                     null,
                     "decoration-main",
+                    false,
                     false);
 
             MAIN_STAGE = windowDecoration.getWindow();

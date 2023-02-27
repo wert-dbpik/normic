@@ -79,7 +79,8 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
                         false,
                         (Stage) lblOperationName.getScene().getWindow(),
                         "decoration-detail",
-                        true);
+                        true,
+                        false);
                 ImageView closer = windowDecoration.getImgCloseWindow();
                 closer.setOnMousePressed(ev -> collectOpData(opData));
             } catch (IOException ex) {

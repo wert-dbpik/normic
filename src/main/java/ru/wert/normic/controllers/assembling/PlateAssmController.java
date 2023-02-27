@@ -97,7 +97,8 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
                         false,
                         (Stage) lblOperationName.getScene().getWindow(),
                         "decoration-assm",
-                        true);
+                        true,
+                        false);
                 ImageView closer = windowDecoration.getImgCloseWindow();
                 closer.setOnMousePressed(ev -> collectOpData(opData));
             } catch (IOException ex) {

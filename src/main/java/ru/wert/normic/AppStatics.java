@@ -19,6 +19,12 @@ public class AppStatics {
     //Текущая версия программы
     public static final String PROJECT_VERSION = "1.0";
 
+    //Шаблоны для децимальных номеров
+    public static final String DEC_NUMBER = "\\d{6}[.]\\d{3}";// XXXXXX.XXX
+    public static final String DEC_NUMBER_WITH_EXT = "\\d{6}[.]\\d{3}[-]\\d{2,3}";// XXXXXX.XXX-ХХ(Х)
+    public static final String SKETCH_NUMBER = "Э\\d{5}";// ЭХХХХХ
+    public static final String SKETCH_NUM_WITH_EXT = "[Э]\\d{5}[-]\\d{2}";// ЭХХХХХ-ХХ
+
     //Комбобокс, где переключается единица измерения (мин, сек)
     public static ComboBox<ETimeMeasurement> MEASURE;
 

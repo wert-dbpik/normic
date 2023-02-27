@@ -24,6 +24,7 @@ import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.settings.AppColor;
+import ru.wert.normic.excel.ExcelImporter;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuOps;
 import ru.wert.normic.components.BXTimeMeasurement;
@@ -66,7 +67,7 @@ public class MainController extends AbstractFormController {
     private Button btnAddOperation;
 
     @FXML
-    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnConstants, btnMaterials;
+    private Button btnSave, btnErase, btnOpen, btnReport, btnColors, btnConstants, btnMaterials, btnImportExcel;
 
     @FXML
     private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;
@@ -140,13 +141,34 @@ public class MainController extends AbstractFormController {
         btnMaterials.setTooltip(new Tooltip("Материалы"));
         btnMaterials.setOnAction(this::materials);
 
+        //ИМПОРТ EXCEL
+        btnImportExcel.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32,32, true, true)));
+        btnImportExcel.setTooltip(new Tooltip("Импорт Excel"));
+        btnImportExcel.setOnAction(this::importExcel);
+
 
         cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
             lblTimeMeasure.setText(newValue.getName());
             countSumNormTimeByShops();
         });
 
+    }
 
+    private void importExcel(ActionEvent e) {
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы EXCEL (.xlsx)", "*.xlsx"));
+        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
+        if(file == null) return;
+        clearAll(e);
+        try {
+            opData = new ExcelImporter().convertOpAssmFromExcel(file);
+            createMenu();
+            menu.deployData();
+            countSumNormTimeByShops();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
 
     }
 
@@ -211,7 +233,8 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)e.getSource()).getScene().getWindow(),
                     "decoration-report",
-                    true);
+                    true,
+                    false);
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -234,6 +257,7 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)e.getSource()).getScene().getWindow(),
                     "decoration-settings",
+                    false,
                     false);
 
             decoration.getImgCloseWindow().setOnMousePressed(ev->{
@@ -261,6 +285,7 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)event.getSource()).getScene().getWindow(),
                     "decoration-settings",
+                    false,
                     false);
         } catch (IOException e) {
             e.printStackTrace();
@@ -281,6 +306,7 @@ public class MainController extends AbstractFormController {
                     false,
                     (Stage) ((Node)event.getSource()).getScene().getWindow(),
                     "decoration-settings",
+                    false,
                     false);
         } catch (IOException e) {
             e.printStackTrace();

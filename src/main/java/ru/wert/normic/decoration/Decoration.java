@@ -36,17 +36,28 @@ public class Decoration {
     private boolean shift;
     private String decorationId;
 
+//    /**
+//     * Конструктор
+//     * 0 - С указанием ожидания
+//     */
+//    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, boolean shift, boolean waiting){
+//        this(headerName,rootPane, resizable, owner, decorationId, shift);
+//        this.waiting = waiting;
+//
+//    }
+
 //=============================================    НАЧАЛО    =========================================================
     /**
      * Конструктор
      * 1 - С указанием владельца
      */
-    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, boolean shift){
+    public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, boolean shift, boolean waiting){
         this.headerName = headerName;
         this.rootPane = rootPane;
         this.resizable = resizable;
         this.decorationId = decorationId;
         this.shift = shift;
+        this.waiting = waiting;
         createWindow(owner);
     }
 

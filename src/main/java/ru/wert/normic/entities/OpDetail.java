@@ -38,4 +38,6 @@ public class OpDetail extends OpData implements IOpWithOperations {
     public OpData getOpData() {
         return this;
     }
+
+
 }

@@ -131,7 +131,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         }
 
         if(tfNormTime != null){
-            tfNormTime.setText(String.format(format,time));
+            tfNormTime.setText(String.format(format,time).trim());
             lblNormTimeMeasure.setText(measure);
         }
 

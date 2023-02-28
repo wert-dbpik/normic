@@ -437,12 +437,12 @@ public class MainController extends AbstractFormController {
         String format = DOUBLE_FORMAT;
         if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
-        tfMechanicalTime.setText(String.format(format, mechanicalTime));
-        tfPaintingTime.setText(String.format(format, paintingTime));
-        tfAssemblingTime.setText(String.format(format, assemblingTime));
-        tfPackingTime.setText(String.format(format, packingTime));
+        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
+        tfPaintingTime.setText(String.format(format, paintingTime).trim());
+        tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
+        tfPackingTime.setText(String.format(format, packingTime).trim());
 
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime));
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
 
         lblTimeMeasure.setText(measure);
 

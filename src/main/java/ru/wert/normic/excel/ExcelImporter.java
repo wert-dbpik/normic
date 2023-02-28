@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.wert.normic.entities.OpAssm;
+import ru.wert.normic.entities.OpCutting;
+import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.OpDetail;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EMatType;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.MATERIALS;
+import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 
 public class ExcelImporter {
 
@@ -83,8 +86,12 @@ public class ExcelImporter {
                                 matType = EMatType.getTypeByName(mat.getMatType().getName());
                                 detail.setMaterial(mat);
                                 detail.setParamA(Integer.parseInt(row.getParamA()));
-                                if(matType.equals(EMatType.LIST))
+                                if(matType.equals(EMatType.LIST)) {
                                     detail.setParamB(Integer.parseInt(row.getParamB()));
+                                    OpCutting opCutting = new OpCutting();
+                                    detail.getOperations().add(opCutting);
+
+                                }
                             }
                         }
                         ((IOpWithOperations) currentOpData).getOperations().add(detail);
@@ -121,7 +128,9 @@ public class ExcelImporter {
         return  startOpData;
     }
 
+    private void recountAll(){
 
+    }
 }
 
 @Getter

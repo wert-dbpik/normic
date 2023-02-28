@@ -34,6 +34,7 @@ import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.settings.ProductSettings;
+import ru.wert.normic.utils.AppFiles;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 
@@ -160,9 +161,11 @@ public class MainController extends AbstractFormController {
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
         File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
         if(file == null) return;
+
+        File copied = AppFiles.getInstance().createTempCopyOfFile(file);
         clearAll(e);
         try {
-            OpAssm newOpData = new ExcelImporter().convertOpAssmFromExcel(file);
+            OpAssm newOpData = new  ExcelImporter().convertOpAssmFromExcel(copied);
             if(newOpData != null) opData = newOpData;
             else return;
             createMenu();

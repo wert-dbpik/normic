@@ -129,5 +129,4 @@ public class ExcelImporter {
 class LevelAssemble{
     private int level;
     private OpAssm assm;
-
 }

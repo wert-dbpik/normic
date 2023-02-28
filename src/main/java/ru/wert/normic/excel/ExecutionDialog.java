@@ -17,11 +17,12 @@ import java.util.stream.IntStream;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 public class ExecutionDialog {
+
     private static Integer execution;
 
 
     public static Integer create(ObservableList<EditorRow.Execution> executions){
-        execution = -1;
+        execution = null;
         try {
             FXMLLoader loader = new FXMLLoader(ExecutionDialog.class.getResource("/fxml/extra/executions.fxml"));
             Parent parent = loader.load();
@@ -43,11 +44,17 @@ public class ExecutionDialog {
 
             Button btnCancel = (Button)parent.lookup("#btnCancel");
             btnCancel.setOnAction((event -> {
-                execution = -1;
+                execution = null;
                 ((Node)event.getSource()).getScene().getWindow().hide();
             }));
 
-            new Decoration("Исполнение", parent, false, MAIN_STAGE, "main", false, true);
+            new Decoration("Исполнение",
+                    parent,
+                    false,
+                    MAIN_STAGE,
+                    "decoration-settings",
+                    false,
+                    true);
 
         } catch (IOException e) {
             e.printStackTrace();

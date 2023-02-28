@@ -204,17 +204,17 @@ public class POIReader {
         ObservableList<EditorRow> editorRowData = FXCollections.observableArrayList();
         for(int i = 0; i < data.size(); i ++){
             List<String> row = new ArrayList<>(data.get(i));
-            EditorRow mc = new EditorRow();
-            mc.setColor(row.get(0));
-            mc.setRowNumber(splitDotZero(row.get(modelColNames.get(ROW_NUM.toString()))));
-            mc.setKrp(row.get(modelColNames.get(KRP.toString())));
-            mc.setDecNumber(row.get(modelColNames.get(DEC_NUM.toString())));
-            mc.setName(row.get(modelColNames.get(NAME.toString())));
+            EditorRow editorRow = new EditorRow();
+            editorRow.setColor(row.get(0));
+            editorRow.setRowNumber(splitDotZero(row.get(modelColNames.get(ROW_NUM.toString()))));
+            editorRow.setKrp(row.get(modelColNames.get(KRP.toString())));
+            editorRow.setDecNumber(row.get(modelColNames.get(DEC_NUM.toString())));
+            editorRow.setName(row.get(modelColNames.get(NAME.toString())));
             if (colLaсquerExist)
-                mc.setLacquer(row.get(modelColNames.get(LACQUER.toString())));
-            mc.setCoat(row.get(modelColNames.get(COAT.toString())));
+                editorRow.setLacquer(row.get(modelColNames.get(LACQUER.toString())));
+            editorRow.setCoat(row.get(modelColNames.get(COAT.toString())));
             if(colZpcExist)
-                mc.setZcp(row.get(modelColNames.get(ZCP.toString())));
+                editorRow.setZcp(row.get(modelColNames.get(ZCP.toString())));
 
             //Прописываем количество элементов для всех исполнений таблицы
             ArrayList<EditorRow.Execution> exs = new ArrayList<>();
@@ -227,14 +227,14 @@ public class POIReader {
                 EditorRow.Execution exx = new EditorRow.Execution(exId, am, amAs);
                 exs.add(exx);
             }
-            mc.setExecutions(exs);
+            editorRow.setExecutions(exs);
 
-            mc.setFolder(row.get(modelColNames.get(FOLDER.toString())));
-            mc.setMaterial(row.get(modelColNames.get(MATERIAL.toString())));
-            mc.setParamA(splitDotZero(row.get(modelColNames.get(A.toString()))));
-            mc.setParamB(splitDotZero(row.get(modelColNames.get(B.toString()))));
+            editorRow.setFolder(row.get(modelColNames.get(FOLDER.toString())));
+            editorRow.setMaterial(row.get(modelColNames.get(MATERIAL.toString())));
+            editorRow.setParamA(splitDotZero(row.get(modelColNames.get(A.toString()))));
+            editorRow.setParamB(splitDotZero(row.get(modelColNames.get(B.toString()))));
 
-            editorRowData.add(mc);
+            editorRowData.add(editorRow);
         }
 
 

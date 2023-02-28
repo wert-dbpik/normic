@@ -162,7 +162,9 @@ public class MainController extends AbstractFormController {
         if(file == null) return;
         clearAll(e);
         try {
-            opData = new ExcelImporter().convertOpAssmFromExcel(file);
+            OpAssm newOpData = new ExcelImporter().convertOpAssmFromExcel(file);
+            if(newOpData != null) opData = newOpData;
+            else return;
             createMenu();
             menu.deployData();
             countSumNormTimeByShops();

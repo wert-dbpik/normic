@@ -9,8 +9,8 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.opLocksmith.OpDrillingByMarking;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.utils.IntegerParser;
 

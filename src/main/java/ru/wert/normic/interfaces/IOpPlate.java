@@ -1,7 +1,7 @@
 package ru.wert.normic.interfaces;
 
 
-import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.ops.OpData;
 
 /**
  * Интерфейс верхнего уровня, описывает все операции, добавленные в лист операций

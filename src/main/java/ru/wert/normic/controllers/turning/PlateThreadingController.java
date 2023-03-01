@@ -10,8 +10,8 @@ import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.opTurning.OpThreading;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opTurning.OpThreading;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;

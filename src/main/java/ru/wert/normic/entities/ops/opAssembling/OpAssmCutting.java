@@ -1,0 +1,25 @@
+package ru.wert.normic.entities.ops.opAssembling;
+
+import lombok.Getter;
+import lombok.Setter;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.ENormType;
+import ru.wert.normic.enums.EOpType;
+
+/**
+ * СБОРКА РАСКРОЙНЫХ МАТЕРИАЛОВ
+ */
+@Getter
+@Setter
+public class OpAssmCutting extends OpData {
+
+
+    private Double sealer = 0.0;
+    private Double selfAdhSealer = 0.0;
+    private Double insulation = 0.0;
+
+    public OpAssmCutting() {
+        super.normType = ENormType.NORM_ASSEMBLING;
+        super.opType = EOpType.ASSM_CUTTINGS;
+    }
+}

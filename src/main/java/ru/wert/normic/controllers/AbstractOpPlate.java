@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
-import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpPlate;
 

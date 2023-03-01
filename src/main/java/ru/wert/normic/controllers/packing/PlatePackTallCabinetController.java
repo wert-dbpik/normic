@@ -10,8 +10,8 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.opPack.OpPackTallCabinet;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPackTallCabinet;
 import ru.wert.normic.utils.IntegerParser;
 
 /**

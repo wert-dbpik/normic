@@ -8,8 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.opLocksmith.OpChopOff;
-import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EMeasure;
 
 import java.util.NoSuchElementException;

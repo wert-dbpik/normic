@@ -14,8 +14,8 @@ import lombok.Setter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.opPack.OpPack;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPack;
 import ru.wert.normic.interfaces.IOpPlate;
 
 import java.io.IOException;

@@ -10,8 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.welding.OpWeldContinuous;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
 

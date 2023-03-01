@@ -9,8 +9,8 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.opAssm.OpAssmCutting;
-import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.DoubleParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;

@@ -12,8 +12,8 @@ import ru.wert.normic.components.CmBx;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.opAssm.OpLevelingSealer;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 

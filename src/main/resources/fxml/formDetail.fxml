@@ -38,7 +38,7 @@
             <Insets />
          </VBox.margin>
       </Separator>
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <Label text="Материал:">
                <font>
@@ -46,7 +46,10 @@
                </font>
             </Label>
             <ComboBox fx:id="cmbxMaterial" maxWidth="1.7976931348623157E308" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="0.0" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="0.0">
+               <children>
+                  <Button fx:id="btnAddMaterial" mnemonicParsing="false" />
+               </children></HBox>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" top="5.0" />

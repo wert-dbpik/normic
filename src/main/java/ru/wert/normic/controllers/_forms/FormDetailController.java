@@ -1,16 +1,22 @@
 package ru.wert.normic.controllers._forms;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -22,8 +28,10 @@ import ru.wert.normic.entities.db_connection.material.Material;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -44,6 +52,9 @@ public class FormDetailController extends AbstractFormController {
 
     @FXML @Getter
     private Button btnAddOperation;
+
+    @FXML
+    private Button btnAddMaterial;
 
     @FXML
     private ImageView ivErase;
@@ -69,6 +80,7 @@ public class FormDetailController extends AbstractFormController {
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue == null) return;
             mountMatPatch(newValue);
             createMenu();
             matPatchController.countWeightAndArea();
@@ -130,6 +142,34 @@ public class FormDetailController extends AbstractFormController {
     }
 
     private void initViews() {
+        btnAddMaterial.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 18,18, true, true)));
+        btnAddMaterial.setTooltip(new Tooltip("Добавить материал"));
+        btnAddMaterial.setOnAction(e->{
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialsTV.fxml"));
+                Parent parent = loader.load();
+                Decoration decoration = new Decoration(
+                        "МАТЕРИАЛЫ",
+                        parent,
+                        false,
+                        (Stage) ((Node)e.getSource()).getScene().getWindow(),
+                        "decoration-settings",
+                        false,
+                        false);
+
+                decoration.getWindow().setOnHiding(r->{
+                    Material chosenMaterial = cmbxMaterial.getValue();
+                    ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
+                    materials.sort(Comparator.comparing(Material::getName));
+                    cmbxMaterial.getItems().clear();
+                    cmbxMaterial.getItems().addAll(materials);
+                    if(!materials.contains(chosenMaterial)) chosenMaterial = materials.get(0);
+                    cmbxMaterial.getSelectionModel().select(chosenMaterial);
+                });
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
             countSumNormTimeByShops();

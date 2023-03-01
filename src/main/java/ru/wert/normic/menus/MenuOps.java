@@ -550,7 +550,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addTurningPlate(OpTurning opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateTurning.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateTurning.fxml"));
             VBox turning = loader.load();
             PlateTurningController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -565,7 +565,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addCutOffPlate(OpCutOff opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateCutOff.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutOff.fxml"));
             VBox cutOff = loader.load();
             PlateCutOffController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -610,7 +610,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addCutGroovePlate(OpCutGroove opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateCutGroove.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutGroove.fxml"));
             VBox cutGroove = loader.load();
             PlateCutGrooveController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -625,7 +625,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addThreadingPlate(OpThreading opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateThreading.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateThreading.fxml"));
             VBox threading = loader.load();
             PlateThreadingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -640,7 +640,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addDrillingPlate(OpDrilling opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateDrilling.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateDrilling.fxml"));
             VBox drilling = loader.load();
             PlateDrillingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -670,7 +670,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addRollingPlate(OpRolling opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateRolling.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateRolling.fxml"));
             VBox rolling = loader.load();
             PlateRollingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
@@ -685,7 +685,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addMountDismountPlate(OpMountDismount opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning_operations/plateMountDismount.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateMountDismount.fxml"));
             VBox mountDismount = loader.load();
             PlateMountDismountController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());

@@ -14,6 +14,7 @@ import ru.wert.normic.excel.model.EditorRow;
 import ru.wert.normic.excel.model.POIReader;
 import ru.wert.normic.excel.model.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.materials.matlPatches.MaterialMaster;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.List;
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
+import static ru.wert.normic.controllers.AbstractOpPlate.MM3_TO_M3;
 
 public class ExcelImporter {
 
@@ -88,9 +90,18 @@ public class ExcelImporter {
                                 detail.setParamA(Integer.parseInt(row.getParamA()));
                                 if(matType.equals(EMatType.LIST)) {
                                     detail.setParamB(Integer.parseInt(row.getParamB()));
+                                    detail.setArea(MaterialMaster.countListArea(detail));
+                                    detail.setWeight(MaterialMaster.countListWeight(detail, mat));
+                                    //Вырезание детали
                                     OpCutting opCutting = new OpCutting();
                                     detail.getOperations().add(opCutting);
 
+                                } else if (matType.equals(EMatType.ROUND)){
+                                    detail.setArea(MaterialMaster.countRoundArea(detail, mat));
+                                    detail.setWeight(MaterialMaster.countRoundWeight(detail, mat));
+                                } else if (matType.equals(EMatType.PROFILE)){
+                                    detail.setArea(MaterialMaster.countProfileArea(detail, mat));
+                                    detail.setWeight(MaterialMaster.countProfileWeight(detail, mat));
                                 }
                             }
                         }

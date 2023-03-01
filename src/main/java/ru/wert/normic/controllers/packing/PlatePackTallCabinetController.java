@@ -11,7 +11,7 @@ import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpPackTallCabinet;
+import ru.wert.normic.entities.opPack.OpPackTallCabinet;
 import ru.wert.normic.utils.IntegerParser;
 
 /**

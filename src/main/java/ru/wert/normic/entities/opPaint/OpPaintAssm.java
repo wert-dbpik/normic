@@ -1,7 +1,8 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opPaint;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;

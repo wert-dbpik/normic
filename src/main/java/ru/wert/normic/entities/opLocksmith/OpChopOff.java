@@ -1,7 +1,8 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opLocksmith;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 

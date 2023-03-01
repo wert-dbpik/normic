@@ -17,6 +17,7 @@ import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.opAssm.OpDetail;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;

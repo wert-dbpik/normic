@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpWeldContinuous;
+import ru.wert.normic.entities.welding.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
 

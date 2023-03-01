@@ -1,4 +1,4 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opPack;
 
 public interface PackingData {
 

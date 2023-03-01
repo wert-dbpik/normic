@@ -11,7 +11,7 @@ import lombok.Getter;
 import ru.wert.normic.components.BXSawType;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.OpCutOffOnTheSaw;
+import ru.wert.normic.entities.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.enums.ESawType;

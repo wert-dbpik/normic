@@ -1,4 +1,4 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opTurning;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,14 +8,14 @@ import ru.wert.normic.enums.EOpType;
 
 @Getter
 @Setter
-public class OpDrilling extends OpData {
+public class OpRolling extends OpData {
 
     private Integer diameter = 0; //отрезание детали сплошного сечения
     private Integer length = 0; //количество токарных проходов
 
 
-    public OpDrilling() {
+    public OpRolling() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.DRILLING;
+        super.opType = EOpType.ROLLING;
     }
 }

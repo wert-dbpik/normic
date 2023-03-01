@@ -1,25 +1,34 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opAssm;
+
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class OpAssm extends OpData  implements IOpWithOperations {
+public class OpDetail extends OpData implements IOpWithOperations {
 
     private String name = null;
+    private Material material = null;
+    private Integer paramA = 0;
+    private Integer paramB = 0;
+    private double wasteRatio = 1.1;
+    private double weight = 0.0;
     private double area = 0.0;
     private List<OpData> operations = new ArrayList<>();
 
-    public OpAssm() {
-        super.normType = ENormType.NORM_ASSEMBLE;
-        super.opType = EOpType.ASSM;
+    public OpDetail() {
+        super.normType = ENormType.NORM_DETAIL;
+        super.opType = EOpType.DETAIL;
     }
 
     /**
@@ -30,4 +39,6 @@ public class OpAssm extends OpData  implements IOpWithOperations {
     public OpData getOpData() {
         return this;
     }
+
+
 }

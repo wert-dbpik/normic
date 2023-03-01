@@ -1,7 +1,9 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opPack;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.OpData;
+import ru.wert.normic.entities.opPack.PackingData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
@@ -10,7 +12,7 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpMountOnPallet extends OpData implements PackingData{
+public class OpMountOnPallet extends OpData implements PackingData {
 
 
     private double cartoon = 0.0;

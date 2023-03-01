@@ -1,8 +1,9 @@
-package ru.wert.normic.entities;
+package ru.wert.normic.entities.opPack;
 
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.OpData;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;

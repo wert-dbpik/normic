@@ -9,7 +9,7 @@ import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpMountDismount;
+import ru.wert.normic.entities.opTurning.OpMountDismount;
 
 import java.util.NoSuchElementException;
 

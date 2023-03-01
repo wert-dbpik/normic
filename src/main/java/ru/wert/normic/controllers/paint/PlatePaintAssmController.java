@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpPaintAssm;
+import ru.wert.normic.entities.opPaint.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.DoubleParser;

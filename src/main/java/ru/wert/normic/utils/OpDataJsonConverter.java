@@ -7,6 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ru.wert.normic.entities.*;
+import ru.wert.normic.entities.opAssm.*;
+import ru.wert.normic.entities.opList.OpBending;
+import ru.wert.normic.entities.opList.OpCutting;
+import ru.wert.normic.entities.opLocksmith.OpLocksmith;
+import ru.wert.normic.entities.opPaint.OpPaint;
+import ru.wert.normic.entities.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.welding.OpWeldContinuous;
+import ru.wert.normic.entities.welding.OpWeldDotted;
 
 import java.util.ArrayList;
 import java.util.List;

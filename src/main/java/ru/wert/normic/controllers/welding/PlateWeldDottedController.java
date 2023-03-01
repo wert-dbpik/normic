@@ -10,7 +10,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpWeldDotted;
+import ru.wert.normic.entities.welding.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;

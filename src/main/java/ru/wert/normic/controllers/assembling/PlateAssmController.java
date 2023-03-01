@@ -15,9 +15,9 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.OpAssm;
+import ru.wert.normic.entities.opAssm.OpAssm;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpDetail;
+import ru.wert.normic.entities.opAssm.OpDetail;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 

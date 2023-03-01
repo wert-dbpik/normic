@@ -4,10 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ru.wert.normic.entities.OpAssm;
-import ru.wert.normic.entities.OpCutting;
-import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpDetail;
+import ru.wert.normic.entities.opAssm.OpAssm;
+import ru.wert.normic.entities.opList.OpCutting;
+import ru.wert.normic.entities.opAssm.OpDetail;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.excel.model.EditorRow;
@@ -24,8 +23,6 @@ import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.MATERIALS;
-import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
-import static ru.wert.normic.controllers.AbstractOpPlate.MM3_TO_M3;
 
 public class ExcelImporter {
 

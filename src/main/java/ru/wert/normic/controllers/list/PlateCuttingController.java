@@ -11,7 +11,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.OpCutting;
+import ru.wert.normic.entities.opList.OpCutting;
 import ru.wert.normic.entities.OpData;
 import ru.wert.normic.utils.IntegerParser;
 

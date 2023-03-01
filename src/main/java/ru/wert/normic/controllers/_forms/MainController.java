@@ -23,6 +23,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.opAssm.OpAssm;
 import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.excel.ExcelImporter;
 import ru.wert.normic.interfaces.IOpWithOperations;

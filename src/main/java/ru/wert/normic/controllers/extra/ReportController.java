@@ -4,8 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import ru.wert.normic.entities.*;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.opAssm.OpAssm;
+import ru.wert.normic.entities.opAssm.OpDetail;
+import ru.wert.normic.entities.opAssm.OpLevelingSealer;
+import ru.wert.normic.entities.opPack.OpPack;
+import ru.wert.normic.entities.opPack.PackingData;
+import ru.wert.normic.entities.opPaint.OpPaint;
+import ru.wert.normic.entities.opPaint.OpPaintAssm;
 import ru.wert.normic.enums.EColor;
-import ru.wert.normic.enums.EPacks;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 

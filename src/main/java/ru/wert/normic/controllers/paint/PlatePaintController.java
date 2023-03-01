@@ -11,7 +11,7 @@ import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpPaint;
+import ru.wert.normic.entities.opPaint.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.materials.matlPatches.ListMatPatchController;

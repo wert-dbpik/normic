@@ -1,36 +1,19 @@
 package ru.wert.normic.controllers._forms;
 
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AppStatics;
-import ru.wert.normic.components.BXMaterial;
-import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.OpData;
-import ru.wert.normic.entities.OpPack;
-import ru.wert.normic.entities.OpPack;
-import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.enums.EMatType;
-import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.entities.opPack.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuOps;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;

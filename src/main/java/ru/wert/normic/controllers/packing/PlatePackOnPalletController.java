@@ -9,12 +9,12 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpMountOnPallet;
+import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
 
 /**
  * КРЕПЛЕНИЕ К ПОДДОНУ
  */
-public class PlateMountOnPalletController extends AbstractOpPlate {
+public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @FXML
     private ImageView ivOperation;
@@ -53,7 +53,7 @@ public class PlateMountOnPalletController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpMountOnPallet opData = (OpMountOnPallet) data;
+        OpPackOnPallet opData = (OpPackOnPallet) data;
 
         countInitialValues();
 
@@ -75,7 +75,7 @@ public class PlateMountOnPalletController extends AbstractOpPlate {
         height = ((FormPackController)formController).getHeight();
     }
 
-    private void collectOpData(OpMountOnPallet opData){
+    private void collectOpData(OpPackOnPallet opData){
         opData.setStretchMachineWrap(stretchMachineWrapL);
         opData.setPolyWrap(polyWrapL);
         opData.setPallet(1.0);

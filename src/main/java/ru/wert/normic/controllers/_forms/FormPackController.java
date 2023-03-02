@@ -125,7 +125,10 @@ public class FormPackController extends AbstractFormController {
         menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
 
             menu.getItems().add(menu.createItemPackTallCabinet());
-            menu.getItems().add(menu.createItemMountOnPallet());
+            menu.getItems().add(menu.createItemPackInCartoonBox());
+            menu.getItems().add(menu.createItemPackOnPalletizer());
+            menu.getItems().add(menu.createItemPackInBubbleWrap());
+            menu.getItems().add(menu.createItemPackOnPallet());
 
 
         linkMenuToButton();

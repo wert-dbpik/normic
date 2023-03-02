@@ -11,7 +11,7 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpMountOnPallet extends OpData implements PackingData {
+public class OpPackOnPallet extends OpData implements PackingData {
 
 
     private double cartoon = 0.0;
@@ -23,8 +23,8 @@ public class OpMountOnPallet extends OpData implements PackingData {
     private double pallet = 0.0;
 
 
-    public OpMountOnPallet() {
+    public OpPackOnPallet() {
         super.normType = ENormType.NORM_PACKING;
-        super.opType = EOpType.MOUNT_ON_PALLET;
+        super.opType = EOpType.PACK_ON_PALLET;
     }
 }

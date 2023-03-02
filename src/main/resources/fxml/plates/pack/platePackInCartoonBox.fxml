@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlateMountOnPalletController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlatePackInCartoonBoxController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/btns/operation.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="КРЕПЛЕНИЕ НА ПОДДОН" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="УПАКОВКА В КАРТОННУЮ КОРОБКУ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -43,9 +43,66 @@
             </HBox>
          </children>
       </HBox>
+      <HBox>
+         <children>
+            <Label text="Минимальная партия">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="tfPartMin" prefWidth="80.0" />
+                  <Label prefWidth="25.0" text=" шт">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label text="Картон">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="tfCartoon" editable="false" prefWidth="80.0" />
+                  <Label prefWidth="25.0" text=" м2">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
+            <Label text="Скотч">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="tfDuctTape" editable="false" prefWidth="80.0" />
+                  <Label prefWidth="25.0" text=" шт">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>
-            <Label text="T крепл. : ">
+            <Label text="T изг. и упак.: ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

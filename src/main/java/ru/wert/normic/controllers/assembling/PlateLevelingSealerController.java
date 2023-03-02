@@ -18,7 +18,7 @@ import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.LEVELING_SPEED;
-import static ru.wert.normic.entities.settings.AppSettings.PREPARED_TIME;
+import static ru.wert.normic.entities.settings.AppSettings.LEVELING_PREPARED_TIME;
 
 /**
  * НАЛИВКА УПЛОТНИТЕЛЯ
@@ -91,7 +91,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         countInitialValues();
 
         double time;
-        time =  perimeter * LEVELING_SPEED + PREPARED_TIME;  //мин
+        time =  perimeter * LEVELING_SPEED + LEVELING_PREPARED_TIME;  //мин
 
         if(perimeter == 0) time = 0.0;
         else {

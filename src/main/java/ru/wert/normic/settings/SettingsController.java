@@ -139,7 +139,7 @@ public class SettingsController {
 
         //--- ЗАЛИВКА УПЛОТНИТЕЛЯ
 
-        tfPREPARED_TIME.setText(DECIMAL_FORMAT.format(PREPARED_TIME).trim());
+        tfPREPARED_TIME.setText(DECIMAL_FORMAT.format(LEVELING_PREPARED_TIME).trim());
         tfLEVELING_SPEED.setText(DECIMAL_FORMAT.format(LEVELING_SPEED).trim());
 
 

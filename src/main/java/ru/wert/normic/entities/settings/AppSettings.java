@@ -48,7 +48,7 @@ public class AppSettings {
 
     //--- ЗАЛИВКА УПЛОТНИТЕЛЯ
 
-    public static double PREPARED_TIME = 0.32; //ПЗ время, мин
+    public static double LEVELING_PREPARED_TIME = 0.32; //ПЗ время, мин
     public static double LEVELING_SPEED = 0.16; //Скорость нанесения, м/мин
 
 
@@ -73,5 +73,14 @@ public class AppSettings {
     public static double SEALER_SPEED = 40; //Скорость монтажа уплотнителя на ребро корпуса, сек/м
     public static double SELF_ADH_SEALER_SPEED =  20; //Скорость установки самоклеющегося уплотнителя, сек/м
     public static double INSULATION_SPEED = 5.5; //Скорость разметки, резки и укладки утеплителя, мин/м
+
+    //--- УПАКОВКА
+
+    public static double CARTOON_BOX_PREPARED_TIME = 10.0; //ПЗ время изготовления коробок, мин
+    public static double CARTOON_BOX_SPEED = 2.3; //Скорость изготовления коробки
+    public static double STRETCH_WINDING = 2.1; //Скорость наматывания машинной стретч-пленки
+    public static double CARTOON_AND_STRETCH_PREPARED_TIME = 12.0; //ПЗ время упаковки изделия в картон и обмотки стречем, мин
+    public static double PACK_IN_CARTOON_BOX_SPEED = 1.5; //Скорость упаковки изделя в коробку
+    public static double DUCT_TAPE_LENGTH = 66.0; //Длина рулона скотча
 
 }

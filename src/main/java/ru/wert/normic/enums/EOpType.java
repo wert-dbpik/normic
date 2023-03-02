@@ -40,7 +40,11 @@ public enum EOpType {
     //УПАКОВКА
     PACK,                   //УПАКОВКА
     PACK_CABINET,           //УПАКОВКА КАРКАСА
-    MOUNT_ON_PALLET         //УСТАНОВКА НА ПАЛЛЕТ
+    PACK_ON_PALLET,         //УПАКОВКА НА ПАЛЛЕТ (Установка и закрепление)
+    PACK_ON_PALLETIZER,     //УПАКОВКА В КАРТОН (КРЫШКИ И УГОЛКИ)
+    PACK_IN_CARTOON_BOX,    //УПАКОВКА В КАРТОННУЮ КОРОБКУ
+    PACK_IN_BUBBLE_WRAP     //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
+
 
     ;
 }

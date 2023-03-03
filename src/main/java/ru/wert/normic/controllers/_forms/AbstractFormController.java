@@ -1,5 +1,6 @@
 package ru.wert.normic.controllers._forms;
 
+import com.google.gson.Gson;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -17,22 +18,30 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
+import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuOps;
 import ru.wert.normic.menus.MenuPlate;
+import ru.wert.normic.settings.ProductSettings;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.enums.EColor.*;
+import static ru.wert.normic.enums.EColor.COLOR_III;
 
 /**
  * ПРООБРАЗ
@@ -178,7 +187,8 @@ public abstract class AbstractFormController implements IForm {
                 cell.setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         boolean cellIsEmpty = cell.isEmpty();
-                        new MenuPlate().create(getThisController(), cellIsEmpty).show(
+                        OpData selectedOpData = addedOperations.get(cell.getIndex());
+                        new MenuPlate().create(getThisController(), selectedOpData, cellIsEmpty).show(
                                 ((Node)e.getSource()).getScene().getWindow(),
                                 e.getScreenX(),
                                 e.getScreenY());
@@ -193,7 +203,7 @@ public abstract class AbstractFormController implements IForm {
         //Вызывеает меню при пустом списке операций, когда не срабатывает слушатель на пустой ячейке
         getListViewTechOperations().setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.SECONDARY))
-                new MenuPlate().create(getThisController(), true).show(
+                new MenuPlate().create(getThisController(), null, true).show(
                         ((Node)e.getSource()).getScene().getWindow(),
                         e.getScreenX(),
                         e.getScreenY());
@@ -465,5 +475,6 @@ public abstract class AbstractFormController implements IForm {
 
         countSumNormTimeByShops();
     }
+
 
 }

@@ -13,4 +13,8 @@ public interface IOpWithOperations extends IOpPlate{
     double getArea();
 
     void setArea(double area);
+
+    String getName();
+
+    void setName(String name);
 }

@@ -25,6 +25,8 @@ import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
+import ru.wert.normic.entities.ops.opAssembling.OpDetail;
+import ru.wert.normic.entities.ops.opPack.OpPack;
 import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.excel.ExcelImporter;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -117,7 +119,7 @@ public class MainController extends AbstractFormController {
         //СОХРАНИТЬ
         btnSave.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32,32, true, true)));
         btnSave.setTooltip(new Tooltip("Сохранить"));
-        btnSave.setOnAction(this::save);
+        btnSave.setOnAction(e->save(opData, addedOperations, "", e));
         //ОТКРЫТЬ
         btnOpen.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32,32, true, true)));
         btnOpen.setTooltip(new Tooltip("Открыть"));
@@ -195,13 +197,18 @@ public class MainController extends AbstractFormController {
     /**
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
-    private void save(Event e) {
+    public static void save(OpData opData, List<OpData> addedOperations, String initialName, Event e) {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
-        File file = chooser.showSaveDialog(((Node) e.getSource()).getScene().getWindow());
+        chooser.setInitialFileName(initialName);
+        Stage owner = e.getSource() instanceof Node ?
+                (Stage) ((Node) e.getSource()).getScene().getWindow() :
+                (Stage)((MenuItem)e.getSource()).getParentPopup().getOwnerWindow();
+        File file = chooser.showSaveDialog(owner);
         if (file == null) return;
-        ((OpAssm)opData).setName(file.getName());
+
+        ((IOpWithOperations)opData).setName(file.getName());
         AppProperties.getInstance().setSavesDirectory(file.getParent());
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
@@ -324,7 +331,7 @@ public class MainController extends AbstractFormController {
      * @param product, List<String>
      * @param file, File
      */
-    private void saveTextToFile(List<String> product, File file) {
+    private static void saveTextToFile(List<String> product, File file) {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);

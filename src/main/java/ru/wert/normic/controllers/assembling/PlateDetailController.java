@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -82,24 +83,12 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         }
 
         ivEdit.setOnMouseClicked(e->{
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
-                Parent parent = loader.load();
-                formDetailController = loader.getController();
-                formDetailController.init(formController, tfName, this.opData);
-                Decoration windowDecoration = new Decoration(
-                        "ДЕТАЛЬ",
-                        parent,
-                        false,
-                        (Stage) lblOperationName.getScene().getWindow(),
-                        "decoration-detail",
-                        true,
-                        false);
-                ImageView closer = windowDecoration.getImgCloseWindow();
-                closer.setOnMousePressed(ev -> collectOpData(opData));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            openFormEditor(opData);
+        });
+
+        vbOperation.setOnMouseClicked(e->{
+            if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
+                openFormEditor(opData);
         });
 
         //Сохраняем имя при изменении
@@ -114,6 +103,30 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
             formController.calculateAreaByDetails();
         });
 
+    }
+
+    /**
+     * Открыть форму редактирования детали
+     */
+    private void openFormEditor(OpDetail opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
+            Parent parent = loader.load();
+            formDetailController = loader.getController();
+            formDetailController.init(formController, tfName, this.opData);
+            Decoration windowDecoration = new Decoration(
+                    "ДЕТАЛЬ",
+                    parent,
+                    false,
+                    (Stage) lblOperationName.getScene().getWindow(),
+                    "decoration-detail",
+                    true,
+                    false);
+            ImageView closer = windowDecoration.getImgCloseWindow();
+            closer.setOnMousePressed(ev -> collectOpData(opData));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override//AbstractOpPlate

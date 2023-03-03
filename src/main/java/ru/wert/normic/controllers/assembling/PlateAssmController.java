@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -86,24 +87,12 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         }
 
         ivEdit.setOnMouseClicked(e->{
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
-                Parent parent = loader.load();
-                formAssmController = loader.getController();
-                formAssmController.init(formController, tfAssmName, this.opData);
-                Decoration windowDecoration = new Decoration(
-                        "СБОРКА",
-                        parent,
-                        false,
-                        (Stage) lblOperationName.getScene().getWindow(),
-                        "decoration-assm",
-                        true,
-                        false);
-                ImageView closer = windowDecoration.getImgCloseWindow();
-                closer.setOnMousePressed(ev -> collectOpData(opData));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            openFormEditor(opData);
+        });
+
+        vbOperation.setOnMouseClicked(e->{
+            if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
+                openFormEditor(opData);
         });
 
         //Сохраняем имя при изменении
@@ -116,6 +105,30 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
             formController.countSumNormTimeByShops();
         });
+    }
+
+    /**
+     * Открыть форму редактирования сборки
+     */
+    private void openFormEditor(OpAssm opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
+            Parent parent = loader.load();
+            formAssmController = loader.getController();
+            formAssmController.init(formController, tfAssmName, this.opData);
+            Decoration windowDecoration = new Decoration(
+                    "СБОРКА",
+                    parent,
+                    false,
+                    (Stage) lblOperationName.getScene().getWindow(),
+                    "decoration-assm",
+                    true,
+                    false);
+            ImageView closer = windowDecoration.getImgCloseWindow();
+            closer.setOnMousePressed(ev -> collectOpData(opData));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override//AbstractOpPlate

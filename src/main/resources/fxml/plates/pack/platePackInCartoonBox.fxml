@@ -62,6 +62,7 @@
             </HBox>
          </children>
       </HBox>
+      <Separator prefWidth="200.0" />
       <HBox>
          <children>
             <Label text="Картон">

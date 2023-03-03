@@ -885,7 +885,7 @@ public class MenuOps extends ContextMenu {
      */
     public void addPackInCartoonAndStretchPlate(OpPackInMachineStretchWrap opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackOnPalletizer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInMachineStretchWrap.fxml"));
             VBox vBox = loader.load();
             PlatePackOnPalletizerController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());

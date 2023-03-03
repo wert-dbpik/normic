@@ -78,9 +78,12 @@ public class AppSettings {
 
     public static double CARTOON_BOX_PREPARED_TIME = 10.0; //ПЗ время изготовления коробок, мин
     public static double CARTOON_BOX_SPEED = 2.3; //Скорость изготовления коробки
-    public static double STRETCH_WINDING = 2.1; //Скорость наматывания машинной стретч-пленки
+    public static double STRETCH_MACHINE_WINDING = 2.1; //Скорость наматывания машинной стретч-пленки
     public static double CARTOON_AND_STRETCH_PREPARED_TIME = 12.0; //ПЗ время упаковки изделия в картон и обмотки стречем, мин
     public static double PACK_IN_CARTOON_BOX_SPEED = 1.5; //Скорость упаковки изделя в коробку
     public static double DUCT_TAPE_LENGTH = 66.0; //Длина рулона скотча
+    public static double BUBBLE_CUT_AND_DUCT = 0.7; //ПЗ время пузырьковой пленки, мин
+    public static double BUBBLE_HAND_WINDING = 0.2; //Скорость оборачивания пузырьковой пленки, м2/мин
+    public static double STRETCH_HAND_WINDING = 0.2; //Скорость оборачивания пузырьковой пленки, м/мин
 
 }

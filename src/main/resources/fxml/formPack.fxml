@@ -108,7 +108,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label text="Нормы времени по участкам :">
+                  <Label text="Норма времени на упаковку :">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>

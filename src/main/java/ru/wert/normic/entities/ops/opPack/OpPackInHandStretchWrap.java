@@ -8,25 +8,25 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
+ * УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
  */
 @Getter
 @Setter
-public class OpPackInBubbleWrap extends OpData implements PackingData {
+public class OpPackInHandStretchWrap extends OpData implements PackingData {
 
     private RadioButton selectedRadioButton;
-    private double bubbleWrap = 0.0; //Пузырьковая пленка
+    private double stretchHandWrap = 0.0; //Ручная стрейч-пленка
     private double ductTape = 0.0; //Скотч
 
     private double stretchMachineWrap = 0.0;
-    private double stretchHandWrap = 0.0;
+    private double bubbleWrap = 0.0; //Пузырьковая пленка
     private double cartoon = 0.0;
     private double polyWrap = 0.0;
     private double pallet = 0.0;
 
 
-    public OpPackInBubbleWrap() {
+    public OpPackInHandStretchWrap() {
         super.normType = ENormType.NORM_PACKING;
-        super.opType = EOpType.PACK_IN_BUBBLE_WRAP;
+        super.opType = EOpType.PACK_IN_HAND_STRETCH_WRAP;
     }
 }

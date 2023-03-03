@@ -12,7 +12,6 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInCartoonBox;
-import ru.wert.normic.entities.ops.opPack.OpPackTallCabinet;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -59,14 +58,18 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
         countInitialValues();
 
-        cartoon = Math.ceil((width * MM_TO_M + 0.1) * (depth * MM_TO_M + 0.1) * 2 +
-                (width * MM_TO_M + 0.1) * (height * MM_TO_M + 0.1) * 2 +
-                (depth * MM_TO_M + 0.1) * (height * MM_TO_M + 0.1) * 2);
+        double countHeight = height * MM_TO_M;
+        double countDepth = depth * MM_TO_M;
+        double countWidth = width * MM_TO_M;
 
-        tfCartoon.setText(String.valueOf(cartoon));
+        cartoon = Math.ceil((countWidth + 0.1) * (countDepth + 0.1) * 2 +
+                (countWidth + 0.1) * (countHeight + 0.1) * 2 +
+                (countDepth + 0.1) * (countHeight + 0.1) * 2);
 
-        ductTape = Math.ceil((width * MM_TO_M + depth * MM_TO_M) * 4.0 + depth * MM_TO_M * 4.0);
-        tfDuctTape.setText(String.valueOf(ductTape));
+        tfCartoon.setText(DECIMAL_FORMAT.format(cartoon));
+
+        ductTape = ((countWidth + countDepth) * 4.0 + countDepth * 4.0) / DUCT_TAPE_LENGTH;
+        tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
 
         double time = (CARTOON_BOX_SPEED + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления коробки
                 PACK_IN_CARTOON_BOX_SPEED; //Время упаковки изделия в коробку

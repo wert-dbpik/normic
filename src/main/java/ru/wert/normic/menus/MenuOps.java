@@ -308,46 +308,46 @@ public class MenuOps extends ContextMenu {
 
 
     //=========================      УПАКОВКА    =================================
-    //УПАКОВКА ВЫСОКОГО ШКАФА
-    public MenuItem createItemPackTallCabinet(){
-        MenuItem item = new MenuItem("Упаковка высокого шкафа");
-        item.setOnAction(event -> {
-            addPackTallCabinetPlate(new OpPackTallCabinet());
-        });
-        return item;
-    }
-
-    //КРЕПЛЕНИЕ К ПОДДОНУ
-    public MenuItem createItemPackOnPallet(){
-        MenuItem item = new MenuItem("Крепление к поддону");
-        item.setOnAction(event -> {
-            addPackOnPalletPlate(new OpPackOnPallet());
-        });
-        return item;
-    }
-
-    //УПАКОВКА НА ПАЛЕТОУПАКОВЩИКЕ
-    public MenuItem createItemPackOnPalletizer(){
-        MenuItem item = new MenuItem("Упаковка на палетоупаковщике");
-        item.setOnAction(event -> {
-            addPackInCartoonAndStretchPlate(new OpPackOnPalletizer());
-        });
-        return item;
-    }
 
     //КРЕПЛЕНИЕ В КАРТОННУЮ КОРОБКУ
     public MenuItem createItemPackInCartoonBox(){
-        MenuItem item = new MenuItem("Картонная коробка");
+        MenuItem item = new MenuItem("Упаковка в картонную коробку");
         item.setOnAction(event -> {
             addPackInCartoonBoxPlate(new OpPackInCartoonBox());
         });
         return item;
     }
 
+    //УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ
+    public MenuItem createItemPackOnPalletizer(){
+        MenuItem item = new MenuItem("Упаковка в машинную стрейч-пленку");
+        item.setOnAction(event -> {
+            addPackInCartoonAndStretchPlate(new OpPackInMachineStretchWrap());
+        });
+        return item;
+    }
+
+    //УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
+    public MenuItem createItemPackInHandStretchWrap(){
+        MenuItem item = new MenuItem("Упаковка в ручную стрейч-пленку");
+        item.setOnAction(event -> {
+            addPackInHandStretchWrapPlate(new OpPackInHandStretchWrap());
+        });
+        return item;
+    }
 
     //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
     public MenuItem createItemPackInBubbleWrap(){
-        MenuItem item = new MenuItem("Пузырьковая пленка");
+        MenuItem item = new MenuItem("Упаковка в пузырьковую пленку");
+        item.setOnAction(event -> {
+            addPackInBubbleWrapPlate(new OpPackInBubbleWrap());
+        });
+        return item;
+    }
+
+    //КРЕПЛЕНИЕ К ПОДДОНУ
+    public MenuItem createItemPackOnPallet(){
+        MenuItem item = new MenuItem("Монтаж на поддон");
         item.setOnAction(event -> {
             addPackOnPalletPlate(new OpPackOnPallet());
         });
@@ -448,20 +448,20 @@ public class MenuOps extends ContextMenu {
                 case LEVELING_SEALER:
                     addLevelingSealerPlate((OpLevelingSealer) op);
                     break;
-                case PACK_CABINET:
-                    addPackTallCabinetPlate((OpPackTallCabinet) op);
-                    break;
-                case PACK_ON_PALLET:
-                    addPackOnPalletPlate((OpPackOnPallet) op);
-                    break;
-                case PACK_ON_PALLETIZER:
-                    addPackInCartoonAndStretchPlate((OpPackOnPalletizer) op);
-                    break;
                 case PACK_IN_CARTOON_BOX:
                     addPackInCartoonBoxPlate((OpPackInCartoonBox) op);
                     break;
+                case PACK_IN_MACHINE_STRETCH_WRAP:
+                    addPackInCartoonAndStretchPlate((OpPackInMachineStretchWrap) op);
+                    break;
+                case PACK_IN_HAND_STRETCH_WRAP:
+                    addPackInHandStretchWrapPlate((OpPackInHandStretchWrap) op);
+                    break;
                 case PACK_IN_BUBBLE_WRAP:
                     addPackInBubbleWrapPlate((OpPackInBubbleWrap) op);
+                    break;
+                case PACK_ON_PALLET:
+                    addPackOnPalletPlate((OpPackOnPallet) op);
                     break;
             }
         }
@@ -866,13 +866,57 @@ public class MenuOps extends ContextMenu {
     //===========================================  УПАКОВКА    ===================================================
 
     /**
-     * УПАКОВКА КАРКАСА
+     * УПАКОВКА В КАРТОННУЮ КОРОБКУ
      */
-    public void addPackTallCabinetPlate(OpPackTallCabinet opData) {
+    public void addPackInCartoonBoxPlate(OpPackInCartoonBox opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackTallCabinet.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInCartoonBox.fxml"));
             VBox vBox = loader.load();
-            PlatePackTallCabinetController controller = loader.getController();
+            PlatePackInCartoonBoxController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ
+     */
+    public void addPackInCartoonAndStretchPlate(OpPackInMachineStretchWrap opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackOnPalletizer.fxml"));
+            VBox vBox = loader.load();
+            PlatePackOnPalletizerController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УПАКОВКА В РУЧНУЮ СТРЕЙЧ_ПЛЕНКУ
+     */
+    public void addPackInHandStretchWrapPlate(OpPackInHandStretchWrap opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInHandStretchWrap.fxml"));
+            VBox vBox = loader.load();
+            PlatePackInHandStretchWrapController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
+     */
+    public void addPackInBubbleWrapPlate(OpPackInBubbleWrap opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInBubbleWrap.fxml"));
+            VBox vBox = loader.load();
+            PlatePackInBubbleController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
@@ -889,51 +933,6 @@ public class MenuOps extends ContextMenu {
             VBox vBox = loader.load();
             PlatePackOnPalletController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
-            listViewTechOperations.getItems().add(vBox);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * УПАКОВКА НА ПАЛЕТОУПАКОВЩИКЕ
-     */
-    public void addPackInCartoonAndStretchPlate(OpPackOnPalletizer opData) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInCartoonAndStretch.fxml"));
-            VBox vBox = loader.load();
-            PlatePackOnPalletizerController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
-            listViewTechOperations.getItems().add(vBox);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * УПАКОВКА В КАРТОННУЮ КОРОБКУ
-     */
-    public void addPackInCartoonBoxPlate(OpPackInCartoonBox opData) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInCartoonBox.fxml"));
-            VBox vBox = loader.load();
-            PlatePackInCartoonBoxController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
-            listViewTechOperations.getItems().add(vBox);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
-     */
-    public void addPackInBubbleWrapPlate(OpPackInBubbleWrap opData) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInBubbleWrap.fxml"));
-            VBox vBox = loader.load();
-//            PlatePackInBubbleWrapController controller = loader.getController();
-//            controller.init(formController, opData, addedOperations.size());
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();

@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/btns/operation.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="УПАКОВКА В КАРТОН (КРЫШКИ, УГОЛКИ)" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="УПАКОВКА НА ПАЛЛЕТОУПАКОВЩИКЕ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>

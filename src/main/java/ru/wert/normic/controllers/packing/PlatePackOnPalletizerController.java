@@ -8,8 +8,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpPackInCartoonBox;
-import ru.wert.normic.entities.ops.opPack.OpPackOnPalletizer;
+import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -55,24 +54,24 @@ public class PlatePackOnPalletizerController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackOnPalletizer opData = (OpPackOnPalletizer) data;
+        OpPackInMachineStretchWrap opData = (OpPackInMachineStretchWrap) data;
 
         countInitialValues();
 
         cartoon = Math.ceil(2*((width * MM_TO_M + 0.1) * (depth * MM_TO_M + 0.1) * 1.2) + //Крышки верх и низ
                             height * MM_TO_M * 1.1 * 4); //4 уголка на всю высоту
 
-        tfCartoon.setText(String.valueOf(cartoon));
+        tfCartoon.setText(DECIMAL_FORMAT.format(cartoon));
 
         stretchWrap = Math.ceil((width * MM_TO_M + depth * MM_TO_M) * 2 * height * MM_TO_M / 0.3 * 2); //м
-        tfMachineStretchWrap.setText(String.valueOf(stretchWrap));
+        tfMachineStretchWrap.setText(DECIMAL_FORMAT.format(stretchWrap));
 
         int perimeter = (width + depth) * 2;
         ductTape = Math.ceil(perimeter * MM_TO_M * 4) / DUCT_TAPE_LENGTH;  //Вокруг изделия 4 раза
-        tfDuctTape.setText(String.format(DOUBLE_FORMAT, ductTape));
+        tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
 
         double time = (CARTOON_AND_STRETCH_PREPARED_TIME + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления 2х крышек
-                stretchWrap * STRETCH_WINDING * height * MM_TO_M; //Время упаковки изделия в коробку
+                stretchWrap * STRETCH_MACHINE_WINDING * height * MM_TO_M; //Время упаковки изделия в коробку
 
         currentNormTime = time;
         collectOpData(opData);
@@ -91,7 +90,7 @@ public class PlatePackOnPalletizerController extends AbstractOpPlate {
         partMin = IntegerParser.getValue(tfPartMin);
     }
 
-    private void collectOpData(OpPackOnPalletizer opData){
+    private void collectOpData(OpPackInMachineStretchWrap opData){
 
         opData.setPolyWrap(partMin);
         opData.setCartoon(cartoon);
@@ -103,7 +102,7 @@ public class PlatePackOnPalletizerController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpPackOnPalletizer opData = (OpPackOnPalletizer)data;
+        OpPackInMachineStretchWrap opData = (OpPackInMachineStretchWrap)data;
 
         partMin = opData.getPartMin();
         tfPartMin.setText(String.valueOf(partMin));

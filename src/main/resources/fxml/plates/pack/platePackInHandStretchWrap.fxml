@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlatePackInBubbleController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.packing.PlatePackInHandStretchWrapController">
     <children>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
@@ -70,15 +70,15 @@
       <Separator prefWidth="200.0" />
         <HBox>
             <children>
-                <Label text="Пузырьковая пленка">
+                <Label text="Ручная стрейч-пленка">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Label>
                 <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                     <children>
-                        <TextField fx:id="tfBubbleWrap" editable="false" prefWidth="80.0" />
-                        <Label prefWidth="25.0" text=" м2">
+                        <TextField fx:id="tfStretchWrap" editable="false" prefWidth="80.0" />
+                        <Label prefWidth="25.0" text=" м">
                             <font>
                                 <Font size="14.0" />
                             </font>

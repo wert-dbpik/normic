@@ -11,7 +11,7 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpPackOnPalletizer extends OpData implements PackingData {
+public class OpPackInMachineStretchWrap extends OpData implements PackingData {
 
     private int partMin = 10; //Минимальная партия
     private double cartoon = 0.0; //Картон
@@ -24,8 +24,8 @@ public class OpPackOnPalletizer extends OpData implements PackingData {
     private double pallet = 0.0;
 
 
-    public OpPackOnPalletizer() {
+    public OpPackInMachineStretchWrap() {
         super.normType = ENormType.NORM_PACKING;
-        super.opType = EOpType.PACK_ON_PALLETIZER;
+        super.opType = EOpType.PACK_IN_MACHINE_STRETCH_WRAP;
     }
 }

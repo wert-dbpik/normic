@@ -11,14 +11,14 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpMountDismount extends OpData {
+public class OpLatheMountDismount extends OpData {
 
     private int holder = 1; //тип крепления детали на станке
 
 
-    public OpMountDismount() {
+    public OpLatheMountDismount() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.MOUNT_DISMOUNT;
+        super.opType = EOpType.LATHE_MOUNT_DISMOUNT;
     }
 
 

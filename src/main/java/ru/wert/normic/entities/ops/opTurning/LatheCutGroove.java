@@ -11,13 +11,13 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpCutGroove extends OpData {
+public class LatheCutGroove extends OpData {
 
     private Double depth = 0.0; //глубина паза
 
 
-    public OpCutGroove() {
+    public LatheCutGroove() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.CUT_GROOVE;
+        super.opType = EOpType.LATHE_CUT_GROOVE;
     }
 }

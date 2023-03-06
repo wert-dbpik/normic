@@ -36,8 +36,8 @@ public class AppStatics {
     //Перечень операций, которые можно добавить в Деталь
     public static final List<EOpType> DETAIL_OPERATIONS =
             Arrays.asList(CUTTING, BENDING, WELD_CONTINUOUS, WELD_DOTTED,
-                    MOUNT_DISMOUNT, TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
-                    DRILLING_BY_MARKING, LOCKSMITH, CUT_OFF, CHOP_OFF,
+                    LATHE_MOUNT_DISMOUNT, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
+                    DRILLING_BY_MARKING, LOCKSMITH, LATHE_CUT_OFF, CHOP_OFF,
                     PAINTING
                    );
 
@@ -53,7 +53,7 @@ public class AppStatics {
     //Перечень операций, которые м.б. продублированны
     public static final List<EOpType> DUPLICATED_OPERATIONS =
             Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,
-                    TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
+                    LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING,
                     PACK, PACK_CABINET, PACK_ON_PALLET);
 
@@ -62,9 +62,9 @@ public class AppStatics {
             LOCKSMITH, DRILLING_BY_MARKING,
             PAINTING,
             WELD_CONTINUOUS, WELD_DOTTED);//Листовой
-    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(MOUNT_DISMOUNT,
-            PAINTING, TURNING, CUT_GROOVE, THREADING, DRILLING, ROLLING,
-            CUT_OFF, CHOP_OFF); //Круглый
+    public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(LATHE_MOUNT_DISMOUNT,
+            PAINTING, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
+            LATHE_CUT_OFF, CHOP_OFF); //Круглый
     public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING,
             LOCKSMITH, DRILLING_BY_MARKING,
             CHOP_OFF, CUT_OFF_ON_SAW); //Профильный

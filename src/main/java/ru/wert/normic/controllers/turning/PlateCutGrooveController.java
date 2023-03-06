@@ -10,7 +10,7 @@ import lombok.Getter;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.ops.opTurning.OpCutGroove;
+import ru.wert.normic.entities.ops.opTurning.LatheCutGroove;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -62,7 +62,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpCutGroove opData = (OpCutGroove) data;
+        LatheCutGroove opData = (LatheCutGroove) data;
         initStyle = tfDepth.getStyle(); //Сохраняем исходный стиль
 
         new TFDoubleColored(tfDepth, this);
@@ -77,7 +77,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpCutGroove opData = (OpCutGroove) data;
+        LatheCutGroove opData = (LatheCutGroove) data;
 
         countInitialValues();
 
@@ -113,7 +113,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
             tfDepth.setStyle(initStyle);
     }
 
-    private void collectOpData(OpCutGroove opData){
+    private void collectOpData(LatheCutGroove opData){
         opData.setDepth(depth);
 
         opData.setMechTime(currentNormTime);
@@ -121,7 +121,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpCutGroove opData = (OpCutGroove)data;
+        LatheCutGroove opData = (LatheCutGroove)data;
 
         depth = opData.getDepth();
         tfDepth.setText(String.valueOf(depth));

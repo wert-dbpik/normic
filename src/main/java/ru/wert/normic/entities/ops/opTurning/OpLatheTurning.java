@@ -11,14 +11,14 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpTurning extends OpData {
+public class OpLatheTurning extends OpData {
 
     private Integer length = 0; //длина точения
     private Integer passages = 1; //количество токарных проходов
 
 
-    public OpTurning() {
+    public OpLatheTurning() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.TURNING;
+        super.opType = EOpType.LATHE_TURNING;
     }
 }

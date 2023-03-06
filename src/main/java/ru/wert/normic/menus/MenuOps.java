@@ -128,8 +128,8 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemMountDismount(){
         MenuItem item = new MenuItem("Установка и снятие детали");
         item.setOnAction(event -> {
-            if(isDuplicate(EOpType.CUT_OFF)) return ;
-            addMountDismountPlate(new OpMountDismount());
+            if(isDuplicate(EOpType.LATHE_CUT_OFF)) return ;
+            addMountDismountPlate(new OpLatheMountDismount());
         });
         return item;
     }
@@ -138,7 +138,7 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemTurning(){
         MenuItem item = new MenuItem("Точение/растачивание");
         item.setOnAction(event -> {
-            addTurningPlate(new OpTurning());
+            addTurningPlate(new OpLatheTurning());
         });
         return item;
     }
@@ -147,7 +147,7 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemCutGroove(){
         MenuItem item = new MenuItem("Прорезание паза");
         item.setOnAction(event -> {
-            addCutGroovePlate(new OpCutGroove());
+            addCutGroovePlate(new LatheCutGroove());
         });
         return item;
     }
@@ -156,7 +156,7 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemCutOff(){
         MenuItem item = new MenuItem("Отрезание на токарном станке");
         item.setOnAction(event -> {
-            addCutOffPlate(new OpCutOff());
+            addCutOffPlate(new OpLatheCutOff());
         });
         return item;
     }
@@ -183,7 +183,7 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemThreading(){
         MenuItem item = new MenuItem("Нарезание резьбы");
         item.setOnAction(event -> {
-            addThreadingPlate(new OpThreading());
+            addThreadingPlate(new OpLatheThreading());
         });
         return item;
     }
@@ -192,7 +192,7 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemDrilling(){
         MenuItem item = new MenuItem("Сверление отверстия");
         item.setOnAction(event -> {
-            addDrillingPlate(new OpDrilling());
+            addDrillingPlate(new OpLatheDrilling());
         });
         return item;
     }
@@ -210,7 +210,7 @@ public class MenuOps extends ContextMenu {
     public MenuItem createItemRolling(){
         MenuItem item = new MenuItem("Накатывание рифления");
         item.setOnAction(event -> {
-            addRollingPlate(new OpRolling());
+            addRollingPlate(new OpLatheRolling());
         });
         return item;
     }
@@ -394,26 +394,26 @@ public class MenuOps extends ContextMenu {
                 case LOCKSMITH:
                     addLocksmithPlate((OpLocksmith) op);
                     break;
-                case TURNING:
-                    addTurningPlate((OpTurning) op);
+                case LATHE_TURNING:
+                    addTurningPlate((OpLatheTurning) op);
                     break;
-                case CUT_GROOVE:
-                    addCutGroovePlate((OpCutGroove) op);
+                case LATHE_CUT_GROOVE:
+                    addCutGroovePlate((LatheCutGroove) op);
                     break;
-                case THREADING:
-                    addThreadingPlate((OpThreading) op);
+                case LATHE_THREADING:
+                    addThreadingPlate((OpLatheThreading) op);
                     break;
-                case DRILLING:
-                    addDrillingPlate((OpDrilling) op);
+                case LATHE_DRILLING:
+                    addDrillingPlate((OpLatheDrilling) op);
                     break;
                 case DRILLING_BY_MARKING:
                     addDrillingByMarkingPlate((OpDrillingByMarking) op);
                     break;
-                case ROLLING:
-                    addRollingPlate((OpRolling) op);
+                case LATHE_ROLLING:
+                    addRollingPlate((OpLatheRolling) op);
                     break;
-                case CUT_OFF:
-                    addCutOffPlate((OpCutOff) op);
+                case LATHE_CUT_OFF:
+                    addCutOffPlate((OpLatheCutOff) op);
                     break;
                 case CUT_OFF_ON_SAW:
                     addCutOffOnTheSawPlate((OpCutOffOnTheSaw) op);
@@ -421,8 +421,8 @@ public class MenuOps extends ContextMenu {
                 case CHOP_OFF:
                     addChopOffPlate((OpChopOff) op);
                     break;
-                case MOUNT_DISMOUNT:
-                    addMountDismountPlate((OpMountDismount) op);
+                case LATHE_MOUNT_DISMOUNT:
+                    addMountDismountPlate((OpLatheMountDismount) op);
                     break;
                 case PAINTING:
                     addPaintPlate((OpPaint) op);
@@ -587,7 +587,7 @@ public class MenuOps extends ContextMenu {
     /**
      * ТОЧЕНИЕ/РАСТАЧИВАНИЕ
      */
-    public void addTurningPlate(OpTurning opData) {
+    public void addTurningPlate(OpLatheTurning opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateTurning.fxml"));
             VBox vBox = loader.load();
@@ -602,7 +602,7 @@ public class MenuOps extends ContextMenu {
     /**
      * ОТРЕЗАНИЕ
      */
-    public void addCutOffPlate(OpCutOff opData) {
+    public void addCutOffPlate(OpLatheCutOff opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutOff.fxml"));
             VBox vBox = loader.load();
@@ -647,7 +647,7 @@ public class MenuOps extends ContextMenu {
     /**
      * ПРОРЕЗАНИЕ ПАЗА
      */
-    public void addCutGroovePlate(OpCutGroove opData) {
+    public void addCutGroovePlate(LatheCutGroove opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutGroove.fxml"));
             VBox vBox = loader.load();
@@ -662,7 +662,7 @@ public class MenuOps extends ContextMenu {
     /**
      * НАРЕЗАНИЕ РЕЗЬБЫ
      */
-    public void addThreadingPlate(OpThreading opData) {
+    public void addThreadingPlate(OpLatheThreading opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateThreading.fxml"));
             VBox vBox = loader.load();
@@ -677,7 +677,7 @@ public class MenuOps extends ContextMenu {
     /**
      * СВЕРЛЕНИЕ ОТВЕРСТИЯ
      */
-    public void addDrillingPlate(OpDrilling opData) {
+    public void addDrillingPlate(OpLatheDrilling opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateDrilling.fxml"));
             VBox vBox = loader.load();
@@ -707,7 +707,7 @@ public class MenuOps extends ContextMenu {
     /**
      * НАКАТЫВАНИЕ РИФЛЕНИЯ
      */
-    public void addRollingPlate(OpRolling opData) {
+    public void addRollingPlate(OpLatheRolling opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateRolling.fxml"));
             VBox vBox = loader.load();
@@ -722,7 +722,7 @@ public class MenuOps extends ContextMenu {
     /**
      * УСТАНОВКА/СНЯТИЕ детали
      */
-    public void addMountDismountPlate(OpMountDismount opData) {
+    public void addMountDismountPlate(OpLatheMountDismount opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateMountDismount.fxml"));
             VBox vBox = loader.load();

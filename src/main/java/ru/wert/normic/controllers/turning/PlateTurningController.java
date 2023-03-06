@@ -11,7 +11,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opTurning.OpTurning;
+import ru.wert.normic.entities.ops.opTurning.OpLatheTurning;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -69,7 +69,7 @@ public class PlateTurningController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpTurning opData = (OpTurning) data;
+        OpLatheTurning opData = (OpLatheTurning) data;
         initStyle = tfTurningLength.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfTurningLength, this);
@@ -85,7 +85,7 @@ public class PlateTurningController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpTurning opData = (OpTurning) data;
+        OpLatheTurning opData = (OpLatheTurning) data;
 
         countInitialValues();
 
@@ -135,7 +135,7 @@ public class PlateTurningController extends AbstractOpPlate {
 
     }
 
-    private void collectOpData(OpTurning opData){
+    private void collectOpData(OpLatheTurning opData){
         opData.setLength(length);
         opData.setPassages(passages);
 
@@ -144,7 +144,7 @@ public class PlateTurningController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpTurning opData = (OpTurning)data;
+        OpLatheTurning opData = (OpLatheTurning)data;
 
         length = opData.getLength() == 0 ?
                 Integer.parseInt(((FormDetailController)formController).getMatPatchController().getTfA().getText()) :

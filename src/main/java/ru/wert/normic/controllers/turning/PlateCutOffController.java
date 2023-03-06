@@ -11,7 +11,7 @@ import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.ops.opTurning.OpCutOff;
+import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -87,7 +87,7 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpCutOff opData = (OpCutOff) data;
+        OpLatheCutOff opData = (OpLatheCutOff) data;
         initStyle = tfThickness.getStyle(); //Сохраняем исходный стиль
 
         tfThickness.disableProperty().bind(chbxCutOffSolid.selectedProperty());
@@ -114,7 +114,7 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpCutOff opData = (OpCutOff) data;
+        OpLatheCutOff opData = (OpLatheCutOff) data;
 
         countInitialValues();
 
@@ -159,7 +159,7 @@ public class PlateCutOffController extends AbstractOpPlate {
             tfThickness.setStyle(initStyle);
     }
 
-    private void collectOpData(OpCutOff opData){
+    private void collectOpData(OpLatheCutOff opData){
         opData.setCutOffSolid(chbxCutOffSolid.isSelected());
         opData.setThickness(thickness);
 
@@ -168,7 +168,7 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpCutOff opData = (OpCutOff)data;
+        OpLatheCutOff opData = (OpLatheCutOff)data;
 
         cutOffSolid = opData.getCutOffSolid();
         chbxCutOffSolid.setSelected(cutOffSolid);

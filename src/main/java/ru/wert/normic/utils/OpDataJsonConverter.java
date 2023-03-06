@@ -10,9 +10,14 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
+import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
+import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
+import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
 import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
+import ru.wert.normic.entities.ops.opPack.*;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 
@@ -56,34 +61,88 @@ public class OpDataJsonConverter {
     private static OpData convertOpType(JSONObject op) throws JSONException {
         String opType = (String) op.get("opType");
         switch (opType) {
-            case "DETAIL":
-                return gson.fromJson(op.toString(), OpDetail.class);
-            case "ASSM":
-                return gson.fromJson(op.toString(), OpAssm.class);
+
+            //ОПЕРАЦИИ С ЛИСТОМ
+
             case "CUTTING":
                 return gson.fromJson(op.toString(), OpCutting.class);
             case "BENDING":
                 return gson.fromJson(op.toString(), OpBending.class);
-            case "LOCKSMITH":
-                return gson.fromJson(op.toString(), OpLocksmith.class);
+
+            //СБОРОЧНЫЕ ОПЕРАЦИИ
+
+            case "DETAIL":
+                return gson.fromJson(op.toString(), OpDetail.class);
+            case "ASSM":
+                return gson.fromJson(op.toString(), OpAssm.class);
+            case "ASSM_CUTTINGS":
+                return gson.fromJson(op.toString(), OpAssmCutting.class);
+            case "ASSM_NODES":
+                return gson.fromJson(op.toString(), OpAssmNode.class);
+            case "ASSM_NUTS":
+                return gson.fromJson(op.toString(), OpAssmNut.class);
+            case "LEVELING_SEALER":
+                return gson.fromJson(op.toString(), OpLevelingSealer.class);
+
+            //ОКРАШИВАНИЕ
+
             case "PAINTING":
                 return gson.fromJson(op.toString(), OpPaint.class);
             case "PAINT_ASSM":
                 return gson.fromJson(op.toString(), OpPaintAssm.class);
+
+            //СЛЕСАРНЫЕ ОПЕРАЦИИ
+
+            case "LOCKSMITH":
+                return gson.fromJson(op.toString(), OpLocksmith.class);
+            case "CHOP_OFF":
+                return gson.fromJson(op.toString(), OpChopOff.class);
+            case "DRILLING_BY_MARKING":
+                return gson.fromJson(op.toString(), OpDrillingByMarking.class);
+            case "CUT_OFF_ON_SAW":
+                return gson.fromJson(op.toString(), OpCutOffOnTheSaw.class);
+
+            //ТОКАРНЫЕ ОПЕРАЦИИ
+
+            case "LATHE_MOUNT_DISMOUNT":
+                return gson.fromJson(op.toString(), OpLatheMountDismount.class);
+            case "LATHE_TURNING":
+                return gson.fromJson(op.toString(), OpLatheTurning.class);
+            case "LATHE_CUT_GROOVE":
+                return gson.fromJson(op.toString(), LatheCutGroove.class);
+            case "LATHE_THREADING":
+                return gson.fromJson(op.toString(), OpLatheThreading.class);
+            case "LATHE_DRILLING":
+                return gson.fromJson(op.toString(), OpLatheDrilling.class);
+            case "LATHE_ROLLING":
+                return gson.fromJson(op.toString(), OpLatheRolling.class);
+            case "LATHE_CUT_OFF":
+                return gson.fromJson(op.toString(), OpLatheCutOff.class);
+
+            //СВАРОЧНЫЕ ОПЕРАЦИИ
+
             case "WELD_CONTINUOUS":
                 return gson.fromJson(op.toString(), OpWeldContinuous.class);
             case "WELD_DOTTED":
                 return gson.fromJson(op.toString(), OpWeldDotted.class);
-            case "ASSM_CUTTINGS":
-                return gson.fromJson(op.toString(), OpAssmCutting.class);
-            case "ASSM_NUTS":
-                return gson.fromJson(op.toString(), OpAssmNut.class);
-            case "ASSM_NODES":
-                return gson.fromJson(op.toString(), OpAssmNode.class);
-            case "LEVELING_SEALER":
-                return gson.fromJson(op.toString(), OpLevelingSealer.class);
+
+            //УПАКОВКА
+
+            case "PACK":
+                return gson.fromJson(op.toString(), OpPack.class);
+            case "PACK_ON_PALLET":
+                return gson.fromJson(op.toString(), OpWeldDotted.class);
+            case "PACK_IN_MACHINE_STRETCH_WRAP":
+                return gson.fromJson(op.toString(), OpPackInMachineStretchWrap.class);
+            case "PACK_IN_HAND_STRETCH_WRAP":
+                return gson.fromJson(op.toString(), OpPackInHandStretchWrap.class);
+            case "PACK_IN_CARTOON_BOX":
+                return gson.fromJson(op.toString(), OpPackInCartoonBox.class);
+            case "PACK_IN_BUBBLE_WRAP":
+                return gson.fromJson(op.toString(), OpPackInBubbleWrap.class);
+
             default:
-                throw new NoSuchElementException(String.format("Используется незарегистрированный тип плашки '%s'", opType));
+                return null;
         }
     }
 

@@ -9,7 +9,7 @@ import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opTurning.OpMountDismount;
+import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
 
 import java.util.NoSuchElementException;
 
@@ -62,7 +62,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpMountDismount opData = (OpMountDismount) data;
+        OpLatheMountDismount opData = (OpLatheMountDismount) data;
 
         rbCenters.setToggleGroup(toggleGroup);
         rbHolder.setToggleGroup(toggleGroup);
@@ -88,7 +88,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpMountDismount opData = (OpMountDismount) data;
+        OpLatheMountDismount opData = (OpLatheMountDismount) data;
 
         countInitialValues();
 
@@ -119,7 +119,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     }
 
-    private void collectOpData(OpMountDismount opData){
+    private void collectOpData(OpLatheMountDismount opData){
         opData.setHolder(holder.ordinal());
 
         opData.setMechTime(currentNormTime);
@@ -127,7 +127,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpMountDismount opData = (OpMountDismount)data;
+        OpLatheMountDismount opData = (OpLatheMountDismount)data;
 
         holder = ELatheHolders.values()[opData.getHolder()];
         switch (holder.ordinal()){

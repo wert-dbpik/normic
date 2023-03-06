@@ -7,18 +7,18 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * АКАТЫВАНИЕ ПРОФИЛЯ НА ТОКАРНОМ СТАНКЕ
+ * НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ
  */
 @Getter
 @Setter
-public class OpRolling extends OpData {
+public class OpLatheThreading extends OpData {
 
     private Integer diameter = 0; //отрезание детали сплошного сечения
     private Integer length = 0; //количество токарных проходов
 
 
-    public OpRolling() {
+    public OpLatheThreading() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.ROLLING;
+        super.opType = EOpType.LATHE_THREADING;
     }
 }

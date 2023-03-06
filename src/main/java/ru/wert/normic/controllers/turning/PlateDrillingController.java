@@ -11,7 +11,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opTurning.OpDrilling;
+import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -71,7 +71,7 @@ public class PlateDrillingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpDrilling opData = (OpDrilling) data;
+        OpLatheDrilling opData = (OpLatheDrilling) data;
         initStyle = tfDiameter.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfDiameter, this);
@@ -87,7 +87,7 @@ public class PlateDrillingController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpDrilling opData = (OpDrilling) data;
+        OpLatheDrilling opData = (OpLatheDrilling) data;
 
         countInitialValues();
 
@@ -150,7 +150,7 @@ public class PlateDrillingController extends AbstractOpPlate {
             tfLength.setStyle(initStyle);
     }
 
-    private void collectOpData(OpDrilling opData){
+    private void collectOpData(OpLatheDrilling opData){
         opData.setDiameter(turningDiameter);
         opData.setLength(length);
 
@@ -159,7 +159,7 @@ public class PlateDrillingController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpDrilling opData = (OpDrilling)data;
+        OpLatheDrilling opData = (OpLatheDrilling)data;
 
         turningDiameter = opData.getDiameter();
         tfDiameter.setText(String.valueOf(turningDiameter));

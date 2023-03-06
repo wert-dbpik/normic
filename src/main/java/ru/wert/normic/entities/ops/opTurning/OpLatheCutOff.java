@@ -11,14 +11,14 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpCutOff extends OpData {
+public class OpLatheCutOff extends OpData {
 
     private Boolean cutOffSolid = true; //отрезание детали сплошного сечения
     private Double thickness = 0.0; //количество токарных проходов
 
 
-    public OpCutOff() {
+    public OpLatheCutOff() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.CUT_OFF;
+        super.opType = EOpType.LATHE_CUT_OFF;
     }
 }

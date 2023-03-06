@@ -7,18 +7,18 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ
+ * СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ
  */
 @Getter
 @Setter
-public class OpThreading extends OpData {
+public class OpLatheDrilling extends OpData {
 
     private Integer diameter = 0; //отрезание детали сплошного сечения
     private Integer length = 0; //количество токарных проходов
 
 
-    public OpThreading() {
+    public OpLatheDrilling() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.THREADING;
+        super.opType = EOpType.LATHE_DRILLING;
     }
 }

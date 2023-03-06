@@ -5,6 +5,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import ru.wert.normic.controllers.PlateErrorController;
 import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.list.PlateBendController;
 import ru.wert.normic.controllers.list.PlateCuttingController;
@@ -19,6 +20,7 @@ import ru.wert.normic.controllers.turning.*;
 import ru.wert.normic.controllers.welding.PlateWeldContinuousController;
 import ru.wert.normic.controllers.welding.PlateWeldDottedController;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -462,6 +464,9 @@ public class MenuOps extends ContextMenu {
                     break;
                 case PACK_ON_PALLET:
                     addPackOnPalletPlate((OpPackOnPallet) op);
+                    break;
+                case ERROR_OP_DATA:
+                    addErrorPlate((OpErrorData) op);
                     break;
             }
         }
@@ -932,6 +937,21 @@ public class MenuOps extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackOnPallet.fxml"));
             VBox vBox = loader.load();
             PlatePackOnPalletController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size());
+            listViewTechOperations.getItems().add(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ERROR
+     */
+    public void addErrorPlate(OpErrorData opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateError.fxml"));
+            VBox vBox = loader.load();
+            PlateErrorController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {

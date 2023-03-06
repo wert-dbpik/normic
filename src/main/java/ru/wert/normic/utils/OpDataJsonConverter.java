@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -142,7 +143,7 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpPackInBubbleWrap.class);
 
             default:
-                return null;
+                return new OpErrorData(opType);
         }
     }
 

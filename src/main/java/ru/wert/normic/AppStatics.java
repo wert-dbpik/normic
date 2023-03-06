@@ -55,7 +55,7 @@ public class AppStatics {
             Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,
                     LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING,
-                    PACK, PACK_CABINET, PACK_ON_PALLET);
+                    PACK, PACK_ON_PALLET);
 
     //Перечень допустимых операций по типу материала
     public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING,

@@ -35,9 +35,10 @@ public class PlateErrorController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpErrorData opData = (OpErrorData)data;
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
+        lblOperationName.setStyle("-fx-text-fill: #ef1515");
 
         lbErrorOpData.setText(opData.getErrorOpData());
+        lbErrorOpData.setStyle("-fx-text-fill: #ef1515");
 
     }
 

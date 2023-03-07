@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.ChBox;
@@ -13,6 +14,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -27,16 +29,7 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateCuttingController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfHoles;
@@ -54,7 +47,7 @@ public class PlateCuttingController extends AbstractOpPlate {
     private TextField tfExtraPerimeter;
 
     @FXML
-    private ImageView ivHelpOnUseStripping;
+    private ImageView ivHelp;
 
     private double perimeter; //Периметр контура развертки
     private double area; //Площадь развертки
@@ -82,7 +75,9 @@ public class PlateCuttingController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
-
+        ivHelp.setOnMouseClicked(e->{
+            HelpWindow.create(e, "РАСКРОЙ И ЗАЧИСТКА", helpText(), helpImage(), 0, 0);
+        });
     }
 
     /**
@@ -177,6 +172,18 @@ public class PlateCuttingController extends AbstractOpPlate {
 
         extraPerimeter = opData.getExtraPerimeter();
         tfExtraPerimeter.setText(String.valueOf(extraPerimeter));
+    }
+
+    private String helpText(){
+        String text =
+                        "N отв - количество отверстий, пробиваемых стандартным инструментом;\n" +
+                        "N перф. отв - количество отверстий в перфорации, если таковая есть;\n" +
+                        "P экстра , мм - периметр, вырезаемый станком в детали помимо основного контура;\n";
+        return text;
+    }
+
+    private Image helpImage(){
+        return null;
     }
 
 }

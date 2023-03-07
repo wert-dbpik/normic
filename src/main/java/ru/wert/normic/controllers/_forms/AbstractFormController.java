@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.geometry.Side;
-import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -80,17 +79,12 @@ public abstract class AbstractFormController implements IForm {
 
 
     public abstract void countSumNormTimeByShops();
-
     public abstract void createMenu();
-
     public abstract void fillOpData();
-
     public abstract ListView<VBox> getListViewTechOperations();
     public abstract Button getBtnAddOperation();
 
-
-    ImageCursor copyCursor;
-    ImageCursor cutCursor;
+    private String opType; //Тип загружаемого json - временная переменная
 
     public AbstractFormController() {
     }
@@ -111,9 +105,6 @@ public abstract class AbstractFormController implements IForm {
     }
 
     protected void setDragAndDropCellFactory(){
-        copyCursor = new ImageCursor(imageCopy);
-        cutCursor = new ImageCursor(imageCut);
-
         getListViewTechOperations().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         getListViewTechOperations().setCellFactory(new Callback<ListView<VBox>, ListCell<VBox>>() {
             @Override
@@ -311,6 +302,7 @@ public abstract class AbstractFormController implements IForm {
      * При переносе операций происходит их удаление из источника
      */
     private void finishWithPaste(OpData targetOpData) {
+        if(whereFromController == null) return;
         if (!copy) {
             //Если источник совпадает с текущим контроллером
             if(whereFromController.equals(this)) {
@@ -471,8 +463,9 @@ public abstract class AbstractFormController implements IForm {
         return true;
     }
 
-
-
+    /**
+     * УДАЛИТЬ ВЫДЕЛЕННУЮ ОПЕРАЦИЮ
+     */
     public void deleteSelectedOperation(Event e) {
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
         for(int index : selectedIndices){
@@ -488,11 +481,12 @@ public abstract class AbstractFormController implements IForm {
      * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
      */
     public void open(Event e){
-        boolean sourceMenuForm = e.getSource() instanceof MenuItem; //true - меню с операциями, false - меню с пиктограммами (главное)
+        //true - меню с операциями, false - меню с пиктограммами (главное)
+        boolean sourceMenuForm = e.getSource() instanceof MenuItem;
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
-        File file = null;
+        File file;
         if(sourceMenuForm)
             file = chooser.showOpenDialog(((MenuItem)e.getSource()).getParentPopup().getScene().getWindow());
         else
@@ -508,7 +502,7 @@ public abstract class AbstractFormController implements IForm {
             }
 
             //Тип сохраненных данных (ДЕТАЛЬ, СБОРКА, УПАКОВКА)
-            String opType = store.get(0);
+            opType = store.get(0);
 
             //Настройки
             String settings = store.get(1);
@@ -517,34 +511,49 @@ public abstract class AbstractFormController implements IForm {
             ProductSettings productSettings = gson.fromJson(settings, settingsType);
 
             //Структура
-            String product = store.get(2);
-            Type opDataType = null;
-            if(opType.equals("DETAIL")){
-                opDataType = new TypeToken<OpDetail>(){}.getType();
-            } else if(opType.equals("ASSM")){
-                opDataType = new TypeToken<OpAssm>(){}.getType();
-            } else if(opType.equals("PACK")){
-                opDataType = new TypeToken<OpPack>(){}.getType();
+            String jsonString = store.get(2);
+            OpData newOpData = null;
+            switch (opType) {
+                case "DETAIL": newOpData = (OpDetail) OpDataJsonConverter.convert(jsonString); break;
+                case "ASSM"  : newOpData = (OpAssm) OpDataJsonConverter.convert(jsonString); break;
+                case "PACK"  : newOpData = (OpPack) OpDataJsonConverter.convert(jsonString); break;
             }
 
-            opData = gson.fromJson(product, opDataType);
-            //Применяем структуру
-            if(!sourceMenuForm){
+            if(sourceMenuForm){
+                addFromFile(newOpData);
+            } else{ //Вызов из меню с пиктограммами
                 clearAll(e);
-                deployProductSettings(productSettings);
-                createStructureFromJson(product);
-            } else
-                addOperationFromJson(product);
+                if(opType.equals("ASSM")){
+                    deployFile(productSettings, newOpData);
+                } else {
+                    addFromFile(newOpData);
+                }
+            }
 
             countSumNormTimeByShops();
-        } catch (IOException ioException) {
+        } catch (IOException | JSONException ioException) {
             ioException.printStackTrace();
         }
 
     }
 
-    private void addOperationFromJson(String product) {
-        System.out.println("Adding operation");
+    /**
+     * В список операций формы добавляется новая деталь, сборка или упаковка
+     * Настройки изделия игнорируются
+     */
+    private void addFromFile(OpData newOpData) {
+        clipOpDataList.add(newOpData);
+        whereFromController = null;
+        addOperation(opData);
+        clearClipboard();
+    }
+
+    //Сборка разворачивается в главном окне вместе с настройками изделя
+    private void deployFile(ProductSettings productSettings, OpData newOpData) {
+        opData = newOpData;
+        deployProductSettings(productSettings);
+        createMenu();
+        menu.deployData();
     }
 
     /**

@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers._forms;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -22,7 +23,10 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
+import org.json.JSONException;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.assembling.PlateAssmController;
+import ru.wert.normic.controllers.assembling.PlateDetailController;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
@@ -33,8 +37,13 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuOps;
 import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.settings.ProductSettings;
+import ru.wert.normic.utils.OpDataJsonConverter;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -474,6 +483,86 @@ public abstract class AbstractFormController implements IForm {
         }
 
         countSumNormTimeByShops();
+    }
+
+    /**
+     * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
+     */
+    public void open(Event e){
+        FileChooser chooser = new FileChooser();
+        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
+        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
+        if(file == null) return;
+        clearAll(e);
+        try {
+            //Читаем строки из файла
+            BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
+            ArrayList<String> store = new ArrayList<>();
+            String line;
+            while((line = reader.readLine())!= null){
+                store.add(line);
+            }
+
+            //Настройки
+            String settings = store.get(0);
+            Gson gson = new Gson();
+            Type settingsType = new TypeToken<ProductSettings>(){}.getType();
+            ProductSettings productSettings = gson.fromJson(settings, settingsType);
+            //Применяем настройки
+            deployProductSettings(productSettings);
+
+            //Структура
+            String product = store.get(1);
+            Type opDataType = new TypeToken<OpAssm>(){}.getType();
+            opData = gson.fromJson(product, opDataType);
+            //Применяем структуру
+            deployJson(product);
+
+            countSumNormTimeByShops();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+    }
+
+    /**
+     * ОЧИСТИТЬ ВСЕ
+     */
+    public void clearAll(Event e) {
+        ((IOpWithOperations)opData).getOperations().clear();
+        addedPlates.clear();
+        addedOperations.clear();
+        getListViewTechOperations().getItems().clear();
+        countSumNormTimeByShops();
+        PlateDetailController.nameIndex = 0;
+        PlateAssmController.nameIndex = 0;
+    }
+
+    /**
+     * Применение НАСТРОЕК
+     */
+    private void deployProductSettings(ProductSettings settings) {
+        COLOR_I.setRal(settings.getColor1().getRal());
+        COLOR_II.setRal(settings.getColor2().getRal());
+        COLOR_III.setRal(settings.getColor3().getRal());
+
+        COLOR_I.setConsumption(settings.getColor1().getConsumption());
+        COLOR_II.setConsumption(settings.getColor2().getConsumption());
+        COLOR_III.setConsumption(settings.getColor3().getConsumption());
+    }
+
+    /**
+     * Применение СТРУКТУРЫ
+     */
+    private void deployJson(String jsonString) {
+        try {
+            opData = (OpAssm) OpDataJsonConverter.convert(jsonString);
+            createMenu();
+            menu.deployData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

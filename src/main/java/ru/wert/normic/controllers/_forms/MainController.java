@@ -181,18 +181,7 @@ public class MainController extends AbstractFormController {
     }
 
 
-    /**
-     * ОЧИСТИТЬ ВСЕ
-     */
-    private void clearAll(Event e) {
-        ((IOpWithOperations)opData).getOperations().clear();
-        addedPlates.clear();
-        addedOperations.clear();
-        listViewTechOperations.getItems().clear();
-        countSumNormTimeByShops();
-        PlateDetailController.nameIndex = 0;
-        PlateAssmController.nameIndex = 0;
-    }
+
 
     /**
      * СОХРАНИТЬ ИЗДЕЛИЕ
@@ -345,46 +334,7 @@ public class MainController extends AbstractFormController {
         }
     }
 
-    /**
-     * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
-     */
-    private void open(Event e){
-        FileChooser chooser = new FileChooser();
-        chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
-        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
-        File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
-        if(file == null) return;
-        clearAll(e);
-        try {
-            //Читаем строки из файла
-            BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
-            ArrayList<String> store = new ArrayList<>();
-            String line;
-            while((line = reader.readLine())!= null){
-                store.add(line);
-            }
 
-            //Настройки
-            String settings = store.get(0);
-            Gson gson = new Gson();
-            Type settingsType = new TypeToken<ProductSettings>(){}.getType();
-            ProductSettings productSettings = gson.fromJson(settings, settingsType);
-            //Применяем настройки
-            deployProductSettings(productSettings);
-
-            //Структура
-            String product = store.get(1);
-            Type opDataType = new TypeToken<OpAssm>(){}.getType();
-            opData = gson.fromJson(product, opDataType);
-            //Применяем структуру
-            deployJson(product);
-
-            countSumNormTimeByShops();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-
-    }
 
 
     @Override
@@ -456,31 +406,7 @@ public class MainController extends AbstractFormController {
 
     }
 
-    /**
-     * Применение НАСТРОЕК
-     */
-    private void deployProductSettings(ProductSettings settings) {
-        COLOR_I.setRal(settings.getColor1().getRal());
-        COLOR_II.setRal(settings.getColor2().getRal());
-        COLOR_III.setRal(settings.getColor3().getRal());
 
-        COLOR_I.setConsumption(settings.getColor1().getConsumption());
-        COLOR_II.setConsumption(settings.getColor2().getConsumption());
-        COLOR_III.setConsumption(settings.getColor3().getConsumption());
-    }
-
-    /**
-     * Применение СТРУКТУРЫ
-     */
-    private void deployJson(String jsonString) {
-        try {
-            opData = (OpAssm) OpDataJsonConverter.convert(jsonString);
-            createMenu();
-            menu.deployData();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void init(AbstractFormController controller, TextField tfName, OpData opData) {

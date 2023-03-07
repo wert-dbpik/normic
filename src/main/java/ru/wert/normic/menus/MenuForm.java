@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * МЕНЮ ДОБАВЛЕНИЯ ОПЕРАЦИЙ
  */
-public class MenuOps extends ContextMenu {
+public class MenuForm extends ContextMenu {
 
     private final AbstractFormController formController;
     private final ListView<VBox> listViewTechOperations;
@@ -54,7 +54,7 @@ public class MenuOps extends ContextMenu {
     /**
      * Create a new ContextMenu
      */
-    public MenuOps(AbstractFormController formController, ListView<VBox> listViewTechOperations, IOpWithOperations opData) {
+    public MenuForm(AbstractFormController formController, ListView<VBox> listViewTechOperations, IOpWithOperations opData) {
         this.formController = formController;
         this.listViewTechOperations = listViewTechOperations;
         this.opData = opData;
@@ -355,6 +355,14 @@ public class MenuOps extends ContextMenu {
         });
         return item;
     }
+
+    //ДОБАВИТЬ ФАЙЛ
+    public MenuItem createItemAddFilePallet(){
+        MenuItem item = new MenuItem("Добавить файл");
+        item.setOnAction(formController::open);
+        return item;
+    }
+
 
     /*==================================================================================================================
      *

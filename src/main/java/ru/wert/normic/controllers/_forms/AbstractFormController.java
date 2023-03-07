@@ -31,10 +31,10 @@ import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
-import ru.wert.normic.entities.settings.AppColor;
+import ru.wert.normic.entities.ops.opPack.OpPack;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuOps;
+import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.OpDataJsonConverter;
@@ -45,7 +45,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
@@ -66,7 +65,7 @@ public abstract class AbstractFormController implements IForm {
     public static boolean copy; //true - (КОПИРОВАТЬ) переносимые элементы не удаляются, false - (ВЫРЕЗАТЬ) удаляются
     //------------------------
 
-    protected MenuOps menu;
+    protected MenuForm menu;
     @Getter protected OpData opData;
     @Getter protected List<AbstractOpPlate> addedPlates = new ArrayList<>();
     @Getter protected ObservableList<OpData> addedOperations = FXCollections.observableArrayList();
@@ -260,7 +259,7 @@ public abstract class AbstractFormController implements IForm {
     };
 
     /**
-     * ДОБАВИТЬ ОПЕРАЦИЮ (MenuOps)
+     * ДОБАВИТЬ ОПЕРАЦИЮ (MenuForm)
      *
      * Метод добавляет данные "clipOpData" в targetOpData
      * В случае если targetOpData и opData формы совпадают, форма перерисовывается
@@ -489,12 +488,16 @@ public abstract class AbstractFormController implements IForm {
      * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
      */
     public void open(Event e){
+        boolean sourceMenuForm = e.getSource() instanceof MenuItem; //true - меню с операциями, false - меню с пиктограммами (главное)
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
-        File file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
+        File file = null;
+        if(sourceMenuForm)
+            file = chooser.showOpenDialog(((MenuItem)e.getSource()).getParentPopup().getScene().getWindow());
+        else
+            file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
         if(file == null) return;
-        clearAll(e);
         try {
             //Читаем строки из файла
             BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
@@ -504,26 +507,44 @@ public abstract class AbstractFormController implements IForm {
                 store.add(line);
             }
 
+            //Тип сохраненных данных (ДЕТАЛЬ, СБОРКА, УПАКОВКА)
+            String opType = store.get(0);
+
             //Настройки
-            String settings = store.get(0);
+            String settings = store.get(1);
             Gson gson = new Gson();
             Type settingsType = new TypeToken<ProductSettings>(){}.getType();
             ProductSettings productSettings = gson.fromJson(settings, settingsType);
-            //Применяем настройки
-            deployProductSettings(productSettings);
 
             //Структура
-            String product = store.get(1);
-            Type opDataType = new TypeToken<OpAssm>(){}.getType();
+            String product = store.get(2);
+            Type opDataType = null;
+            if(opType.equals("DETAIL")){
+                opDataType = new TypeToken<OpDetail>(){}.getType();
+            } else if(opType.equals("ASSM")){
+                opDataType = new TypeToken<OpAssm>(){}.getType();
+            } else if(opType.equals("PACK")){
+                opDataType = new TypeToken<OpPack>(){}.getType();
+            }
+
             opData = gson.fromJson(product, opDataType);
             //Применяем структуру
-            deployJson(product);
+            if(!sourceMenuForm){
+                clearAll(e);
+                deployProductSettings(productSettings);
+                createStructureFromJson(product);
+            } else
+                addOperationFromJson(product);
 
             countSumNormTimeByShops();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
 
+    }
+
+    private void addOperationFromJson(String product) {
+        System.out.println("Adding operation");
     }
 
     /**
@@ -555,7 +576,7 @@ public abstract class AbstractFormController implements IForm {
     /**
      * Применение СТРУКТУРЫ
      */
-    private void deployJson(String jsonString) {
+    private void createStructureFromJson(String jsonString) {
         try {
             opData = (OpAssm) OpDataJsonConverter.convert(jsonString);
             createMenu();

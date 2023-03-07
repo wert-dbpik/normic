@@ -2,7 +2,6 @@ package ru.wert.normic.controllers._forms;
 
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -18,31 +17,25 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
-import ru.wert.normic.entities.ops.opAssembling.OpDetail;
-import ru.wert.normic.entities.ops.opPack.OpPack;
 import ru.wert.normic.entities.settings.AppColor;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.excel.ExcelImporter;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuOps;
+import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.components.BXTimeMeasurement;
-import ru.wert.normic.controllers.assembling.PlateAssmController;
-import ru.wert.normic.controllers.assembling.PlateDetailController;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.AppFiles;
-import ru.wert.normic.utils.OpDataJsonConverter;
 
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -208,9 +201,10 @@ public class MainController extends AbstractFormController {
         settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));
 
         //Создаем строки для сохранения в коллекцию
+        String savedOpType = opData.getOpType().name().replace("\"", "");
         String productSettings = gson.toJson(settings);
         String productData = gson.toJson(opData);
-        List<String> product = Arrays.asList(productSettings, productData);
+        List<String> product = Arrays.asList(savedOpType, productSettings, productData);
         saveTextToFile(product, file);
 
     }
@@ -340,7 +334,7 @@ public class MainController extends AbstractFormController {
     @Override
     public void createMenu() {
 
-        menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
+        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
         menu.getItems().add(menu.createItemDetail());
         menu.getItems().add(menu.createItemAssm());
@@ -353,6 +347,8 @@ public class MainController extends AbstractFormController {
         menu.getItems().addAll(menu.createItemAssmNuts(), menu.createItemAssmCuttings(), menu.createItemAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemLevelingSealer());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createItemAddFilePallet());
 
         linkMenuToButton();
 

@@ -12,7 +12,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuOps;
+import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
@@ -122,7 +122,7 @@ public class FormPackController extends AbstractFormController {
 
     @Override
     public void createMenu(){
-        menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
+        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
             menu.getItems().add(menu.createItemPackInCartoonBox());
             menu.getItems().add(menu.createItemPackOnPalletizer());

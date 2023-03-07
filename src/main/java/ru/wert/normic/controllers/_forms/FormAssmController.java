@@ -10,7 +10,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuOps;
+import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.enums.ETimeMeasurement;
 
 
@@ -101,7 +101,7 @@ public class FormAssmController extends AbstractFormController {
     @Override
     public  void createMenu() {
 
-        menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
+        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
         menu.getItems().add(menu.createItemDetail());
         menu.getItems().add(menu.createItemAssm());
@@ -117,6 +117,9 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(menu.createItemAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemLevelingSealer());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createItemAddFilePallet());
+
 
         linkMenuToButton();
     }

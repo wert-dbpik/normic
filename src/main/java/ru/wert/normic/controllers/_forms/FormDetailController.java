@@ -23,7 +23,7 @@ import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
-import ru.wert.normic.menus.MenuOps;
+import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.db_connection.material.Material;
 
@@ -187,7 +187,7 @@ public class FormDetailController extends AbstractFormController {
 
     @Override
     public void createMenu(){
-        menu = new MenuOps(this, listViewTechOperations, (IOpWithOperations) opData);
+        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
         EMatType type = EMatType.getTypeByName(cmbxMaterial.getValue().getMatType().getName());
 
         if(type.equals(EMatType.LIST)){ //ЛИСТЫ

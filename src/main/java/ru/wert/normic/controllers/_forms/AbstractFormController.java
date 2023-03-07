@@ -26,6 +26,7 @@ import org.json.JSONException;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.assembling.PlateAssmController;
 import ru.wert.normic.controllers.assembling.PlateDetailController;
+import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
@@ -519,18 +520,28 @@ public abstract class AbstractFormController implements IForm {
                 case "PACK"  : newOpData = (OpPack) OpDataJsonConverter.convert(jsonString); break;
             }
 
-            if(sourceMenuForm){
-                addFromFile(newOpData);
-            } else{ //Вызов из меню с пиктограммами
-                clearAll(e);
-                if(opType.equals("ASSM")){
-                    deployFile(productSettings, newOpData);
-                } else {
-                    addFromFile(newOpData);
-                }
-            }
+            if(newOpData == null) {
+                Warning1.create("Ошибка!",
+                        "При конвертации файла произошла ошибка",
+                        "Возможно, файл поврежден.");
+            } else {
 
-            countSumNormTimeByShops();
+                //Убираем ".nvr" в конце наименования
+                ((IOpWithOperations) newOpData).setName(((IOpWithOperations) newOpData).getName().replace(".nvr", ""));
+
+                if (sourceMenuForm) {
+                    addFromFile(newOpData);
+                } else { //Вызов из меню с пиктограммами
+                    clearAll(e);
+                    if (opType.equals("ASSM")) {
+                        deployFile(productSettings, newOpData);
+                    } else {
+                        addFromFile(newOpData);
+                    }
+                }
+
+                countSumNormTimeByShops();
+            }
         } catch (IOException | JSONException ioException) {
             ioException.printStackTrace();
         }

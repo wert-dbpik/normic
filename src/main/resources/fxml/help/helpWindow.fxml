@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="helpWindow" alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,12 +26,23 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <HBox VBox.vgrow="NEVER">
-               <children>
-                  <ImageView fx:id="ivImage" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
-                  <TextArea fx:id="taText" editable="false" wrapText="true" HBox.hgrow="NEVER" />
-               </children>
-            </HBox>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefViewportHeight="168.0" prefViewportWidth="486.0" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox prefWidth="486.0">
+                     <children>
+                        <ImageView fx:id="ivImage" pickOnBounds="true" preserveRatio="true" />
+                        <Text fx:id="text" strokeType="OUTSIDE" strokeWidth="0.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+               </content>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </ScrollPane>
             <Button fx:id="btnOK" mnemonicParsing="false" text="OK">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -136,19 +136,17 @@
     -fx-border-width: 2;
 }
 
-#helpWindow .text-area{
+#helpWindow .scroll-pane{
     -fx-background-insets: 0;
     -fx-background-color: #f8f5eb;
 }
 
-#helpWindow .text-area .content {
+#helpWindow .scroll-pane .viewport{
+    -fx-background-insets: 0;
     -fx-background-color: #f8f5eb;
 }
 
-#helpWindow .text-area:focused .content {
+#helpWindow .text{
+    -fx-background-insets: 0;
     -fx-background-color: #f8f5eb;
-}
-
-#helpWindow .text-area:focused {
-    -fx-highlight-fill: #f6caa8;
 }

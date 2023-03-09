@@ -6,12 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,7 +20,7 @@ import java.io.IOException;
 
 public class HelpWindow extends ModalWindow{
 
-    public static void create(Event event, String title, String text, Image image, int width, int height){
+    public static void create(Event event, String title, String text, Image image){
 
         try {
             Stage owner = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -41,18 +40,21 @@ public class HelpWindow extends ModalWindow{
             Label lblTitle = (Label)parent.lookup("#lblTitle");
             lblTitle.setText(title);
 
-            TextArea taText = (TextArea)parent.lookup("#taText");
-            taText.setEditable(false);
-            taText.setText(text);
+            //Находим сначала ScrollPane
+            ScrollPane sp  = (ScrollPane)parent.lookup("#scrollPane");
 
+            //ИЗОБРАЖЕНИЕ
             if(image != null){
-                ImageView ivImage = (ImageView)parent.lookup("#ivImage");
-                ivImage.setFitWidth(width);
-                ivImage.setFitHeight(height);
+                ImageView ivImage = (ImageView)sp.getContent().lookup("#ivImage");
+                ivImage.setPreserveRatio(true);
+                ivImage.setFitWidth(480);
                 ivImage.setImage(image);
             }
 
-//            HBox movingPane = (HBox)parent.lookup("#movingPane");
+            //ТЕКСТ
+            Text taText = (Text)sp.getContent().lookup("#text");
+            taText.setText(text);
+
             ModalWindow.setMovingPane(parent);
 
             Platform.runLater(()->{

@@ -76,7 +76,7 @@ public class PlateCuttingController extends AbstractOpPlate {
         });
 
         ivHelp.setOnMouseClicked(e->{
-            HelpWindow.create(e, "РАСКРОЙ И ЗАЧИСТКА", helpText(), helpImage(), 0, 0);
+            HelpWindow.create(e, "РАСКРОЙ И ЗАЧИСТКА", helpText(), helpImage());
         });
     }
 
@@ -105,14 +105,14 @@ public class PlateCuttingController extends AbstractOpPlate {
         //Время зачистки
         double strippingTime; //мин
         if(stripping){
-            strippingTime = ((perimeter + PLUS_LENGTH) * 2.5 + holes) / 60;
+            strippingTime = ((perimeter + PLUS_LENGTH) * STRIPING_SPEED + holes) / 60;
         } else
             strippingTime = 0.0;
 
         double time;
 
         time = ((perimeter + PLUS_LENGTH)/speed                 //Время на резку по периметру
-                + 1.28 * area                              //Время подготовительное - заключительоне
+                + CUTTING_SPEED * area                          //Время подготовительное - заключительоне
                 + REVOLVER_SPEED * holes                //Время на пробивку отверстий
                 + PERFORATION_SPEED * perfHoles)        //Время на пробивку перфорации
                 * CUTTING_SERVICE_RATIO
@@ -174,16 +174,39 @@ public class PlateCuttingController extends AbstractOpPlate {
         tfExtraPerimeter.setText(String.valueOf(extraPerimeter));
     }
 
-    private String helpText(){
-        String text =
-                        "N отв - количество отверстий, пробиваемых стандартным инструментом;\n" +
-                        "N перф. отв - количество отверстий в перфорации, если таковая есть;\n" +
-                        "P экстра , мм - периметр, вырезаемый станком в детали помимо основного контура;\n";
+    private String helpText() {
+        String text = String.format("N отв - количество отверстий, пробиваемых стандартным инструментом;\n" +
+                        "N перф. отв - количество пробиваемых отверстий в перфорации, если таковая есть;\n" +
+                        "\t\t(кроме отверстий нарезаеммых лазером)\n" +
+                        "P экстра , мм - периметр, вырезаемый станком в детали помимо\n" +
+                        "\t\tосновного контура;\n" +
+                        "\n" +
+                        "Время резания вычисляется по формуле:\n" +
+                        "Трез = (P / Vрез + Tпз.рез х Sдет + Vрев * N отв + Vперф x N перф) х\n" +
+                        "\t\t\t Tпз.общ + Tчист,\n" +
+                        "где \n" +
+                        "\tP =  Pпер + P экстра - общий периметр резания , м;\n" +
+                        "\tVрез - скорость резания, зависящая от толщины материала\n" +
+                        "\t\t(t = 1.0 - 5.5 м/мин, t = 1.5 - 4.0 м/мин, t = 2.0 - 2.5 м/мин)\n" +
+                        "\tTпз.рез = %s - ПЗ время, зависящее от площади детали, мин;\n" +
+                        "\tSдет - площадь обрабатываемой детали, м2;\n" +
+                        "\tVрев = %s - скорость револьверной головки, мин/удар;\n" +
+                        "\tVперф = %s  - скорость перфорации,  мин/удар;\n" +
+                        "\tTпз.общ =%s - ПЗ время общее,  мин;\n" +
+                        "\tTчист  - время зачистки, мин.\n" +
+                        "\n" +
+                        "Зачистка выполняется ручным инструментом:\n" +
+                        "Tчист = P x Vчист + N отв,\n" +
+                        "где\n" +
+                        "\tVчист = %s - скорость зачистки, сек/м.\n",
+                CUTTING_SPEED, REVOLVER_SPEED, PERFORATION_SPEED, CUTTING_SERVICE_RATIO, STRIPING_SPEED);
+
         return text;
     }
 
-    private Image helpImage(){
-        return null;
+    private Image helpImage() {
+        Image image = new Image(getClass().getResource("/pics/help/cutting.PNG").toString());
+        return image;
     }
 
 }

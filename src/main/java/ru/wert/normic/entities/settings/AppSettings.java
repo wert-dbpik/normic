@@ -6,9 +6,11 @@ public class AppSettings {
 
     //--- РЕЗКА И ЗАЧИСТКА
 
+    public static double CUTTING_SPEED = 1.28; //Скорость резания, зависящая от площади детали, мин
     public static double REVOLVER_SPEED = 0.057; //Скорость вырубки одного элемента револьвером, мин/уд
     public static double PERFORATION_SPEED = 0.007; //Скорость перфорирования, мин/уд
     public static double CUTTING_SERVICE_RATIO = 1.22; //коэфффициент, учитывающий 22% времени на обслуживание при резке
+    public static double STRIPING_SPEED = 2.5; //Скорость зачистки резанных кромок, сек
 
     //--- ГИБКА
 

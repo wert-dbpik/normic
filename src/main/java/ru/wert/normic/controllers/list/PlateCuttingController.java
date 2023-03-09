@@ -175,7 +175,7 @@ public class PlateCuttingController extends AbstractOpPlate {
     }
 
     private String helpText() {
-        String text = String.format("N отв - количество отверстий, пробиваемых стандартным инструментом;\n" +
+        return String.format("N отв - количество отверстий, пробиваемых стандартным инструментом;\n" +
                         "N перф. отв - количество пробиваемых отверстий в перфорации, если таковая есть;\n" +
                         "\t\t(кроме отверстий нарезаеммых лазером)\n" +
                         "P экстра , мм - периметр, вырезаемый станком в детали помимо\n" +
@@ -200,8 +200,6 @@ public class PlateCuttingController extends AbstractOpPlate {
                         "где\n" +
                         "\tVчист = %s - скорость зачистки, сек/м.\n",
                 CUTTING_SPEED, REVOLVER_SPEED, PERFORATION_SPEED, CUTTING_SERVICE_RATIO, STRIPING_SPEED);
-
-        return text;
     }
 
     private Image helpImage() {

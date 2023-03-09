@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXBendingTool;
@@ -14,6 +15,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
+import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.BENDING_SERVICE_RATIO;
@@ -34,7 +36,7 @@ public class PlateBendController extends AbstractOpPlate {
     private Label lblOperationName;
 
     @FXML
-    private ImageView ivDeleteOperation;
+    private ImageView ivHelp;
 
     @FXML
     private TextField tfBends;
@@ -63,7 +65,9 @@ public class PlateBendController extends AbstractOpPlate {
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
-//        new CmBx(cmbxBendingTool, this);
+        ivHelp.setOnMouseClicked(e->{
+            HelpWindow.create(e, "ГИБКА", helpText(), helpImage());
+        });
 
     }
 
@@ -116,5 +120,24 @@ public class PlateBendController extends AbstractOpPlate {
             toolRatio = opData.getTool().getToolRatio();
             cmbxBendingTool.setValue(opData.getTool());
         }
+    }
+
+    private String helpText() {
+        return String.format("N гибов - число гибов;\n" +
+                        "N человек - число человек выполняющих гибку (2 - для крупных деталей);\n" +
+                        "Оборудование - коэффициент, учитывающий оборудование\n" +
+                        "\t(универсал : К обор = 2, панелегиб : К обор = 1).\n" +
+                        "\n" +
+                        "Время гибки вычисляется по формуле:\n" +
+                        "Тгиб = N гибов х Vгиб х К обор х N человек х Кпз,\n" +
+                        "где\n" +
+                        "\tV гиб = %s скорость гибки, мин/гиб ;\n" +
+                        "\tК пз = %s - коэффициент ПЗ времени.",
+                BENDING_SPEED, BENDING_SERVICE_RATIO
+                );
+    }
+
+    private Image helpImage() {
+        return null;
     }
 }

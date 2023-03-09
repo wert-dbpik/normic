@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
@@ -14,6 +15,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
+import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.materials.matlPatches.ListMatPatchController;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -58,7 +60,7 @@ public class PlatePaintController extends AbstractOpPlate {
     private ComboBox<EPaintingDifficulty> cmbxDifficulty;
 
     @FXML
-    private ImageView ivHelpOnA;
+    private ImageView ivHelp;
 
     @FXML
     private TextField tfHangingTime;
@@ -92,6 +94,10 @@ public class PlatePaintController extends AbstractOpPlate {
         new CmBx(cmbxColor, this);
         new CmBx(cmbxDifficulty, this);
         new ChBox(chbxTwoSides, this);
+
+        ivHelp.setOnMouseClicked(e->{
+            HelpWindow.create(e, "ПОКРАСКА", helpText(), helpImage());
+        });
 
     }
 
@@ -181,7 +187,9 @@ public class PlatePaintController extends AbstractOpPlate {
         difficulty = cmbxDifficulty.getValue().getDifficultyRatio();
         hangingTime = IntegerParser.getValue(tfHangingTime);
 
-
+        ivHelp.setOnMouseClicked(e->{
+            HelpWindow.create(e, "ПОКРАСКА", helpText(), helpImage());
+        });
     }
 
     private void collectOpData(OpPaint opData) {
@@ -219,4 +227,37 @@ public class PlatePaintController extends AbstractOpPlate {
         tfHangingTime.setText(String.valueOf(hangingTime));
     }
 
+
+    private String helpText() {
+        return String.format("Цвет краски - палитра цвета устанавливается в отдельном окне «палитра»;\n" +
+                "А(вдоль) - размер навешенной детали вдоль штанги, мм;\n" +
+                "В(поперек) - размер навешенной детали поперек штанги, мм;\n" +
+                "Т навеш - время навешивания (от 7 до 24 сек);\n" +
+                "С 2х сторон - по умолчанию, окрашивание с одной стороны - \n" +
+                "\t\tэто редкий случай для корпусной детали из нержавейки;\n" +
+                "Сложность - выбирается в зависимости от трудностей прокрашивания.\n" +
+                "Площадь покрытия и расход краски рассчитываются по габаритам развертки.\n" +
+                "\n" +
+                "Время операции окрашивания вычисляется по формуле:\n" +
+                "Токр = Т навеш/60 + Т мойки/60 + Т продув/60 + Т сушки/60/ N с.штанг/ N с.дет + \n" +
+                "+ K слож х (2 х S покр)^0.7 + Т печь / N п.штанг/ N п.дет;\n" +
+                "где \n" +
+                "\tТ навеш = время навешивания, сек ;\n" +
+                "\tТ мойки = %s - время мойки, сек;\n" +
+                "\tТ продув = %s - время продувки, сек;\n" +
+                "\tТ сушки = %s - время сушки, сек;\n" +
+                "\tN с.штанг = количество штанг в сушилке;\n" +
+                "\tN с.дет = количество деталей на штанге;\n" +
+                "\tK слож - коэффициент сложности (значения: 1.0 - 1.4 - 2.0);\n" +
+                "\tS покр - площадь покрытия, м2;\n" +
+                "\t Т печь = %s - время полимеризации в печи, мин;\n" +
+                "\tN п.штанг = количество штанг в печи;\n" +
+                "\tN п.дет = количество деталей на штанге в печи;\n" +
+                "Количество деталей на штанге вычисляется от габаритов детали и оборудования.\n",
+                WASHING, WINDING, DRYING, BAKING);
+    }
+
+    private Image helpImage() {
+        return null;
+    }
 }

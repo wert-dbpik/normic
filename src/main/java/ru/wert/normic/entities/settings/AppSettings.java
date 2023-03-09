@@ -31,6 +31,7 @@ public class AppSettings {
     public static double WASHING = 12; //Мойка, сек
     public static double WINDING = 6; //Продувка, сек
     public static double DRYING = 20; //Сушка, сек
+    public static double BAKING = 40.0; //Полимеризация, мин
 
     //--- ПОКРАСКА СБОРКИ
 

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -23,25 +24,13 @@ import java.util.NoSuchElementException;
 public class PlateCutOffController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfThickness;
 
     @FXML
     private CheckBox chbxCutOffSolid;
-
-    @FXML
-    private TextField tfNormTime;
 
     private String initStyle;
     private double diameter; //Диаметр заготовки
@@ -180,4 +169,13 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

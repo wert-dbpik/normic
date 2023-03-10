@@ -46,9 +46,6 @@ public class PlateCuttingController extends AbstractOpPlate {
     @FXML
     private TextField tfExtraPerimeter;
 
-    @FXML
-    private ImageView ivHelp;
-
     private double perimeter; //Периметр контура развертки
     private double area; //Площадь развертки
     private int extraPerimeter; //Дополнительный периметр обработки
@@ -73,10 +70,6 @@ public class PlateCuttingController extends AbstractOpPlate {
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
-        });
-
-        ivHelp.setOnMouseClicked(e->{
-            HelpWindow.create(e, "РАСКРОЙ И ЗАЧИСТКА", helpText(), helpImage());
         });
     }
 
@@ -174,7 +167,7 @@ public class PlateCuttingController extends AbstractOpPlate {
         tfExtraPerimeter.setText(String.valueOf(extraPerimeter));
     }
 
-    private String helpText() {
+    public String helpText() {
         return String.format("N отв - количество отверстий, пробиваемых стандартным инструментом;\n" +
                         "N перф. отв - количество пробиваемых отверстий в перфорации, если таковая есть;\n" +
                         "\t\t(кроме отверстий нарезаеммых лазером)\n" +
@@ -202,7 +195,7 @@ public class PlateCuttingController extends AbstractOpPlate {
                 CUTTING_SPEED, REVOLVER_SPEED, PERFORATION_SPEED, CUTTING_SERVICE_RATIO, STRIPING_SPEED);
     }
 
-    private Image helpImage() {
+    public Image helpImage() {
         Image image = new Image(getClass().getResource("/pics/help/cutting.PNG").toString());
         return image;
     }

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
@@ -27,9 +28,6 @@ import java.io.IOException;
 public class PlatePackController extends AbstractOpPlate implements IOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
     private VBox vbOperation;
 
     @FXML
@@ -38,9 +36,6 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
     @FXML
     private ImageView ivEdit;
 
-    @FXML
-    private ImageView ivDeleteOperation;
-    
     @FXML
     private Label lblOperationName;
 
@@ -129,6 +124,7 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
 
     }
 
+
     private void collectOpData(OpPack opData) {
         opData.setName(tfName.getText());
     }
@@ -141,4 +137,13 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
     }
 
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

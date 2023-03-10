@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
@@ -27,12 +28,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlatePaintController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private ComboBox<EColor> cmbxColor;
 
     @FXML
@@ -48,9 +43,6 @@ public class PlatePaintController extends AbstractOpPlate {
     private Label lblOperationName;
 
     @FXML
-    private ImageView ivDeleteOperation;
-
-    @FXML
     private TextField tfAlong;
 
     @FXML
@@ -59,7 +51,7 @@ public class PlatePaintController extends AbstractOpPlate {
     @FXML
     private ComboBox<EPaintingDifficulty> cmbxDifficulty;
 
-    @FXML
+    @FXML@Getter
     private ImageView ivHelp;
 
     @FXML
@@ -187,9 +179,6 @@ public class PlatePaintController extends AbstractOpPlate {
         difficulty = cmbxDifficulty.getValue().getDifficultyRatio();
         hangingTime = IntegerParser.getValue(tfHangingTime);
 
-        ivHelp.setOnMouseClicked(e->{
-            HelpWindow.create(e, "ПОКРАСКА", helpText(), helpImage());
-        });
     }
 
     private void collectOpData(OpPaint opData) {
@@ -228,7 +217,7 @@ public class PlatePaintController extends AbstractOpPlate {
     }
 
 
-    private String helpText() {
+    public String helpText() {
         return String.format("Цвет краски - палитра цвета устанавливается в отдельном окне «палитра»;\n" +
                 "А(вдоль) - размер навешенной детали вдоль штанги, мм;\n" +
                 "В(поперек) - размер навешенной детали поперек штанги, мм;\n" +
@@ -257,7 +246,7 @@ public class PlatePaintController extends AbstractOpPlate {
                 WASHING, WINDING, DRYING, BAKING);
     }
 
-    private Image helpImage() {
+    public Image helpImage() {
         return null;
     }
 }

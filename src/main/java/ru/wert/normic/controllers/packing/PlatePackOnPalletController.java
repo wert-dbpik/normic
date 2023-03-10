@@ -3,6 +3,7 @@ package ru.wert.normic.controllers.packing;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
@@ -58,6 +59,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
         height = ((FormPackController)formController).getHeight();
     }
 
+
     private void collectOpData(OpPackOnPallet opData){
         opData.setStretchMachineWrap(stretchMachineWrapL);
         opData.setPolyWrap(polyWrapL);
@@ -72,4 +74,13 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
         //НИКАКИХ ДЕЙСТВИЙ
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

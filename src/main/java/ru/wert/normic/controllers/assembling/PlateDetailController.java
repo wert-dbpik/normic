@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
@@ -31,9 +32,6 @@ import java.util.ArrayList;
 public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
     private VBox vbOperation;
 
     @FXML
@@ -45,9 +43,6 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     @FXML
     private ImageView ivEdit;
 
-    @FXML
-    private ImageView ivDeleteOperation;
-    
     @FXML
     private Label lblOperationName;
 
@@ -159,6 +154,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         quantity = IntegerParser.getValue(tfN);
     }
 
+
     private void collectOpData(OpDetail opData) {
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
@@ -179,5 +175,14 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         tfN.setText(String.valueOf(opData.getQuantity()));
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 
 }

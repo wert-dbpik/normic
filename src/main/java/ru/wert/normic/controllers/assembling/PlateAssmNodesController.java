@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.assembling;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.TFIntegerColored;
@@ -19,12 +20,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
  * СБОРКА ОТДЕЛЬНЫХ УЗЛОВ
  */
 public class PlateAssmNodesController extends AbstractOpPlate {
-
-    @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
 
     @FXML
     private TextField tfMirrors;
@@ -43,12 +38,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
-
-    @FXML
-    private Label lblNormTimeMeasure;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private Label lblOperationName;
@@ -106,6 +95,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         connectionBoxes = IntegerParser.getValue(tfConnectionBoxes);
     }
 
+
     private void collectOpData(OpAssmNode opData){
         opData.setPostLocks(postLocks);
         opData.setDoubleLocks(doubleLocks);
@@ -137,4 +127,13 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

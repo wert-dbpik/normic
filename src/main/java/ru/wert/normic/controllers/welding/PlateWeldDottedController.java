@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.welding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.TFIntegerColored;
@@ -21,16 +22,7 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateWeldDottedController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfParts;
@@ -86,6 +78,8 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         drops = IntegerParser.getValue(tfDrops);
     }
 
+
+
     private void collectOpData(OpWeldDotted opData){
         opData.setParts(parts);
         opData.setDots(dots);
@@ -108,5 +102,13 @@ public class PlateWeldDottedController extends AbstractOpPlate {
         tfDrops.setText(String.valueOf(drops));
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
 
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

@@ -3,6 +3,7 @@ package ru.wert.normic.controllers.turning;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -19,16 +20,7 @@ import java.util.NoSuchElementException;
 public class PlateMountDismountController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private RadioButton rbHolder;
@@ -38,9 +30,6 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     @FXML
     private RadioButton rbCenters;
-
-    @FXML
-    private TextField tfNormTime;
 
     private double weight; //Масса заготовки
 
@@ -119,6 +108,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     }
 
+
     private void collectOpData(OpLatheMountDismount opData){
         opData.setHolder(holder.ordinal());
 
@@ -138,4 +128,13 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

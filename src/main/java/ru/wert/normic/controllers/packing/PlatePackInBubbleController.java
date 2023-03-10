@@ -3,6 +3,7 @@ package ru.wert.normic.controllers.packing;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
@@ -113,6 +114,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     }
 
+
     private void collectOpData(OpPackInBubbleWrap opData){
 
         opData.setSelectedRadioButton(selectedRadioButton);
@@ -132,4 +134,13 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

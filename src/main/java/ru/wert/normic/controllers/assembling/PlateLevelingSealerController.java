@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXSealersWidth;
@@ -26,19 +27,7 @@ import static ru.wert.normic.entities.settings.AppSettings.LEVELING_PREPARED_TIM
 public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivHelpOnLevelingSealer;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private ComboBox<ESealersWidth> cmbxSealerWidth;
@@ -57,12 +46,6 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
-
-    @FXML
-    private Label lblNormTimeMeasure;
-
-    private double componentA; //Компонент полиэфирный А
-    private double componentB; //Компонент изоцинат B
 
     private int paramA; //Размер А
     private int paramB;//Размер Б
@@ -114,7 +97,6 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         perimeter = 2 * (paramA + paramB) * MM_TO_M;
     }
 
-
     private void collectOpData(OpLevelingSealer opData){
         opData.setCompA(tfCompA.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompA.getText().replace(",", ".")));
         opData.setCompB(tfCompB.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompB.getText().replace(",", ".")));
@@ -132,17 +114,21 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
         cmbxSealerWidth.setValue(opData.getSealersWidth());
 
-//        componentA = opData.getCompA();
-//        tfCompA.setText(String.valueOf(componentA));
-//
-//        componentB = opData.getCompA();
-//        tfCompB.setText(String.valueOf(componentB));
-
         paramA = opData.getParamA();
         tfA.setText(String.valueOf(paramA));
 
         paramB = opData.getParamB();
         tfB.setText(String.valueOf(paramB));
 
+    }
+
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
     }
 }

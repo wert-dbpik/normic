@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.packing;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
@@ -90,6 +91,7 @@ public class PlatePackOnPalletizerController extends AbstractOpPlate {
         partMin = IntegerParser.getValue(tfPartMin);
     }
 
+
     private void collectOpData(OpPackInMachineStretchWrap opData){
 
         opData.setPolyWrap(partMin);
@@ -109,4 +111,13 @@ public class PlatePackOnPalletizerController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

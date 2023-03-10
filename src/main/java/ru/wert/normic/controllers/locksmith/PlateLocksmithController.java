@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.locksmith;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.TFIntegerColored;
@@ -21,12 +22,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateLocksmithController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private TextField tfNormTime;
 
     @FXML
@@ -37,9 +32,6 @@ public class PlateLocksmithController extends AbstractOpPlate {
 
     @FXML
     private TextField tfRivets;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private Label lblOperationName;
@@ -89,6 +81,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
 
     }
 
+
     private void collectOpData(OpLocksmith opData){
         opData.setRivets(rivets);
         opData.setCountersinkings(countersinkings);
@@ -112,5 +105,14 @@ public class PlateLocksmithController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 
 }

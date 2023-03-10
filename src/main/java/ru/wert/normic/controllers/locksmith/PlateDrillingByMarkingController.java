@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.locksmith;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -22,16 +23,7 @@ import java.util.NoSuchElementException;
 public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfDiameter;
@@ -44,9 +36,6 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     @FXML
     private TextField tfLength;
-
-    @FXML
-    private TextField tfNormTime;
 
     private String initStyle;
 
@@ -173,6 +162,7 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     }
 
+
     private void collectOpData(OpDrillingByMarking opData){
         opData.setDiameter(diameter);
         opData.setDepth(depth);
@@ -200,4 +190,13 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

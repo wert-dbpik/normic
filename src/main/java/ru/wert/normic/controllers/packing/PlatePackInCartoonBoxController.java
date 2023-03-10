@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.packing;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.ChBox;
@@ -91,6 +92,7 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
         partMin = IntegerParser.getValue(tfPartMin);
     }
 
+
     private void collectOpData(OpPackInCartoonBox opData){
 
         opData.setPolyWrap(partMin);
@@ -109,4 +111,13 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

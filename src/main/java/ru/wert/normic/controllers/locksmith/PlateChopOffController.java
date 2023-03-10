@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.locksmith;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.AbstractOpPlate;
@@ -20,19 +21,7 @@ import java.util.NoSuchElementException;
 public class PlateChopOffController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
-
-    @FXML
-    private TextField tfNormTime;
 
     private int length;
     private double chopTime = 0.05;
@@ -86,6 +75,7 @@ public class PlateChopOffController extends AbstractOpPlate {
 
     }
 
+
     private void collectOpData(OpChopOff opData){
 
         opData.setMechTime(currentNormTime);
@@ -98,4 +88,13 @@ public class PlateChopOffController extends AbstractOpPlate {
         //НИКАКИХ ДЕЙСТВИЙ
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

@@ -5,8 +5,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
@@ -24,12 +26,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlatePaintAssmController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
 
     @FXML
@@ -40,9 +36,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
     @FXML
     private CheckBox chbxTwoSides;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private ComboBox<EAssemblingType> cmbxAssemblingType;
@@ -62,8 +55,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @FXML
     private TextField tfAcross;
 
-    @FXML
-    private ImageView ivHelpOnPainting;
+    @FXML@Getter
+    private ImageView ivHelp;
 
     @FXML
     private TextField tfNormTime;
@@ -226,4 +219,13 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         cmbxAssemblingType.setValue(opData.getAssmType());
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

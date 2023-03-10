@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.assembling;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.TFDoubleColored;
@@ -21,12 +22,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private TextField tfNormTime;
 
     @FXML
@@ -37,9 +32,6 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @FXML
     private TextField tfInsulation;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private Label lblOperationName;
@@ -90,6 +82,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     }
 
+
     private void collectOpData(OpAssmCutting opData){
         opData.setSealer(sealer);
         opData.setSelfAdhSealer(selfAdhSealer);
@@ -112,5 +105,13 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         tfInsulation.setText(String.valueOf(insulation));
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
 
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

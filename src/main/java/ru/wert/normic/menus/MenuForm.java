@@ -559,7 +559,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/list/plateCutting.fxml"));
             VBox vBox = loader.load();
             PlateCuttingController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "РАСКРОЙ И ЗАЧИСТКА");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -574,7 +574,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/list/plateBend.fxml"));
             VBox vBox = loader.load();
             PlateBendController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ГИБКА");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -589,7 +589,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/locksmith/plateLocksmith.fxml"));
             VBox vBox = loader.load();
             PlateLocksmithController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СЛЕСАРНЫЕ ОПЕРАЦИИ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -605,7 +605,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateTurning.fxml"));
             VBox vBox = loader.load();
             PlateTurningController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ТОЧЕНИЕ ИЛИ РАСТАЧИВАНИЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -620,7 +620,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutOff.fxml"));
             VBox vBox = loader.load();
             PlateCutOffController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ОТРЕЗАНИЕ НА ТОКАРНОМ СТАНКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -635,7 +635,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/locksmith/plateCutOffOnTheSaw.fxml"));
             VBox vBox = loader.load();
             PlateCutOffOnTheSawController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ОТРЕЗАНИЕ НА ПИЛЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -650,7 +650,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/locksmith/plateChopOff.fxml"));
             VBox vBox = loader.load();
             PlateChopOffController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ОТРУБАНИЕ НА ГЕКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -658,14 +658,14 @@ public class MenuForm extends ContextMenu {
     }
 
     /**
-     * ПРОРЕЗАНИЕ ПАЗА
+     * ТОЧЕНИЕ ПАЗА
      */
     public void addCutGroovePlate(LatheCutGroove opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutGroove.fxml"));
             VBox vBox = loader.load();
             PlateCutGrooveController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ТОЧЕНИЕ ПАЗА НА ТОКАРНОМ СТАНКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -680,7 +680,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateThreading.fxml"));
             VBox vBox = loader.load();
             PlateThreadingController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -695,7 +695,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateDrilling.fxml"));
             VBox vBox = loader.load();
             PlateDrillingController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -710,7 +710,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/locksmith/plateDrillingByMarking.fxml"));
             VBox vBox = loader.load();
             PlateDrillingByMarkingController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -725,7 +725,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateRolling.fxml"));
             VBox vBox = loader.load();
             PlateRollingController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "НАКАТЫВАНИЕ РИФЛЕНИЯ НА ТОКАРНОМ СТАНКЕ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -740,7 +740,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateMountDismount.fxml"));
             VBox vBox = loader.load();
             PlateMountDismountController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА И СНЯТИЕ ДЕТАЛИ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -758,7 +758,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaint.fxml"));
             VBox vBox = loader.load();
             PlatePaintController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА ДЕТАЛИ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -773,7 +773,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaintAssm.fxml"));
             VBox vBox = loader.load();
             PlatePaintAssmController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА СБОРОЧНОЙ ЕДИНИЦЫ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -790,7 +790,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldContinuous.fxml"));
             VBox vBox = loader.load();
             PlateWeldContinuousController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СВАРКА НЕПРЕРЫВНАЯ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -805,7 +805,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldDotted.fxml"));
             VBox vBox = loader.load();
             PlateWeldDottedController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СВАРКА ТОЧЕЧНАЯ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -822,7 +822,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateAssmNuts.fxml"));
             VBox vBox = loader.load();
             PlateAssmNutsController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СБОРКА КРЕПЕЖА");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -837,7 +837,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateAssmCuttings.fxml"));
             VBox vBox = loader.load();
             PlateAssmCuttingsController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СБОРКА РАСКРОЙНОГО МАТЕРИАЛА");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -852,7 +852,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateAssmNodes.fxml"));
             VBox vBox = loader.load();
             PlateAssmNodesController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "СБОРКА СТАНДАРТНЫХ УЗЛОВ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -869,7 +869,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateLevelingSealer.fxml"));
             VBox vBox = loader.load();
             PlateLevelingSealerController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "НАНЕСЕНИЕ НАЛИВНОГО УПЛОТНИТЕЛЯ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -886,7 +886,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInCartoonBox.fxml"));
             VBox vBox = loader.load();
             PlatePackInCartoonBoxController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В КАРТОННУЮ КОРОБКУ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -901,7 +901,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInMachineStretchWrap.fxml"));
             VBox vBox = loader.load();
             PlatePackOnPalletizerController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -916,7 +916,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInHandStretchWrap.fxml"));
             VBox vBox = loader.load();
             PlatePackInHandStretchWrapController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В РУЧНУЮ СТРЕЙЧ_ПЛЕНКУ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -930,7 +930,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInBubbleWrap.fxml"));
             VBox vBox = loader.load();
             PlatePackInBubbleController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -945,7 +945,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackOnPallet.fxml"));
             VBox vBox = loader.load();
             PlatePackOnPalletController controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size());
+            controller.init(formController, opData, addedOperations.size(), "УПАКОВКА НА ПОДДОН");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();

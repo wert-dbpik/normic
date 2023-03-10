@@ -6,6 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
@@ -23,16 +24,7 @@ import static ru.wert.normic.entities.settings.AppSettings.WELDING_SPEED;
 public class PlateWeldContinuousController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfSeamLength;
@@ -44,22 +36,13 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private CheckBox chbxPreEnterSeams;
 
     @FXML
-    private Label lblNumOfSeams;
-
-    @FXML
     private TextField tfSeams;
 
     @FXML
     private TextField tfMen;
 
     @FXML
-    private Label lblConnectionLength;
-
-    @FXML
     private TextField tfConnectionLength;
-
-    @FXML
-    private Label lblStep;
 
     @FXML
     private TextField tfStep;
@@ -155,6 +138,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         assemblingTime = cmbxPartBigness.getValue().getTime();
     }
 
+
     private void collectOpData(OpWeldContinuous opData){
         opData.setSeamLength(seamLength);
         opData.setPartBigness(cmbxPartBigness.getValue());
@@ -196,4 +180,13 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

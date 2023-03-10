@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -24,22 +25,10 @@ import java.util.NoSuchElementException;
 public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
 
     @FXML
-    private ImageView ivDeleteOperation;
-
-    @FXML
     private ComboBox<ESawType> cmbxSaw;
-
-    @FXML
-    private TextField tfNormTime;
 
     private ESawType sawType;
     private int length;
@@ -114,6 +103,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
         sawType = cmbxSaw.getValue();
     }
 
+
     private void collectOpData(OpCutOffOnTheSaw opData){
         opData.setSaw(cmbxSaw.getValue());
 
@@ -129,4 +119,13 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

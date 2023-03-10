@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
@@ -35,7 +36,7 @@ public class PlateBendController extends AbstractOpPlate {
     @FXML
     private Label lblOperationName;
 
-    @FXML
+    @FXML@Getter
     private ImageView ivHelp;
 
     @FXML
@@ -64,10 +65,6 @@ public class PlateBendController extends AbstractOpPlate {
         new TFIntegerColored(tfMen, this);
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
-        ivHelp.setOnMouseClicked(e->{
-            HelpWindow.create(e, "ГИБКА", helpText(), helpImage());
-        });
 
     }
 
@@ -122,7 +119,7 @@ public class PlateBendController extends AbstractOpPlate {
         }
     }
 
-    private String helpText() {
+    public String helpText() {
         return String.format("N гибов - число гибов;\n" +
                         "N человек - число человек выполняющих гибку (2 - для крупных деталей);\n" +
                         "Оборудование - коэффициент, учитывающий оборудование\n" +
@@ -137,7 +134,7 @@ public class PlateBendController extends AbstractOpPlate {
                 );
     }
 
-    private Image helpImage() {
+    public Image helpImage() {
         return null;
     }
 }

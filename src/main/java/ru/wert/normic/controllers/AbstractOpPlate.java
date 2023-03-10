@@ -4,12 +4,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ETimeMeasurement;
+import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
 
 import java.text.DecimalFormat;
@@ -67,6 +69,10 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
     public abstract void countInitialValues();
 
+    public abstract String helpText();
+
+    public abstract Image helpImage();
+
     @FXML
     private VBox vbOperation;
 
@@ -79,7 +85,18 @@ public abstract class AbstractOpPlate implements IOpPlate {
     @FXML
     private ImageView ivDeleteOperation;
 
+    @FXML
+    private ImageView ivHelp;
+
+
     public AbstractOpPlate() {
+    }
+
+    public void init(AbstractFormController formController, OpData opData, Integer index, String helpTitle) {
+        ivHelp.setOnMouseClicked(e->{
+            HelpWindow.create(e, helpTitle, helpText(), helpImage());
+        });
+        init(formController, opData, index);
     }
 
     public void init(AbstractFormController formController, OpData opData, Integer index) {
@@ -92,6 +109,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
         fillOpData(opData);
 
         initViews(opData);
+
+
 
         ivDeleteOperation.setOnMouseClicked(this::deleteSelectedOperation);
 

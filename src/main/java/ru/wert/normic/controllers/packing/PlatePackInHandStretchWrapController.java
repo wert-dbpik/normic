@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import lombok.Getter;
 import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
@@ -37,6 +40,9 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
+
+    @FXML@Getter
+    private ImageView ivHelp;
 
     private int width, depth, height;
     private ToggleGroup windBy; //Накручивание по
@@ -117,6 +123,8 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
     }
 
+
+
     private void collectOpData(OpPackInHandStretchWrap opData){
 
         opData.setSelectedRadioButton(selectedRadioButton);
@@ -136,4 +144,13 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

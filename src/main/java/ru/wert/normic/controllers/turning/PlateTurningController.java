@@ -4,8 +4,7 @@ package ru.wert.normic.controllers.turning;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
 import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
@@ -22,25 +21,13 @@ import java.util.NoSuchElementException;
 public class PlateTurningController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfTurningLength;
 
     @FXML
     private TextField tfNumOfPassings;
-
-    @FXML
-    private TextField tfNormTime;
 
     private String initStyle;
     private int paramA; //Длина заготовки
@@ -135,6 +122,8 @@ public class PlateTurningController extends AbstractOpPlate {
 
     }
 
+
+
     private void collectOpData(OpLatheTurning opData){
         opData.setLength(length);
         opData.setPassages(passages);
@@ -156,4 +145,13 @@ public class PlateTurningController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

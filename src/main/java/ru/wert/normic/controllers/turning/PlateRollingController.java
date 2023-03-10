@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.turning;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -22,25 +23,13 @@ import java.util.NoSuchElementException;
 public class PlateRollingController extends AbstractOpPlate {
 
     @FXML
-    private ImageView ivOperation;
-
-    @FXML
-    private VBox vbOperation;
-
-    @FXML
     private Label lblOperationName;
-
-    @FXML
-    private ImageView ivDeleteOperation;
 
     @FXML
     private TextField tfDiameter;
 
     @FXML
     private TextField tfLength;
-
-    @FXML
-    private TextField tfNormTime;
 
     private String initStyle;
     private double diameter; //Диаметр прутка
@@ -150,6 +139,7 @@ public class PlateRollingController extends AbstractOpPlate {
             tfLength.setStyle(initStyle);
     }
 
+
     private void collectOpData(OpLatheRolling opData){
         opData.setDiameter(turningDiameter);
         opData.setLength(length);
@@ -169,4 +159,13 @@ public class PlateRollingController extends AbstractOpPlate {
 
     }
 
+    @Override
+    public String helpText() {
+        return null;
+    }
+
+    @Override
+    public Image helpImage() {
+        return null;
+    }
 }

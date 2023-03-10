@@ -85,7 +85,7 @@ public class PlateTurningController extends AbstractOpPlate {
         double countD = Math.min(diameter, 200.0);
         int prevL = 0;
         for (int i = 0; i < lengths.length; i++) {
-            if (length > prevL && length <= lengths[i]) {
+            if (length >= prevL && length <= lengths[i]) {
                 int prevD = 0;
                 for (EDiameters eDiam : EDiameters.values()) {
                     if (countD > prevD && countD <= eDiam.getDiam()) {

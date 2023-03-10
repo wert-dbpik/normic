@@ -16,7 +16,7 @@
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../pics/btns/operation.png" />
+                  <Image url="@../../../pics/btns/pack.png" />
                </image>
                <HBox.margin>
                   <Insets />

@@ -1,13 +1,13 @@
 #decoration-main{
-    -fx-background-color: #fad79c;
-}
-
-#decoration-assm, #decoration-report, #decoration-settings{
     -fx-background-color: #f8c878;
 }
 
-#decoration-detail{
+#decoration-assm, #decoration-report, #decoration-settings{
     -fx-background-color: #fdd590;
+}
+
+#decoration-detail{
+    -fx-background-color: #fad79c;
 }
 
 #decoration-main .label{
@@ -64,7 +64,7 @@
 }
 
 .list-view .list-cell:selected{
-    -fx-background-color: #f8edc8;
+    -fx-background-color: #f8c878;
     -fx-text-fill: #4f412f;
 }
 
@@ -149,4 +149,10 @@
 #helpWindow .text{
     -fx-background-insets: 0;
     -fx-background-color: #f8f5eb;
+}
+
+#vbOperation{
+    -fx-background-color: #f8f1db;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }

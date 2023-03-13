@@ -15,6 +15,8 @@ import ru.wert.normic.enums.EMeasure;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 /**
  * ОТРУБАНИЕ НА ГЕКЕ
  */
@@ -66,7 +68,7 @@ public class PlateChopOffController extends AbstractOpPlate {
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
@@ -90,7 +92,13 @@ public class PlateChopOffController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("Рубка в размер производится на Геке\n\n" +
+                "Норма времени на рубку вычисляется по формуле:\n\n" +
+                "T руб = T изм + V руб,\n" +
+                "где\n" +
+                "\tT изм - время на проведение измерений; \n" +
+                "\tV руб = %s - скорость рубки; \n",
+                CHOP_SPEED);
     }
 
     @Override

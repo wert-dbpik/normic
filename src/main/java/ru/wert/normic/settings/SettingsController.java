@@ -26,6 +26,7 @@ public class SettingsController {
 
     //--- СЛЕСАРНЫЕ РАБОТЫ
 
+    @FXML private TextField tfCHOP_SPEED; //Скорость рубки на Геке, мин/удар
     @FXML private TextField tfRIVETS_SPEED; //Скорость установки вытяжной заклепки, сек/закл
     @FXML private TextField tfCOUNTERSINKING_SPEED; //Скорость сверления и зенковки, мин/отв
     @FXML private TextField tfTHREADING_SPEED; //Скорость нарезания резьбы, мин/отв
@@ -91,7 +92,7 @@ public class SettingsController {
     @FXML
     void initialize(){
         List<TextField> textFields = Arrays.asList(tfCUTTING_SPEED, tfREVOLVER_SPEED, tfPERFORATION_SPEED, tfCUTTING_SERVICE_RATIO, tfSTRIPING_SPEED,
-                tfBENDING_SPEED, tfBENDING_SERVICE_RATIO, tfRIVETS_SPEED, tfCOUNTERSINKING_SPEED, tfTHREADING_SPEED,
+                tfBENDING_SPEED, tfBENDING_SERVICE_RATIO, tfCHOP_SPEED, tfRIVETS_SPEED, tfCOUNTERSINKING_SPEED, tfTHREADING_SPEED,
                 tfSMALL_SAWING_SPEED, tfBIG_SAWING_SPEED, tfDETAIL_DELTA, tfWASHING, tfWINDING, tfBAKING, tfDRYING, tfASSM_DELTA,
                 tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfSOLID_BOX_SPEED, tfFRAME_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
                 tfWELDING_DROP_SPEED, tfPREPARED_TIME, tfLEVELING_SPEED, tfSCREWS_SPEED, tfVSHGS_SPEED, tfRIVET_NUTS_SPEED,
@@ -116,6 +117,7 @@ public class SettingsController {
 
         //--- СЛЕСАРНЫЕ РАБОТЫ
 
+        tfCHOP_SPEED.setText(DECIMAL_FORMAT.format(CHOP_SPEED).trim());
         tfRIVETS_SPEED.setText(DECIMAL_FORMAT.format(RIVETS_SPEED).trim());
         tfCOUNTERSINKING_SPEED.setText(DECIMAL_FORMAT.format(COUNTERSINKING_SPEED).trim());
         tfTHREADING_SPEED.setText(DECIMAL_FORMAT.format(THREADING_SPEED).trim());

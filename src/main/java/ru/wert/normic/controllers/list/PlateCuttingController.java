@@ -120,7 +120,7 @@ public class PlateCuttingController extends AbstractOpPlate {
 
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {

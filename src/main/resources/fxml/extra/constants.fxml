@@ -98,6 +98,16 @@
                   <Label styleClass="settings-lb-title" text="СЛЕСАРНЫЕ РАБОТЫ" />
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость рубки на Геке, мин/удар" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfCHOP_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
                         <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки вытяжной заклепки, сек/закл" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>

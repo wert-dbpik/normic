@@ -17,6 +17,9 @@ import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.entities.settings.AppSettings.BIG_SAWING_SPEED;
+import static ru.wert.normic.entities.settings.AppSettings.SMALL_SAWING_SPEED;
+
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ
  */
@@ -144,7 +147,7 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
@@ -192,7 +195,18 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Сверление отверстий по разметке производится ручным инструментом.\n" +
+                "D отв - диаметр группы отверстий (максимальный), мм; \n" +
+                "T гл - глубина сверления или толщина материала, при сверлении трубы насквозь - \n" +
+                "\t\tтолщина двух стенок, мм;\n" +
+                "N отв - число отверстий в группе\n" +
+                "L max.дл./шаг - максимальная отмеряемая длина или шаг между отверстиями, мм\n\n" +
+                "Норма времени на сверление отверстий вычисляется по формуле:\n\n" +
+                "T сверл = T изм * (N отв + 1) + N отв * V сверл,\n" +
+                "где\n" +
+                "\tN отв - число отверстий; \n" +
+                "\tT изм - время на проведение измерений при разметке; \n" +
+                "\tV сверл - скорость сверления зависит от диаметра и толщины, мин/отв";
     }
 
     @Override

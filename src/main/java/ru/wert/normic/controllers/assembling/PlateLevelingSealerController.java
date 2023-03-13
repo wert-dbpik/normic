@@ -91,7 +91,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
@@ -131,7 +131,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     public String helpText() {
         return String.format("W пр - ширина наливного профиля, мм.\n" +
                         "A и B стороны для замкнутого прямоугольного контура, указываются в мм. \n" +
-                        "\tСуммарная длина контура расчитывается автоматически. \n" +
+                        "\tСуммарная длина контура рассчитывается автоматически. \n" +
                         "\tЕсли контур не замкнут или вообще нестандартный, то общую длину контура можно \n" +
                         "\tуказать для одного из параметров, второй параметр должен быть равен 0\n" +
                         "\n" +

@@ -900,7 +900,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInMachineStretchWrap.fxml"));
             VBox vBox = loader.load();
-            PlatePackOnPalletizerController controller = loader.getController();
+            PlatePackInMachineStretchWrapController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {

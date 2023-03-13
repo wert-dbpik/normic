@@ -147,7 +147,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {

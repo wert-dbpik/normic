@@ -17,7 +17,7 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 /**
  * УПАКОВКА ВЫСОКОГО ШКАФА
  */
-public class PlatePackOnPalletizerController extends AbstractOpPlate {
+public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     @FXML
     private TextField tfPartMin;
@@ -113,7 +113,22 @@ public class PlatePackOnPalletizerController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("Расход машинной стрейч пленки рассчитывается по формуле:\n\n" +
+                        "S пденки = P * H * 1.1, м.кв.,\n" +
+                        "где\n" +
+                        "\tP - периметр наматываемой поверхности, м;\n" +
+                        "\tH (высота) - размер, перпиндикулярный плосткости периметра, м;\n\n" +
+                        "Для крепления пузырьковой пленки используется скотч, расход:\n\n" +
+                        "L скотч = H * 2 / L рулон (2 высоты), шт,\n" +
+                        "где\n" +
+                        "\tL рулон = %s - длина скотча в рулоне, м\n\n" +
+                        "Норма времени упаковки рассчитывается по формуле:\n\n" +
+                        "T упак = Т пз + S пуз * V упак, мин\n" +
+                        "где\n" +
+                        "Т пз = %s - ПЗ время, мин;\n" +
+                        "V упак = %s - скорость оборачивания пузырьковой пленки, мин/м.кв.",
+
+                DUCT_TAPE_LENGTH, BUBBLE_CUT_AND_DUCT, BUBBLE_HAND_WINDING);
     }
 
     @Override

@@ -19,6 +19,7 @@ public class AppSettings {
 
     //--- СЛЕСАРНЫЕ РАБОТЫ
 
+    public static double CHOP_SPEED = 0.05; //Скорость рубки на Геке, мин/удар
     public static double RIVETS_SPEED = 18; //Скорость установки вытяжной заклепки, сек/закл
     public static double COUNTERSINKING_SPEED = 0.31; //Скорость сверления и зенковки, мин/отв
     public static double THREADING_SPEED = 0.37; //Скорость нарезания резьбы, мин/отв
@@ -88,7 +89,7 @@ public class AppSettings {
     public static double PACK_IN_CARTOON_BOX_SPEED = 1.5; //Скорость упаковки изделя в коробку
     public static double DUCT_TAPE_LENGTH = 66.0; //Длина рулона скотча
     public static double BUBBLE_CUT_AND_DUCT = 0.7; //ПЗ время пузырьковой пленки, мин
-    public static double BUBBLE_HAND_WINDING = 0.2; //Скорость оборачивания пузырьковой пленки, м2/мин
-    public static double STRETCH_HAND_WINDING = 0.2; //Скорость оборачивания пузырьковой пленки, м/мин
+    public static double BUBBLE_HAND_WINDING = 0.2; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
+    public static double STRETCH_HAND_WINDING = 0.2; //Скорость оборачивания пузырьковой пленки, мин/м
 
 }

@@ -70,7 +70,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
@@ -107,7 +107,16 @@ public class PlateLocksmithController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("УСТАНОВКА ВЫТЯЖНЫХ ЗАКЛЕПОК - указывается суммарное количество.\n" +
+                        "\tОдна заклепка ставится за %s сек.\n" +
+                        "\n" +
+                        "ЗЕНКОВАНИЕ ОТВЕРСТИЙ - указывается суммарное количество отверстий.\n" +
+                        "\tЗенкование одного отверстия осуществляется за %s мин.\n" +
+                        "\n" +
+                        "НАРЕЗАНИЕ РЕЗЬБЫ - указывается суммарное количество отверстий.\n" +
+                        "\tНарезание резьбы одного отверстия осуществляется за %s мин.\n",
+
+                RIVETS_SPEED, COUNTERSINKING_SPEED, THREADING_SPEED);
     }
 
     @Override

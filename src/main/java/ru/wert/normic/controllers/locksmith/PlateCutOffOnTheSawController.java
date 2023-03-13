@@ -19,6 +19,8 @@ import ru.wert.normic.enums.ESawType;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.entities.settings.AppSettings.*;
+
 /**
  * ОТРЕЗАНИЕ ЗАГОТОВКИ НА ПИЛЕ
  */
@@ -32,24 +34,6 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     private ESawType sawType;
     private int length;
-
-    enum ECutSolidDiameters { //page 123 (Р6М5)
-        CUT_SOLID_D10(10, 0.9),
-        CUT_SOLID_D20(20, 1.0),
-        CUT_SOLID_D30(30, 1.5),
-        CUT_SOLID_D40(40, 1.8),
-        CUT_SOLID_D60(60, 2.7),
-        CUT_SOLID_D80(80, 4.3),
-        CUT_SOLID_D90(90, 5.0),
-        CUT_SOLID_D100(100, 6.4);
-
-        @Getter int diam;
-        @Getter double time;
-        ECutSolidDiameters(int diam,  double time){
-            this.diam = diam;
-            this.time = time;}
-    }
-
 
 
     @Override //AbstractOpPlate
@@ -94,7 +78,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
@@ -121,7 +105,13 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("Норма времени на резку заготовки на пиле вычисляется по формуле:\n\n" +
+                        "T рез = T изм + V рез,\n" +
+                        "где\n" +
+                        "\tT изм - время на проведение измерений; \n" +
+                        "\tV рез = %s - скорость резания на малой пиле и " +
+                        "\t\t%s на большой пиле. \n",
+                SMALL_SAWING_SPEED, BIG_SAWING_SPEED);
     }
 
     @Override

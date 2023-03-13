@@ -18,8 +18,8 @@ import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.AppSettings.LEVELING_SPEED;
-import static ru.wert.normic.entities.settings.AppSettings.LEVELING_PREPARED_TIME;
+import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.AppSettings.OTHERS_SPEED;
 
 /**
  * НАЛИВКА УПЛОТНИТЕЛЯ
@@ -74,7 +74,10 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         countInitialValues();
 
         double time;
-        time =  perimeter * LEVELING_SPEED + LEVELING_PREPARED_TIME;  //мин
+        time =  perimeter * LEVELING_SPEED +
+                Math.ceil(perimeter / 6.0) * LEVELING_PREPARED_TIME;  //мин
+
+        System.out.println(Math.ceil(perimeter / 6.0) );
 
         if(perimeter == 0) time = 0.0;
         else {
@@ -94,7 +97,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     public  void countInitialValues() {
         paramA = IntegerParser.getValue(tfA);
         paramB = IntegerParser.getValue(tfB);
-        perimeter = 2 * (paramA + paramB) * MM_TO_M;
+        perimeter = (paramA == 0 || paramB == 0) ?
+                (paramA + paramB)  * MM_TO_M :
+                2 * (paramA + paramB) * MM_TO_M;
     }
 
     private void collectOpData(OpLevelingSealer opData){
@@ -124,7 +129,27 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("W пр - ширина наливного профиля, мм.\n" +
+                        "A и B стороны для замкнутого прямоугольного контура, указываются в мм. \n" +
+                        "\tСуммарная длина контура расчитывается автоматически. \n" +
+                        "\tЕсли контур не замкнут или вообще нестандартный, то общую длину контура можно \n" +
+                        "\tуказать для одного из параметров, второй параметр должен быть равен 0\n" +
+                        "\n" +
+                        "Норма времени нанесения уплотнителя вычисляется по формуле:\n" +
+                        "\n" +
+                        "T упл = P * V упл + T пз, \n" +
+                        "где\n" +
+                        "\tP - суммарная длина наносимого контура, м;\n" +
+                        "\tV упл = %s - скорость нанесения уплотнителя, мин/м;\n" +
+                        "\tT пз = %s - ПЗ время на каждые 6 метров нанесенного уплотнителя. \n" +
+                        "\n" +
+                        "Расход компонента полиэфирного А вычисляется по формуле:\n" +
+                        "\tКомп А = P * A расх, кг. \n" +
+                        "\n" +
+                        "Расход компонента  B вычисляется по формуле:\n" +
+                        "\tКомп B = P * B расх, кг. \n",
+
+                LEVELING_SPEED, LEVELING_PREPARED_TIME);
     }
 
     @Override

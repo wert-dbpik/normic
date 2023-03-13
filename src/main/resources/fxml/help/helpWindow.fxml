@@ -26,7 +26,7 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefViewportHeight="168.0" prefViewportWidth="486.0" VBox.vgrow="ALWAYS">
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true" prefViewportHeight="168.0" prefViewportWidth="486.0" VBox.vgrow="ALWAYS">
                <content>
                   <VBox prefWidth="486.0">
                      <children>

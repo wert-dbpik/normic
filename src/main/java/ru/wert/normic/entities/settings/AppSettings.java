@@ -38,6 +38,8 @@ public class AppSettings {
     public static int ASSM_DELTA = 300; //Расстояние между сборками, мм
     public static double HANGING_TIME = 0.34; //Время навески и снятия после полимеризации, мин
     public static double WINDING_MOVING_SPEED = 1.4; //Продувка после промывки и перемещение изделя на штанге, мин/1 м.кв.
+    public static double SOLID_BOX_SPEED = 1.686; //Скорость окрашивания глухих шкафов, мин/1 м.кв.
+    public static double FRAME_SPEED = 2.4; //Скорость окрашивания открытых рам и кроссов, мин/1 м.кв.
 
     //--- СВАРКА НЕПРЕРЫВНАЯ
 
@@ -57,7 +59,7 @@ public class AppSettings {
 
     //--- СБОРКА КРЕПЕЖНЫХ ЭЛЕМЕНТОВ
 
-    public static double SCREWS_SPEED = 0.25; //Скорость установки вытяжных винтов, мин
+    public static double SCREWS_SPEED = 0.25; //Скорость установки винтов, мин
     public static double VSHGS_SPEED = 0.4; //Скорость установки комплектов ВШГ, мин
     public static double RIVET_NUTS_SPEED = 22; //Скорость установки заклепочных гаек, сек
     public static double GROUND_SETS_SPEED = 1.0; //Скорость установки комплекта заземления с этикеткой, мин
@@ -75,7 +77,7 @@ public class AppSettings {
 
     public static double SEALER_SPEED = 40; //Скорость монтажа уплотнителя на ребро корпуса, сек/м
     public static double SELF_ADH_SEALER_SPEED =  20; //Скорость установки самоклеющегося уплотнителя, сек/м
-    public static double INSULATION_SPEED = 5.5; //Скорость разметки, резки и укладки утеплителя, мин/м
+    public static double INSULATION_SPEED = 5.5; //Скорость разметки, резки и укладки утеплителя, мин/м2
 
     //--- УПАКОВКА
 

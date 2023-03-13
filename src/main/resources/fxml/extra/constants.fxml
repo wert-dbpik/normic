@@ -7,13 +7,23 @@
 <?import javafx.scene.layout.*?>
 
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="600.0" prefWidth="505.0" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.settings.SettingsController">
+<ScrollPane hbarPolicy="NEVER" prefHeight="600.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.settings.SettingsController">
    <content>
       <VBox styleClass="settings-vb-main" stylesheets="@../../css/calculator-sandy.css">
          <children>
             <VBox styleClass="settings-vb-block">
                <children>
                   <Label styleClass="settings-lb-title" text="РЕЗКА И ЗАЧИСТКА" />
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость резания, зависящая от площади детали, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfCUTTING_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
                         <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Cкорость вырубки одного элемента револьвером, мин/уд" HBox.hgrow="ALWAYS" />
@@ -40,6 +50,16 @@
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfCUTTING_SERVICE_RATIO" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость зачистки резанных кромок, сек" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfSTRIPING_SPEED" styleClass="settings-tf-value" />
                            </children>
                         </HBox>
                      </children>
@@ -172,6 +192,16 @@
                         </HBox>
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Полимеризация в печи, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfBAKING" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                   <Separator prefWidth="200.0" />
                </children>
             </VBox>
@@ -204,6 +234,26 @@
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfWINDING_MOVING_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость окрашивания глухих шкафов, мин/1 м.кв." HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfSOLID_BOX_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость окрашивания открытых рам и кроссов, мин/1 м.кв." HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfFRAME_SPEED" styleClass="settings-tf-value" />
                            </children>
                         </HBox>
                      </children>

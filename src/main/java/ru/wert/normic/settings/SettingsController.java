@@ -13,9 +13,11 @@ public class SettingsController {
 
     //--- РЕЗКА И ЗАЧИСТКА
 
+    @FXML private TextField tfCUTTING_SPEED; //Скорость резания, зависящая от площади детали, мин
     @FXML private TextField tfREVOLVER_SPEED; //Скорость вырубки одного элемента револьвером, мин/уд
     @FXML private TextField tfPERFORATION_SPEED; //Скорость перфорирования, мин/уд
     @FXML private TextField tfCUTTING_SERVICE_RATIO; //коэфффициент, учитывающий 22% времени на обслуживание при резке
+    @FXML private TextField tfSTRIPING_SPEED; //Скорость зачистки резанных кромок, сек
 
     //--- ГИБКА
 
@@ -36,12 +38,15 @@ public class SettingsController {
     @FXML private TextField tfWASHING; //Мойка, сек
     @FXML private TextField tfWINDING; //Продувка, сек
     @FXML private TextField tfDRYING; //Сушка, сек
+    @FXML private TextField tfBAKING; //Полимеризация, мин
 
     //--- ПОКРАСКА СБОРКИ
 
     @FXML private TextField tfASSM_DELTA; //Расстояние между сборками, мм
     @FXML private TextField tfHANGING_TIME; //Время навески и снятия после полимеризации, мин
     @FXML private TextField tfWINDING_MOVING_SPEED; //Продувка после промывки и перемещение изделя на штанге, мин/1 м.кв.
+    @FXML private TextField tfSOLID_BOX_SPEED; //Скорость окрашивания глухих шкафов, мин/1 м.кв.
+    @FXML private TextField tfFRAME_SPEED; //Скорость окрашивания открытых рам и кроссов, мин/1 м.кв.
 
     //--- СВАРКА НЕПРЕРЫВНАЯ
 
@@ -85,10 +90,10 @@ public class SettingsController {
 
     @FXML
     void initialize(){
-        List<TextField> textFields = Arrays.asList(tfREVOLVER_SPEED, tfPERFORATION_SPEED, tfCUTTING_SERVICE_RATIO,
+        List<TextField> textFields = Arrays.asList(tfCUTTING_SPEED, tfREVOLVER_SPEED, tfPERFORATION_SPEED, tfCUTTING_SERVICE_RATIO, tfSTRIPING_SPEED,
                 tfBENDING_SPEED, tfBENDING_SERVICE_RATIO, tfRIVETS_SPEED, tfCOUNTERSINKING_SPEED, tfTHREADING_SPEED,
-                tfSMALL_SAWING_SPEED, tfBIG_SAWING_SPEED, tfDETAIL_DELTA, tfWASHING, tfWINDING, tfDRYING, tfASSM_DELTA,
-                tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
+                tfSMALL_SAWING_SPEED, tfBIG_SAWING_SPEED, tfDETAIL_DELTA, tfWASHING, tfWINDING, tfBAKING, tfDRYING, tfASSM_DELTA,
+                tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfSOLID_BOX_SPEED, tfFRAME_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
                 tfWELDING_DROP_SPEED, tfPREPARED_TIME, tfLEVELING_SPEED, tfSCREWS_SPEED, tfVSHGS_SPEED, tfRIVET_NUTS_SPEED,
                 tfGROUND_SETS_SPEED, tfOTHERS_SPEED, tfPOST_LOCKS_SPEED, tfDOUBLE_LOCKS_SPEED, tfGLASS_SPEED, tfDETECTORS_SPEED,
                 tfCONNECTION_BOXES_SPEED, tfSEALER_SPEED, tfSELF_ADH_SEALER_SPEED, tfINSULATION_SPEED);
@@ -97,9 +102,12 @@ public class SettingsController {
             tf.setEditable(false);
         }
 
+        //--- РЕЗКА И ЗАЧИСТКА
+        tfCUTTING_SPEED.setText(DECIMAL_FORMAT.format(CUTTING_SPEED).trim());
         tfREVOLVER_SPEED.setText(DECIMAL_FORMAT.format(REVOLVER_SPEED).trim());
         tfPERFORATION_SPEED.setText(DECIMAL_FORMAT.format(PERFORATION_SPEED).trim());
         tfCUTTING_SERVICE_RATIO.setText(DECIMAL_FORMAT.format(CUTTING_SERVICE_RATIO).trim());
+        tfSTRIPING_SPEED.setText(DECIMAL_FORMAT.format(STRIPING_SPEED).trim());
 
         //--- ГИБКА
 
@@ -120,12 +128,15 @@ public class SettingsController {
         tfWASHING.setText(DECIMAL_FORMAT.format(WASHING).trim());
         tfWINDING.setText(DECIMAL_FORMAT.format(WINDING).trim());
         tfDRYING.setText(DECIMAL_FORMAT.format(DRYING).trim());
+        tfBAKING.setText(DECIMAL_FORMAT.format(BAKING).trim());
 
         //--- ПОКРАСКА СБОРКИ
 
         tfASSM_DELTA.setText(DECIMAL_FORMAT.format(ASSM_DELTA * 1.0).trim());
         tfHANGING_TIME.setText(DECIMAL_FORMAT.format(HANGING_TIME).trim());
         tfWINDING_MOVING_SPEED.setText(DECIMAL_FORMAT.format(WINDING_MOVING_SPEED).trim());
+        tfSOLID_BOX_SPEED.setText(DECIMAL_FORMAT.format(SOLID_BOX_SPEED).trim());
+        tfFRAME_SPEED.setText(DECIMAL_FORMAT.format(FRAME_SPEED).trim());
 
         //--- СВАРКА НЕПРЕРЫВНАЯ
 

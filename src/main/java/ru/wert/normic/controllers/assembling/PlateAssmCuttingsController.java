@@ -107,7 +107,16 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("УПЛОТНИТЕЛЬ НА РЕБРО КОРПУСА - указывается длина утплотнителя в метрах.\n" +
+                        "\tСкорость укладки уплотнителя %s сек/м.\n" +
+                        "\n" +
+                        "УПЛОТНИТЕЛЬ САМОКЛЕЮЩИЙСЯ - указывается длина утплотнителя в метрах.\n" +
+                        "\tСкорость наклеивания уплотнителя %s сек/м.\n" +
+                        "\n" +
+                        "УКЛАДКА УТЕПЛИТЕЛЯ - указывается общая площадь в м.кв.,\n" +
+                        "\tтип утеплителя любой (Изолон, пенопласт и т.д.).\n" +
+                        "\tСкорость укладки утеплителя %s мин/м.кв.\n",
+                SEALER_SPEED, SELF_ADH_SEALER_SPEED, INSULATION_SPEED);
     }
 
     @Override

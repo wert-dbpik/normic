@@ -2,10 +2,13 @@ package ru.wert.normic.enums;
 
 import lombok.Getter;
 
+import static ru.wert.normic.entities.settings.AppSettings.FRAME_SPEED;
+import static ru.wert.normic.entities.settings.AppSettings.SOLID_BOX_SPEED;
+
 public enum EAssemblingType {
 
-    SOLID("Глухой шкаф", 1.686),
-    FRAME("Рама (кросс)", 2.4);
+    SOLID("Глухой шкаф", SOLID_BOX_SPEED),
+    FRAME("Рама (кросс)", FRAME_SPEED);
 
 
     @Getter String name;

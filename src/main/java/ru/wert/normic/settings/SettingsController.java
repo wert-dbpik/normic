@@ -87,6 +87,15 @@ public class SettingsController {
     @FXML private TextField tfSELF_ADH_SEALER_SPEED; //Скорость установки самоклеющегося уплотнителя, сек/м
     @FXML private TextField tfINSULATION_SPEED; //Скорость разметки, резки и укладки утеплителя, мин/м
 
+    @FXML private TextField tfCARTOON_BOX_PREPARED_TIME; //ПЗ время изготовления коробок, мин
+    @FXML private TextField tfCARTOON_BOX_SPEED; //Время изготовления коробки, мин
+    @FXML private TextField tfSTRETCH_MACHINE_WINDING; //Время наматывания машинной стретч-пленки, мин
+    @FXML private TextField tfCARTOON_BOX_AND_ANGLES_SPEED; //Время изготовления крышек и уголков, мин
+    @FXML private TextField tfPACK_IN_CARTOON_BOX_SPEED; //Время упаковки изделя в коробку, мин
+    @FXML private TextField tfDUCT_TAPE_LENGTH; //Длина рулона скотча, м
+    @FXML private TextField tfBUBBLE_CUT_AND_DUCT; //ПЗ время пузырьковой пленки, мин
+    @FXML private TextField tfBUBBLE_HAND_WINDING; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
+    @FXML private TextField tfSTRETCH_HAND_WINDING; //Скорость оборачивания стретч пленки, мин/м
 
 
     @FXML
@@ -97,7 +106,9 @@ public class SettingsController {
                 tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfSOLID_BOX_SPEED, tfFRAME_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
                 tfWELDING_DROP_SPEED, tfPREPARED_TIME, tfLEVELING_SPEED, tfSCREWS_SPEED, tfVSHGS_SPEED, tfRIVET_NUTS_SPEED,
                 tfGROUND_SETS_SPEED, tfOTHERS_SPEED, tfPOST_LOCKS_SPEED, tfDOUBLE_LOCKS_SPEED, tfGLASS_SPEED, tfDETECTORS_SPEED,
-                tfCONNECTION_BOXES_SPEED, tfSEALER_SPEED, tfSELF_ADH_SEALER_SPEED, tfINSULATION_SPEED);
+                tfCONNECTION_BOXES_SPEED, tfSEALER_SPEED, tfSELF_ADH_SEALER_SPEED, tfINSULATION_SPEED,
+                tfCARTOON_BOX_PREPARED_TIME, tfCARTOON_BOX_SPEED, tfSTRETCH_MACHINE_WINDING, tfCARTOON_BOX_AND_ANGLES_SPEED,
+                tfPACK_IN_CARTOON_BOX_SPEED, tfDUCT_TAPE_LENGTH, tfBUBBLE_CUT_AND_DUCT, tfBUBBLE_HAND_WINDING, tfSTRETCH_HAND_WINDING);
 
         for(TextField tf : textFields){
             tf.setEditable(false);
@@ -177,6 +188,18 @@ public class SettingsController {
         tfSEALER_SPEED.setText(DECIMAL_FORMAT.format(SEALER_SPEED).trim());
         tfSELF_ADH_SEALER_SPEED.setText(DECIMAL_FORMAT.format(SELF_ADH_SEALER_SPEED).trim());
         tfINSULATION_SPEED.setText(DECIMAL_FORMAT.format(INSULATION_SPEED).trim());
+
+        //--- УПАКОВКА
+
+        tfCARTOON_BOX_PREPARED_TIME.setText(DECIMAL_FORMAT.format(CARTOON_BOX_PREPARED_TIME).trim());
+        tfCARTOON_BOX_SPEED.setText(DECIMAL_FORMAT.format(CARTOON_BOX_SPEED).trim());
+        tfSTRETCH_MACHINE_WINDING.setText(DECIMAL_FORMAT.format(STRETCH_MACHINE_WINDING).trim());
+        tfCARTOON_BOX_AND_ANGLES_SPEED.setText(DECIMAL_FORMAT.format(CARTOON_BOX_AND_ANGLES_SPEED).trim());
+        tfPACK_IN_CARTOON_BOX_SPEED.setText(DECIMAL_FORMAT.format(PACK_IN_CARTOON_BOX_SPEED).trim());
+        tfDUCT_TAPE_LENGTH.setText(DECIMAL_FORMAT.format(DUCT_TAPE_LENGTH).trim());
+        tfBUBBLE_CUT_AND_DUCT.setText(DECIMAL_FORMAT.format(BUBBLE_CUT_AND_DUCT).trim());
+        tfBUBBLE_HAND_WINDING.setText(DECIMAL_FORMAT.format(BUBBLE_HAND_WINDING).trim());
+        tfSTRETCH_HAND_WINDING.setText(DECIMAL_FORMAT.format(STRETCH_HAND_WINDING).trim());
     }
 }
 

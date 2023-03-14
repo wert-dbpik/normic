@@ -354,7 +354,7 @@
                   <Label styleClass="settings-lb-title" text="СБОРКА КРЕПЕЖНЫХ ЭЛЕМЕНТОВ" />
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки вытяжных винтов, мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки винта, мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfSCREWS_SPEED" styleClass="settings-tf-value" />
@@ -364,7 +364,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки комплектов ВШГ, мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки комплекта ВШГ, мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfVSHGS_SPEED" styleClass="settings-tf-value" />
@@ -374,7 +374,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки заклепок, сек" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки вытяжной заклепки, сек" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfRIVET_NUTS_SPEED" styleClass="settings-tf-value" />
@@ -384,7 +384,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки комплекта заземления с этикеткой, мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки комплекта заземления с этикеткой, мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfGROUND_SETS_SPEED" styleClass="settings-tf-value" />
@@ -394,7 +394,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки другого крепежа, сек" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки другого крепежа, сек" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfOTHERS_SPEED" styleClass="settings-tf-value" />
@@ -410,7 +410,7 @@
                   <Label styleClass="settings-lb-title" text="СБОРКА ОТДЕЛЬНЫХ УЗЛОВ" />
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки почтового замка с регулировкой, мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки почтового замка с регулировкой, мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfPOST_LOCKS_SPEED" styleClass="settings-tf-value" />
@@ -420,7 +420,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки замка с рычагами, мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки замка с рычагами, мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfDOUBLE_LOCKS_SPEED" styleClass="settings-tf-value" />
@@ -430,7 +430,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки стекла на полиуретан, мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки стекла на полиуретан, мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfGLASS_SPEED" styleClass="settings-tf-value" />
@@ -440,7 +440,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки извещателей (ИО-102), мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки извещателя (ИО-102), мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfDETECTORS_SPEED" styleClass="settings-tf-value" />
@@ -450,7 +450,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость установки коробки соединительной (КС-4), мин" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время установки коробки соединительной (КС-4), мин" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfCONNECTION_BOXES_SPEED" styleClass="settings-tf-value" />
@@ -495,6 +495,101 @@
                      </children>
                   </HBox>
                   <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox styleClass="settings-vb-block">
+               <children>
+                  <Label styleClass="settings-lb-title" text="УПАКОВКА" />
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="ПЗ время изготовления коробок, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfCARTOON_BOX_PREPARED_TIME" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время изготовления коробки, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfCARTOON_BOX_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время наматывания машинной стретч-пленки, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfSTRETCH_MACHINE_WINDING" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время изготовления крышек и уголков, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfCARTOON_BOX_AND_ANGLES_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Время упаковки изделия в коробку, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfPACK_IN_CARTOON_BOX_SPEED" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Длина рулона скотча, м" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfDUCT_TAPE_LENGTH" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="ПЗ время наматывания пузырьковой пленки, мин" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfBUBBLE_CUT_AND_DUCT" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость оборачивания пузырьковой пленки, мин/м.кв." HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfBUBBLE_HAND_WINDING" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                     <children>
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость оборачивания ручной стретч пленки, мин/м" HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <TextField fx:id="tfSTRETCH_HAND_WINDING" styleClass="settings-tf-value" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

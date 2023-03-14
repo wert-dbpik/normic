@@ -87,6 +87,8 @@ public class SettingsController {
     @FXML private TextField tfSELF_ADH_SEALER_SPEED; //Скорость установки самоклеющегося уплотнителя, сек/м
     @FXML private TextField tfINSULATION_SPEED; //Скорость разметки, резки и укладки утеплителя, мин/м
 
+    //--- УПАКОВКА
+
     @FXML private TextField tfCARTOON_BOX_PREPARED_TIME; //ПЗ время изготовления коробок, мин
     @FXML private TextField tfCARTOON_BOX_SPEED; //Время изготовления коробки, мин
     @FXML private TextField tfSTRETCH_MACHINE_WINDING; //Время наматывания машинной стретч-пленки, мин

@@ -76,7 +76,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("Установленное на поддон изделие крепится ");
     }
 
     @Override

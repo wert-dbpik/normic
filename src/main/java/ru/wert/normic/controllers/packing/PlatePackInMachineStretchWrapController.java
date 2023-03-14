@@ -59,20 +59,24 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
         countInitialValues();
 
-        cartoon = Math.ceil(2*((width * MM_TO_M + 0.1) * (depth * MM_TO_M + 0.1) * 1.2) + //Крышки верх и низ
-                            height * MM_TO_M * 1.1 * 4); //4 уголка на всю высоту
+        double countHeight = height * MM_TO_M;
+        double countDepth = depth * MM_TO_M;
+        double countWidth = width * MM_TO_M;
+
+        cartoon = Math.ceil(2*((countWidth + 0.1) * (countDepth + 0.1) * 1.2) + //Крышки верх и низ
+                countHeight * 1.1 * 4); //4 уголка на всю высоту
 
         tfCartoon.setText(DECIMAL_FORMAT.format(cartoon));
 
-        stretchWrap = Math.ceil((width * MM_TO_M + depth * MM_TO_M) * 2 * height * MM_TO_M / 0.3 * 2); //м
+        stretchWrap = Math.ceil((countWidth + countDepth) * 2 * countHeight / 0.3 * 2); //м
         tfMachineStretchWrap.setText(DECIMAL_FORMAT.format(stretchWrap));
 
-        int perimeter = (width + depth) * 2;
-        ductTape = Math.ceil(perimeter * MM_TO_M * 4) / DUCT_TAPE_LENGTH;  //Вокруг изделия 4 раза
+        double perimeter = (countWidth + countDepth) * 2;
+        ductTape = Math.ceil(perimeter * 4) / DUCT_TAPE_LENGTH;  //Вокруг изделия 4 раза
         tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
 
         double time = (CARTOON_AND_STRETCH_PREPARED_TIME + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления 2х крышек
-                stretchWrap * STRETCH_MACHINE_WINDING * height * MM_TO_M; //Время упаковки изделия в коробку
+                STRETCH_MACHINE_WINDING * countHeight; //Время упаковки изделия в коробку
 
         currentNormTime = time;
         collectOpData(opData);
@@ -113,22 +117,29 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Расход машинной стрейч пленки рассчитывается по формуле:\n\n" +
-                        "S пденки = P * H * 1.1, м.кв.,\n" +
+        return String.format("Минимальная партия - партия изготовления картонных крышек одного размера\n" +
+                        "Расход картона на две крышки и четыре уголка рассчитывается по формуле:\n\n" +
+                        "S картон = (W + 0.1) x (D + 0.1) x 2 x 1.2 + H x 1.1 x 4, м.кв.,;\n" +
+                        "где\n" +
+                        "\tW, D, H - ширина, глубина и высота изделия, м;\n\n" +
+                        "Расход машинной стрейч-пленки рассчитывается по формуле:\n\n" +
+                        "L м.стрейч = P x H/0.3 x 2, м,\n" +
                         "где\n" +
                         "\tP - периметр наматываемой поверхности, м;\n" +
-                        "\tH (высота) - размер, перпиндикулярный плосткости периметра, м;\n\n" +
-                        "Для крепления пузырьковой пленки используется скотч, расход:\n\n" +
-                        "L скотч = H * 2 / L рулон (2 высоты), шт,\n" +
+                        "\tH (высота) - размер, перпиндикулярный плосткости периметра, м;\n" +
+                        "\t0.3 - нахлест, м;\n\n" +
+                        "Для крепления пленки и картона используется скотч, расход:\n\n" +
+                        "L скотч = 4 x P / L рулон (4 периметра), шт,\n" +
                         "где\n" +
                         "\tL рулон = %s - длина скотча в рулоне, м\n\n" +
                         "Норма времени упаковки рассчитывается по формуле:\n\n" +
-                        "T упак = Т пз + S пуз * V упак, мин\n" +
+                        "T упак = (T пз + T пз.короб/ N min) x 1.07  + V м.упак x H, мин\n" +
                         "где\n" +
-                        "Т пз = %s - ПЗ время, мин;\n" +
-                        "V упак = %s - скорость оборачивания пузырьковой пленки, мин/м.кв.",
-
-                DUCT_TAPE_LENGTH, BUBBLE_CUT_AND_DUCT, BUBBLE_HAND_WINDING);
+                        "\tT пз = %s - ПЗ время на упаковку в машинную пленку, мин;\n" +
+                        "\tT пз.короб = %s - время изготовления картонных элементов, мин;\n" +
+                        "\tN min = минимальная партия каотонных крышек, шт;\n" +
+                        "\tV м.упак = %s - скорость оборачивания пленки, мин/м.",
+                DUCT_TAPE_LENGTH, CARTOON_AND_STRETCH_PREPARED_TIME, CARTOON_BOX_PREPARED_TIME, STRETCH_MACHINE_WINDING);
     }
 
     @Override

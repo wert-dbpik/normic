@@ -75,7 +75,7 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
         ductTape = Math.ceil(perimeter * 4) / DUCT_TAPE_LENGTH;  //Вокруг изделия 4 раза
         tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
 
-        double time = (CARTOON_AND_STRETCH_PREPARED_TIME + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления 2х крышек
+        double time = CARTOON_BOX_AND_ANGLES_SPEED + CARTOON_BOX_PREPARED_TIME / partMin * 1.07 + //Время изготовления 2х крышек
                 STRETCH_MACHINE_WINDING * countHeight; //Время упаковки изделия в коробку
 
         currentNormTime = time;
@@ -117,7 +117,7 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Минимальная партия - партия изготовления картонных крышек одного размера\n" +
+        return String.format("Минимальная партия - партия изготовления картонных крышек одного размера.\n" +
                         "Расход картона на две крышки и четыре уголка рассчитывается по формуле:\n\n" +
                         "S картон = (W + 0.1) x (D + 0.1) x 2 x 1.2 + H x 1.1 x 4, м.кв.,;\n" +
                         "где\n" +
@@ -133,13 +133,13 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
                         "где\n" +
                         "\tL рулон = %s - длина скотча в рулоне, м\n\n" +
                         "Норма времени упаковки рассчитывается по формуле:\n\n" +
-                        "T упак = (T пз + T пз.короб/ N min) x 1.07  + V м.упак x H, мин\n" +
+                        "T упак = T изг + T пз.короб/N min x 1.07  + V м.упак x H, мин\n" +
                         "где\n" +
-                        "\tT пз = %s - ПЗ время на упаковку в машинную пленку, мин;\n" +
-                        "\tT пз.короб = %s - время изготовления картонных элементов, мин;\n" +
+                        "\tT изг = %s - время изготовления крышек и уголков, мин;\n" +
+                        "\tT пз.короб = %s - ПЗ время изготовления картонных элементов, мин;\n" +
                         "\tN min = минимальная партия каотонных крышек, шт;\n" +
                         "\tV м.упак = %s - скорость оборачивания пленки, мин/м.",
-                DUCT_TAPE_LENGTH, CARTOON_AND_STRETCH_PREPARED_TIME, CARTOON_BOX_PREPARED_TIME, STRETCH_MACHINE_WINDING);
+                DUCT_TAPE_LENGTH, CARTOON_BOX_AND_ANGLES_SPEED, CARTOON_BOX_PREPARED_TIME, STRETCH_MACHINE_WINDING);
     }
 
     @Override

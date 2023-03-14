@@ -69,7 +69,7 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
         tfCartoon.setText(DECIMAL_FORMAT.format(cartoon));
 
-        ductTape = ((countWidth + countDepth) * 4.0 + countDepth * 4.0) / DUCT_TAPE_LENGTH;
+        ductTape = ((countWidth + countDepth) * 4.0 + countHeight * 4.0) / DUCT_TAPE_LENGTH;
         tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
 
         double time = (CARTOON_BOX_SPEED + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления коробки
@@ -113,25 +113,27 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Наматывание по высоте - вокруг вертикальной оси, аналогично \n" +
-                        "по ширине - вокруг горизонтальной оси параллельной фронтальной стенке \n" +
-                        "и по глубине - параллельно боковой стенке.\n\n" +
-                        "Расход пузырьковой пленки рассчитывается по формуле:\n\n" +
-                        "S пуз = P * H * 1.1, м.кв.,\n" +
+        return String.format("Минимальная партия - партия изготовления картонных коробок одного размера.\n" +
+                        "Расход картона рассчитывается по формуле:\n\n" +
+                        "S карт = (W+0.1)x(D+0.1)*2 + (W+0.1)x(H+0.1)*2 + (D+0.1)x(H+0.1)*2, м.кв.\n" +
                         "где\n" +
-                        "\tP - периметр наматываемой поверхности, м;\n" +
-                        "\tH (высота) - размер, перпиндикулярный плосткости периметра, м;\n\n" +
-                        "Для крепления пузырьковой пленки используется скотч, расход:\n\n" +
-                        "L скотч = H * 2 / L рулон (2 высоты), шт,\n" +
+                        "\tW, D, H - ширина, глубина и высота изделия, м;\n\n" +
+                        "Для крепления картона используется скотч, расход:\n\n" +
+                        "L скотч = ((W+D)x2 x 4 + 4xH)/ L рулон (4 периметра и 4 высоты), шт,\n" +
                         "где\n" +
+                        "\tP = (W +D) x 2 - периметр, м\n\n" +
                         "\tL рулон = %s - длина скотча в рулоне, м\n\n" +
                         "Норма времени упаковки рассчитывается по формуле:\n\n" +
-                        "T упак = Т пз + S пуз * V упак, мин\n" +
+                        "T упак = (T изг + T пз.короб/ N min) x 1.07  + T упак, мин\n" +
                         "где\n" +
-                        "Т пз = %s - ПЗ время, мин;\n" +
-                        "V упак = %s - скорость оборачивания пузырьковой пленки, мин/м.кв.",
-
-                DUCT_TAPE_LENGTH, BUBBLE_CUT_AND_DUCT, BUBBLE_HAND_WINDING);
+                        "\tT изг = %s - время изготовления коробки, мин;\n" +
+                        "\tT пз.короб = %s - ПЗ время изготовления коробки, мин;\n" +
+                        "\tN min = минимальная партия каотонных крышек, шт;\n" +
+                        "\tT упак = %s - время упаковки в коробку, мин.\n\n" +
+                        "В норму времени входит наклейка этикеток и укладка \n" +
+                        "\t\tсопроводительной документации.",
+                DUCT_TAPE_LENGTH, CARTOON_BOX_SPEED, CARTOON_BOX_PREPARED_TIME, PACK_IN_CARTOON_BOX_SPEED
+        );
     }
 
     @Override

@@ -26,7 +26,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Cкорость вырубки одного элемента револьвером, мин/уд" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость вырубки одного элемента револьвером, мин/уд" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfREVOLVER_SPEED" styleClass="settings-tf-value" />
@@ -46,7 +46,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Kоэффициент на обслуживание при резке" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Коэффициент на обслуживание при резке" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfCUTTING_SERVICE_RATIO" styleClass="settings-tf-value" />
@@ -82,7 +82,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                      <children>
-                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Kоэффициент на обслуживание при гибке" HBox.hgrow="ALWAYS" />
+                        <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Коэффициент на обслуживание при гибке" HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT">
                            <children>
                               <TextField fx:id="tfBENDING_SERVICE_RATIO" styleClass="settings-tf-value" />

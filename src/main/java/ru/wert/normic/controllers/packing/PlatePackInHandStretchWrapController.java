@@ -162,7 +162,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
                         "Норма времени упаковки рассчитывается по формуле:\n\n" +
                         "T упак = L стрейч * V упак, мин\n" +
                         "где\n" +
-                        "V упак = %s - скорость оборачивания пленки, мин/м.",
+                        "\tV упак = %s - скорость оборачивания пленки, мин/м.",
 
                 DUCT_TAPE_LENGTH, STRETCH_HAND_WINDING);
     }

@@ -29,6 +29,9 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
     private TextField tfCartoon;
 
     @FXML
+    private TextField tfCartoonAngle;
+
+    @FXML
     private TextField tfDuctTape;
 
     @FXML
@@ -36,7 +39,8 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     private int width, depth, height;
     private int partMin; //Минимальная партия коробок
-    private Double cartoon;
+    private Double cartoonTop;
+    private Double cartoonAngle;
     private Double stretchWrap;
     private Double ductTape;
 
@@ -63,10 +67,11 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
         double countDepth = depth * MM_TO_M;
         double countWidth = width * MM_TO_M;
 
-        cartoon = Math.ceil(2*((countWidth + 0.1) * (countDepth + 0.1) * 1.2) + //Крышки верх и низ
-                countHeight * 1.1 * 4); //4 уголка на всю высоту
+        cartoonTop = Math.ceil((countWidth + 0.1) * (countDepth + 0.1) * 1.2 * 2); //Крышки верх и низ
+        cartoonAngle = Math.ceil(countHeight * 1.1 * 4); //4 уголка на всю высоту
 
-        tfCartoon.setText(DECIMAL_FORMAT.format(cartoon));
+        tfCartoon.setText(DECIMAL_FORMAT.format(cartoonTop));
+        tfCartoonAngle.setText(DECIMAL_FORMAT.format(cartoonAngle));
 
         stretchWrap = Math.ceil((countWidth + countDepth) * 2 * countHeight / 0.3 * 2); //м
         tfMachineStretchWrap.setText(DECIMAL_FORMAT.format(stretchWrap));
@@ -99,7 +104,8 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
     private void collectOpData(OpPackInMachineStretchWrap opData){
 
         opData.setPolyWrap(partMin);
-        opData.setCartoon(cartoon);
+        opData.setCartoon(cartoonTop);
+        opData.setCartoonAngle(cartoonAngle);
         opData.setStretchMachineWrap(stretchWrap);
         opData.setDuctTape(ductTape);
 
@@ -118,8 +124,9 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
     @Override
     public String helpText() {
         return String.format("Минимальная партия - партия изготовления картонных крышек одного размера.\n" +
-                        "Расход картона на две крышки и четыре уголка рассчитывается по формуле:\n\n" +
-                        "S картон = (W + 0.1) x (D + 0.1) x 2 x 1.2 + H x 1.1 x 4, м.кв.,;\n" +
+                        "Расход картона на две крышки и четыре уголка рассчитывается по формулам:\n\n" +
+                        "S крышки = (W + 0.1) x (D + 0.1) x 1.2 x 2, м.кв.,;\n" +
+                        "S уголки = H x 1.1 x 4, м,;\n" +
                         "где\n" +
                         "\tW, D, H - ширина, глубина и высота изделия, м;\n\n" +
                         "Расход машинной стрейч-пленки рассчитывается по формуле:\n\n" +

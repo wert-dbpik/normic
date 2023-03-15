@@ -15,6 +15,7 @@ public class OpPackInMachineStretchWrap extends OpData implements PackingData {
 
     private int partMin = 10; //Минимальная партия
     private double cartoon = 0.0; //Картон
+    private double cartoonAngle = 0.0; //Картонный уголок
     private double ductTape = 0.0; //Скотч
 
     private double stretchMachineWrap = 0.0;

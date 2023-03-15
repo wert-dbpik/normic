@@ -10,18 +10,17 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
 
 /**
- * КРЕПЛЕНИЕ К ПОДДОНУ
+ * УСТАНОВКА НА ПОДДОН
  */
 public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
 
-    private Double stretchMachineWrapL, polyWrapL;
     private int height; //габарит квадратного поддона
     private double palletDepth = 0.800; //габарит квадратного поддона
     private double palletWidth = 1.200; //габарит квадратного поддона
-    private int layers = 2; //Количество слоев при наматывании пленки
+    private double polyWrapL; //полипропиленовая лента
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
@@ -42,7 +41,6 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
         double countHeight = height * MM_TO_M;
 
-        stretchMachineWrapL = Math.ceil((palletDepth + palletWidth) * 2 * countHeight / 0.3 * layers);
         polyWrapL = Math.ceil((countHeight * 1.15 * 4.0) + (2.0 * palletDepth));
 
         currentNormTime = 14.0;
@@ -61,7 +59,6 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
 
     private void collectOpData(OpPackOnPallet opData){
-        opData.setStretchMachineWrap(stretchMachineWrapL);
         opData.setPolyWrap(polyWrapL);
         opData.setPallet(1.0);
 
@@ -76,7 +73,11 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Установленное на поддон изделие крепится ");
+        return "Установленное на поддон изделие крепится полипропиленовой лентой:\n" +
+                "Расход полипропиленовой ленты вычисляется по формуле:\n\n" +
+                "L ленты = H x 1.15 x 4 + 2 x D, м,\n" +
+                "где\n" +
+                "\tH, D - высота и глубина изделия, м.";
     }
 
     @Override

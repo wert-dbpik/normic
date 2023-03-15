@@ -103,6 +103,25 @@
       </HBox>
       <HBox>
          <children>
+            <Label text="Картонный уголок">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="tfCartoonAngle" editable="false" prefWidth="80.0" />
+                  <Label prefWidth="25.0" text=" м">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox>
+         <children>
             <Label text="Скотч">
                <font>
                   <Font size="14.0" />

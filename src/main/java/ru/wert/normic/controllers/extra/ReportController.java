@@ -42,6 +42,7 @@ public class ReportController {
 
     //Расход на упаковку
     private double cartoon;
+    private double cartoonAngle;
     private double stretchMachine;
     private double stretchHand;
     private double polyTape;
@@ -86,8 +87,8 @@ public class ReportController {
         //УПАКОВКА
         collectPack(ops);
 
-        if(cartoon + stretchMachine + stretchHand + polyTape + bubble + duct + pallet != 0.0)
-            addPackReport(cartoon, stretchMachine, stretchHand, polyTape, bubble, duct, pallet);
+        if(cartoon + cartoonAngle + stretchMachine + stretchHand + polyTape + bubble + duct + pallet != 0.0)
+            addPackReport(cartoon, cartoonAngle, stretchMachine, stretchHand, polyTape, bubble, duct, pallet);
 
 
         //НОРМЫ ВРЕМЕНИ
@@ -185,7 +186,7 @@ public class ReportController {
                 .append(color.getRal())
                 .append("', площадь = ")
                 .append(ral1.get(0))
-                .append(" м2, ")
+                .append(" м.кв., ")
                 .append("расход = ")
                 .append(DECIMAL_FORMAT.format(ral1.get(1)))
                 .append(" кг.\n");
@@ -230,6 +231,7 @@ public class ReportController {
                 collectPack(opsInAssm);
             } else if (op instanceof PackingData) {
                 cartoon += ((PackingData) op).getCartoon();
+                cartoonAngle += ((PackingData) op).getCartoonAngle();
                 stretchMachine += ((PackingData) op).getStretchMachineWrap();
                 stretchHand += ((PackingData) op).getStretchHandWrap();
                 polyTape += ((PackingData) op).getPolyWrap();
@@ -243,12 +245,17 @@ public class ReportController {
     /**
      * Добавить отчет по УПАКОВКЕ
      */
-    private void addPackReport(double cartoon, double stretchMachine, double stretchHand, double polyTape, double bubble, double duct, double pallet){
+    private void addPackReport(double cartoon, double cartoonAngle, double stretchMachine, double stretchHand, double polyTape,
+                               double bubble, double duct, double pallet){
         report.append("\n\n").append("УПАКОВКА :\n");
         if (cartoon != 0.0)
             report.append(CARTOON.getName())
                     .append(DECIMAL_FORMAT.format(cartoon)).append(" ")
                     .append(CARTOON.getMeasuring()).append("\n");
+        if (cartoonAngle != 0.0)
+            report.append(CARTOON_ANGLE.getName())
+                    .append(DECIMAL_FORMAT.format(cartoonAngle)).append(" ")
+                    .append(CARTOON_ANGLE.getMeasuring()).append("\n");
         if (stretchMachine != 0.0)
             report.append(STRETCH_MACHINE.getName())
                     .append(DECIMAL_FORMAT.format(stretchMachine)).append(" ")

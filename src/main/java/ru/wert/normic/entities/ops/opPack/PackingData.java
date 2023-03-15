@@ -5,6 +5,9 @@ public interface PackingData {
     double getCartoon();
     void setCartoon(double cartoon);
 
+    double getCartoonAngle();
+    void setCartoonAngle(double cartoon);
+
     double getStretchMachineWrap();
     void setStretchMachineWrap(double stretchMachineWrap);
 

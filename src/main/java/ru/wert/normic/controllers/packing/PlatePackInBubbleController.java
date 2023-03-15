@@ -151,8 +151,8 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
                         "Норма времени упаковки рассчитывается по формуле:\n\n" +
                         "T упак = Т пз + S пуз * V упак, мин\n" +
                         "где\n" +
-                        "Т пз = %s - ПЗ время, мин;\n" +
-                        "V упак = %s - скорость оборачивания пузырьковой пленки, мин/м.кв.",
+                        "\tТ пз = %s - ПЗ время, мин;\n" +
+                        "\tV упак = %s - скорость оборачивания пузырьковой пленки, мин/м.кв.",
 
                 DUCT_TAPE_LENGTH, BUBBLE_CUT_AND_DUCT, BUBBLE_HAND_WINDING);
     }

@@ -17,6 +17,7 @@ public class OpPackInCartoonBox extends OpData implements PackingData {
     private double cartoon = 0.0; //Картон
     private double ductTape = 0.0; //Скотч
 
+    private double cartoonAngle = 0.0;
     private double stretchMachineWrap = 0.0;
     private double stretchHandWrap = 0.0;
     private double bubbleWrap = 0.0;

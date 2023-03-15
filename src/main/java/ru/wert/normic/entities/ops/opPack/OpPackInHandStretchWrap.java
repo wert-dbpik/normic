@@ -18,6 +18,7 @@ public class OpPackInHandStretchWrap extends OpData implements PackingData {
     private double stretchHandWrap = 0.0; //Ручная стрейч-пленка
     private double ductTape = 0.0; //Скотч
 
+    private double cartoonAngle = 0.0;
     private double stretchMachineWrap = 0.0;
     private double bubbleWrap = 0.0; //Пузырьковая пленка
     private double cartoon = 0.0;

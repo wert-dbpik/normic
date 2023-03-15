@@ -4,7 +4,8 @@ import lombok.Getter;
 
 public enum EPacks {
 
-    CARTOON         ("Гофрокартон 1050х2000\t\t\t\t", "м2"),
+    CARTOON         ("Гофрокартон 1050х2000\t\t\t\t", "м.кв."),
+    CARTOON_ANGLE   ("Картонный уголок (1350 мм)\t\t\t", "м"),
     STRETCH_MACHINE ("Пленка-стрейч (машинная)\t\t\t\t", "м"),
     STRETCH_HAND    ("Пленка-стрейч 35 мкм (ручная)\t\t\t", "м"),
     POLY            ("Лента полипропиленовая 12х0,6\t\t\t", "м"),

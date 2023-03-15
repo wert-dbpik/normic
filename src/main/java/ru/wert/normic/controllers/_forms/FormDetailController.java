@@ -82,7 +82,7 @@ public class FormDetailController extends AbstractFormController {
         new BXMaterial().create(cmbxMaterial);
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue == null) return;
-            mountMatPatch(newValue);
+            mountMatPatch(oldValue, newValue);
             createMenu();
             matPatchController.countWeightAndArea();
             for(AbstractOpPlate nc : addedPlates){
@@ -105,7 +105,7 @@ public class FormDetailController extends AbstractFormController {
         }
         
 
-        mountMatPatch(cmbxMaterial.getValue());
+        mountMatPatch(null, cmbxMaterial.getValue());
 
         //Заполняем поля формы
         fillOpData();
@@ -114,32 +114,47 @@ public class FormDetailController extends AbstractFormController {
 
     }
 
-    private void mountMatPatch(Material material) {
-        EMatType matType = EMatType.getTypeByName(material.getMatType().getName());
-        try {
-            FXMLLoader loader = null;
-            switch (matType){
-                case LIST:
-                    loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/listPatch.fxml")); break;
-                case ROUND:
-                    loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/roundPatch.fxml")); break;
-                case PROFILE:
-                    loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/profilePatch.fxml"));break;
+    private void mountMatPatch(Material prevMaterial, Material newMaterial) {
+        EMatType prevMatType = (prevMaterial == null) ? null : EMatType.getTypeByName(prevMaterial.getMatType().getName());
+        EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
+        //Нам нужна только смена EMatType и первичная инициализация
+        if(!newMatType.equals(prevMatType)) {
+            //EMatType равен null только при инициализации, если не инициализация, то
+            if(prevMaterial != null) {
+                //Обнуляем введенные ранее данные
+                ((OpDetail) opData).setParamA(0);
+                ((OpDetail) opData).setParamB(0);
             }
-            assert loader != null;
-            Parent parent = loader.load();
-            matPatchController = loader.getController();
-            matPatchController.init((OpDetail) getOpData(), this, getAddedPlates());
-            spDetailParams.getChildren().clear();
-            spDetailParams.getChildren().add(parent);
+            try {
+                FXMLLoader loader = null;
+                switch (newMatType) {
+                    case LIST:
+                        loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/listPatch.fxml"));
+                        break;
+                    case ROUND:
+                        loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/roundPatch.fxml"));
+                        break;
+                    case PROFILE:
+                        loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/profilePatch.fxml"));
+                        break;
+                }
+                assert loader != null;
+                Parent parent = loader.load();
+                matPatchController = loader.getController();
+                matPatchController.init((OpDetail) getOpData(), this, getAddedPlates());
+                spDetailParams.getChildren().clear();
+                spDetailParams.getChildren().add(parent);
 
-//            fillOpData();
-            matPatchController.fillPatchOpData();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            //Сохраняем введенные ранее данные
+            ((OpDetail)opData).setParamA(matPatchController.getParamA());
+            ((OpDetail)opData).setParamB(matPatchController.getParamB());
         }
+
+        matPatchController.fillPatchOpData();
     }
 
     private void initViews() {

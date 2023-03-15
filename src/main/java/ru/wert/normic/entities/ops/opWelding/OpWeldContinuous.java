@@ -19,7 +19,7 @@ public class OpWeldContinuous extends OpData {
     private Integer men = 1; //Число человек, работающих над операцией
     private boolean stripping = false; //Использовать зачистку
     private boolean preEnterSeams = true; //количество швов вводить вручную
-    private Integer seams = 0; //Количество швов заданное пользователем
+    private Integer seams = 1; //Количество швов заданное пользователем
     private Integer connectionLength = 0; //Длина сединения на которую расчитывается количество точек
     private Integer step = 0; //шаг точек
 

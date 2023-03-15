@@ -9,13 +9,10 @@ import ru.wert.normic.controllers.PlateErrorController;
 import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.list.PlateBendController;
 import ru.wert.normic.controllers.list.PlateCuttingController;
-import ru.wert.normic.controllers.locksmith.PlateLocksmithController;
+import ru.wert.normic.controllers.locksmith.*;
 import ru.wert.normic.controllers.packing.*;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.controllers.paint.PlatePaintController;
-import ru.wert.normic.controllers.locksmith.PlateChopOffController;
-import ru.wert.normic.controllers.locksmith.PlateCutOffOnTheSawController;
-import ru.wert.normic.controllers.locksmith.PlateDrillingByMarkingController;
 import ru.wert.normic.controllers.turning.*;
 import ru.wert.normic.controllers.welding.PlateWeldContinuousController;
 import ru.wert.normic.controllers.welding.PlateWeldDottedController;
@@ -24,10 +21,7 @@ import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
-import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
-import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
-import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
-import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
+import ru.wert.normic.entities.ops.opLocksmith.*;
 import ru.wert.normic.entities.ops.opPack.*;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
@@ -276,6 +270,16 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //СБОРКА - КРЕПЕЖ
+    public MenuItem createItemAssmNutsMK(){
+        MenuItem item = new MenuItem("Крепеж (участок МК)");
+        item.setOnAction(event -> {
+            if(isDuplicate(EOpType.ASSM_NUTS_MK)) return ;
+            addAssmNutsMKPlate(new OpAssmNutMK());
+        });
+        return item;
+    }
+
 
     //СБОРКА - РАСКРОЙНЫЙ МАТЕРИАЛ
     public MenuItem createItemAssmCuttings(){
@@ -451,6 +455,9 @@ public class MenuForm extends ContextMenu {
                     break;
                 case ASSM_NUTS:
                     addAssmNutsPlate((OpAssmNut) op);
+                    break;
+                case ASSM_NUTS_MK:
+                    addAssmNutsMKPlate((OpAssmNutMK) op);
                     break;
                 case ASSM_NODES:
                     addAssmNodesPlate((OpAssmNode) op);
@@ -823,6 +830,21 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateAssmNutsController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СБОРКА КРЕПЕЖА");
+            listViewTechOperations.getItems().add(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * СБОРКА КРЕПЕЖА
+     */
+    public void addAssmNutsMKPlate(OpAssmNutMK opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/locksmith/plateAssmNutsMK.fxml"));
+            VBox vBox = loader.load();
+            PlateAssmNutsMKController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "КРЕПЕЖ (УЧАСТОК МК)");
             listViewTechOperations.getItems().add(vBox);
         } catch (IOException e) {
             e.printStackTrace();

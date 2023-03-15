@@ -20,6 +20,7 @@ public enum EOpType {
 
     //СЛЕСАРНЫЕ ОПЕРАЦИИ
     LOCKSMITH,              //СЛЕАРНЫЕ РАБОТЫ
+    ASSM_NUTS_MK,           //КРЕПЕЖ (УЧАСТОК МК)
     CHOP_OFF,               //ОТРУБКА ЗАГОТОВКИ НА ГЕКЕ
     DRILLING_BY_MARKING,    //СВЕРЛЕНИЕ ПО РАЗМЕТКЕ
     CUT_OFF_ON_SAW,         //ОТРЕЗАНИЕ НА ПИЛЕ

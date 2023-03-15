@@ -342,9 +342,13 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemPaintAssm());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemWeldLongSeam(), menu.createItemWeldingDotted());
+        menu.getItems().addAll(menu.createItemWeldLongSeam());
+        menu.getItems().addAll(menu.createItemWeldingDotted());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAssmNuts(), menu.createItemAssmCuttings(), menu.createItemAssmNodes());
+        menu.getItems().addAll(menu.createItemAssmNuts());
+        menu.getItems().addAll(menu.createItemAssmNutsMK());
+        menu.getItems().addAll(menu.createItemAssmCuttings());
+        menu.getItems().addAll(menu.createItemAssmNodes());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemLevelingSealer());
         menu.getItems().add(new SeparatorMenuItem());

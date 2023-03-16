@@ -104,7 +104,16 @@ public class PlateWeldDottedController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return String.format("КОНДЕНСАТОРНАЯ - установка шпилек, гвоздей, лепестков заземления.\n" +
+                        "\tСварка одного элемента за %s мин.\n" +
+                        "\n" +
+                        "СВАРКА КОНТАКТНАЯ - приварка элементов конструкции на точку.\n" +
+                        "\tОдна точка выполняется за %s мин.\n" +
+                        "\n" +
+                        "СВАРКА НА ПРИХВАТКИ - приварка элементов конструкции на прихватки.\n" +
+                        "\tОдна прихватка выполняется за %s мин.\n",
+
+                WELDING_PARTS_SPEED, WELDING_DOTTED_SPEED, WELDING_DROP_SPEED);
     }
 
     @Override

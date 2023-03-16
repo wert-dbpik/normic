@@ -130,7 +130,8 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Норма времени на установку берется из таблиц стандартных норм \n" +
+                "в зависимости от расчетной массы заготовки, мин.";
     }
 
     @Override

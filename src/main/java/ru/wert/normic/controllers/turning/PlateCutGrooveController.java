@@ -119,7 +119,8 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Норма времени на резание паза берется из таблиц стандартных норм \n" +
+                "в зависимости от диаметра заготовки (материала) и глубины паза T (мм), мин.";
     }
 
     @Override

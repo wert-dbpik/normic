@@ -75,7 +75,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
     public String helpText() {
         return "Установленное на поддон изделие крепится полипропиленовой лентой:\n" +
                 "Расход полипропиленовой ленты вычисляется по формуле:\n\n" +
-                "L ленты = H x 1.15 x 4 + 2 x D, м,\n" +
+                "\t\t\tL ленты = H x 1.15 x 4 + 2 x D, м,\n" +
                 "где\n" +
                 "\tH, D - высота и глубина изделия, м.";
     }

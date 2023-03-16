@@ -171,7 +171,10 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Норма времени на отрезание берется из таблиц стандартных норм \n" +
+                "в зависимости от вида заготовки: " +
+                "прутка (сплошное сечение) - берется половина диаметра материала\n" +
+                "или трубы - берется толщина стенки T в мм, мин.";
     }
 
     @Override

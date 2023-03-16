@@ -106,10 +106,10 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
     @Override
     public String helpText() {
         return String.format("Норма времени на резку заготовки на пиле вычисляется по формуле:\n\n" +
-                        "T рез = T изм + V рез,\n" +
+                        "\t\t\tT рез = T изм + V рез,\n" +
                         "где\n" +
                         "\tT изм - время на проведение измерений; \n" +
-                        "\tV рез = %s - скорость резания на малой пиле и " +
+                        "\tV рез = %s - скорость резания на малой пиле и\n" +
                         "\t\t%s на большой пиле. \n",
                 SMALL_SAWING_SPEED, BIG_SAWING_SPEED);
     }

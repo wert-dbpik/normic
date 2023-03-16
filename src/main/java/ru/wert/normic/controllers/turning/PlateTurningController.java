@@ -122,8 +122,6 @@ public class PlateTurningController extends AbstractOpPlate {
 
     }
 
-
-
     private void collectOpData(OpLatheTurning opData){
         opData.setLength(length);
         opData.setPassages(passages);
@@ -147,7 +145,15 @@ public class PlateTurningController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Расчет ведется как для продольного так и для поперечного точения.\n" +
+                "Припуск на проход берется до 4 мм\n\n" +
+                "\tL точения - длина прохода резца за один проход, мм;\n" +
+                "\tN проходов - количество проходов, шт. \n\n" +
+                "Норма времени на точение вычисляется по формуле:\n\n" +
+                "\t\t\tT точения. = T прох x N проходов, мин,\n" +
+                "где\n" +
+                "\tT прох - время точения одного прохода берется из таблиц стандартных норм\n" +
+                "\tи зависит от диаметра обработки, мин";
     }
 
     @Override

@@ -156,7 +156,8 @@ public class PlateThreadingController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Норма времени на нарезание наружной резьбы берется из таблиц стандартных норм \n" +
+                "в зависимости от диаметра обработки D (мм) и длины резания L(мм), мин.";
     }
 
     @Override

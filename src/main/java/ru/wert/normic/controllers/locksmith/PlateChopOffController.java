@@ -94,7 +94,7 @@ public class PlateChopOffController extends AbstractOpPlate {
     public String helpText() {
         return String.format("Рубка в размер производится на Геке\n\n" +
                 "Норма времени на рубку вычисляется по формуле:\n\n" +
-                "T руб = T изм + V руб,\n" +
+                "\t\t\tT руб = T изм + V руб,\n" +
                 "где\n" +
                 "\tT изм - время на проведение измерений; \n" +
                 "\tV руб = %s - скорость рубки; \n",

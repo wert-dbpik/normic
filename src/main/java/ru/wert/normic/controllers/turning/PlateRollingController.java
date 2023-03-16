@@ -161,7 +161,8 @@ public class PlateRollingController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return null;
+        return "Норма времени на накатывание рифления берется из таблиц стандартных норм \n" +
+                "в зависимости от диаметра обработки D (мм) и длины накатывания L(мм), мин.";
     }
 
     @Override

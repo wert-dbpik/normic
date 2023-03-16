@@ -121,7 +121,7 @@ public class FormPackController extends AbstractFormController {
     }
 
     @Override
-    public void createMenu(){
+    public MenuForm createMenu(){
         menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
             menu.getItems().add(menu.createItemPackInCartoonBox());
@@ -132,6 +132,8 @@ public class FormPackController extends AbstractFormController {
 
 
         linkMenuToButton();
+
+        return menu;
     }
 
 

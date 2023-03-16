@@ -66,11 +66,16 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <ListView fx:id="listViewTechOperations" VBox.vgrow="ALWAYS">
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-      </ListView>
+      <StackPane VBox.vgrow="ALWAYS">
+         <children>
+            <ListView fx:id="listViewTechOperations" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ListView>
+            <ProgressIndicator fx:id="progressIndicator" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="70.0" StackPane.alignment="CENTER" />
+         </children>
+      </StackPane>
       <VBox>
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">

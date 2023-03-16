@@ -67,7 +67,7 @@ public abstract class AbstractFormController implements IForm {
     public static boolean copy; //true - (КОПИРОВАТЬ) переносимые элементы не удаляются, false - (ВЫРЕЗАТЬ) удаляются
     //------------------------
 
-    protected MenuForm menu;
+    @Getter protected MenuForm menu;
     @Getter protected OpData opData;
     @Getter protected List<AbstractOpPlate> addedPlates = new ArrayList<>();
     @Getter protected ObservableList<OpData> addedOperations = FXCollections.observableArrayList();
@@ -82,7 +82,7 @@ public abstract class AbstractFormController implements IForm {
 
 
     public abstract void countSumNormTimeByShops();
-    public abstract void createMenu();
+    public abstract MenuForm createMenu();
     public abstract void fillOpData();
     public abstract ListView<VBox> getListViewTechOperations();
     public abstract Button getBtnAddOperation();

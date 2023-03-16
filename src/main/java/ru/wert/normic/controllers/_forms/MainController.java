@@ -17,7 +17,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.math3.stat.descriptive.summary.Product;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
@@ -25,7 +24,7 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.settings.AppColor;
-import ru.wert.normic.excel.ExcelImporter;
+import ru.wert.normic.excel.ImportExcelFileService;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.components.BXTimeMeasurement;
@@ -56,7 +55,7 @@ public class MainController extends AbstractFormController {
 
 
     @FXML@Getter
-    private Label lblProductName;
+    private ProgressIndicator progressIndicator;
 
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
@@ -83,6 +82,8 @@ public class MainController extends AbstractFormController {
     @FXML
     void initialize(){
         MAIN_CONTROLLER = this;
+
+        progressIndicator.setVisible(false);
 
         //Запускаем  перехват нажатых клавишь
         Platform.runLater(()->createButtonInterceptor());
@@ -166,16 +167,17 @@ public class MainController extends AbstractFormController {
 
         File copied = AppFiles.getInstance().createTempCopyOfFile(file);
         clearAll(e);
-        try {
-            OpAssm newOpData = new  ExcelImporter().convertOpAssmFromExcel(copied);
+
+        ImportExcelFileService service = new ImportExcelFileService(this, copied);
+        service.setOnSucceeded(workerStateEvent ->{
+            OpAssm newOpData = service.getValue();
             if(newOpData != null) opData = newOpData;
             else return;
             createMenu();
             menu.deployData();
             countSumNormTimeByShops();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        });
+        service.start();
 
     }
 
@@ -337,7 +339,7 @@ public class MainController extends AbstractFormController {
 
 
     @Override
-    public void createMenu() {
+    public MenuForm createMenu() {
 
         menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
@@ -360,6 +362,8 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(menu.createItemAddFilePallet());
 
         linkMenuToButton();
+
+        return menu;
 
     }
 

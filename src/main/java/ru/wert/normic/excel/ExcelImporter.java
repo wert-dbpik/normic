@@ -35,6 +35,7 @@ public class ExcelImporter {
     private List<String> patterns = Arrays.asList(DEC_NUMBER, DEC_NUMBER_WITH_EXT, SKETCH_NUMBER, SKETCH_NUM_WITH_EXT);
     private Integer execution = 0;
     int level = 0;
+
     public OpAssm convertOpAssmFromExcel(File file) throws IOException {
         poi = new POIReader(file);
         startOpData = currentOpData;

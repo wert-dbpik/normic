@@ -201,7 +201,7 @@ public class FormDetailController extends AbstractFormController {
     }
 
     @Override
-    public void createMenu(){
+    public MenuForm createMenu(){
         menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
         EMatType type = EMatType.getTypeByName(cmbxMaterial.getValue().getMatType().getName());
 
@@ -249,6 +249,8 @@ public class FormDetailController extends AbstractFormController {
         }
 
         linkMenuToButton();
+
+        return menu;
     }
 
     /**

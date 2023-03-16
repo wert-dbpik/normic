@@ -99,7 +99,7 @@ public class FormAssmController extends AbstractFormController {
     }
 
     @Override
-    public  void createMenu() {
+    public  MenuForm createMenu() {
 
         menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
@@ -123,6 +123,8 @@ public class FormAssmController extends AbstractFormController {
 
 
         linkMenuToButton();
+
+        return menu;
     }
 
 

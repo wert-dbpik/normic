@@ -30,6 +30,7 @@ public class DecorationController {
     @FXML private Pane paneR;
     @FXML private Pane paneX;
     @FXML private Pane paneB;
+    @FXML private Label lblProductName;
 
     //Состояние окна
     private int winX;

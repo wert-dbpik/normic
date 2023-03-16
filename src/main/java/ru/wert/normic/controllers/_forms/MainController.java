@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.math3.stat.descriptive.summary.Product;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.ReportController;
@@ -24,7 +25,6 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.settings.AppColor;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.excel.ExcelImporter;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
@@ -43,7 +43,7 @@ import java.util.List;
 import static ru.wert.normic.AppStatics.KEYS_NOW_PRESSED;
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
+import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
 import static ru.wert.normic.enums.ETimeMeasurement.MIN;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -53,6 +53,10 @@ import static ru.wert.normic.enums.ETimeMeasurement.SEC;
  */
 @Slf4j
 public class MainController extends AbstractFormController {
+
+
+    @FXML@Getter
+    private Label lblProductName;
 
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
@@ -98,6 +102,8 @@ public class MainController extends AbstractFormController {
 
         //Заполняем поля формы
         fillOpData();
+
+        Platform.runLater(()->LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ"));
 
     }
 
@@ -173,9 +179,6 @@ public class MainController extends AbstractFormController {
 
     }
 
-
-
-
     /**
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
@@ -206,6 +209,8 @@ public class MainController extends AbstractFormController {
         String productData = gson.toJson(opData);
         List<String> product = Arrays.asList(savedOpType, productSettings, productData);
         saveTextToFile(product, file);
+
+        LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
 
     }
 

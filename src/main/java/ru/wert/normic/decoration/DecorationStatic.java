@@ -2,6 +2,7 @@ package ru.wert.normic.decoration;
 
 import javafx.event.Event;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -14,6 +15,8 @@ import java.util.List;
 public class DecorationStatic {
 
     public static Stage MAIN_STAGE;
+    public static Label LABEL_PRODUCT_NAME;
+    public static String TITLE_SEPARATOR = " : ";
 
     /**
      * Метод обеспечивает закрытие любого окна

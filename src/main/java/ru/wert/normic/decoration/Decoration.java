@@ -29,6 +29,7 @@ public class Decoration {
     private final Parent rootPane;
     private Parent decoration;
     private Label windowName;
+    @Getter private Label lblProductName;
     private final boolean resizable;
     private boolean waiting = false;
     private DecorationController decorationController;
@@ -83,6 +84,9 @@ public class Decoration {
             //Меняем заголовок окна
             windowName = (Label)decoration.lookup("#windowName");
             windowName.setText(headerName);
+
+            lblProductName = (Label)decoration.lookup("#lblProductName");
+            lblProductName.setStyle("-fx-text-fill: darkblue");
 
             Scene scene = new Scene(decoration);
             scene.getStylesheets().add(this.getClass().getResource(THEME_STYLE).toString());

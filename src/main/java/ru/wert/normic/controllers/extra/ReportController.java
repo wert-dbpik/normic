@@ -185,7 +185,7 @@ public class ReportController {
         report.append("Краска '")
                 .append(color.getRal())
                 .append("', площадь = ")
-                .append(ral1.get(0))
+                .append(DECIMAL_FORMAT.format(ral1.get(0)))
                 .append(" м.кв., ")
                 .append("расход = ")
                 .append(DECIMAL_FORMAT.format(ral1.get(1)))

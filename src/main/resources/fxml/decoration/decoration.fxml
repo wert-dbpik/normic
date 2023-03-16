@@ -33,6 +33,11 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
+                  <Label fx:id="lblProductName" contentDisplay="CENTER" textFill="#140000">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                </children>
                <HBox.margin>
                   <Insets />

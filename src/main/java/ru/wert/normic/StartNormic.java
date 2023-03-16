@@ -16,6 +16,7 @@ import static ru.wert.normic.AppStatics.PROJECT_VERSION;
 import static ru.wert.normic.NormicServices.initQuickServices;
 import static ru.wert.normic.NormicServices.initServices;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
+import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
 
 @Slf4j
 public class StartNormic extends Application {
@@ -59,6 +60,7 @@ public class StartNormic extends Application {
                     false);
 
             MAIN_STAGE = windowDecoration.getWindow();
+            LABEL_PRODUCT_NAME = windowDecoration.getLblProductName();
 
         }catch (IOException e) {
             e.printStackTrace();

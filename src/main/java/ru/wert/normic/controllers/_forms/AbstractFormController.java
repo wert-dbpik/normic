@@ -48,6 +48,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
+import static ru.wert.normic.decoration.DecorationStatic.TITLE_SEPARATOR;
 import static ru.wert.normic.enums.EColor.*;
 import static ru.wert.normic.enums.EColor.COLOR_III;
 
@@ -534,8 +536,10 @@ public abstract class AbstractFormController implements IForm {
                 } else { //Вызов из меню с пиктограммами
                     clearAll(e);
                     if (opType.equals("ASSM")) {
+                        LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
                         deployFile(productSettings, newOpData);
                     } else {
+                        LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
                         addFromFile(newOpData);
                     }
                 }

@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -55,7 +56,7 @@ public class MainController extends AbstractFormController {
 
 
     @FXML@Getter
-    private ProgressIndicator progressIndicator;
+    private HBox progressIndicator;
 
     @FXML @Getter
     private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
@@ -86,7 +87,7 @@ public class MainController extends AbstractFormController {
         progressIndicator.setVisible(false);
 
         //Запускаем  перехват нажатых клавишь
-        Platform.runLater(()->createButtonInterceptor());
+        Platform.runLater(this::createButtonInterceptor);
 
         AppStatics.MEASURE = cmbxTimeMeasurement;
         opData = new OpAssm();

@@ -156,3 +156,10 @@
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
+
+/*ИНДИКАТОР ЗАГРУЗКИ*/
+#progressIndicator{
+    -fx-background-color: #f8f1db;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}

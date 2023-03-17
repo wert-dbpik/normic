@@ -50,6 +50,13 @@ public class AppStatics {
                     LEVELING_SEALER
                     );
 
+    //Перечень операций, которые можно добавить в УПАКОВКУ
+    public static final List<EOpType> PACK_OPERATIONS =
+            Arrays.asList(
+                    PACK_ON_PALLET, PACK_IN_MACHINE_STRETCH_WRAP, PACK_IN_HAND_STRETCH_WRAP,
+                    PACK_IN_CARTOON_BOX, PACK_IN_BUBBLE_WRAP
+            );
+
     //Перечень операций, которые м.б. продублированны
     public static final List<EOpType> DUPLICATED_OPERATIONS =
             Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,

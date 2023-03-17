@@ -32,6 +32,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
 import ru.wert.normic.entities.ops.opPack.OpPack;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
@@ -46,6 +47,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
@@ -187,9 +189,14 @@ public abstract class AbstractFormController implements IForm {
 
 
                 cell.setOnMouseClicked(e -> {
+                    OpData selectedOpData = null;
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         boolean cellIsEmpty = cell.isEmpty();
-                        OpData selectedOpData = addedOperations.get(cell.getIndex());
+                        if(cellIsEmpty) {
+                            cell.getListView().getSelectionModel().clearSelection();
+                            selectedOpData = opData;
+                        } else
+                            selectedOpData = addedOperations.get(cell.getIndex());
                         new MenuPlate().create(getThisController(), selectedOpData, cellIsEmpty).show(
                                 ((Node)e.getSource()).getScene().getWindow(),
                                 e.getScreenX(),
@@ -450,16 +457,30 @@ public abstract class AbstractFormController implements IForm {
         //Определяем целевой узел вставки OpData
         int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
         OpData targetOpData = cellIsEmpty ? getOpData() : getAddedOperations().get(selectedIndex);
+        if(!(targetOpData instanceof OpDetail) && !(targetOpData instanceof OpAssm) && !(targetOpData instanceof OpPack)) return false;
+        List<EOpType> targetOperations = ((IOpWithOperations)targetOpData).getOperations().stream().map(OpData::getOpType).collect(Collectors.toList());
         //Исключаем автовставку
         if(clipOpDataList.contains(targetOpData)) return false;
 
-        for(OpData op : clipOpDataList){
+        for (OpData op : clipOpDataList) {
             if (targetOpData instanceof OpDetail) {
-                if (!DETAIL_OPERATIONS.contains(op.getOpType())) return false;
-                if (getAddedOperations().contains(op) && !DUPLICATED_OPERATIONS.contains(op.getOpType())) return false;
+                if (!DETAIL_OPERATIONS.contains(op.getOpType()))
+                    return false;
+                if (targetOperations.contains(op.getOpType()) &&
+                        !DUPLICATED_OPERATIONS.contains(op.getOpType()))
+                    return false;
             } else if (targetOpData instanceof OpAssm) {
-                if (!ASSM_OPERATIONS.contains(op.getOpType())) return false;
-                if (getAddedOperations().contains(op) && !DUPLICATED_OPERATIONS.contains(op.getOpType())) return false;
+                if (!ASSM_OPERATIONS.contains(op.getOpType()))
+                    return false;
+                if (targetOperations.contains(op.getOpType()) &&
+                        !DUPLICATED_OPERATIONS.contains(op.getOpType()))
+                    return false;
+            } else{
+                if (!PACK_OPERATIONS.contains(op.getOpType()))
+                    return false;
+                if (targetOperations.contains(op.getOpType()) &&
+                        !DUPLICATED_OPERATIONS.contains(op.getOpType()))
+                    return false;
             }
         }
 

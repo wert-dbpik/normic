@@ -28,6 +28,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.excel.ImportExcelFileService;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.menus.MainMenuController;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
@@ -344,6 +345,16 @@ public class MainController extends AbstractFormController {
 
     @Override
     public MenuForm createMenu() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
+            Parent menuBar = loader.load();
+            MainMenuController menuController = loader.getController();
+            menuController.init(this);
+            spMenuBar.getChildren().add(menuBar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 

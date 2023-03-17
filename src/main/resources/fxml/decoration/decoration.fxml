@@ -66,9 +66,9 @@
                </padding>
             </AnchorPane>
          </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
+         <VBox.margin>
+            <Insets left="15.0" />
+         </VBox.margin>
       </HBox>
       <Separator prefWidth="200.0" />
       <GridPane VBox.vgrow="ALWAYS">

@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -54,6 +55,8 @@ import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 @Slf4j
 public class MainController extends AbstractFormController {
 
+    @FXML@Getter
+    private StackPane spMenuBar;
 
     @FXML@Getter
     private HBox progressIndicator;

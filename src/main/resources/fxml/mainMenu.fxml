@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <menus>
+      <Menu mnemonicParsing="false" text="Файл">
+         <items>
+            <MenuItem fx:id="mOpen" mnemonicParsing="false" text="Открыть" />
+            <MenuItem fx:id="mSaveAs" mnemonicParsing="false" text="Сохранить как ..." />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mImportExcel" mnemonicParsing="false" text="Импортировать из Excel" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mExit" mnemonicParsing="false" text="Выйти" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Правка">
+         <items>
+            <MenuItem fx:id="mClearAll" mnemonicParsing="false" text="Очистить все" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Настройки">
+         <items>
+            <MenuItem fx:id="mMaterials" mnemonicParsing="false" text="Материалы" />
+            <MenuItem fx:id="mColors" mnemonicParsing="false" text="ППК палитра" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Отчеты">
+         <items>
+            <MenuItem fx:id="mRaportIC" mnemonicParsing="false" text="Отчет 1С" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Помощь">
+         <items>
+            <MenuItem fx:id="mAbout" mnemonicParsing="false" text="О программе" />
+         </items>
+      </Menu>
+   </menus>
+</MenuBar>

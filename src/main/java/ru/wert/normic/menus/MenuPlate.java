@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class MenuPlate {
             List<OpData> addedOperations = ((IOpWithOperations) opData).getOperations();
             String initialName = ((IOpWithOperations) opData).getName();
             opData.setQuantity(1); //Количество меняем на 1
-            save.setOnAction(e -> MainController.save(opData, addedOperations, initialName, e));
+            save.setOnAction(e -> MainController.save(opData, addedOperations, initialName, e, EMenuSource.MENU_ITEM));
             save.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/save.png").toString(), 24, 24, true, true)));
         } else
             showSave = false;

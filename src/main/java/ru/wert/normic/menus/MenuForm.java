@@ -28,6 +28,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -363,7 +364,7 @@ public class MenuForm extends ContextMenu {
     //ДОБАВИТЬ ФАЙЛ
     public MenuItem createItemAddFilePallet(){
         MenuItem item = new MenuItem("Добавить файл");
-        item.setOnAction(formController::open);
+        item.setOnAction(e->formController.open(e, EMenuSource.MENU_ITEM));
         return item;
     }
 

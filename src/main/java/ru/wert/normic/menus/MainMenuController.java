@@ -3,6 +3,7 @@ package ru.wert.normic.menus;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import lombok.Getter;
 import ru.wert.normic.controllers._forms.MainController;
 
 import static ru.wert.normic.utils.BtnImages.IMG_OPEN;
@@ -10,19 +11,19 @@ import static ru.wert.normic.utils.BtnImages.IMG_OPEN;
 public class MainMenuController {
 
     //ФАЙЛ
-    @FXML
+    @FXML@Getter
     private MenuItem mOpen, mSaveAs, mImportExcel, mExit;
     //ПРАВКА
-    @FXML
+    @FXML@Getter
     private MenuItem mClearAll;
     //НАСТРОЙКА
-    @FXML
-    private MenuItem mColors, mMaterials;
+    @FXML@Getter
+    private MenuItem mColors, mMaterials, mConstants;
     //ОТЧЕТЫ
-    @FXML
+    @FXML@Getter
     private MenuItem mRapport1C;
     //ПОМОЩЬ
-    @FXML
+    @FXML@Getter
     private MenuItem mAbout;
 
 

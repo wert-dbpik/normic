@@ -19,6 +19,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
@@ -32,6 +33,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
 import ru.wert.normic.entities.ops.opPack.OpPack;
+import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -501,14 +503,16 @@ public abstract class AbstractFormController implements IForm {
     /**
      * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
      */
-    public void open(Event e){
-        //true - меню с операциями, false - меню с пиктограммами (главное)
-        boolean sourceMenuForm = e.getSource() instanceof MenuItem;
+    public void open(Event e, EMenuSource source){
+        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+                (Stage) ((Node)e.getSource()).getScene().getWindow();
+
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
         File file;
-        if(sourceMenuForm)
+        if(source.equals(EMenuSource.MENU_ITEM))
             file = chooser.showOpenDialog(((MenuItem)e.getSource()).getParentPopup().getScene().getWindow());
         else
             file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
@@ -549,7 +553,7 @@ public abstract class AbstractFormController implements IForm {
                 //Убираем ".nvr" в конце наименования
                 ((IOpWithOperations) newOpData).setName(((IOpWithOperations) newOpData).getName().replace(".nvr", ""));
 
-                if (sourceMenuForm) {
+                if (source.equals(EMenuSource.MENU_ITEM)) {
                     addFromFile(newOpData);
                 } else { //Вызов из меню с пиктограммами
                     clearAll(e);

@@ -415,6 +415,11 @@ public abstract class AbstractFormController implements IForm {
      * ВЫРЕЗАТЬ
      */
     public void cutOperation(Event e){
+        copyToClipboard();
+        copy = false;
+    }
+
+    private void copyToClipboard() {
         clearClipboard();
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
         for(int index : selectedIndices){
@@ -423,21 +428,13 @@ public abstract class AbstractFormController implements IForm {
             clipBoxList.add(getListViewTechOperations().getItems().get(index));
         }
         whereFromController = this;
-        copy = false;
     }
 
     /**
      * КОПИРОВАТЬ (MenuPlate)
      */
     public void copyOperation(Event e){
-        clearClipboard();
-        List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
-        for(int index : selectedIndices){
-            clipOpDataList.add(getAddedOperations().get(index));
-            clipOpPlateList.add(addedPlates.get(index));
-            clipBoxList.add(getListViewTechOperations().getItems().get(index));
-        }
-        whereFromController = this;
+        copyToClipboard();
         copy = true;
     }
 

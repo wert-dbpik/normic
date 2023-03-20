@@ -280,7 +280,7 @@ public class FormDetailController extends AbstractFormController {
      * Метод расчитывает суммарное время по участкам
      */
     public void countSumNormTimeByShops(){
-        String measure = MIN.getName();
+        String measure = MIN.getMeasure();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -295,20 +295,20 @@ public class FormDetailController extends AbstractFormController {
 
         controller.countSumNormTimeByShops();
 
-        if(AppStatics.MEASURE.getValue().equals(SEC)){
+        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
 
-            measure = SEC.getName();
+            measure = SEC.getMeasure();
         }
 
         String format = DOUBLE_FORMAT;
-        if(AppStatics.MEASURE.getValue().equals(SEC)) format = INTEGER_FORMAT;
+        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;
 
-        tfMechanicalTime.setText(String.format(format, mechanicalTime));
-        tfPaintingTime.setText(String.format(format, paintingTime));
+        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
+        tfPaintingTime.setText(String.format(format, paintingTime).trim());
 
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime ));
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime ).trim());
 
         lblTimeMeasure.setText(measure);
 

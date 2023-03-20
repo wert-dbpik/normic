@@ -504,18 +504,14 @@ public abstract class AbstractFormController implements IForm {
      * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
      */
     public void open(Event e, EMenuSource source){
-        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
-        File file;
-        if(source.equals(EMenuSource.MENU_ITEM))
-            file = chooser.showOpenDialog(((MenuItem)e.getSource()).getParentPopup().getScene().getWindow());
-        else
-            file = chooser.showOpenDialog(((Node)e.getSource()).getScene().getWindow());
+        File file = chooser.showOpenDialog(owner);;
         if(file == null) return;
         try {
             //Читаем строки из файла
@@ -553,7 +549,7 @@ public abstract class AbstractFormController implements IForm {
                 //Убираем ".nvr" в конце наименования
                 ((IOpWithOperations) newOpData).setName(((IOpWithOperations) newOpData).getName().replace(".nvr", ""));
 
-                if (source.equals(EMenuSource.MENU_ITEM)) {
+                if (source.equals(EMenuSource.FORM_MENU)) {
                     addFromFile(newOpData);
                 } else { //Вызов из меню с пиктограммами
                     clearAll(e);

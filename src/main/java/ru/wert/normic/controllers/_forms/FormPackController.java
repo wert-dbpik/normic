@@ -141,7 +141,7 @@ public class FormPackController extends AbstractFormController {
      * Метод расчитывает суммарное время по участкам
      */
     public void countSumNormTimeByShops(){
-        String measure = MIN.getName();
+        String measure = MIN.getMeasure();
 
         double packTime = 0.0;
 
@@ -153,16 +153,16 @@ public class FormPackController extends AbstractFormController {
 
         controller.countSumNormTimeByShops();
 
-        if(AppStatics.MEASURE.getValue().equals(SEC)){
+        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())){
             packTime = packTime * MIN_TO_SEC;
 
-            measure = SEC.getName();
+            measure = SEC.getMeasure();
         }
 
         String format = DOUBLE_FORMAT;
-        if(AppStatics.MEASURE.getValue().equals(SEC)) format = INTEGER_FORMAT;
+        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;
 
-        tfTotalTime.setText(String.format(format,packTime ));
+        tfTotalTime.setText(String.format(format,packTime ).trim());
 
         lblTimeMeasure.setText(measure);
 

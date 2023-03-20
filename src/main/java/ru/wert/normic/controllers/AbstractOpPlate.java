@@ -142,7 +142,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         double time = currentNormTime;
         String format = DOUBLE_FORMAT;
         String measure = "мин";
-        if (MEASURE.getValue().equals(ETimeMeasurement.SEC)) {
+        if (MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())) {
             time = currentNormTime * MIN_TO_SEC;
             format = INTEGER_FORMAT;
             measure = "сек";

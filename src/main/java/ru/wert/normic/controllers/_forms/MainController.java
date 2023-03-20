@@ -31,7 +31,6 @@ import ru.wert.normic.excel.ImportExcelFileService;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MainMenuController;
 import ru.wert.normic.menus.MenuForm;
-import ru.wert.normic.components.BXTimeMeasurement;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.settings.ProductSettings;
@@ -43,8 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.wert.normic.AppStatics.KEYS_NOW_PRESSED;
-import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
+import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
@@ -62,9 +60,6 @@ public class MainController extends AbstractFormController {
 
     @FXML@Getter
     private HBox progressIndicator;
-
-    @FXML @Getter
-    private ComboBox<ETimeMeasurement> cmbxTimeMeasurement;
 
     @FXML @Getter //AbstractFormController
     private ListView<VBox> listViewTechOperations;
@@ -96,7 +91,7 @@ public class MainController extends AbstractFormController {
         //Запускаем  перехват нажатых клавишь
         Platform.runLater(this::createButtonInterceptor);
 
-        AppStatics.MEASURE = cmbxTimeMeasurement;
+        AppStatics.MEASURE = new ToggleGroup();
         opData = new OpAssm();
 
         //Создаем меню
@@ -108,8 +103,10 @@ public class MainController extends AbstractFormController {
 
         setDragAndDropCellFactory();
 
-        //Инициализируем комбобоксы
-        new BXTimeMeasurement().create(cmbxTimeMeasurement, MIN);
+
+
+//        //Инициализируем комбобоксы
+//        new BXTimeMeasurement().create(cmbxTimeMeasurement, MIN);
 
         //Заполняем поля формы
         fillOpData();
@@ -135,27 +132,43 @@ public class MainController extends AbstractFormController {
             e.printStackTrace();
         }
 
-        menuController.getMSaveAs().setOnAction(e->save(opData, addedOperations, "", e, EMenuSource.MENU_ITEM));
-        menuController.getMOpen().setOnAction(e->open(e, EMenuSource.MENU_ITEM));
+        menuController.getMSaveAs().setOnAction(e->save(opData, addedOperations, "", e, EMenuSource.MAIN_MENU));
+        menuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
         menuController.getMClearAll().setOnAction(this::clearAll);
-        menuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MENU_ITEM));
-        menuController.getMColors().setOnAction(e->colors(e, EMenuSource.MENU_ITEM));
-        menuController.getMConstants().setOnAction(e->constants(e, EMenuSource.MENU_ITEM));
-        menuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MENU_ITEM));
-        menuController.getMImportExcel().setOnAction(e->importExcel(e, EMenuSource.MENU_ITEM));
+        menuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MAIN_MENU));
+        menuController.getMColors().setOnAction(e->colors(e, EMenuSource.MAIN_MENU));
+        menuController.getMConstants().setOnAction(e->constants(e, EMenuSource.MAIN_MENU));
+        menuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MAIN_MENU));
+        menuController.getMImportExcel().setOnAction(e->importExcel(e, EMenuSource.MAIN_MENU));
+        menuController.getRbmSeconds().setOnAction(e->setTimeMeasurement(e, EMenuSource.MAIN_MENU, SEC));
+        menuController.getRbmSeconds().setOnAction(e->setTimeMeasurement(e, EMenuSource.MAIN_MENU, MIN));
     }
 
     private void initViews() {
 
+        //Единицы измерения
+        menuController.getRbmSeconds().setToggleGroup(MEASURE);
+        menuController.getRbmSeconds().setUserData(SEC.name());
+        menuController.getRbmMinutes().setToggleGroup(MEASURE);
+        menuController.getRbmMinutes().setUserData(MIN.name());
+        menuController.getRbmMinutes().setSelected(true);
+        countSumNormTimeByShops();
+
+        MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            lblTimeMeasure.setText(ETimeMeasurement.findValueOf(newValue.getUserData().toString()).getMeasure());
+            countSumNormTimeByShops();
+        });
+
+
         //СОХРАНИТЬ
         btnSave.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32,32, true, true)));
         btnSave.setTooltip(new Tooltip("Сохранить"));
-        btnSave.setOnAction(e->save(opData, addedOperations, "", e, EMenuSource.ICON));
+        btnSave.setOnAction(e->save(opData, addedOperations, "", e, EMenuSource.ICON_MENU));
 
         //ОТКРЫТЬ
         btnOpen.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32,32, true, true)));
         btnOpen.setTooltip(new Tooltip("Открыть"));
-        btnOpen.setOnAction(e->open(e, EMenuSource.ICON));
+        btnOpen.setOnAction(e->open(e, EMenuSource.ICON_MENU));
 
         //ОЧИСТИТЬ
         btnErase.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32,32, true, true)));
@@ -165,39 +178,39 @@ public class MainController extends AbstractFormController {
         //ОТЧЕТ
         btnReport.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32,32, true, true)));
         btnReport.setTooltip(new Tooltip("Отчет"));
-        btnReport.setOnAction(e->report(e, EMenuSource.ICON));
+        btnReport.setOnAction(e->report(e, EMenuSource.ICON_MENU));
 
         //ПОКРЫТИЕ
         btnColors.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/colors.png")), 32,32, true, true)));
         btnColors.setTooltip(new Tooltip("Покрытие"));
-        btnColors.setOnAction(e->colors(e, EMenuSource.ICON));
+        btnColors.setOnAction(e->colors(e, EMenuSource.ICON_MENU));
 
         //РАСЧЕТНЫЕ КОНСТАНТЫ
         btnConstants.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/constants.png")), 32,32, true, true)));
         btnConstants.setTooltip(new Tooltip("Расчетные константы"));
-        btnConstants.setOnAction(e->constants(e, EMenuSource.ICON));
+        btnConstants.setOnAction(e->constants(e, EMenuSource.ICON_MENU));
 
         //МАТЕРИАЛЫ
         btnMaterials.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 32,32, true, true)));
         btnMaterials.setTooltip(new Tooltip("Материалы"));
-        btnMaterials.setOnAction(e->materials(e, EMenuSource.ICON));
+        btnMaterials.setOnAction(e->materials(e, EMenuSource.ICON_MENU));
 
         //ИМПОРТ EXCEL
         btnImportExcel.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32,32, true, true)));
         btnImportExcel.setTooltip(new Tooltip("Импорт Excel"));
-        btnImportExcel.setOnAction(e->importExcel(e, EMenuSource.ICON));
+        btnImportExcel.setOnAction(e->importExcel(e, EMenuSource.ICON_MENU));
 
 
-        cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
-            lblTimeMeasure.setText(newValue.getName());
-            countSumNormTimeByShops();
-        });
+//        cmbxTimeMeasurement.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            lblTimeMeasure.setText(newValue.getName());
+//            countSumNormTimeByShops();
+//        });
 
     }
 
     private void importExcel(ActionEvent e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
@@ -226,8 +239,8 @@ public class MainController extends AbstractFormController {
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
     public static void save(OpData opData, List<OpData> addedOperations, String initialName, Event e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
@@ -263,8 +276,8 @@ public class MainController extends AbstractFormController {
      * ОТЧЕТ
      */
     private void report(Event e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
         ((OpAssm)opData).setOperations(getAddedOperations());
 
@@ -294,8 +307,8 @@ public class MainController extends AbstractFormController {
      * НАСТРОЙКИ ИЗДЕЛИЯ
      */
     private void colors(Event e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/colors.fxml"));
@@ -326,8 +339,8 @@ public class MainController extends AbstractFormController {
      * РАСЧЕТНЫЕ КОНСТАНТЫ
      */
     private void constants(ActionEvent e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.MENU_ITEM) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/constants.fxml"));
@@ -349,8 +362,8 @@ public class MainController extends AbstractFormController {
      * РАСЧЕТНЫЕ КОНСТАНТЫ
      */
     private void materials(ActionEvent e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.MENU_ITEM)?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getScene().getWindow() :
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
 
         try {
@@ -367,6 +380,13 @@ public class MainController extends AbstractFormController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * ЕДИНИЦЫ ИЗМЕРЕНИЯ
+     */
+    private void setTimeMeasurement(ActionEvent e, EMenuSource source, ETimeMeasurement timeMeasurement) {
+
     }
 
     /**
@@ -426,7 +446,7 @@ public class MainController extends AbstractFormController {
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
-        String measure = MIN.getName();
+        String measure = MIN.getMeasure();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -445,17 +465,17 @@ public class MainController extends AbstractFormController {
         opData.setAssmTime(assemblingTime);
         opData.setPackTime(packingTime);
 
-        if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)){
+        if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
             packingTime = packingTime * MIN_TO_SEC;
 
-            measure = SEC.getName();
+            measure = SEC.getMeasure();
         }
 
         String format = DOUBLE_FORMAT;
-        if(cmbxTimeMeasurement.getValue().equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
+        if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
         tfPaintingTime.setText(String.format(format, paintingTime).trim());

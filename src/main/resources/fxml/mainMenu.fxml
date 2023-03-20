@@ -26,6 +26,13 @@
             <MenuItem fx:id="mMaterials" mnemonicParsing="false" text="Материалы" />
             <MenuItem fx:id="mColors" mnemonicParsing="false" text="ППК палитра" />
             <MenuItem fx:id="mConstants" mnemonicParsing="false" text="Константы" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <Menu mnemonicParsing="false" text="Единицы измерения">
+               <items>
+                  <RadioMenuItem fx:id="rbmSeconds" mnemonicParsing="false" text="Секунды" />
+                  <RadioMenuItem fx:id="rbmMinutes" mnemonicParsing="false" text="Минуты" />
+               </items>
+            </Menu>
          </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Отчеты">

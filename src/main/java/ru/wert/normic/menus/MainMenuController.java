@@ -2,6 +2,7 @@ package ru.wert.normic.menus;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.MainController;
@@ -19,6 +20,9 @@ public class MainMenuController {
     //НАСТРОЙКА
     @FXML@Getter
     private MenuItem mColors, mMaterials, mConstants;
+
+    @FXML@Getter
+    private RadioMenuItem rbmSeconds, rbmMinutes;
     //ОТЧЕТЫ
     @FXML@Getter
     private MenuItem mRapport1C;

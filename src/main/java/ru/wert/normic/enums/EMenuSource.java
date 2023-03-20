@@ -1,6 +1,7 @@
 package ru.wert.normic.enums;
 
 public enum EMenuSource {
-    MENU_ITEM, //Любое меню
-    ICON, //Иконка
+    MAIN_MENU, //Главное меню
+    FORM_MENU, //Меню формы
+    ICON_MENU, //Иконка
 }

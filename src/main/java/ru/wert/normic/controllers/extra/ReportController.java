@@ -291,18 +291,18 @@ public class ReportController {
         if (opAssm.getMechTime() != 0.0)
             report.append("Изготовление \t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append(" ")
-                    .append(tm.getName()).append("\n");
+                    .append(tm.getMeasure()).append("\n");
         if (opAssm.getPaintTime() != 0.0)
             report.append("Покраска \t\t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getPaintTime() * k)).append(" ")
-                    .append(tm.getName()).append("\n");
+                    .append(tm.getMeasure()).append("\n");
         if (opAssm.getAssmTime() != 0.0)
             report.append("Сборка \t\t\t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getAssmTime() * k)).append(" ")
-                    .append(tm.getName()).append("\n");
+                    .append(tm.getMeasure()).append("\n");
         if (opAssm.getPackTime() != 0.0)
             report.append("Упаковка \t\t: "
             ).append(DECIMAL_FORMAT.format(opAssm.getPackTime() * k)).append(" ")
-                    .append(tm.getName()).append("\n");
+                    .append(tm.getMeasure()).append("\n");
     }
 }

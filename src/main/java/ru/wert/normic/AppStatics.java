@@ -1,6 +1,7 @@
 package ru.wert.normic;
 
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.enums.EOpType;
@@ -26,7 +27,7 @@ public class AppStatics {
     public static final String SKETCH_NUM_WITH_EXT = "[Э]\\d{5}[-]\\d{2}";// ЭХХХХХ-ХХ
 
     //Комбобокс, где переключается единица измерения (мин, сек)
-    public static ComboBox<ETimeMeasurement> MEASURE;
+    public static ToggleGroup MEASURE;
 
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";

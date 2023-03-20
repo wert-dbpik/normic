@@ -364,7 +364,7 @@ public class MenuForm extends ContextMenu {
     //ДОБАВИТЬ ФАЙЛ
     public MenuItem createItemAddFilePallet(){
         MenuItem item = new MenuItem("Добавить файл");
-        item.setOnAction(e->formController.open(e, EMenuSource.MENU_ITEM));
+        item.setOnAction(e->formController.open(e, EMenuSource.FORM_MENU));
         return item;
     }
 

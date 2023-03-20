@@ -11,7 +11,6 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
-import ru.wert.normic.enums.ETimeMeasurement;
 
 
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
@@ -133,7 +132,7 @@ public class FormAssmController extends AbstractFormController {
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
-        String measure = MIN.getName();
+        String measure = MIN.getMeasure();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -154,24 +153,24 @@ public class FormAssmController extends AbstractFormController {
 
         controller.countSumNormTimeByShops();
 
-        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)){
+        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
             packingTime = packingTime * MIN_TO_SEC;
 
-            measure = SEC.getName();
+            measure = SEC.getMeasure();
         }
 
         String format = DOUBLE_FORMAT;
-        if(AppStatics.MEASURE.getValue().equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
+        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;
 
-        tfMechanicalTime.setText(String.format(format, mechanicalTime));
-        tfPaintingTime.setText(String.format(format, paintingTime));
-        tfAssemblingTime.setText(String.format(format, assemblingTime));
-        tfPackingTime.setText(String.format(format, packingTime));
+        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
+        tfPaintingTime.setText(String.format(format, paintingTime).trim());
+        tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
+        tfPackingTime.setText(String.format(format, packingTime).trim());
 
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime));
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
 
         lblTimeMeasure.setText(measure);
 

@@ -321,8 +321,6 @@ public class FormDetailController extends AbstractFormController {
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
-//        matPatchController.fillPatchOpData();
-
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.deployData();
     }

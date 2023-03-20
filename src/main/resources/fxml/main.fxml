@@ -1,44 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <VBox fx:id="main" prefHeight="800.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers._forms.MainController">
    <children>
       <StackPane fx:id="spMenuBar" alignment="TOP_LEFT" />
+      <StackPane fx:id="spIconMenu" alignment="TOP_LEFT" />
       <Separator prefWidth="200.0" />
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
-         <children>
-            <Button fx:id="btnSave" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnOpen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnImportExcel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnErase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnColors" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnMaterials" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnConstants" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <Button fx:id="btnReport" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
-         </children>
-         <VBox.margin>
-            <Insets left="10.0" top="5.0" />
-         </VBox.margin>
-      </HBox>
-      <Separator maxWidth="1.7976931348623157E308">
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-      </Separator>
-      <HBox alignment="BOTTOM_LEFT" fillHeight="false" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="10.0">
          <children>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label text="Состав и технологические операции">
+                  <Label text="Состав и технологические операции :">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -49,7 +26,7 @@
                <children>
                   <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0">
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                </children>

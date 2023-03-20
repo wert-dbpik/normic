@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -25,6 +23,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
+import ru.wert.normic.controllers.extra.ProductTreeController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
@@ -130,7 +129,7 @@ public class MainController extends AbstractFormController {
 
     private void createMainMenu(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/menus/mainMenu.fxml"));
             Parent menuBar = loader.load();
             mainMenuController = loader.getController();
             spMenuBar.getChildren().add(menuBar);
@@ -142,6 +141,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMClearAll().setOnAction(this::clearAll);
         mainMenuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMProductTree().setOnAction(e->productTree(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMColors().setOnAction(e->colors(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMConstants().setOnAction(e->constants(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MAIN_MENU));
@@ -163,7 +163,7 @@ public class MainController extends AbstractFormController {
 
     private void createIconMenu() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/iconMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/menus/iconMenu.fxml"));
             iconBar = loader.load();
             iconMenuController = loader.getController();
             showIconMenuProperty.set(true);
@@ -303,7 +303,7 @@ public class MainController extends AbstractFormController {
         ((OpAssm)opData).setOperations(getAddedOperations());
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/report.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/report1C.fxml"));
             VBox report = loader.load();
             ReportController controller = loader.getController();
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
@@ -311,6 +311,37 @@ public class MainController extends AbstractFormController {
 
             new Decoration(
                     "ОТЧЕТ",
+                    report,
+                    false,
+                    owner,
+                    "decoration-report",
+                    true,
+                    false);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    /**
+     * ДРЕВО
+     */
+    private void productTree(Event e, EMenuSource source) {
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
+                (Stage) ((Node)e.getSource()).getScene().getWindow();
+        ((OpAssm)opData).setOperations(getAddedOperations());
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/productTree.fxml"));
+            VBox report = loader.load();
+            ProductTreeController controller = loader.getController();
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
+            controller.create((OpAssm) opData);
+
+            new Decoration(
+                    "СТРУКТУРНОЕ ДРЕВО",
                     report,
                     false,
                     owner,

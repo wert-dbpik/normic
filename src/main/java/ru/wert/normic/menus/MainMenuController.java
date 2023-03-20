@@ -41,7 +41,8 @@ public class MainMenuController {
 
     @FXML@Getter
     private MenuItem
-            mRapport1C;
+            mRapport1C,
+            mProductTree;
 
     //ПОМОЩЬ=============================================
 

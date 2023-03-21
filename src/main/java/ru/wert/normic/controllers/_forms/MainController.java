@@ -343,7 +343,7 @@ public class MainController extends AbstractFormController {
             new Decoration(
                     "СТРУКТУРНОЕ ДРЕВО",
                     report,
-                    false,
+                    true,
                     owner,
                     "decoration-report",
                     true,

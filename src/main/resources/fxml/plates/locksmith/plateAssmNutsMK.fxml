@@ -16,7 +16,7 @@
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../pics/btns/nuts.png" />
+                  <Image url="@../../../pics/opLogos/nuts.png" />
                </image>
             </ImageView>
             <Label fx:id="lblOperationName" text="КРЕПЕЖ (УЧАСТОК МК)" textFill="#2f23d0">

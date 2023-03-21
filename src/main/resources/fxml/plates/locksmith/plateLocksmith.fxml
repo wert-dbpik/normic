@@ -16,7 +16,7 @@
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../pics/btns/locksmith.png" />
+                  <Image url="@../../../pics/opLogos/locksmith.png" />
                </image>
             </ImageView>
             <Label fx:id="lblOperationName" text="СЛЕСАРНЫЕ ОПЕРАЦИИ" textFill="#2f23d0">

@@ -16,7 +16,7 @@
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../pics/btns/assm_cutting.png" />
+                  <Image url="@../../../pics/opLogos/assm_cutting.png" />
                </image>
             </ImageView>
             <Label fx:id="lblOperationName" text="СБОРКА РАСКРОЙНОГО МАТЕРИАЛА" textFill="#2f23d0">

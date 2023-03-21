@@ -1,10 +1,7 @@
 package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
@@ -44,18 +41,22 @@ public class ProductTreeController {
 
                     HBox hbTitle = new HBox();
                     hbTitle.setSpacing(5.0);
-
-                    StringBuilder sbTitle = new StringBuilder();
-                    sbTitle.append(name);
-                    if(quantity > 1) sbTitle.append(" (")
-                            .append(quantity)
-                            .append(" шт.)");
+                    //Лого
                     ImageView logo = new ImageView(type.getLogo());
                     logo.setFitWidth(16);
                     logo.setFitHeight(16);
+                    //Номер с наименованием
+                    TextField tfName = new TextField(((IOpWithOperations) opData).getName());
+                    //Количество
+                    StringBuilder sb = new StringBuilder();
+                    if(quantity > 1) sb.append(" (")
+                            .append(quantity)
+                            .append(" шт.)");
 
+                    //Все вместе
                     hbTitle.getChildren().add(logo);
-                    hbTitle.getChildren().add(new Label(sbTitle.toString()));
+                    hbTitle.getChildren().add(tfName);
+                    hbTitle.getChildren().add(new Label(sb.toString()));
                     setGraphic(hbTitle);
                 }
             }

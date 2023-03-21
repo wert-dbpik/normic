@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.assembling;
+package ru.wert.normic.controllers.singlePlates;
 
 
 import javafx.fxml.FXML;
@@ -15,28 +15,31 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers._forms.FormAssmController;
+import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * ДОБАВЛЕНИЕ СБОРКИ
+ * ДОБАВЛЕНИЕ ДЕТАЛИ
  */
-public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
+public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
+
+//    @FXML
+//    private ImageView ivOperation;
 
     @FXML
     private VBox vbOperation;
 
     @FXML
-    private TextField tfAssmName;
+    private TextField tfName;
 
     @FXML
     private TextField tfN;
@@ -56,21 +59,17 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     private double currentMechanicalNormTime;
     @Setter@Getter
     private double currentPaintNormTime;
-    @Setter@Getter
-    private double currentAssmNormTime;
-    @Setter@Getter
-    private double currentPackNormTime;
 
     //Переменные для ИМЕНИ
     public static int nameIndex = 0;
-    private String assmName;
-    
-    private FormAssmController formAssmController;
+    private String detailName;
+
+    private FormDetailController formDetailController;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssm opData = (OpAssm)data;
-        ivOperation.setImage(EOpType.ASSM.getLogo());
+        OpDetail opData = (OpDetail)data;
+        ivOperation.setImage(EOpType.DETAIL.getLogo());
 
         new TFIntegerColored(tfN, null);
 
@@ -78,9 +77,9 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         lblQuantity.setStyle("-fx-text-fill: #8b4513");
 
         if(opData.getName() == null &&
-                tfAssmName.getText() == null || tfAssmName.getText().equals("")) {
-            assmName = String.format("Сборка #%s", ++nameIndex);
-            tfAssmName.setText(assmName);
+                tfName.getText() == null || tfName.getText().equals("")) {
+            detailName = String.format("Деталь #%s", ++nameIndex);
+            tfName.setText(detailName);
         }
 
         ivEdit.setOnMouseClicked(e->{
@@ -93,32 +92,34 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         });
 
         //Сохраняем имя при изменении
-        tfAssmName.textProperty().addListener((observable, oldValue, newValue) -> {
-            ((OpDetail)this.opData).setName(tfAssmName.getText());
+        tfName.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpDetail)this.opData).setName(tfName.getText());
         });
 
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
             formController.countSumNormTimeByShops();
+            formController.calculateAreaByDetails();
         });
+
     }
 
     /**
-     * Открыть форму редактирования сборки
+     * Открыть форму редактирования детали
      */
-    private void openFormEditor(OpAssm opData) {
+    private void openFormEditor(OpDetail opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
             Parent parent = loader.load();
-            formAssmController = loader.getController();
-            formAssmController.init(formController, tfAssmName, this.opData);
+            formDetailController = loader.getController();
+            formDetailController.init(formController, tfName, this.opData);
             Decoration windowDecoration = new Decoration(
-                    "СБОРКА",
+                    "ДЕТАЛЬ",
                     parent,
                     false,
                     (Stage) lblOperationName.getScene().getWindow(),
-                    "decoration-assm",
+                    "decoration-detail",
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
@@ -130,34 +131,28 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpAssm opData = (OpAssm)data;
+        OpDetail opData = (OpDetail)data;
 
         countInitialValues();
 
         double mechanicalTime = 0;
         double paintTime = 0;
-        double assmTime = 0;
-        double packTime = 0;
 
         for(OpData op : opData.getOperations()){
             mechanicalTime += op.getMechTime();
             paintTime += op.getPaintTime();
-            assmTime += op.getAssmTime();
-            packTime += op.getPackTime();
         }
 
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
-        currentAssmNormTime = assmTime * quantity;
-        currentPackNormTime = packTime * quantity;
 
         collectOpData(opData);
-        if (formAssmController != null)
+        if (formDetailController != null)
             setTimeMeasurement();
     }
 
     /**
-     * Устанавливает и расчитывает значения, заданные пользователем
+     * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
@@ -165,20 +160,23 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     }
 
 
-    private void collectOpData(OpAssm opData) {
-        if(formAssmController != null){
-            opData.setName(formAssmController.getTfAssmName().getText());
-            //Сохраняем операции
-            opData.setOperations(new ArrayList<>(formAssmController.getAddedOperations()));
-        }
+    private void collectOpData(OpDetail opData) {
+        opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
+        if(formDetailController != null){
+            opData.setMaterial(formDetailController.getCmbxMaterial().getValue());
+            opData.setParamA(IntegerParser.getValue(formDetailController.getMatPatchController().getTfA()));
+            opData.setParamB(IntegerParser.getValue(formDetailController.getMatPatchController().getTfB()));
+            //Сохраняем операции
+            opData.setOperations(new ArrayList<>(formDetailController.getAddedOperations()));
+        }
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpAssm opData = (OpAssm)data;
+        OpDetail opData = (OpDetail)data;
 
-        tfAssmName.setText(opData.getName());
+        tfName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }
 

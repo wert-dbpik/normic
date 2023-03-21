@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.packing;
+package ru.wert.normic.controllers.singlePlates;
 
 
 import javafx.fxml.FXML;

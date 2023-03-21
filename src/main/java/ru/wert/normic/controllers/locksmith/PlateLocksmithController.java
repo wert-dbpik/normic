@@ -12,6 +12,7 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -56,6 +57,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
         OpLocksmith opData = (OpLocksmith)data;
+        ivOperation.setImage(EOpType.LOCKSMITH.getLogo());
 
         countInitialValues();
 

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -27,6 +28,7 @@ public class PlateErrorController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpErrorData opData = (OpErrorData)data;
+        ivOperation.setImage(EOpType.ERROR_OP_DATA.getLogo());
         lblOperationName.setStyle("-fx-text-fill: #ef1515");
 
         lbErrorOpData.setText(opData.getErrorOpData());

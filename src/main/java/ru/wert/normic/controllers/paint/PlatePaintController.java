@@ -15,6 +15,7 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.enums.EColor;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.materials.matlPatches.ListMatPatchController;
@@ -75,6 +76,7 @@ public class PlatePaintController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data) {
         OpPaint opData = (OpPaint) data;
+        ivOperation.setImage(EOpType.PAINTING.getLogo());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new BXPaintingDifficulty().create(cmbxDifficulty, opData.getDifficulty(), this);

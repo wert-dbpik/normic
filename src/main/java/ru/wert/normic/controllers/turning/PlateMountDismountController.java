@@ -11,6 +11,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
+import ru.wert.normic.enums.EOpType;
 
 import java.util.NoSuchElementException;
 
@@ -52,6 +53,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpLatheMountDismount opData = (OpLatheMountDismount) data;
+        ivOperation.setImage(EOpType.LATHE_MOUNT_DISMOUNT.getLogo());
 
         rbCenters.setToggleGroup(toggleGroup);
         rbHolder.setToggleGroup(toggleGroup);

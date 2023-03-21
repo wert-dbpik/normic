@@ -8,6 +8,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
+import ru.wert.normic.enums.EOpType;
 
 /**
  * УСТАНОВКА НА ПОДДОН
@@ -24,6 +25,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        ivOperation.setImage(EOpType.PACK_ON_PALLET.getLogo());
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();

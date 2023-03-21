@@ -28,6 +28,7 @@ public class IconMenuController {
     //ОТЧЕТЫ
     @FXML@Getter
     private Button
-            btnReport1C;
+            btnReport1C,
+            btnProductTree;
 
 }

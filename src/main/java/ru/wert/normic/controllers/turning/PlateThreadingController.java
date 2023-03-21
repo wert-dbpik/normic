@@ -13,6 +13,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheThreading;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -61,6 +62,7 @@ public class PlateThreadingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpLatheThreading opData = (OpLatheThreading) data;
+        ivOperation.setImage(EOpType.LATHE_THREADING.getLogo());
         initStyle = tfDiameter.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfDiameter, this);

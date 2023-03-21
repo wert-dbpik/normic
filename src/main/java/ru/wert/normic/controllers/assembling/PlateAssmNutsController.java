@@ -12,6 +12,7 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -55,6 +56,7 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpAssmNut opData = (OpAssmNut)data;
+        ivOperation.setImage(EOpType.ASSM_NUTS.getLogo());
 
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfScrews, this);

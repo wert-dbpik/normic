@@ -12,6 +12,7 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -43,6 +44,7 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpWeldDotted opData = (OpWeldDotted)data;
+        ivOperation.setImage(EOpType.WELD_DOTTED.getLogo());
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

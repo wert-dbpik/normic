@@ -11,6 +11,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheTurning;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -57,6 +58,7 @@ public class PlateTurningController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpLatheTurning opData = (OpLatheTurning) data;
+        ivOperation.setImage(EOpType.LATHE_TURNING.getLogo());
         initStyle = tfTurningLength.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfTurningLength, this);

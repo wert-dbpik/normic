@@ -13,6 +13,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
 import ru.wert.normic.enums.EMeasure;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -74,6 +75,7 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpDrillingByMarking opData = (OpDrillingByMarking) data;
+        ivOperation.setImage(EOpType.DRILLING_BY_MARKING.getLogo());
         initStyle = tfLength.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfDiameter, this);

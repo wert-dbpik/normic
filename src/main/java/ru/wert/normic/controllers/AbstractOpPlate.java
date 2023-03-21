@@ -74,6 +74,9 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public abstract Image helpImage();
 
     @FXML
+    protected ImageView ivOperation;
+
+    @FXML
     private VBox vbOperation;
 
     @FXML @Getter

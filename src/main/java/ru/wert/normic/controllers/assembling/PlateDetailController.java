@@ -19,6 +19,7 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -30,6 +31,9 @@ import java.util.ArrayList;
  * ДОБАВЛЕНИЕ ДЕТАЛИ
  */
 public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
+
+//    @FXML
+//    private ImageView ivOperation;
 
     @FXML
     private VBox vbOperation;
@@ -65,6 +69,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpDetail opData = (OpDetail)data;
+        ivOperation.setImage(EOpType.DETAIL.getLogo());
 
         new TFIntegerColored(tfN, null);
 

@@ -10,6 +10,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -47,6 +48,7 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        ivOperation.setImage(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getLogo());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new TFIntegerColored(tfPartMin, this);

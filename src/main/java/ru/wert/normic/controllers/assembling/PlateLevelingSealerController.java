@@ -15,6 +15,7 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -54,6 +55,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpLevelingSealer opData = (OpLevelingSealer)data;
+        ivOperation.setImage(EOpType.LEVELING_SEALER.getLogo());
 
         new BXSealersWidth().create(cmbxSealerWidth, opData.getSealersWidth(), this);
         new TFNormTime(tfNormTime, formController);

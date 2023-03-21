@@ -9,6 +9,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
+import ru.wert.normic.enums.EOpType;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
 
@@ -52,6 +53,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        ivOperation.setImage(EOpType.PACK_IN_BUBBLE_WRAP.getLogo());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new RadBtn(rbByHeight, this);

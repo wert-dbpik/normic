@@ -18,6 +18,7 @@ import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPack;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpPlate;
 
 import java.io.IOException;
@@ -52,6 +53,7 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
+        ivOperation.setImage(EOpType.PACK.getLogo());
 
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 

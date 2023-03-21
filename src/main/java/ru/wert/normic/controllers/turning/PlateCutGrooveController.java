@@ -13,6 +13,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opTurning.LatheCutGroove;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -51,6 +52,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        ivOperation.setImage(EOpType.LATHE_CUT_GROOVE.getLogo());
         LatheCutGroove opData = (LatheCutGroove) data;
         initStyle = tfDepth.getStyle(); //Сохраняем исходный стиль
 

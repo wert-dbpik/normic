@@ -14,6 +14,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -60,6 +61,7 @@ public class PlateCuttingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpCutting opData = (OpCutting) data;
+        ivOperation.setImage(EOpType.CUTTING.getLogo());
 
         new TFIntegerColored(tfHoles, this);
         new TFIntegerColored(tfPerfHoles, this);

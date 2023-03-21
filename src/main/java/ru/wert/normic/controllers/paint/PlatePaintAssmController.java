@@ -15,6 +15,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -74,6 +75,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPaintAssm opData = (OpPaintAssm)data;
+        ivOperation.setImage(EOpType.PAINT_ASSM.getLogo());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         countCalculatedArea();

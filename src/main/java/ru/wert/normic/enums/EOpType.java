@@ -49,7 +49,7 @@ public enum EOpType {
     PACK_IN_CARTOON_BOX         (new Image("/pics/opLogos/cartoon.png")),       //УПАКОВКА В КАРТОННУЮ КОРОБКУ
     PACK_IN_BUBBLE_WRAP         (new Image("/pics/opLogos/wrap.png")),          //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
 
-    ERROR_OP_DATA               (new Image("/pics/opLogos/cutting.png"));
+    ERROR_OP_DATA               (new Image("/pics/opLogos/error.png"));
 
     @Getter
     Image logo;

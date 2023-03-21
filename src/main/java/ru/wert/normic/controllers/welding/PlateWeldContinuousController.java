@@ -13,6 +13,7 @@ import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -65,6 +66,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpWeldContinuous opData = (OpWeldContinuous)data;
+        ivOperation.setImage(EOpType.WELD_CONTINUOUS.getLogo());
 
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());

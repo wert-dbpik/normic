@@ -15,6 +15,7 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EMeasure;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ESawType;
 
 import java.util.NoSuchElementException;
@@ -39,6 +40,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw) data;
+        ivOperation.setImage(EOpType.CUT_OFF_ON_SAW.getLogo());
 
         new BXSawType().create(cmbxSaw, ESawType.SMALL_SAW, this);
 

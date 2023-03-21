@@ -14,6 +14,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -76,6 +77,7 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        ivOperation.setImage(EOpType.LATHE_CUT_OFF.getLogo());
         OpLatheCutOff opData = (OpLatheCutOff) data;
         initStyle = tfThickness.getStyle(); //Сохраняем исходный стиль
 

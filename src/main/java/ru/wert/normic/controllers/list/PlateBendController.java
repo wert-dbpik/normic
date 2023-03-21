@@ -16,6 +16,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -52,6 +53,7 @@ public class PlateBendController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpBending opData = (OpBending)data;
+        ivOperation.setImage(EOpType.BENDING.getLogo());
 
         new BXBendingTool().create(cmbxBendingTool, opData.getTool(), this);
         new TFNormTime(tfNormTime, formController);

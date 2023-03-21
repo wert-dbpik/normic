@@ -20,6 +20,7 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpDetail;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -69,6 +70,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpAssm opData = (OpAssm)data;
+        ivOperation.setImage(EOpType.ASSM.getLogo());
 
         new TFIntegerColored(tfN, null);
 

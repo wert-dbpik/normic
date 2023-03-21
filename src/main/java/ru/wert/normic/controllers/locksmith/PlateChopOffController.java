@@ -12,6 +12,7 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EMeasure;
+import ru.wert.normic.enums.EOpType;
 
 import java.util.NoSuchElementException;
 
@@ -43,6 +44,7 @@ public class PlateChopOffController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
         OpChopOff opData = (OpChopOff) data;
+        ivOperation.setImage(EOpType.CHOP_OFF.getLogo());
 
         countInitialValues();
 

@@ -15,6 +15,7 @@ import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
+import ru.wert.normic.enums.EOpType;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
 
@@ -61,6 +62,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        ivOperation.setImage(EOpType.PACK_IN_HAND_STRETCH_WRAP.getLogo());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new RadBtn(rbByHeight, this);

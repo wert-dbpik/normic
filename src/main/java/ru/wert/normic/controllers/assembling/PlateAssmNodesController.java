@@ -12,6 +12,7 @@ import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmNode;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.entities.settings.AppSettings.*;
@@ -51,6 +52,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpAssmNode opData = (OpAssmNode)data;
+        ivOperation.setImage(EOpType.ASSM_NODES.getLogo());
 
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfPostLocks, this);

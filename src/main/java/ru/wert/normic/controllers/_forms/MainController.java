@@ -210,6 +210,11 @@ public class MainController extends AbstractFormController {
         iconMenuController.getBtnImportExcel().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32,32, true, true)));
         iconMenuController.getBtnImportExcel().setTooltip(new Tooltip("Импорт Excel"));
         iconMenuController.getBtnImportExcel().setOnAction(e->importExcel(e, EMenuSource.ICON_MENU));
+
+        //ОТЧЕТ
+        iconMenuController.getBtnProductTree().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/tree_view.png")), 32,32, true, true)));
+        iconMenuController.getBtnProductTree().setTooltip(new Tooltip("Схема изделия"));
+        iconMenuController.getBtnProductTree().setOnAction(e->productTree(e, EMenuSource.ICON_MENU));
     }
 
     private void initViews() {

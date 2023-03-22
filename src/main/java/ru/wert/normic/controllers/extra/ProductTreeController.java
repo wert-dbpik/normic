@@ -1,16 +1,27 @@
 package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
+import ru.wert.normic.entities.ops.opAssembling.OpDetail;
+import ru.wert.normic.entities.ops.opPack.OpPack;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
+import java.io.IOException;
 import java.util.List;
+
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 public class ProductTreeController {
 
@@ -58,12 +69,46 @@ public class ProductTreeController {
                     hbTitle.getChildren().add(tfName);
                     hbTitle.getChildren().add(new Label(sb.toString()));
                     setGraphic(hbTitle);
+
+                    setOnMouseClicked(e->{
+                        if(opData instanceof OpDetail){
+                            openFormEditor("ДЕТАЛЬ","/fxml/formDetail.fxml", opData, tfName);
+                        } else if(opData instanceof OpAssm){
+                            openFormEditor("СБОРКА","/fxml/formAssm.fxml", opData, tfName);
+                        } else  if(opData instanceof OpPack){
+                            openFormEditor("УПАКОВКА","/fxml/formPack.fxml", opData, tfName);
+                        }
+                    });
                 }
             }
 
 
         });
 
+    }
+
+    /**
+     * Открыть форму редактирования сборки
+     */
+    private void openFormEditor(String title, String path, OpData opData, AbstractFormController clazz, TextField tfName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            Parent parent = loader.load();
+            AbstractFormController formController = loader.getController();
+            formController.init(MAIN_CONTROLLER, tfName, opData);
+            Decoration windowDecoration = new Decoration(
+                    title,
+                    parent,
+                    false,
+                    MAIN_STAGE,
+                    "decoration-assm",
+                    true,
+                    false);
+            ImageView closer = windowDecoration.getImgCloseWindow();
+            closer.setOnMousePressed(ev -> clazz.collectOpData(opData));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void createLeaf(TreeItem<OpData> treeItem){

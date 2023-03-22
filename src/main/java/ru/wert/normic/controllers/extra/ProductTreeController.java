@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.util.Callback;
+import javafx.scene.text.Text;
 import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.controllers.singlePlates.PlateAssmController;
+import ru.wert.normic.controllers.singlePlates.PlateDetailController;
+import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
@@ -27,6 +30,7 @@ public class ProductTreeController {
 
     @FXML
     private TreeView<OpData> treeView;
+    private String initStyle;
 
     public void create(OpAssm opRoot){
 
@@ -50,33 +54,54 @@ public class ProductTreeController {
                     int quantity = opData.getQuantity();
                     EOpType type = opData.getOpType();
 
+
                     HBox hbTitle = new HBox();
                     hbTitle.setSpacing(5.0);
+                    initStyle = hbTitle.getStyle();
                     //Лого
                     ImageView logo = new ImageView(type.getLogo());
                     logo.setFitWidth(16);
                     logo.setFitHeight(16);
                     //Номер с наименованием
-                    TextField tfName = new TextField(((IOpWithOperations) opData).getName());
+                    TextField tfName = new TextField();
+                    Text txtName = new Text();
+                    txtName.textProperty().bind(tfName.textProperty());
+                    tfName.setText(((IOpWithOperations) opData).getName());
+
+
                     //Количество
-                    StringBuilder sb = new StringBuilder();
-                    if(quantity > 1) sb.append(" (")
-                            .append(quantity)
-                            .append(" шт.)");
+                    TextField tfN = new TextField();
+                    Text txtN = new Text();
+                    txtN.textProperty().bind(tfN.textProperty());
+                    tfN.setText(String.valueOf(quantity));
 
                     //Все вместе
                     hbTitle.getChildren().add(logo);
-                    hbTitle.getChildren().add(tfName);
-                    hbTitle.getChildren().add(new Label(sb.toString()));
+                    hbTitle.getChildren().add(txtName);
+
+                    if(quantity > 1) hbTitle.getChildren().addAll(new Text("("), txtN, new Text(" шт.)"));
+
                     setGraphic(hbTitle);
 
+                    selectedProperty().addListener((observable, oldValue, newValue) -> {
+                        if(newValue){
+                            hbTitle.setStyle("-fx-background-color: #f1e2af");
+                            setStyle("-fx-background-color: #f1e2af");
+                        } else {
+                            hbTitle.setStyle(initStyle);
+                            setStyle(initStyle);
+                        }
+                    });
+
                     setOnMouseClicked(e->{
-                        if(opData instanceof OpDetail){
-                            openFormEditor("ДЕТАЛЬ","/fxml/formDetail.fxml", opData, tfName);
-                        } else if(opData instanceof OpAssm){
-                            openFormEditor("СБОРКА","/fxml/formAssm.fxml", opData, tfName);
-                        } else  if(opData instanceof OpPack){
-                            openFormEditor("УПАКОВКА","/fxml/formPack.fxml", opData, tfName);
+                        if(e.isControlDown() && e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
+                            if (opData instanceof OpDetail) {
+                                openFormEditor(EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
+                            } else if (opData instanceof OpAssm) {
+                                openFormEditor(EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
+                            } else if (opData instanceof OpPack) {
+                                openFormEditor(EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
+                            }
                         }
                     });
                 }
@@ -90,7 +115,7 @@ public class ProductTreeController {
     /**
      * Открыть форму редактирования сборки
      */
-    private void openFormEditor(String title, String path, OpData opData, AbstractFormController clazz, TextField tfName) {
+    private void openFormEditor(EOpType type, String title, String path, OpData opData, TextField tfName, TextField tfN) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
@@ -105,7 +130,14 @@ public class ProductTreeController {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> clazz.collectOpData(opData));
+            closer.setOnMousePressed(ev -> {
+                switch(type){
+                    case DETAIL:    PlateDetailController.collectOpData((OpDetail) opData, formController, tfName, tfN); break;
+                    case ASSM:      PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN); break;
+                    case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName); break;
+                }
+                MAIN_CONTROLLER.countSumNormTimeByShops();
+            });
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -121,5 +153,13 @@ public class ProductTreeController {
                 createLeaf(newTreeItem);
             }
         }
+    }
+
+    private double countPrefWidth(TextField tf){
+        Text text = new Text(tf.getText());
+        text.setFont(tf.getFont());
+        return text.getLayoutBounds().getWidth() // This big is the Text in the TextField
+                + tf.getPadding().getLeft() + tf.getPadding().getRight() // Add the padding of the TextField
+                + 2d;
     }
 }

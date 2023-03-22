@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 /**
  * ДОБАВЛЕНИЕ ДЕТАЛИ
  */
-public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
+public class PlateDetailController extends AbstractOpPlate {
 
 //    @FXML
 //    private ImageView ivOperation;
@@ -123,7 +124,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData));
+            closer.setOnMousePressed(ev -> collectOpData(opData, formDetailController, tfName, tfN));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -146,7 +147,7 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
 
-        collectOpData(opData);
+        collectOpData(opData, formDetailController, tfName, tfN);
         if (formDetailController != null)
             setTimeMeasurement();
     }
@@ -160,13 +161,13 @@ public class PlateDetailController extends AbstractOpPlate implements IOpPlate {
     }
 
 
-    private void collectOpData(OpDetail opData) {
+    public static void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN) {
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
         if(formDetailController != null){
-            opData.setMaterial(formDetailController.getCmbxMaterial().getValue());
-            opData.setParamA(IntegerParser.getValue(formDetailController.getMatPatchController().getTfA()));
-            opData.setParamB(IntegerParser.getValue(formDetailController.getMatPatchController().getTfB()));
+            opData.setMaterial(((FormDetailController)formDetailController).getCmbxMaterial().getValue());
+            opData.setParamA(IntegerParser.getValue(((FormDetailController)formDetailController).getMatPatchController().getTfA()));
+            opData.setParamB(IntegerParser.getValue(((FormDetailController)formDetailController).getMatPatchController().getTfB()));
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formDetailController.getAddedOperations()));
         }

@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -340,7 +341,7 @@ public class MainController extends AbstractFormController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/productTree.fxml"));
-            VBox report = loader.load();
+            AnchorPane report = loader.load();
             ProductTreeController controller = loader.getController();
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             controller.create((OpAssm) opData);

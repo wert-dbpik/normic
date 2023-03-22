@@ -26,7 +26,7 @@ import java.io.IOException;
 /**
  * ДОБАВЛЕНИЕ ДЕТАЛИ
  */
-public class PlatePackController extends AbstractOpPlate implements IOpPlate {
+public class PlatePackController extends AbstractOpPlate{
 
     @FXML
     private VBox vbOperation;
@@ -97,7 +97,7 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData));
+            closer.setOnMousePressed(ev -> collectOpData(opData, tfName));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -113,7 +113,7 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
             currentPackNormTime += op.getPackTime();
         }
 
-        collectOpData(opData);
+        collectOpData(opData, tfName);
         if (formPackController != null)
             setTimeMeasurement();
     }
@@ -127,7 +127,7 @@ public class PlatePackController extends AbstractOpPlate implements IOpPlate {
     }
 
 
-    private void collectOpData(OpPack opData) {
+    public static void collectOpData(OpPack opData, TextField tfName) {
         opData.setName(tfName.getText());
     }
 

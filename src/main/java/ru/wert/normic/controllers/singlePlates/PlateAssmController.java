@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.opAssembling.OpAssm;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 /**
  * ДОБАВЛЕНИЕ СБОРКИ
  */
-public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
+public class PlateAssmController extends AbstractOpPlate{
 
     @FXML
     private VBox vbOperation;
@@ -122,7 +123,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData));
+            closer.setOnMousePressed(ev -> collectOpData(opData, formAssmController, tfAssmName, tfN));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -151,7 +152,7 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
         currentAssmNormTime = assmTime * quantity;
         currentPackNormTime = packTime * quantity;
 
-        collectOpData(opData);
+        collectOpData(opData, formAssmController, tfAssmName, tfN);
         if (formAssmController != null)
             setTimeMeasurement();
     }
@@ -165,9 +166,9 @@ public class PlateAssmController extends AbstractOpPlate implements IOpPlate {
     }
 
 
-    private void collectOpData(OpAssm opData) {
+    public static void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN) {
         if(formAssmController != null){
-            opData.setName(formAssmController.getTfAssmName().getText());
+            opData.setName(tfName.getText());
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formAssmController.getAddedOperations()));
         }

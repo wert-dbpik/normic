@@ -1,0 +1,27 @@
+*{
+    -app-light_background: #f8f5eb;
+    -app-selected_background: #f1e2af;
+
+    -fx-background-color:-app-light_background;
+}
+
+.tree-cell:selected, .tree-cell:selected > .text-field{
+    -fx-background-color: -app-selected_background;
+}
+
+/*Стрелка РАЗВЕРНУТЬ*/
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: red;
+}
+/*Стрелка СВЕРНУТЬ*/
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: blue;
+}
+/*Фон для обеих стрелок при выделении*/
+.tree-cell:selected > .tree-disclosure-node  {
+    -fx-background-color: -app-selected_background;
+}
+
+.label{
+    -fx-font-size: 14 ;
+}

@@ -5,21 +5,25 @@ import lombok.Getter;
 
 public enum EOpType {
 
-    //ОПЕРАЦИИ С ЛИСТОМ
-    CUTTING                     ("Резка и зачистка",                new Image("/pics/opLogos/list_cutting.png")),   //ВЫРЕЗАНИЕ ЛИСТОВОЙ ДЕТАЛИ
-    BENDING                     ("Гибка",                           new Image("/pics/opLogos/bend.png")),                    //ГИБКА ЛИСТОВОЙ ДЕТАЛИ
 
-    //СБОРОЧНЫЕ ОПЕРАЦИИ
+    //ОТДЕЛЬНЫЕ ЭЛЕМЕНТЫ
     DETAIL                      ("Деталь",                          new Image("/pics/opLogos/detail.png")),        //ДЕТАЛЬ
     ASSM                        ("Сборка",                          new Image("/pics/opLogos/assemble.png")),      //СБОРКА
-    ASSM_CUTTINGS               ("Сборка раскройного материала",    new Image("/pics/opLogos/assm_cutting.png")),  //СБОРКА РАСКРОЙНЫХ МАТЕРИАЛОВ
-    ASSM_NODES                  ("Сборка стандартных узлов",        new Image("/pics/opLogos/cutting.png")),       //СБОРКА ОТДЕЛЬНЫХ УЗЛОВ
-    ASSM_NUTS                   ("Сборка крепежа",                  new Image("/pics/opLogos/nuts.png")),          //СБОРКА КРЕПЕЖА
-    LEVELING_SEALER             ("Нанесение наливного уплотнителя", new Image("/pics/opLogos/sealer.png")),        //НАЛИВКА УПЛОТНИТЕЛЯ
+    PACK                        ("Упаковка",                        new Image("/pics/opLogos/pack.png")),          //УПАКОВКА
+
+    //ОПЕРАЦИИ С ЛИСТОМ
+    CUTTING                     ("Резка и зачистка",                new Image("/pics/opLogos/list_cutting.png")),   //ВЫРЕЗАНИЕ ЛИСТОВОЙ ДЕТАЛИ
+    BENDING                     ("Гибка",                           new Image("/pics/opLogos/bend.png")),           //ГИБКА ЛИСТОВОЙ ДЕТАЛИ
 
     //ОКРАШИВАНИЕ
     PAINTING                    ("Покраска детали",                 new Image("/pics/opLogos/paint.png")),         //ОКРАШИВАНИЕ ДЕТАЛИ
     PAINT_ASSM                  ("Покраска сборки",                 new Image("/pics/opLogos/paint.png")),         //ОКРАШИВАНИЕ СБОРКИ
+
+    //СБОРОЧНЫЕ ОПЕРАЦИИ
+    ASSM_CUTTINGS               ("Сборка раскройного материала",    new Image("/pics/opLogos/assm_cutting.png")),  //СБОРКА РАСКРОЙНЫХ МАТЕРИАЛОВ
+    ASSM_NODES                  ("Сборка стандартных узлов",        new Image("/pics/opLogos/cutting.png")),       //СБОРКА ОТДЕЛЬНЫХ УЗЛОВ
+    ASSM_NUTS                   ("Сборка крепежа",                  new Image("/pics/opLogos/nuts.png")),          //СБОРКА КРЕПЕЖА
+    LEVELING_SEALER             ("Нанесение наливного уплотнителя", new Image("/pics/opLogos/sealer.png")),        //НАЛИВКА УПЛОТНИТЕЛЯ
 
     //СЛЕСАРНЫЕ ОПЕРАЦИИ
     LOCKSMITH                   ("Слесарные операции",              new Image("/pics/opLogos/locksmith.png")),     //СЛЕАРНЫЕ РАБОТЫ
@@ -42,7 +46,6 @@ public enum EOpType {
     WELD_DOTTED                 ("Сварка точечная",                 new Image("/pics/opLogos/weld.png")),          //СВАРКА ТОЧЕЧНАЯ И ПРИХВАТКАМИ
 
     //УПАКОВКА
-    PACK                        ("Упаковка",                        new Image("/pics/opLogos/pack.png")),          //УПАКОВКА
     PACK_ON_PALLET              ("Монтаж на поддон",                new Image("/pics/opLogos/pallet.png")),        //УПАКОВКА НА ПАЛЛЕТ (Установка и закрепление)
     PACK_IN_MACHINE_STRETCH_WRAP("Упаковка в машинную стрейч-пленку",new Image("/pics/opLogos/wrap.png")),          //УПАКОВКА В КАРТОН (КРЫШКИ И УГОЛКИ)
     PACK_IN_HAND_STRETCH_WRAP   ("Упаковка в ручную стрейч-пленку", new Image("/pics/opLogos/wrap.png")),          //УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ

@@ -62,10 +62,11 @@ public class MenuForm extends ContextMenu {
         this.addedOperations = formController.getAddedOperations();
     }
 
+    //===========      ОТДЕЛЬНЫЕ ЭЛЕМЕНТЫ     =========================================
 
     //ДОБАВИТЬ ДЕТАЛЬ
     public MenuItem createItemDetail(){
-        MenuItem addDetail = new MenuItem("Добавить деталь");
+        MenuItem addDetail = new MenuItem(EOpType.DETAIL.getOpName());
         addDetail.setOnAction(event -> {
             OpDetail opDetail = new OpDetail();
             addDetailPlate(opDetail);
@@ -75,7 +76,7 @@ public class MenuForm extends ContextMenu {
 
     //ДОБАВИТЬ СБОРКУ
     public MenuItem createItemAssm(){
-        MenuItem addAssm = new MenuItem("Добавить сборку");
+        MenuItem addAssm = new MenuItem(EOpType.ASSM.getOpName());
         addAssm.setOnAction(event -> {
             OpAssm opAssm = new OpAssm();
             addAssmPlate(opAssm);
@@ -85,7 +86,7 @@ public class MenuForm extends ContextMenu {
 
     //ДОБАВИТЬ УПАКОВКУ
     public MenuItem createItemPack(){
-        MenuItem addPack = new MenuItem("Добавить упаковку");
+        MenuItem addPack = new MenuItem(EOpType.PACK.getOpName());
         addPack.setOnAction(event -> {
             OpPack opPack = new OpPack();
             addPackPlate(opPack);
@@ -93,10 +94,11 @@ public class MenuForm extends ContextMenu {
         return addPack;
     }
 
+    //===========      ОПЕРАЦИИ С ЛИСТОМ     =========================================
 
     //РАСКРОЙ И ЗАЧИСТКА
     public MenuItem createItemCutting(){
-        MenuItem addCutting = new MenuItem("Резка и зачистка");
+        MenuItem addCutting = new MenuItem(EOpType.CUTTING.getOpName());
         addCutting.setOnAction(event -> {
             if(isDuplicate(EOpType.CUTTING)) return ;
             addCattingPlate(new OpCutting());
@@ -106,7 +108,7 @@ public class MenuForm extends ContextMenu {
 
     //ГИБКА
     public MenuItem createItemBending(){
-        MenuItem addBending = new MenuItem("Гибка");
+        MenuItem addBending = new MenuItem(EOpType.BENDING.getOpName());
         addBending.setOnAction(event -> {
             if(isDuplicate(EOpType.BENDING)) return ;
             addBendingPlate(new OpBending());
@@ -114,138 +116,11 @@ public class MenuForm extends ContextMenu {
         return addBending;
     }
 
-
-    //СЛЕСАРНЫЕ РАБОТЫ
-    public MenuItem createItemLocksmith(){
-        MenuItem addLocksmith = new MenuItem("Слесарные операции");
-        addLocksmith.setOnAction(event -> {
-            if(isDuplicate(EOpType.LOCKSMITH)) return ;
-            addLocksmithPlate(new OpLocksmith());
-        });
-        return addLocksmith;
-    }
-
-    //==============================ТОКАРНЫЕ ОПЕРАЦИИ =======================
-
-    //УСТАНОВКА / СНЯТИЕ детали
-    public MenuItem createItemMountDismount(){
-        MenuItem item = new MenuItem("Установка и снятие детали");
-        item.setOnAction(event -> {
-            if(isDuplicate(EOpType.LATHE_CUT_OFF)) return ;
-            addMountDismountPlate(new OpLatheMountDismount());
-        });
-        return item;
-    }
-
-    //ТОЧЕНИЕ / РАСТАЧИВАНИЕ (многократное добавление)
-    public MenuItem createItemTurning(){
-        MenuItem item = new MenuItem("Точение и растачивание");
-        item.setOnAction(event -> {
-            addTurningPlate(new OpLatheTurning());
-        });
-        return item;
-    }
-
-    //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
-    public MenuItem createItemCutGroove(){
-        MenuItem item = new MenuItem("Точение канавки");
-        item.setOnAction(event -> {
-            addCutGroovePlate(new LatheCutGroove());
-        });
-        return item;
-    }
-
-    //ОТРЕЗАНИЕ
-    public MenuItem createItemCutOff(){
-        MenuItem item = new MenuItem("Отрезание на токарном станке");
-        item.setOnAction(event -> {
-            addCutOffPlate(new OpLatheCutOff());
-        });
-        return item;
-    }
-
-    //ОТРЕЗАНИЕ НА ПИЛЕ
-    public MenuItem createItemCutOffOnTheSaw(){
-        MenuItem item = new MenuItem("Отрезание на пиле");
-        item.setOnAction(event -> {
-            addCutOffOnTheSawPlate(new OpCutOffOnTheSaw());
-        });
-        return item;
-    }
-
-    //ОТРУБАНИЕ
-    public MenuItem createItemChopOff(){
-        MenuItem item = new MenuItem("Рубка в размер");
-        item.setOnAction(event -> {
-            addChopOffPlate(new OpChopOff());
-        });
-        return item;
-    }
-
-    //НАРЕЗАНИЕ РЕЗЬБЫ (многократное добавление)
-    public MenuItem createItemThreading(){
-        MenuItem item = new MenuItem("Нарезание резьбы");
-        item.setOnAction(event -> {
-            addThreadingPlate(new OpLatheThreading());
-        });
-        return item;
-    }
-
-    //СВЕРЛЕНИЕ ОТВЕРСТИЯ (многократное добавление)
-    public MenuItem createItemDrilling(){
-        MenuItem item = new MenuItem("Сверление отверстия");
-        item.setOnAction(event -> {
-            addDrillingPlate(new OpLatheDrilling());
-        });
-        return item;
-    }
-
-    //СВЕРЛЕНИЕ ОТВЕРСТИЯ ПО РАЗМЕТКЕ (многократное добавление)
-    public MenuItem createItemDrillingByMarking(){
-        MenuItem item = new MenuItem("Сверление по разметке");
-        item.setOnAction(event -> {
-            addDrillingByMarkingPlate(new OpDrillingByMarking());
-        });
-        return item;
-    }
-
-    //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
-    public MenuItem createItemRolling(){
-        MenuItem item = new MenuItem("Накатывание рифления");
-        item.setOnAction(event -> {
-            addRollingPlate(new OpLatheRolling());
-        });
-        return item;
-    }
-
-    //=======================================================================
-
-    //СВАРКА НЕПРЕРЫВНАЯ
-    public MenuItem createItemWeldLongSeam(){
-        MenuItem item = new MenuItem("Сварка непрерывная");
-        item.setOnAction(event -> {
-            addWeldContinuousPlate(new OpWeldContinuous());
-        });
-        return item;
-    }
-
-
-    //СВАРКА ТОЧЕЧНАЯ
-    public MenuItem createItemWeldingDotted(){
-        MenuItem item = new MenuItem("Сварка точечная");
-        item.setOnAction(event -> {
-            if(isDuplicate(EOpType.WELD_DOTTED)) return ;
-            addWeldDottedPlate(new OpWeldDotted());
-        });
-        return item;
-    }
-
-
-    //=======================================================================
+    //===========      ОКРАШИВАНИЕ     =========================================
 
     //ПОКРАСКА
     public MenuItem createItemPainting(){
-        MenuItem item = new MenuItem("Покраска детали");
+        MenuItem item = new MenuItem(EOpType.PAINTING.getOpName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINTING)) return ;
             addPaintPlate(new OpPaint());
@@ -257,7 +132,7 @@ public class MenuForm extends ContextMenu {
 
     //ПОКРАСКА СБОРОЧНОЙ ЕДИНИЦЫ
     public MenuItem createItemPaintAssm(){
-        MenuItem item = new MenuItem("Покраска сборочной единицы");
+        MenuItem item = new MenuItem(EOpType.PAINT_ASSM.getOpName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINT_ASSM)) return ;
             addPaintAssmPlate(new OpPaintAssm());
@@ -265,32 +140,11 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
-
-    //=======================================================================
-    //СБОРКА - КРЕПЕЖ
-    public MenuItem createItemAssmNuts(){
-        MenuItem item = new MenuItem("Сборка крепежа");
-        item.setOnAction(event -> {
-            if(isDuplicate(EOpType.ASSM_NUTS)) return ;
-            addAssmNutsPlate(new OpAssmNut());
-        });
-        return item;
-    }
-
-    //СБОРКА - КРЕПЕЖ
-    public MenuItem createItemAssmNutsMK(){
-        MenuItem item = new MenuItem("Крепеж (участок МК)");
-        item.setOnAction(event -> {
-            if(isDuplicate(EOpType.ASSM_NUTS_MK)) return ;
-            addAssmNutsMKPlate(new OpAssmNutMK());
-        });
-        return item;
-    }
-
+    //===========      СБОРОЧНЫЕ ОПЕРАЦИИ     =========================================
 
     //СБОРКА - РАСКРОЙНЫЙ МАТЕРИАЛ
     public MenuItem createItemAssmCuttings(){
-        MenuItem item = new MenuItem("Сборка раскройного материала");
+        MenuItem item = new MenuItem(EOpType.ASSM_CUTTINGS.getOpName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_CUTTINGS)) return ;
             addAssmCuttingsPlate(new OpAssmCutting());
@@ -298,10 +152,9 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
-
     //СБОРКА СТАНДАРТНЫХ УЗЛОВ
     public MenuItem createItemAssmNodes(){
-        MenuItem item = new MenuItem("Сборка стандартных узлов");
+        MenuItem item = new MenuItem(EOpType.ASSM_NODES.getOpName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_NODES)) return ;
             addAssmNodesPlate(new OpAssmNode());
@@ -309,31 +162,178 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //СБОРКА - КРЕПЕЖ
+    public MenuItem createItemAssmNuts(){
+        MenuItem item = new MenuItem(EOpType.ASSM_NUTS.getOpName());
+        item.setOnAction(event -> {
+            if(isDuplicate(EOpType.ASSM_NUTS)) return ;
+            addAssmNutsPlate(new OpAssmNut());
+        });
+        return item;
+    }
+
 
     //НАНЕСЕНИЕ НАЛИВНОГО УПЛОТНИТЕЛЯ
     public MenuItem createItemLevelingSealer(){
-        MenuItem item = new MenuItem("Нанесение наливного утеплителя");
+        MenuItem item = new MenuItem(EOpType.LEVELING_SEALER.getOpName());
         item.setOnAction(event -> {
             addLevelingSealerPlate(new OpLevelingSealer());
         });
         return item;
     }
 
+    //===========      СЛЕСАРНЫЕ ОПЕРАЦИИ     =========================================
 
-    //=========================      УПАКОВКА    =================================
+    //СЛЕСАРНЫЕ РАБОТЫ
+    public MenuItem createItemLocksmith(){
+        MenuItem addLocksmith = new MenuItem(EOpType.LOCKSMITH.getOpName());
+        addLocksmith.setOnAction(event -> {
+            if(isDuplicate(EOpType.LOCKSMITH)) return ;
+            addLocksmithPlate(new OpLocksmith());
+        });
+        return addLocksmith;
+    }
 
-    //КРЕПЛЕНИЕ В КАРТОННУЮ КОРОБКУ
-    public MenuItem createItemPackInCartoonBox(){
-        MenuItem item = new MenuItem("Упаковка в картонную коробку");
+
+    //СБОРКА - КРЕПЕЖ МК
+    public MenuItem createItemAssmNutsMK(){
+        MenuItem item = new MenuItem(EOpType.ASSM_NUTS_MK.getOpName());
         item.setOnAction(event -> {
-            addPackInCartoonBoxPlate(new OpPackInCartoonBox());
+            if(isDuplicate(EOpType.ASSM_NUTS_MK)) return ;
+            addAssmNutsMKPlate(new OpAssmNutMK());
+        });
+        return item;
+    }
+
+    //ОТРУБАНИЕ
+    public MenuItem createItemChopOff(){
+        MenuItem item = new MenuItem(EOpType.CHOP_OFF.getOpName());
+        item.setOnAction(event -> {
+            addChopOffPlate(new OpChopOff());
+        });
+        return item;
+    }
+
+    //СВЕРЛЕНИЕ ОТВЕРСТИЯ ПО РАЗМЕТКЕ (многократное добавление)
+    public MenuItem createItemDrillingByMarking(){
+        MenuItem item = new MenuItem(EOpType.DRILLING_BY_MARKING.getOpName());
+        item.setOnAction(event -> {
+            addDrillingByMarkingPlate(new OpDrillingByMarking());
+        });
+        return item;
+    }
+
+    //ОТРЕЗАНИЕ НА ПИЛЕ
+    public MenuItem createItemCutOffOnTheSaw(){
+        MenuItem item = new MenuItem(EOpType.CUT_OFF_ON_SAW.getOpName());
+        item.setOnAction(event -> {
+            addCutOffOnTheSawPlate(new OpCutOffOnTheSaw());
+        });
+        return item;
+    }
+
+    //===========      ТОКАРНЫЕ ОПЕРАЦИИ     =========================================
+
+    //УСТАНОВКА / СНЯТИЕ детали
+    public MenuItem createItemMountDismount(){
+        MenuItem item = new MenuItem(EOpType.LATHE_MOUNT_DISMOUNT.getOpName());
+        item.setOnAction(event -> {
+            if(isDuplicate(EOpType.LATHE_CUT_OFF)) return ;
+            addMountDismountPlate(new OpLatheMountDismount());
+        });
+        return item;
+    }
+
+    //ТОЧЕНИЕ / РАСТАЧИВАНИЕ (многократное добавление)
+    public MenuItem createItemTurning(){
+        MenuItem item = new MenuItem(EOpType.LATHE_TURNING.getOpName());
+        item.setOnAction(event -> {
+            addTurningPlate(new OpLatheTurning());
+        });
+        return item;
+    }
+
+    //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
+    public MenuItem createItemCutGroove(){
+        MenuItem item = new MenuItem(EOpType.LATHE_CUT_GROOVE.getOpName());
+        item.setOnAction(event -> {
+            addCutGroovePlate(new LatheCutGroove());
+        });
+        return item;
+    }
+
+    //НАРЕЗАНИЕ РЕЗЬБЫ (многократное добавление)
+    public MenuItem createItemThreading(){
+        MenuItem item = new MenuItem(EOpType.LATHE_THREADING.getOpName());
+        item.setOnAction(event -> {
+            addThreadingPlate(new OpLatheThreading());
+        });
+        return item;
+    }
+
+    //СВЕРЛЕНИЕ ОТВЕРСТИЯ (многократное добавление)
+    public MenuItem createItemDrilling(){
+        MenuItem item = new MenuItem(EOpType.LATHE_DRILLING.getOpName());
+        item.setOnAction(event -> {
+            addDrillingPlate(new OpLatheDrilling());
+        });
+        return item;
+    }
+
+    //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
+    public MenuItem createItemRolling(){
+        MenuItem item = new MenuItem(EOpType.LATHE_ROLLING.getOpName());
+        item.setOnAction(event -> {
+            addRollingPlate(new OpLatheRolling());
+        });
+        return item;
+    }
+
+    //ОТРЕЗАНИЕ
+    public MenuItem createItemCutOff(){
+        MenuItem item = new MenuItem(EOpType.LATHE_CUT_OFF.getOpName());
+        item.setOnAction(event -> {
+            addCutOffPlate(new OpLatheCutOff());
+        });
+        return item;
+    }
+
+    //===========      СВАРОЧНЫЕ ОПЕРАЦИИ     =========================================
+
+    //СВАРКА НЕПРЕРЫВНАЯ
+    public MenuItem createItemWeldLongSeam(){
+        MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS.getOpName());
+        item.setOnAction(event -> {
+            addWeldContinuousPlate(new OpWeldContinuous());
+        });
+        return item;
+    }
+
+
+    //СВАРКА ТОЧЕЧНАЯ
+    public MenuItem createItemWeldingDotted(){
+        MenuItem item = new MenuItem(EOpType.WELD_DOTTED.getOpName());
+        item.setOnAction(event -> {
+            if(isDuplicate(EOpType.WELD_DOTTED)) return ;
+            addWeldDottedPlate(new OpWeldDotted());
+        });
+        return item;
+    }
+
+    //===========      УПАКОВКА     =========================================
+
+    //КРЕПЛЕНИЕ К ПОДДОНУ
+    public MenuItem createItemPackOnPallet(){
+        MenuItem item = new MenuItem(EOpType.PACK_ON_PALLET.getOpName());
+        item.setOnAction(event -> {
+            addPackOnPalletPlate(new OpPackOnPallet());
         });
         return item;
     }
 
     //УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ
     public MenuItem createItemPackOnPalletizer(){
-        MenuItem item = new MenuItem("Упаковка в машинную стрейч-пленку");
+        MenuItem item = new MenuItem(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getOpName());
         item.setOnAction(event -> {
             addPackInCartoonAndStretchPlate(new OpPackInMachineStretchWrap());
         });
@@ -342,30 +342,33 @@ public class MenuForm extends ContextMenu {
 
     //УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
     public MenuItem createItemPackInHandStretchWrap(){
-        MenuItem item = new MenuItem("Упаковка в ручную стрейч-пленку");
+        MenuItem item = new MenuItem(EOpType.PACK_IN_HAND_STRETCH_WRAP.getOpName());
         item.setOnAction(event -> {
             addPackInHandStretchWrapPlate(new OpPackInHandStretchWrap());
         });
         return item;
     }
 
+    //КРЕПЛЕНИЕ В КАРТОННУЮ КОРОБКУ
+    public MenuItem createItemPackInCartoonBox(){
+        MenuItem item = new MenuItem(EOpType.PACK_IN_CARTOON_BOX.getOpName());
+        item.setOnAction(event -> {
+            addPackInCartoonBoxPlate(new OpPackInCartoonBox());
+        });
+        return item;
+    }
+
     //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
     public MenuItem createItemPackInBubbleWrap(){
-        MenuItem item = new MenuItem("Упаковка в пузырьковую пленку");
+        MenuItem item = new MenuItem(EOpType.PACK_IN_BUBBLE_WRAP.getOpName());
         item.setOnAction(event -> {
             addPackInBubbleWrapPlate(new OpPackInBubbleWrap());
         });
         return item;
     }
 
-    //КРЕПЛЕНИЕ К ПОДДОНУ
-    public MenuItem createItemPackOnPallet(){
-        MenuItem item = new MenuItem("Монтаж на поддон");
-        item.setOnAction(event -> {
-            addPackOnPalletPlate(new OpPackOnPallet());
-        });
-        return item;
-    }
+    //===========      ОСТАЛЬНОЕ     =========================================
+
 
     //ДОБАВИТЬ ФАЙЛ
     public MenuItem createItemAddFilePallet(){

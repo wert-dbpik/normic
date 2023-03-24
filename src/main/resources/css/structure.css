@@ -22,6 +22,21 @@
     -fx-background-color: -app-selected_background;
 }
 
-.label{
-    -fx-font-size: 14 ;
+#title{
+    -fx-font-size: 14;
+    -fx-fill: brown;
+    -fx-font-weight: bold;
 }
+
+#description{
+    -fx-fill: blue;
+}
+
+#operationName{
+    -fx-fill: black;
+}
+
+#operationDescription{
+    -fx-fill: saddlebrown;
+}
+

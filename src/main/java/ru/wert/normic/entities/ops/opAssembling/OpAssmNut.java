@@ -24,4 +24,14 @@ public class OpAssmNut extends OpData {
         super.normType = ENormType.NORM_ASSEMBLING;
         super.opType = EOpType.ASSM_NUTS;
     }
+
+    @Override
+    public String toString() {
+        return "винтов = " + screws + " шт." +
+                ", ВШГ = " + vshgs + " шт." +
+                ", заклепки вытяжные = " + rivets + " шт." +
+                ",\nзаклепочные гайки = " + rivetNuts + " шт." +
+                ", лепестки заземления = " + groundSets + " шт." +
+                ", др.элементы = " + others + " шт.";
+    }
 }

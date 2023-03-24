@@ -18,4 +18,9 @@ public class OpChopOff extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.CHOP_OFF;
     }
+
+    @Override
+    public String toString() {
+        return "без данных";
+    }
 }

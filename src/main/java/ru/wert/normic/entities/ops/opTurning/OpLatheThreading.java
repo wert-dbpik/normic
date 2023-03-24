@@ -21,4 +21,10 @@ public class OpLatheThreading extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_THREADING;
     }
+
+    @Override
+    public String toString() {
+        return "D резьбы = " + diameter + " мм." +
+                ", L резьбы = " + length + " мм.";
+    }
 }

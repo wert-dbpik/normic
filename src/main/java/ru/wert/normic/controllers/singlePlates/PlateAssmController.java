@@ -18,11 +18,10 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.ops.opAssembling.OpAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpDetail;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;

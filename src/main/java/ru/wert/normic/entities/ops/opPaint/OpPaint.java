@@ -8,6 +8,8 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.EPaintingDifficulty;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+
 /**
  * ОКРАШИВАНИЕ ЛИСТОВОЙ ДЕТАЛИ
  */
@@ -27,5 +29,17 @@ public class OpPaint extends OpData {
     public OpPaint() {
         super.normType = ENormType.NORM_PAINTING;
         super.opType = EOpType.PAINTING;
+    }
+
+    @Override
+    public String toString() {
+        return "цвет = " + color.getRal() +
+                ", S покр = " + DECIMAL_FORMAT.format(area) + " мм.кв." +
+                ", с двух сторон = " + twoSides +
+                ", М краски = " + DECIMAL_FORMAT.format(dyeWeight) + " кг." +
+                ",\nА(вдоль) = " + along + " мм." +
+                ", В(поперек) = " + across + " мм." +
+                ", сложность = " + difficulty.getDifficultyName() +
+                ", время навешивания = " + hangingTime + " сек.";
     }
 }

@@ -1,37 +1,37 @@
-package ru.wert.normic.entities.ops.opAssembling;
-
+package ru.wert.normic.entities.ops.single;
 
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+
 /**
- * ДОБАВЛЕНИЕ ДЕТАЛИ
+ * ДОБАВЛЕНИЕ СБОРКИ
  */
 @Getter
 @Setter
-public class OpDetail extends OpData implements IOpWithOperations {
+public class OpAssm extends OpData implements IOpWithOperations {
 
     private String name = null;
-    private Material material = null;
-    private Integer paramA = 0;
-    private Integer paramB = 0;
-    private double wasteRatio = 1.1;
-    private double weight = 0.0;
     private double area = 0.0;
     private List<OpData> operations = new ArrayList<>();
 
-    public OpDetail() {
-        super.normType = ENormType.NORM_DETAIL;
-        super.opType = EOpType.DETAIL;
+    public OpAssm() {
+        super.normType = ENormType.NORM_ASSEMBLE;
+        super.opType = EOpType.ASSM;
+    }
+
+    @Override
+    public String toString() {
+        return "Площадь покрытия S = " + DECIMAL_FORMAT.format(area) + " м.кв.";
+
     }
 
     /**
@@ -42,6 +42,4 @@ public class OpDetail extends OpData implements IOpWithOperations {
     public OpData getOpData() {
         return this;
     }
-
-
 }

@@ -22,4 +22,11 @@ public class OpBending extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.BENDING;
     }
+
+    @Override
+    public String toString() {
+        return "N гибов = " + bends +
+                ", N рабочих = " + men +
+                ", оборудование = " + tool.getToolName();
+    }
 }

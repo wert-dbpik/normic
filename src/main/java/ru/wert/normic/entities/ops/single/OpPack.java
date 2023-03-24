@@ -1,4 +1,4 @@
-package ru.wert.normic.entities.ops.opPack;
+package ru.wert.normic.entities.ops.single;
 
 
 import lombok.Getter;
@@ -27,6 +27,13 @@ public class OpPack extends OpData implements IOpWithOperations {
     public OpPack() {
         super.normType = ENormType.NORM_PACKING;
         super.opType = EOpType.PACK;
+    }
+
+    @Override
+    public String toString() {
+        return "Габариты : Ш = " + width + " мм" +
+                ", Г = " + depth + " мм" +
+                ", В = " + height + " мм" ;
     }
 
     /**

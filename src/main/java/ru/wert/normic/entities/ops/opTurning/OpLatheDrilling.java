@@ -21,4 +21,10 @@ public class OpLatheDrilling extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_DRILLING;
     }
+
+    @Override
+    public String toString() {
+        return "D отв = " + diameter + " мм." +
+                ", L отв = " + length + " мм.";
+    }
 }

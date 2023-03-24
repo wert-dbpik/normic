@@ -30,4 +30,10 @@ public class OpPackInHandStretchWrap extends OpData implements PackingData {
         super.normType = ENormType.NORM_PACKING;
         super.opType = EOpType.PACK_IN_HAND_STRETCH_WRAP;
     }
+
+    @Override
+    public String toString() {
+        return "ручная стрейч-пленка = " + stretchHandWrap + " м." +
+                ", скотч = " + ductTape + " шт.";
+    }
 }

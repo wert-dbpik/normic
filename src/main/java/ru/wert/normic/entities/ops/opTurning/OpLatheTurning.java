@@ -21,4 +21,10 @@ public class OpLatheTurning extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_TURNING;
     }
+
+    @Override
+    public String toString() {
+        return "L точения = " + length + " мм." +
+                ", T проходов = " + passages;
+    }
 }

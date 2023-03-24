@@ -47,7 +47,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130.0" spacing="5.0">
                <children>
-                  <Label fx:id="lblNumOfSeams" prefHeight="20.0" text="D диаметр, мм">
+                  <Label fx:id="lblNumOfSeams" prefHeight="20.0" text="D накат, мм">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -57,7 +57,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130.0" spacing="5.0">
                <children>
-                  <Label fx:id="lblNumOfSeams1" prefHeight="20.0" text="L длина, мм">
+                  <Label fx:id="lblNumOfSeams1" prefHeight="20.0" text="L накат, мм">
                      <font>
                         <Font size="14.0" />
                      </font>

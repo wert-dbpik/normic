@@ -23,4 +23,12 @@ public class OpDrillingByMarking extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.DRILLING_BY_MARKING;
     }
+
+    @Override
+    public String toString() {
+        return "D отв = " + diameter + " мм." +
+                ", T гл = " + depth + " мм." +
+                ", N отв = " + holes +
+                ", L max.дл./шаг = " + length + " мм.";
+    }
 }

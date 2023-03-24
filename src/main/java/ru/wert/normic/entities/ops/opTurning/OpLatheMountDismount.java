@@ -3,6 +3,7 @@ package ru.wert.normic.entities.ops.opTurning;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.ELatheHoldType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
@@ -21,5 +22,8 @@ public class OpLatheMountDismount extends OpData {
         super.opType = EOpType.LATHE_MOUNT_DISMOUNT;
     }
 
-
+    @Override
+    public String toString() {
+        return "Тип крепления детали = " + ELatheHoldType.values()[holder].getHolderType();
+    }
 }

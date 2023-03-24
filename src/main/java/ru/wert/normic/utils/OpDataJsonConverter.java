@@ -21,10 +21,12 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class OpDataJsonConverter {
 

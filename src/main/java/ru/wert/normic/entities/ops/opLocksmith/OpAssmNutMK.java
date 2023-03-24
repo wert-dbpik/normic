@@ -21,4 +21,11 @@ public class OpAssmNutMK extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.ASSM_NUTS_MK;
     }
+
+    @Override
+    public String toString() {
+        return "заклепки вытяжные = " + rivets + " шт." +
+                ", заклепочные гайки = " + rivetNuts + " шт." +
+                ", др.элементы = " + others  + " шт.";
+    }
 }

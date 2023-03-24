@@ -23,4 +23,13 @@ public class OpAssmNode extends OpData {
         super.normType = ENormType.NORM_ASSEMBLING;
         super.opType = EOpType.ASSM_NODES;
     }
+
+    @Override
+    public String toString() {
+        return "замки почтовые = " + postLocks + " шт." +
+                ", замки рычажные = " + doubleLocks + " шт." +
+                ", стекла дверные = " + mirrors + " шт." +
+                ",\nизвещатели ИО-102 = " + detectors + " шт." +
+                ", коробки соединительные типа КС-4 =" + connectionBoxes + " шт.";
+    }
 }

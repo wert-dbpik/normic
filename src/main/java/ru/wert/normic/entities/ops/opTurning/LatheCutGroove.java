@@ -20,4 +20,9 @@ public class LatheCutGroove extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_CUT_GROOVE;
     }
+
+    @Override
+    public String toString() {
+        return "T глуб.паза = " + depth + " мм.";
+    }
 }

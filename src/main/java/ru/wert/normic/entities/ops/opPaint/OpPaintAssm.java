@@ -28,4 +28,15 @@ public class OpPaintAssm extends OpData {
         super.normType = ENormType.NORM_PAINTING;
         super.opType = EOpType.PAINT_ASSM;
     }
+
+    @Override
+    public String toString() {
+        return "цвет = " + color.getRal() +
+                ", с двух сторон = " + twoSides +
+                ", М краски = " + dyeWeight + " кг." +
+                ",\nS покр. = " + area + " мм.кв." +
+                ", А(вдоль) = " + along + " мм." +
+                ", В(поперек) = " + across + " мм." +
+                ", тип сборочной единицы = " + assmType.getName();
+    }
 }

@@ -21,4 +21,10 @@ public class OpLatheCutOff extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_CUT_OFF;
     }
+
+    @Override
+    public String toString() {
+        return "деталь сплошного сечения = " + cutOffSolid +
+                ", T толщ.стенки = " + thickness + " мм.";
+    }
 }

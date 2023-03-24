@@ -27,4 +27,15 @@ public class OpWeldContinuous extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.WELD_CONTINUOUS;
     }
+
+    @Override
+    public String toString() {
+        return"L шва = " + seamLength + " мм." +
+                ", размер сборки = " + partBigness.getName() +
+                ", N рабочих = " + men +
+                ",\nзачистка швов = " + stripping +
+                ", N швов = " + seams +
+                ", L соед = " + connectionLength + " мм." +
+                ", шаг = " + step + " мм.";
+    }
 }

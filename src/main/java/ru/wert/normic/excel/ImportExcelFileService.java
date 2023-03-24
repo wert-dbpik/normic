@@ -4,7 +4,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.controllers._forms.MainController;
-import ru.wert.normic.entities.ops.opAssembling.OpAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
 
 import java.io.File;
 

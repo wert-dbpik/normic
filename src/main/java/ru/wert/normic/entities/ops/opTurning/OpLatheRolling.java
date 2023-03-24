@@ -21,4 +21,10 @@ public class OpLatheRolling extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_ROLLING;
     }
+
+    @Override
+    public String toString() {
+        return "D накат = " + diameter + " мм." +
+                ", L накат = " + length + " мм.";
+    }
 }

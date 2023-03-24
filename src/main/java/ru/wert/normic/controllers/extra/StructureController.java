@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
@@ -14,9 +15,9 @@ import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpAssm;
-import ru.wert.normic.entities.ops.opAssembling.OpDetail;
-import ru.wert.normic.entities.ops.opPack.OpPack;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
@@ -26,11 +27,11 @@ import java.util.List;
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
-public class ProductTreeController {
+public class StructureController {
 
     @FXML
     private TreeView<OpData> treeView;
-    private String initStyle;
+    private String initTitleStyle;
 
     public void create(OpAssm opRoot){
 
@@ -38,7 +39,7 @@ public class ProductTreeController {
         createLeaf(rootItem);
 
         treeView.setRoot(rootItem);
-        treeView.setShowRoot(false);
+//        treeView.setShowRoot(false);
 
         treeView.setCellFactory(param -> new TreeCell<OpData>(){
             @Override
@@ -50,14 +51,13 @@ public class ProductTreeController {
                     setGraphic(null);
                 } else {
                     List<OpData> operations = ((IOpWithOperations)opData).getOperations();
-                    String name = ((IOpWithOperations)opData).getName();
                     int quantity = opData.getQuantity();
                     EOpType type = opData.getOpType();
 
 
                     HBox hbTitle = new HBox();
                     hbTitle.setSpacing(5.0);
-                    initStyle = hbTitle.getStyle();
+                    initTitleStyle = hbTitle.getStyle();
                     //Лого
                     ImageView logo = new ImageView(type.getLogo());
                     logo.setFitWidth(16);
@@ -65,13 +65,20 @@ public class ProductTreeController {
                     //Номер с наименованием
                     TextField tfName = new TextField();
                     Text txtName = new Text();
+                    txtName.setId("title");
                     txtName.textProperty().bind(tfName.textProperty());
                     tfName.setText(((IOpWithOperations) opData).getName());
 
-
                     //Количество
                     TextField tfN = new TextField();
+                    Text txtStart = new Text("(");
                     Text txtN = new Text();
+                    Text txtFinish = new Text(" шт.)");
+
+                    txtStart.setId("title");
+                    txtN.setId("title");
+                    txtFinish.setId("title");
+
                     txtN.textProperty().bind(tfN.textProperty());
                     tfN.setText(String.valueOf(quantity));
 
@@ -79,17 +86,55 @@ public class ProductTreeController {
                     hbTitle.getChildren().add(logo);
                     hbTitle.getChildren().add(txtName);
 
-                    if(quantity > 1) hbTitle.getChildren().addAll(new Text("("), txtN, new Text(" шт.)"));
+                    if(quantity > 1)
+                        hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
 
-                    setGraphic(hbTitle);
+                    VBox vbItemBlock = new VBox();
+                    vbItemBlock.getChildren().add(hbTitle);
+
+                    if(opData instanceof OpDetail){
+                        Text textDetail = new Text("\t" + opData.toString());
+                        textDetail.setId("description");
+                        vbItemBlock.getChildren().add(textDetail);
+                        for(OpData op : operations){
+                            Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
+                            textOpName.setId("operationName");
+                            Text textOpDescription = new Text(op.toString());
+                            textOpDescription.setId("operationDescription");
+
+                            HBox hbOperation = new HBox();
+                            hbOperation.getChildren().addAll(textOpName, textOpDescription);
+                            vbItemBlock.getChildren().add(hbOperation);
+                        }
+                    } else {
+                        Text text = new Text("\t" + opData.toString());
+                        text.setId("description");
+                        vbItemBlock.getChildren().add(text);
+
+                        for(OpData op : operations){
+                            if(op instanceof IOpWithOperations) continue;
+                            Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
+                            textOpName.setId("operationName");
+                            Text textOpDescription = new Text(op.toString());
+                            textOpDescription.setId("operationDescription");
+
+                            HBox hbOperation = new HBox();
+                            hbOperation.getChildren().addAll(textOpName, textOpDescription);
+                            vbItemBlock.getChildren().add(hbOperation);
+                        }
+                    }
+
+
+                    setGraphic(vbItemBlock);
 
                     selectedProperty().addListener((observable, oldValue, newValue) -> {
                         if(newValue){
                             hbTitle.setStyle("-fx-background-color: #f1e2af");
                             setStyle("-fx-background-color: #f1e2af");
                         } else {
-                            hbTitle.setStyle(initStyle);
-                            setStyle(initStyle);
+                            hbTitle.setStyle(initTitleStyle);
+                            vbItemBlock.setStyle(initTitleStyle);
+                            setStyle(initTitleStyle);
                         }
                     });
 
@@ -155,11 +200,4 @@ public class ProductTreeController {
         }
     }
 
-    private double countPrefWidth(TextField tf){
-        Text text = new Text(tf.getText());
-        text.setFont(tf.getFont());
-        return text.getLayoutBounds().getWidth() // This big is the Text in the TextField
-                + tf.getPadding().getLeft() + tf.getPadding().getRight() // Add the padding of the TextField
-                + 2d;
-    }
 }

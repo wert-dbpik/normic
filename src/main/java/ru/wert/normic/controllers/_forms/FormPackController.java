@@ -10,7 +10,7 @@ import lombok.Getter;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpPack;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.utils.IntegerParser;

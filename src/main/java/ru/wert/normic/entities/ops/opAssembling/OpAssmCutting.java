@@ -22,4 +22,11 @@ public class OpAssmCutting extends OpData {
         super.normType = ENormType.NORM_ASSEMBLING;
         super.opType = EOpType.ASSM_CUTTINGS;
     }
+
+    @Override
+    public String toString() {
+        return "уплотнитель = " + sealer + " м." +
+                ", уплотнитель самоклеющийся = " + selfAdhSealer + " м." +
+                ", утеплитель = " + insulation + " м.кв.";
+    }
 }

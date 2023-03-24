@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -24,12 +23,12 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
-import ru.wert.normic.controllers.extra.ProductTreeController;
+import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.settings.AppColor;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
@@ -340,9 +339,9 @@ public class MainController extends AbstractFormController {
         ((OpAssm)opData).setOperations(getAddedOperations());
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/productTree.fxml"));
-            AnchorPane report = loader.load();
-            ProductTreeController controller = loader.getController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/structure.fxml"));
+            Parent report = loader.load();
+            StructureController controller = loader.getController();
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             controller.create((OpAssm) opData);
 

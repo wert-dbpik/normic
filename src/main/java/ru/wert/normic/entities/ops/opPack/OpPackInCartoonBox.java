@@ -29,4 +29,11 @@ public class OpPackInCartoonBox extends OpData implements PackingData {
         super.normType = ENormType.NORM_PACKING;
         super.opType = EOpType.PACK_IN_CARTOON_BOX;
     }
+
+    @Override
+    public String toString() {
+        return "минимальная партия = " + partMin + " шт." +
+                ", картон = " + cartoon + " м.кв." +
+                ", скотч = " + ductTape + " шт.";
+    }
 }

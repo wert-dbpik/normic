@@ -31,6 +31,9 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers._forms.AbstractFormController;
@@ -136,7 +139,7 @@ public class MenuForm extends ContextMenu {
 
     //ТОЧЕНИЕ / РАСТАЧИВАНИЕ (многократное добавление)
     public MenuItem createItemTurning(){
-        MenuItem item = new MenuItem("Точение/растачивание");
+        MenuItem item = new MenuItem("Точение и растачивание");
         item.setOnAction(event -> {
             addTurningPlate(new OpLatheTurning());
         });
@@ -145,7 +148,7 @@ public class MenuForm extends ContextMenu {
 
     //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
     public MenuItem createItemCutGroove(){
-        MenuItem item = new MenuItem("Прорезание паза");
+        MenuItem item = new MenuItem("Точение канавки");
         item.setOnAction(event -> {
             addCutGroovePlate(new LatheCutGroove());
         });
@@ -172,7 +175,7 @@ public class MenuForm extends ContextMenu {
 
     //ОТРУБАНИЕ
     public MenuItem createItemChopOff(){
-        MenuItem item = new MenuItem("Отрубание в размер");
+        MenuItem item = new MenuItem("Рубка в размер");
         item.setOnAction(event -> {
             addChopOffPlate(new OpChopOff());
         });

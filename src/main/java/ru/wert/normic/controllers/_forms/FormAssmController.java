@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 

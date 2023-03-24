@@ -22,4 +22,12 @@ public class OpCutting extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.CUTTING;
     }
+
+    @Override
+    public String toString() {
+        return " N отв = " + holes +
+                ", N перф = " + perfHoles +
+                ", P экстра = " + extraPerimeter + " мм." +
+                ", зачистка = " + stripping;
+    }
 }

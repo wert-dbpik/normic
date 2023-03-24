@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/opLogos/nuts.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="СБОРКА  КРЕПЕЖА" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="СБОРКА КРЕПЕЖА" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>

@@ -21,4 +21,11 @@ public class OpLocksmith extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LOCKSMITH;
     }
+
+    @Override
+    public String toString() {
+        return "заклепки вытяжные = " + rivets + " шт." +
+                ", зенкования = " + countersinkings +
+                ", нарезания резьбы = " + threadings;
+    }
 }

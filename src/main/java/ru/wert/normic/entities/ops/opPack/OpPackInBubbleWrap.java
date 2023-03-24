@@ -30,4 +30,10 @@ public class OpPackInBubbleWrap extends OpData implements PackingData {
         super.normType = ENormType.NORM_PACKING;
         super.opType = EOpType.PACK_IN_BUBBLE_WRAP;
     }
+
+    @Override
+    public String toString() {
+        return "пузырьковая пленка = " + bubbleWrap +
+                ", скотч = " + ductTape + " шт.";
+    }
 }

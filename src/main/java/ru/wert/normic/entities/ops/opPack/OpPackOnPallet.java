@@ -28,4 +28,10 @@ public class OpPackOnPallet extends OpData implements PackingData {
         super.normType = ENormType.NORM_PACKING;
         super.opType = EOpType.PACK_ON_PALLET;
     }
+
+    @Override
+    public String toString() {
+        return "полипропиленовая лента =" + polyWrap + " м." +
+                ", поддоны = " + pallet + " шт.";
+   }
 }

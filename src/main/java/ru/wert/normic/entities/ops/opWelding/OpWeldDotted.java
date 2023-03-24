@@ -21,4 +21,11 @@ public class OpWeldDotted extends OpData {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.WELD_DOTTED;
     }
+
+    @Override
+    public String toString() {
+        return "элементы = " + parts +
+                ", точки = " + dots +
+                ", прихватки = " + drops;
+    }
 }

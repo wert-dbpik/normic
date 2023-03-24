@@ -25,4 +25,13 @@ public class OpLevelingSealer extends OpData {
         super.normType = ENormType.NORM_ASSEMBLING;
         super.opType = EOpType.LEVELING_SEALER;
     }
+
+    @Override
+    public String toString() {
+        return "компонент А = " + compA + " кг." +
+                ", компонент Б = " + compB + " кг." +
+                ", W проф = " + sealersWidth.getName() + " мм." +
+                ", А = " + paramA + " мм." +
+                ", Б = " + paramB + " мм.";
+    }
 }

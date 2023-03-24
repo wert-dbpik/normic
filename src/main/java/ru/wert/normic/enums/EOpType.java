@@ -3,6 +3,8 @@ package ru.wert.normic.enums;
 import javafx.scene.image.Image;
 import lombok.Getter;
 
+import java.util.NoSuchElementException;
+
 public enum EOpType {
 
 
@@ -64,5 +66,11 @@ public enum EOpType {
         this.logo = logo;
     }
 
-    ;
+    public static EOpType findOpTypeByName(String name){
+        for(EOpType op : EOpType.values()){
+            if(op.name().equals(name))
+                   return op;
+        }
+        throw new NoSuchElementException("No such type in EOpType found!");
+    }
 }

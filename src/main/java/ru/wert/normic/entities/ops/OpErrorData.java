@@ -10,6 +10,8 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.wert.normic.enums.EOpType.findOpTypeByName;
+
 @Getter
 @Setter
 public class OpErrorData extends OpData {
@@ -21,7 +23,7 @@ public class OpErrorData extends OpData {
     private double weight = 0.0;
     private double area = 0.0;
 
-    private String errorOpData;
+    private String errorOpData; //Операция в которой произошла ошибка
 
 
 
@@ -32,5 +34,8 @@ public class OpErrorData extends OpData {
         this.errorOpData = errorOpData;
     }
 
-
+    @Override
+    public String toString() {
+        return "ошибка конвертации операции : " + findOpTypeByName(errorOpData).getOpName();
+    }
 }

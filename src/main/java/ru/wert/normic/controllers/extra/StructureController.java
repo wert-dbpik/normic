@@ -165,7 +165,7 @@ public class StructureController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             AbstractFormController formController = loader.getController();
-            formController.init(MAIN_CONTROLLER, tfName, opData);
+            formController.init(MAIN_CONTROLLER, tfName, tfN, opData);
             Decoration windowDecoration = new Decoration(
                     title,
                     parent,

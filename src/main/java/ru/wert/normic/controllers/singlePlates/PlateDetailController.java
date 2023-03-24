@@ -106,7 +106,7 @@ public class PlateDetailController extends AbstractOpPlate {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
             Parent parent = loader.load();
             formDetailController = loader.getController();
-            formDetailController.init(formController, tfName, this.opData);
+            formDetailController.init(formController, tfName, tfN, this.opData);
             Decoration windowDecoration = new Decoration(
                     "ДЕТАЛЬ",
                     parent,

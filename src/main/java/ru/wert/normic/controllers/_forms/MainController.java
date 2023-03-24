@@ -541,7 +541,7 @@ public class MainController extends AbstractFormController {
 
 
     @Override
-    public void init(AbstractFormController controller, TextField tfName, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
         //НЕ ИСПОЛЬЗУЕТСЯ
     }
 

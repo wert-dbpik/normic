@@ -14,6 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
+import ru.wert.normic.components.TFInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.decoration.Decoration;
@@ -46,6 +48,9 @@ public class FormDetailController extends AbstractFormController {
     private TextField tfDetailName;
 
     @FXML @Getter
+    private TextField tfDetailQuantity;
+
+    @FXML @Getter
     private ComboBox<Material> cmbxMaterial;
 
     @FXML @Getter
@@ -74,7 +79,7 @@ public class FormDetailController extends AbstractFormController {
     private AbstractFormController controller;
 
     @Override //AbstractFormController
-    public void init(AbstractFormController controller, TextField tfName, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
         this.opData = (OpDetail) opData;
         this.controller = controller;
 
@@ -102,6 +107,15 @@ public class FormDetailController extends AbstractFormController {
             ((OpDetail)this.opData).setName(tfName.getText());
             tfDetailName.setText(tfName.getText());
             tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
+        }
+
+        new TFInteger(tfDetailQuantity);
+
+        //Инициализируем количество
+        if(tfQuantity != null) {
+            ((OpDetail)this.opData).setQuantity(Integer.parseInt(tfQuantity.getText()));
+            tfDetailQuantity.setText(tfQuantity.getText());
+            tfQuantity.textProperty().bindBidirectional(tfDetailQuantity.textProperty());
         }
         
 

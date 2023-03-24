@@ -20,8 +20,6 @@ import ru.wert.normic.controllers._forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
@@ -36,7 +34,7 @@ public class PlateAssmController extends AbstractOpPlate{
     private VBox vbOperation;
 
     @FXML
-    private TextField tfAssmName;
+    private TextField tfName;
 
     @FXML
     private TextField tfN;
@@ -66,27 +64,31 @@ public class PlateAssmController extends AbstractOpPlate{
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+        OpAssm opData = (OpAssm)data;
 
         new TFIntegerColored(tfN, null);
 
-        if(((OpAssm)opData).getName() == null &&
-                tfAssmName.getText() == null || tfAssmName.getText().equals("")) {
+        lblOperationName.setStyle("-fx-text-fill: darkblue");
+        lblQuantity.setStyle("-fx-text-fill: darkblue");
+
+        if(opData.getName() == null &&
+                tfName.getText() == null || tfName.getText().equals("")) {
             assmName = String.format("Сборка #%s", ++nameIndex);
-            tfAssmName.setText(assmName);
+            tfName.setText(assmName);
         }
 
         ivEdit.setOnMouseClicked(e->{
-            openFormEditor((OpAssm)opData);
+            openFormEditor(opData);
         });
 
         vbOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
-                openFormEditor((OpAssm)opData);
+                openFormEditor(opData);
         });
 
         //Сохраняем имя при изменении
-        tfAssmName.textProperty().addListener((observable, oldValue, newValue) -> {
-            ((OpDetail)this.opData).setName(tfAssmName.getText());
+        tfName.textProperty().addListener((observable, oldValue, newValue) -> {
+            ((OpAssm)this.opData).setName(tfName.getText());
         });
 
         //Сохраняем количество и пересчитываем при изменении
@@ -104,7 +106,7 @@ public class PlateAssmController extends AbstractOpPlate{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
             Parent parent = loader.load();
             formAssmController = loader.getController();
-            formAssmController.init(formController, tfAssmName, this.opData);
+            formAssmController.init(formController, tfName, tfN, this.opData);
             Decoration windowDecoration = new Decoration(
                     "СБОРКА",
                     parent,
@@ -114,7 +116,7 @@ public class PlateAssmController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, formAssmController, tfAssmName, tfN));
+            closer.setOnMousePressed(ev -> collectOpData(opData, formAssmController, tfName, tfN));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -143,7 +145,7 @@ public class PlateAssmController extends AbstractOpPlate{
         currentAssmNormTime = assmTime * quantity;
         currentPackNormTime = packTime * quantity;
 
-        collectOpData(opData, formAssmController, tfAssmName, tfN);
+        collectOpData(opData, formAssmController, tfName, tfN);
         if (formAssmController != null)
             setTimeMeasurement();
     }
@@ -158,8 +160,9 @@ public class PlateAssmController extends AbstractOpPlate{
 
 
     public static void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN) {
+        opData.setName(tfName.getText());
+        opData.setQuantity(IntegerParser.getValue(tfN));
         if(formAssmController != null){
-            opData.setName(tfName.getText());
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formAssmController.getAddedOperations()));
         }
@@ -170,7 +173,7 @@ public class PlateAssmController extends AbstractOpPlate{
     public void fillOpData(OpData data){
         OpAssm opData = (OpAssm)data;
 
-        tfAssmName.setText(opData.getName());
+        tfName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }
 

@@ -8,8 +8,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
@@ -26,6 +28,9 @@ public class FormPackController extends AbstractFormController {
 
     @FXML @Getter
     private TextField tfDetailName;
+
+    @FXML @Getter
+    private TextField tfPackQuantity;
 
     @FXML @Getter
     private ListView<VBox> listViewTechOperations;
@@ -50,7 +55,7 @@ public class FormPackController extends AbstractFormController {
     private AbstractFormController controller;
 
     @Override //AbstractFormController
-    public void init(AbstractFormController controller, TextField tfName, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
         this.opData = (OpPack) opData;
         this.controller = controller;
 
@@ -66,6 +71,15 @@ public class FormPackController extends AbstractFormController {
             ((OpPack)this.opData).setName(tfName.getText());
             tfDetailName.setText(tfName.getText());
             tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
+        }
+
+        new TFInteger(tfPackQuantity);
+
+        //Инициализируем количество
+        if(tfQuantity != null) {
+            ((OpPack)this.opData).setQuantity(Integer.parseInt(tfQuantity.getText()));
+            tfPackQuantity.setText(tfQuantity.getText());
+            tfQuantity.textProperty().bindBidirectional(tfPackQuantity.textProperty());
         }
 
         //Заполняем поля формы

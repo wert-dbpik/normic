@@ -19,6 +19,12 @@
                </font>
             </Label>
             <TextField fx:id="tfDetailName" HBox.hgrow="ALWAYS" />
+            <Label text="кол">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfDetailQuantity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
             <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="0.0">
                <children>
                   <ImageView fx:id="ivErase" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">

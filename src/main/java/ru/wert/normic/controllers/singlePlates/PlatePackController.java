@@ -98,7 +98,7 @@ public class PlatePackController extends AbstractOpPlate{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formPack.fxml"));
             Parent parent = loader.load();
             formPackController = loader.getController();
-            formPackController.init(formController, tfName, this.opData);
+            formPackController.init(formController, tfName, tfN, this.opData);
             Decoration windowDecoration = new Decoration(
                     "УПАКОВКА",
                     parent,

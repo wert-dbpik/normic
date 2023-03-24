@@ -15,9 +15,6 @@ import ru.wert.normic.enums.EOpType;
  */
 public class PlatePackOnPalletController extends AbstractOpPlate {
 
-    @FXML
-    private Label lblOperationName;
-
     private int height; //габарит квадратного поддона
     private double palletDepth = 0.800; //габарит квадратного поддона
     private double palletWidth = 1.200; //габарит квадратного поддона
@@ -25,15 +22,9 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.PACK_ON_PALLET.getLogo());
-
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.PACK_ON_PALLET.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
     @Override//AbstractOpPlate

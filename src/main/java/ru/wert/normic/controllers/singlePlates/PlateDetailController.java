@@ -32,9 +32,6 @@ import java.util.ArrayList;
  */
 public class PlateDetailController extends AbstractOpPlate {
 
-//    @FXML
-//    private ImageView ivOperation;
-
     @FXML
     private VBox vbOperation;
 
@@ -46,9 +43,6 @@ public class PlateDetailController extends AbstractOpPlate {
 
     @FXML
     private ImageView ivEdit;
-
-    @FXML
-    private Label lblOperationName;
 
     @FXML
     private Label lblQuantity;
@@ -69,12 +63,11 @@ public class PlateDetailController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpDetail opData = (OpDetail)data;
-        ivOperation.setImage(EOpType.DETAIL.getLogo());
 
         new TFIntegerColored(tfN, null);
 
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-        lblQuantity.setStyle("-fx-text-fill: #8b4513");
+        lblOperationName.setStyle("-fx-text-fill: darkblue");
+        lblQuantity.setStyle("-fx-text-fill: darkblue");
 
         if(opData.getName() == null &&
                 tfName.getText() == null || tfName.getText().equals("")) {
@@ -118,7 +111,7 @@ public class PlateDetailController extends AbstractOpPlate {
                     "ДЕТАЛЬ",
                     parent,
                     false,
-                    (Stage) lblOperationName.getScene().getWindow(),
+                    (Stage) vbOperation.getScene().getWindow(),
                     "decoration-detail",
                     true,
                     false);

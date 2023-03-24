@@ -35,9 +35,6 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
-    @FXML
-    private Label lblOperationName;
-
     private int width, depth, height;
     private int partMin; //Минимальная партия коробок
     private Double cartoonTop;
@@ -48,10 +45,6 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getLogo());
-
-        lblOperationName.setText(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new TFIntegerColored(tfPartMin, this);
 

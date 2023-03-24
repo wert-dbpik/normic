@@ -33,25 +33,17 @@ public class PlateAssmNutsMKController extends AbstractOpPlate {
     @FXML
     private TextField tfRivetNuts;
 
-    @FXML
-    private Label lblOperationName;
-
     private int rivets; //Количество заклепок
     private int rivetNuts; //Количество аклепочных гаек
     private int others; //Количество другого крепежа
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssmNutMK opData = (OpAssmNutMK)data;
-        ivOperation.setImage(EOpType.ASSM_NUTS_MK.getLogo());
 
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfRivets, this);
         new TFIntegerColored(tfRivetNuts, this);
         new TFIntegerColored(tfOthers, this);
-
-        lblOperationName.setText(EOpType.ASSM_NUTS_MK.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
     }
 
 

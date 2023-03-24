@@ -19,7 +19,7 @@ public class OpCutOffOnTheSaw extends OpData {
 
     public OpCutOffOnTheSaw() {
         super.normType = ENormType.NORM_MECHANICAL;
-        super.opType = EOpType.LATHE_CUT_OFF;
+        super.opType = EOpType.CUT_OFF_ON_SAW;
     }
 
     @Override

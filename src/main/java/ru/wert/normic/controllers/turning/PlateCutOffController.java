@@ -25,9 +25,6 @@ import java.util.NoSuchElementException;
 public class PlateCutOffController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private TextField tfThickness;
 
     @FXML
@@ -77,8 +74,6 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.LATHE_CUT_OFF.getLogo());
-        initStyle = tfThickness.getStyle(); //Сохраняем исходный стиль
 
         tfThickness.disableProperty().bind(chbxCutOffSolid.selectedProperty());
 
@@ -97,9 +92,6 @@ public class PlateCutOffController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_CUT_OFF.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

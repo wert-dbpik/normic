@@ -53,7 +53,6 @@ public class PlateMountDismountController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpLatheMountDismount opData = (OpLatheMountDismount) data;
-        ivOperation.setImage(EOpType.LATHE_MOUNT_DISMOUNT.getLogo());
 
         rbCenters.setToggleGroup(toggleGroup);
         rbHolder.setToggleGroup(toggleGroup);
@@ -72,10 +71,6 @@ public class PlateMountDismountController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_MOUNT_DISMOUNT.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
     @Override//AbstractOpPlate

@@ -74,15 +74,10 @@ public class PlatePaintController extends AbstractOpPlate {
     private boolean twoSides; //Красить с двух сторон
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data) {
-        OpPaint opData = (OpPaint) data;
-        ivOperation.setImage(EOpType.PAINTING.getLogo());
+    public void initViews(OpData opData) {
 
-        lblOperationName.setText(EOpType.PAINTING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
-        new BXPaintingDifficulty().create(cmbxDifficulty, opData.getDifficulty(), this);
-        new BXColor().create(cmbxColor, opData.getColor(), this);
+        new BXPaintingDifficulty().create(cmbxDifficulty, ((OpPaint)opData).getDifficulty(), this);
+        new BXColor().create(cmbxColor, ((OpPaint)opData).getColor(), this);
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);

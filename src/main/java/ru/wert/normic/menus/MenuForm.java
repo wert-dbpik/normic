@@ -508,7 +508,7 @@ public class MenuForm extends ContextMenu {
     public void addDetailPlate(OpDetail opData) {
         try {
             int index = 0;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateDetail.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/single/plateDetail.fxml"));
             VBox box = loader.load();
             PlateDetailController controller = loader.getController();
             for (OpData op : addedOperations) {
@@ -530,7 +530,7 @@ public class MenuForm extends ContextMenu {
     public void addAssmPlate(OpAssm opData) {
         try {
             int index = 0;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateAssm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/single/plateAssm.fxml"));
             VBox box = loader.load();
             PlateAssmController controller = loader.getController();
             for (OpData op : addedOperations) {
@@ -551,7 +551,7 @@ public class MenuForm extends ContextMenu {
     public void addPackPlate(OpPack opData) {
         try {
             int index = 0;
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/platePack.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/single/platePack.fxml"));
             VBox box = loader.load();
             PlatePackController controller = loader.getController();
             for (OpData op : addedOperations) {

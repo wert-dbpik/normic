@@ -28,9 +28,6 @@ import static ru.wert.normic.entities.settings.AppSettings.BENDING_SPEED;
  */
 public class PlateBendController extends AbstractOpPlate {
 
-    @FXML
-    private Label lblOperationName;
-
     @FXML@Getter
     private ImageView ivHelp;
 
@@ -51,18 +48,12 @@ public class PlateBendController extends AbstractOpPlate {
     private double toolRatio;
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data){
-        OpBending opData = (OpBending)data;
-        ivOperation.setImage(EOpType.BENDING.getLogo());
+    public void initViews(OpData opData){
 
-        new BXBendingTool().create(cmbxBendingTool, opData.getTool(), this);
+        new BXBendingTool().create(cmbxBendingTool, ((OpBending)opData).getTool(), this);
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfBends, this);
         new TFIntegerColored(tfMen, this);
-
-        lblOperationName.setText(EOpType.BENDING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
 

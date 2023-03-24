@@ -28,9 +28,6 @@ import static ru.wert.normic.entities.settings.AppSettings.OTHERS_SPEED;
 public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private ComboBox<ESealersWidth> cmbxSealerWidth;
 
     @FXML
@@ -53,18 +50,12 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     private double perimeter; //
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data){
-        OpLevelingSealer opData = (OpLevelingSealer)data;
-        ivOperation.setImage(EOpType.LEVELING_SEALER.getLogo());
+    public void initViews(OpData opData){
 
-        new BXSealersWidth().create(cmbxSealerWidth, opData.getSealersWidth(), this);
+        new BXSealersWidth().create(cmbxSealerWidth, ((OpLevelingSealer)opData).getSealersWidth(), this);
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfA, this);
         new TFIntegerColored(tfB, this);
-
-        lblOperationName.setText(EOpType.LEVELING_SEALER.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
         new CmBx(cmbxSealerWidth, this);
 
     }
@@ -79,8 +70,6 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         double time;
         time =  perimeter * LEVELING_SPEED +
                 Math.ceil(perimeter / 6.0) * LEVELING_PREPARED_TIME;  //мин
-
-        System.out.println(Math.ceil(perimeter / 6.0) );
 
         if(perimeter == 0) time = 0.0;
         else {

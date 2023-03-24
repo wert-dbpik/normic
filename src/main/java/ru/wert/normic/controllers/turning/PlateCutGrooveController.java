@@ -24,9 +24,6 @@ import java.util.NoSuchElementException;
 public class PlateCutGrooveController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private TextField tfDepth;
 
     private String initStyle;
@@ -52,18 +49,11 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.LATHE_CUT_GROOVE.getLogo());
-        initStyle = tfDepth.getStyle(); //Сохраняем исходный стиль
-
         new TFDoubleColored(tfDepth, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_CUT_GROOVE.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
     @Override//AbstractOpPlate

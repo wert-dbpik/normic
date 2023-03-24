@@ -66,7 +66,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpWeldContinuous opData = (OpWeldContinuous)data;
-        ivOperation.setImage(EOpType.WELD_CONTINUOUS.getLogo());
 
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
@@ -82,9 +81,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         new ChBox(chbxPreEnterSeams, this);
         new ChBox(chbxStripping, this);
         new CmBx(cmbxPartBigness, this);
-
-        lblOperationName.setText(EOpType.WELD_CONTINUOUS.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

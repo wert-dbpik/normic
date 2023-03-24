@@ -30,9 +30,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateCuttingController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private TextField tfHoles;
 
     @FXML
@@ -60,17 +57,12 @@ public class PlateCuttingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpCutting opData = (OpCutting) data;
-        ivOperation.setImage(EOpType.CUTTING.getLogo());
 
         new TFIntegerColored(tfHoles, this);
         new TFIntegerColored(tfPerfHoles, this);
         new TFIntegerColored(tfExtraPerimeter, this);
         new TFNormTime(tfNormTime, formController);
         new ChBox(chbxStripping, this);
-
-        lblOperationName.setText(EOpType.CUTTING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();

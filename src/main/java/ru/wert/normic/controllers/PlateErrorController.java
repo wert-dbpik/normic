@@ -21,14 +21,11 @@ public class PlateErrorController extends AbstractOpPlate {
     @FXML
     private Label lbErrorOpData;
 
-    @FXML
-    private Label lblOperationName;
-
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpErrorData opData = (OpErrorData)data;
-        ivOperation.setImage(EOpType.ERROR_OP_DATA.getLogo());
+
         lblOperationName.setStyle("-fx-text-fill: #ef1515");
 
         lbErrorOpData.setText(opData.getErrorOpData());

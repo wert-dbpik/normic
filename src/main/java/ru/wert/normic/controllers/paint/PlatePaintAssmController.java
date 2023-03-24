@@ -27,9 +27,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlatePaintAssmController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private ComboBox<EColor> cmbxColor;
 
     @FXML
@@ -73,19 +70,14 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     private double kArea; //k = 1, если chbxTwoSides isSelected (окрашивание с двух сторон), иначе k = 0.5
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data){
-        OpPaintAssm opData = (OpPaintAssm)data;
-        ivOperation.setImage(EOpType.PAINT_ASSM.getLogo());
-
-        lblOperationName.setText(EOpType.PAINT_ASSM.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
+    public void initViews(OpData opData){
 
         countCalculatedArea();
 
         tfCalculatedArea.disableProperty().bind(chbxCalculatedArea.selectedProperty().not());
         tfManualArea.disableProperty().bind(chbxCalculatedArea.selectedProperty());
         formController.getFormAreaProperty().addListener((observable, oldValue, newValue) -> {
-            if(opData.isCalculatedArea()) {
+            if(((OpPaintAssm)opData).isCalculatedArea()) {
                 area = newValue.doubleValue();
                 double calcArea = area * kArea;
                 tfCalculatedArea.setText(String.format(DOUBLE_FORMAT, calcArea));
@@ -97,14 +89,14 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         });
 
         chbxTwoSides.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            opData.setTwoSides(newValue);
+            ((OpPaintAssm)opData).setTwoSides(newValue);
             kArea = newValue ? 1.0 : 0.5;
             countCalculatedArea();
             countNorm(opData);
         });
 
-        new BXColor().create(cmbxColor, opData.getColor(), this);
-        new BXAssemblingType().create(cmbxAssemblingType, opData.getAssmType(), this);
+        new BXColor().create(cmbxColor, ((OpPaintAssm)opData).getColor(), this);
+        new BXAssemblingType().create(cmbxAssemblingType, ((OpPaintAssm)opData).getAssmType(), this);
         new TFNormTime(tfNormTime, formController);
         new TFDoubleColored(tfManualArea, this);
         new TFIntegerColored(tfAlong, this);

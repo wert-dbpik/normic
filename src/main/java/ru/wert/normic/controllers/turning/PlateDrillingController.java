@@ -24,9 +24,6 @@ import java.util.NoSuchElementException;
 public class PlateDrillingController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private TextField tfDiameter;
 
     @FXML
@@ -61,8 +58,8 @@ public class PlateDrillingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.LATHE_DRILLING.getLogo());
-        initStyle = tfDiameter.getStyle(); //Сохраняем исходный стиль
+
+        initStyle = tfDiameter.getStyle();
 
         new TFIntegerColored(tfDiameter, this);
         new TFIntegerColored(tfLength, this);
@@ -70,9 +67,6 @@ public class PlateDrillingController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_DRILLING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

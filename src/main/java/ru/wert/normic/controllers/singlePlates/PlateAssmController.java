@@ -45,9 +45,6 @@ public class PlateAssmController extends AbstractOpPlate{
     private ImageView ivEdit;
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private Label lblQuantity;
 
     //Переменные
@@ -69,27 +66,22 @@ public class PlateAssmController extends AbstractOpPlate{
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssm opData = (OpAssm)data;
-        ivOperation.setImage(EOpType.ASSM.getLogo());
 
         new TFIntegerColored(tfN, null);
 
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-        lblQuantity.setStyle("-fx-text-fill: #8b4513");
-
-        if(opData.getName() == null &&
+        if(((OpAssm)opData).getName() == null &&
                 tfAssmName.getText() == null || tfAssmName.getText().equals("")) {
             assmName = String.format("Сборка #%s", ++nameIndex);
             tfAssmName.setText(assmName);
         }
 
         ivEdit.setOnMouseClicked(e->{
-            openFormEditor(opData);
+            openFormEditor((OpAssm)opData);
         });
 
         vbOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
-                openFormEditor(opData);
+                openFormEditor((OpAssm)opData);
         });
 
         //Сохраняем имя при изменении

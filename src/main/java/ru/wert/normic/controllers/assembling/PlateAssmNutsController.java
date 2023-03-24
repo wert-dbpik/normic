@@ -41,9 +41,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     private TextField tfRivetNuts;
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private TextField tfScrews;
 
     private int screws; //Количество винтов
@@ -55,8 +52,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssmNut opData = (OpAssmNut)data;
-        ivOperation.setImage(EOpType.ASSM_NUTS.getLogo());
 
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfScrews, this);
@@ -66,8 +61,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         new TFIntegerColored(tfGroundSets, this);
         new TFIntegerColored(tfOthers, this);
 
-        lblOperationName.setText(EOpType.ASSM_NUTS.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
     }
 
 

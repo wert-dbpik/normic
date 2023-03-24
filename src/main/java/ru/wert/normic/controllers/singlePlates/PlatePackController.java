@@ -19,6 +19,7 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
 
@@ -28,18 +29,22 @@ import java.io.IOException;
 public class PlatePackController extends AbstractOpPlate{
 
     @FXML
-    private VBox vbOperation;
-
-    @FXML
     private TextField tfName;
 
     @FXML
     private ImageView ivEdit;
 
     @FXML
-    private Label lblOperationName;
+    private VBox vbOperation;
+
+    @FXML
+    private Label lblQuantity;
+
+    @FXML
+    private TextField tfN;
 
     //Переменные
+    private int quantity;
     @Setter@Getter
     private double currentPackNormTime;
 
@@ -52,9 +57,9 @@ public class PlatePackController extends AbstractOpPlate{
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
-        ivOperation.setImage(EOpType.PACK.getLogo());
 
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
+        lblOperationName.setStyle("-fx-text-fill: darkblue");
+        lblQuantity.setStyle("-fx-text-fill: darkblue");
 
         if(opData.getName() == null &&
                 tfName.getText() == null || tfName.getText().equals("")) {
@@ -74,6 +79,13 @@ public class PlatePackController extends AbstractOpPlate{
         //Сохраняем имя при изменении
         tfName.textProperty().addListener((observable, oldValue, newValue) -> {
             ((OpPack)this.opData).setName(tfName.getText());
+        });
+
+        //Сохраняем количество и пересчитываем при изменении
+        tfN.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.opData.setQuantity(IntegerParser.getValue(tfN));
+            formController.countSumNormTimeByShops();
+            formController.calculateAreaByDetails();
         });
 
     }
@@ -96,7 +108,7 @@ public class PlatePackController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, tfName));
+            closer.setOnMousePressed(ev -> collectOpData(opData, tfName, tfN));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -108,11 +120,15 @@ public class PlatePackController extends AbstractOpPlate{
 
         countInitialValues();
 
+        double packingTime = 0;
+
         for(OpData op : opData.getOperations()){
-            currentPackNormTime += op.getPackTime();
+            packingTime += op.getPackTime();
         }
 
-        collectOpData(opData, tfName);
+        currentPackNormTime = packingTime * quantity;
+
+        collectOpData(opData, tfName, tfN);
         if (formPackController != null)
             setTimeMeasurement();
     }
@@ -122,12 +138,13 @@ public class PlatePackController extends AbstractOpPlate{
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-
+        quantity = IntegerParser.getValue(tfN);
     }
 
 
-    public static void collectOpData(OpPack opData, TextField tfName) {
+    public static void collectOpData(OpPack opData, TextField tfName, TextField tfN) {
         opData.setName(tfName.getText());
+        opData.setQuantity(IntegerParser.getValue(tfN));
     }
 
     @Override//AbstractOpPlate
@@ -135,6 +152,7 @@ public class PlatePackController extends AbstractOpPlate{
         OpPack opData = (OpPack)data;
 
         tfName.setText(opData.getName());
+        tfN.setText(String.valueOf(opData.getQuantity()));
     }
 
 

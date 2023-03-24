@@ -34,26 +34,16 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
     @FXML
     private TextField tfInsulation;
 
-    @FXML
-    private Label lblOperationName;
-
     private double sealer; //Уплотнитель на ребро корпуса
     private double selfAdhSealer; //Уплотнитель самоклеющийся
     private double insulation; //Утеплитель
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssmCutting opData = (OpAssmCutting)data;
-        ivOperation.setImage(EOpType.ASSM_CUTTINGS.getLogo());
-
         new TFNormTime(tfNormTime, formController);
         new TFDoubleColored(tfSealer, this);
         new TFDoubleColored(tfSelfAdhSealer, this);
         new TFDoubleColored(tfInsulation, this);
-
-        lblOperationName.setText(EOpType.ASSM_CUTTINGS.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
 

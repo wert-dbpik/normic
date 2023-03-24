@@ -23,7 +23,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
  */
 public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
-
     @FXML
     private TextField tfPartMin;
 
@@ -33,9 +32,6 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
-    @FXML
-    private Label lblOperationName;
-
     private int width, depth, height;
     private int partMin; //Минимальная партия коробок
     private Double cartoon;
@@ -44,11 +40,6 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.PACK_IN_CARTOON_BOX.getLogo());
-
-        lblOperationName.setText(EOpType.PACK_IN_CARTOON_BOX.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
         new TFIntegerColored(tfPartMin, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {

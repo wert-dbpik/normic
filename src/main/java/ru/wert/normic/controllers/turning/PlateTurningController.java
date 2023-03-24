@@ -57,7 +57,6 @@ public class PlateTurningController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.LATHE_TURNING.getLogo());
         initStyle = tfTurningLength.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfTurningLength, this);
@@ -66,9 +65,6 @@ public class PlateTurningController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_TURNING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

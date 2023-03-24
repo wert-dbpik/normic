@@ -23,10 +23,6 @@ import java.util.NoSuchElementException;
  */
 public class PlateThreadingController extends AbstractOpPlate {
 
-
-    @FXML
-    private Label lblOperationName;
-
     @FXML
     private TextField tfDiameter;
 
@@ -61,8 +57,6 @@ public class PlateThreadingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpLatheThreading opData = (OpLatheThreading) data;
-        ivOperation.setImage(EOpType.LATHE_THREADING.getLogo());
         initStyle = tfDiameter.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfDiameter, this);
@@ -71,9 +65,6 @@ public class PlateThreadingController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_THREADING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

@@ -39,9 +39,6 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
-    @FXML
-    private Label lblOperationName;
-
     @FXML@Getter
     private ImageView ivHelp;
 
@@ -62,11 +59,6 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.PACK_IN_HAND_STRETCH_WRAP.getLogo());
-
-        lblOperationName.setText(EOpType.PACK_IN_HAND_STRETCH_WRAP.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
         new RadBtn(rbByHeight, this);
         new RadBtn(rbByDepth, this);
         new RadBtn(rbByWidth, this);

@@ -34,24 +34,16 @@ public class PlateLocksmithController extends AbstractOpPlate {
     @FXML
     private TextField tfRivets;
 
-    @FXML
-    private Label lblOperationName;
-
     private int rivets; //Количество заклепок
     private int countersinkings; //количество зенкуемых отверстий
     private int threadings; //Количество нарезаемых резьб
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpLocksmith opData = (OpLocksmith)data;
-
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfRivets, this);
         new TFIntegerColored(tfCountersinkings, this);
         new TFIntegerColored(tfThreadings, this);
-
-        lblOperationName.setText(EOpType.LOCKSMITH.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

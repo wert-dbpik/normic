@@ -1,46 +1,31 @@
 package ru.wert.normic.controllers.locksmith;
 
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.enums.EOpType;
 
 import java.util.NoSuchElementException;
 
-import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.AppSettings.CHOP_SPEED;
 
 /**
  * ОТРУБАНИЕ НА ГЕКЕ
  */
 public class PlateChopOffController extends AbstractOpPlate {
 
-    @FXML
-    private Label lblOperationName;
-
     private int length;
     private double chopTime = 0.05;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpChopOff opData = (OpChopOff) data;
-        ivOperation.setImage(EOpType.CHOP_OFF.getLogo());
-
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.CHOP_OFF.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
     @Override//AbstractOpPlate

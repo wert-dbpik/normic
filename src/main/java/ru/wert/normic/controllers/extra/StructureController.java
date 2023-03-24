@@ -179,7 +179,7 @@ public class StructureController {
                 switch(type){
                     case DETAIL:    PlateDetailController.collectOpData((OpDetail) opData, formController, tfName, tfN); break;
                     case ASSM:      PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN); break;
-                    case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName); break;
+                    case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName, tfN); break;
                 }
                 MAIN_CONTROLLER.countSumNormTimeByShops();
             });

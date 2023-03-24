@@ -28,9 +28,6 @@ import static ru.wert.normic.entities.settings.AppSettings.*;
 public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private ComboBox<ESawType> cmbxSaw;
 
     private ESawType sawType;
@@ -39,18 +36,12 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw) data;
-        ivOperation.setImage(EOpType.CUT_OFF_ON_SAW.getLogo());
 
         new BXSawType().create(cmbxSaw, ESawType.SMALL_SAW, this);
-
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.CUT_OFF_ON_SAW.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

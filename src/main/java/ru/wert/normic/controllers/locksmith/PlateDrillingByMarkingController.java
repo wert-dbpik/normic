@@ -27,9 +27,6 @@ import static ru.wert.normic.entities.settings.AppSettings.SMALL_SAWING_SPEED;
 public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     @FXML
-    private Label lblOperationName;
-
-    @FXML
     private TextField tfDiameter;
 
     @FXML
@@ -74,8 +71,6 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpDrillingByMarking opData = (OpDrillingByMarking) data;
-        ivOperation.setImage(EOpType.DRILLING_BY_MARKING.getLogo());
         initStyle = tfLength.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfDiameter, this);
@@ -86,10 +81,6 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.DRILLING_BY_MARKING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
     @Override//AbstractOpPlate

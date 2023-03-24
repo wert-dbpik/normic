@@ -62,8 +62,6 @@ public class PlateRollingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpLatheRolling opData = (OpLatheRolling) data;
-        ivOperation.setImage(EOpType.LATHE_ROLLING.getLogo());
         initStyle = tfDiameter.getStyle(); //Сохраняем исходный стиль
 
         new TFIntegerColored(tfDiameter, this);
@@ -72,10 +70,6 @@ public class PlateRollingController extends AbstractOpPlate {
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
-
-        lblOperationName.setText(EOpType.LATHE_ROLLING.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
     }
 
     @Override//AbstractOpPlate

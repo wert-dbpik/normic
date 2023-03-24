@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
@@ -45,7 +46,6 @@ public abstract class AbstractOpPlate implements IOpPlate {
     protected double currentNormTime;
 
     protected AbstractFormController formController;
-//    protected FormDetailController detailController;
     protected OpData opData;
 
     public void setOpData(OpData opData){
@@ -77,6 +77,9 @@ public abstract class AbstractOpPlate implements IOpPlate {
     protected ImageView ivOperation;
 
     @FXML
+    protected Label lblOperationName;
+
+    @FXML
     private VBox vbOperation;
 
     @FXML @Getter
@@ -96,6 +99,12 @@ public abstract class AbstractOpPlate implements IOpPlate {
     }
 
     public void init(AbstractFormController formController, OpData opData, Integer index, String helpTitle) {
+
+        ivOperation.setImage(opData.getOpType().getLogo());
+
+        lblOperationName.setText(opData.getOpType().getOpName().toUpperCase());
+        lblOperationName.setStyle("-fx-text-fill: darkblue");
+
         ivHelp.setOnMouseClicked(e->{
             HelpWindow.create(e, helpTitle, helpText(), helpImage());
         });
@@ -112,8 +121,6 @@ public abstract class AbstractOpPlate implements IOpPlate {
         fillOpData(opData);
 
         initViews(opData);
-
-
 
         ivDeleteOperation.setOnMouseClicked(this::deleteSelectedOperation);
 

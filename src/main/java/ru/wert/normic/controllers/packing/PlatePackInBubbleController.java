@@ -33,9 +33,6 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
-    @FXML
-    private Label lblOperationName;
-
     private int width, depth, height;
     private ToggleGroup windBy; //Накручивание по
     private RadioButton selectedRadioButton; //выделенный
@@ -53,11 +50,6 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        ivOperation.setImage(EOpType.PACK_IN_BUBBLE_WRAP.getLogo());
-
-        lblOperationName.setText(EOpType.PACK_IN_BUBBLE_WRAP.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
-
         new RadBtn(rbByHeight, this);
         new RadBtn(rbByDepth, this);
         new RadBtn(rbByWidth, this);

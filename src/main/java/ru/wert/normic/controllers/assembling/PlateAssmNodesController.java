@@ -40,9 +40,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    @FXML
-    private Label lblOperationName;
-
     private int postLocks; //Количество почтовых замков
     private int doubleLocks; //Количество замков с рычагами
     private int mirrors; //Количество стекол
@@ -51,8 +48,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssmNode opData = (OpAssmNode)data;
-        ivOperation.setImage(EOpType.ASSM_NODES.getLogo());
 
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfPostLocks, this);
@@ -60,9 +55,6 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         new TFIntegerColored(tfMirrors, this);
         new TFIntegerColored(tfDetectors, this);
         new TFIntegerColored(tfConnectionBoxes, this);
-
-        lblOperationName.setText(EOpType.ASSM_NODES.getOpName().toUpperCase());
-        lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }
 

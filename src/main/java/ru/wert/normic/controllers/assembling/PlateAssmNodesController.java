@@ -61,6 +61,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         new TFIntegerColored(tfDetectors, this);
         new TFIntegerColored(tfConnectionBoxes, this);
 
+        lblOperationName.setText(EOpType.ASSM_NODES.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

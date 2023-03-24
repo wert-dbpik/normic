@@ -73,6 +73,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.LATHE_MOUNT_DISMOUNT.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

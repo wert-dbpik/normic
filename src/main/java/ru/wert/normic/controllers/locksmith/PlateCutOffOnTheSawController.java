@@ -49,6 +49,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.CUT_OFF_ON_SAW.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

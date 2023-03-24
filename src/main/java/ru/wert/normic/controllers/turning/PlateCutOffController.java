@@ -78,7 +78,6 @@ public class PlateCutOffController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         ivOperation.setImage(EOpType.LATHE_CUT_OFF.getLogo());
-        OpLatheCutOff opData = (OpLatheCutOff) data;
         initStyle = tfThickness.getStyle(); //Сохраняем исходный стиль
 
         tfThickness.disableProperty().bind(chbxCutOffSolid.selectedProperty());
@@ -99,6 +98,7 @@ public class PlateCutOffController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.LATHE_CUT_OFF.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

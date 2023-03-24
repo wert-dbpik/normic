@@ -51,6 +51,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         new TFDoubleColored(tfSelfAdhSealer, this);
         new TFDoubleColored(tfInsulation, this);
 
+        lblOperationName.setText(EOpType.ASSM_CUTTINGS.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

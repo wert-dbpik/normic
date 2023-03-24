@@ -45,6 +45,8 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         ivOperation.setImage(EOpType.PACK_IN_CARTOON_BOX.getLogo());
+
+        lblOperationName.setText(EOpType.PACK_IN_CARTOON_BOX.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new TFIntegerColored(tfPartMin, this);

@@ -61,7 +61,6 @@ public class PlateDrillingController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpLatheDrilling opData = (OpLatheDrilling) data;
         ivOperation.setImage(EOpType.LATHE_DRILLING.getLogo());
         initStyle = tfDiameter.getStyle(); //Сохраняем исходный стиль
 
@@ -72,6 +71,7 @@ public class PlateDrillingController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.LATHE_DRILLING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

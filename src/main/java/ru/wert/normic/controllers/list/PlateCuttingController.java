@@ -68,6 +68,8 @@ public class PlateCuttingController extends AbstractOpPlate {
         new TFIntegerColored(tfExtraPerimeter, this);
         new TFNormTime(tfNormTime, formController);
         new ChBox(chbxStripping, this);
+
+        lblOperationName.setText(EOpType.CUTTING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {

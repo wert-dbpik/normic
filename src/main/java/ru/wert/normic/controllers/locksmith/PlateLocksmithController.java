@@ -50,6 +50,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
         new TFIntegerColored(tfCountersinkings, this);
         new TFIntegerColored(tfThreadings, this);
 
+        lblOperationName.setText(EOpType.LOCKSMITH.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

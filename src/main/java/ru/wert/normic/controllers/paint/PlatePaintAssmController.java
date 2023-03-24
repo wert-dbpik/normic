@@ -76,6 +76,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     public void initViews(OpData data){
         OpPaintAssm opData = (OpPaintAssm)data;
         ivOperation.setImage(EOpType.PAINT_ASSM.getLogo());
+
+        lblOperationName.setText(EOpType.PAINT_ASSM.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         countCalculatedArea();

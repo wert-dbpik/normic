@@ -50,6 +50,7 @@ public class PlateAssmNutsMKController extends AbstractOpPlate {
         new TFIntegerColored(tfRivetNuts, this);
         new TFIntegerColored(tfOthers, this);
 
+        lblOperationName.setText(EOpType.ASSM_NUTS_MK.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
     }
 

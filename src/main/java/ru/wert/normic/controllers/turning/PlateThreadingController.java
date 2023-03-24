@@ -72,6 +72,7 @@ public class PlateThreadingController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.LATHE_THREADING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

@@ -87,6 +87,7 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.DRILLING_BY_MARKING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

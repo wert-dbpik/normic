@@ -57,7 +57,6 @@ public class PlateTurningController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpLatheTurning opData = (OpLatheTurning) data;
         ivOperation.setImage(EOpType.LATHE_TURNING.getLogo());
         initStyle = tfTurningLength.getStyle(); //Сохраняем исходный стиль
 
@@ -68,6 +67,7 @@ public class PlateTurningController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.LATHE_TURNING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

@@ -83,6 +83,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         new ChBox(chbxStripping, this);
         new CmBx(cmbxPartBigness, this);
 
+        lblOperationName.setText(EOpType.WELD_CONTINUOUS.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

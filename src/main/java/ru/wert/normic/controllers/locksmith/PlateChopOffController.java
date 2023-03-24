@@ -32,11 +32,13 @@ public class PlateChopOffController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpChopOff opData = (OpChopOff) data;
+        ivOperation.setImage(EOpType.CHOP_OFF.getLogo());
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.CHOP_OFF.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

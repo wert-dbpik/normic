@@ -49,6 +49,8 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         ivOperation.setImage(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getLogo());
+
+        lblOperationName.setText(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new TFIntegerColored(tfPartMin, this);

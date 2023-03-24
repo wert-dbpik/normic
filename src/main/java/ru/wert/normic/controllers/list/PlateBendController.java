@@ -60,6 +60,7 @@ public class PlateBendController extends AbstractOpPlate {
         new TFIntegerColored(tfBends, this);
         new TFIntegerColored(tfMen, this);
 
+        lblOperationName.setText(EOpType.BENDING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

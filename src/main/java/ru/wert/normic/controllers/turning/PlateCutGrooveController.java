@@ -53,7 +53,6 @@ public class PlateCutGrooveController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         ivOperation.setImage(EOpType.LATHE_CUT_GROOVE.getLogo());
-        LatheCutGroove opData = (LatheCutGroove) data;
         initStyle = tfDepth.getStyle(); //Сохраняем исходный стиль
 
         new TFDoubleColored(tfDepth, this);
@@ -62,6 +61,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
             formController.countSumNormTimeByShops();
         });
 
+        lblOperationName.setText(EOpType.LATHE_CUT_GROOVE.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
     }

@@ -62,6 +62,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         new TFIntegerColored(tfA, this);
         new TFIntegerColored(tfB, this);
 
+        lblOperationName.setText(EOpType.LEVELING_SEALER.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new CmBx(cmbxSealerWidth, this);

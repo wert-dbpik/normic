@@ -42,10 +42,10 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     private int drops; //Количество прихваток
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data){
-        OpWeldDotted opData = (OpWeldDotted)data;
+    public void initViews(OpData opData){
         ivOperation.setImage(EOpType.WELD_DOTTED.getLogo());
 
+        lblOperationName.setText(EOpType.WELD_DOTTED.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new TFNormTime(tfNormTime, formController);

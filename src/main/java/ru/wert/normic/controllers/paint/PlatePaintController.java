@@ -77,6 +77,8 @@ public class PlatePaintController extends AbstractOpPlate {
     public void initViews(OpData data) {
         OpPaint opData = (OpPaint) data;
         ivOperation.setImage(EOpType.PAINTING.getLogo());
+
+        lblOperationName.setText(EOpType.PAINTING.getOpName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: saddlebrown");
 
         new BXPaintingDifficulty().create(cmbxDifficulty, opData.getDifficulty(), this);

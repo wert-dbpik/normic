@@ -6,11 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.Callback;
+import lombok.Getter;
+import lombok.Setter;
 import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers.extra.tree_view.StructureTreeView;
-import ru.wert.normic.controllers.extra.tree_view.TreeViewCell;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.controllers.singlePlates.PlatePackController;
@@ -20,11 +20,9 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.interfaces.IOpWithOperations;
+import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
@@ -40,14 +38,22 @@ public class StructureController {
     @FXML
     private Button btnOperations;
 
+    private StructureTreeView structureTreeView;
+    private TreeItem<OpData> root;
+    private OpAssm opRoot;
     private BtnDouble folding;
     private BtnDouble operations;
+    @Getter@Setter
+    private boolean showOperations = true;
 
 
 
     public void create(OpAssm opRoot){
+        this.opRoot = opRoot;
 
-        StructureTreeView structureTreeView = new StructureTreeView(this, treeView, opRoot);
+        root = new TreeItem<>(opRoot);
+
+        structureTreeView = new StructureTreeView(this, treeView, root);
 
         Image imgUnfold =  new Image("/pics/btns/unfold.png", 16, 16, true, true);
         Image imgFold =  new Image("/pics/btns/fold.png", 16, 16, true, true);
@@ -57,7 +63,7 @@ public class StructureController {
                 imgFold, "Свернуть");
 
         folding.getStateProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue) structureTreeView.unfoldTree();
+            if(newValue) structureTreeView.expandTree();
             else structureTreeView.foldTree();
         });
 
@@ -69,8 +75,8 @@ public class StructureController {
                 imgDescriptionONN, "Показать операции");
 
         operations.getStateProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue) structureTreeView.unfoldTree();
-            else structureTreeView.foldTree();
+            showOperations = !newValue;
+            treeView.refresh();
         });
 
     }
@@ -100,6 +106,13 @@ public class StructureController {
                     case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName, tfN); break;
                 }
                 MAIN_CONTROLLER.countSumNormTimeByShops();
+
+
+//                root = new TreeItem<>(opRoot);
+//                structureTreeView.buildTree(root);
+//                treeView.setRoot(root);
+
+                treeView.refresh();
             });
         } catch (IOException ex) {
             ex.printStackTrace();

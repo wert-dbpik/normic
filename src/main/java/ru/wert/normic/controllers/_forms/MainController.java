@@ -346,7 +346,7 @@ public class MainController extends AbstractFormController {
             controller.create((OpAssm) opData);
 
             new Decoration(
-                    "СТРУКТУРНОЕ ДРЕВО",
+                    "СХЕМА ИЗДЕЛИЯ",
                     report,
                     true,
                     owner,

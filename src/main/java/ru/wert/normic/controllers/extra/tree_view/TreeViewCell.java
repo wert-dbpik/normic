@@ -1,10 +1,13 @@
 package ru.wert.normic.controllers.extra.tree_view;
 
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ru.wert.normic.controllers.extra.StructureController;
@@ -19,6 +22,7 @@ import java.util.List;
 
 public class TreeViewCell extends TreeCell<OpData> {
 
+    private Button btnEdit;
     private String initTitleStyle;
     private final StructureController controller;
 
@@ -66,49 +70,73 @@ public class TreeViewCell extends TreeCell<OpData> {
             txtN.textProperty().bind(tfN.textProperty());
             tfN.setText(String.valueOf(quantity));
 
+            //Вызов редактора
+            btnEdit = new Button();
+            Image imgEdit = new Image("/pics/btns/edit.png", 16, 16, true, true);
+            btnEdit.setGraphic(new ImageView(imgEdit));
+            btnEdit.setVisible(false);
+            btnEdit.setOnAction(e->{
+                if (opData instanceof OpDetail) {
+                    controller.openFormEditor(EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
+                } else if (opData instanceof OpAssm) {
+                    controller.openFormEditor(EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
+                } else if (opData instanceof OpPack) {
+                    controller.openFormEditor(EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
+                }
+            });
+
             //Все вместе
             hbTitle.getChildren().add(logo);
             hbTitle.getChildren().add(txtName);
-
             if(quantity > 1)
                 hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
+            HBox hbBtnEditBox = new HBox(btnEdit);
+            hbBtnEditBox.setStyle("-fx-background-color: transparent");
+            hbBtnEditBox.setAlignment(Pos.TOP_RIGHT);
+            HBox.setHgrow(hbBtnEditBox, Priority.ALWAYS);
+            hbTitle.getChildren().add(hbBtnEditBox);
+
 
             VBox vbItemBlock = new VBox();
             vbItemBlock.getChildren().add(hbTitle);
 
-            if(opData instanceof OpDetail){
-                Text textDetail = new Text("\t" + opData.toString());
-                textDetail.setId("description");
-                vbItemBlock.getChildren().add(textDetail);
-                for(OpData op : operations){
-                    Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
-                    textOpName.setId("operationName");
-                    Text textOpDescription = new Text(op.toString());
-                    textOpDescription.setId("operationDescription");
+            if (controller.isShowOperations())
+                if (opData instanceof OpDetail) {
+                    Text textDetail = new Text("\t" + opData.toString());
+                    textDetail.setId("description");
+                    vbItemBlock.getChildren().add(textDetail);
+                    for (OpData op : operations) {
+                        Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
+                        textOpName.setId("operationName");
+                        Text textOpDescription = new Text(op.toString());
+                        textOpDescription.setId("operationDescription");
 
-                    HBox hbOperation = new HBox();
-                    hbOperation.getChildren().addAll(textOpName, textOpDescription);
-                    vbItemBlock.getChildren().add(hbOperation);
-                }
-            } else {
-                if(opData instanceof OpPack) {
-                    Text text = new Text("\t" + opData.toString());
-                    text.setId("description");
-                    vbItemBlock.getChildren().add(text);
-                }
 
-                for(OpData op : operations){
-                    if(op instanceof IOpWithOperations) continue;
-                    Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
-                    textOpName.setId("operationName");
-                    Text textOpDescription = new Text(op.toString());
-                    textOpDescription.setId("operationDescription");
+                        HBox hbOperation = new HBox();
+                        hbOperation.setStyle("-fx-background-color: transparent");
+                        hbOperation.getChildren().addAll(textOpName, textOpDescription);
+                        vbItemBlock.getChildren().add(hbOperation);
+                    }
+                } else {
+                    if (opData instanceof OpPack) {
+                        Text text = new Text("\t" + opData.toString());
+                        text.setId("description");
+                        vbItemBlock.getChildren().add(text);
+                    }
 
-                    HBox hbOperation = new HBox();
-                    hbOperation.getChildren().addAll(textOpName, textOpDescription);
-                    vbItemBlock.getChildren().add(hbOperation);
+                    for (OpData op : operations) {
+                        if (op instanceof IOpWithOperations) continue;
+                        Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
+                        textOpName.setId("operationName");
+                        Text textOpDescription = new Text(op.toString());
+                        textOpDescription.setId("operationDescription");
+
+                        HBox hbOperation = new HBox();
+                        hbOperation.setStyle("-fx-background-color: transparent");
+                        hbOperation.getChildren().addAll(textOpName, textOpDescription);
+                        vbItemBlock.getChildren().add(hbOperation);
+                    }
                 }
-            }
 
 
             setGraphic(vbItemBlock);
@@ -116,24 +144,19 @@ public class TreeViewCell extends TreeCell<OpData> {
             selectedProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue){
                     hbTitle.setStyle("-fx-background-color: #f1e2af");
-                    setStyle("-fx-background-color: #f1e2af");
+                    vbItemBlock.setStyle("-fx-background-color: #f1e2af");
+                    hbBtnEditBox.setStyle("-fx-background-color: #f1e2af");
                 } else {
                     hbTitle.setStyle(initTitleStyle);
                     vbItemBlock.setStyle(initTitleStyle);
+                    hbBtnEditBox.setStyle(initTitleStyle);
+
                     setStyle(initTitleStyle);
                 }
             });
 
-            setOnMouseClicked(e->{
-                if(e.isControlDown() && e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
-                    if (opData instanceof OpDetail) {
-                        controller.openFormEditor(EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
-                    } else if (opData instanceof OpAssm) {
-                        controller.openFormEditor(EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
-                    } else if (opData instanceof OpPack) {
-                        controller.openFormEditor(EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
-                    }
-                }
+            selectedProperty().addListener((observable, oldValue, newValue) -> {
+                btnEdit.setVisible(newValue);
             });
         }
     }

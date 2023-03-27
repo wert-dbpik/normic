@@ -14,23 +14,24 @@ public class StructureTreeView {
 
     private StructureController controller;
     private TreeView<OpData> treeView;
-    private TreeItem<OpData> rootItem;
+    private TreeItem<OpData> root;
 
-    public StructureTreeView(StructureController controller, TreeView<OpData> treeView, OpAssm opRoot) {
+    public StructureTreeView(StructureController controller, TreeView<OpData> treeView, TreeItem<OpData> root) {
         this.controller = controller;
         this.treeView = treeView;
+        this.root = root;
 
-        rootItem = new TreeItem<>(opRoot);
-
-        treeView.setRoot(rootItem);
-        if(((OpAssm)rootItem.getValue()).getOperations().isEmpty())
-            treeView.setShowRoot(false);
+        treeView.setRoot(root);
+        root.setExpanded(true);
 
         treeView.setCellFactory(param -> new TreeViewCell(controller));
-        buildTree(rootItem);
+        buildTree(root);
     }
 
-    private void buildTree(TreeItem<OpData> treeItem){
+    /**
+     * Построить дерево (инверсия)
+     */
+    public void buildTree(TreeItem<OpData> treeItem){
         OpData opData = treeItem.getValue();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for(OpData op : operations){
@@ -42,17 +43,23 @@ public class StructureTreeView {
         }
     }
 
-    public void unfoldTree(){
+    /**
+     * Раскрыть дерево
+     */
+    public void expandTree(){
         int index = treeView.getFocusModel().getFocusedIndex();
-        List<TreeItem<OpData>> allItems = findAllChildren(rootItem);
+        List<TreeItem<OpData>> allItems = findAllChildren(root);
         for(TreeItem<OpData> item : allItems){
             item.setExpanded(true);
         }
         treeView.getFocusModel().focus(index);
     }
 
+    /**
+     * Сложить дерево
+     */
     public void foldTree(){
-        List<TreeItem<OpData>> listOfItemsToUnfold = findAllChildren(rootItem);
+        List<TreeItem<OpData>> listOfItemsToUnfold = findAllChildren(root);
         for(TreeItem<OpData> ti : listOfItemsToUnfold)
             ti.setExpanded(false);
     }

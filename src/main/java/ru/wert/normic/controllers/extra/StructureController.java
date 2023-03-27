@@ -4,11 +4,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
@@ -22,6 +24,7 @@ import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
@@ -31,15 +34,50 @@ public class StructureController {
 
     @FXML
     private TreeView<OpData> treeView;
+
+    @FXML
+    private Button btnFolding;
+
+    @FXML
+    private Button btnOperations;
+
+    private BtnDouble folding;
+    private BtnDouble operations;
     private String initTitleStyle;
+    private TreeItem<OpData> rootItem;
 
     public void create(OpAssm opRoot){
 
-        TreeItem<OpData> rootItem = new TreeItem<>(opRoot);
+        rootItem = new TreeItem<>(opRoot);
         createLeaf(rootItem);
 
+        Image imgUnfold =  new Image("/pics/btns/unfold.png", 16, 16, true, true);
+        Image imgFold =  new Image("/pics/btns/fold.png", 16, 16, true, true);
+
+        folding = new BtnDouble(btnFolding,
+                imgUnfold, "Развернуть",
+                imgFold, "Свернуть");
+
+        folding.getStateProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) unfoldTree();
+            else foldTree();
+        });
+
+        Image imgDescriptionOFF =  new Image("/pics/btns/description_off.png", 24, 24, true, true);
+        Image imgDescriptionONN =  new Image("/pics/btns/description_on.png", 24, 24, true, true);
+
+        operations = new BtnDouble(btnOperations,
+                imgDescriptionOFF, "Скрыть операции",
+                imgDescriptionONN, "Показать операции");
+
+        operations.getStateProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) unfoldTree();
+            else foldTree();
+        });
+
         treeView.setRoot(rootItem);
-//        treeView.setShowRoot(false);
+        if(((OpAssm)rootItem.getValue()).getOperations().isEmpty())
+            treeView.setShowRoot(false);
 
         treeView.setCellFactory(param -> new TreeCell<OpData>(){
             @Override
@@ -201,5 +239,54 @@ public class StructureController {
             }
         }
     }
+
+    private void unfoldTree(){
+        int index = treeView.getFocusModel().getFocusedIndex();
+        List<TreeItem<OpData>> allItems = findAllChildren(rootItem);
+        for(TreeItem<OpData> item : allItems){
+            item.setExpanded(true);
+        }
+        treeView.getFocusModel().focus(index);
+    }
+
+    private void foldTree(){
+        List<TreeItem<OpData>> listOfItemsToUnfold = findAllChildren(rootItem);
+        for(TreeItem<OpData> ti : listOfItemsToUnfold)
+            ti.setExpanded(false);
+    }
+
+    /**
+     * Определение всех потомков элемента дерева, метод обобщенный, так как исп-ся для TreeTable
+     */
+    public List<TreeItem<OpData>> findAllChildren(TreeItem<OpData> treeItem){
+        //Создаем три листа
+        //лист, где будут храниться, найденые потомки в текущей итерации
+        List<TreeItem<OpData>> newList = new ArrayList<>();
+        //лист со всеми найденными потомками
+        List<TreeItem<OpData>> finalList = new ArrayList<>();
+        //текущий лист для итерации
+        List<TreeItem<OpData>> list = new ArrayList<>();
+        //В него добавляем сам узел, от которого будем искать потомков
+        list.add(treeItem);
+
+        //В цикле получаем потомков текущего узла, складываем их во временный лист,
+        //потом временный лист снова перебираем и для каждого узла находим своих потомков
+        //Найденных потомков снова складываем в промежуточный лист, а предыдущий лист
+        //суммируем с finalList.
+        while(true){
+            for(TreeItem<OpData> ti : list)
+                newList.addAll(ti.getChildren());
+            if(newList.isEmpty()) break;
+            else {
+                finalList.addAll(newList);
+                list.clear();
+                list.addAll(newList);
+                newList.clear();
+            }
+        }
+        return finalList;
+    }
+
+
 
 }

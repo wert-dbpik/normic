@@ -8,47 +8,57 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-public class BtnDouble extends Button {
+public class BtnDouble{
 
 
     private BooleanProperty stateProperty = new SimpleBooleanProperty();
     public BooleanProperty getStateProperty(){return stateProperty;}
 
+    private final Button button;
     private final ImageView imageOFF;
     private final String textOFF;
     private final ImageView imageON;
     private final String textON;
 
-    public BtnDouble(Image imageOFF, String textOFF, Image imageON, String textON, boolean initState ) {
-        super();
+    /**
+     * Начальное состояние кнопки OFF, stateProperty = false;
+     */
+    public BtnDouble(Button button, Image imageOFF, String textOFF, Image imageON, String textON) {
+        this.button = button;
         this.imageOFF = new ImageView(imageOFF);
         this.textOFF = textOFF;
         this.imageON = new ImageView(imageON);
         this.textON = textON;
 
+        initButtonTosStateOFF();
+
         stateProperty.addListener((observable, oldValue, newValue) -> {
             switchButton(newValue);
         });
 
-        setId("patchButton");
-
-        switchButton(initState);
         //Кнопку нажали
-        setOnMousePressed(e->{
+        button.setOnMousePressed(e->{
             switchButton(!stateProperty.get());
         });
     }
 
+    void initButtonTosStateOFF(){
+        button.setGraphic(imageOFF);
+        button.setTooltip(new Tooltip(textOFF));
+    }
+
+    void initButtonTosStateON(){
+        button.setGraphic(imageON);
+        button.setTooltip(new Tooltip(textON));
+    }
+
     private void switchButton(boolean state) {
         if (state) {
-            setGraphic(imageON);
-            setTooltip(new Tooltip(textON));
+            initButtonTosStateON();
         } else {
-            setGraphic(imageOFF);
-            setTooltip(new Tooltip(textOFF));
+            initButtonTosStateOFF();
         }
         stateProperty.set(state);
-
     }
 
 }

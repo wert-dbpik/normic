@@ -107,9 +107,11 @@ public class StructureController {
                             vbItemBlock.getChildren().add(hbOperation);
                         }
                     } else {
-                        Text text = new Text("\t" + opData.toString());
-                        text.setId("description");
-                        vbItemBlock.getChildren().add(text);
+                        if(opData instanceof OpPack) {
+                            Text text = new Text("\t" + opData.toString());
+                            text.setId("description");
+                            vbItemBlock.getChildren().add(text);
+                        }
 
                         for(OpData op : operations){
                             if(op instanceof IOpWithOperations) continue;

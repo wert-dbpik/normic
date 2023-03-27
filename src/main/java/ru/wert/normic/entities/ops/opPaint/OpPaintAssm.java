@@ -8,6 +8,8 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+
 /**
  * ОКРАШИВАНИЕ СБОРОЧНОЙ ЕДИНИЦЫ
  */
@@ -33,8 +35,8 @@ public class OpPaintAssm extends OpData {
     public String toString() {
         return "цвет = " + color.getRal() +
                 ", с двух сторон = " + twoSides +
-                ", М краски = " + dyeWeight + " кг." +
-                ",\nS покр. = " + area + " мм.кв." +
+                ", М краски = " + DECIMAL_FORMAT.format(dyeWeight) + " кг." +
+                ",\nS покр. = " + DECIMAL_FORMAT.format(area) + " мм.кв." +
                 ", А(вдоль) = " + along + " мм." +
                 ", В(поперек) = " + across + " мм." +
                 ", тип сборочной единицы = " + assmType.getName();

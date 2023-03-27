@@ -30,7 +30,8 @@ public class OpAssm extends OpData implements IOpWithOperations {
 
     @Override
     public String toString() {
-        return "Площадь покрытия S = " + DECIMAL_FORMAT.format(area) + " м.кв.";
+        return "";
+//                "Площадь покрытия S = " + DECIMAL_FORMAT.format(area) + " м.кв.";
 
     }
 

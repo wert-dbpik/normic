@@ -72,7 +72,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             //Вызов редактора
             btnEdit = new Button();
-            Image imgEdit = new Image("/pics/btns/edit.png", 16, 16, true, true);
+            Image imgEdit = new Image("/pics/btns/edit.png", 14, 14, true, true);
             btnEdit.setGraphic(new ImageView(imgEdit));
             btnEdit.setVisible(false);
             btnEdit.setOnAction(e->{
@@ -90,11 +90,8 @@ public class TreeViewCell extends TreeCell<OpData> {
             hbTitle.getChildren().add(txtName);
             if(quantity > 1)
                 hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
-            HBox hbBtnEditBox = new HBox(btnEdit);
-            hbBtnEditBox.setStyle("-fx-background-color: transparent");
-            hbBtnEditBox.setAlignment(Pos.TOP_RIGHT);
-            HBox.setHgrow(hbBtnEditBox, Priority.ALWAYS);
-            hbTitle.getChildren().add(hbBtnEditBox);
+            hbTitle.getChildren().add(btnEdit);
+            hbTitle.setAlignment(Pos.CENTER_LEFT);
 
 
             VBox vbItemBlock = new VBox();
@@ -145,11 +142,9 @@ public class TreeViewCell extends TreeCell<OpData> {
                 if(newValue){
                     hbTitle.setStyle("-fx-background-color: #f1e2af");
                     vbItemBlock.setStyle("-fx-background-color: #f1e2af");
-                    hbBtnEditBox.setStyle("-fx-background-color: #f1e2af");
                 } else {
                     hbTitle.setStyle(initTitleStyle);
                     vbItemBlock.setStyle(initTitleStyle);
-                    hbBtnEditBox.setStyle(initTitleStyle);
 
                     setStyle(initTitleStyle);
                 }

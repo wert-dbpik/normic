@@ -21,7 +21,7 @@
 
 <VBox fx:id="decoration" onKeyTyped="#OnKeyEscapeTyped" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.decoration.DecorationController">
    <children>
-      <HBox fx:id="hbox" alignment="CENTER_LEFT" onMouseClicked="#TitleBarOnMouseClicked" onMousePressed="#onMousePressed">
+      <HBox fx:id="hbox" alignment="CENTER_LEFT" onMouseClicked="#titleBarOnMouseClicked" onMousePressed="#onMousePressed">
          <children>
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMouseDragged="#onMouseDragged" HBox.hgrow="ALWAYS">
                <children>

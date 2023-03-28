@@ -81,17 +81,7 @@ public class DecorationController {
     @FXML
     void maximizeWindow(MouseEvent e) {
         window = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        if (!isExpanded) {
-            saveWindowCoordinates(window);
-            changeSizeOfWindow(window, e);
-            //При условии, что на весь экран раскрывается только главное окно
-            MAIN_STAGE.setFullScreen(true);
-        } else {
-            changeSizeOfWindow(window, e);
-            //При условии, что на весь экран раскрывается только главное окно
-            MAIN_STAGE.setFullScreen(false);
-        }
-
+        changeSizeOfWindow(window, e);
     }
 
     /**
@@ -113,7 +103,7 @@ public class DecorationController {
      * @param mouseEvent MouseEvent
      */
     @FXML
-    private void TitleBarOnMouseClicked(MouseEvent mouseEvent){
+    private void titleBarOnMouseClicked(MouseEvent mouseEvent){
 
         Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
         this.window = window;
@@ -131,17 +121,23 @@ public class DecorationController {
     private void changeSizeOfWindow(Stage window, MouseEvent e) {
 
         if (isExpanded) {
-            window.setWidth(winWidth);
-            window.setHeight(winHeight);
-            window.setX(winX);
-            window.setY(winY);
+            minimizeWindowToSavedSize(window);
 
             isExpanded = false;
         } else {
-
             setWindowToFullScreen(window);
             isExpanded = true;
         }
+    }
+
+    /**
+     * Если окно было развернуто на веь экран, то оно возвращается к меньшему размеру
+     */
+    private void minimizeWindowToSavedSize(Stage window) {
+        window.setWidth(winWidth);
+        window.setHeight(winHeight);
+        window.setX(winX);
+        window.setY(winY);
     }
 
     /**

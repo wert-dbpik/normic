@@ -20,9 +20,11 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import sun.reflect.generics.tree.Tree;
 
 import java.io.IOException;
+import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
@@ -84,7 +86,7 @@ public class StructureController {
     /**
      * Открыть форму редактирования сборки
      */
-    public void openFormEditor(EOpType type, String title, String path, OpData opData, TextField tfName, TextField tfN) {
+    public void openFormEditor(TreeItem<OpData> selectedTreeItem, EOpType type, String title, String path, OpData opData, TextField tfName, TextField tfN) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
@@ -105,14 +107,12 @@ public class StructureController {
                     case ASSM:      PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN); break;
                     case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName, tfN); break;
                 }
+                if(opData instanceof OpAssm) {
+                    selectedTreeItem.getChildren().clear();
+                    structureTreeView.buildTree(selectedTreeItem);
+                } else
+                    treeView.refresh();
                 MAIN_CONTROLLER.countSumNormTimeByShops();
-
-
-//                root = new TreeItem<>(opRoot);
-//                structureTreeView.buildTree(root);
-//                treeView.setRoot(root);
-
-                treeView.refresh();
             });
         } catch (IOException ex) {
             ex.printStackTrace();

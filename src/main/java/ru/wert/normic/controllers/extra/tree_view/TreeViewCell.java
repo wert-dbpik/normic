@@ -77,11 +77,11 @@ public class TreeViewCell extends TreeCell<OpData> {
             btnEdit.setVisible(false);
             btnEdit.setOnAction(e->{
                 if (opData instanceof OpDetail) {
-                    controller.openFormEditor(EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
+                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
                 } else if (opData instanceof OpAssm) {
-                    controller.openFormEditor(EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
+                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
                 } else if (opData instanceof OpPack) {
-                    controller.openFormEditor(EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
+                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
                 }
             });
 

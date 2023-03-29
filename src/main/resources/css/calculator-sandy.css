@@ -1,6 +1,13 @@
+*{
+    -fx-color-dark-backround: #f8f1db;
+    -fx-color-light-backround: #f8f5eb;
+    -fx-color-text: #4f412f;
+    -fx-color-selected: #f8c878;
+}
+
 
 #decoration-main{
-    -fx-background-color: #f8c878;
+    -fx-background-color: -fx-color-selected;
 }
 
 #decoration-assm, #decoration-report, #decoration-settings{
@@ -12,26 +19,26 @@
 }
 
 #decoration-main .label{
-    -fx-text-fill: #4f412f;
+    -fx-text-fill: -fx-color-text;
 }
 
 #main, #assm, #detail, #report, #settings, #executions{
-    -fx-background-color: #f8f1db;
+    -fx-background-color: -fx-color-dark-backround;
 }
 
 #contextMenu{
     -fx-background-color: #ebf6f8;
-    -fx-text-fill: #4f412f;
+    -fx-text-fill: -fx-color-text;
 }
 
 .tooltip{
     -fx-background-color: #ebf6f8;
-    -fx-text-fill: #4f412f;
+    -fx-text-fill: -fx-color-text;
     -fx-font-size: 12;
 }
 
 .button{
-    -fx-background-color: #f8f1db;
+    -fx-background-color: -fx-color-dark-backround;
 }
 
 .button:hover{
@@ -49,24 +56,24 @@
 
 
 .label{
-    -fx-text-fill: #4f412f;
+    -fx-text-fill: -fx-color-text;
 }
 
 .list-view{
-    -fx-background-color: #f8f5eb;
-    -fx-background: #f8f5eb;
+    -fx-background-color: -fx-color-light-backround;
+    -fx-background: -fx-color-light-backround;
     -fx-border-width: 2 2 2 2;
     -fx-border-color: #e2dfdf;
 }
 
 .list-view .list-cell{
-    -fx-background-color: #f8f5eb;
-    -fx-text-fill: #4f412f;
+    -fx-background-color: -fx-color-light-backround;
+    -fx-text-fill: -fx-color-text;
 }
 
 .list-view .list-cell:selected{
-    -fx-background-color: #f8c878;
-    -fx-text-fill: #4f412f;
+    -fx-background-color: -fx-color-selected;
+    -fx-text-fill: -fx-color-text;
 }
 
 .list-view .list-cell:hover{
@@ -95,7 +102,7 @@
     -fx-spacing: 5;
     -fx-pref-width: 500;
     -fx-padding: 5 20 5 5;
-    -fx-background-color: #f8f5eb;
+    -fx-background-color: -fx-color-light-backround;
 }
 
 .settings-vb-block{
@@ -120,7 +127,7 @@
 .settings-tf-value{
     -fx-pref-width: 80;
     -fx-alignment: baseline-center;
-    -fx-background-color: #f8f5eb;
+    -fx-background-color: -fx-color-light-backround;
 }
 
 /*МАТЕРИАЛЫ*/
@@ -132,36 +139,43 @@
 /*ПОМОЩЬ*/
 
 #helpWindow {
-    -fx-background-color: #f8f5eb;
-    -fx-border-color: #4f412f;
+    -fx-background-color: -fx-color-light-backround;
+    -fx-border-color: -fx-color-text;
     -fx-border-width: 2;
 }
 
 #helpWindow .scroll-pane{
     -fx-background-insets: 0;
-    -fx-background-color: #f8f5eb;
+    -fx-background-color: -fx-color-light-backround;
 }
 
 #helpWindow .scroll-pane .viewport{
     -fx-background-insets: 0;
-    -fx-background-color: #f8f5eb;
+    -fx-background-color: -fx-color-light-backround;
 }
 
 #helpWindow .text{
     -fx-background-insets: 0;
-    -fx-background-color: #f8f5eb;
+    -fx-background-color: -fx-color-light-backround;
 }
 
 #vbOperation{
-    -fx-background-color: #f8f1db;
+    -fx-background-color: -fx-color-dark-backround;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
 
 /*ИНДИКАТОР ЗАГРУЗКИ*/
 #progressIndicator{
-    -fx-background-color: #f8f1db;
+    -fx-background-color: -fx-color-dark-backround;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
+
+#vbAbout{
+    -fx-background-color: -fx-color-dark-backround;
+    -fx-border-color:-fx-color-selected;
+    -fx-border-width: 10;
+}
+
 

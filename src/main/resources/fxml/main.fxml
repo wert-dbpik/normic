@@ -56,6 +56,11 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
+            <HBox fx:id="vbAboutPane" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <fx:include source="help/about.fxml" />
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets left="7.0" />

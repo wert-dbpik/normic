@@ -76,4 +76,5 @@ public class AppStatics {
     public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING,
             LOCKSMITH, DRILLING_BY_MARKING,
             CHOP_OFF, CUT_OFF_ON_SAW); //Профильный
+
 }

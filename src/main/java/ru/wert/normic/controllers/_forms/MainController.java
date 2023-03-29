@@ -70,6 +70,9 @@ public class MainController extends AbstractFormController {
     @FXML@Getter
     private HBox progressIndicator;
 
+    @FXML@Getter
+    private HBox vbAboutPane;
+
     @FXML @Getter //AbstractFormController
     private ListView<VBox> listViewTechOperations;
 
@@ -96,6 +99,7 @@ public class MainController extends AbstractFormController {
         MAIN_CONTROLLER = this;
 
         progressIndicator.setVisible(false);
+        vbAboutPane.setVisible(false);
 
         //Запускаем  перехват нажатых клавишь
         Platform.runLater(this::createButtonInterceptor);
@@ -148,6 +152,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMImportExcel().setOnAction(e->importExcel(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMIconMenu().setOnAction(e->showIconMenuProperty.set(!showIconMenuProperty.get()));
+        mainMenuController.getMAbout().setOnAction(e-> vbAboutPane.setVisible(true));
 
         showIconMenuProperty.addListener((observable, oldValue, newValue) -> {
             if(showIconMenuProperty.get()){

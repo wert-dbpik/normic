@@ -1,8 +1,10 @@
 package ru.wert.normic.utils;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Date;
 
 public class AppFiles {
 
@@ -28,7 +30,8 @@ public class AppFiles {
     public File createTempCopyOfFile(File oldFile){
         File copied = null;
         try {
-            copied = new File(tempDir, oldFile.getName());
+//          copied = File.createTempFile(oldFile.getName(), "excel.tmp", tempDir);  //не работает
+            copied = new File(tempDir, oldFile.getName() + new Date().getTime());
             Files.copy(oldFile.toPath(), copied.toPath());
         } catch (IOException e) {
             e.printStackTrace();

@@ -102,6 +102,7 @@ public class MainController extends AbstractFormController {
 
         AppStatics.MEASURE = new ToggleGroup();
         opData = new OpAssm();
+        ((IOpWithOperations)opData).setName("Новое изделие");
 
         //Создаем меню
         createMenu();

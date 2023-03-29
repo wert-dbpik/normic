@@ -256,6 +256,7 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemChopOff());
             menu.getItems().add(menu.createItemDrillingByMarking());
             menu.getItems().add(menu.createItemLocksmith());
+            menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPainting());
 

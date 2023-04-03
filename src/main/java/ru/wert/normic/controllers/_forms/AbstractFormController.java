@@ -2,13 +2,16 @@ package ru.wert.normic.controllers._forms;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -29,8 +32,8 @@ import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
-import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMenuSource;
@@ -48,6 +51,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +59,6 @@ import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
 import static ru.wert.normic.decoration.DecorationStatic.TITLE_SEPARATOR;
 import static ru.wert.normic.enums.EColor.*;
-import static ru.wert.normic.enums.EColor.COLOR_III;
 
 /**
  * ПРООБРАЗ
@@ -93,7 +96,57 @@ public abstract class AbstractFormController implements IForm {
 
     private String opType; //Тип загружаемого json - временная переменная
 
+    private List<List<OpData>> undoList = new ArrayList<>();
+    @Getter private int iterator = 0;
+    private boolean undoFlag; //true - используется ф-я undo
+
+    @FXML
+    private VBox main;
+
     public AbstractFormController() {
+        addedOperations.addListener((ListChangeListener<OpData>) change -> {
+            if(!undoFlag) {
+                undoList.add(new ArrayList<>(addedOperations));
+                iterator++;
+//                addedOperations.remove(iterator, addedOperations.size() - 1);
+            } else
+                undoFlag = false;
+        });
+
+        Platform.runLater(()->{
+            main.setOnKeyPressed(ke->{
+                if(ke.isControlDown()){
+                    if(ke.getCode().equals(KeyCode.Z) || ke.getCode().equals(KeyCode.V)) {
+                        addedPlates.clear();
+                        addedOperations.clear();
+                        getListViewTechOperations().getItems().clear();
+                        if(ke.getCode().equals(KeyCode.Z)){
+                            undoLastOperation();
+                        }else if(ke.getCode().equals(KeyCode.V)) {
+                            redoLastOperation();
+                        }
+//                        createMenu();
+                        menu.deployData();
+                        countSumNormTimeByShops();
+                    }
+                }
+            });
+        });
+
+    }
+
+    private void undoLastOperation() {
+        if(iterator == 0) return;
+        undoFlag = true;
+        iterator --;
+        ((IOpWithOperations)opData).setOperations(new ArrayList<>(undoList.get(iterator)));
+    }
+
+    private void redoLastOperation() {
+        if(iterator == addedOperations.size()-1) return;
+        undoFlag = true;
+        iterator ++;
+        ((IOpWithOperations)opData).setOperations(new ArrayList<>(undoList.get(iterator)));
     }
 
     AbstractFormController getThisController(){

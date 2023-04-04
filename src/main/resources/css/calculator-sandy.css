@@ -22,7 +22,7 @@
     -fx-text-fill: -fx-color-text;
 }
 
-#main, #report, #settings, #executions{
+#main, #report, #settings, #materials, #executions{
     -fx-background-color: -fx-color-dark-backround;
 }
 

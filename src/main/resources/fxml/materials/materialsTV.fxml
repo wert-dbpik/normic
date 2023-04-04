@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox styleClass="materials-vb" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialsTVController">
+<VBox fx:id="materials" styleClass="materials-vb" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialsTVController">
    <children>
       <HBox alignment="CENTER_LEFT" stylesheets="@../../css/calculator-sandy.css">
          <children>

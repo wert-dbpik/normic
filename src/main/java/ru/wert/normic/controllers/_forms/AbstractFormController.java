@@ -344,7 +344,7 @@ public abstract class AbstractFormController implements IForm {
         }
 
         if(!dropIsPossible(targetOpData)) return;
-
+        blockUndoListFlag = true;
         //Добавление новых операций производится в цикле
         for (OpData clipOpData : clipOpDataList) {
 
@@ -366,8 +366,9 @@ public abstract class AbstractFormController implements IForm {
             } else { //Оставшиеся операции добавляются в конец списка
                 addToTargetOpDataToTheEndOfList(targetOpData, targetOperations, clipOpData);
             }
-        }
 
+        }
+        iterateUndoList();
         finishWithPaste(targetOpData);
 
     }
@@ -381,11 +382,13 @@ public abstract class AbstractFormController implements IForm {
         if (!copy) {
             //Если источник совпадает с текущим контроллером
             if(whereFromController.equals(this)) {
+                blockUndoListFlag = true;
                 for (int i = 0; i < clipOpDataList.size(); i++) {
                     addedPlates.remove(clipOpPlateList.get(i));
                     getListViewTechOperations().getItems().remove(clipBoxList.get(i));
                     addedOperations.remove(clipOpDataList.get(i));
                 }
+                iterateUndoList();
             }
             //Иначе просто меняем список добавленных операций и закрепляем его в opData
             else {
@@ -451,7 +454,6 @@ public abstract class AbstractFormController implements IForm {
             rebuildListOfOperations();
 
             getListViewTechOperations().getSelectionModel().select(targetIndex);
-
         } else
             targetOperations.add(targetIndex, clipOpData);
     }

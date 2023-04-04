@@ -256,12 +256,14 @@ public class MainController extends AbstractFormController {
 
         ImportExcelFileService service = new ImportExcelFileService(this, copied);
         service.setOnSucceeded(workerStateEvent ->{
+            blockUndoListFlag = true;
             OpAssm newOpData = service.getValue();
             if(newOpData != null) opData = newOpData;
             else return;
             createMenu();
             menu.deployData();
             countSumNormTimeByShops();
+            iterateUndoList();
         });
         service.start();
 

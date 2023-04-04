@@ -51,7 +51,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,37 +97,50 @@ public abstract class AbstractFormController implements IForm {
 
     private List<List<OpData>> undoList = new ArrayList<>();
     @Getter private int iterator = 0;
-    private boolean undoFlag; //true - используется ф-я undo
+
+    protected boolean blockUndoListFlag; //true - undoList заполняется
 
     @FXML
     private VBox main;
 
+    protected void iterateUndoList(){
+        iterator++;
+        if(iterator == undoList.size())
+            undoList.add(new ArrayList<>(addedOperations));
+        else
+            undoList.set(iterator, new ArrayList<>(addedOperations));
+        blockUndoListFlag = true;
+        for(int i = iterator + 1; i < undoList.size() - 1; i ++ )
+        undoList.remove(i);
+        blockUndoListFlag = false;
+    }
+
+
     public AbstractFormController() {
+        //Нулевая позиция
+        undoList.add(new ArrayList<>(addedOperations));
+
         addedOperations.addListener((ListChangeListener<OpData>) change -> {
-            if(!undoFlag) {
-                undoList.add(new ArrayList<>(addedOperations));
-                iterator++;
-//                addedOperations.remove(iterator, addedOperations.size() - 1);
-            } else
-                undoFlag = false;
+            if(!blockUndoListFlag) {
+                iterateUndoList();
+            }
         });
 
         Platform.runLater(()->{
             main.setOnKeyPressed(ke->{
-                if(ke.isControlDown()){
-                    if(ke.getCode().equals(KeyCode.Z) || ke.getCode().equals(KeyCode.V)) {
-                        addedPlates.clear();
-                        addedOperations.clear();
-                        getListViewTechOperations().getItems().clear();
-                        if(ke.getCode().equals(KeyCode.Z)){
-                            undoLastOperation();
-                        }else if(ke.getCode().equals(KeyCode.V)) {
-                            redoLastOperation();
-                        }
-//                        createMenu();
-                        menu.deployData();
-                        countSumNormTimeByShops();
-                    }
+                if (ke.isControlDown() && ke.getCode().equals(KeyCode.Z)) {
+                    blockUndoListFlag = true;
+                    addedPlates.clear();
+                    addedOperations.clear();
+                    getListViewTechOperations().getItems().clear();
+
+                    if (ke.isShiftDown()) redoLastOperation();
+                    else undoLastOperation();
+
+                    menu.deployData();
+                    countSumNormTimeByShops();
+                    blockUndoListFlag = false;
+
                 }
             });
         });
@@ -137,14 +149,12 @@ public abstract class AbstractFormController implements IForm {
 
     private void undoLastOperation() {
         if(iterator == 0) return;
-        undoFlag = true;
         iterator --;
         ((IOpWithOperations)opData).setOperations(new ArrayList<>(undoList.get(iterator)));
     }
 
     private void redoLastOperation() {
-        if(iterator == addedOperations.size()-1) return;
-        undoFlag = true;
+        if(iterator == undoList.size()-1) return;
         iterator ++;
         ((IOpWithOperations)opData).setOperations(new ArrayList<>(undoList.get(iterator)));
     }
@@ -379,9 +389,11 @@ public abstract class AbstractFormController implements IForm {
             }
             //Иначе просто меняем список добавленных операций и закрепляем его в opData
             else {
+
                 for (OpData data : clipOpDataList) {
                     whereFromController.getAddedOperations().remove(data);
                 }
+
             }
         }
 
@@ -608,7 +620,9 @@ public abstract class AbstractFormController implements IForm {
                     clearAll(e);
                     if (opType.equals("ASSM")) {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
+                        blockUndoListFlag = true;
                         deployFile(productSettings, newOpData);
+                        iterateUndoList();
                     } else {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
                         addFromFile(newOpData);
@@ -646,6 +660,7 @@ public abstract class AbstractFormController implements IForm {
      * ОЧИСТИТЬ ВСЕ
      */
     public void clearAll(Event e) {
+        blockUndoListFlag = true;
         ((IOpWithOperations)opData).getOperations().clear();
         addedPlates.clear();
         addedOperations.clear();
@@ -653,6 +668,7 @@ public abstract class AbstractFormController implements IForm {
         countSumNormTimeByShops();
         PlateDetailController.nameIndex = 0;
         PlateAssmController.nameIndex = 0;
+        iterateUndoList();
     }
 
     /**

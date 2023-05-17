@@ -35,7 +35,8 @@ public class MainMenuController {
     @FXML@Getter
     private RadioMenuItem
             rbmSeconds,
-            rbmMinutes;
+            rbmMinutes,
+            rbmHours;
 
     //ОТЧЕТЫ============================================
 

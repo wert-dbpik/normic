@@ -31,6 +31,7 @@
                <items>
                   <RadioMenuItem fx:id="rbmSeconds" mnemonicParsing="false" text="Секунды" />
                   <RadioMenuItem fx:id="rbmMinutes" mnemonicParsing="false" text="Минуты" />
+                  <RadioMenuItem fx:id="rbmHours" mnemonicParsing="false" text="Часы" />
                </items>
             </Menu>
             <MenuItem fx:id="mIconMenu" mnemonicParsing="false" text="Скрыть панель управления" />

@@ -7,7 +7,8 @@ import java.util.NoSuchElementException;
 public enum ETimeMeasurement {
 
     SEC("сек"),
-    MIN("мин");
+    MIN("мин"),
+    HOUR("час");
 
     @Getter String measure;
 

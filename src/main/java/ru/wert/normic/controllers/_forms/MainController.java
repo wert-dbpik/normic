@@ -52,8 +52,7 @@ import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
-import static ru.wert.normic.enums.ETimeMeasurement.MIN;
-import static ru.wert.normic.enums.ETimeMeasurement.SEC;
+import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**
  * ОСНОВНАЯ ФОРМА - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ ГЛАВНОЙ СБОРКИ
@@ -230,7 +229,9 @@ public class MainController extends AbstractFormController {
         mainMenuController.getRbmSeconds().setUserData(SEC.name());
         mainMenuController.getRbmMinutes().setToggleGroup(MEASURE);
         mainMenuController.getRbmMinutes().setUserData(MIN.name());
-        mainMenuController.getRbmMinutes().setSelected(true);
+        mainMenuController.getRbmHours().setToggleGroup(MEASURE);
+        mainMenuController.getRbmHours().setUserData(HOUR.name());
+        mainMenuController.getRbmHours().setSelected(true);
         countSumNormTimeByShops();
 
         MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
@@ -523,6 +524,7 @@ public class MainController extends AbstractFormController {
         opData.setAssmTime(assemblingTime);
         opData.setPackTime(packingTime);
 
+        //Перевод в секунды
         if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
@@ -530,6 +532,16 @@ public class MainController extends AbstractFormController {
             packingTime = packingTime * MIN_TO_SEC;
 
             measure = SEC.getMeasure();
+        }
+
+        //Перевод в часы
+        if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.HOUR.name())){
+            mechanicalTime = mechanicalTime * MIN_TO_HOUR;
+            paintingTime = paintingTime * MIN_TO_HOUR;
+            assemblingTime = assemblingTime * MIN_TO_HOUR;
+            packingTime = packingTime * MIN_TO_HOUR;
+
+            measure = HOUR.getMeasure();
         }
 
         String format = DOUBLE_FORMAT;

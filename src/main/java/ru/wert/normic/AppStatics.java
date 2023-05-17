@@ -28,6 +28,7 @@ public class AppStatics {
 
     //Комбобокс, где переключается единица измерения (мин, сек)
     public static ToggleGroup MEASURE;
+    public static ETimeMeasurement CURRENT_MEASURE;
 
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";

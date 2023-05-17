@@ -224,6 +224,12 @@ public class MainController extends AbstractFormController {
 
     private void initViews() {
 
+        MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            CURRENT_MEASURE = ETimeMeasurement.findValueOf(AppStatics.MEASURE.getSelectedToggle().getUserData().toString());
+            lblTimeMeasure.setText(ETimeMeasurement.findValueOf(newValue.getUserData().toString()).getMeasure());
+            countSumNormTimeByShops();
+        });
+
         //Единицы измерения
         mainMenuController.getRbmSeconds().setToggleGroup(MEASURE);
         mainMenuController.getRbmSeconds().setUserData(SEC.name());
@@ -234,10 +240,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getRbmHours().setSelected(true);
         countSumNormTimeByShops();
 
-        MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            lblTimeMeasure.setText(ETimeMeasurement.findValueOf(newValue.getUserData().toString()).getMeasure());
-            countSumNormTimeByShops();
-        });
+
 
     }
 

@@ -45,8 +45,9 @@ public class StructureController {
     private OpAssm opRoot;
     private BtnDouble folding;
     private BtnDouble operations;
-    @Getter@Setter
-    private boolean showOperations = true;
+
+    @Getter@Setter private boolean showOperations = true;
+    @Getter@Setter private boolean showNormsTime = true;
 
 
 

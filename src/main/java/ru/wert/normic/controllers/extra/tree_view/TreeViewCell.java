@@ -2,6 +2,7 @@ package ru.wert.normic.controllers.extra.tree_view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.image.Image;
@@ -10,15 +11,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.List;
+
+import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.AppStatics.MEASURE;
+import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.enums.ETimeMeasurement.HOUR;
+import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 public class TreeViewCell extends TreeCell<OpData> {
 
@@ -93,9 +102,14 @@ public class TreeViewCell extends TreeCell<OpData> {
             hbTitle.getChildren().add(btnEdit);
             hbTitle.setAlignment(Pos.CENTER_LEFT);
 
+            //Строка с рассчитанными нормами времени
+            Label lblNorms = new Label(createStringWithNormsTime(opData));
+            lblNorms.setStyle("-fx-text-fill: green; -fx-font-weight: bold; -fx-label-padding: 0 0 0 25");
 
             VBox vbItemBlock = new VBox();
             vbItemBlock.getChildren().add(hbTitle);
+            if(controller.isShowNormsTime())
+                vbItemBlock.getChildren().add(lblNorms);
 
             if (controller.isShowOperations())
                 if (opData instanceof OpDetail) {
@@ -153,6 +167,42 @@ public class TreeViewCell extends TreeCell<OpData> {
             selectedProperty().addListener((observable, oldValue, newValue) -> {
                 btnEdit.setVisible(newValue);
             });
+        }
+    }
+
+    private String createStringWithNormsTime(OpData opData){
+
+        double k = 1.0;
+        if(CURRENT_MEASURE.equals(SEC)) k = MIN_TO_SEC;
+        else if(CURRENT_MEASURE.equals(HOUR)) k = MIN_TO_HOUR;
+
+        Norm mechTime = new Norm("МК", opData.getMechTime() * k);
+        Norm paintTime = new Norm("ППК", opData.getPaintTime() * k);
+        Norm assmTime = new Norm("СБ", opData.getAssmTime() * k);
+        Norm packTime = new Norm("УП", opData.getPackTime() * k);
+
+        Norm [] norms = new Norm[]{mechTime, paintTime, assmTime, packTime};
+
+        StringBuilder str = new StringBuilder();
+        for (Norm n : norms)
+            if (n.value != 0.0) {
+                str.append(n.measureName);
+                str.append(" = ");
+                str.append(DECIMAL_FORMAT.format(n.value));
+                str.append("; ");
+            }
+
+        str.append(String.format("(%s)", CURRENT_MEASURE.getMeasure()));
+        return str.toString();
+    }
+
+    private static class Norm{
+        final String measureName;
+        final double value;
+
+        public Norm(String measureName, double value) {
+            this.measureName = measureName;
+            this.value = value;
         }
     }
 }

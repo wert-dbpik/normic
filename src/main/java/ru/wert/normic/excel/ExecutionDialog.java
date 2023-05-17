@@ -1,5 +1,6 @@
 package ru.wert.normic.excel;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ public class ExecutionDialog {
 
 
     public static Integer create(ObservableList<EditorRow.Execution> executions){
+
         execution = null;
         try {
             FXMLLoader loader = new FXMLLoader(ExecutionDialog.class.getResource("/fxml/extra/executions.fxml"));
@@ -48,13 +50,16 @@ public class ExecutionDialog {
                 ((Node)event.getSource()).getScene().getWindow().hide();
             }));
 
-            new Decoration("Исполнение",
-                    parent,
-                    false,
-                    MAIN_STAGE,
-                    "decoration-settings",
-                    false,
-                    true);
+//            Platform.runLater(()->{
+                new Decoration("Исполнение",
+                        parent,
+                        false,
+                        MAIN_STAGE,
+                        "decoration-settings",
+                        false,
+                        true);
+//            });
+
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package ru.wert.normic.excel;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.MATERIALS;
@@ -36,7 +38,7 @@ public class ExcelImporter {
     private Integer execution = 0;
     int level = 0;
 
-    public OpAssm convertOpAssmFromExcel(File file) throws IOException {
+    public OpAssm convertOpAssmFromExcel(File file) throws IOException, InterruptedException {
         poi = new POIReader(file);
         startOpData = currentOpData;
         assembles.add(new LevelAssemble(0, startOpData));
@@ -46,7 +48,12 @@ public class ExcelImporter {
 
         ObservableList<EditorRow.Execution>  executions = FXCollections.observableArrayList(data.get(0).getExecutions());
         if(executions.size() > 1){
-            execution = ExecutionDialog.create(executions);
+            final CountDownLatch latch = new CountDownLatch(1);
+            Platform.runLater(()-> {
+                execution = ExecutionDialog.create(executions);
+                    latch.countDown();
+            });
+            latch.await();
         }
         if(execution == null) return null;
         return convert();

@@ -15,17 +15,20 @@ public class StructureTreeView {
     private StructureController controller;
     private TreeView<OpData> treeView;
     private TreeItem<OpData> root;
+    private boolean treeExpanded;
 
-    public StructureTreeView(StructureController controller, TreeView<OpData> treeView, TreeItem<OpData> root) {
+    public StructureTreeView(StructureController controller, TreeView<OpData> treeView, TreeItem<OpData> root, boolean treeExpanded) {
         this.controller = controller;
         this.treeView = treeView;
         this.root = root;
+        this.treeExpanded = treeExpanded;
 
         treeView.setRoot(root);
         root.setExpanded(true);
 
         treeView.setCellFactory(param -> new TreeViewCell(controller));
         buildTree(root);
+        if(treeExpanded) expandTree();
     }
 
     /**

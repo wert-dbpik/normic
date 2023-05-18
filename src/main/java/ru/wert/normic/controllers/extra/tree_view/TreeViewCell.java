@@ -33,6 +33,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 
     private Button btnEdit;
     private String initTitleStyle;
+    private String initLblNormsTimeStyle;
     private final StructureController controller;
 
     public TreeViewCell(StructureController controller) {
@@ -104,7 +105,8 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             //Строка с рассчитанными нормами времени
             Label lblNorms = new Label(createStringWithNormsTime(opData));
-            lblNorms.setStyle("-fx-text-fill: green; -fx-font-weight: bold; -fx-label-padding: 0 0 0 25");
+            lblNorms.setId("normsTime");
+            initLblNormsTimeStyle = lblNorms.getStyle();
 
             VBox vbItemBlock = new VBox();
             vbItemBlock.getChildren().add(hbTitle);
@@ -154,11 +156,15 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             selectedProperty().addListener((observable, oldValue, newValue) -> {
                 if(newValue){
+                    lblNorms.setStyle("-fx-background-color: #f1e2af");
                     hbTitle.setStyle("-fx-background-color: #f1e2af");
                     vbItemBlock.setStyle("-fx-background-color: #f1e2af");
+
                 } else {
+                    lblNorms.setStyle(initLblNormsTimeStyle);
                     hbTitle.setStyle(initTitleStyle);
                     vbItemBlock.setStyle(initTitleStyle);
+
 
                     setStyle(initTitleStyle);
                 }

@@ -40,15 +40,19 @@ public class StructureController {
     @FXML
     private Button btnOperations;
 
+    @FXML
+    private Button btnNorms;
+
     private StructureTreeView structureTreeView;
     private TreeItem<OpData> root;
     private OpAssm opRoot;
     private BtnDouble folding;
     private BtnDouble operations;
+    private BtnDouble norms;
 
+    @Getter@Setter private boolean treeExpanded = true;
     @Getter@Setter private boolean showOperations = true;
     @Getter@Setter private boolean showNormsTime = true;
-
 
 
     public void create(OpAssm opRoot){
@@ -56,17 +60,18 @@ public class StructureController {
 
         root = new TreeItem<>(opRoot);
 
-        structureTreeView = new StructureTreeView(this, treeView, root);
+        structureTreeView = new StructureTreeView(this, treeView, root, treeExpanded);
 
         Image imgUnfold =  new Image("/pics/btns/unfold.png", 16, 16, true, true);
         Image imgFold =  new Image("/pics/btns/fold.png", 16, 16, true, true);
 
         folding = new BtnDouble(btnFolding,
-                imgUnfold, "Развернуть",
-                imgFold, "Свернуть");
+                imgFold, "Свернуть",
+                imgUnfold, "Развернуть");
 
         folding.getStateProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue) structureTreeView.expandTree();
+            treeExpanded = !newValue;
+            if(treeExpanded) structureTreeView.expandTree();
             else structureTreeView.foldTree();
         });
 
@@ -79,6 +84,18 @@ public class StructureController {
 
         operations.getStateProperty().addListener((observable, oldValue, newValue) -> {
             showOperations = !newValue;
+            treeView.refresh();
+        });
+
+        Image imgClockOFF =  new Image("/pics/btns/clock_off.png", 24, 24, true, true);
+        Image imgClockONN =  new Image("/pics/btns/clock_on.png", 24, 24, true, true);
+
+        norms = new BtnDouble(btnNorms,
+                imgClockOFF, "Скрыть нормы времени",
+                imgClockONN, "Показать нормы времени");
+
+        norms.getStateProperty().addListener((observable, oldValue, newValue) -> {
+            showNormsTime = !newValue;
             treeView.refresh();
         });
 

@@ -9,6 +9,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.BtnDouble;
@@ -23,6 +25,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.print.AppPrinter;
 
 import java.io.IOException;
 
@@ -35,6 +38,11 @@ public class StructureController {
     private TreeView<OpData> treeView;
 
     @FXML
+    private StackPane spTreeView;
+    @FXML
+    private VBox vbTools;
+
+    @FXML
     private Button btnFolding;
 
     @FXML
@@ -42,6 +50,9 @@ public class StructureController {
 
     @FXML
     private Button btnNorms;
+
+    @FXML
+    private Button btnPrint;
 
     private StructureTreeView structureTreeView;
     private TreeItem<OpData> root;
@@ -54,6 +65,7 @@ public class StructureController {
     @Getter@Setter private boolean showOperations = true;
     @Getter@Setter private boolean showNormsTime = true;
 
+    public static TreeView<OpData> tv;
 
     public void create(OpAssm opRoot){
         this.opRoot = opRoot;
@@ -97,6 +109,15 @@ public class StructureController {
         norms.getStateProperty().addListener((observable, oldValue, newValue) -> {
             showNormsTime = !newValue;
             treeView.refresh();
+        });
+
+        Image imgPrint =  new Image("/pics/btns/print.png", 24, 24, true, true);
+        btnPrint.setGraphic(new ImageView(imgPrint));
+        btnPrint.setOnAction(e->{
+            tv = treeView;
+            new AppPrinter().print();
+            spTreeView.getChildren().clear();
+            spTreeView.getChildren().addAll(tv, vbTools);
         });
 
     }

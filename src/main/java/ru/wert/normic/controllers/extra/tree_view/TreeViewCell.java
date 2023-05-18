@@ -95,7 +95,7 @@ public class TreeViewCell extends TreeCell<OpData> {
                 }
             });
 
-            //Все вместе
+            //СТрока с заголовком
             hbTitle.getChildren().add(logo);
             hbTitle.getChildren().add(txtName);
             if(quantity > 1)
@@ -108,8 +108,14 @@ public class TreeViewCell extends TreeCell<OpData> {
             lblNorms.setId("normsTime");
             initLblNormsTimeStyle = lblNorms.getStyle();
 
+            //Блок объединяет
+            // 1) Наименование узла HBox hbTitle
+            // 2) Нормы времени Label lblNorms
+            // 3) Операции с описанием (hbOperation/vbOperation = textOpName + textOpDescription)
             VBox vbItemBlock = new VBox();
+            vbItemBlock.setId("vbItemBlock");
             vbItemBlock.getChildren().add(hbTitle);
+
             if(controller.isShowNormsTime())
                 vbItemBlock.getChildren().add(lblNorms);
 
@@ -118,17 +124,9 @@ public class TreeViewCell extends TreeCell<OpData> {
                     Text textDetail = new Text("\t" + opData.toString());
                     textDetail.setId("description");
                     vbItemBlock.getChildren().add(textDetail);
+
                     for (OpData op : operations) {
-                        Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
-                        textOpName.setId("operationName");
-                        Text textOpDescription = new Text(op.toString());
-                        textOpDescription.setId("operationDescription");
-
-
-                        HBox hbOperation = new HBox();
-                        hbOperation.setStyle("-fx-background-color: transparent");
-                        hbOperation.getChildren().addAll(textOpName, textOpDescription);
-                        vbItemBlock.getChildren().add(hbOperation);
+                        formOperationBlock(vbItemBlock, op);
                     }
                 } else {
                     if (opData instanceof OpPack) {
@@ -139,15 +137,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 
                     for (OpData op : operations) {
                         if (op instanceof IOpWithOperations) continue;
-                        Text textOpName = new Text("\t \u25CF " + op.getOpType().getOpName() + ": ");
-                        textOpName.setId("operationName");
-                        Text textOpDescription = new Text(op.toString());
-                        textOpDescription.setId("operationDescription");
-
-                        HBox hbOperation = new HBox();
-                        hbOperation.setStyle("-fx-background-color: transparent");
-                        hbOperation.getChildren().addAll(textOpName, textOpDescription);
-                        vbItemBlock.getChildren().add(hbOperation);
+                        formOperationBlock(vbItemBlock, op);
                     }
                 }
 
@@ -173,6 +163,27 @@ public class TreeViewCell extends TreeCell<OpData> {
             selectedProperty().addListener((observable, oldValue, newValue) -> {
                 btnEdit.setVisible(newValue);
             });
+        }
+    }
+
+    private void formOperationBlock(VBox vbItemBlock, OpData op) {
+        //НИМЕНОВАНИЕ ОПЕРАЦИИ
+        String opName = op.getOpType().getOpName();
+        Text textOpName = new Text("\t \u25CF " + opName + ": ");
+        textOpName.setId("operationName");
+        Text textOpDescription = new Text(op.toString());
+        textOpDescription.setId("operationDescription");
+
+        if (opName.length() < 20) {
+            HBox hbOperation = new HBox();
+            hbOperation.setStyle("-fx-background-color: transparent");
+            hbOperation.getChildren().addAll(textOpName, textOpDescription);
+            vbItemBlock.getChildren().add(hbOperation);
+        } else {
+            VBox vbOperation = new VBox(); //Вертикальная компоновка
+            vbOperation.setStyle("-fx-background-color: transparent");
+            vbOperation.getChildren().addAll(textOpName, textOpDescription);
+            vbItemBlock.getChildren().add(vbOperation);
         }
     }
 

@@ -40,7 +40,15 @@
     -fx-text-fill: saddlebrown;
 }
 
-.tree-cell:selected #operationDescription{
+.tree-cell:selected #operationDescription,
+.tree-cell:selected #operationDescriptionShifted,
+.tree-cell:selected #vbItemBlock,
+.tree-cell:selected #operationName,
+.tree-cell:selected #description,
+.tree-cell:selected #normsTime,
+.tree-cell:selected #title,
+.tree-cell:selected
+{
     -fx-background-color: -app-selected_background;
 }
 
@@ -49,9 +57,9 @@
     -fx-label-padding: 0 0 0 25;
 }
 
-.tree-cell:selected #operationDescriptionShifted{
-    -fx-background-color: -app-selected_background;
-}
+/*.tree-cell:selected #operationDescriptionShifted{*/
+/*    -fx-background-color: -app-selected_background;*/
+/*}*/
 
 #normsTime{
     -fx-text-fill: darkgreen;

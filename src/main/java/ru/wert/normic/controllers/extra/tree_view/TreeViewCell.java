@@ -144,21 +144,21 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             setGraphic(vbItemBlock);
 
-            selectedProperty().addListener((observable, oldValue, newValue) -> {
-                if(newValue){
-                    lblNorms.setStyle("-fx-background-color: #f1e2af");
-                    hbTitle.setStyle("-fx-background-color: #f1e2af");
-                    vbItemBlock.setStyle("-fx-background-color: #f1e2af");
-
-                } else {
-                    lblNorms.setStyle(initLblNormsTimeStyle);
-                    hbTitle.setStyle(initTitleStyle);
-                    vbItemBlock.setStyle(initTitleStyle);
-
-
-                    setStyle(initTitleStyle);
-                }
-            });
+//            selectedProperty().addListener((observable, oldValue, newValue) -> {
+//                if(newValue){
+//                    lblNorms.setStyle("-fx-background-color: #f1e2af");
+//                    hbTitle.setStyle("-fx-background-color: #f1e2af");
+//                    vbItemBlock.setStyle("-fx-background-color: #f1e2af");
+//
+//                } else {
+//                    lblNorms.setStyle(initLblNormsTimeStyle);
+//                    hbTitle.setStyle(initTitleStyle);
+//                    vbItemBlock.setStyle(initTitleStyle);
+//
+//
+//                    setStyle(initTitleStyle);
+//                }
+//            });
 
             selectedProperty().addListener((observable, oldValue, newValue) -> {
                 btnEdit.setVisible(newValue);

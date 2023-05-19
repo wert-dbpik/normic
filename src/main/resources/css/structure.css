@@ -37,7 +37,20 @@
 }
 
 #operationDescription{
-    -fx-fill: saddlebrown;
+    -fx-text-fill: saddlebrown;
+}
+
+.tree-cell:selected #operationDescription{
+    -fx-background-color: -app-selected_background;
+}
+
+#operationDescriptionShifted{
+    -fx-text-fill: saddlebrown;
+    -fx-label-padding: 0 0 0 25;
+}
+
+.tree-cell:selected #operationDescriptionShifted{
+    -fx-background-color: -app-selected_background;
 }
 
 #normsTime{

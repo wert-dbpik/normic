@@ -171,17 +171,17 @@ public class TreeViewCell extends TreeCell<OpData> {
         String opName = op.getOpType().getOpName();
         Text textOpName = new Text("\t \u25CF " + opName + ": ");
         textOpName.setId("operationName");
-        Text textOpDescription = new Text(op.toString());
-        textOpDescription.setId("operationDescription");
-
+        Label textOpDescription = new Label(op.toString());
         if (opName.length() < 20) {
             HBox hbOperation = new HBox();
             hbOperation.setStyle("-fx-background-color: transparent");
+            textOpDescription.setId("operationDescription");
             hbOperation.getChildren().addAll(textOpName, textOpDescription);
             vbItemBlock.getChildren().add(hbOperation);
         } else {
             VBox vbOperation = new VBox(); //Вертикальная компоновка
             vbOperation.setStyle("-fx-background-color: transparent");
+            textOpDescription.setId("operationDescriptionShifted");
             vbOperation.getChildren().addAll(textOpName, textOpDescription);
             vbItemBlock.getChildren().add(vbOperation);
         }

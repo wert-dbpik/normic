@@ -95,13 +95,20 @@ public class PlatePaintAssmController extends AbstractOpPlate {
             countNorm(opData);
         });
 
+        chbxCalculatedArea.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue) {
+                countCalculatedArea();
+                tfCalculatedArea.setText(String.format(DOUBLE_FORMAT, area * kArea));
+            }
+            countNorm(opData);
+        });
+
         new BXColor().create(cmbxColor, ((OpPaintAssm)opData).getColor(), this);
         new BXAssemblingType().create(cmbxAssemblingType, ((OpPaintAssm)opData).getAssmType(), this);
         new TFNormTime(tfNormTime, formController);
         new TFDoubleColored(tfManualArea, this);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);
-        new ChBox(chbxCalculatedArea, this);
         new CmBx(cmbxAssemblingType, this);
 
     }
@@ -167,8 +174,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
         pantingSpeed = cmbxAssemblingType.getValue().getSpeed();
-
-
     }
 
     private void collectOpData(OpPaintAssm opData){

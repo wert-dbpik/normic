@@ -17,7 +17,9 @@ import ru.wert.normic.interfaces.IOpPlate;
 
 import java.text.DecimalFormat;
 
+import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.AppStatics.MEASURE;
+import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 
 /**
@@ -152,11 +154,16 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public void setTimeMeasurement(){
         double time = currentNormTime;
         String format = DOUBLE_FORMAT;
-        String measure = "мин";
-        if (MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())) {
+        String measure = MIN.getMeasure();
+        if (CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) {
             time = currentNormTime * MIN_TO_SEC;
             format = INTEGER_FORMAT;
-            measure = "сек";
+            measure = SEC.getMeasure();
+        }
+        if (CURRENT_MEASURE.equals(HOUR)) {
+            time = currentNormTime * MIN_TO_HOUR;
+            format = DOUBLE_FORMAT;
+            measure = HOUR.getMeasure();
         }
 
         if(tfNormTime != null){

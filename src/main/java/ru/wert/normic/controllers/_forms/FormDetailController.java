@@ -34,10 +34,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.enums.ETimeMeasurement.MIN;
-import static ru.wert.normic.enums.ETimeMeasurement.SEC;
+import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**
  * ДЕТАЛЬ - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ ДЕТАЛИ
@@ -310,11 +310,17 @@ public class FormDetailController extends AbstractFormController {
 
         controller.countSumNormTimeByShops();
 
-        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())){
+        if(CURRENT_MEASURE.equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
 
             measure = SEC.getMeasure();
+        }
+        if(CURRENT_MEASURE.equals(HOUR)){
+            mechanicalTime = mechanicalTime * MIN_TO_HOUR;
+            paintingTime = paintingTime * MIN_TO_HOUR;
+
+            measure = HOUR.getMeasure();
         }
 
         String format = DOUBLE_FORMAT;

@@ -15,9 +15,9 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 
 
+import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.enums.ETimeMeasurement.MIN;
-import static ru.wert.normic.enums.ETimeMeasurement.SEC;
+import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**
  * СБОРКА - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ СБОРКИ
@@ -168,7 +168,7 @@ public class FormAssmController extends AbstractFormController {
 
         controller.countSumNormTimeByShops();
 
-        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())){
+        if(CURRENT_MEASURE.equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
@@ -176,6 +176,15 @@ public class FormAssmController extends AbstractFormController {
 
             measure = SEC.getMeasure();
         }
+        if(CURRENT_MEASURE.equals(HOUR)){
+            mechanicalTime = mechanicalTime * MIN_TO_HOUR;
+            paintingTime = paintingTime * MIN_TO_HOUR;
+            assemblingTime = assemblingTime * MIN_TO_HOUR;
+            packingTime = packingTime * MIN_TO_HOUR;
+
+            measure = HOUR.getMeasure();
+        }
+
 
         String format = DOUBLE_FORMAT;
         if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;

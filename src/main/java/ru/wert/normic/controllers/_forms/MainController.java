@@ -25,6 +25,8 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.controllers.extra.ReportController;
+import ru.wert.normic.controllers.singlePlates.PlateAssmController;
+import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
@@ -225,8 +227,20 @@ public class MainController extends AbstractFormController {
     private void initViews() {
 
         MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+
+            ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
+
             CURRENT_MEASURE = ETimeMeasurement.findValueOf(AppStatics.MEASURE.getSelectedToggle().getUserData().toString());
             lblTimeMeasure.setText(ETimeMeasurement.findValueOf(newValue.getUserData().toString()).getMeasure());
+            //Очистить все
+            addedPlates.clear();
+            addedOperations.clear();
+            getListViewTechOperations().getItems().clear();
+            countSumNormTimeByShops();
+            PlateDetailController.nameIndex = 0;
+            PlateAssmController.nameIndex = 0;
+
+            fillOpData();
             countSumNormTimeByShops();
         });
 
@@ -528,7 +542,7 @@ public class MainController extends AbstractFormController {
         opData.setPackTime(packingTime);
 
         //Перевод в секунды
-        if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())){
+        if(CURRENT_MEASURE.equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
@@ -538,7 +552,7 @@ public class MainController extends AbstractFormController {
         }
 
         //Перевод в часы
-        if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.HOUR.name())){
+        if(CURRENT_MEASURE.equals(HOUR)){
             mechanicalTime = mechanicalTime * MIN_TO_HOUR;
             paintingTime = paintingTime * MIN_TO_HOUR;
             assemblingTime = assemblingTime * MIN_TO_HOUR;

@@ -8,7 +8,7 @@ public enum ETimeMeasurement {
 
     SEC("сек"),
     MIN("мин"),
-    HOUR("час");
+    HOUR("н.ч");
 
     @Getter String measure;
 

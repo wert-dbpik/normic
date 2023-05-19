@@ -2,7 +2,6 @@ package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -10,7 +9,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -115,42 +113,17 @@ public class StructureController {
 
         Image imgPrint =  new Image("/pics/btns/print.png", 24, 24, true, true);
         btnPrint.setGraphic(new ImageView(imgPrint));
-        btnPrint.setOnAction(e->{
-
-            print();
-
-        });
-
 //        btnPrint.setOnAction(e->{
-//            tv = treeView;
-//            new AppPrinter().print();
-//            spTreeView.getChildren().clear();
-//            spTreeView.getChildren().addAll(tv, vbTools);
+//            new AppPrinter().print(treeView);
 //        });
 
-    }
+        btnPrint.setOnAction(e->{
+            tv = treeView;
+            new AppPrinter().print();
+            spTreeView.getChildren().clear();
+            spTreeView.getChildren().addAll(tv, vbTools);
+        });
 
-    private void print(){
-        TreeView<OpData> printedTreeView = new TreeView<>();
-        build
-
-        String initTreeViewStyle = StructureController.tv.getStyle();
-        StructureController.tv.setStyle("-fx-font-size: 10;");
-        PrinterJob job = PrinterJob.createPrinterJob();
-        if (job == null) return;
-        boolean proceed = job.showPrintDialog(StructureController.tv.getScene().getWindow());
-        double pageWidth = job.getJobSettings().getPageLayout().getPaper().getWidth(); //595 pt
-        double pageHeight = job.getJobSettings().getPageLayout().getPaper().getHeight(); //842 pt
-        AnchorPane pane = new AnchorPane();
-        pane.setPrefWidth(pageWidth);
-        pane.setPrefHeight(pageHeight);
-        pane.setStyle("-fx-background-color: #FFFFFC; -fx-text-fill: black");
-        if(proceed) {
-            pane.getChildren().add(StructureController.tv);
-            job.printPage(pane);
-            job.endJob();
-            StructureController.tv.setStyle(initTreeViewStyle);
-        }
     }
 
     /**

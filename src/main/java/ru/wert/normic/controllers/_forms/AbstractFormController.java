@@ -577,7 +577,8 @@ public abstract class AbstractFormController implements IForm {
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
-        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File initDir = new File(AppProperties.getInstance().getSavesDir());
+        chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:/"));
         File file = chooser.showOpenDialog(owner);;
         if(file == null) return;
         try {

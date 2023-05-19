@@ -20,6 +20,11 @@ import java.util.Objects;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Root;
 
 public class AppPrinter {
+//
+//    public void print(Node node){
+//
+//    }
+
 
     public void print(){
 
@@ -37,9 +42,13 @@ public class AppPrinter {
         pane.setStyle("-fx-background-color: #FFFFFC; -fx-text-fill: black");
         if(proceed) {
             pane.getChildren().add(StructureController.tv);
-            job.printPage(pane);
-            job.endJob();
-            StructureController.tv.setStyle(initTreeViewStyle);
+            job.getJobSettings().setPageRanges(new PageRange(1, 2));
+
+            boolean success = job.printPage(pane);
+            if(success) {
+                job.endJob();
+                StructureController.tv.setStyle(initTreeViewStyle);
+            }
         }
     }
 
@@ -73,8 +82,9 @@ public class AppPrinter {
             stage.setScene(scene);
             stage.showAndWait();
 
-            job.printPage(pane);
-            job.endJob();
+            boolean success = job.printPage(pane);
+            if(success)
+                job.endJob();
         }
     }
 

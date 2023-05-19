@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="materials" styleClass="materials-vb" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialsTVController">
+<VBox stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.materials.MaterialsTVController">
    <children>
-      <HBox alignment="CENTER_LEFT" stylesheets="@../../css/calculator-sandy.css">
+      <HBox fx:id="materials" alignment="CENTER_LEFT">
          <children>
             <ComboBox fx:id="bxGroups" prefWidth="200.0">
                <HBox.margin>

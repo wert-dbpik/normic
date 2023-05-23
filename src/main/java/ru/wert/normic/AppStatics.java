@@ -15,6 +15,8 @@ import static ru.wert.normic.enums.EOpType.PAINTING;
 
 public class AppStatics {
 
+    public static boolean TEST_VERSION = true; //тестовая версия - работает с тестовым сервером
+
     public static MainController MAIN_CONTROLLER;
 
     //Текущая версия программы

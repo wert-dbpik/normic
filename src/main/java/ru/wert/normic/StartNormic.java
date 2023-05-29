@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.entities.settings.NormConstants;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -28,6 +29,7 @@ public class StartNormic extends Application {
         try {
             initServices();
             initQuickServices();
+            new NormConstants();
             log.debug("init : DATA from server got well!");
         } catch (Exception e) {
             log.error("init : couldn't get DATA from server");

@@ -2,11 +2,8 @@ package ru.wert.normic.controllers.locksmith;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
@@ -15,7 +12,7 @@ import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.NormConstants.*;
 
 /**
  * СЛЕСАРНЫЕ ОПЕРАЦИИ

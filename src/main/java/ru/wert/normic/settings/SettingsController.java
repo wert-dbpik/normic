@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
-import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.NormConstants.*;
 
 public class SettingsController {
 

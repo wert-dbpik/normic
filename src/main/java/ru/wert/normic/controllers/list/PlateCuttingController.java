@@ -2,11 +2,8 @@ package ru.wert.normic.controllers.list;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
@@ -14,11 +11,9 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.NormConstants.*;
 
 /**
  * ПОЛУЧЕНИЕ ДЕТАЛИ НА ЛАЗЕРНОМ СТАНКЕ С КРП

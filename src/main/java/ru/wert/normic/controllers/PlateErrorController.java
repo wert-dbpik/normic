@@ -4,14 +4,9 @@ package ru.wert.normic.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.utils.IntegerParser;
-
-import static ru.wert.normic.entities.settings.AppSettings.*;
 
 /**
  * СЛЕСАРНЫЕ ОПЕРАЦИИ

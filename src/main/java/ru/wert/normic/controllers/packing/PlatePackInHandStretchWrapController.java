@@ -2,7 +2,6 @@ package ru.wert.normic.controllers.packing;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -13,11 +12,9 @@ import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
-import ru.wert.normic.enums.EOpType;
 
-import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.NormConstants.*;
 
 /**
  * УПАКОВКА РУЧНОЙ СТРЕЙЧ-ПЛЕНКОЙ

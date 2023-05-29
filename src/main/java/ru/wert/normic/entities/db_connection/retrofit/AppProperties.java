@@ -1,6 +1,7 @@
 package ru.wert.normic.entities.db_connection.retrofit;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.wert.normic.AppStatics;
 import ru.wert.normic.decoration.warnings.Warning1;
 
 import java.io.*;
@@ -22,8 +23,7 @@ public class AppProperties {
     private int attempt = 0;
     private Properties connectionProps;
     private String homeDir = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
-    private String appConfigPath = homeDir + File.separator + "settings.properties";
-
+    private final String appConfigPath;
 
     /**
      * Конструктор
@@ -32,6 +32,11 @@ public class AppProperties {
      */
     private AppProperties() {
         log.debug("AppProperties : propsFile создается  ...");
+        appConfigPath =
+                AppStatics.TEST_VERSION ?
+                        homeDir + File.separator + "settingsTest.properties" :
+                        homeDir + File.separator + "settings.properties";
+
         File propsFile = new File(appConfigPath);
         if (!propsFile.exists())
             createFileOfConnectionSettings(appConfigPath);
@@ -47,6 +52,8 @@ public class AppProperties {
             }
         }
         log.debug("AppProperties : propsFile успешно создан");
+
+
     }
 
     /**

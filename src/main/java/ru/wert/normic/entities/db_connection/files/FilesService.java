@@ -35,26 +35,27 @@ public class FilesService implements IFilesService {
         return instance;
     }
 
-
+    /**
+     * @param path     - Папка хранения (ex: normic)
+     * @param fileName Имя файла (ex: constants)
+     * @param ext      расширение (ex: properties)
+     * @param destDir  папка для временного хранения (ex: tempDir)
+     * @param destFileName   начало наименования файла (ex: normic)
+     * @return
+     */
     @Override
-    public boolean download(String path, String fileName, String ext, String tempDir, String prefix) {
+    public boolean download(String path, String fileName, String ext, String destDir, String destFileName) {
         //ext уже с точкой
-        String file = fileName + ext;
-        String destFileName = file;
-        if(prefix != null) destFileName = prefix + "-" + file;
         try {
-            Call<ResponseBody> call = api.download(path, file);
+            Call<ResponseBody> call = api.download(path, fileName + ext);
             Response<ResponseBody> r = call.execute();
             if (r.isSuccessful()) {
-
-//                if (ext.toLowerCase().equals(".pdf")) {
-                    InputStream inputStream = r.body().byteStream();
-                    try (OutputStream outputStream = new FileOutputStream(tempDir + "/" + destFileName)) {
-                        IOUtils.copy(inputStream, outputStream);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-//                }
+                InputStream inputStream = r.body().byteStream();
+                try (OutputStream outputStream = new FileOutputStream(destDir + "/" + destFileName + ext)) {
+                    IOUtils.copy(inputStream, outputStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
         } catch (IOException ex) {

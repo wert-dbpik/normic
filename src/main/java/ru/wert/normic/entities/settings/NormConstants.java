@@ -1,7 +1,10 @@
 package ru.wert.normic.entities.settings;
 
+import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.entities.db_connection.files.FilesService;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,22 +12,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import static ru.wert.normic.AppStatics.TEST_VERSION;
+import static java.lang.String.format;
 
 @Slf4j
-public class AppSettings {
+public class NormConstants {
 
-    private int attempt = 0;
     private Properties constantsProps;
     private String homeDir = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
-    private String appConstantsPath;
+    private final String appConstantsPath = homeDir + File.separator + "constants.properties";
 
-    {
-        if (TEST_VERSION)
-            appConstantsPath = homeDir + File.separator + "constantsTest.properties";
-        else
-            appConstantsPath = homeDir + File.separator + "constants.properties";
-    }
 
     public static List<String> constantNames = Arrays.asList(
             "CUTTING_SPEED","REVOLVER_SPEED","PERFORATION_SPEED","CUTTING_SERVICE_RATIO","STRIPING_SPEED",//--- РЕЗКА И ЗАЧИСТКА
@@ -116,24 +112,64 @@ public class AppSettings {
     public static double BUBBLE_HAND_WINDING; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
     public static double STRETCH_HAND_WINDING; //Скорость оборачивания стретч пленки, мин/м
 
-    public AppSettings() {
+    public NormConstants() {
 
-        log.debug("AppProperties : propsFile создается  ...");
-        File propsFile = new File(appConstantsPath);
-        if (!propsFile.exists())
-            createFileOfConnectionSettings(appConstantsPath);
-        else {
-            try {
-                constantsProps = new Properties();
-                constantsProps.load(new FileInputStream(appConstantsPath));
-            } catch (IOException e) {
-                Warning1.create("Ошибка!",
-                        "Не удалось загрузить настройки доступа к серверу",
-                        "Возможно, файл настроек поврежден");
-                e.printStackTrace();
-            }
+
+        File constantsFile = new File(appConstantsPath);
+
+        if (!constantsFile.exists()){
+            Thread t = new Thread(new Task<Void>(){
+
+                @Override
+                protected Void call() throws Exception {
+                    File file = new File(homeDir);
+                    if(!file.exists() && file.mkdir()){
+                        failed();
+                    }
+
+                    FilesService.getInstance().download("normic", "def-constants", ".properties", homeDir, "constants");
+                    return null;
+                }
+
+                @Override
+                protected void succeeded() {
+                    super.succeeded();
+                    createConstantsProps();
+                }
+
+                @Override
+                protected void failed() {
+                    super.failed();
+                    log.error("Ошибка при скачивании файла с константами с сервера");
+                    Warning1.create("Ошибка!",
+                            format("Не удалось создать файл  с константами %s", constantsFile),
+                            "Возможно, ошибка на сервере");
+                }
+            });
+
+            t.setDaemon(true);
+            t.start();
+        } else {
+            createConstantsProps();
         }
-        log.debug("AppProperties : propsFile успешно создан");
+
+    }
+
+    private void createConstantsProps() {
+        log.debug("NormConstants : NormConstants создается  ...");
+        try {
+            constantsProps = new Properties();
+            constantsProps.load(new FileInputStream(appConstantsPath));
+        } catch (IOException e) {
+            Warning1.create("Ошибка!",
+                    "Не удалось загрузить настройки доступа к серверу",
+                    "Возможно, файл настроек поврежден");
+            e.printStackTrace();
+        }
+
+        log.debug("NormConstants : NormConstants успешно создан");
+
+        loadConstantsFromPropertiesFile();
     }
 
     public void loadConstantsFromPropertiesFile(){
@@ -216,5 +252,15 @@ public class AppSettings {
         
     }
 
+    private boolean downloadConstantsFromDB(){
+        File file = new File(homeDir);
+        if(!file.exists() && file.mkdir()){
+            return false;
+        }
+        while(true){
+            boolean res = FilesService.getInstance().download("normic", "def-constants", ".properties", homeDir, "constants");
+            if(res) return true;
+        }
+    }
 
 }

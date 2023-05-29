@@ -9,9 +9,8 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
-import ru.wert.normic.enums.EOpType;
 
-import static ru.wert.normic.entities.settings.AppSettings.*;
+import static ru.wert.normic.entities.settings.NormConstants.*;
 
 /**
  * УПАКОВКА ВЫСОКОГО ШКАФА

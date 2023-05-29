@@ -2,24 +2,17 @@ package ru.wert.normic.controllers.locksmith;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
 import ru.wert.normic.enums.EMeasure;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
-
-import static ru.wert.normic.entities.settings.AppSettings.BIG_SAWING_SPEED;
-import static ru.wert.normic.entities.settings.AppSettings.SMALL_SAWING_SPEED;
 
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ

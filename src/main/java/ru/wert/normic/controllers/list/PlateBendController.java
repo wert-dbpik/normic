@@ -3,11 +3,9 @@ package ru.wert.normic.controllers.list;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.TFIntegerColored;
@@ -16,12 +14,10 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
-import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.AppSettings.BENDING_SERVICE_RATIO;
-import static ru.wert.normic.entities.settings.AppSettings.BENDING_SPEED;
+import static ru.wert.normic.entities.settings.NormConstants.BENDING_SERVICE_RATIO;
+import static ru.wert.normic.entities.settings.NormConstants.BENDING_SPEED;
 
 /**
  * ГИБКА ЛИСТА НА ЛИСТОГИБЕ

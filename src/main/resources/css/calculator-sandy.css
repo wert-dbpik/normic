@@ -22,7 +22,7 @@
     -fx-text-fill: -fx-color-text;
 }
 
-#main, #report, #settings, #materials, #executions{
+#main, #report, #settings, #materials, #executions, .materials-vb{
     -fx-background-color: -fx-color-dark-backround;
 }
 
@@ -128,12 +128,6 @@
     -fx-pref-width: 80;
     -fx-alignment: baseline-center;
     -fx-background-color: -fx-color-light-backround;
-}
-
-/*МАТЕРИАЛЫ*/
-
-.materials-vb{
-    -fx-background-color: #f6caa8;
 }
 
 /*ПОМОЩЬ*/

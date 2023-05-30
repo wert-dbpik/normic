@@ -31,7 +31,7 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.settings.AppColor;
+import ru.wert.normic.entities.colors.AppColor;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.excel.ImportExcelFileService;
@@ -39,7 +39,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.IconMenuController;
 import ru.wert.normic.menus.MainMenuController;
 import ru.wert.normic.menus.MenuForm;
-import ru.wert.normic.settings.ProductSettings;
+import ru.wert.normic.settings.ColorsSettings;
 import ru.wert.normic.utils.AppFiles;
 
 import java.io.File;
@@ -308,7 +308,7 @@ public class MainController extends AbstractFormController {
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
         Gson gson = new Gson();
-        ProductSettings settings = new ProductSettings();
+        ColorsSettings settings = new ColorsSettings();
         settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
         settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));
         settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));

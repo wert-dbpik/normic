@@ -16,8 +16,8 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.BENDING_SERVICE_RATIO;
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.BENDING_SPEED;
+import static ru.wert.normic.settings.NormConstants.BENDING_SERVICE_RATIO;
+import static ru.wert.normic.settings.NormConstants.BENDING_SPEED;
 
 /**
  * ГИБКА ЛИСТА НА ЛИСТОГИБЕ

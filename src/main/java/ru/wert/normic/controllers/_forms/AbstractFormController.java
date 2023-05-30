@@ -42,7 +42,7 @@ import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.menus.MenuPlate;
-import ru.wert.normic.settings.ProductSettings;
+import ru.wert.normic.settings.ColorsSettings;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 import java.io.BufferedReader;
@@ -596,8 +596,8 @@ public abstract class AbstractFormController implements IForm {
             //Настройки
             String settings = store.get(1);
             Gson gson = new Gson();
-            Type settingsType = new TypeToken<ProductSettings>(){}.getType();
-            ProductSettings productSettings = gson.fromJson(settings, settingsType);
+            Type settingsType = new TypeToken<ColorsSettings>(){}.getType();
+            ColorsSettings colorsSettings = gson.fromJson(settings, settingsType);
 
             //Структура
             String jsonString = store.get(2);
@@ -624,7 +624,7 @@ public abstract class AbstractFormController implements IForm {
                     if (opType.equals("ASSM")) {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
                         blockUndoListFlag = true;
-                        deployFile(productSettings, newOpData);
+                        deployFile(colorsSettings, newOpData);
                         iterateUndoList();
                     } else {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
@@ -652,9 +652,9 @@ public abstract class AbstractFormController implements IForm {
     }
 
     //Сборка разворачивается в главном окне вместе с настройками изделя
-    private void deployFile(ProductSettings productSettings, OpData newOpData) {
+    private void deployFile(ColorsSettings colorsSettings, OpData newOpData) {
         opData = newOpData;
-        deployProductSettings(productSettings);
+        deployProductSettings(colorsSettings);
         createMenu();
         menu.deployData();
     }
@@ -677,7 +677,7 @@ public abstract class AbstractFormController implements IForm {
     /**
      * Применение НАСТРОЕК
      */
-    private void deployProductSettings(ProductSettings settings) {
+    private void deployProductSettings(ColorsSettings settings) {
         COLOR_I.setRal(settings.getColor1().getRal());
         COLOR_II.setRal(settings.getColor2().getRal());
         COLOR_III.setRal(settings.getColor3().getRal());

@@ -1,15 +1,29 @@
 package ru.wert.normic.settings;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import ru.wert.normic.components.TFDoubleColored;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.*;
 
-public class SettingsController {
+public class ConstantsController {
+
+    @FXML private VBox vbMainContainer;
+    @FXML private StackPane spForUpdateBtn;
+    @FXML private Button btnUpdateInDB;
+
+    Map<TextField, String> pairs;
+    List<TextField> textFields;
 
     //--- РЕЗКА И ЗАЧИСТКА
 
@@ -101,20 +115,57 @@ public class SettingsController {
 
 
     @FXML
-    void initialize(){
-        List<TextField> textFields = Arrays.asList(tfCUTTING_SPEED, tfREVOLVER_SPEED, tfPERFORATION_SPEED, tfCUTTING_SERVICE_RATIO, tfSTRIPING_SPEED,
-                tfBENDING_SPEED, tfBENDING_SERVICE_RATIO, tfCHOP_SPEED, tfRIVETS_SPEED, tfCOUNTERSINKING_SPEED, tfTHREADING_SPEED,
-                tfSMALL_SAWING_SPEED, tfBIG_SAWING_SPEED, tfDETAIL_DELTA, tfWASHING, tfWINDING, tfBAKING, tfDRYING, tfASSM_DELTA,
-                tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfSOLID_BOX_SPEED, tfFRAME_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
-                tfWELDING_DROP_SPEED, tfPREPARED_TIME, tfLEVELING_SPEED, tfSCREWS_SPEED, tfVSHGS_SPEED, tfRIVET_NUTS_SPEED,
-                tfGROUND_SETS_SPEED, tfOTHERS_SPEED, tfPOST_LOCKS_SPEED, tfDOUBLE_LOCKS_SPEED, tfGLASS_SPEED, tfDETECTORS_SPEED,
-                tfCONNECTION_BOXES_SPEED, tfSEALER_SPEED, tfSELF_ADH_SEALER_SPEED, tfINSULATION_SPEED,
-                tfCARTOON_BOX_PREPARED_TIME, tfCARTOON_BOX_SPEED, tfSTRETCH_MACHINE_WINDING, tfCARTOON_BOX_AND_ANGLES_SPEED,
-                tfPACK_IN_CARTOON_BOX_SPEED, tfDUCT_TAPE_LENGTH, tfBUBBLE_CUT_AND_DUCT, tfBUBBLE_HAND_WINDING, tfSTRETCH_HAND_WINDING);
+    void initialize() {
 
-        for(TextField tf : textFields){
-            tf.setEditable(false);
+        pairs = Stream.of(new Object[][]{
+                {tfCUTTING_SPEED, "CUTTING_SPEED"}, {tfREVOLVER_SPEED, "REVOLVER_SPEED"}, {tfPERFORATION_SPEED, "PERFORATION_SPEED"}, {tfCUTTING_SERVICE_RATIO, "CUTTING_SERVICE_RATIO"}, {tfSTRIPING_SPEED, "STRIPING_SPEED"},
+                {tfBENDING_SPEED, "BENDING_SPEED"}, {tfBENDING_SERVICE_RATIO, "BENDING_SERVICE_RATIO"}, {tfCHOP_SPEED, "CHOP_SPEED"}, {tfRIVETS_SPEED, "RIVETS_SPEED"}, {tfCOUNTERSINKING_SPEED, "COUNTERSINKING_SPEED"}, {tfTHREADING_SPEED, "THREADING_SPEED"},
+                {tfSMALL_SAWING_SPEED, "SMALL_SAWING_SPEED"}, {tfBIG_SAWING_SPEED, "BIG_SAWING_SPEED"}, {tfDETAIL_DELTA, "DETAIL_DELTA"}, {tfWASHING, "WASHING"}, {tfWINDING, "WINDING"}, {tfBAKING, "BAKING"}, {tfDRYING, "DRYING"}, {tfASSM_DELTA, "ASSM_DELTA"},
+                {tfHANGING_TIME, "HANGING_TIME"}, {tfWINDING_MOVING_SPEED, "WINDING_MOVING_SPEED"}, {tfSOLID_BOX_SPEED, "SOLID_BOX_SPEED"}, {tfFRAME_SPEED, "FRAME_SPEED"}, {tfWELDING_SPEED, "WELDING_SPEED"}, {tfWELDING_PARTS_SPEED, "WELDING_PARTS_SPEED"}, {tfWELDING_DOTTED_SPEED, "WELDING_DOTTED_SPEED"},
+                {tfWELDING_DROP_SPEED, "WELDING_DROP_SPEED"}, {tfPREPARED_TIME, "PREPARED_TIME"}, {tfLEVELING_SPEED, "LEVELING_SPEED"}, {tfSCREWS_SPEED, "SCREWS_SPEED"}, {tfVSHGS_SPEED, "VSHGS_SPEED"}, {tfRIVET_NUTS_SPEED, "RIVET_NUTS_SPEED"},
+                {tfGROUND_SETS_SPEED, "GROUND_SETS_SPEED"}, {tfOTHERS_SPEED, "OTHERS_SPEED"}, {tfPOST_LOCKS_SPEED, "POST_LOCKS_SPEED"}, {tfDOUBLE_LOCKS_SPEED, "DOUBLE_LOCKS_SPEED"}, {tfGLASS_SPEED, "GLASS_SPEED"}, {tfDETECTORS_SPEED, "DETECTORS_SPEED"},
+                {tfCONNECTION_BOXES_SPEED, "CONNECTION_BOXES_SPEED"}, {tfSEALER_SPEED, "SEALER_SPEED"}, {tfSELF_ADH_SEALER_SPEED, "SELF_ADH_SEALER_SPEED"}, {tfINSULATION_SPEED, "INSULATION_SPEED"},
+                {tfCARTOON_BOX_PREPARED_TIME, "CARTOON_BOX_PREPARED_TIME"}, {tfCARTOON_BOX_SPEED, "CARTOON_BOX_SPEED"}, {tfSTRETCH_MACHINE_WINDING, "STRETCH_MACHINE_WINDING"}, {tfCARTOON_BOX_AND_ANGLES_SPEED, "CARTOON_BOX_AND_ANGLES_SPEED"},
+                {tfPACK_IN_CARTOON_BOX_SPEED, "PACK_IN_CARTOON_BOX_SPEED"}, {tfDUCT_TAPE_LENGTH, "DUCT_TAPE_LENGTH"}, {tfBUBBLE_CUT_AND_DUCT, "BUBBLE_CUT_AND_DUCT"}, {tfBUBBLE_HAND_WINDING, "BUBBLE_HAND_WINDING"}, {tfSTRETCH_HAND_WINDING, "STRETCH_HAND_WINDING"},
+        }).collect(Collectors.toMap(data -> (TextField) data[0], data -> (String) data[1]));
+
+        textFields = new ArrayList<>(pairs.keySet());
+
+//        List<TextField> textFields = Arrays.asList(tfCUTTING_SPEED, tfREVOLVER_SPEED, tfPERFORATION_SPEED, tfCUTTING_SERVICE_RATIO, tfSTRIPING_SPEED,
+//                tfBENDING_SPEED, tfBENDING_SERVICE_RATIO, tfCHOP_SPEED, tfRIVETS_SPEED, tfCOUNTERSINKING_SPEED, tfTHREADING_SPEED,
+//                tfSMALL_SAWING_SPEED, tfBIG_SAWING_SPEED, tfDETAIL_DELTA, tfWASHING, tfWINDING, tfBAKING, tfDRYING, tfASSM_DELTA,
+//        tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfSOLID_BOX_SPEED, tfFRAME_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
+//                tfWELDING_DROP_SPEED, tfPREPARED_TIME, tfLEVELING_SPEED, tfSCREWS_SPEED, tfVSHGS_SPEED, tfRIVET_NUTS_SPEED,
+//                tfGROUND_SETS_SPEED, tfOTHERS_SPEED, tfPOST_LOCKS_SPEED, tfDOUBLE_LOCKS_SPEED, tfGLASS_SPEED, tfDETECTORS_SPEED,
+//                tfCONNECTION_BOXES_SPEED, tfSEALER_SPEED, tfSELF_ADH_SEALER_SPEED, tfINSULATION_SPEED,
+//                tfCARTOON_BOX_PREPARED_TIME, tfCARTOON_BOX_SPEED, tfSTRETCH_MACHINE_WINDING, tfCARTOON_BOX_AND_ANGLES_SPEED,
+//                tfPACK_IN_CARTOON_BOX_SPEED, tfDUCT_TAPE_LENGTH, tfBUBBLE_CUT_AND_DUCT, tfBUBBLE_HAND_WINDING, tfSTRETCH_HAND_WINDING)
+        ;
+
+        if (false) {
+            for (TextField tf : textFields) tf.setEditable(false);
+            vbMainContainer.getChildren().remove(spForUpdateBtn);
+        } else {
+            for (TextField tf : textFields) {
+                tf.setEditable(true);
+                new TFDoubleColored(tf, null);
+                tf.setOnAction(e->{
+                    
+                });
+            }
+
+            btnUpdateInDB.setOnAction(e -> {
+                for (TextField tf : textFields) {
+                    if (!tf.getText().isEmpty()) {
+                        boolean res = NormConstants.getInstance().writeConstant(pairs.get(tf), tf);
+                        if (!res) tf.setStyle("-fx-text-fill: red;");
+                        else tf.setStyle("-fx-text-fill: darkgreen;");
+                    }
+                }
+
+            });
         }
+
 
         //--- РЕЗКА И ЗАЧИСТКА
         tfCUTTING_SPEED.setText(DECIMAL_FORMAT.format(CUTTING_SPEED).trim());
@@ -202,6 +253,6 @@ public class SettingsController {
         tfBUBBLE_CUT_AND_DUCT.setText(DECIMAL_FORMAT.format(BUBBLE_CUT_AND_DUCT).trim());
         tfBUBBLE_HAND_WINDING.setText(DECIMAL_FORMAT.format(BUBBLE_HAND_WINDING).trim());
         tfSTRETCH_HAND_WINDING.setText(DECIMAL_FORMAT.format(STRETCH_HAND_WINDING).trim());
-    }
+   }
 }
 

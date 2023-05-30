@@ -17,15 +17,15 @@ public class RetrofitClient{
 
     public static String baseUrl = "http://localhost:8080";
 
-    private static RetrofitClient mInstance;
+    private static RetrofitClient instance;
     private static Retrofit mRetrofit;
     private Gson gson;
 
     public static RetrofitClient getInstance() {
-        if (mInstance == null) {
-            mInstance = new RetrofitClient();
+        if (instance == null) {
+            instance = new RetrofitClient();
         }
-        return mInstance;
+        return instance;
     }
 
     /**

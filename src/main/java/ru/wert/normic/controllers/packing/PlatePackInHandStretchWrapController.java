@@ -14,7 +14,7 @@ import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
 
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.*;
 
 /**
  * УПАКОВКА РУЧНОЙ СТРЕЙЧ-ПЛЕНКОЙ

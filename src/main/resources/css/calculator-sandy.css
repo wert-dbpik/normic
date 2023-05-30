@@ -22,7 +22,7 @@
     -fx-text-fill: -fx-color-text;
 }
 
-#main, #report, #settings, #materials, #executions, .materials-vb{
+#main, #report, #settings, #materials, #executions, .materials-vb, .constants{
     -fx-background-color: -fx-color-dark-backround;
 }
 
@@ -98,7 +98,7 @@
 
 /*НАСТРОЙКИ*/
 
-.settings-vb-main{
+.constants-list-vb{
     -fx-spacing: 5;
     -fx-pref-width: 500;
     -fx-padding: 5 20 5 5;

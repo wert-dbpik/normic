@@ -1,4 +1,4 @@
-package ru.wert.normic.entities.settings;
+package ru.wert.normic.entities.colors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

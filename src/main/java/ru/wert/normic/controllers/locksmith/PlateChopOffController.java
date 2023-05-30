@@ -11,7 +11,7 @@ import ru.wert.normic.enums.EOpType;
 
 import java.util.NoSuchElementException;
 
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.CHOP_SPEED;
+import static ru.wert.normic.settings.NormConstants.CHOP_SPEED;
 
 /**
  * ОТРУБАНИЕ НА ГЕКЕ

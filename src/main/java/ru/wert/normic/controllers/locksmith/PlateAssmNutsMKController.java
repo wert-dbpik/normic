@@ -11,7 +11,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpAssmNutMK;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.*;
 
 /**
  * КРЕПЕЖ (УЧАСТОК МК)

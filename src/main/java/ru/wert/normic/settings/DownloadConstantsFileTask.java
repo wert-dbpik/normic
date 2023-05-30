@@ -1,4 +1,4 @@
-package ru.wert.normic.entities.db_connection.constants;
+package ru.wert.normic.settings;
 
 import javafx.concurrent.Task;
 import lombok.extern.slf4j.Slf4j;

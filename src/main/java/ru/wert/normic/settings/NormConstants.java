@@ -1,20 +1,32 @@
-package ru.wert.normic.entities.db_connection.constants;
+package ru.wert.normic.settings;
 
+import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.entities.db_connection.files.FilesService;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+
 
 @Slf4j
 public class NormConstants {
+
+    private static NormConstants instance;
+
+    public static NormConstants getInstance() {
+        if (instance == null) {
+            instance = new NormConstants();
+        }
+        return instance;
+    }
 
     private Properties constantsProps;
     @Getter
@@ -112,7 +124,7 @@ public class NormConstants {
     public static double BUBBLE_HAND_WINDING; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
     public static double STRETCH_HAND_WINDING; //Скорость оборачивания стретч пленки, мин/м
 
-    public NormConstants() {
+    private NormConstants() {
 
         File constantsFile = new File(appConstantsPath);
 
@@ -223,6 +235,18 @@ public class NormConstants {
         BUBBLE_HAND_WINDING = Double.parseDouble(constantsProps.getProperty("BUBBLE_HAND_WINDING"));
         STRETCH_HAND_WINDING = Double.parseDouble(constantsProps.getProperty("STRETCH_HAND_WINDING"));
         
+    }
+
+    public boolean writeConstant(String name, TextField tf){
+        try {
+            double val = Double.parseDouble(tf.getText().trim().replace(",", "."));
+            FileOutputStream fos = new FileOutputStream(appConstantsPath);
+            constantsProps.setProperty(name, DECIMAL_FORMAT.format(val).replace(",", "."));
+            constantsProps.store(fos, null);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
 }

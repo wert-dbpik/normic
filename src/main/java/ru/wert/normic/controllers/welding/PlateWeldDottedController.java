@@ -12,7 +12,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.*;
 
 /**
  * СВАРКА ТОЧЕЧНАЯ И ПРИХВАТКАМИ

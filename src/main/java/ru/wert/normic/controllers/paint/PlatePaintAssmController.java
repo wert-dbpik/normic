@@ -16,7 +16,7 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.*;
 
 /**
  * ОКРАШИВАНИЕ СБОРОЧНОЙ ЕДИНИЦЫ

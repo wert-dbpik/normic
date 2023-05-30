@@ -134,11 +134,11 @@ public class FormDetailController extends AbstractFormController {
         //Нам нужна только смена EMatType и первичная инициализация
         if(!newMatType.equals(prevMatType)) {
             //EMatType равен null только при инициализации, если не инициализация, то
-            if(prevMaterial != null) {
-                //Обнуляем введенные ранее данные
-                ((OpDetail) opData).setParamA(0);
-                ((OpDetail) opData).setParamB(0);
-            }
+//            if(prevMaterial != null) {
+//                //Обнуляем введенные ранее данные
+//                ((OpDetail) opData).setParamA(0);
+//                ((OpDetail) opData).setParamB(0);
+//            }
             try {
                 FXMLLoader loader = null;
                 switch (newMatType) {

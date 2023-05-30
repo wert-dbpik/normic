@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import static java.lang.String.format;
 
 @Slf4j
 public class NormConstants {
@@ -224,17 +223,6 @@ public class NormConstants {
         BUBBLE_HAND_WINDING = Double.parseDouble(constantsProps.getProperty("BUBBLE_HAND_WINDING"));
         STRETCH_HAND_WINDING = Double.parseDouble(constantsProps.getProperty("STRETCH_HAND_WINDING"));
         
-    }
-
-    private boolean downloadConstantsFromDB(){
-        File file = new File(homeDir);
-        if(!file.exists() && file.mkdir()){
-            return false;
-        }
-        while(true){
-            boolean res = FilesService.getInstance().download("normic", "def-constants", ".properties", homeDir, "constants");
-            if(res) return true;
-        }
     }
 
 }

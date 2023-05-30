@@ -14,7 +14,7 @@ import ru.wert.normic.enums.ESawType;
 
 import java.util.NoSuchElementException;
 
-import static ru.wert.normic.entities.settings.NormConstants.*;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
 
 /**
  * ОТРЕЗАНИЕ ЗАГОТОВКИ НА ПИЛЕ

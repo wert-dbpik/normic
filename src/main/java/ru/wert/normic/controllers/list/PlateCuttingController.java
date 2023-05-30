@@ -13,7 +13,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.NormConstants.*;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
 
 /**
  * ПОЛУЧЕНИЕ ДЕТАЛИ НА ЛАЗЕРНОМ СТАНКЕ С КРП

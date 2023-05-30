@@ -19,7 +19,7 @@ import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.materials.matlPatches.ListMatPatchController;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.NormConstants.*;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
 
 /**
  * ОКРАШИВАНИЕ ЛИСТОВОЙ ДЕТАЛИ

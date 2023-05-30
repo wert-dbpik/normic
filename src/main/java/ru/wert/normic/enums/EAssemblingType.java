@@ -2,8 +2,8 @@ package ru.wert.normic.enums;
 
 import lombok.Getter;
 
-import static ru.wert.normic.entities.settings.NormConstants.FRAME_SPEED;
-import static ru.wert.normic.entities.settings.NormConstants.SOLID_BOX_SPEED;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.FRAME_SPEED;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.SOLID_BOX_SPEED;
 
 public enum EAssemblingType {
 

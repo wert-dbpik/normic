@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.entities.settings.NormConstants;
+import ru.wert.normic.entities.db_connection.constants.NormConstants;
 
 import java.io.IOException;
 import java.util.Locale;

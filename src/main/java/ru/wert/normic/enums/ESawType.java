@@ -4,8 +4,8 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
-import static ru.wert.normic.entities.settings.NormConstants.BIG_SAWING_SPEED;
-import static ru.wert.normic.entities.settings.NormConstants.SMALL_SAWING_SPEED;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.BIG_SAWING_SPEED;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.SMALL_SAWING_SPEED;
 
 public enum ESawType implements Serializable {
 

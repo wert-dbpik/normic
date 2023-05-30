@@ -14,7 +14,7 @@ import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.NormConstants.WELDING_SPEED;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.WELDING_SPEED;
 
 /**
  * СВАРКА ТЕПРЕРЫВНЫМ ШВОМ

@@ -15,7 +15,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.entities.settings.NormConstants.*;
+import static ru.wert.normic.entities.db_connection.constants.NormConstants.*;
 
 /**
  * НАЛИВКА УПЛОТНИТЕЛЯ

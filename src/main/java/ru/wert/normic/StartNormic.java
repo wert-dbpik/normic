@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.entities.db_connection.logs.AppLog;
+import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.UserService;
 import ru.wert.normic.settings.NormConstants;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -57,6 +60,8 @@ public class StartNormic extends Application {
                 CURRENT_USER = UserService.getInstance().findById(userId);
                 CURRENT_USER_GROUP = CURRENT_USER.getUserGroup();
                 log.info("Current user is identified as " + CURRENT_USER.getName());
+                AppStatics.createLog(true, "Зашел в  приложение NormIC");
+
             } catch (Exception e) {
                 CURRENT_USER = null;
                 CURRENT_USER_GROUP = null;

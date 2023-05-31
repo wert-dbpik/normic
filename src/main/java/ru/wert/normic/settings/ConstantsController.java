@@ -9,6 +9,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.extern.slf4j.Slf4j;
+import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.TFDoubleColored;
 
 import java.util.ArrayList;
@@ -162,6 +163,7 @@ public class ConstantsController {
                 NormConstants.getInstance().loadConstantsFromPropertiesFile();
                 //Загружаем файл constants.properties в БД под именем def-constants.properties
                 NormConstants.getInstance().copyConstantsFileToDB();
+                AppStatics.createLog(false, "Сохранил новые значения констант в БД");
             });
 
             btnLoadInitConstants.setTooltip(new Tooltip("Загрузить изначальные значения констант"));

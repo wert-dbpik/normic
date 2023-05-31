@@ -5,10 +5,13 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
+import ru.wert.normic.entities.db_connection.logs.AppLog;
+import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.User;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,5 +86,23 @@ public class AppStatics {
     public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING,
             LOCKSMITH, DRILLING_BY_MARKING,
             CHOP_OFF, CUT_OFF_ON_SAW); //Профильный
+
+    /**
+     * Метод создает запись лога в базе данных
+     */
+    public static void createLog(boolean forAdminOnly, String text) {
+
+        if (forAdminOnly && !CURRENT_USER.isLogging()) return;
+
+        AppLogService.getInstance().save(new AppLog(
+                LocalDateTime.now().toString(),
+                forAdminOnly,
+                CURRENT_USER,
+                2, //Normic
+                PROJECT_VERSION,
+                text
+        ));
+
+    }
 
 }

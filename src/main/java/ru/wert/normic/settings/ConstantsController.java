@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static ru.wert.normic.AppStatics.CURRENT_USER;
+import static ru.wert.normic.AppStatics.CURRENT_USER_GROUP;
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -137,7 +139,7 @@ public class ConstantsController {
 
         textFields = new ArrayList<>(pairs.keySet());
 
-        if (false) {
+        if (!CURRENT_USER_GROUP.isEditNormConstants() || CURRENT_USER == null) {
             for (TextField tf : textFields) tf.setEditable(false);
             vbMainContainer.getChildren().remove(spForUpdateBtn);
         } else {
@@ -162,7 +164,7 @@ public class ConstantsController {
                 NormConstants.getInstance().copyConstantsFileToDB();
             });
 
-            btnLoadInitConstants.setTooltip(new Tooltip("Сохранить изначальные значения констант"));
+            btnLoadInitConstants.setTooltip(new Tooltip("Загрузить изначальные значения констант"));
             btnLoadInitConstants.setOnAction(e -> {
                 NormConstants.getInstance().downloadInitConstants(this);
             });

@@ -1,10 +1,14 @@
 package ru.wert.normic.settings;
 
+import javafx.concurrent.Service;
 import javafx.fxml.FXML;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.components.TFDoubleColored;
 
 import java.util.ArrayList;
@@ -16,11 +20,13 @@ import java.util.stream.Stream;
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
 
+@Slf4j
 public class ConstantsController {
 
     @FXML private VBox vbMainContainer;
     @FXML private StackPane spForUpdateBtn;
     @FXML private Button btnUpdateInDB;
+    @FXML private Button btnLoadInitConstants;
 
     Map<TextField, String> pairs;
     List<TextField> textFields;
@@ -131,17 +137,6 @@ public class ConstantsController {
 
         textFields = new ArrayList<>(pairs.keySet());
 
-//        List<TextField> textFields = Arrays.asList(tfCUTTING_SPEED, tfREVOLVER_SPEED, tfPERFORATION_SPEED, tfCUTTING_SERVICE_RATIO, tfSTRIPING_SPEED,
-//                tfBENDING_SPEED, tfBENDING_SERVICE_RATIO, tfCHOP_SPEED, tfRIVETS_SPEED, tfCOUNTERSINKING_SPEED, tfTHREADING_SPEED,
-//                tfSMALL_SAWING_SPEED, tfBIG_SAWING_SPEED, tfDETAIL_DELTA, tfWASHING, tfWINDING, tfBAKING, tfDRYING, tfASSM_DELTA,
-//        tfHANGING_TIME, tfWINDING_MOVING_SPEED, tfSOLID_BOX_SPEED, tfFRAME_SPEED, tfWELDING_SPEED, tfWELDING_PARTS_SPEED, tfWELDING_DOTTED_SPEED,
-//                tfWELDING_DROP_SPEED, tfPREPARED_TIME, tfLEVELING_SPEED, tfSCREWS_SPEED, tfVSHGS_SPEED, tfRIVET_NUTS_SPEED,
-//                tfGROUND_SETS_SPEED, tfOTHERS_SPEED, tfPOST_LOCKS_SPEED, tfDOUBLE_LOCKS_SPEED, tfGLASS_SPEED, tfDETECTORS_SPEED,
-//                tfCONNECTION_BOXES_SPEED, tfSEALER_SPEED, tfSELF_ADH_SEALER_SPEED, tfINSULATION_SPEED,
-//                tfCARTOON_BOX_PREPARED_TIME, tfCARTOON_BOX_SPEED, tfSTRETCH_MACHINE_WINDING, tfCARTOON_BOX_AND_ANGLES_SPEED,
-//                tfPACK_IN_CARTOON_BOX_SPEED, tfDUCT_TAPE_LENGTH, tfBUBBLE_CUT_AND_DUCT, tfBUBBLE_HAND_WINDING, tfSTRETCH_HAND_WINDING)
-        ;
-
         if (false) {
             for (TextField tf : textFields) tf.setEditable(false);
             vbMainContainer.getChildren().remove(spForUpdateBtn);
@@ -149,12 +144,11 @@ public class ConstantsController {
             for (TextField tf : textFields) {
                 tf.setEditable(true);
                 new TFDoubleColored(tf, null);
-                tf.setOnAction(e->{
-                    
-                });
             }
 
+            btnUpdateInDB.setTooltip(new Tooltip("Сохранить в БД для всех пользвателей"));
             btnUpdateInDB.setOnAction(e -> {
+                //Каждое поле TF записываем в файл constants.properties
                 for (TextField tf : textFields) {
                     if (!tf.getText().isEmpty()) {
                         boolean res = NormConstants.getInstance().writeConstant(pairs.get(tf), tf);
@@ -162,10 +156,22 @@ public class ConstantsController {
                         else tf.setStyle("-fx-text-fill: darkgreen;");
                     }
                 }
+                //Из переписанного constants.properties присваиваем значения статическим полям NormConstants
+                NormConstants.getInstance().loadConstantsFromPropertiesFile();
+                //Загружаем файл constants.properties в БД под именем def-constants.properties
+                NormConstants.getInstance().copyConstantsFileToDB();
+            });
 
+            btnLoadInitConstants.setTooltip(new Tooltip("Сохранить изначальные значения констант"));
+            btnLoadInitConstants.setOnAction(e -> {
+                NormConstants.getInstance().downloadInitConstants(this);
             });
         }
+        fillTextFieldsWithData();
 
+    }
+
+    public void fillTextFieldsWithData() {
 
         //--- РЕЗКА И ЗАЧИСТКА
         tfCUTTING_SPEED.setText(DECIMAL_FORMAT.format(CUTTING_SPEED).trim());
@@ -253,6 +259,8 @@ public class ConstantsController {
         tfBUBBLE_CUT_AND_DUCT.setText(DECIMAL_FORMAT.format(BUBBLE_CUT_AND_DUCT).trim());
         tfBUBBLE_HAND_WINDING.setText(DECIMAL_FORMAT.format(BUBBLE_HAND_WINDING).trim());
         tfSTRETCH_HAND_WINDING.setText(DECIMAL_FORMAT.format(STRETCH_HAND_WINDING).trim());
-   }
+
+        log.debug("Установлены последние значания констант");
+    }
 }
 

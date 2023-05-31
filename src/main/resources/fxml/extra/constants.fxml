@@ -600,11 +600,19 @@
       </ScrollPane>
       <StackPane fx:id="spForUpdateBtn">
          <children>
-            <Button fx:id="btnUpdateInDB" mnemonicParsing="false" text="Сохранить изменения в БД">
-               <StackPane.margin>
+            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                  <Button fx:id="btnLoadInitConstants" mnemonicParsing="false" text="Загрузить">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnUpdateInDB" mnemonicParsing="false" text="Сохранить" />
+               </children>
+               <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </StackPane.margin>
-            </Button>
+               </padding>
+            </HBox>
          </children>
       </StackPane>
    </children>

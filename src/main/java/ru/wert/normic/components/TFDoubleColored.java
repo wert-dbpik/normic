@@ -21,7 +21,7 @@ public class TFDoubleColored {
             }
 
             try {
-                DoubleParser.getValue(tf);
+                Double.parseDouble(tf.getText().trim().replace(",", "."));
                 tf.setStyle(style);
                 if(counter != null) counter.countNorm(counter.getOpData());
             } catch (Exception e) {

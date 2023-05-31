@@ -1,9 +1,11 @@
 package ru.wert.normic.settings;
 
+import javafx.concurrent.Service;
 import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.entities.db_connection.files.FilesService;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +34,7 @@ public class NormConstants {
     @Getter
     private String homeDir = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
     private final String appConstantsPath = homeDir + File.separator + "constants.properties";
-
+    private File constantsFile;
 
     public static List<String> constantNames = Arrays.asList(
             "CUTTING_SPEED","REVOLVER_SPEED","PERFORATION_SPEED","CUTTING_SERVICE_RATIO","STRIPING_SPEED",//--- РЕЗКА И ЗАЧИСТКА
@@ -126,14 +128,10 @@ public class NormConstants {
 
     private NormConstants() {
 
-        File constantsFile = new File(appConstantsPath);
+        constantsFile = new File(appConstantsPath);
 
         if (!constantsFile.exists()){
-
-            Thread t = new Thread(new DownloadConstantsFileTask(this));
-            t.setDaemon(true);
-            t.start();
-
+            downloadDefaultConstants();
         } else {
             createConstantsProps();
         }
@@ -141,7 +139,7 @@ public class NormConstants {
     }
 
     public void createConstantsProps() {
-        log.debug("NormConstantsMeaning : NormConstantsMeaning создается  ...");
+        log.debug("createConstantsProps : Properties  constantsProps создается  ...");
         try {
             constantsProps = new Properties();
             constantsProps.load(new FileInputStream(appConstantsPath));
@@ -152,7 +150,7 @@ public class NormConstants {
             e.printStackTrace();
         }
 
-        log.debug("NormConstantsMeaning : NormConstantsMeaning успешно создан");
+        log.debug("createConstantsProps : Properties  constantsProps  успешно создан");
 
         loadConstantsFromPropertiesFile();
     }
@@ -247,6 +245,38 @@ public class NormConstants {
             return false;
         }
         return true;
+    }
+
+    public void copyConstantsFileToDB(){
+        try {
+            FilesService.getInstance().upload("def-constants.properties", "normic", constantsFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * После загрузки файла автоматически срабатывают методы createConstantsProps() и loadConstantsFromPropertiesFile()
+     */
+    public void downloadDefaultConstants(){
+        Service<Void> task = new DownloadConstantsFileTask(this, "def-constants");
+        task.setOnSucceeded(event -> {
+            createConstantsProps();
+        });
+        task.start();
+    }
+
+    /**
+     * После загрузки файла автоматически срабатывают методы createConstantsProps() и loadConstantsFromPropertiesFile()
+     */
+    public void downloadInitConstants(ConstantsController constantsController){
+        Service<Void> task = new DownloadConstantsFileTask(this, "init-constants");
+        task.setOnSucceeded(event -> {
+            createConstantsProps();
+            loadConstantsFromPropertiesFile();
+            constantsController.fillTextFieldsWithData();
+        });
+        task.start();
     }
 
 }

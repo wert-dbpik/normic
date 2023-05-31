@@ -29,6 +29,7 @@ public class StartNormic extends Application {
         try {
             initServices();
             initQuickServices();
+            initUser();
             NormConstants.getInstance();
             log.debug("init : DATA from server got well!");
         } catch (Exception e) {
@@ -36,6 +37,10 @@ public class StartNormic extends Application {
             initStatus = false;
 
         }
+    }
+
+    private void initUser() {
+
     }
 
     public static void main(String[] args) {

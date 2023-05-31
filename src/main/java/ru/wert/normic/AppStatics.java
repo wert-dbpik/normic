@@ -4,6 +4,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import ru.wert.normic.controllers._forms.MainController;
+import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
+import ru.wert.normic.entities.db_connection.user.User;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 
@@ -16,6 +18,8 @@ import static ru.wert.normic.enums.EOpType.PAINTING;
 public class AppStatics {
 
     public static boolean TEST_VERSION = true; //тестовая версия - работает с тестовым сервером
+    public static User CURRENT_USER = null;
+    public static UserGroup CURRENT_USER_GROUP = null;
 
     public static MainController MAIN_CONTROLLER;
 

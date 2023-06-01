@@ -19,7 +19,7 @@ public class AboutController {
     @FXML
     void initialize(){
 
-        lblVersion.setText("Версия " + AppStatics.PROJECT_VERSION);
+        lblVersion.setText("Версия " + AppStatics.CURRENT_PROJECT_VERSION);
 
         vbAbout.setOnMouseClicked(e->
                 MAIN_CONTROLLER.getVbAboutPane().setVisible(false));

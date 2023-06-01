@@ -17,9 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
-import static ru.wert.normic.AppStatics.PROJECT_VERSION;
+import static ru.wert.normic.AppStatics.CURRENT_PROJECT_VERSION;
 import static ru.wert.normic.AppStatics.THEME_STYLE;
-import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 @Slf4j
 public class Decoration {
@@ -98,7 +97,7 @@ public class Decoration {
 
             window.sizeToScene();
             window.setResizable(this.resizable);
-            window.setTitle("НормИК-" + PROJECT_VERSION);
+            window.setTitle("НормИК-" + CURRENT_PROJECT_VERSION);
 
             mountResizeButtons();
 

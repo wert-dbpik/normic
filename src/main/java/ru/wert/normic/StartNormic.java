@@ -2,23 +2,22 @@ package ru.wert.normic;
 
 import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.entities.db_connection.logs.AppLog;
-import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.UserService;
+import ru.wert.normic.entities.db_connection.version.VersionNormic;
+import ru.wert.normic.entities.db_connection.version.VersionNormicService;
 import ru.wert.normic.settings.NormConstants;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Locale;
-import java.util.Properties;
+import java.util.*;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.initQuickServices;
@@ -86,7 +85,7 @@ public class StartNormic extends Application {
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
             Parent root = mainWindowLoader.load();
             Decoration windowDecoration = new Decoration(
-                    "НормИК-" + PROJECT_VERSION,
+                    "НормИК-" + CURRENT_PROJECT_VERSION,
                     root,
                     true,
                     null,
@@ -96,6 +95,20 @@ public class StartNormic extends Application {
 
             MAIN_STAGE = windowDecoration.getWindow();
             LABEL_PRODUCT_NAME = windowDecoration.getLblProductName();
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Platform.runLater(() -> {
+                        //Определяем последнюю доступную версию программы в Базе данных
+                        List<VersionNormic> allVersions = VersionNormicService.getInstance().findAll();
+                        LAST_VERSION_IN_DB = allVersions.get(allVersions.size() - 1).getName();
+                        if (CURRENT_PROJECT_VERSION.compareTo(LAST_VERSION_IN_DB) < 0)
+                            Warning1.create("Внимание!", "Доступна новая версия программы " + LAST_VERSION_IN_DB,
+                                    "Скачайте самостоятельно\nили обратитесь к администратору");
+                    });
+                }
+            }, 2000);
 
         }catch (IOException e) {
             e.printStackTrace();

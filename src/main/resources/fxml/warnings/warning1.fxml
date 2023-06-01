@@ -16,7 +16,7 @@
                <children>
                   <Label fx:id="lblTitle" text="ACTIVITY NAME" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -26,11 +26,11 @@
                <children>
                   <Label fx:id="lblProblem" text="Проблема!">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="16.0" />
                      </font></Label>
                   <Label fx:id="lblDecision" text="Решение проблемы" wrapText="true">
                      <font>
-                        <Font name="System Italic" size="20.0" />
+                        <Font name="System Italic" size="14.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -44,9 +44,9 @@
             </VBox>
             <VBox alignment="CENTER">
                <children>
-                  <Button fx:id="btnOK" mnemonicParsing="false" prefWidth="135.0" text="OK">
+                  <Button fx:id="btnOK" mnemonicParsing="false" prefWidth="100.0" text="OK">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                      <VBox.margin>
                         <Insets />

@@ -1,13 +1,15 @@
 package ru.wert.normic;
 
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import ru.wert.normic.controllers._forms.MainController;
+import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
 import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.User;
+import ru.wert.normic.entities.db_connection.version.VersionNormic;
+import ru.wert.normic.entities.db_connection.version.VersionNormicService;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 
@@ -20,14 +22,21 @@ import static ru.wert.normic.enums.EOpType.PAINTING;
 
 public class AppStatics {
 
-    public static boolean TEST_VERSION = true; //тестовая версия - работает с тестовым сервером
+    //Текущая версия программы
+    public static final String CURRENT_PROJECT_VERSION = "1.0";
+    //Последняя доступная версия в БД
+    public static String LAST_VERSION_IN_DB;
+    //тестовая версия - работает с тестовым сервером
+    public static boolean TEST_VERSION = true;
+
+    //Ползователь
     public static User CURRENT_USER = null;
+    //Группа
     public static UserGroup CURRENT_USER_GROUP = null;
 
     public static MainController MAIN_CONTROLLER;
 
-    //Текущая версия программы
-    public static final String PROJECT_VERSION = "1.0";
+
 
     //Шаблоны для децимальных номеров
     public static final String DEC_NUMBER = "\\d{6}[.]\\d{3}";// XXXXXX.XXX
@@ -99,10 +108,9 @@ public class AppStatics {
                 forAdminOnly,
                 CURRENT_USER,
                 2, //Normic
-                PROJECT_VERSION,
+                CURRENT_PROJECT_VERSION,
                 text
         ));
 
     }
-
 }

@@ -28,13 +28,13 @@ public class StructureTreeView {
 
         treeView.setCellFactory(param -> new TreeViewCell(controller));
         buildTree(root);
-        if(treeExpanded) expandTree();
+        if(treeExpanded) expandTree(treeView, root);
     }
 
     /**
      * Построить дерево (инверсия)
      */
-    public void buildTree(TreeItem<OpData> treeItem){
+    public static void buildTree(TreeItem<OpData> treeItem){
         OpData opData = treeItem.getValue();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for(OpData op : operations){
@@ -49,7 +49,7 @@ public class StructureTreeView {
     /**
      * Раскрыть дерево
      */
-    public void expandTree(){
+    public static void expandTree(TreeView<OpData> treeView, TreeItem<OpData> root){
         int index = treeView.getFocusModel().getFocusedIndex();
         List<TreeItem<OpData>> allItems = findAllChildren(root);
         for(TreeItem<OpData> item : allItems){
@@ -70,7 +70,7 @@ public class StructureTreeView {
     /**
      * Определение всех потомков элемента дерева, метод обобщенный, так как исп-ся для TreeTable
      */
-    public List<TreeItem<OpData>> findAllChildren(TreeItem<OpData> treeItem){
+    public static List<TreeItem<OpData>> findAllChildren(TreeItem<OpData> treeItem){
         //Создаем три листа
         //лист, где будут храниться, найденые потомки в текущей итерации
         List<TreeItem<OpData>> newList = new ArrayList<>();

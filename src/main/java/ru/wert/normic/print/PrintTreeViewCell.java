@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.extra.tree_view;
+package ru.wert.normic.print;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,37 +8,26 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.AppStatics.MEASURE;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.HOUR;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
-public class TreeViewCell extends TreeCell<OpData> {
+public class PrintTreeViewCell extends TreeCell<OpData> {
 
-    private Button btnEdit;
-    private String initTitleStyle;
-    private String initLblNormsTimeStyle;
-    private final StructureController controller;
-
-    public TreeViewCell(StructureController controller) {
-        this.controller = controller;
-    }
+    boolean showOperations = true;
 
     @Override
     protected void updateItem(OpData opData, boolean empty) {
@@ -55,7 +44,6 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             HBox hbTitle = new HBox();
             hbTitle.setSpacing(5.0);
-            initTitleStyle = hbTitle.getStyle();
             //Лого
             ImageView logo = new ImageView(type.getLogo());
             logo.setFitWidth(16);
@@ -80,33 +68,16 @@ public class TreeViewCell extends TreeCell<OpData> {
             txtN.textProperty().bind(tfN.textProperty());
             tfN.setText(String.valueOf(quantity));
 
-            //Вызов редактора
-            btnEdit = new Button();
-            Image imgEdit = new Image("/pics/btns/edit.png", 14, 14, true, true);
-            btnEdit.setGraphic(new ImageView(imgEdit));
-            btnEdit.setVisible(false);
-            btnEdit.setOnAction(e->{
-                if (opData instanceof OpDetail) {
-                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
-                } else if (opData instanceof OpAssm) {
-                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
-                } else if (opData instanceof OpPack) {
-                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
-                }
-            });
-
             //СТрока с заголовком
             hbTitle.getChildren().add(logo);
             hbTitle.getChildren().add(txtName);
             if(quantity > 1)
                 hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
-            hbTitle.getChildren().add(btnEdit);
             hbTitle.setAlignment(Pos.CENTER_LEFT);
 
             //Строка с рассчитанными нормами времени
             Label lblNorms = new Label(createStringWithNormsTime(opData));
             lblNorms.setId("normsTime");
-            initLblNormsTimeStyle = lblNorms.getStyle();
 
             //Блок объединяет
             // 1) Наименование узла HBox hbTitle
@@ -116,10 +87,10 @@ public class TreeViewCell extends TreeCell<OpData> {
             vbItemBlock.setId("vbItemBlock");
             vbItemBlock.getChildren().add(hbTitle);
 
-            if(controller != null && controller.isShowNormsTime())
+            if(true)
                 vbItemBlock.getChildren().add(lblNorms);
 
-            if (controller != null && controller.isShowOperations())
+            if (showOperations)
                 if (opData instanceof OpDetail) {
                     Text textDetail = new Text("\t" + opData.toString());
                     textDetail.setId("description");
@@ -144,25 +115,6 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             setGraphic(vbItemBlock);
 
-//            selectedProperty().addListener((observable, oldValue, newValue) -> {
-//                if(newValue){
-//                    lblNorms.setStyle("-fx-background-color: #f1e2af");
-//                    hbTitle.setStyle("-fx-background-color: #f1e2af");
-//                    vbItemBlock.setStyle("-fx-background-color: #f1e2af");
-//
-//                } else {
-//                    lblNorms.setStyle(initLblNormsTimeStyle);
-//                    hbTitle.setStyle(initTitleStyle);
-//                    vbItemBlock.setStyle(initTitleStyle);
-//
-//
-//                    setStyle(initTitleStyle);
-//                }
-//            });
-
-            selectedProperty().addListener((observable, oldValue, newValue) -> {
-                btnEdit.setVisible(newValue);
-            });
         }
     }
 

@@ -173,3 +173,25 @@
 }
 
 
+/* ПРИНТЕР */
+
+.hbPrinter{
+    -fx-background-color: -fx-color-dark-backround;
+}
+
+#spTreeView{
+    -fx-background-color: #FFFFFC;
+    -fx-border-color: #3d3a3a;
+}
+
+#spTreeView {
+    -fx-background-color: #FFFFFC;
+    -fx-border-color: #3d3a3a;
+}
+
+#spTreeView .tree-cell:selected,
+#spTreeView .tree-cell:focused
+{
+    -fx-background-color: #FFFFFC;
+}
+

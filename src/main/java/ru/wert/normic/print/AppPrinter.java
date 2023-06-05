@@ -20,11 +20,6 @@ import java.util.Objects;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Root;
 
 public class AppPrinter {
-//
-//    public void print(Node node){
-//
-//    }
-
 
     public void print(){
 

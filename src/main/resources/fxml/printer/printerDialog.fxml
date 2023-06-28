@@ -9,18 +9,15 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="800.0" styleClass="hbPrinter" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.print.PrinterDialogController">
    <children>
-      <StackPane fx:id="spTreeView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="592.0" styleClass="spTreeView">
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
-      </StackPane>
+      <AnchorPane fx:id="apPaper" prefHeight="842.0" prefWidth="592.0" styleClass="apPaper" />
       <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbPrinter" HBox.hgrow="ALWAYS">
          <children>
-            <Label text="Label">
+            <Label text="Принтер:">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Label>
+            <ComboBox fx:id="cmbxPrinters" maxWidth="1.7976931348623157E308" />
             <VBox alignment="BOTTOM_CENTER" styleClass="vbPrinter" VBox.vgrow="ALWAYS">
                <children>
                   <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#print" text="Распечатать">
@@ -31,6 +28,9 @@
                </children>
             </VBox>
          </children>
+         <padding>
+            <Insets left="5.0" right="5.0" />
+         </padding>
       </VBox>
    </children>
 </HBox>

@@ -179,18 +179,18 @@
     -fx-background-color: -fx-color-dark-backround;
 }
 
-#spTreeView{
+#apPaper{
     -fx-background-color: #FFFFFC;
     -fx-border-color: #3d3a3a;
 }
 
-#spTreeView {
+#apPaper {
     -fx-background-color: #FFFFFC;
     -fx-border-color: #3d3a3a;
 }
 
-#spTreeView .tree-cell:selected,
-#spTreeView .tree-cell:focused
+#apPaper .tree-cell:selected,
+#apPaper .tree-cell:focused
 {
     -fx-background-color: #FFFFFC;
 }

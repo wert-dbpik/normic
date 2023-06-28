@@ -1,6 +1,5 @@
 package ru.wert.normic.entities.db_connection.version;
 
-import com.sun.istack.internal.NotNull;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.entities.db_connection.Item;
@@ -27,7 +26,7 @@ public class VersionNormic extends _BaseEntity implements Item, Comparable<Versi
     }
 
     @Override
-    public int compareTo(@NotNull VersionNormic o) {
+    public int compareTo(VersionNormic o) {
         String[] nn1 = getName().split("\\.", -1);
         System.out.println(Arrays.toString(nn1));
         String[] nn2 = o.getName().split("\\.", -1);

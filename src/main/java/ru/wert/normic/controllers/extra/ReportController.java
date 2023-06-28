@@ -2,6 +2,7 @@ package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -20,8 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.NormicServices.DENSITIES;
+import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.EPacks.*;
 
 /**
@@ -34,6 +36,8 @@ public class ReportController {
 
     private OpAssm opAssm;
     private Map<Material, Double> materials;
+    private Density steelDensity;
+    private double steelScrap; //переменная для расчета лома
     private  StringBuilder report;
 
     //Расход на наливное уплотнение
@@ -49,6 +53,10 @@ public class ReportController {
     private double bubble;
     private double duct;
     private double pallet;
+
+    public ReportController() {
+        steelDensity = DENSITIES.findByName("сталь");
+    }
 
     public void init(OpAssm opAssm){
         this.opAssm = opAssm;
@@ -69,6 +77,10 @@ public class ReportController {
         collectMaterialsByOpData(ops);
         if(!materials.isEmpty())
             addMaterialsReport();
+
+        //Лом стали
+        if(steelScrap != 0.0)
+            report.append("\nЛОМ СТАЛИ : ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
 
         //Наливной уплотнитель
         collectComponentsABByOpData(ops);
@@ -119,19 +131,23 @@ public class ReportController {
      * Сосчитать все МАТЕРИАЛЫ
      */
     private void collectMaterialsByOpData(List<OpData> ops) {
+        Density steelDensity = DENSITIES.findByName("сталь");
         for (OpData op : ops) {
             if (op instanceof OpDetail) {
                 Material m = ((OpDetail) op).getMaterial();
                 //Детали, если не открывать редактор детали, материала не содержат
                 if (m == null) continue;
                 if (materials.containsKey(m)) {
-                    //Прибавляем новый вес к полученному ранее мвтериалу
+                    //Прибавляем новый вес к полученному ранее материалу
                     double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity();
                     materials.put(m, sumWeight);
                 } else {
                     //Добавляем новый материал и массу
                     materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
                 }
+                if(steelDensity != null && m.getParamX() == steelDensity.getAmount())
+                    steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.01;
+
             } else if (op instanceof OpAssm) {
                 List<OpData> operations = ((OpAssm) op).getOperations();
                 collectMaterialsByOpData(operations);
@@ -285,24 +301,28 @@ public class ReportController {
 //==========   НОРМЫ ВРЕМЕНИ   ===================================================
 
     private void addNormTimesReport(OpAssm opAssm) {
+        double k = 1.0; //Коэффициент перевода в ед.измерения
+        switch(CURRENT_MEASURE.name()){
+            case "SEC" : k = MIN_TO_SEC; break;
+            case "HOUR" : k = MIN_TO_HOUR; break;
+        }
         report.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
-        ETimeMeasurement tm = ETimeMeasurement.MIN;
-        double k = 1.0;
+
         if (opAssm.getMechTime() != 0.0)
             report.append("Изготовление \t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append(" ")
-                    .append(tm.getMeasure()).append("\n");
+                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
         if (opAssm.getPaintTime() != 0.0)
             report.append("Покраска \t\t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getPaintTime() * k)).append(" ")
-                    .append(tm.getMeasure()).append("\n");
+                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
         if (opAssm.getAssmTime() != 0.0)
             report.append("Сборка \t\t\t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getAssmTime() * k)).append(" ")
-                    .append(tm.getMeasure()).append("\n");
+                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
         if (opAssm.getPackTime() != 0.0)
             report.append("Упаковка \t\t: "
             ).append(DECIMAL_FORMAT.format(opAssm.getPackTime() * k)).append(" ")
-                    .append(tm.getMeasure()).append("\n");
+                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
     }
 }

@@ -265,7 +265,8 @@ public class MainController extends AbstractFormController {
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы EXCEL (.xlsx)", "*.xlsx"));
-        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File initDir = new File(AppProperties.getInstance().getSavesDir());
+        chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:\\"));
         File file = chooser.showOpenDialog(owner);
         if(file == null) return;
 

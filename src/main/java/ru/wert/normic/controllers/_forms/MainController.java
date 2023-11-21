@@ -42,10 +42,7 @@ import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.settings.ColorsSettings;
 import ru.wert.normic.utils.AppFiles;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -298,7 +295,8 @@ public class MainController extends AbstractFormController {
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
-        chooser.setInitialDirectory(new File(AppProperties.getInstance().getSavesDir()));
+        File initFile = new File(AppProperties.getInstance().getSavesDir());
+        chooser.setInitialDirectory(initFile.exists() ? initFile : new File("C:\\"));
         chooser.setInitialFileName(initialName);
 
         File file = chooser.showSaveDialog(owner);
@@ -474,12 +472,12 @@ public class MainController extends AbstractFormController {
     private static void saveTextToFile(List<String> product, File file) {
         try {
             PrintWriter writer;
-            writer = new PrintWriter(file);
+            writer = new PrintWriter(file, "UTF-8");
             for(String line : product) {
                 writer.println(line);
             }
             writer.close();
-        } catch (FileNotFoundException exception) {
+        } catch (FileNotFoundException | UnsupportedEncodingException exception) {
             log.error(String.format("Не удалось записать файл %s", file.getName()));
             exception.printStackTrace();
         }

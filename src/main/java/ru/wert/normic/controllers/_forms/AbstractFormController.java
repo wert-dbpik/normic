@@ -45,10 +45,7 @@ import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.settings.ColorsSettings;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -583,7 +580,7 @@ public abstract class AbstractFormController implements IForm {
         if(file == null) return;
         try {
             //Читаем строки из файла
-            BufferedReader reader = new BufferedReader(new FileReader(new File(file.toString())));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             ArrayList<String> store = new ArrayList<>();
             String line;
             while((line = reader.readLine())!= null){

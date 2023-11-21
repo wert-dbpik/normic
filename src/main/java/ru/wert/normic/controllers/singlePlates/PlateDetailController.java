@@ -110,7 +110,7 @@ public class PlateDetailController extends AbstractOpPlate {
             Decoration windowDecoration = new Decoration(
                     "ДЕТАЛЬ",
                     parent,
-                    false,
+                    true,
                     (Stage) vbOperation.getScene().getWindow(),
                     "decoration-detail",
                     true,

@@ -102,7 +102,7 @@ public class PlatePackController extends AbstractOpPlate{
             Decoration windowDecoration = new Decoration(
                     "УПАКОВКА",
                     parent,
-                    false,
+                    true,
                     (Stage) lblOperationName.getScene().getWindow(),
                     "decoration-detail",
                     true,

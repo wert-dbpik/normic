@@ -110,7 +110,7 @@ public class PlateAssmController extends AbstractOpPlate{
             Decoration windowDecoration = new Decoration(
                     "СБОРКА",
                     parent,
-                    false,
+                    true,
                     (Stage) lblOperationName.getScene().getWindow(),
                     "decoration-assm",
                     true,

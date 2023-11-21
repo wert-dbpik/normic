@@ -342,7 +342,7 @@ public class MainController extends AbstractFormController {
             new Decoration(
                     "ОТЧЕТ",
                     report,
-                    false,
+                    true,
                     owner,
                     "decoration-report",
                     true,

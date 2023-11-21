@@ -179,7 +179,7 @@ public class StructureController {
             Decoration windowDecoration = new Decoration(
                     title,
                     parent,
-                    false,
+                    true,
                     MAIN_STAGE,
                     "decoration-assm",
                     true,

@@ -6,7 +6,7 @@
 
     <groupId>ru.wert</groupId>
     <artifactId>normic</artifactId>
-    <version>1.0</version>
+    <version>2.0</version>
 
     <properties>
         <project.java.version>1.8</project.java.version>
@@ -114,7 +114,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>NormIC-1.0</finalName>
+                    <finalName>NormIC-2.0</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>

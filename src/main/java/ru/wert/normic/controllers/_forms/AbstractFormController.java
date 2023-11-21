@@ -47,6 +47,7 @@ import ru.wert.normic.utils.OpDataJsonConverter;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -580,7 +581,7 @@ public abstract class AbstractFormController implements IForm {
         if(file == null) return;
         try {
             //Читаем строки из файла
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             ArrayList<String> store = new ArrayList<>();
             String line;
             while((line = reader.readLine())!= null){

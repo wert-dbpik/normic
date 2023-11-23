@@ -256,13 +256,6 @@ public abstract class AbstractFormController implements IForm {
                     }
                 });
 
-                //Чтобы последняя строка не выделялась при нажатии
-                cell.setOnMousePressed(e->{
-                    if (cell.getItem() != null && cell.getItem().getId().equals("LAST_LINE"))
-                        cell.getListView().getSelectionModel().clearSelection(cell.getIndex());
-                    e.consume();
-                });
-
                 cell.setOnMouseClicked(e -> {
                     OpData selectedOpData = null;
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
@@ -278,6 +271,11 @@ public abstract class AbstractFormController implements IForm {
                                 e.getScreenY());
                     }
                     e.consume(); //Чтобы не срабатывал слушатель ниже
+                });
+
+                cell.selectedProperty().addListener(e->{
+                    if(cell.getItem() != null && cell.getItem().getId().equals("LAST_LINE"))
+                        cell.getListView().getSelectionModel().clearSelection(cell.getIndex());
                 });
 
                 return cell;

@@ -12,7 +12,7 @@
 
 <VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.welding.PlateWeldContinuousController">
    <children>
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,7 +32,9 @@
                   <Image url="@../../../pics/btns/help.png" />
                </image>
             </ImageView>
-            <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label text="#" />
+            <TextField fx:id="tfName" maxWidth="-Infinity" prefHeight="25.0" prefWidth="173.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fx:id="ivDeleteOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

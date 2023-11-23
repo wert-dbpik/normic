@@ -25,6 +25,9 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private Label lblOperationName;
 
     @FXML
+    private TextField tfName;
+
+    @FXML
     private TextField tfSeamLength;
 
     @FXML
@@ -51,6 +54,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private String name; //наименование
     private int seamLength; //Длина шва
     private int seamsCounted; //Количество швов расчетное
     private int seams; //Количество швов заданное пользователем
@@ -68,6 +72,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
         tfStep.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
 
+        new TfString(tfName, this);
         new BXPartBigness().create(cmbxPartBigness, opData.getPartBigness(), this);
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfSeamLength, this);
@@ -125,6 +130,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
+        name = tfName.getText().trim();
         seamLength = IntegerParser.getValue(tfSeamLength);
         seams = IntegerParser.getValue(tfSeams);
         men = IntegerParser.getValue(tfMen);
@@ -136,6 +142,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
 
     private void collectOpData(OpWeldContinuous opData){
+        opData.setName(name);
         opData.setSeamLength(seamLength);
         opData.setPartBigness(cmbxPartBigness.getValue());
         opData.setMen(men);
@@ -151,6 +158,9 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpWeldContinuous opData = (OpWeldContinuous)data;
+
+        name = opData.getName();
+        tfName.setText(name);
 
         seamLength = opData.getSeamLength();
         tfSeamLength.setText(String.valueOf(seamLength));

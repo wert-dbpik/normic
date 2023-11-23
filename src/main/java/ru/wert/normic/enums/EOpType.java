@@ -25,7 +25,7 @@ public enum EOpType {
     ASSM_CUTTINGS               ("Сборка раскройного материала",    new Image("/pics/opLogos/assm_cutting.png")),  //СБОРКА РАСКРОЙНЫХ МАТЕРИАЛОВ
     ASSM_NODES                  ("Сборка стандартных узлов",        new Image("/pics/opLogos/cutting.png")),       //СБОРКА ОТДЕЛЬНЫХ УЗЛОВ
     ASSM_NUTS                   ("Сборка крепежа",                  new Image("/pics/opLogos/nuts.png")),          //СБОРКА КРЕПЕЖА
-    LEVELING_SEALER             ("Нанесение наливного уплотнителя", new Image("/pics/opLogos/sealer.png")),        //НАЛИВКА УПЛОТНИТЕЛЯ
+    LEVELING_SEALER             ("Наливной уплотнитель",            new Image("/pics/opLogos/sealer.png")),        //НАЛИВКА УПЛОТНИТЕЛЯ
 
     //СЛЕСАРНЫЕ ОПЕРАЦИИ
     LOCKSMITH                   ("Слесарные операции",              new Image("/pics/opLogos/locksmith.png")),     //СЛЕАРНЫЕ РАБОТЫ

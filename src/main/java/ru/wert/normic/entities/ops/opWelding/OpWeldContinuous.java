@@ -14,6 +14,7 @@ import ru.wert.normic.enums.EPartBigness;
 @Setter
 public class OpWeldContinuous extends OpData {
 
+    private String name = "";
     private Integer seamLength = 0; //Длина шва
     private EPartBigness partBigness =EPartBigness.SMALL; //размер собираемых деталей
     private Integer men = 1; //Число человек, работающих над операцией
@@ -30,7 +31,8 @@ public class OpWeldContinuous extends OpData {
 
     @Override
     public String toString() {
-        return"L шва = " + seamLength + " мм." +
+        return "наименование : " + name +
+                ",\nL шва = " + seamLength + " мм." +
                 ", размер сборки = " + partBigness.getName() +
                 ", N рабочих = " + men +
                 ",\nзачистка швов = " + stripping +

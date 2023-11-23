@@ -14,6 +14,8 @@ import ru.wert.normic.enums.ESealersWidth;
 @Setter
 public class OpLevelingSealer extends OpData {
 
+    private String name = "";  //наименование
+
     private double compA = 0.0; //Компонент полиэфирный А
     private double compB = 0.0; //Компонент изоцинат Б
 
@@ -28,7 +30,8 @@ public class OpLevelingSealer extends OpData {
 
     @Override
     public String toString() {
-        return "компонент А = " + compA + " кг." +
+        return "наименование : " + name +
+                ",\nкомпонент А = " + compA + " кг." +
                 ", компонент Б = " + compB + " кг." +
                 ", W проф = " + sealersWidth.getName() + " мм." +
                 ", А = " + paramA + " мм." +

@@ -5,10 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import ru.wert.normic.components.BXSealersWidth;
-import ru.wert.normic.components.CmBx;
-import ru.wert.normic.components.TFIntegerColored;
-import ru.wert.normic.components.TFNormTime;
+import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
@@ -21,6 +18,9 @@ import static ru.wert.normic.settings.NormConstants.*;
  * НАЛИВКА УПЛОТНИТЕЛЯ
  */
 public class PlateLevelingSealerController extends AbstractOpPlate {
+
+    @FXML
+    private TextField tfName;
 
     @FXML
     private ComboBox<ESealersWidth> cmbxSealerWidth;
@@ -40,6 +40,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private String name; //Наименование
     private int paramA; //Размер А
     private int paramB;//Размер Б
     private double perimeter; //
@@ -47,6 +48,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData opData){
 
+        new TfString(tfName, this);
         new BXSealersWidth().create(cmbxSealerWidth, ((OpLevelingSealer)opData).getSealersWidth(), this);
         new TFNormTime(tfNormTime, formController);
         new TFIntegerColored(tfA, this);
@@ -82,6 +84,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
+        name = tfName.getText().trim();
         paramA = IntegerParser.getValue(tfA);
         paramB = IntegerParser.getValue(tfB);
         perimeter = (paramA == 0 || paramB == 0) ?
@@ -90,6 +93,8 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     }
 
     private void collectOpData(OpLevelingSealer opData){
+
+        opData.setName(name);
         opData.setCompA(tfCompA.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompA.getText().replace(",", ".")));
         opData.setCompB(tfCompB.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompB.getText().replace(",", ".")));
 
@@ -103,6 +108,9 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpLevelingSealer opData = (OpLevelingSealer)data;
+
+        name = opData.getName();
+        tfName.setText(name);
 
         cmbxSealerWidth.setValue(opData.getSealersWidth());
 

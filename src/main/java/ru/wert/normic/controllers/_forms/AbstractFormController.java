@@ -186,6 +186,8 @@ public abstract class AbstractFormController implements IForm {
                 };
 
                 cell.setOnDragDetected(e->{
+                    boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+                    if(lastLine) e.consume();
                     if (!cell.isEmpty()) {
                         Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
                         ClipboardContent cc = new ClipboardContent();
@@ -212,12 +214,15 @@ public abstract class AbstractFormController implements IForm {
 
                 cell.setOnDragOver(e -> {
                     if(cell.getItem() != null) {
+                        boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+
                         getListViewTechOperations().getSelectionModel().clearSelection();
-                        getListViewTechOperations().getSelectionModel().select(cell.getItem());
+                        if (!lastLine)
+                            getListViewTechOperations().getSelectionModel().select(cell.getItem());
 
                         Dragboard db = e.getDragboard();
 
-                        OpData targetOpData = addedOperations.get(cell.getIndex());
+                        OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
                         if (clipOpDataList.contains(targetOpData))
                             e.acceptTransferModes(TransferMode.MOVE);
                         else if (db.hasString() && dropIsPossible(targetOpData)) {
@@ -235,10 +240,11 @@ public abstract class AbstractFormController implements IForm {
 
                 cell.setOnDragDropped(e -> {
                     if(cell.getItem() != null) {
-                        OpData targetOpData = addedOperations.get(cell.getIndex());
+                        boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+                        OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
                         whereFromController = getThisController();
                         if (e.getTransferMode().equals(TransferMode.MOVE) && !clipOpDataList.contains(targetOpData)) {
-                            addOperation(addedOperations.get(cell.getIndex()));
+                            addOperation(lastLine ? opData : addedOperations.get(cell.getIndex()));
                             e.setDropCompleted(true);
                         } else {
                             e.setDropCompleted(false);
@@ -250,6 +256,12 @@ public abstract class AbstractFormController implements IForm {
                     }
                 });
 
+                //Чтобы последняя строка не выделялась при нажатии
+                cell.setOnMousePressed(e->{
+                    if (cell.getItem() != null && cell.getItem().getId().equals("LAST_LINE"))
+                        cell.getListView().getSelectionModel().clearSelection(cell.getIndex());
+                    e.consume();
+                });
 
                 cell.setOnMouseClicked(e -> {
                     OpData selectedOpData = null;
@@ -670,6 +682,8 @@ public abstract class AbstractFormController implements IForm {
         PlateDetailController.nameIndex = 0;
         PlateAssmController.nameIndex = 0;
         iterateUndoList();
+
+        menu.addEmptyPlate();
     }
 
     /**

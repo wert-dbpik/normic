@@ -95,6 +95,8 @@ public class FormAssmController extends AbstractFormController {
         fillOpData();
         countSumNormTimeByShops();
 
+        menu.addEmptyPlate();
+
     }
 
     private void initViews() {

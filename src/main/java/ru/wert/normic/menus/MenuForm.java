@@ -5,6 +5,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import ru.wert.normic.controllers.PlateEmptyController;
 import ru.wert.normic.controllers.PlateErrorController;
 import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.list.PlateBendController;
@@ -393,10 +394,13 @@ public class MenuForm extends ContextMenu {
         return false;
     }
 
+
+
     /*==================================================================================================================
      *                                         В О С С Т А Н О В Л Е Н И Е
      * ==================================================================================================================*/
     public void deployData() {
+        addEmptyPlate();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for (OpData op : operations) {
             switch (op.getOpType()) {
@@ -577,12 +581,13 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateCuttingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "РАСКРОЙ И ЗАЧИСТКА");
-            listViewTechOperations.getItems().add(vBox);
-            
+            addVBox(vBox);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * ГИБКА
@@ -593,7 +598,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateBendController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ГИБКА");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -609,7 +614,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateLocksmithController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СЛЕСАРНЫЕ ОПЕРАЦИИ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -626,7 +631,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateTurningController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ТОЧЕНИЕ ИЛИ РАСТАЧИВАНИЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -642,7 +647,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateCutOffController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ОТРЕЗАНИЕ НА ТОКАРНОМ СТАНКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -658,7 +663,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateCutOffOnTheSawController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ОТРЕЗАНИЕ НА ПИЛЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -674,7 +679,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateChopOffController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ОТРУБАНИЕ НА ГЕКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -690,7 +695,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateCutGrooveController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ТОЧЕНИЕ ПАЗА НА ТОКАРНОМ СТАНКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -706,7 +711,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateThreadingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -722,7 +727,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateDrillingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -738,7 +743,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateDrillingByMarkingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -754,7 +759,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateRollingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "НАКАТЫВАНИЕ РИФЛЕНИЯ НА ТОКАРНОМ СТАНКЕ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -770,7 +775,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateMountDismountController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА И СНЯТИЕ ДЕТАЛИ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -789,7 +794,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePaintController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА ДЕТАЛИ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -805,7 +810,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePaintAssmController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА СБОРОЧНОЙ ЕДИНИЦЫ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -823,7 +828,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateWeldContinuousController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СВАРКА НЕПРЕРЫВНАЯ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -839,7 +844,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateWeldDottedController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СВАРКА ТОЧЕЧНАЯ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -857,7 +862,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateAssmNutsController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СБОРКА КРЕПЕЖА");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -873,7 +878,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateAssmNutsMKController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "КРЕПЕЖ (УЧАСТОК МК)");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -889,7 +894,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateAssmCuttingsController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СБОРКА РАСКРОЙНОГО МАТЕРИАЛА");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -905,7 +910,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateAssmNodesController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СБОРКА СТАНДАРТНЫХ УЗЛОВ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -923,7 +928,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateLevelingSealerController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "НАНЕСЕНИЕ НАЛИВНОГО УПЛОТНИТЕЛЯ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -941,7 +946,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePackInCartoonBoxController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В КАРТОННУЮ КОРОБКУ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -957,7 +962,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePackInMachineStretchWrapController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -973,7 +978,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePackInHandStretchWrapController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В РУЧНУЮ СТРЕЙЧ_ПЛЕНКУ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -988,7 +993,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePackInBubbleController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -1004,7 +1009,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlatePackOnPalletController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УПАКОВКА НА ПОДДОН");
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -1020,11 +1025,38 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateErrorController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size());
-            listViewTechOperations.getItems().add(vBox);
+            addVBox(vBox);
             
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    //==================================================================================================================
+
+    /**
+     * EMPTY PLATE
+     */
+    public void addEmptyPlate() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateEmpty.fxml"));
+            VBox vBox = loader.load();
+            PlateEmptyController controller = loader.getController();
+            listViewTechOperations.getItems().add(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Добавление операционной плашки перед пустой плашкой
+     * @param vBox - добавляемая плашка
+     */
+    private void addVBox(VBox vBox) {
+        int lastIndex = listViewTechOperations.getItems().size() == 0 ? 0 : listViewTechOperations.getItems().size() - 1;
+        listViewTechOperations.getItems().add(lastIndex, vBox);
     }
 
 }

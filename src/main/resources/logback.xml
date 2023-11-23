@@ -8,6 +8,7 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>DEBUG</level>
         </filter>
+
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
             <FileNamePattern>${user.home}/AppData/Local/BazaPIK/logs/mainLog.%i.log.zip</FileNamePattern>
             <MinIndex>1</MinIndex>
@@ -40,6 +41,11 @@
 
     <logger name="org.hibernate">
         <level value="error"/>
+    </logger>
+
+    <!--  to avoid warn logging when scrolling listView -->
+    <logger name="com.sun.javafx.scene.control.skin.VirtualFlow">
+        <level value="OFF"/>
     </logger>
 
 </configuration>

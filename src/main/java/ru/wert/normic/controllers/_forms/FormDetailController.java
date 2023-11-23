@@ -126,6 +126,8 @@ public class FormDetailController extends AbstractFormController {
         matPatchController.countWeightAndArea();
         countSumNormTimeByShops();
 
+        menu.addEmptyPlate();
+
     }
 
     private void mountMatPatch(Material prevMaterial, Material newMaterial) {

@@ -122,6 +122,8 @@ public class MainController extends AbstractFormController {
 
         Platform.runLater(()->LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ"));
 
+        menu.addEmptyPlate();
+
     }
 
     @Override //AbstractFormController
@@ -342,7 +344,7 @@ public class MainController extends AbstractFormController {
             new Decoration(
                     "ОТЧЕТ",
                     report,
-                    true,
+                    false,
                     owner,
                     "decoration-report",
                     true,
@@ -441,7 +443,7 @@ public class MainController extends AbstractFormController {
     }
 
     /**
-     * РАСЧЕТНЫЕ КОНСТАНТЫ
+     * Материалы
      */
     private void materials(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?

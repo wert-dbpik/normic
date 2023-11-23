@@ -86,6 +86,8 @@ public class FormPackController extends AbstractFormController {
         fillOpData();
         countSumNormTimeByShops();
 
+        menu.addEmptyPlate();
+
     }
 
 

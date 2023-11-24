@@ -260,7 +260,7 @@ public abstract class AbstractFormController implements IForm {
 
                     OpData selectedOpData = null;
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
-                        boolean cellIsEmpty = cell.isEmpty();
+                        boolean cellIsEmpty = cell.isEmpty() || cell.getItem().getId().equals("LAST_LINE");
                         if(cellIsEmpty) {
                             if(clipOpDataList.isEmpty()) e.consume();
                             cell.getListView().getSelectionModel().clearSelection();

@@ -51,7 +51,7 @@ public class MenuPlate {
             List<OpData> addedOperations = ((IOpWithOperations) opData).getOperations();
             String initialName = ((IOpWithOperations) opData).getName();
             opData.setQuantity(1); //Количество меняем на 1
-            save.setOnAction(e -> MainController.save(opData, addedOperations, initialName, e, EMenuSource.FORM_MENU));
+            save.setOnAction(e -> MainController.saveAs(opData, addedOperations, initialName, e, EMenuSource.FORM_MENU));
             save.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/save.png").toString(), 24, 24, true, true)));
         } else
             showSave = false;

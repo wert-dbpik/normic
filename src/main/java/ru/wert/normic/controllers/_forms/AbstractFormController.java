@@ -186,9 +186,9 @@ public abstract class AbstractFormController implements IForm {
                 };
 
                 cell.setOnDragDetected(e->{
+                    if(cell.isEmpty()) return;
                     boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
-                    if(lastLine) e.consume();
-                    if (!cell.isEmpty()) {
+                    if (!cell.isEmpty() && !lastLine) {
                         Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
                         ClipboardContent cc = new ClipboardContent();
                         List<Integer> indices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
@@ -257,14 +257,20 @@ public abstract class AbstractFormController implements IForm {
                 });
 
                 cell.setOnMouseClicked(e -> {
+
                     OpData selectedOpData = null;
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         boolean cellIsEmpty = cell.isEmpty();
                         if(cellIsEmpty) {
+                            if(clipOpDataList.isEmpty()) e.consume();
                             cell.getListView().getSelectionModel().clearSelection();
                             selectedOpData = opData;
-                        } else
-                            selectedOpData = addedOperations.get(cell.getIndex());
+                        } else {
+                            boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+                            if(lastLine) selectedOpData = opData;
+                            else selectedOpData = addedOperations.get(cell.getIndex());
+                        }
+
                         new MenuPlate().create(getThisController(), selectedOpData, cellIsEmpty).show(
                                 ((Node)e.getSource()).getScene().getWindow(),
                                 e.getScreenX(),
@@ -528,34 +534,41 @@ public abstract class AbstractFormController implements IForm {
 
     public boolean isPastePossible(boolean cellIsEmpty){
         if(clipOpDataList == null) return false;
-        //Определяем целевой узел вставки OpData
-        int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        OpData targetOpData = cellIsEmpty ? getOpData() : getAddedOperations().get(selectedIndex);
-        if(!(targetOpData instanceof OpDetail) && !(targetOpData instanceof OpAssm) && !(targetOpData instanceof OpPack)) return false;
-        List<EOpType> targetOperations = ((IOpWithOperations)targetOpData).getOperations().stream().map(OpData::getOpType).collect(Collectors.toList());
-        //Исключаем автовставку
-        if(clipOpDataList.contains(targetOpData)) return false;
 
-        for (OpData op : clipOpDataList) {
-            if (targetOpData instanceof OpDetail) {
-                if (!DETAIL_OPERATIONS.contains(op.getOpType()))
-                    return false;
-                if (targetOperations.contains(op.getOpType()) &&
-                        !DUPLICATED_OPERATIONS.contains(op.getOpType()))
-                    return false;
-            } else if (targetOpData instanceof OpAssm) {
-                if (!ASSM_OPERATIONS.contains(op.getOpType()))
-                    return false;
-                if (targetOperations.contains(op.getOpType()) &&
-                        !DUPLICATED_OPERATIONS.contains(op.getOpType()))
-                    return false;
-            } else{
-                if (!PACK_OPERATIONS.contains(op.getOpType()))
-                    return false;
-                if (targetOperations.contains(op.getOpType()) &&
-                        !DUPLICATED_OPERATIONS.contains(op.getOpType()))
-                    return false;
+        try {
+            //Определяем целевой узел вставки OpData
+            int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
+
+            OpData targetOpData = cellIsEmpty ? getOpData() : getAddedOperations().get(selectedIndex);
+
+            if(!(targetOpData instanceof OpDetail) && !(targetOpData instanceof OpAssm) && !(targetOpData instanceof OpPack)) return false;
+            List<EOpType> targetOperations = ((IOpWithOperations)targetOpData).getOperations().stream().map(OpData::getOpType).collect(Collectors.toList());
+            //Исключаем автовставку
+            if(clipOpDataList.contains(targetOpData)) return false;
+
+            for (OpData op : clipOpDataList) {
+                if (targetOpData instanceof OpDetail) {
+                    if (!DETAIL_OPERATIONS.contains(op.getOpType()))
+                        return false;
+                    if (targetOperations.contains(op.getOpType()) &&
+                            !DUPLICATED_OPERATIONS.contains(op.getOpType()))
+                        return false;
+                } else if (targetOpData instanceof OpAssm) {
+                    if (!ASSM_OPERATIONS.contains(op.getOpType()))
+                        return false;
+                    if (targetOperations.contains(op.getOpType()) &&
+                            !DUPLICATED_OPERATIONS.contains(op.getOpType()))
+                        return false;
+                } else{
+                    if (!PACK_OPERATIONS.contains(op.getOpType()))
+                        return false;
+                    if (targetOperations.contains(op.getOpType()) &&
+                            !DUPLICATED_OPERATIONS.contains(op.getOpType()))
+                        return false;
+                }
             }
+        } catch (Exception e) {
+            return false; //из-за разности длины списков с пустой строкой бывает ошибка
         }
 
         return true;

@@ -86,6 +86,8 @@ public class MainController extends AbstractFormController {
     @FXML
     private Label lblTimeMeasure;
 
+    private static File savedProductFile = null;
+
     private MainMenuController mainMenuController;
     private IconMenuController iconMenuController;
     private Parent iconBar;
@@ -142,7 +144,8 @@ public class MainController extends AbstractFormController {
             e.printStackTrace();
         }
 
-        mainMenuController.getMSaveAs().setOnAction(e->save(opData, addedOperations, "", e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMSave().setOnAction(e-> save(opData, addedOperations, e));
+        mainMenuController.getMSaveAs().setOnAction(e-> saveAs(opData, addedOperations, "", e, EMenuSource.MAIN_MENU));
         mainMenuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMClearAll().setOnAction(this::clearAll);
         mainMenuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MAIN_MENU));
@@ -177,10 +180,10 @@ public class MainController extends AbstractFormController {
             e.printStackTrace();
         }
 
-        //СОХРАНИТЬ
+        //СОХРАНИТЬ КАК
         iconMenuController.getBtnSave().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32,32, true, true)));
         iconMenuController.getBtnSave().setTooltip(new Tooltip("Сохранить"));
-        iconMenuController.getBtnSave().setOnAction(e->save(opData, addedOperations, "", e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnSave().setOnAction(e-> save(opData, addedOperations, e));
 
         //ОТКРЫТЬ
         iconMenuController.getBtnOpen().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32,32, true, true)));
@@ -290,7 +293,15 @@ public class MainController extends AbstractFormController {
     /**
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
-    public static void save(OpData opData, List<OpData> addedOperations, String initialName, Event e, EMenuSource source) {
+    public static void save(OpData opData, List<OpData> addedOperations, Event e) {
+        if(savedProductFile == null) saveAs(opData, addedOperations, "", e, EMenuSource.MAIN_MENU);
+        else loadProductToFile(savedProductFile, opData, addedOperations);
+    }
+
+    /**
+     * Выбрать файл для сохранения изделия
+     */
+    public static void saveAs(OpData opData, List<OpData> addedOperations, String initialName, Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -302,7 +313,14 @@ public class MainController extends AbstractFormController {
         chooser.setInitialFileName(initialName);
 
         File file = chooser.showSaveDialog(owner);
-        if (file == null) return;
+        if (file != null) loadProductToFile(file, opData, addedOperations);
+
+    }
+
+    /**
+     *Загрузить изделие в файл
+     */
+    public static void loadProductToFile(File file, OpData opData, List<OpData> addedOperations) {
 
         ((IOpWithOperations)opData).setName(file.getName());
         AppProperties.getInstance().setSavesDirectory(file.getParent());
@@ -321,6 +339,7 @@ public class MainController extends AbstractFormController {
         List<String> product = Arrays.asList(savedOpType, productSettings, productData);
         saveTextToFile(product, file);
 
+        savedProductFile = file;
         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
 
     }

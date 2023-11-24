@@ -13,6 +13,7 @@ public class MainMenuController {
     @FXML@Getter
     private MenuItem
             mOpen,
+            mSave,
             mSaveAs,
             mImportExcel,
             mExit;

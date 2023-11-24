@@ -9,6 +9,7 @@
       <Menu mnemonicParsing="false" text="Файл">
          <items>
             <MenuItem fx:id="mOpen" mnemonicParsing="false" text="Открыть" />
+            <MenuItem fx:id="mSave" mnemonicParsing="false" text="Сохранить" />
             <MenuItem fx:id="mSaveAs" mnemonicParsing="false" text="Сохранить как ..." />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mImportExcel" mnemonicParsing="false" text="Импортировать из Excel" />

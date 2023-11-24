@@ -9,6 +9,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
@@ -39,6 +40,9 @@ public class PlateCuttingController extends AbstractOpPlate {
     @FXML
     private TextField tfExtraPerimeter;
 
+    private OpCutting opData;
+
+    private Material material; //Материал
     private double perimeter; //Периметр контура развертки
     private double area; //Площадь развертки
     private int extraPerimeter; //Дополнительный периметр обработки
@@ -72,40 +76,12 @@ public class PlateCuttingController extends AbstractOpPlate {
      */
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpCutting opData = (OpCutting) data;
+        opData = (OpCutting) data;
 
         countInitialValues();
 
-        final double PLUS_LENGTH = extraPerimeter * MM_TO_M;
+        currentNormTime = PlateCuttingCounter.count((OpCutting) data).getMechTime();//результат в минутах
 
-        double speed;
-        //Скорость резания, м/мин
-        if (t < 1.5) speed = 5.5;
-        else if (t >= 1.5 && t < 2) speed = 5.0;
-        else if (t >= 2 && t < 2.5 ) speed = 4.0;
-        else if (t >= 2.5 && t < 3.0) speed = 3.0;
-        else speed = 1.9;
-
-        //Время зачистки
-        double strippingTime; //мин
-        if(stripping){
-            strippingTime = ((perimeter + PLUS_LENGTH) * STRIPING_SPEED + holes) / 60;
-        } else
-            strippingTime = 0.0;
-
-        double time;
-
-        time = ((perimeter + PLUS_LENGTH)/speed                 //Время на резку по периметру
-                + CUTTING_SPEED * area                          //Время подготовительное - заключительоне
-                + REVOLVER_SPEED * holes                //Время на пробивку отверстий
-                + PERFORATION_SPEED * perfHoles)        //Время на пробивку перфорации
-                * CUTTING_SERVICE_RATIO
-                + strippingTime;
-
-        if(area == 0.0) time = 0.0;
-
-        currentNormTime = time;//результат в минутах
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -116,15 +92,24 @@ public class PlateCuttingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
+        material = ((FormDetailController)formController).getCmbxMaterial().getValue();
         paramA = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfA());
         paramB = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfB());
-        t = ((FormDetailController)formController).getCmbxMaterial().getValue().getParamS();
+        t = material.getParamS();
         perimeter = 2 * (paramA + paramB) * MM_TO_M;
         area = paramA * paramB * MM2_TO_M2;
         extraPerimeter = IntegerParser.getValue(tfExtraPerimeter);
         stripping = chbxStripping.isSelected();
         holes = IntegerParser.getValue(tfHoles);
         perfHoles = IntegerParser.getValue(tfPerfHoles);
+
+        opData.setMaterial(material);
+        opData.setParamA(paramA);
+        opData.setParamB(paramB);
+        opData.setHoles(holes);
+        opData.setPerfHoles(perfHoles);
+        opData.setExtraPerimeter(extraPerimeter);
+        opData.setStripping(stripping);
 
     }
 
@@ -133,6 +118,7 @@ public class PlateCuttingController extends AbstractOpPlate {
      * Вызывается при изменении любого значения на операционной плашке
      */
     private void collectOpData(OpCutting opData){
+        opData.setMaterial(material);
         opData.setHoles(holes);
         opData.setPerfHoles(perfHoles);
         opData.setExtraPerimeter(extraPerimeter);

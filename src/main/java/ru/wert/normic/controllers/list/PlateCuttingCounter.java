@@ -1,6 +1,5 @@
 package ru.wert.normic.controllers.list;
 
-import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
@@ -8,14 +7,6 @@ import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class PlateCuttingCounter {
-
-    private Material material ;
-    private Integer paramA;
-    private Integer paramB;
-    private Integer holes;
-    private Integer perfHoles;
-    private Integer extraPerimeter;
-    private boolean stripping;
 
     public static OpCutting count(OpCutting opData){
 

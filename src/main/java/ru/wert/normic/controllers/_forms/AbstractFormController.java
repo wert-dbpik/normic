@@ -654,6 +654,8 @@ public abstract class AbstractFormController implements IForm {
                 }
 
                 countSumNormTimeByShops();
+                //Сохраняем путь открытого файла. чтобы его можно было пересохранить
+                MainController.savedProductFile = file;
             }
         } catch (IOException | JSONException ioException) {
             ioException.printStackTrace();

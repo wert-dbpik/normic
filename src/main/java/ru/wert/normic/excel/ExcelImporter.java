@@ -5,6 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.wert.normic.controllers.list.PlateCuttingController;
+import ru.wert.normic.controllers.list.PlateCuttingCounter;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -99,7 +102,11 @@ public class ExcelImporter {
                                     detail.setWeight(MaterialMaster.countListWeight(detail, mat));
                                     //Вырезание детали
                                     OpCutting opCutting = new OpCutting();
+//                                    detail.setMechTime(PlateCuttingCounter.count(opCutting).getMechTime());
                                     detail.getOperations().add(opCutting);
+//
+//                                    PlateCuttingCounter.count(opCutting);
+
 
                                 } else if (matType.equals(EMatType.ROUND)){
                                     detail.setArea(MaterialMaster.countRoundArea(detail, mat));

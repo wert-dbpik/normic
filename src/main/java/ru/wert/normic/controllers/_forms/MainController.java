@@ -86,7 +86,7 @@ public class MainController extends AbstractFormController {
     @FXML
     private Label lblTimeMeasure;
 
-    private static File savedProductFile = null;
+    public static File savedProductFile = null;
 
     private MainMenuController mainMenuController;
     private IconMenuController iconMenuController;

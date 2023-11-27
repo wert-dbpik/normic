@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.list;
+package ru.wert.normic.controllers.list.counters;
 
 import ru.wert.normic.entities.ops.opList.OpCutting;
 
@@ -6,7 +6,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class PlateCuttingCounter {
+public class OpCuttingCounter {
 
     public static OpCutting count(OpCutting opData){
 
@@ -20,6 +20,7 @@ public class PlateCuttingCounter {
         int holes = opData.getHoles(); //Количество отверстий в развертке
         int perfHoles = opData.getPerfHoles(); //Количество перфораций в развертке
 
+        //##########################################################################
 
         final double PLUS_LENGTH = extraPerimeter * MM_TO_M;
 

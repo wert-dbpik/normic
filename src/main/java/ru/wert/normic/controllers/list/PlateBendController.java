@@ -11,6 +11,7 @@ import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.list.counters.OpBendingCounter;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
@@ -39,6 +40,8 @@ public class PlateBendController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private OpBending opData;
+
     private int bends;
     private int men;
     private double toolRatio;
@@ -55,16 +58,12 @@ public class PlateBendController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpBending opData = (OpBending)data;
+        opData = (OpBending)data;
 
         countInitialValues();
 
-        double time;
-        time =  bends * BENDING_SPEED * toolRatio * men  //мин
-                * BENDING_SERVICE_RATIO;
+        currentNormTime = OpBendingCounter.count((OpBending) data).getMechTime();//результат в минутах
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -73,18 +72,13 @@ public class PlateBendController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-
         bends = IntegerParser.getValue(tfBends);
         men = IntegerParser.getValue(tfMen);
         toolRatio = cmbxBendingTool.getValue().getToolRatio();
-    }
 
-    private void collectOpData(OpBending opData){
         opData.setBends(bends);
         opData.setMen(men);
         opData.setTool(cmbxBendingTool.getValue());
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

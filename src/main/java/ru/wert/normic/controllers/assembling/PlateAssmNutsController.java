@@ -7,8 +7,11 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.assembling.countings.OpAssmNutsCounter;
+import ru.wert.normic.controllers.list.counters.OpBendingCounter;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.settings.NormConstants.*;
@@ -39,6 +42,8 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     @FXML
     private TextField tfScrews;
 
+    private OpAssmNut opData;
+
     private int screws; //Количество винтов
     private int vshgs; //Количество комплектов ВШГ
     private int rivets; //Количество заклепок
@@ -62,20 +67,12 @@ public class PlateAssmNutsController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpAssmNut opData = (OpAssmNut)data;
+        opData = (OpAssmNut)data;
 
         countInitialValues();
 
-        double time;
-        time =  screws * SCREWS_SPEED
-                + vshgs * VSHGS_SPEED
-                + rivets * RIVETS_SPEED * SEC_TO_MIN
-                + rivetNuts * RIVET_NUTS_SPEED * SEC_TO_MIN
-                + groundSets * GROUND_SETS_SPEED
-                + others * OTHERS_SPEED * SEC_TO_MIN;   //мин
+        currentNormTime = OpAssmNutsCounter.count((OpAssmNut) data).getAssmTime();//результат в минутах
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -85,7 +82,6 @@ public class PlateAssmNutsController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
-
         screws = IntegerParser.getValue(tfScrews);
         vshgs = IntegerParser.getValue(tfVSHGs);
         rivets = IntegerParser.getValue(tfRivets);
@@ -93,18 +89,12 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         groundSets = IntegerParser.getValue(tfGroundSets);
         others = IntegerParser.getValue(tfOthers);
 
-    }
-
-
-    private void collectOpData(OpAssmNut opData){
         opData.setScrews(screws);
         opData.setVshgs(vshgs);
         opData.setRivets(rivets);
         opData.setRivetNuts(rivetNuts);
         opData.setGroundSets(groundSets);
         opData.setOthers(others);
-
-        opData.setAssmTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

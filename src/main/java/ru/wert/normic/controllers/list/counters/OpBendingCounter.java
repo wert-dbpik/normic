@@ -19,7 +19,6 @@ public class OpBendingCounter {
                 * BENDING_SERVICE_RATIO;
 
         opData.setMechTime(time);
-
         return opData;
     }
 

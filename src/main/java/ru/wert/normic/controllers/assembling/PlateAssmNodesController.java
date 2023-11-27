@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.assembling.countings.OpAssmNodeCounter;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmNode;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
@@ -36,6 +37,8 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private OpAssmNode opData;
+
     private int postLocks; //Количество почтовых замков
     private int doubleLocks; //Количество замков с рычагами
     private int mirrors; //Количество стекол
@@ -57,19 +60,12 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpAssmNode opData = (OpAssmNode)data;
+        opData = (OpAssmNode)data;
 
         countInitialValues();
 
-        double time;
-        time =  postLocks * POST_LOCKS_SPEED
-                + doubleLocks * DOUBLE_LOCKS_SPEED
-                + mirrors * GLASS_SPEED
-                + detectors * DETECTORS_SPEED
-                + connectionBoxes * CONNECTION_BOXES_SPEED;   //мин
+        currentNormTime = OpAssmNodeCounter.count((OpAssmNode) data).getAssmTime();//результат в минутах
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -84,17 +80,12 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         mirrors = IntegerParser.getValue(tfMirrors);
         detectors = IntegerParser.getValue(tfDetectors);
         connectionBoxes = IntegerParser.getValue(tfConnectionBoxes);
-    }
 
-
-    private void collectOpData(OpAssmNode opData){
         opData.setPostLocks(postLocks);
         opData.setDoubleLocks(doubleLocks);
         opData.setMirrors(mirrors);
         opData.setDetectors(detectors);
         opData.setConnectionBoxes(connectionBoxes);
-
-        opData.setAssmTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

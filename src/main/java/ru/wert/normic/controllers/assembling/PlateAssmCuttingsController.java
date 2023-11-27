@@ -7,8 +7,11 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.assembling.countings.OpAssmCattingCounter;
+import ru.wert.normic.controllers.list.counters.OpBendingCounter;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.utils.DoubleParser;
 
 import static ru.wert.normic.settings.NormConstants.*;
@@ -30,6 +33,8 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
     @FXML
     private TextField tfInsulation;
 
+    private OpAssmCutting opData;
+
     private double sealer; //Уплотнитель на ребро корпуса
     private double selfAdhSealer; //Уплотнитель самоклеющийся
     private double insulation; //Утеплитель
@@ -45,17 +50,12 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpAssmCutting opData = (OpAssmCutting)data;
+        opData = (OpAssmCutting)data;
 
          countInitialValues();
 
-        double time;
-        time =  sealer * SEALER_SPEED * SEC_TO_MIN
-                + selfAdhSealer * SELF_ADH_SEALER_SPEED * SEC_TO_MIN
-                + insulation * INSULATION_SPEED;//мин
+        currentNormTime = OpAssmCattingCounter.count((OpAssmCutting) data).getAssmTime();//результат в минутах
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -69,15 +69,10 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         selfAdhSealer = DoubleParser.getValue(tfSelfAdhSealer);
         insulation = DoubleParser.getValue(tfInsulation);
 
-    }
-
-
-    private void collectOpData(OpAssmCutting opData){
         opData.setSealer(sealer);
         opData.setSelfAdhSealer(selfAdhSealer);
         opData.setInsulation(insulation);
 
-        opData.setAssmTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

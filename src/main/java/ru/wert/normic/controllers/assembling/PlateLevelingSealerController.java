@@ -7,12 +7,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.assembling.countings.OpLevelingSealerCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
-import static ru.wert.normic.settings.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.LEVELING_PREPARED_TIME;
+import static ru.wert.normic.settings.NormConstants.LEVELING_SPEED;
 
 /**
  * НАЛИВКА УПЛОТНИТЕЛЯ
@@ -40,10 +42,11 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private OpLevelingSealer opData;
+
     private String name; //Наименование
     private int paramA; //Размер А
     private int paramB;//Размер Б
-    private double perimeter; //
 
     @Override //AbstractOpPlate
     public void initViews(OpData opData){
@@ -60,22 +63,16 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpLevelingSealer opData = (OpLevelingSealer)data;
+        opData = (OpLevelingSealer)data;
 
         countInitialValues();
 
-        double time;
-        time =  perimeter * LEVELING_SPEED +
-                Math.ceil(perimeter / 6.0) * LEVELING_PREPARED_TIME;  //мин
+        OpLevelingSealerCounter.count((OpLevelingSealer) data);
 
-        if(perimeter == 0) time = 0.0;
-        else {
-            tfCompA.setText(String.format(DOUBLE_FORMAT, perimeter * cmbxSealerWidth.getValue().getCompA()));
-            tfCompB.setText(String.format(DOUBLE_FORMAT, perimeter * cmbxSealerWidth.getValue().getCompB()));
-        }
+        currentNormTime = opData.getAssmTime();//результат в минутах
+        tfCompA.setText(String.format(DOUBLE_FORMAT, opData.getCompA()));
+        tfCompB.setText(String.format(DOUBLE_FORMAT, opData.getCompB()));
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -87,22 +84,13 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         name = tfName.getText().trim();
         paramA = IntegerParser.getValue(tfA);
         paramB = IntegerParser.getValue(tfB);
-        perimeter = (paramA == 0 || paramB == 0) ?
-                (paramA + paramB)  * MM_TO_M :
-                2 * (paramA + paramB) * MM_TO_M;
-    }
-
-    private void collectOpData(OpLevelingSealer opData){
 
         opData.setName(name);
         opData.setCompA(tfCompA.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompA.getText().replace(",", ".")));
         opData.setCompB(tfCompB.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompB.getText().replace(",", ".")));
-
         opData.setSealersWidth(cmbxSealerWidth.getValue());
         opData.setParamA(paramA);
         opData.setParamB(paramB);
-
-        opData.setAssmTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

@@ -499,6 +499,7 @@ public class MenuForm extends ContextMenu {
                     break;
             }
         }
+
     }
 
 
@@ -1039,6 +1040,12 @@ public class MenuForm extends ContextMenu {
      * EMPTY PLATE
      */
     public void addEmptyPlate() {
+
+        for(VBox box : listViewTechOperations.getItems()){
+            if(box.getId().equals("LAST_LINE"))
+                return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/plateEmpty.fxml"));
             VBox vBox = loader.load();

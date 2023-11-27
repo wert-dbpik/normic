@@ -20,7 +20,7 @@ public class OpCutting extends OpData {
     private Integer holes = 0;
     private Integer perfHoles = 0;
     private Integer extraPerimeter = 0;
-    private boolean stripping = false; //Зачистка
+    private boolean stripping = true; //Зачистка
 
 
     public OpCutting() {

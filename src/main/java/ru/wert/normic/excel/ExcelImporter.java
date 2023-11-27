@@ -102,7 +102,10 @@ public class ExcelImporter {
                                     detail.setWeight(MaterialMaster.countListWeight(detail, mat));
                                     //Вырезание детали
                                     OpCutting opCutting = new OpCutting();
-//                                    detail.setMechTime(PlateCuttingCounter.count(opCutting).getMechTime());
+                                    opCutting.setMaterial(mat);
+                                    opCutting.setParamA(Integer.parseInt(row.getParamA()));
+                                    opCutting.setParamB(Integer.parseInt(row.getParamB()));
+                                    detail.setMechTime(PlateCuttingCounter.count(opCutting).getMechTime());
                                     detail.getOperations().add(opCutting);
 //
 //                                    PlateCuttingCounter.count(opCutting);
@@ -148,6 +151,7 @@ public class ExcelImporter {
             }
 
         }
+        recountAll();
         return  startOpData;
     }
 

@@ -7,7 +7,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УПАКОВКА НА ПАЛЕТОУПАКОВЩИКЕ
+ * УПАКОВКА НА ПАЛЕТОУПАКОВЩИКЕ В МАШИННУЮ СТРЕЙЧ ПЛЕНКУ
  */
 @Getter
 @Setter

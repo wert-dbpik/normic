@@ -14,6 +14,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpLatheMountDismount extends OpData {
 
+    private double weight = 0.0; //Вес заготовки
     private int holder = 1; //тип крепления детали на станке
 
 

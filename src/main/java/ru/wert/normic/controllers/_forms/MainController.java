@@ -294,7 +294,7 @@ public class MainController extends AbstractFormController {
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
     public static void save(OpData opData, List<OpData> addedOperations, Event e) {
-        if(savedProductFile == null) saveAs(opData, addedOperations, "", e, EMenuSource.MAIN_MENU);
+        if(savedProductFile == null) saveAs(opData, addedOperations, "", e, EMenuSource.ICON_MENU);
         else loadProductToFile(savedProductFile, opData, addedOperations);
     }
 
@@ -302,7 +302,7 @@ public class MainController extends AbstractFormController {
      * Выбрать файл для сохранения изделия
      */
     public static void saveAs(OpData opData, List<OpData> addedOperations, String initialName, Event e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU)  ?
                 (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
                 (Stage) ((Node)e.getSource()).getScene().getWindow();
 

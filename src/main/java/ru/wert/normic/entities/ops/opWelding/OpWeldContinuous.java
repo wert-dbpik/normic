@@ -8,7 +8,7 @@ import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.EPartBigness;
 
 /**
- * СВАРКА ТЕПРЕРЫВНЫМ ШВОМ
+ * СВАРКА НЕПРЕРЫВНЫМ ШВОМ
  */
 @Getter
 @Setter

@@ -2,6 +2,7 @@ package ru.wert.normic.entities.ops.opTurning;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
@@ -13,6 +14,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpLatheCutOff extends OpData {
 
+    private Material material;
     private Boolean cutOffSolid = true; //отрезание детали сплошного сечения
     private Double thickness = 0.0; //количество токарных проходов
 

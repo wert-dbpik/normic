@@ -112,7 +112,7 @@ public class OpDataJsonConverter {
             case "LATHE_TURNING":
                 return gson.fromJson(op.toString(), OpLatheTurning.class);
             case "LATHE_CUT_GROOVE":
-                return gson.fromJson(op.toString(), LatheCutGroove.class);
+                return gson.fromJson(op.toString(), OpLatheCutGroove.class);
             case "LATHE_THREADING":
                 return gson.fromJson(op.toString(), OpLatheThreading.class);
             case "LATHE_DRILLING":

@@ -3,18 +3,15 @@ package ru.wert.normic.controllers.turning;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers.turning.counters.OpLatheCutOffCounter;
+import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -30,47 +27,12 @@ public class PlateCutOffController extends AbstractOpPlate {
     @FXML
     private CheckBox chbxCutOffSolid;
 
+    private OpLatheCutOff opData;
+
     private String initStyle;
     private double diameter; //Диаметр заготовки
     private boolean cutOffSolid; //отрезание детали сплошного сечения
     private double thickness; //Глубина  точения
-
-    enum ECutSolidDiameters { //page 123 (Р6М5)
-        CUT_SOLID_D10(10, 0.9),
-        CUT_SOLID_D20(20, 1.0),
-        CUT_SOLID_D30(30, 1.5),
-        CUT_SOLID_D40(40, 1.8),
-        CUT_SOLID_D60(60, 2.7),
-        CUT_SOLID_D80(80, 4.3),
-        CUT_SOLID_D90(90, 5.0),
-        CUT_SOLID_D100(100, 6.4);
-
-        @Getter int diam;
-        @Getter double time;
-        ECutSolidDiameters(int diam,  double time){
-            this.diam = diam;
-            this.time = time;}
-    }
-
-    enum ECutPipeThicknesses { //page 124 (Р6М5)
-        CUT_PIPE_T05(5, 0.9),
-        CUT_PIPE_T10(10, 1.0),
-        CUT_PIPE_T20(20, 1.3),
-        CUT_PIPE_T30(30, 2.5),
-        CUT_PIPE_T40(40, 3.5),
-        CUT_PIPE_T50(50, 4.3),
-        CUT_PIPE_T60(60, 5.5),
-        CUT_PIPE_T70(70, 8.5),
-        CUT_PIPE_T80(80, 9.5),
-        CUT_PIPE_T90(90, 13.5);
-
-        @Getter int thickness;
-        @Getter double time;
-        ECutPipeThicknesses(int thickness, double time){
-            this.thickness = thickness;
-            this.time = time;}
-    }
-
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
@@ -97,33 +59,13 @@ public class PlateCutOffController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpLatheCutOff opData = (OpLatheCutOff) data;
+        opData = (OpLatheCutOff) data;
 
         countInitialValues();
 
-        currentNormTime = findTime();
-        collectOpData(opData);
+        currentNormTime = OpLatheCutOffCounter.count((OpLatheCutOff) data).getMechTime();//результат в минутах
+
         setTimeMeasurement();
-    }
-
-    private Double findTime(){
-        if(chbxCutOffSolid.isSelected()){
-            int prevD = 0;
-            for(ECutSolidDiameters d : ECutSolidDiameters.values()){
-                if(diameter > prevD && diameter <= d.getDiam())
-                    return d.getTime();
-                prevD = d.getDiam();
-            }
-        } else {
-            int prevT = 0;
-            for(ECutPipeThicknesses d : ECutPipeThicknesses.values()){
-                if(thickness > prevT && thickness <= d.getThickness())
-                    return d.getTime();
-                prevT = d.getThickness();
-            }
-        }
-
-        throw new NoSuchElementException("Ошибка при определении значения нормы времени в таблице");
     }
 
     /**
@@ -140,13 +82,10 @@ public class PlateCutOffController extends AbstractOpPlate {
             tfThickness.setStyle("-fx-border-color: #FF5555");
         else
             tfThickness.setStyle(initStyle);
-    }
 
-    private void collectOpData(OpLatheCutOff opData){
+        opData.setMaterial(((FormDetailController) formController).getCmbxMaterial().getValue());
         opData.setCutOffSolid(chbxCutOffSolid.isSelected());
         opData.setThickness(thickness);
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

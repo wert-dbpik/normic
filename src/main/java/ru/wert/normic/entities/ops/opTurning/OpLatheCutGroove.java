@@ -2,6 +2,7 @@ package ru.wert.normic.entities.ops.opTurning;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
@@ -11,12 +12,12 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class LatheCutGroove extends OpData {
+public class OpLatheCutGroove extends OpData {
 
     private Double depth = 0.0; //глубина паза
 
 
-    public LatheCutGroove() {
+    public OpLatheCutGroove() {
         super.normType = ENormType.NORM_MECHANICAL;
         super.opType = EOpType.LATHE_CUT_GROOVE;
     }

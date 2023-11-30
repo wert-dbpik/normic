@@ -258,7 +258,7 @@ public class MenuForm extends ContextMenu {
     public MenuItem createItemCutGroove(){
         MenuItem item = new MenuItem(EOpType.LATHE_CUT_GROOVE.getOpName());
         item.setOnAction(event -> {
-            addCutGroovePlate(new LatheCutGroove());
+            addCutGroovePlate(new OpLatheCutGroove());
         });
         return item;
     }
@@ -336,7 +336,7 @@ public class MenuForm extends ContextMenu {
     public MenuItem createItemPackOnPalletizer(){
         MenuItem item = new MenuItem(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getOpName());
         item.setOnAction(event -> {
-            addPackInCartoonAndStretchPlate(new OpPackInMachineStretchWrap());
+            addPackInMachineStretchWrapPlate(new OpPackInMachineStretchWrap());
         });
         return item;
     }
@@ -426,7 +426,7 @@ public class MenuForm extends ContextMenu {
                     addTurningPlate((OpLatheTurning) op);
                     break;
                 case LATHE_CUT_GROOVE:
-                    addCutGroovePlate((LatheCutGroove) op);
+                    addCutGroovePlate((OpLatheCutGroove) op);
                     break;
                 case LATHE_THREADING:
                     addThreadingPlate((OpLatheThreading) op);
@@ -483,7 +483,7 @@ public class MenuForm extends ContextMenu {
                     addPackInCartoonBoxPlate((OpPackInCartoonBox) op);
                     break;
                 case PACK_IN_MACHINE_STRETCH_WRAP:
-                    addPackInCartoonAndStretchPlate((OpPackInMachineStretchWrap) op);
+                    addPackInMachineStretchWrapPlate((OpPackInMachineStretchWrap) op);
                     break;
                 case PACK_IN_HAND_STRETCH_WRAP:
                     addPackInHandStretchWrapPlate((OpPackInHandStretchWrap) op);
@@ -690,7 +690,7 @@ public class MenuForm extends ContextMenu {
     /**
      * ТОЧЕНИЕ ПАЗА
      */
-    public void addCutGroovePlate(LatheCutGroove opData) {
+    public void addCutGroovePlate(OpLatheCutGroove opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutGroove.fxml"));
             VBox vBox = loader.load();
@@ -957,7 +957,7 @@ public class MenuForm extends ContextMenu {
     /**
      * УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ
      */
-    public void addPackInCartoonAndStretchPlate(OpPackInMachineStretchWrap opData) {
+    public void addPackInMachineStretchWrapPlate(OpPackInMachineStretchWrap opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/pack/platePackInMachineStretchWrap.fxml"));
             VBox vBox = loader.load();

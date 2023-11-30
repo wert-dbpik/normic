@@ -47,6 +47,10 @@ public class OpDataJsonConverter {
             List<OpData> opDataList = getOperations(jsonObject);
             ((OpDetail)opData).setOperations(opDataList);
         }
+        else if(opData instanceof OpPack){
+            List<OpData> opDataList = getOperations(jsonObject);
+            ((OpPack)opData).setOperations(opDataList);
+        }
 
         return opData;
     }

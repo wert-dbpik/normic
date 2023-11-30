@@ -46,7 +46,9 @@
 }
 
 .button:pressed{
-    -fx-background-color: #f6df96;
+    -fx-background-color: #f5cf59;
+    -fx-border-color: #725b3e;
+    -fx-border-radius: 5;
 }
 
 .text-field{

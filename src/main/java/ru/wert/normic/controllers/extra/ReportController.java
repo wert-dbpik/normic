@@ -80,7 +80,7 @@ public class ReportController {
 
         //Лом стали
         if(steelScrap != 0.0)
-            report.append("\nЛОМ СТАЛИ : ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
+            report.append("\nЛОМ СТАЛИ (10%): ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
 
         //Наливной уплотнитель
         collectComponentsABByOpData(ops);
@@ -146,7 +146,7 @@ public class ReportController {
                     materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
                 }
                 if(steelDensity != null && m.getParamX() == steelDensity.getAmount())
-                    steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.01;
+                    steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.1;
 
             } else if (op instanceof OpAssm) {
                 List<OpData> operations = ((OpAssm) op).getOperations();
@@ -296,6 +296,9 @@ public class ReportController {
             report.append(PALLET.getName())
                     .append(DECIMAL_FORMAT.format(pallet)).append(" ")
                     .append(PALLET.getMeasuring()).append("\n");
+        report.append("Этикетка-самоклеящаяся 100х80/500\n");
+        report.append("Этикетка-самоклеящаяся 58х30/1000 ПП Серебро\n");
+        report.append("Наклейка с логотипом ПИК, 3 цвета\n");
     }
 
 //==========   НОРМЫ ВРЕМЕНИ   ===================================================

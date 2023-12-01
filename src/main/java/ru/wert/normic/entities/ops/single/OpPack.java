@@ -17,7 +17,8 @@ import java.util.List;
 @Setter
 public class OpPack extends OpData implements IOpWithOperations {
 
-    private BooleanProperty doneProperty = new SimpleBooleanProperty(false); //Расчет упаковки завершен
+    private Boolean done = false;
+    private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done);
     private String name = null;
     private Integer width = 0;
     private Integer depth = 0;
@@ -30,6 +31,8 @@ public class OpPack extends OpData implements IOpWithOperations {
     public OpPack() {
         super.normType = ENormType.NORM_PACKING;
         super.opType = EOpType.PACK;
+
+        doneProperty.addListener((observable, oldValue, newValue) -> done = newValue);
     }
 
     @Override
@@ -50,6 +53,13 @@ public class OpPack extends OpData implements IOpWithOperations {
 
     @Override
     public void setDone(boolean val) {
+        done = val;
         doneProperty.setValue(val);
+    }
+
+    @Override
+    public boolean isDone() {
+
+        return done;
     }
 }

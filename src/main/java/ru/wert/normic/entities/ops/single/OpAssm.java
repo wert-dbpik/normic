@@ -21,7 +21,8 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpAssm extends OpData implements IOpWithOperations {
 
-    private BooleanProperty doneProperty = new SimpleBooleanProperty(false); //Расчет сборки завершен
+    private Boolean done = false;
+    private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done); //Расчет сборки завершен
     private String name = null;
     private double area = 0.0;
     private List<OpData> operations = new ArrayList<>();
@@ -29,6 +30,8 @@ public class OpAssm extends OpData implements IOpWithOperations {
     public OpAssm() {
         super.normType = ENormType.NORM_ASSEMBLE;
         super.opType = EOpType.ASSM;
+
+        doneProperty.addListener((observable, oldValue, newValue) -> done = newValue);
     }
 
     @Override
@@ -49,6 +52,12 @@ public class OpAssm extends OpData implements IOpWithOperations {
 
     @Override
     public void setDone(boolean val) {
+        done = val;
         doneProperty.setValue(val);
+    }
+
+    @Override
+    public boolean isDone() {
+        return done;
     }
 }

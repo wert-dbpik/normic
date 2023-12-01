@@ -24,7 +24,8 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpDetail extends OpData implements IOpWithOperations {
 
-    private BooleanProperty doneProperty = new SimpleBooleanProperty(false); //Расчет детали завершен
+    private Boolean done = false;
+    private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done);
     private String name = null;
     private Material material = null;
     private Integer paramA = 0;
@@ -37,6 +38,8 @@ public class OpDetail extends OpData implements IOpWithOperations {
     public OpDetail() {
         super.normType = ENormType.NORM_DETAIL;
         super.opType = EOpType.DETAIL;
+
+        doneProperty.addListener((observable, oldValue, newValue) -> done = newValue);
     }
 
     @Override
@@ -60,6 +63,12 @@ public class OpDetail extends OpData implements IOpWithOperations {
 
     @Override
     public void setDone(boolean val) {
+        done = val;
         doneProperty.set(val);
+    }
+
+    @Override
+    public boolean isDone() {
+        return done;
     }
 }

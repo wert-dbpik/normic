@@ -19,6 +19,7 @@ import java.util.List;
  */
 public class MenuPlate {
 
+    boolean showDone = false;
     boolean showCopy = true;
     boolean showCut = true;
     boolean showPaste = true;
@@ -29,6 +30,20 @@ public class MenuPlate {
 
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.setId("contextMenu");
+
+        MenuItem done = new MenuItem();
+        if(opData instanceof IOpWithOperations){
+            showDone = true;
+            if(!((IOpWithOperations) opData).isDone()){
+                done.setText("Готово");
+                done.setOnAction(e->((IOpWithOperations) opData).setDone(true));
+                done.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/done.png").toString(), 24, 24, true, true)));
+            } else {
+                done.setText("НЕ готово");
+                done.setOnAction(e->((IOpWithOperations) opData).setDone(false));
+                done.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/edit2.png").toString(), 24, 24, true, true)));
+            }
+        }
 
         MenuItem copy = new MenuItem("Копировать");
         copy.setOnAction(formController::copyOperation);
@@ -70,6 +85,8 @@ public class MenuPlate {
             if(selectedItems.size() != 1) showPaste = false;
         }
 
+        if (showDone) contextMenu.getItems().add(done);
+        if (showDone) contextMenu.getItems().add(new SeparatorMenuItem());
         if (showCopy) contextMenu.getItems().add(copy);
         if (showCut) contextMenu.getItems().add(cut);
         if (showPaste) contextMenu.getItems().add(paste);

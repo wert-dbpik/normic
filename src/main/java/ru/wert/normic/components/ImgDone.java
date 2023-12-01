@@ -15,9 +15,7 @@ public class ImgDone extends ImgDouble{
 
 
     public ImgDone(ImageView ivDone, BooleanProperty doneProperty) {
-        super(ivDone,
-                imgEdit, "Готово",
-                imgDone, "Не готово");
+        super(ivDone, imgEdit, imgDone);
 
         doneProperty.addListener((observable, oldValue, newValue) -> {
             if(newValue) this.initImageToStateON();

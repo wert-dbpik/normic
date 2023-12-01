@@ -42,7 +42,7 @@
             <TextField fx:id="tfN" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
             <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="ivEdit" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ivDone" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../pics/btns/edit.png" />
                      </image>

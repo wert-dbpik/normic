@@ -1,6 +1,8 @@
 package ru.wert.normic.entities.ops.single;
 
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
@@ -22,6 +24,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpDetail extends OpData implements IOpWithOperations {
 
+    private BooleanProperty doneProperty = new SimpleBooleanProperty(false); //Расчет детали завершен
     private String name = null;
     private Material material = null;
     private Integer paramA = 0;
@@ -55,4 +58,8 @@ public class OpDetail extends OpData implements IOpWithOperations {
     }
 
 
+    @Override
+    public void setDone(boolean val) {
+        doneProperty.set(val);
+    }
 }

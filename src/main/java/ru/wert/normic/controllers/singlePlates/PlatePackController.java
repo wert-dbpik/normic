@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,12 +14,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpPack;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class PlatePackController extends AbstractOpPlate{
     private TextField tfName;
 
     @FXML
-    private ImageView ivEdit;
+    private ImageView ivDone;
 
     @FXML
     private VBox vbOperation;
@@ -58,6 +59,14 @@ public class PlatePackController extends AbstractOpPlate{
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
 
+        BooleanProperty doneProperty = opData.getDoneProperty();
+        ImgDone imgDone = new ImgDone(ivDone, doneProperty);
+        imgDone.getStateProperty().bindBidirectional(doneProperty);
+
+        ivDone.setOnMouseClicked(e->{
+            openFormEditor(opData);
+        });
+
         lblOperationName.setStyle("-fx-text-fill: darkblue");
         lblQuantity.setStyle("-fx-text-fill: darkblue");
 
@@ -66,10 +75,6 @@ public class PlatePackController extends AbstractOpPlate{
             detailName = String.format("Упаковка #%s", ++nameIndex);
             tfName.setText(detailName);
         }
-
-        ivEdit.setOnMouseClicked(e->{
-            openFormEditor(opData);
-        });
 
         vbOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)

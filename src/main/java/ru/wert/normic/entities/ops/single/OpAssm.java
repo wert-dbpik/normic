@@ -1,5 +1,7 @@
 package ru.wert.normic.entities.ops.single;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
@@ -19,6 +21,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpAssm extends OpData implements IOpWithOperations {
 
+    private BooleanProperty doneProperty = new SimpleBooleanProperty(false); //Расчет сборки завершен
     private String name = null;
     private double area = 0.0;
     private List<OpData> operations = new ArrayList<>();
@@ -42,5 +45,10 @@ public class OpAssm extends OpData implements IOpWithOperations {
     @Override
     public OpData getOpData() {
         return this;
+    }
+
+    @Override
+    public void setDone(boolean val) {
+        doneProperty.setValue(val);
     }
 }

@@ -17,4 +17,6 @@ public interface IOpWithOperations extends IOpPlate{
     String getName();
 
     void setName(String name);
+
+    void setDone(boolean val);
 }

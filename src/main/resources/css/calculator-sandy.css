@@ -31,6 +31,8 @@
     -fx-text-fill: -fx-color-text;
 }
 
+
+
 .tooltip{
     -fx-background-color: #ebf6f8;
     -fx-text-fill: -fx-color-text;
@@ -39,6 +41,7 @@
 
 .button{
     -fx-background-color: -fx-color-dark-backround;
+    -fx-padding: 0 0 0 0;
 }
 
 .button:hover{

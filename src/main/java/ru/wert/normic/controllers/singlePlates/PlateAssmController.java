@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
@@ -40,7 +43,7 @@ public class PlateAssmController extends AbstractOpPlate{
     private TextField tfN;
 
     @FXML
-    private ImageView ivEdit;
+    private ImageView ivDone;
 
     @FXML
     private Label lblQuantity;
@@ -66,6 +69,14 @@ public class PlateAssmController extends AbstractOpPlate{
     public void initViews(OpData data){
         OpAssm opData = (OpAssm)data;
 
+        BooleanProperty doneProperty = opData.getDoneProperty();
+        ImgDouble imgDone = new ImgDone(ivDone, doneProperty);
+        imgDone.getStateProperty().bindBidirectional(doneProperty);
+
+        ivDone.setOnMouseClicked(e->{
+            openFormEditor(opData);
+        });
+
         new TFIntegerColored(tfN, null);
 
         lblOperationName.setStyle("-fx-text-fill: darkblue");
@@ -76,10 +87,6 @@ public class PlateAssmController extends AbstractOpPlate{
             assmName = String.format("Сборка #%s", ++nameIndex);
             tfName.setText(assmName);
         }
-
-        ivEdit.setOnMouseClicked(e->{
-            openFormEditor(opData);
-        });
 
         vbOperation.setOnMouseClicked(e->{
             if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)

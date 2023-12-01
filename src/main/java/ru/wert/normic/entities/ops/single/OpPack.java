@@ -1,6 +1,8 @@
 package ru.wert.normic.entities.ops.single;
 
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
@@ -15,6 +17,7 @@ import java.util.List;
 @Setter
 public class OpPack extends OpData implements IOpWithOperations {
 
+    private BooleanProperty doneProperty = new SimpleBooleanProperty(false); //Расчет упаковки завершен
     private String name = null;
     private Integer width = 0;
     private Integer depth = 0;
@@ -43,5 +46,10 @@ public class OpPack extends OpData implements IOpWithOperations {
     @Override
     public OpData getOpData() {
         return this;
+    }
+
+    @Override
+    public void setDone(boolean val) {
+        doneProperty.setValue(val);
     }
 }

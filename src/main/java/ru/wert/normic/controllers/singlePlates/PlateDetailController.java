@@ -1,6 +1,8 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
@@ -20,7 +24,6 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 
 
@@ -42,7 +45,7 @@ public class PlateDetailController extends AbstractOpPlate {
     private TextField tfN;
 
     @FXML
-    private ImageView ivEdit;
+    private ImageView ivDone;
 
     @FXML
     private Label lblQuantity;
@@ -64,6 +67,10 @@ public class PlateDetailController extends AbstractOpPlate {
     public void initViews(OpData data){
         OpDetail opData = (OpDetail)data;
 
+        BooleanProperty doneProperty = opData.getDoneProperty();
+        ImgDouble imgDone = new ImgDone(ivDone, doneProperty);
+        imgDone.getStateProperty().bindBidirectional(doneProperty);
+
         new TFIntegerColored(tfN, null);
 
         lblOperationName.setStyle("-fx-text-fill: darkblue");
@@ -75,7 +82,7 @@ public class PlateDetailController extends AbstractOpPlate {
             tfName.setText(detailName);
         }
 
-        ivEdit.setOnMouseClicked(e->{
+        ivDone.setOnMouseClicked(e->{
             openFormEditor(opData);
         });
 

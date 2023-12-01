@@ -25,13 +25,9 @@
                </font>
             </Label>
             <TextField fx:id="tfPackQuantity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
-            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="0.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="32.0">
                <children>
-                  <ImageView fx:id="ivErase" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../pics/btns/erase.png" />
-                     </image>
-                  </ImageView>
+                  <Button fx:id="btnDone" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
                </children>
             </HBox>
          </children>
@@ -97,7 +93,10 @@
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0" />
+                  <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Button>
                </children>
             </HBox>
          </children>
@@ -107,7 +106,7 @@
       </HBox>
       <ListView fx:id="listViewTechOperations" VBox.vgrow="ALWAYS">
          <VBox.margin>
-            <Insets top="10.0" />
+            <Insets top="5.0" />
          </VBox.margin>
       </ListView>
       <VBox>

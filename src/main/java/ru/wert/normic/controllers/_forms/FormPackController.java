@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers._forms;
 
 
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,6 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.components.BtnDone;
+import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
@@ -39,7 +42,7 @@ public class FormPackController extends AbstractFormController {
     private Button btnAddOperation;
 
     @FXML
-    private ImageView ivErase;
+    private Button btnDone;
 
     @FXML @Getter
     private TextField tfTotalTime;
@@ -58,6 +61,10 @@ public class FormPackController extends AbstractFormController {
     public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
         this.opData = (OpPack) opData;
         this.controller = controller;
+
+        BooleanProperty doneProperty = ((OpPack) opData).getDoneProperty();
+        BtnDone done = new BtnDone(btnDone, (IOpWithOperations) opData);
+        done.getStateProperty().bindBidirectional(doneProperty);
 
         //Создаем меню
         createMenu();
@@ -125,14 +132,13 @@ public class FormPackController extends AbstractFormController {
             }
         });
 
-        ivErase.setOnMouseClicked(e->{
-            ((IOpWithOperations)opData).getOperations().clear();
-            addedPlates.clear();
-            addedOperations.clear();
-            listViewTechOperations.getItems().clear();
-            countSumNormTimeByShops();
-        });
-
+//        ivErase.setOnMouseClicked(e->{
+//            ((IOpWithOperations)opData).getOperations().clear();
+//            addedPlates.clear();
+//            addedOperations.clear();
+//            listViewTechOperations.getItems().clear();
+//            countSumNormTimeByShops();
+//        });
 
     }
 

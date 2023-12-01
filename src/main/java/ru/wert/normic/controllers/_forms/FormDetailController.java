@@ -1,6 +1,8 @@
 package ru.wert.normic.controllers._forms;
 
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,8 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
-import ru.wert.normic.components.TFInteger;
-import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.decoration.Decoration;
@@ -26,7 +27,6 @@ import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuForm;
-import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.entities.db_connection.material.Material;
 
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class FormDetailController extends AbstractFormController {
     private Button btnAddMaterial;
 
     @FXML
-    private ImageView ivErase;
+    private Button btnDone;
 
     @FXML
     private StackPane spDetailParams;
@@ -82,6 +82,10 @@ public class FormDetailController extends AbstractFormController {
     public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
         this.opData = (OpDetail) opData;
         this.controller = controller;
+
+        BooleanProperty doneProperty = ((OpDetail) opData).getDoneProperty();
+        BtnDone done = new BtnDone(btnDone, (IOpWithOperations) opData);
+        done.getStateProperty().bindBidirectional(doneProperty);
 
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
@@ -109,6 +113,8 @@ public class FormDetailController extends AbstractFormController {
             tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
         }
 
+
+
         new TFInteger(tfDetailQuantity);
 
         //Инициализируем количество
@@ -117,7 +123,6 @@ public class FormDetailController extends AbstractFormController {
             tfDetailQuantity.setText(tfQuantity.getText());
             tfQuantity.textProperty().bindBidirectional(tfDetailQuantity.textProperty());
         }
-        
 
         mountMatPatch(null, cmbxMaterial.getValue());
 
@@ -135,12 +140,6 @@ public class FormDetailController extends AbstractFormController {
         EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
         //Нам нужна только смена EMatType и первичная инициализация
         if(!newMatType.equals(prevMatType)) {
-            //EMatType равен null только при инициализации, если не инициализация, то
-//            if(prevMaterial != null) {
-//                //Обнуляем введенные ранее данные
-//                ((OpDetail) opData).setParamA(0);
-//                ((OpDetail) opData).setParamB(0);
-//            }
             try {
                 FXMLLoader loader = null;
                 switch (newMatType) {
@@ -207,13 +206,13 @@ public class FormDetailController extends AbstractFormController {
             countSumNormTimeByShops();
         });
 
-        ivErase.setOnMouseClicked(e->{
-            ((IOpWithOperations)opData).getOperations().clear();
-            addedPlates.clear();
-            addedOperations.clear();
-            listViewTechOperations.getItems().clear();
-            countSumNormTimeByShops();
-        });
+//        ivErase.setOnMouseClicked(e->{
+//            ((IOpWithOperations)opData).getOperations().clear();
+//            addedPlates.clear();
+//            addedOperations.clear();
+//            listViewTechOperations.getItems().clear();
+//            countSumNormTimeByShops();
+//        });
     }
 
     @Override

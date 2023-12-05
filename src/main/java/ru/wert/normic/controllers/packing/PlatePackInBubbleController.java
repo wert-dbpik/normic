@@ -33,17 +33,19 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
     private TextField tfDuctTape;
 
     private int width, depth, height;
-    private ToggleGroup windBy; //Накручивание по
+    private ToggleGroup toggleGroup; //Накручивание по
     private RadioButton selectedRadioButton; //выделенный
     private Double bubbleWrap;
     private Double ductTape;
 
+    private OpPackInBubbleWrap opData;
+
     @FXML
     void initialize(){
-        windBy = new ToggleGroup();
-        rbByHeight.setToggleGroup(windBy);
-        rbByDepth.setToggleGroup(windBy);
-        rbByWidth.setToggleGroup(windBy);
+        toggleGroup = new ToggleGroup();
+        rbByHeight.setToggleGroup(toggleGroup);
+        rbByDepth.setToggleGroup(toggleGroup);
+        rbByWidth.setToggleGroup(toggleGroup);
     }
 
 
@@ -61,7 +63,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackInBubbleWrap opData = (OpPackInBubbleWrap) data;
+        opData = (OpPackInBubbleWrap) data;
 
         countInitialValues();
 
@@ -101,8 +103,8 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-        selectedRadioButton = (RadioButton) windBy.getSelectedToggle();
-
+        selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
+        
         width = ((FormPackController)formController).getWidth();
         depth = ((FormPackController)formController).getDepth();
         height = ((FormPackController)formController).getHeight();

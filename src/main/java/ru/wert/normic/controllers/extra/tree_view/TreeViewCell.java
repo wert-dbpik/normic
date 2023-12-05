@@ -8,30 +8,28 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import ru.wert.normic.AppStatics;
+import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.AppStatics.MEASURE;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.HOUR;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 public class TreeViewCell extends TreeCell<OpData> {
 
-    private Button btnEdit;
+    private ImgDouble imgDone;
     private String initTitleStyle;
     private String initLblNormsTimeStyle;
     private final StructureController controller;
@@ -81,17 +79,16 @@ public class TreeViewCell extends TreeCell<OpData> {
             tfN.setText(String.valueOf(quantity));
 
             //Вызов редактора
-            btnEdit = new Button();
-            Image imgEdit = new Image("/pics/btns/edit.png", 14, 14, true, true);
-            btnEdit.setGraphic(new ImageView(imgEdit));
-            btnEdit.setVisible(false);
-            btnEdit.setOnAction(e->{
+            ImageView ivDone = new ImageView();
+            imgDone = new ImgDone(ivDone, ((IOpWithOperations)opData).getDoneProperty(), 18);
+            imgDone.getStateProperty().setValue(((IOpWithOperations) opData).isDone());
+            ivDone.setOnMouseClicked(e->{
                 if (opData instanceof OpDetail) {
-                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN);
+                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
                 } else if (opData instanceof OpAssm) {
-                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN);
+                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
                 } else if (opData instanceof OpPack) {
-                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN);
+                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
                 }
             });
 
@@ -100,7 +97,7 @@ public class TreeViewCell extends TreeCell<OpData> {
             hbTitle.getChildren().add(txtName);
             if(quantity > 1)
                 hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
-            hbTitle.getChildren().add(btnEdit);
+            hbTitle.getChildren().add(ivDone);
             hbTitle.setAlignment(Pos.CENTER_LEFT);
 
             //Строка с рассчитанными нормами времени
@@ -161,7 +158,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 //            });
 
             selectedProperty().addListener((observable, oldValue, newValue) -> {
-                btnEdit.setVisible(newValue);
+                imgDone.setVisible(newValue);
             });
         }
     }

@@ -2,7 +2,6 @@ package ru.wert.normic.controllers.singlePlates;
 
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -62,13 +61,15 @@ public class PlateDetailController extends AbstractOpPlate {
     private String detailName;
 
     private FormDetailController formDetailController;
+    private OpDetail opData;
+    private ImgDouble imgDone;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpDetail opData = (OpDetail)data;
+        opData = (OpDetail)data;
 
         BooleanProperty doneProperty = opData.getDoneProperty();
-        ImgDouble imgDone = new ImgDone(ivDone, doneProperty);
+        imgDone = new ImgDone(ivDone, doneProperty, 28);
         imgDone.getStateProperty().bindBidirectional(doneProperty);
         imgDone.getStateProperty().setValue(opData.isDone());
 
@@ -114,7 +115,7 @@ public class PlateDetailController extends AbstractOpPlate {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
             Parent parent = loader.load();
             formDetailController = loader.getController();
-            formDetailController.init(formController, tfName, tfN, this.opData);
+            formDetailController.init(formController, tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "ДЕТАЛЬ",
                     parent,
@@ -124,7 +125,7 @@ public class PlateDetailController extends AbstractOpPlate {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, formDetailController, tfName, tfN));
+            closer.setOnMousePressed(ev -> collectOpData(opData, formDetailController, tfName, tfN, imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -147,7 +148,7 @@ public class PlateDetailController extends AbstractOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
 
-        collectOpData(opData, formDetailController, tfName, tfN);
+        collectOpData(opData, formDetailController, tfName, tfN, imgDone);
         if (formDetailController != null)
             setTimeMeasurement();
     }
@@ -161,7 +162,8 @@ public class PlateDetailController extends AbstractOpPlate {
     }
 
 
-    public static void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN) {
+    public static void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
+        opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
         if(formDetailController != null){
@@ -177,6 +179,7 @@ public class PlateDetailController extends AbstractOpPlate {
     public void fillOpData(OpData data){
         OpDetail opData = (OpDetail)data;
 
+        if (imgDone != null)imgDone.getStateProperty().setValue(opData.isDone());
         tfName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }

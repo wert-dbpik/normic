@@ -33,6 +33,7 @@ import java.util.ArrayList;
  */
 public class PlateAssmController extends AbstractOpPlate{
 
+
     @FXML
     private VBox vbOperation;
 
@@ -65,12 +66,15 @@ public class PlateAssmController extends AbstractOpPlate{
     
     private FormAssmController formAssmController;
 
+    private OpAssm opData;
+    private ImgDouble imgDone;
+
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpAssm opData = (OpAssm)data;
+        opData = (OpAssm)data;
 
         BooleanProperty doneProperty = opData.getDoneProperty();
-        ImgDouble imgDone = new ImgDone(ivDone, doneProperty);
+        imgDone = new ImgDone(ivDone, doneProperty, 28);
         imgDone.getStateProperty().bindBidirectional(doneProperty);
         imgDone.getStateProperty().setValue(opData.isDone());
 
@@ -114,7 +118,7 @@ public class PlateAssmController extends AbstractOpPlate{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
             Parent parent = loader.load();
             formAssmController = loader.getController();
-            formAssmController.init(formController, tfName, tfN, this.opData);
+            formAssmController.init(formController, tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "СБОРКА",
                     parent,
@@ -124,7 +128,7 @@ public class PlateAssmController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, formAssmController, tfName, tfN));
+            closer.setOnMousePressed(ev -> collectOpData(opData, formAssmController, tfName, tfN, (ImgDone) imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -153,7 +157,7 @@ public class PlateAssmController extends AbstractOpPlate{
         currentAssmNormTime = assmTime * quantity;
         currentPackNormTime = packTime * quantity;
 
-        collectOpData(opData, formAssmController, tfName, tfN);
+        collectOpData(opData, formAssmController, tfName, tfN, (ImgDone) imgDone);
         if (formAssmController != null)
             setTimeMeasurement();
     }
@@ -167,7 +171,8 @@ public class PlateAssmController extends AbstractOpPlate{
     }
 
 
-    public static void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN) {
+    public static void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
+        opData.setDoneProperty(imgDone.getStateProperty());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
         if(formAssmController != null){
@@ -181,6 +186,7 @@ public class PlateAssmController extends AbstractOpPlate{
     public void fillOpData(OpData data){
         OpAssm opData = (OpAssm)data;
 
+        if(imgDone != null)imgDone.getStateProperty().setValue(opData.isDone());
         tfName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }

@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.BtnDouble;
+import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers.extra.tree_view.StructureTreeView;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
@@ -165,17 +167,15 @@ public class StructureController {
 
     }
 
-
-
     /**
      * Открыть форму редактирования сборки
      */
-    public void openFormEditor(TreeItem<OpData> selectedTreeItem, EOpType type, String title, String path, OpData opData, TextField tfName, TextField tfN) {
+    public void openFormEditor(TreeItem<OpData> selectedTreeItem, EOpType type, String title, String path, OpData opData, TextField tfName, TextField tfN, ImgDouble imgDone) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             AbstractFormController formController = loader.getController();
-            formController.init(MAIN_CONTROLLER, tfName, tfN, opData);
+            formController.init(MAIN_CONTROLLER, tfName, tfN, opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     title,
                     parent,
@@ -187,9 +187,9 @@ public class StructureController {
             ImageView closer = windowDecoration.getImgCloseWindow();
             closer.setOnMousePressed(ev -> {
                 switch(type){
-                    case DETAIL:    PlateDetailController.collectOpData((OpDetail) opData, formController, tfName, tfN); break;
-                    case ASSM:      PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN); break;
-                    case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName, tfN); break;
+                    case DETAIL:    PlateDetailController.collectOpData((OpDetail) opData, formController, tfName, tfN, imgDone); break;
+                    case ASSM:      PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN, (ImgDone) imgDone); break;
+                    case PACK:      PlatePackController.collectOpData((OpPack) opData, tfName, tfN, imgDone); break;
                 }
                 if(opData instanceof OpAssm) {
                     selectedTreeItem.getChildren().clear();

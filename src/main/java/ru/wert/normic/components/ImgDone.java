@@ -5,22 +5,30 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ImgDone extends ImgDouble{
-    public static final Image imgDone;
-    public static final Image imgEdit;
 
-    static {
-        imgDone = new Image("/pics/btns/done.png", 28, 28, true, true);
-        imgEdit = new Image("/pics/btns/edit2.png", 28, 28, true, true);
-    }
+    public static Image imgDone;
+    public static Image imgEdit;
 
 
-    public ImgDone(ImageView ivDone, BooleanProperty doneProperty) {
-        super(ivDone, imgEdit, imgDone);
+    public ImgDone(ImageView ivDone, BooleanProperty doneProperty, int size) {
+        super();
+
+        imgDone = new Image("/pics/btns/done.png", size, size, true, true);
+        imgEdit = new Image("/pics/btns/edit2.png", size, size, true, true);
+
+        super.setImage(ivDone);
+        super.setImageOFF(imgEdit);
+        super.setImageON(imgDone);
+
+        setProperty(doneProperty.getValue());
 
         doneProperty.addListener((observable, oldValue, newValue) -> {
-            if(newValue) this.initImageToStateON();
-            else this.initImageToStateOFF();
+            setProperty(newValue);
         });
+    }
 
+    private void setProperty(boolean val){
+        if(val) this.initImageToStateON();
+        else this.initImageToStateOFF();
     }
 }

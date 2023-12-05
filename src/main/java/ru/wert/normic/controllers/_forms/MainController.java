@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.controllers.extra.ReportController;
@@ -598,7 +599,7 @@ public class MainController extends AbstractFormController {
 
 
     @Override
-    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         //НЕ ИСПОЛЬЗУЕТСЯ
     }
 

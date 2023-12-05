@@ -3,6 +3,7 @@ package ru.wert.normic.interfaces;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.ops.OpData;
 
@@ -13,5 +14,5 @@ import ru.wert.normic.entities.ops.OpData;
  */
 public interface IForm {
 
-    void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData);
+    void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone);
 }

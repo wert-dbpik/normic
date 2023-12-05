@@ -10,6 +10,7 @@ import lombok.Getter;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDone;
 import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -65,7 +66,7 @@ public class FormAssmController extends AbstractFormController {
     }
 
     @Override
-    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = (OpAssm) opData;
         this.controller = controller;
 

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.ImgDone;
+import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.decoration.Decoration;
@@ -54,13 +55,14 @@ public class PlatePackController extends AbstractOpPlate{
     private String detailName;
 
     private FormPackController formPackController;
+    private ImgDone imgDone;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
 
         BooleanProperty doneProperty = opData.getDoneProperty();
-        ImgDone imgDone = new ImgDone(ivDone, doneProperty);
+        imgDone = new ImgDone(ivDone, doneProperty, 28);
         imgDone.getStateProperty().bindBidirectional(doneProperty);
         imgDone.getStateProperty().setValue(opData.isDone());
 
@@ -104,7 +106,7 @@ public class PlatePackController extends AbstractOpPlate{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formPack.fxml"));
             Parent parent = loader.load();
             formPackController = loader.getController();
-            formPackController.init(formController, tfName, tfN, this.opData);
+            formPackController.init(formController, tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "УПАКОВКА",
                     parent,
@@ -114,7 +116,7 @@ public class PlatePackController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, tfName, tfN));
+            closer.setOnMousePressed(ev -> collectOpData(opData, tfName, tfN, imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -134,7 +136,7 @@ public class PlatePackController extends AbstractOpPlate{
 
         currentPackNormTime = packingTime * quantity;
 
-        collectOpData(opData, tfName, tfN);
+        collectOpData(opData, tfName, tfN, imgDone);
         if (formPackController != null)
             setTimeMeasurement();
     }
@@ -148,7 +150,8 @@ public class PlatePackController extends AbstractOpPlate{
     }
 
 
-    public static void collectOpData(OpPack opData, TextField tfName, TextField tfN) {
+    public static void collectOpData(OpPack opData, TextField tfName, TextField tfN, ImgDouble imgDone) {
+        opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
     }

@@ -79,7 +79,7 @@ public class FormDetailController extends AbstractFormController {
     private AbstractFormController controller;
 
     @Override //AbstractFormController
-    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData) {
+    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = (OpDetail) opData;
         this.controller = controller;
 

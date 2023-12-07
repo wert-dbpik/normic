@@ -63,9 +63,8 @@ public class FormPackController extends AbstractFormController {
         this.opData = (OpPack) opData;
         this.controller = controller;
 
-        BooleanProperty doneProperty = ((OpPack) opData).getDoneProperty();
-        BtnDone done = new BtnDone(btnDone, (IOpWithOperations) opData);
-        done.getStateProperty().bindBidirectional(doneProperty);
+        BtnDone done = new BtnDone(btnDone);
+        done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
 
         //Создаем меню
         createMenu();

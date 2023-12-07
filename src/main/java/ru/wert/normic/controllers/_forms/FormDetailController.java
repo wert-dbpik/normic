@@ -83,9 +83,8 @@ public class FormDetailController extends AbstractFormController {
         this.opData = (OpDetail) opData;
         this.controller = controller;
 
-        BooleanProperty doneProperty = ((OpDetail) opData).getDoneProperty();
-        BtnDone done = new BtnDone(btnDone, (IOpWithOperations) opData);
-        done.getStateProperty().bindBidirectional(doneProperty);
+        BtnDone done = new BtnDone(btnDone);
+        done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
 
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);

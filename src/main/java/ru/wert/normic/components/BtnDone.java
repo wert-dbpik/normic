@@ -16,14 +16,10 @@ public class BtnDone extends BtnDouble {
     }
 
 
-    public BtnDone(Button btnDone, IOpWithOperations opData) {
+    public BtnDone(Button btnDone) {
         super(btnDone,
                 imgEdit, "Готово",
                 imgDone, "Не готово");
-
-        getStateProperty().addListener((observable, oldValue, newValue) -> {
-            opData.setDone(!newValue);
-        });
 
     }
 }

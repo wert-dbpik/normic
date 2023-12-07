@@ -68,7 +68,7 @@ public class PlateDetailController extends AbstractOpPlate {
     public void initViews(OpData data){
         opData = (OpDetail)data;
 
-        imgDone = new ImgDone(ivDone, 28);
+        imgDone = new ImgDone(ivDone, 24);
         imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
 

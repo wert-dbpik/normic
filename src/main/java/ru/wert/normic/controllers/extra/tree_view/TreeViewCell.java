@@ -81,16 +81,17 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             //Вызов редактора
             ImageView ivDone = new ImageView();
-            ImgDouble imgDone = new ImgDone(ivDone,18);
+            ImgDouble imgDone = new ImgDone(ivDone,20);
             imgDone.getStateProperty().setValue(((IOpWithOperations) opData).isDone());
-            imgDone.setOnMouseClicked(e->{
-                    if (opData instanceof OpDetail) {
-                        controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
-                    } else if (opData instanceof OpAssm) {
-                        controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
-                    } else if (opData instanceof OpPack) {
-                        controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
-                    }
+            ivDone.setOnMouseClicked(e -> {
+                if (opData instanceof OpDetail) {
+                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
+                } else if (opData instanceof OpAssm) {
+                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
+                } else if (opData instanceof OpPack) {
+                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
+                }
+                e.consume();
             });
 
             //СТрока с заголовком

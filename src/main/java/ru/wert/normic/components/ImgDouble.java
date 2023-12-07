@@ -9,7 +9,7 @@ import lombok.Setter;
 
 public class ImgDouble extends ImageView{
 
-    private BooleanProperty stateProperty = new SimpleBooleanProperty();
+    private final BooleanProperty stateProperty = new SimpleBooleanProperty();
     public BooleanProperty getStateProperty(){return stateProperty;}
 
     private final ImageView imageView;

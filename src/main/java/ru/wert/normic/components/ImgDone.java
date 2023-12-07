@@ -13,7 +13,6 @@ public class ImgDone extends ImgDouble{
         imgEdit = new Image("/pics/btns/edit2.png");
     }
 
-
     public ImgDone(ImageView ivDone, int size) {
         super(ivDone, imgEdit, imgDone, size);
 

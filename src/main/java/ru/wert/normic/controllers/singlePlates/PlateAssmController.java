@@ -73,7 +73,7 @@ public class PlateAssmController extends AbstractOpPlate{
     public void initViews(OpData data){
         opData = (OpAssm)data;
 
-        imgDone = new ImgDone(ivDone, 28);
+        imgDone = new ImgDone(ivDone, 24);
         imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
 

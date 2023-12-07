@@ -61,9 +61,8 @@ public class PlatePackController extends AbstractOpPlate{
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
 
-        BooleanProperty doneProperty = opData.getDoneProperty();
-        imgDone = new ImgDone(ivDone, doneProperty, 28);
-        imgDone.getStateProperty().bindBidirectional(doneProperty);
+        imgDone = new ImgDone(ivDone, 28);
+        imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
 
         ivDone.setOnMouseClicked(e->{

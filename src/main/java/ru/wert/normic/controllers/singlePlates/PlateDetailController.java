@@ -68,9 +68,8 @@ public class PlateDetailController extends AbstractOpPlate {
     public void initViews(OpData data){
         opData = (OpDetail)data;
 
-        BooleanProperty doneProperty = opData.getDoneProperty();
-        imgDone = new ImgDone(ivDone, doneProperty, 28);
-        imgDone.getStateProperty().bindBidirectional(doneProperty);
+        imgDone = new ImgDone(ivDone, 28);
+        imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
 
         new TFIntegerColored(tfN, null);

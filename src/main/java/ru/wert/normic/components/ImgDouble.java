@@ -2,36 +2,55 @@ package ru.wert.normic.components;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Setter;
 
-
 public class ImgDouble extends ImageView{
-
 
     private BooleanProperty stateProperty = new SimpleBooleanProperty();
     public BooleanProperty getStateProperty(){return stateProperty;}
 
-
-    @Setter private ImageView image;
-    @Setter private Image imageOFF;
-    @Setter private Image imageON;
+    private final ImageView imageView;
+    private final Image imageOFF;
+    private final Image imageON;
 
     /**
      * Начальное состояние кнопки OFF, stateProperty = false;
      */
-    public ImgDouble() {
+    public ImgDouble(ImageView imageView, Image imageOFF, Image imageON, int size) {
+        this.imageView = imageView;
+        this.imageOFF = imageOFF;
+        this.imageON = imageON;
 
-//        initImageToStateOFF();
+        imageView.setFitHeight(size);
+        imageView.setFitWidth(size);
+        imageView.resize(size, size);
+
+        initButtonTosStateOFF();
+
+        stateProperty.addListener((observable, oldValue, newValue) -> {
+            switchButton(newValue);
+        });
+
     }
 
-    void initImageToStateOFF(){
-        image.setImage(imageOFF);
+    void initButtonTosStateOFF(){
+        imageView.setImage(imageOFF);
     }
 
-    void initImageToStateON(){
-        image.setImage(imageON);
+    void initButtonTosStateON(){
+        imageView.setImage(imageON);
+    }
+
+    private void switchButton(boolean state) {
+        if (state) {
+            initButtonTosStateON();
+        } else {
+            initButtonTosStateOFF();
+        }
+        stateProperty.set(state);
     }
 
 }

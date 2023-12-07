@@ -24,7 +24,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpDetail extends OpData implements IOpWithOperations {
 
-    private Boolean done = false;
+    private boolean done = false;
     private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done);
     private String name = null;
     private Material material = null;

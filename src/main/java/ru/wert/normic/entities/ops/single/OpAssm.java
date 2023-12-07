@@ -21,7 +21,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpAssm extends OpData implements IOpWithOperations {
 
-    private Boolean done = false;
+    private boolean done = false;
     private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done); //Расчет сборки завершен
     private String name = null;
     private double area = 0.0;

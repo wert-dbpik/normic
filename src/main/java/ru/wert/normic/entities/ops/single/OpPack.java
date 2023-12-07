@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 public class OpPack extends OpData implements IOpWithOperations {
 
-    private Boolean done = false;
+    private boolean done = false;
     private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done);
     private String name = null;
     private Integer width = 0;

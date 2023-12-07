@@ -23,5 +23,5 @@ public interface IOpWithOperations extends IOpPlate{
 
     boolean isDone();
 
-    BooleanProperty getDoneProperty();
+//    BooleanProperty getDoneProperty();
 }

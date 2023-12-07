@@ -73,9 +73,8 @@ public class PlateAssmController extends AbstractOpPlate{
     public void initViews(OpData data){
         opData = (OpAssm)data;
 
-        BooleanProperty doneProperty = opData.getDoneProperty();
-        imgDone = new ImgDone(ivDone, doneProperty, 28);
-        imgDone.getStateProperty().bindBidirectional(doneProperty);
+        imgDone = new ImgDone(ivDone, 28);
+        imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
 
         ivDone.setOnMouseClicked(e->{
@@ -172,7 +171,7 @@ public class PlateAssmController extends AbstractOpPlate{
 
 
     public static void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
-        opData.setDoneProperty(imgDone.getStateProperty());
+        opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
         if(formAssmController != null){

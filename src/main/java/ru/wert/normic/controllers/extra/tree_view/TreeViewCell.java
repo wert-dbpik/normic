@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -29,7 +30,7 @@ import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 public class TreeViewCell extends TreeCell<OpData> {
 
-    private ImgDouble imgDone;
+//    private ImgDouble imgDone;
     private String initTitleStyle;
     private String initLblNormsTimeStyle;
     private final StructureController controller;
@@ -80,16 +81,16 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             //Вызов редактора
             ImageView ivDone = new ImageView();
-            imgDone = new ImgDone(ivDone, ((IOpWithOperations)opData).getDoneProperty(), 18);
+            ImgDouble imgDone = new ImgDone(ivDone,18);
             imgDone.getStateProperty().setValue(((IOpWithOperations) opData).isDone());
-            ivDone.setOnMouseClicked(e->{
-                if (opData instanceof OpDetail) {
-                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
-                } else if (opData instanceof OpAssm) {
-                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
-                } else if (opData instanceof OpPack) {
-                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
-                }
+            imgDone.setOnMouseClicked(e->{
+                    if (opData instanceof OpDetail) {
+                        controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
+                    } else if (opData instanceof OpAssm) {
+                        controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
+                    } else if (opData instanceof OpPack) {
+                        controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
+                    }
             });
 
             //СТрока с заголовком

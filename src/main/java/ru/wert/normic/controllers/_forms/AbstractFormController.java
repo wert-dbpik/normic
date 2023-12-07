@@ -697,6 +697,9 @@ public abstract class AbstractFormController implements IForm {
         PlateAssmController.nameIndex = 0;
         iterateUndoList();
 
+        MainController.savedProductFile = null;
+        LABEL_PRODUCT_NAME.setText("");
+
         menu.addEmptyPlate();
     }
 

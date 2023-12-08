@@ -163,8 +163,8 @@ public class ReportController {
      */
     private void addLevelingSealerReport() {
         report.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
-        report.append("Компонент полиэфирный\tА = ").append(componentA).append(" кг.\n");
-        report.append("Компонент изоцинат\t\tБ = ").append(componentB).append(" кг.\n");
+        report.append("Компонент полиэфирный\tА = ").append(DECIMAL_FORMAT.format(componentA)).append(" кг.\n");
+        report.append("Компонент изоцинат\t\tБ = ").append(DECIMAL_FORMAT.format(componentB)).append(" кг.\n");
     }
 
     /**

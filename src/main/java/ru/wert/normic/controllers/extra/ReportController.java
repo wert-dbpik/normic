@@ -191,8 +191,8 @@ public class ReportController {
     private void addColorReport(List<Double> ral1, List<Double> ral2, List<Double> ral3) {
         report.append("\n\n").append("ПОКРЫТИЕ :\n");
         if(ral1.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_I);
-        if(ral2.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_II);
-        if(ral3.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_III);
+        if(ral2.get(0) != 0.0) addRal1Report(ral2, EColor.COLOR_II);
+        if(ral3.get(0) != 0.0) addRal1Report(ral3, EColor.COLOR_III);
     }
     /**
      * Добавить отчет по РАСХОДУ КРАСКИ (по конкретной краске)

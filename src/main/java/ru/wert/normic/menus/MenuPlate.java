@@ -33,7 +33,7 @@ public class MenuPlate {
         contextMenu.setId("contextMenu");
 
         MenuItem done = new MenuItem();
-        if(opData instanceof IOpWithOperations){
+        if(opData instanceof IOpWithOperations && !cellIsEmpty){
             showDone = true;
             if(!((IOpWithOperations) opData).isDone()){
                 done.setText("Готово");

@@ -84,8 +84,8 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
 
     private void collectOpData(OpPackInCartoonBox opData){
+        opData.setPartMin(partMin);
 
-        opData.setPolyWrap(partMin);
         opData.setCartoon(cartoon);
         opData.setDuctTape(ductTape);
 

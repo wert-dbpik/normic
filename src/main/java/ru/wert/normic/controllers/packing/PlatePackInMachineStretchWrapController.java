@@ -97,8 +97,8 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
 
     private void collectOpData(OpPackInMachineStretchWrap opData){
+        opData.setPartMin(partMin);
 
-        opData.setPolyWrap(partMin);
         opData.setCartoon(cartoonTop);
         opData.setCartoonAngle(cartoonAngle);
         opData.setStretchMachineWrap(stretchWrap);

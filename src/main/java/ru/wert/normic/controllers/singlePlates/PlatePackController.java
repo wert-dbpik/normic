@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
-import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

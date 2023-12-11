@@ -13,6 +13,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
+import ru.wert.normic.enums.EWinding;
 
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -39,18 +40,20 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
     @FXML@Getter
     private ImageView ivHelp;
 
+    private OpPackInHandStretchWrap opData;
+
     private int width, depth, height;
-    private ToggleGroup windBy; //Накручивание по
-    private RadioButton selectedRadioButton; //выделенный
+    private ToggleGroup toggleGroup; //Накручивание по
+    private int selectedRadioButton; //выделенный
     private Double handStretchWrap;
     private Double ductTape;
 
     @FXML
     void initialize(){
-        windBy = new ToggleGroup();
-        rbByHeight.setToggleGroup(windBy);
-        rbByDepth.setToggleGroup(windBy);
-        rbByWidth.setToggleGroup(windBy);
+        toggleGroup = new ToggleGroup();
+        rbByHeight.setToggleGroup(toggleGroup);
+        rbByDepth.setToggleGroup(toggleGroup);
+        rbByWidth.setToggleGroup(toggleGroup);
     }
 
 
@@ -60,15 +63,13 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
         new RadBtn(rbByDepth, this);
         new RadBtn(rbByWidth, this);
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
-        });
+        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> formController.countSumNormTimeByShops());
 
     }
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackInHandStretchWrap opData = (OpPackInHandStretchWrap) data;
+        opData = (OpPackInHandStretchWrap) data;
 
         countInitialValues();
 
@@ -76,11 +77,11 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
         double countDepth;
         double countWidth;
 
-        if(selectedRadioButton.equals(rbByHeight)){
+        if(selectedRadioButton == EWinding.AROUND_HEIGHT.ordinal()){
             countHeight = height * MM_TO_M;
             countDepth = depth * MM_TO_M;
             countWidth = width * MM_TO_M;
-        } else if(selectedRadioButton.equals(rbByDepth)){
+        } else if(selectedRadioButton == EWinding.AROUND_DEPTH.ordinal()){
             countHeight = depth * MM_TO_M;
             countDepth = height * MM_TO_M;
             countWidth = width * MM_TO_M;
@@ -108,7 +109,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-        selectedRadioButton = (RadioButton) windBy.getSelectedToggle();
+        selectedRadioButton = toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
 
         width = ((FormPackController)formController).getWidth();
         depth = ((FormPackController)formController).getDepth();
@@ -132,9 +133,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
         OpPackInHandStretchWrap opData = (OpPackInHandStretchWrap)data;
 
         selectedRadioButton = opData.getSelectedRadioButton();
-        if(selectedRadioButton == null) selectedRadioButton = rbByHeight;
-        selectedRadioButton.setSelected(true);
-
+        toggleGroup.selectToggle(toggleGroup.getToggles().get(selectedRadioButton));
     }
 
     @Override

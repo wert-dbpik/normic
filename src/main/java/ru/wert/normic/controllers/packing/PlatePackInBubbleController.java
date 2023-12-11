@@ -9,6 +9,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
+import ru.wert.normic.enums.EWinding;
 
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -34,7 +35,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     private int width, depth, height;
     private ToggleGroup toggleGroup; //Накручивание по
-    private RadioButton selectedRadioButton; //выделенный
+    private int selectedRadioButton; //выделенный
     private Double bubbleWrap;
     private Double ductTape;
 
@@ -46,6 +47,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
         rbByHeight.setToggleGroup(toggleGroup);
         rbByDepth.setToggleGroup(toggleGroup);
         rbByWidth.setToggleGroup(toggleGroup);
+
     }
 
 
@@ -71,11 +73,11 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
         double countDepth;
         double countWidth;
 
-        if(selectedRadioButton.equals(rbByHeight)){
+        if(selectedRadioButton == EWinding.AROUND_HEIGHT.ordinal()){
             countHeight = height * MM_TO_M;
             countDepth = depth * MM_TO_M;
             countWidth = width * MM_TO_M;
-        } else if(selectedRadioButton.equals(rbByDepth)){
+        } else if(selectedRadioButton == EWinding.AROUND_DEPTH.ordinal()){
             countHeight = depth * MM_TO_M;
             countDepth = height * MM_TO_M;
             countWidth = width * MM_TO_M;
@@ -103,8 +105,8 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-        selectedRadioButton = (RadioButton) toggleGroup.getSelectedToggle();
-        
+        selectedRadioButton = toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
+
         width = ((FormPackController)formController).getWidth();
         depth = ((FormPackController)formController).getDepth();
         height = ((FormPackController)formController).getHeight();
@@ -126,8 +128,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
         OpPackInBubbleWrap opData = (OpPackInBubbleWrap)data;
 
         selectedRadioButton = opData.getSelectedRadioButton();
-        if(selectedRadioButton == null) selectedRadioButton = rbByHeight;
-        selectedRadioButton.setSelected(true);
+        toggleGroup.selectToggle(toggleGroup.getToggles().get(selectedRadioButton));
 
     }
 

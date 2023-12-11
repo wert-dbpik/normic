@@ -138,7 +138,7 @@ public class OpDataJsonConverter {
             case "PACK":
                 return gson.fromJson(op.toString(), OpPack.class);
             case "PACK_ON_PALLET":
-                return gson.fromJson(op.toString(), OpWeldDotted.class);
+                return gson.fromJson(op.toString(), OpPackOnPallet.class);
             case "PACK_IN_MACHINE_STRETCH_WRAP":
                 return gson.fromJson(op.toString(), OpPackInMachineStretchWrap.class);
             case "PACK_IN_HAND_STRETCH_WRAP":

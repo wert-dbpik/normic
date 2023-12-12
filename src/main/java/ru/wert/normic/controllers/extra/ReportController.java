@@ -13,7 +13,6 @@ import ru.wert.normic.entities.ops.opPack.PackingData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.enums.EColor;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.Arrays;
@@ -38,7 +37,7 @@ public class ReportController {
     private Map<Material, Double> materials;
     private Density steelDensity;
     private double steelScrap; //переменная для расчета лома
-    private  StringBuilder report;
+    private  StringBuilder textReport;
 
     //Расход на наливное уплотнение
     private double componentA; //Компонент полиэфирный А
@@ -65,11 +64,11 @@ public class ReportController {
         componentA = 0.0;
         componentB = 0.0;
 
-        report = new StringBuilder();
+        textReport = new StringBuilder();
 
         //Наименование изделия
         String name = opAssm.getName();
-        report.append("ИЗДЕЛИЕ : ").append(name == null? "< без наименования >" : name);
+        textReport.append("ИЗДЕЛИЕ : ").append(name == null? "< без наименования >" : name);
 
         //Материалы
         materials = new HashMap<>();
@@ -80,7 +79,7 @@ public class ReportController {
 
         //Лом стали
         if(steelScrap != 0.0)
-            report.append("\nЛОМ СТАЛИ (10%): ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
+            textReport.append("\nЛОМ СТАЛИ (10%): ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
 
         //Наливной уплотнитель
         collectComponentsABByOpData(ops);
@@ -111,7 +110,7 @@ public class ReportController {
                 opAssm.getPackTime() != 0.0)
             addNormTimesReport(opAssm);
 
-        taReport.setText(report.toString());
+        taReport.setText(textReport.toString());
 
     }
 
@@ -121,9 +120,9 @@ public class ReportController {
      * Добавить отчет по ИСПОЛЬЗУЕМЫМ МАТЕРИАЛАМ
      */
     private void addMaterialsReport() {
-        report.append("\n\n").append("МАТЕРИАЛЫ :\n");
+        textReport.append("\n\n").append("МАТЕРИАЛЫ :\n");
         for(Material m : materials.keySet()){
-            report.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
+            textReport.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
         }
     }
 
@@ -162,9 +161,9 @@ public class ReportController {
      * Добавить отчет по НАЛИВНОМУ УПЛОТНЕНИЮ
      */
     private void addLevelingSealerReport() {
-        report.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
-        report.append("Компонент полиэфирный\tА = ").append(DECIMAL_FORMAT.format(componentA)).append(" кг.\n");
-        report.append("Компонент изоцинат\t\tБ = ").append(DECIMAL_FORMAT.format(componentB)).append(" кг.\n");
+        textReport.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
+        textReport.append("Компонент полиэфирный\tА = ").append(DECIMAL_FORMAT.format(componentA)).append(" кг.\n");
+        textReport.append("Компонент изоцинат\t\tБ = ").append(DECIMAL_FORMAT.format(componentB)).append(" кг.\n");
     }
 
     /**
@@ -189,7 +188,7 @@ public class ReportController {
      * Добавить отчет по РАСХОДУ КРАСКИ (начало)
      */
     private void addColorReport(List<Double> ral1, List<Double> ral2, List<Double> ral3) {
-        report.append("\n\n").append("ПОКРЫТИЕ :\n");
+        textReport.append("\n\n").append("ПОКРЫТИЕ :\n");
         if(ral1.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_I);
         if(ral2.get(0) != 0.0) addRal1Report(ral2, EColor.COLOR_II);
         if(ral3.get(0) != 0.0) addRal1Report(ral3, EColor.COLOR_III);
@@ -198,7 +197,7 @@ public class ReportController {
      * Добавить отчет по РАСХОДУ КРАСКИ (по конкретной краске)
      */
     private void addRal1Report(List<Double> ral1, EColor color) {
-        report.append("Краска '")
+        textReport.append("Краска '")
                 .append(color.getRal())
                 .append("', площадь = ")
                 .append(DECIMAL_FORMAT.format(ral1.get(0)))
@@ -261,42 +260,42 @@ public class ReportController {
      */
     private void addPackReport(double cartoon, double cartoonAngle, double stretchMachine, double stretchHand, double polyTape,
                                double bubble, double duct, double pallet){
-        report.append("\n\n").append("УПАКОВКА :\n");
+        textReport.append("\n\n").append("УПАКОВКА :\n");
         if (cartoon != 0.0)
-            report.append(CARTOON.getName())
+            textReport.append(CARTOON.getName())
                     .append(DECIMAL_FORMAT.format(cartoon)).append(" ")
                     .append(CARTOON.getMeasuring()).append("\n");
         if (cartoonAngle != 0.0)
-            report.append(CARTOON_ANGLE.getName())
+            textReport.append(CARTOON_ANGLE.getName())
                     .append(DECIMAL_FORMAT.format(cartoonAngle)).append(" ")
                     .append(CARTOON_ANGLE.getMeasuring()).append("\n");
         if (stretchMachine != 0.0)
-            report.append(STRETCH_MACHINE.getName())
+            textReport.append(STRETCH_MACHINE.getName())
                     .append(DECIMAL_FORMAT.format(stretchMachine)).append(" ")
                     .append(STRETCH_MACHINE.getMeasuring()).append("\n");
         if (stretchHand != 0.0)
-            report.append(STRETCH_HAND.getName())
+            textReport.append(STRETCH_HAND.getName())
                     .append(DECIMAL_FORMAT.format(stretchHand)).append(" ")
                     .append(STRETCH_HAND.getMeasuring()).append("\n");
         if (polyTape != 0.0)
-            report.append(POLY.getName())
+            textReport.append(POLY.getName())
                     .append(DECIMAL_FORMAT.format(polyTape)).append(" ")
                     .append(POLY.getMeasuring()).append("\n");
         if (bubble != 0.0)
-            report.append(BUBBLE.getName())
+            textReport.append(BUBBLE.getName())
                     .append(DECIMAL_FORMAT.format(bubble)).append(" ")
                     .append(BUBBLE.getMeasuring()).append("\n");
         if (duct != 0.0)
-            report.append(DUCT.getName())
+            textReport.append(DUCT.getName())
                     .append(DECIMAL_FORMAT.format(duct)).append(" ")
                     .append(DUCT.getMeasuring()).append("\n");
         if (pallet != 0.0)
-            report.append(PALLET.getName())
+            textReport.append(PALLET.getName())
                     .append(DECIMAL_FORMAT.format(pallet)).append(" ")
                     .append(PALLET.getMeasuring()).append("\n");
-        report.append("Этикетка-самоклеящаяся 100х80/500\n");
-        report.append("Этикетка-самоклеящаяся 58х30/1000 ПП Серебро\n");
-        report.append("Наклейка с логотипом ПИК, 3 цвета\n");
+        textReport.append("Этикетка-самоклеящаяся 100х80/500\n");
+        textReport.append("Этикетка-самоклеящаяся 58х30/1000 ПП Серебро\n");
+        textReport.append("Наклейка с логотипом ПИК, 3 цвета\n");
     }
 
 //==========   НОРМЫ ВРЕМЕНИ   ===================================================
@@ -307,22 +306,22 @@ public class ReportController {
             case "SEC" : k = MIN_TO_SEC; break;
             case "HOUR" : k = MIN_TO_HOUR; break;
         }
-        report.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
+        textReport.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
 
         if (opAssm.getMechTime() != 0.0)
-            report.append("Изготовление \t: ")
+            textReport.append("Изготовление \t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append(" ")
                     .append(CURRENT_MEASURE.getMeasure()).append("\n");
         if (opAssm.getPaintTime() != 0.0)
-            report.append("Покраска \t\t: ")
+            textReport.append("Покраска \t\t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getPaintTime() * k)).append(" ")
                     .append(CURRENT_MEASURE.getMeasure()).append("\n");
         if (opAssm.getAssmTime() != 0.0)
-            report.append("Сборка \t\t\t: ")
+            textReport.append("Сборка \t\t\t: ")
                     .append(DECIMAL_FORMAT.format(opAssm.getAssmTime() * k)).append(" ")
                     .append(CURRENT_MEASURE.getMeasure()).append("\n");
         if (opAssm.getPackTime() != 0.0)
-            report.append("Упаковка \t\t: "
+            textReport.append("Упаковка \t\t: "
             ).append(DECIMAL_FORMAT.format(opAssm.getPackTime() * k)).append(" ")
                     .append(CURRENT_MEASURE.getMeasure()).append("\n");
     }

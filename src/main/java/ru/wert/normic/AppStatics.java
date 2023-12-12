@@ -27,7 +27,7 @@ public class AppStatics {
     //Последняя доступная версия в БД
     public static String LAST_VERSION_IN_DB;
     //тестовая версия - работает с тестовым сервером
-    public static boolean TEST_VERSION = false;
+    public static boolean TEST_VERSION = true;
 
     //Ползователь
     public static User CURRENT_USER = null;

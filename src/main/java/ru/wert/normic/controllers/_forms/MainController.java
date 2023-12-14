@@ -155,6 +155,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMConstants().setOnAction(e->constants(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMImportExcel().setOnAction(e->importExcel(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMChangeUser().setOnAction(e->changeUser(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMIconMenu().setOnAction(e->showIconMenuProperty.set(!showIconMenuProperty.get()));
         mainMenuController.getMAbout().setOnAction(e-> vbAboutPane.setVisible(true));
 
@@ -169,6 +170,27 @@ public class MainController extends AbstractFormController {
             }
         });
 
+    }
+
+    private void changeUser(ActionEvent e, EMenuSource source) {
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
+                (Stage) ((Node)e.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro/login.fxml"));
+            Parent parent = loader.load();
+            new Decoration("Вход пользователя",
+                    parent,
+                    false,
+                    owner,
+                    "decoration-login",
+                    false,
+                    true);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void createIconMenu() {

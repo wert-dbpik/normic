@@ -14,6 +14,8 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mImportExcel" mnemonicParsing="false" text="Импортировать из Excel" />
             <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mChangeUser" mnemonicParsing="false" text="Сменить пользователя" />
+            <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mExit" mnemonicParsing="false" text="Выйти" />
          </items>
       </Menu>

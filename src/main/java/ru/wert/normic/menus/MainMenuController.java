@@ -16,6 +16,7 @@ public class MainMenuController {
             mSave,
             mSaveAs,
             mImportExcel,
+            mChangeUser,
             mExit;
 
     //ПРАВКА ============================================

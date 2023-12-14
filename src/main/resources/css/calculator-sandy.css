@@ -10,7 +10,7 @@
     -fx-background-color: -fx-color-selected;
 }
 
-#decoration-assm, #decoration-report, #decoration-settings{
+#decoration-assm, #decoration-report, #decoration-settings, #decoration-login{
     -fx-background-color: #fdd590;
 }
 
@@ -31,7 +31,9 @@
     -fx-text-fill: -fx-color-text;
 }
 
-
+#login{
+    -fx-background-color: -fx-color-dark-backround;
+}
 
 .tooltip{
     -fx-background-color: #ebf6f8;

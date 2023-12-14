@@ -75,6 +75,7 @@ public class AppProperties {
             writer.write("IP_ADDRESS=192.168.2.132\n");
             writer.write("PORT = 8080\n");
             writer.write("SAVES_DIR=C:/\n");
+            writer.write("USER=1\n");
             writer.close();
         } catch (IOException e) {
             if(++attempt < 3) new AppProperties();
@@ -105,10 +106,45 @@ public class AppProperties {
         return connectionProps.getProperty("SAVES_DIR");
     }
 
+    public String getUser(){
+        log.debug("USER returns... {}", connectionProps.getProperty("USER"));
+        return connectionProps.getProperty("USER");
+    }
+
+    public void setIpAddress(final String ip){
+        try {
+            FileOutputStream fos = new FileOutputStream(appConfigPath);
+            connectionProps.setProperty("IP_ADDRESS", ip);
+            connectionProps.store(fos, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPort(final String port){
+        try {
+            FileOutputStream fos = new FileOutputStream(appConfigPath);
+            connectionProps.setProperty("PORT", port);
+            connectionProps.store(fos, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setSavesDirectory(final String dir){
         try {
             FileOutputStream fos = new FileOutputStream(appConfigPath);
             connectionProps.setProperty("SAVES_DIR", dir);
+            connectionProps.store(fos, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setUser(final String user){
+        try {
+            FileOutputStream fos = new FileOutputStream(appConfigPath);
+            connectionProps.setProperty("USER", user);
             connectionProps.store(fos, null);
         } catch (IOException e) {
             e.printStackTrace();

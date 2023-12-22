@@ -1,9 +1,12 @@
 package ru.wert.normic.controllers.intro;
 
-import javafx.event.Event;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import lombok.Getter;
+import ru.wert.normic.controllers.list.PlateCuttingController;
 import ru.wert.normic.decoration.Decoration;
 
 import static javafx.application.Platform.exit;
@@ -11,7 +14,7 @@ import static javafx.application.Platform.exit;
 public class ConnectionController {
 
 
-    @FXML
+    @Getter@FXML
     private Button btnOK;
 
     @FXML
@@ -23,23 +26,23 @@ public class ConnectionController {
     private String ip;
     private String port;
 
-    public ConnectionData init(ConnectionData data, Decoration decoration){
-        this.ip = data.getIp();
-        this.port = data.getPort();
+    @Getter
+    private ConnectionParams finalParams = null;
 
-        tfIP.setText(data.getIp());
-        tfPort.setText(data.getPort());
+    public void init(ConnectionParams params){
+        this.ip = params.getIp();
+        this.port = params.getPort();
 
-        decoration.getWindow().setOnCloseRequest(e->{
-            exit();
-        });
+        tfIP.setText(params.getIp());
+        tfPort.setText(params.getPort());
 
         btnOK.setOnAction(e->{
             ip = tfIP.getText().isEmpty() ? ip : tfIP.getText().trim();
             port = tfPort.getText().trim();
+            finalParams = new ConnectionParams(ip, port);
+            ((Node)e.getSource()).getScene().getWindow().hide();
         });
 
-        return new ConnectionData(ip, port);
     }
 
 }

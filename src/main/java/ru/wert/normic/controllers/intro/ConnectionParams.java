@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ConnectionData {
+public class ConnectionParams {
 
     private String ip;
 

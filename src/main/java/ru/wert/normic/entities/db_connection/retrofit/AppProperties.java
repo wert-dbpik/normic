@@ -7,9 +7,12 @@ import ru.wert.normic.decoration.warnings.Warning1;
 import java.io.*;
 import java.util.Properties;
 
+import static ru.wert.normic.AppStatics.*;
+
 
 @Slf4j
 public class AppProperties {
+
 
     static AppProperties instance;
 
@@ -22,7 +25,6 @@ public class AppProperties {
 
     private int attempt = 0;
     private Properties connectionProps;
-    private String homeDir = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
     private final String appConfigPath;
 
     /**
@@ -34,8 +36,8 @@ public class AppProperties {
         log.debug("AppProperties : propsFile создается  ...");
         appConfigPath =
                 AppStatics.TEST_VERSION ?
-                        homeDir + File.separator + "settingsTest.properties" :
-                        homeDir + File.separator + "settings.properties";
+                        NORMIC_HOME_PATH + File.separator + "settingsTest.properties" :
+                        NORMIC_HOME_PATH + File.separator + "settings.properties";
 
         File propsFile = new File(appConfigPath);
         if (!propsFile.exists())
@@ -64,7 +66,7 @@ public class AppProperties {
         log.debug("createFileOfSettings : settings.properties создается  ...");
         try {
             log.debug("File of application settings is creating...");
-            File dir = new File(homeDir);
+            File dir = new File(NORMIC_HOME_PATH);
             dir.mkdirs();
 
             File props = new File(appConfigPath);
@@ -72,8 +74,8 @@ public class AppProperties {
             log.info("File of application settings is created: {}", props.toString());
 
             FileWriter writer = new FileWriter (props);
-            writer.write("IP_ADDRESS=192.168.2.132\n");
-            writer.write("PORT = 8080\n");
+            writer.write("IP_ADDRESS=" + SERVER_IP + "\n");
+            writer.write("PORT =" + SERVER_PORT  + "\n");
             writer.write("SAVES_DIR=C:/\n");
             writer.write("USER=1\n");
             writer.close();

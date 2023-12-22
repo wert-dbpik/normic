@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.intro.ConnectionController">
+<VBox id="login" prefHeight="165.0" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.intro.ConnectionController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Отсутствует связь с сервером" textAlignment="CENTER">
          <font>
@@ -24,7 +24,7 @@
       <TextField fx:id="tfPort" />
       <VBox alignment="CENTER">
          <children>
-            <Button fx:id="btnOK" mnemonicParsing="false" text="OK">
+            <Button fx:id="btnOK" defaultButton="true" mnemonicParsing="false" text="OK">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>

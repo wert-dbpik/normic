@@ -3,16 +3,14 @@ package ru.wert.normic;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import ru.wert.normic.controllers._forms.MainController;
-import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
 import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.User;
-import ru.wert.normic.entities.db_connection.version.VersionNormic;
-import ru.wert.normic.entities.db_connection.version.VersionNormicService;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +25,7 @@ public class AppStatics {
     //Последняя доступная версия в БД
     public static String LAST_VERSION_IN_DB;
     //тестовая версия - работает с тестовым сервером
-    public static boolean TEST_VERSION = false;
+    public static boolean TEST_VERSION = true;
 
     //Ползователь
     public static User CURRENT_USER = null;
@@ -35,6 +33,13 @@ public class AppStatics {
     public static UserGroup CURRENT_USER_GROUP = null;
 
     public static MainController MAIN_CONTROLLER;
+
+    public static final String SERVER_IP = "192.168.2.132";
+    public static final String SERVER_PORT = "8080";
+
+    public static final String NORMIC_HOME_PATH = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
+    public static final String PROPS_PATH = TEST_VERSION ? NORMIC_HOME_PATH + File.separator + "settingsTest.properties" :
+            NORMIC_HOME_PATH + File.separator + "settings.properties";
 
 
 

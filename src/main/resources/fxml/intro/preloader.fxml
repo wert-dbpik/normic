@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane id="preloader" prefHeight="300.0" prefWidth="300.0" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="НормИК" textAlignment="CENTER" wrappingWidth="190.94921875">
+               <font>
+                  <Font name="Arial Narrow" size="48.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023-2024гг" textAlignment="CENTER" wrappingWidth="190.94921875">
+               <font>
+                  <Font name="Arial Narrow" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </VBox>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</StackPane>

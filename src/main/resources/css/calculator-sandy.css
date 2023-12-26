@@ -137,9 +137,20 @@
     -fx-background-color: -fx-color-light-backround;
 }
 
+/**/
+#preloader{
+    -fx-background-color: -fx-color-dark-backround;
+    -fx-background-radius: 150;
+    -fx-border-color: -fx-color-text;
+    -fx-text-fill: -fx-color-text;
+    -fx-border-width: 2px;
+    -fx-border-radius: 150;
+}
+
 /*ПОМОЩЬ*/
 
 #helpWindow {
+
     -fx-background-color: -fx-color-light-backround;
     -fx-border-color: -fx-color-text;
     -fx-border-width: 2;

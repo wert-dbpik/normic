@@ -5,9 +5,14 @@ import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import ru.wert.normic.entities.db_connection.user.User;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -15,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 public class RetrofitClient{
     private static final String TAG = "RetrofitClient";
 
+    public static String ip = "192.168.2.132";
+    public static String port = "8080";
     public static String baseUrl = "http://192.168.2.132:8080";
 
     private static RetrofitClient instance;
@@ -54,6 +61,7 @@ public class RetrofitClient{
 
         String ip = AppProperties.getInstance().getIpAddress();
         String port = AppProperties.getInstance().getPort();
+
         baseUrl = "http://"+ip +":"+ port;
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -72,6 +80,31 @@ public class RetrofitClient{
 
     public Retrofit getRetrofit() {
         return mRetrofit;
+    }
+
+    /**
+     * Проверка работы ретрофита
+     * Если найдется пользователь с id = 1, то ретрофит и соединение настроены
+     */
+    public static boolean checkUpConnection(){
+        log.debug("checkUpConnection : is starting ...");
+        CheckUpConnectionInterface api = RetrofitClient.getInstance().getRetrofit().create(CheckUpConnectionInterface.class);
+        try {
+            Call<User> call = api.getById(1L);
+            call.execute().body();
+        } catch (IOException e) {
+            return false;
+        }
+        log.info("checkUpConnection : connection to Data Base is OK");
+        return true;
+    }
+
+    /**
+     * Интерфейс для проверки соединения
+     */
+    interface CheckUpConnectionInterface{
+        @GET("users/id/{id}")
+        Call<User> getById(@Path("id") Long id);
     }
 
 }

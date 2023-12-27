@@ -192,7 +192,7 @@
 #vbAbout{
     -fx-background-color: -fx-color-dark-backround;
     -fx-border-color:-fx-color-selected;
-    -fx-border-width: 10;
+    -fx-border-width: 4;
 }
 
 

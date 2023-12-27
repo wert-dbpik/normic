@@ -46,7 +46,8 @@ public class StartNormic extends Application {
             NormConstants.getInstance();
             log.debug("init : DATA from server got well!");
 
-            if(!RetrofitClient.params.equals(AppStatics.CURRENT_CONNECTION_PARAMS)){
+            if(!AppStatics.CURRENT_CONNECTION_PARAMS.equals(RetrofitClient.params)){
+                AppStatics.CURRENT_CONNECTION_PARAMS = RetrofitClient.params;
                 AppProperties.getInstance().setIpAddress(RetrofitClient.params.getIp());
                 AppProperties.getInstance().setPort(RetrofitClient.params.getPort());
             }
@@ -88,8 +89,6 @@ public class StartNormic extends Application {
     }
 
     public void start(Stage stage){
-
-        MAIN_STAGE = stage;
 
         try {
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));

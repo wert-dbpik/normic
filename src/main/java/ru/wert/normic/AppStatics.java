@@ -22,11 +22,11 @@ import static ru.wert.normic.enums.EOpType.PAINTING;
 public class AppStatics {
 
     //Текущая версия программы
-    public static final String CURRENT_PROJECT_VERSION = "1.0";
+    public static final String CURRENT_PROJECT_VERSION = "2.0";
     //Последняя доступная версия в БД
     public static String LAST_VERSION_IN_DB;
     //тестовая версия - работает с тестовым сервером
-    public static boolean TEST_VERSION = true;
+    public static boolean TEST_VERSION = false;
 
     //Ползователь
     public static User CURRENT_USER = null;

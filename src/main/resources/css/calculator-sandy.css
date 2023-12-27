@@ -3,6 +3,7 @@
     -fx-color-light-backround: #f8f5eb;
     -fx-color-text: #4f412f;
     -fx-color-selected: #f8c878;
+    -fx-color-preloader: #906f44;
 }
 
 
@@ -141,10 +142,14 @@
 #preloader{
     -fx-background-color: -fx-color-dark-backround;
     -fx-background-radius: 150;
-    -fx-border-color: -fx-color-text;
-    -fx-text-fill: -fx-color-text;
-    -fx-border-width: 2px;
+    -fx-border-color: -fx-color-preloader;
+    -fx-text-fill: -fx-color-preloader;
+    -fx-border-width: 4px;
     -fx-border-radius: 150;
+}
+
+#preloader #my_text{
+    -fx-fill: -fx-color-text;
 }
 
 /*ПОМОЩЬ*/

@@ -13,12 +13,12 @@
    <children>
       <VBox alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="НормИК" textAlignment="CENTER" wrappingWidth="190.94921875">
+            <Text id="my_text" strokeType="OUTSIDE" strokeWidth="0.0" text="НормИК" textAlignment="CENTER" wrappingWidth="249.94921875">
                <font>
-                  <Font name="Arial Narrow" size="48.0" />
+                  <Font name="Arial Narrow Bold" size="72.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2023-2024гг" textAlignment="CENTER" wrappingWidth="190.94921875">
+            <Text id="my_text" strokeType="OUTSIDE" strokeWidth="0.0" text="2023-2024гг" textAlignment="CENTER" wrappingWidth="190.94921875">
                <font>
                   <Font name="Arial Narrow" size="18.0" />
                </font>

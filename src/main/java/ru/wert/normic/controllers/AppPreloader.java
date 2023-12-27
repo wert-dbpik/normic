@@ -9,19 +9,33 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.SneakyThrows;
+import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.controllers.intro.NoConnection;
+import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 
 import java.util.List;
+
+import static ru.wert.normic.AppStatics.CURRENT_CONNECTION_PARAMS;
 
 public class AppPreloader extends Preloader {
 
     private Stage preloaderWindow = null;
 
+    static {
+        CURRENT_CONNECTION_PARAMS =
+                new ConnectionParams(
+                        AppProperties.getInstance().getIpAddress(),
+                        AppProperties.getInstance().getPort());
+
+        RetrofitClient.params = CURRENT_CONNECTION_PARAMS;
+    }
+
     @SneakyThrows
     @Override
     public void start(Stage preloaderWindow){
         this.preloaderWindow = preloaderWindow;
+
         try {
             RetrofitClient.getInstance();
             if(!RetrofitClient.checkUpConnection())

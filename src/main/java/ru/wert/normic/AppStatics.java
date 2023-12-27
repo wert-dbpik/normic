@@ -3,6 +3,7 @@ package ru.wert.normic;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import ru.wert.normic.controllers._forms.MainController;
+import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
 import ru.wert.normic.entities.db_connection.logs.AppLogService;
@@ -36,6 +37,8 @@ public class AppStatics {
 
     public static final String SERVER_IP = "192.168.2.132";
     public static final String SERVER_PORT = "8080";
+
+    public static ConnectionParams CURRENT_CONNECTION_PARAMS;
 
     public static final String NORMIC_HOME_PATH = System.getProperty("user.home") + File.separator + "AppData" + File.separator + "Local" + File.separator + "NormIC";
     public static final String PROPS_PATH = TEST_VERSION ? NORMIC_HOME_PATH + File.separator + "settingsTest.properties" :

@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.ModalWindow;
-import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 
 import java.io.IOException;
@@ -37,19 +36,19 @@ public class NoConnection extends ModalWindow {
             stage.setResizable(false);
 
             tfAddressIP = ((TextField) parent.lookup("#tfIP"));
-            tfAddressIP.setText(AppProperties.getInstance().getIpAddress());
+            tfAddressIP.setText(RetrofitClient.params.getIp());
             Platform.runLater(() -> tfAddressIP.requestFocus());
 
             tfPort = ((TextField) parent.lookup("#tfPort"));
-            tfPort.setText(AppProperties.getInstance().getPort());
+            tfPort.setText(RetrofitClient.params.getPort());
 
             Button btnOK = ((Button) parent.lookup("#btnOK"));
             btnOK.setOnAction((e) -> {
-                AppProperties.getInstance().setIpAddress(tfAddressIP.getText().trim());
-                AppProperties.getInstance().setPort(tfPort.getText().trim());
+                String newIp = tfAddressIP.getText().trim();
+                String newPort = tfPort.getText().trim();
                 answer.set(true);
                 RetrofitClient.getInstance();
-                RetrofitClient.restartWithNewUrl();
+                RetrofitClient.restartWithNewUrl(new ConnectionParams(newIp, newPort));
                 ((Node) e.getSource()).getScene().getWindow().hide();
             });
 

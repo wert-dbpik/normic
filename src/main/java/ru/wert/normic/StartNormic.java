@@ -11,6 +11,7 @@ import ru.wert.normic.controllers.AppPreloader;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.db_connection.user.UserService;
 import ru.wert.normic.entities.db_connection.version.VersionNormic;
 import ru.wert.normic.entities.db_connection.version.VersionNormicService;
@@ -32,7 +33,6 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 @Slf4j
 public class StartNormic extends Application {
 
-    private boolean initStatus = true;
     private static final AppProperties normicProps = AppProperties.getInstance();
     private static final File propsFile = new File(PROPS_PATH);
 
@@ -45,32 +45,29 @@ public class StartNormic extends Application {
             initUser();
             NormConstants.getInstance();
             log.debug("init : DATA from server got well!");
-//            } else {
-//                Warning1.create("ПРОБЛЕМА!", "Не удалось подключиться к серверу",
-//                        "Возможно, он отключен или отсутствует сеть\n" +
-//                                "повторите попытку подключения позже");
-//                System.exit(0);
-//            }
+
+            if(!RetrofitClient.params.equals(AppStatics.CURRENT_CONNECTION_PARAMS)){
+                AppProperties.getInstance().setIpAddress(RetrofitClient.params.getIp());
+                AppProperties.getInstance().setPort(RetrofitClient.params.getPort());
+            }
+
         } catch (Exception e) {
             log.error("init : couldn't get DATA from server");
             e.printStackTrace();
-            initStatus = false;
         }
     }
 
     private void initUser() {
-//        File propsFile = new File(propsPath);
         if (propsFile.exists()){
             log.info("Tubus props path : " + PROPS_PATH );
-            getUserFromConnectionSettings(propsFile);
+            getUserFromConnectionSettings();
         } else{
             log.info("Current user is not identified : propsFile does not exist.");
-            //Создаем файл connectionSettings.properties
         }
 
     }
 
-    private void getUserFromConnectionSettings(File propsFile) {
+    private void getUserFromConnectionSettings() {
         try {
             Long userId = Long.parseLong(normicProps.getUser());
             CURRENT_USER = UserService.getInstance().findById(userId);
@@ -91,13 +88,6 @@ public class StartNormic extends Application {
     }
 
     public void start(Stage stage){
-
-        if (!initStatus) {
-            Warning1.create("ПРОБЛЕМА!", "Не удалось подключиться к серверу",
-                    "Возможно, он отключен или отсутствует сеть\n" +
-                            "повторите попытку подключения позже");
-            System.exit(0);
-        }
 
         MAIN_STAGE = stage;
 
@@ -130,8 +120,6 @@ public class StartNormic extends Application {
                     });
                 }
             }, 2000);
-
-//            initData();
 
         }catch (IOException e) {
             e.printStackTrace();

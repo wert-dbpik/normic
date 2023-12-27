@@ -10,19 +10,21 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import ru.wert.normic.AppStatics;
+import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.entities.db_connection.user.User;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
+import static ru.wert.normic.AppStatics.*;
 
 
 @Slf4j
 public class RetrofitClient{
     private static final String TAG = "RetrofitClient";
 
-    public static String ip = "192.168.2.132";
-    public static String port = "8080";
-    public static String baseUrl = "http://192.168.2.132:8080";
+    public static ConnectionParams params;
 
     private static RetrofitClient instance;
     private static Retrofit mRetrofit;
@@ -58,11 +60,7 @@ public class RetrofitClient{
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor);
 
-
-        String ip = AppProperties.getInstance().getIpAddress();
-        String port = AppProperties.getInstance().getPort();
-
-        baseUrl = "http://"+ip +":"+ port;
+        String baseUrl = "http://"+params.getIp() +":"+ params.getPort();
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(new NullOnEmptyConverterFactory()) //Исправляет исключение на null, когда приходит пустое тело
@@ -74,7 +72,8 @@ public class RetrofitClient{
 
     }
 
-    public static void restartWithNewUrl() {
+    public static void restartWithNewUrl(ConnectionParams newParams) {
+        params = newParams;
         new RetrofitClient();
     }
 

@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -61,6 +62,10 @@ public class PlatePackController extends AbstractOpPlate{
         OpPack opData = (OpPack)data;
 
         imgDone = new ImgDone(ivDone, 24);
+
+        //исправляет nullpointer exception при копипасте операции снизу вверх
+        if(opData.getDoneProperty() == null) opData.setDoneProperty(new SimpleBooleanProperty(false));
+
         imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
 

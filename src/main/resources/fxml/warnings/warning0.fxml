@@ -21,22 +21,19 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Separator prefWidth="200.0" />
             <VBox alignment="CENTER_LEFT">
                <children>
                   <Label fx:id="lblProblem" text="Проблема!">
                      <font>
                         <Font size="16.0" />
                      </font></Label>
-                  <Label fx:id="lblDecision" text="Решение проблемы" wrapText="true">
-                     <font>
-                        <Font name="System Italic" size="14.0" />
-                     </font>
+                  <Separator prefWidth="200.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                      <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator prefWidth="200.0" />
+                        <Insets top="5.0" />
+                     </VBox.margin></Separator>
                </children>
                <VBox.margin>
                   <Insets />

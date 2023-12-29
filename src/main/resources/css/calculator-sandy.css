@@ -195,6 +195,10 @@
     -fx-border-width: 4;
 }
 
+#warning{
+    -fx-background-color: -fx-color-light-backround;
+}
+
 
 /* ПРИНТЕР */
 

@@ -29,6 +29,8 @@ import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.decoration.warnings.Warning0;
+import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -364,6 +366,7 @@ public class MainController extends AbstractFormController {
 
         savedProductFile = file;
         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
+        Warning0.create("Внимание!", "Файл успешно сохранен!");
 
     }
 

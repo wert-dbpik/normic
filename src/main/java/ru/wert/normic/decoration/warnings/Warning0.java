@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -18,15 +17,17 @@ import java.io.IOException;
 
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
+/**
+ * Простое сообщение без решения проблемы
+ */
+public class Warning0 extends ModalWindow {
 
-public class Warning1 extends ModalWindow {
-
-    public static void create(String title, String problem, String decision){
+    public static void create(String title, String problem){
 
 
         try {
             Stage stage = new Stage();
-            FXMLLoader userDialogLoader = new FXMLLoader(Warning1.class.getResource("/fxml/warnings/warning1.fxml"));
+            FXMLLoader userDialogLoader = new FXMLLoader(Warning0.class.getResource("/fxml/warnings/warning0.fxml"));
             Parent parent = userDialogLoader.load();
             stage.setScene(new Scene(parent));
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -44,13 +45,6 @@ public class Warning1 extends ModalWindow {
 
             Label lblProblem = (Label)parent.lookup("#lblProblem");
             lblProblem.setText(problem);
-
-            Label lblDecision = (Label)parent.lookup("#lblDecision");
-//            int index = parent.getChildrenUnmodifiable().indexOf(lblDecision);
-            if(decision == null || decision.equals(""))
-                ((AnchorPane)parent).getChildren().remove(lblDecision);
-            else
-                lblDecision.setText(decision);
 
             ModalWindow.setMovingPane(parent);
 

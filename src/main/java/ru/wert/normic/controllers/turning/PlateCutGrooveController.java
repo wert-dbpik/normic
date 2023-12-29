@@ -13,6 +13,7 @@ import ru.wert.normic.controllers.turning.counters.OpCutGrooveCounter;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutGroove;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.NoSuchElementException;
@@ -59,7 +60,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
     public  void countInitialValues() {
 
         diameter = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
-        depth = IntegerParser.getValue(tfDepth);
+        depth = DoubleParser.getValue(tfDepth);
         if(depth >= (diameter / 2))
             tfDepth.setStyle("-fx-border-color: #FF5555");
         else

@@ -122,7 +122,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
     private void collectOpData(OpPackInHandStretchWrap opData){
 
         opData.setSelectedRadioButton(selectedRadioButton);
-        opData.setBubbleWrap(handStretchWrap);
+        opData.setStretchHandWrap(handStretchWrap);
         opData.setDuctTape(ductTape);
 
         opData.setPackTime(currentNormTime);

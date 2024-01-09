@@ -646,7 +646,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutOff.fxml"));
             VBox vBox = loader.load();
-            PlateCutOffController controller = loader.getController();
+            PlateLatheCutOffController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ОТРЕЗАНИЕ НА ТОКАРНОМ СТАНКЕ");
             addVBox(vBox);
             

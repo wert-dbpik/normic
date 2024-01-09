@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
 /**
  * ОТРЕЗАНИЕ ДЕТАЛИ НА ТОКАРНОМ СТАНКЕ
  */
-public class PlateCutOffController extends AbstractOpPlate {
+public class PlateLatheCutOffController extends AbstractOpPlate {
 
     @FXML
     private TextField tfThickness;

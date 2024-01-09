@@ -2,24 +2,15 @@ package ru.wert.normic.controllers.turning;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.list.counters.OpBendingCounter;
-import ru.wert.normic.controllers.turning.counters.OpDrillingCounter;
+import ru.wert.normic.controllers.turning.counters.OpLatheDrillingCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.NoSuchElementException;
 
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ
@@ -62,7 +53,7 @@ public class PlateDrillingController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpDrillingCounter.count((OpLatheDrilling) data).getMechTime();//результат в минутах
+        currentNormTime = OpLatheDrillingCounter.count((OpLatheDrilling) data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

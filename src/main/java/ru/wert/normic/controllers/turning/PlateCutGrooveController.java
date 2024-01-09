@@ -4,19 +4,13 @@ package ru.wert.normic.controllers.turning;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import lombok.Getter;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.list.counters.OpBendingCounter;
-import ru.wert.normic.controllers.turning.counters.OpCutGrooveCounter;
-import ru.wert.normic.entities.ops.opList.OpBending;
+import ru.wert.normic.controllers.turning.counters.OpLatheCutGrooveCounter;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutGroove;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.DoubleParser;
-import ru.wert.normic.utils.IntegerParser;
-
-import java.util.NoSuchElementException;
 
 /**
  * НАРЕЗАНИЕ КАНАВКИ НА ТОКАРНОМ СТАНКЕ
@@ -47,7 +41,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpCutGrooveCounter.count((OpLatheCutGroove) data).getMechTime();//результат в минутах
+        currentNormTime = OpLatheCutGrooveCounter.count((OpLatheCutGroove) data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
 

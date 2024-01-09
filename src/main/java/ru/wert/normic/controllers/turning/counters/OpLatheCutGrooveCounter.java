@@ -5,7 +5,7 @@ import ru.wert.normic.entities.ops.opTurning.OpLatheCutGroove;
 
 import java.util.NoSuchElementException;
 
-public class OpCutGrooveCounter {
+public class OpLatheCutGrooveCounter {
 
     private static final int maxDepth = 35; //Максимальная глубина канавки
 

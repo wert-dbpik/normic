@@ -6,7 +6,7 @@ import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 
 import java.util.NoSuchElementException;
 
-public class OpDrillingCounter {
+public class OpLatheDrillingCounter {
 
     private static final int maxTurningDiameter = 30; //Максимальный диаметр свреления
     private static final int maxTurningLength = 100; //Максимальная длина обработки

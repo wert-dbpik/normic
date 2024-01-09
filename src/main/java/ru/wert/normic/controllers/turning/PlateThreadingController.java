@@ -64,8 +64,6 @@ public class PlateThreadingController extends AbstractOpPlate {
         setTimeMeasurement();
     }
 
-
-
     /**
      * Устанавливает и расчитывает значения, заданные пользователем
      */

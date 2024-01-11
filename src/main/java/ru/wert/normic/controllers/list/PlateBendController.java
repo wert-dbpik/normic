@@ -14,6 +14,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.list.counters.OpBendingCounter;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -76,6 +77,10 @@ public class PlateBendController extends AbstractOpPlate {
         men = IntegerParser.getValue(tfMen);
         toolRatio = cmbxBendingTool.getValue().getToolRatio();
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setBends(bends);
         opData.setMen(men);
         opData.setTool(cmbxBendingTool.getValue());

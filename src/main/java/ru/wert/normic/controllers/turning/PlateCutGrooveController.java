@@ -60,6 +60,10 @@ public class PlateCutGrooveController extends AbstractOpPlate {
         else
             tfDepth.setStyle(initStyle);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setDepth(depth);
     }
 

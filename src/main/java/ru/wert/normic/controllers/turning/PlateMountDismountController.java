@@ -69,6 +69,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
         countInitialValues();
 
         int length = (((FormDetailController) formController).getMatPatchController()).getParamA();
+
         currentNormTime = ((length == 0) ? currentNormTime = 0.0 :
                 OpLatheMountDissmountCounter.count((OpLatheMountDismount) data).getMechTime());//результат в минутах
 
@@ -83,6 +84,10 @@ public class PlateMountDismountController extends AbstractOpPlate {
         String text = (((FormDetailController)formController).getMatPatchController()).getTfWeight().getText();
         weight = text == null || text.isEmpty() ? 0.0 : Double.parseDouble(text.replace(",", "."));
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setWeight(weight);
         opData.setHolder(holder.ordinal());
     }

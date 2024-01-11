@@ -104,6 +104,11 @@ public class PlateCuttingController extends AbstractOpPlate {
         holes = IntegerParser.getValue(tfHoles);
         perfHoles = IntegerParser.getValue(tfPerfHoles);
 
+        collectOpData();
+
+    }
+
+    private void collectOpData(){
         opData.setMaterial(material);
         opData.setParamA(paramA);
         opData.setParamB(paramB);
@@ -111,21 +116,6 @@ public class PlateCuttingController extends AbstractOpPlate {
         opData.setPerfHoles(perfHoles);
         opData.setExtraPerimeter(extraPerimeter);
         opData.setStripping(stripping);
-
-    }
-
-    /**
-     * Метод собирает данные с полей плашки на операцию в класс OpData
-     * Вызывается при изменении любого значения на операционной плашке
-     */
-    private void collectOpData(OpCutting opData){
-        opData.setMaterial(material);
-        opData.setHoles(holes);
-        opData.setPerfHoles(perfHoles);
-        opData.setExtraPerimeter(extraPerimeter);
-        opData.setStripping(stripping);
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

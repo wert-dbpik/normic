@@ -83,6 +83,10 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
         else
             tfThickness.setStyle(initStyle);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setMaterial(((FormDetailController) formController).getCmbxMaterial().getValue());
         opData.setCutOffSolid(chbxCutOffSolid.isSelected());
         opData.setThickness(thickness);

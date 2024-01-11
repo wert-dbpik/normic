@@ -84,6 +84,10 @@ public class PlateThreadingController extends AbstractOpPlate {
         else
             tfLength.setStyle(initStyle);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setDiameter(turningDiameter);
         opData.setLength(length);
     }

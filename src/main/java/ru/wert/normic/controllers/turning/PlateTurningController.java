@@ -37,6 +37,8 @@ public class PlateTurningController extends AbstractOpPlate {
     private OpLatheTurning opData;
 
     private String initStyle;
+
+    private Material material; //материал заготовки
     private int paramA; //Длина заготовки
     private int length; //Длина точения
     private int passages; //Число токарных проходов
@@ -72,7 +74,7 @@ public class PlateTurningController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        Material material = ((FormDetailController)formController).getCmbxMaterial().getValue();
+        material = ((FormDetailController)formController).getCmbxMaterial().getValue();
 
         paramA = ((FormDetailController) formController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfTurningLength);
@@ -83,6 +85,10 @@ public class PlateTurningController extends AbstractOpPlate {
 
         passages = IntegerParser.getValue(tfNumOfPassings);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setMaterial(material);
         opData.setPassages(passages);
         opData.setLength(length);

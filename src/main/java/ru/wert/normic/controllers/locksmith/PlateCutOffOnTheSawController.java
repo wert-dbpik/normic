@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.BXSawType;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers.locksmith.counters.OpAssmNutsMKCounter;
+import ru.wert.normic.controllers.locksmith.counters.OpCutOffOnTheSawCounter;
+import ru.wert.normic.entities.ops.opLocksmith.OpAssmNutMK;
 import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EMeasure;
@@ -23,6 +26,8 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @FXML
     private ComboBox<ESawType> cmbxSaw;
+
+    private OpCutOffOnTheSaw opData;
 
     private ESawType sawType;
     private int length;
@@ -41,29 +46,16 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw) data;
+        opData = (OpCutOffOnTheSaw) data;
 
         countInitialValues();
 
-        currentNormTime = findTime() + sawType.getSpeed();
-        collectOpData(opData);
+        currentNormTime = OpCutOffOnTheSawCounter.count((OpCutOffOnTheSaw) data).getMechTime();//результат в минутах
+
         setTimeMeasurement();
     }
 
-    private Double findTime(){
-        EMeasure lastMeasure = EMeasure.values()[EMeasure.values().length-1];
-        if(length > lastMeasure.getLength())
-            return lastMeasure.getTime();
 
-        int prevL = 0;
-        for (EMeasure d : EMeasure.values()) {
-            if (length >= prevL && length <= d.getLength())
-                return d.getTime();
-            prevL = d.getLength();
-        }
-
-        throw new NoSuchElementException("Ошибка при определении значения нормы времени в таблице");
-    }
 
     /**
      * Устанавливает и рассчитывает значения, заданные пользователем
@@ -73,13 +65,14 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
         length = ((FormDetailController) formController).getMatPatchController().getParamA();
         sawType = cmbxSaw.getValue();
+
+        collectOpData();
     }
 
 
-    private void collectOpData(OpCutOffOnTheSaw opData){
+    private void collectOpData(){
+        opData.setLength(length);
         opData.setSaw(cmbxSaw.getValue());
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

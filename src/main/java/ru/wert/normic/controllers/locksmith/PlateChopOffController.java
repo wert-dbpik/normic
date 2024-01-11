@@ -4,7 +4,10 @@ package ru.wert.normic.controllers.locksmith;
 import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers.locksmith.counters.OpAssmNutsMKCounter;
+import ru.wert.normic.controllers.locksmith.counters.OpChopOffCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpAssmNutMK;
 import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.enums.EOpType;
@@ -18,8 +21,9 @@ import static ru.wert.normic.settings.NormConstants.CHOP_SPEED;
  */
 public class PlateChopOffController extends AbstractOpPlate {
 
+    private OpChopOff opData;
+
     private int length;
-    private double chopTime = 0.05;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
@@ -30,31 +34,17 @@ public class PlateChopOffController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpChopOff opData = (OpChopOff) data;
+        opData = (OpChopOff) data;
         ivOperation.setImage(EOpType.CHOP_OFF.getLogo());
 
         countInitialValues();
 
-        currentNormTime = findTime() + chopTime;
-        collectOpData(opData);
+        currentNormTime = OpChopOffCounter.count((OpChopOff) data).getMechTime();//результат в минутах
+
         setTimeMeasurement();
     }
 
-    private Double findTime() {
-        EMeasure lastMeasure = EMeasure.values()[EMeasure.values().length-1];
-        if(length > lastMeasure.getLength())
-            return lastMeasure.getTime();
 
-        int prevL = 0;
-        for (EMeasure d : EMeasure.values()) {
-            if (length >= prevL && length <= d.getLength())
-                return d.getTime();
-
-            prevL = d.getLength();
-        }
-
-        throw new NoSuchElementException("Ошибка при определении значения нормы времени в таблице");
-    }
 
     /**
      * Устанавливает и рассчитывает значения, заданные пользователем
@@ -64,12 +54,13 @@ public class PlateChopOffController extends AbstractOpPlate {
 
         length = ((FormDetailController) formController).getMatPatchController().getParamA();
 
+        collectOpData();
     }
 
 
-    private void collectOpData(OpChopOff opData){
+    private void collectOpData(){
 
-        opData.setMechTime(currentNormTime);
+        opData.setLength(length);
     }
 
     @Override//AbstractOpPlate

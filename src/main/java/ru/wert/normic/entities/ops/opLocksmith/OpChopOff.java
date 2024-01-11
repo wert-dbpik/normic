@@ -13,6 +13,8 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpChopOff extends OpData {
 
+    private int length = 0;
+
 
     public OpChopOff() {
         super.normType = ENormType.NORM_MECHANICAL;

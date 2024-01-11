@@ -8,7 +8,10 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.list.counters.OpBendingCounter;
+import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -34,6 +37,8 @@ public class PlateWeldDottedController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private OpWeldDotted opData;
+
     private int parts; //Количество элементов
     private int dots; //Количество точек
     private int drops; //Количество прихваток
@@ -48,15 +53,12 @@ public class PlateWeldDottedController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpWeldDotted opData = (OpWeldDotted)data;
+        opData = (OpWeldDotted)data;
 
         countInitialValues();
 
-        double time;
-        time =  parts * WELDING_PARTS_SPEED + dots * WELDING_DOTTED_SPEED + drops * WELDING_DROP_SPEED;   //мин
+        currentNormTime = OpWeldDottedCounter.count((OpWeldDotted) data).getMechTime();//результат в минутах
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -65,20 +67,17 @@ public class PlateWeldDottedController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-
         parts = IntegerParser.getValue(tfParts);
         dots = IntegerParser.getValue(tfDots);
         drops = IntegerParser.getValue(tfDrops);
+
+        collectOpData();
     }
 
-
-
-    private void collectOpData(OpWeldDotted opData){
+    private void collectOpData(){
         opData.setParts(parts);
         opData.setDots(dots);
         opData.setDrops(drops);
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

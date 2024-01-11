@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.locksmith.counters;
 
 import lombok.Getter;
-import ru.wert.normic.controllers.locksmith.PlateDrillingByMarkingController;
 import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
 import ru.wert.normic.enums.EMeasure;
 

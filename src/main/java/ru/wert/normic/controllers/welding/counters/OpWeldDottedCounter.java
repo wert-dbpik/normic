@@ -1,6 +1,5 @@
 package ru.wert.normic.controllers.welding.counters;
 
-import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 
 import static ru.wert.normic.settings.NormConstants.*;

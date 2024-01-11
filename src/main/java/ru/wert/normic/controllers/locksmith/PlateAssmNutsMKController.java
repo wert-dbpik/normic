@@ -7,8 +7,11 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.locksmith.counters.OpAssmNutsMKCounter;
+import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpAssmNutMK;
+import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.settings.NormConstants.*;
@@ -30,6 +33,8 @@ public class PlateAssmNutsMKController extends AbstractOpPlate {
     @FXML
     private TextField tfRivetNuts;
 
+    private OpAssmNutMK opData;
+
     private int rivets; //Количество заклепок
     private int rivetNuts; //Количество аклепочных гаек
     private int others; //Количество другого крепежа
@@ -46,17 +51,12 @@ public class PlateAssmNutsMKController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpAssmNutMK opData = (OpAssmNutMK)data;
+        opData = (OpAssmNutMK)data;
 
         countInitialValues();
 
-        double time;
-        time =  rivets * RIVETS_SPEED * SEC_TO_MIN
-                + rivetNuts * RIVET_NUTS_SPEED * SEC_TO_MIN
-                + others * OTHERS_SPEED * SEC_TO_MIN;   //мин
+        currentNormTime = OpAssmNutsMKCounter.count((OpAssmNutMK) data).getMechTime();//результат в минутах
 
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -71,15 +71,14 @@ public class PlateAssmNutsMKController extends AbstractOpPlate {
         rivetNuts = IntegerParser.getValue(tfRivetNuts);
         others = IntegerParser.getValue(tfOthers);
 
+        collectOpData();
     }
 
 
-    private void collectOpData(OpAssmNutMK opData){
+    private void collectOpData(){
         opData.setRivets(rivets);
         opData.setRivetNuts(rivetNuts);
         opData.setOthers(others);
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

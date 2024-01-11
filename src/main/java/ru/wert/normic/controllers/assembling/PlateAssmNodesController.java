@@ -81,6 +81,10 @@ public class PlateAssmNodesController extends AbstractOpPlate {
         detectors = IntegerParser.getValue(tfDetectors);
         connectionBoxes = IntegerParser.getValue(tfConnectionBoxes);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setPostLocks(postLocks);
         opData.setDoubleLocks(doubleLocks);
         opData.setMirrors(mirrors);

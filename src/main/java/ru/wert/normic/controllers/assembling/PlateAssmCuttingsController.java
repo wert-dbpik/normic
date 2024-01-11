@@ -69,10 +69,14 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
         selfAdhSealer = DoubleParser.getValue(tfSelfAdhSealer);
         insulation = DoubleParser.getValue(tfInsulation);
 
+        collectOpData();
+
+    }
+
+    private void collectOpData(){
         opData.setSealer(sealer);
         opData.setSelfAdhSealer(selfAdhSealer);
         opData.setInsulation(insulation);
-
     }
 
     @Override//AbstractOpPlate

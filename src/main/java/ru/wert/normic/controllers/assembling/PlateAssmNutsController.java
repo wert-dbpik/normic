@@ -89,6 +89,10 @@ public class PlateAssmNutsController extends AbstractOpPlate {
         groundSets = IntegerParser.getValue(tfGroundSets);
         others = IntegerParser.getValue(tfOthers);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setScrews(screws);
         opData.setVshgs(vshgs);
         opData.setRivets(rivets);

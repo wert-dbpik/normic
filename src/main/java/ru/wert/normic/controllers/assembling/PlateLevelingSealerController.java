@@ -85,6 +85,10 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         paramA = IntegerParser.getValue(tfA);
         paramB = IntegerParser.getValue(tfB);
 
+        collectOpData();
+    }
+
+    private void collectOpData(){
         opData.setName(name);
         opData.setCompA(tfCompA.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompA.getText().replace(",", ".")));
         opData.setCompB(tfCompB.getText().isEmpty() ? 0.0 : Double.parseDouble(tfCompB.getText().replace(",", ".")));

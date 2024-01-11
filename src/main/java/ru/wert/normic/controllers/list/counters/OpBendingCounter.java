@@ -9,8 +9,8 @@ public class OpBendingCounter {
 
     public static OpBending count(OpBending opData){
 
-        Integer bends = opData.getBends(); //Количество гибов
-        Integer men = opData.getMen(); //Количество рабочих
+        int bends = opData.getBends(); //Количество гибов
+        int men = opData.getMen(); //Количество рабочих
         double toolRatio = opData.getTool().getToolRatio(); //Коэффициент зависящий от гибочного станка
 
         //######################################################

@@ -9,7 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.list.counters.OpBendingCounter;
+import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
@@ -54,15 +57,15 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private OpWeldContinuous opData;
+
     private String name; //наименование
     private int seamLength; //Длина шва
-    private int seamsCounted; //Количество швов расчетное
     private int seams; //Количество швов заданное пользователем
     private int men; //Число человек, работающих над операцией
     private boolean stripping; //Использовать зачистку
     private int connectionLength; //Длина сединения на которую расчитывается количество точек
     private int step; //шаг точек
-    private double assemblingTime; //Время сборки свариваемого узла
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
@@ -88,39 +91,12 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpWeldContinuous opData = (OpWeldContinuous)data;
+       opData = (OpWeldContinuous)data;
 
         countInitialValues();
 
-        if(!chbxPreEnterSeams.isSelected()){
-            if(step == 0){ //Деление на ноль
-                return;
-            } else
-                seamsCounted = connectionLength/step; //Получаем целу часть от деления
-        } else {
-            seamsCounted = seams;
-        }
+        currentNormTime = OpWeldContinuousCounter.count((OpWeldContinuous) data).getMechTime();//результат в минутах
 
-        int sumWeldLength = seamsCounted * seamLength;
-
-
-        double strippingTime;
-        if(stripping) {
-            //Время на зачистку, мин
-            if (sumWeldLength < 100) strippingTime = 0.5;
-            else if (sumWeldLength >= 100 && sumWeldLength < 500) strippingTime = 1.8;
-            else if (sumWeldLength >= 500 && sumWeldLength < 1000) strippingTime = 3.22;
-            else strippingTime = sumWeldLength * MM_TO_M * 3.22;
-        } else
-            strippingTime = 0.0;
-
-
-        double time;
-        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED + assemblingTime) + strippingTime;   //мин
-        if(sumWeldLength == 0.0) time = 0.0;
-
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -137,11 +113,12 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         connectionLength = IntegerParser.getValue(tfConnectionLength);
         step = IntegerParser.getValue(tfStep);
         stripping = chbxStripping.isSelected();
-        assemblingTime = cmbxPartBigness.getValue().getTime();
+
+        collectOpData();
     }
 
 
-    private void collectOpData(OpWeldContinuous opData){
+    private void collectOpData(){
         opData.setName(name);
         opData.setSeamLength(seamLength);
         opData.setPartBigness(cmbxPartBigness.getValue());
@@ -151,8 +128,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         opData.setSeams(seams);
         opData.setConnectionLength(connectionLength);
         opData.setStep(step);
-
-        opData.setMechTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

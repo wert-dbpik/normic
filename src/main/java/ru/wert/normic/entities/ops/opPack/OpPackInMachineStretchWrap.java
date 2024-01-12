@@ -13,6 +13,10 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpPackInMachineStretchWrap extends OpData implements PackingData {
 
+    private int height = 0;
+    private int width = 0;
+    private int depth = 0;
+
     private int partMin = 10; //Минимальная партия
     private double cartoon = 0.0; //Картон
     private double cartoonAngle = 0.0; //Картонный уголок

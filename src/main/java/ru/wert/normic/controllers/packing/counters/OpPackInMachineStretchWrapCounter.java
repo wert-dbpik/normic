@@ -1,0 +1,42 @@
+package ru.wert.normic.controllers.packing.counters;
+
+import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
+
+import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
+import static ru.wert.normic.settings.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.STRETCH_MACHINE_WINDING;
+
+public class OpPackInMachineStretchWrapCounter {
+
+    public static OpPackInMachineStretchWrap count(OpPackInMachineStretchWrap opData){
+
+        int partMin = opData.getPartMin();
+        int height = opData.getHeight();
+        int width = opData.getWidth();
+        int depth = opData.getDepth();
+
+        //######################################################
+
+        double countHeight = height * MM_TO_M;
+        double countDepth = depth * MM_TO_M;
+        double countWidth = width * MM_TO_M;
+
+        double cartoonTop = Math.ceil((countWidth + 0.1) * (countDepth + 0.1) * 1.2 * 2); //Крышки верх и низ
+        double cartoonAngle = Math.ceil(countHeight * 1.1 * 4); //4 уголка на всю высоту
+
+        double stretchWrap = Math.ceil((countWidth + countDepth) * 2 * countHeight / 0.3 * 2); //м
+
+        double perimeter = (countWidth + countDepth) * 2;
+        double ductTape = Math.ceil(perimeter * 4) / DUCT_TAPE_LENGTH;  //Вокруг изделия 4 раза
+
+        double time = CARTOON_BOX_AND_ANGLES_SPEED + CARTOON_BOX_PREPARED_TIME / partMin * 1.07 + //Время изготовления 2х крышек
+                STRETCH_MACHINE_WINDING * countHeight; //Время упаковки изделия в коробку
+
+        opData.setCartoon(cartoonTop);
+        opData.setCartoonAngle(cartoonAngle);
+        opData.setStretchMachineWrap(stretchWrap);
+        opData.setDuctTape(ductTape);
+        opData.setPackTime(time);
+        return opData;
+    }
+}

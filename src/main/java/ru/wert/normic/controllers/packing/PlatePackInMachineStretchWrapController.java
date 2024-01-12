@@ -7,7 +7,10 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackInMachineStretchWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -33,12 +36,10 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
+    private OpPackInMachineStretchWrap opData;
+
     private int width, depth, height;
     private int partMin; //Минимальная партия коробок
-    private Double cartoonTop;
-    private Double cartoonAngle;
-    private Double stretchWrap;
-    private Double ductTape;
 
 
     @Override //AbstractOpPlate
@@ -54,32 +55,16 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackInMachineStretchWrap opData = (OpPackInMachineStretchWrap) data;
+        opData = (OpPackInMachineStretchWrap) data;
 
         countInitialValues();
 
-        double countHeight = height * MM_TO_M;
-        double countDepth = depth * MM_TO_M;
-        double countWidth = width * MM_TO_M;
+        currentNormTime = OpPackInMachineStretchWrapCounter.count((OpPackInMachineStretchWrap) data).getPackTime();//результат в минутах
+        tfCartoon.setText(DECIMAL_FORMAT.format(opData.getCartoon()));
+        tfCartoonAngle.setText(DECIMAL_FORMAT.format(opData.getCartoonAngle()));
+        tfMachineStretchWrap.setText(DECIMAL_FORMAT.format(opData.getStretchMachineWrap()));
+        tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 
-        cartoonTop = Math.ceil((countWidth + 0.1) * (countDepth + 0.1) * 1.2 * 2); //Крышки верх и низ
-        cartoonAngle = Math.ceil(countHeight * 1.1 * 4); //4 уголка на всю высоту
-
-        tfCartoon.setText(DECIMAL_FORMAT.format(cartoonTop));
-        tfCartoonAngle.setText(DECIMAL_FORMAT.format(cartoonAngle));
-
-        stretchWrap = Math.ceil((countWidth + countDepth) * 2 * countHeight / 0.3 * 2); //м
-        tfMachineStretchWrap.setText(DECIMAL_FORMAT.format(stretchWrap));
-
-        double perimeter = (countWidth + countDepth) * 2;
-        ductTape = Math.ceil(perimeter * 4) / DUCT_TAPE_LENGTH;  //Вокруг изделия 4 раза
-        tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
-
-        double time = CARTOON_BOX_AND_ANGLES_SPEED + CARTOON_BOX_PREPARED_TIME / partMin * 1.07 + //Время изготовления 2х крышек
-                STRETCH_MACHINE_WINDING * countHeight; //Время упаковки изделия в коробку
-
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -93,18 +78,17 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
         height = ((FormPackController)formController).getHeight();
 
         partMin = IntegerParser.getValue(tfPartMin);
+
+        collectOpData();
     }
 
 
-    private void collectOpData(OpPackInMachineStretchWrap opData){
+    private void collectOpData(){
         opData.setPartMin(partMin);
 
-        opData.setCartoon(cartoonTop);
-        opData.setCartoonAngle(cartoonAngle);
-        opData.setStretchMachineWrap(stretchWrap);
-        opData.setDuctTape(ductTape);
-
-        opData.setPackTime(currentNormTime);
+        opData.setHeight(height);
+        opData.setWidth(width);
+        opData.setDepth(depth);
     }
 
     @Override//AbstractOpPlate

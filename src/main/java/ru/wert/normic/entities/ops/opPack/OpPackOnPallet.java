@@ -13,6 +13,10 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpPackOnPallet extends OpData implements PackingData {
 
+    private int height = 0;
+    private int width = 0;
+    private int depth = 0;
+
     private double polyWrap = 0.0; //Полипропиленовая лента
     private double pallet = 0.0; //Поддон
 

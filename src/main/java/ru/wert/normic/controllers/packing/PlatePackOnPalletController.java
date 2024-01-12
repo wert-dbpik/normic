@@ -6,7 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackOnPalletCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
 import ru.wert.normic.enums.EOpType;
 
@@ -15,9 +18,10 @@ import ru.wert.normic.enums.EOpType;
  */
 public class PlatePackOnPalletController extends AbstractOpPlate {
 
+    private OpPackOnPallet opData;
+
     private int height; //габарит квадратного поддона
-    private double palletDepth = 0.800; //габарит квадратного поддона
-    private double palletWidth = 1.200; //габарит квадратного поддона
+
     private double polyWrapL; //полипропиленовая лента
 
     @Override //AbstractOpPlate
@@ -29,16 +33,12 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackOnPallet opData = (OpPackOnPallet) data;
+        opData = (OpPackOnPallet) data;
 
         countInitialValues();
 
-        double countHeight = height * MM_TO_M;
+        currentNormTime = OpPackOnPalletCounter.count((OpPackOnPallet) data).getPackTime();//результат в минутах
 
-        polyWrapL = Math.ceil((countHeight * 1.15 * 4.0) + (2.0 * palletDepth));
-
-        currentNormTime = 14.0;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -49,14 +49,13 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
     public  void countInitialValues() {
 
         height = ((FormPackController)formController).getHeight();
+
+        collectOpData();
     }
 
 
-    private void collectOpData(OpPackOnPallet opData){
-        opData.setPolyWrap(polyWrapL);
-        opData.setPallet(1.0);
-
-        opData.setPackTime(currentNormTime);
+    private void collectOpData(){
+        opData.setHeight(height);
     }
 
     @Override//AbstractOpPlate

@@ -7,7 +7,10 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers.locksmith.counters.OpLocksmithCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.enums.EWinding;
 
@@ -69,34 +72,10 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
         countInitialValues();
 
-        double countHeight;
-        double countDepth;
-        double countWidth;
+        currentNormTime = OpPackInBubbleWrapCounter.count((OpPackInBubbleWrap) data).getPackTime();//результат в минутах
+        tfBubbleWrap.setText(DECIMAL_FORMAT.format(opData.getBubbleWrap()));
+        tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 
-        if(selectedRadioButton == EWinding.AROUND_HEIGHT.ordinal()){
-            countHeight = height * MM_TO_M;
-            countDepth = depth * MM_TO_M;
-            countWidth = width * MM_TO_M;
-        } else if(selectedRadioButton == EWinding.AROUND_DEPTH.ordinal()){
-            countHeight = depth * MM_TO_M;
-            countDepth = height * MM_TO_M;
-            countWidth = width * MM_TO_M;
-        } else {
-            countHeight = width * MM_TO_M;
-            countDepth = depth * MM_TO_M;
-            countWidth = height * MM_TO_M;
-        }
-
-        bubbleWrap = Math.ceil((countWidth + countDepth) * 2.0 * countHeight  * 1.1); //м2
-        tfBubbleWrap.setText(DECIMAL_FORMAT.format(bubbleWrap));
-
-        ductTape = (countHeight * 2) / DUCT_TAPE_LENGTH;  //Две высоты
-        tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
-
-        double time = BUBBLE_CUT_AND_DUCT + bubbleWrap * BUBBLE_HAND_WINDING;
-
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -111,16 +90,16 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
         depth = ((FormPackController)formController).getDepth();
         height = ((FormPackController)formController).getHeight();
 
+        collectOpData();
     }
 
 
-    private void collectOpData(OpPackInBubbleWrap opData){
+    private void collectOpData(){
+        opData.setHeight(height);
+        opData.setWidth(width);
+        opData.setDepth(depth);
 
         opData.setSelectedRadioButton(selectedRadioButton);
-        opData.setBubbleWrap(bubbleWrap);
-        opData.setDuctTape(ductTape);
-
-        opData.setPackTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

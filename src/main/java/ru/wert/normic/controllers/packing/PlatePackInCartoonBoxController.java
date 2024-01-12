@@ -7,7 +7,10 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackInCartoonBoxCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInCartoonBox;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -27,10 +30,9 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
+    private OpPackInCartoonBox opData;
     private int width, depth, height;
     private int partMin; //Минимальная партия коробок
-    private Double cartoon;
-    private Double ductTape;
 
 
     @Override //AbstractOpPlate
@@ -45,28 +47,14 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPackInCartoonBox opData = (OpPackInCartoonBox) data;
+        opData = (OpPackInCartoonBox) data;
 
         countInitialValues();
 
-        double countHeight = height * MM_TO_M;
-        double countDepth = depth * MM_TO_M;
-        double countWidth = width * MM_TO_M;
+        currentNormTime = OpPackInCartoonBoxCounter.count((OpPackInCartoonBox) data).getPackTime();//результат в минутах
+        tfCartoon.setText(DECIMAL_FORMAT.format(opData.getCartoon()));
+        tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 
-        cartoon = Math.ceil((countWidth + 0.1) * (countDepth + 0.1) * 2 +
-                (countWidth + 0.1) * (countHeight + 0.1) * 2 +
-                (countDepth + 0.1) * (countHeight + 0.1) * 2);
-
-        tfCartoon.setText(DECIMAL_FORMAT.format(cartoon));
-
-        ductTape = ((countWidth + countDepth) * 4.0 + countHeight * 4.0) / DUCT_TAPE_LENGTH;
-        tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
-
-        double time = (CARTOON_BOX_SPEED + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления коробки
-                PACK_IN_CARTOON_BOX_SPEED; //Время упаковки изделия в коробку
-
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -80,16 +68,17 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
         height = ((FormPackController)formController).getHeight();
 
         partMin = IntegerParser.getValue(tfPartMin);
+
+        collectOpData();
     }
 
 
-    private void collectOpData(OpPackInCartoonBox opData){
+    private void collectOpData(){
+        opData.setHeight(height);
+        opData.setWidth(width);
+        opData.setDepth(depth);
         opData.setPartMin(partMin);
 
-        opData.setCartoon(cartoon);
-        opData.setDuctTape(ductTape);
-
-        opData.setPackTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

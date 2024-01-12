@@ -14,6 +14,10 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpPackInHandStretchWrap extends OpData implements PackingData {
 
+    private int height = 0;
+    private int width = 0;
+    private int depth = 0;
+
     private int selectedRadioButton = 0;
     private double stretchHandWrap = 0.0; //Ручная стрейч-пленка
     private double ductTape = 0.0; //Скотч

@@ -11,7 +11,10 @@ import lombok.Getter;
 import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackInHandStretchWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
 import ru.wert.normic.enums.EWinding;
 
@@ -45,8 +48,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
     private int width, depth, height;
     private ToggleGroup toggleGroup; //Накручивание по
     private int selectedRadioButton; //выделенный
-    private Double handStretchWrap;
-    private Double ductTape;
+
 
     @FXML
     void initialize(){
@@ -73,34 +75,10 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
         countInitialValues();
 
-        double countHeight;
-        double countDepth;
-        double countWidth;
+        currentNormTime = OpPackInHandStretchWrapCounter.count((OpPackInHandStretchWrap) data).getPackTime();//результат в минутах
+        tfStretchWrap.setText(DECIMAL_FORMAT.format(opData.getStretchHandWrap()));
+        tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 
-        if(selectedRadioButton == EWinding.AROUND_HEIGHT.ordinal()){
-            countHeight = height * MM_TO_M;
-            countDepth = depth * MM_TO_M;
-            countWidth = width * MM_TO_M;
-        } else if(selectedRadioButton == EWinding.AROUND_DEPTH.ordinal()){
-            countHeight = depth * MM_TO_M;
-            countDepth = height * MM_TO_M;
-            countWidth = width * MM_TO_M;
-        } else {
-            countHeight = width * MM_TO_M;
-            countDepth = depth * MM_TO_M;
-            countWidth = height * MM_TO_M;
-        }
-
-        handStretchWrap = Math.ceil((countWidth + countDepth) * 2.0 * countHeight/0.3  * 2); //м
-        tfStretchWrap.setText(DECIMAL_FORMAT.format(handStretchWrap));
-
-        ductTape = countHeight / DUCT_TAPE_LENGTH;  //1 высота
-        tfDuctTape.setText(DECIMAL_FORMAT.format(ductTape));
-
-        double time = handStretchWrap * STRETCH_HAND_WINDING;
-
-        currentNormTime = time;
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -115,17 +93,18 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
         depth = ((FormPackController)formController).getDepth();
         height = ((FormPackController)formController).getHeight();
 
+        collectOpData();
+
     }
 
 
 
-    private void collectOpData(OpPackInHandStretchWrap opData){
+    private void collectOpData(){
+        opData.setHeight(height);
+        opData.setWidth(width);
+        opData.setDepth(depth);
 
         opData.setSelectedRadioButton(selectedRadioButton);
-        opData.setStretchHandWrap(handStretchWrap);
-        opData.setDuctTape(ductTape);
-
-        opData.setPackTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

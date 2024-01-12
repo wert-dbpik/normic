@@ -1,6 +1,5 @@
 package ru.wert.normic.controllers.packing.counters;
 
-import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
@@ -21,8 +20,8 @@ public class OpPackOnPalletCounter {
         //полипропиленовая лента
         double polyWrapL = Math.ceil((countHeight * 1.15 * 4.0) + (2.0 * palletDepth));
 
-        double pallet = 1.0;
-        double time = 14.0;
+        double pallet = 1.0; //шт
+        double time = 14.0; //мин
 
         opData.setPallet(pallet);
         opData.setPolyWrap(polyWrapL);

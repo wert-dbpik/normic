@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ru.wert.normic.controllers.list.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.single.OpDetail;

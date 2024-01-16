@@ -8,10 +8,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.list.counters.OpBendingCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 

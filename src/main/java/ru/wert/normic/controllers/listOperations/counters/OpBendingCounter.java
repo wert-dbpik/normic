@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.list.counters;
+package ru.wert.normic.controllers.listOperations.counters;
 
 import ru.wert.normic.entities.ops.opList.OpBending;
 

@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.list;
+package ru.wert.normic.controllers.listOperations;
 
 
 import javafx.fxml.FXML;
@@ -11,10 +11,9 @@ import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.list.counters.OpBendingCounter;
+import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.utils.IntegerParser;
 

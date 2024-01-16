@@ -9,6 +9,9 @@ import ru.wert.normic.entities.ops.single.OpDetail;
 
 import java.util.List;
 
+/**
+ * Абстрактная модель панельки материалов
+ */
 public abstract class AbstractMatPatchController {
 
     @Getter@Setter protected double ro; //Плотность

@@ -2,11 +2,11 @@ package ru.wert.normic.entities.ops.opPaint;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.db_connection.matType.MatType;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.enums.EColor;
-import ru.wert.normic.enums.ENormType;
-import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.enums.EPaintingDifficulty;
+import ru.wert.normic.enums.*;
+import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
@@ -17,9 +17,13 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpPaint extends OpData {
 
+    private Material material; //материал
+    private int razvA = 0; //размер развертки А
+    private int razvB = 0; //размер развертки B
+    private boolean twoSides = true; //Окрашивание с двух сторон
+
     private EColor color = EColor.COLOR_I;
     private double area = 0.0;
-    private boolean twoSides = true;
     private double dyeWeight = 0.0;
     private Integer along = 0;
     private Integer across = 0;

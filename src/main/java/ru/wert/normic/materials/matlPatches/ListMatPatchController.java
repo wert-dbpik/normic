@@ -7,6 +7,9 @@ import lombok.Getter;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 
+/**
+ * Класс описывающий поведение панели листового материала
+ */
 public class ListMatPatchController extends AbstractMatPatchController {
 
     @FXML@Getter

@@ -2,10 +2,13 @@ package ru.wert.normic.entities.ops.opList;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * ГИБКА ЛИСТА НА ЛИСТОГИБЕ
@@ -13,6 +16,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpBending extends OpData {
+
+    private transient NormCounter normCounter = new OpBendingCounter();
 
     private Integer bends = 1;
     private Integer men = 1;

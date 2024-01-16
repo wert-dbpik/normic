@@ -1,17 +1,20 @@
 package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 import ru.wert.normic.entities.ops.opTurning.OpLatheTurning;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpLatheTurningCounter {
+public class OpLatheTurningCounter implements NormCounter{
 
-    private static final int maxTurningDiameter = 200; //Максимальный диаметр свреления
-    private static final int maxTurningLength = 600; //Максимальная длина обработки
+    private final int maxTurningDiameter = 200; //Максимальный диаметр свреления
+    private final int maxTurningLength = 600; //Максимальная длина обработки
 
-    private static int[] lengths = new int[]{      25,   50,   75,   100,  125,  150,  200, 250, 300, 350, 400, 450, 500, 550, 600};
+    private int[] lengths = new int[]{      25,   50,   75,   100,  125,  150,  200, 250, 300, 350, 400, 450, 500, 550, 600};
 
     enum EDiameters {
         D20(20,   new double[]{0.66, 0.70, 0.75, 0.81, 0.88, 0.96, 1.05}),
@@ -31,7 +34,9 @@ public class OpLatheTurningCounter {
             this.times = times;}
     }
 
-    public static OpLatheTurning count(OpLatheTurning opData){
+    public OpData count(OpData data){
+        OpLatheTurning opData = (OpLatheTurning)data;
+
         double turningDiameter = opData.getMaterial().getParamS();; //Диаметр обработки
         int passages = opData.getPassages();//Количество проходов
         int length = opData.getLength(); //Глубина  точения
@@ -47,7 +52,7 @@ public class OpLatheTurningCounter {
         return opData;
     }
 
-    private static Double findTime(double diameter, double length){
+    private Double findTime(double diameter, double length){
         if(diameter == 0.0 || length == 0) return 0.0;
         double countD = Math.min(diameter, 200.0);
         int prevL = 0;

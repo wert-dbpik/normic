@@ -72,7 +72,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpPackInBubbleWrapCounter.count((OpPackInBubbleWrap) data).getPackTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
         tfBubbleWrap.setText(DECIMAL_FORMAT.format(opData.getBubbleWrap()));
         tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 

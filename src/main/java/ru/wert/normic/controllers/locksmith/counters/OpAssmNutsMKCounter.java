@@ -1,13 +1,16 @@
 package ru.wert.normic.controllers.locksmith.counters;
 
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpAssmNutMK;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.SEC_TO_MIN;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class OpAssmNutsMKCounter {
+public class OpAssmNutsMKCounter implements NormCounter {
 
-    public static OpAssmNutMK count(OpAssmNutMK opData){
+    public OpData count(OpData data){
+        OpAssmNutMK opData = (OpAssmNutMK) data;
 
         int rivets = opData.getRivets();
         int rivetNuts = opData.getRivetNuts();

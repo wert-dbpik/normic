@@ -55,7 +55,7 @@ public class PlateAssmNutsMKController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpAssmNutsMKCounter.count((OpAssmNutMK) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

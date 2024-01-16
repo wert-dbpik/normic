@@ -56,7 +56,7 @@ public class PlateLocksmithController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLocksmithCounter.count((OpLocksmith) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

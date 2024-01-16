@@ -1,14 +1,18 @@
 package ru.wert.normic.controllers.packing.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 import static ru.wert.normic.settings.NormConstants.STRETCH_MACHINE_WINDING;
 
-public class OpPackInMachineStretchWrapCounter {
+public class OpPackInMachineStretchWrapCounter implements NormCounter {
 
-    public static OpPackInMachineStretchWrap count(OpPackInMachineStretchWrap opData){
+    public OpData count(OpData data){
+        OpPackInMachineStretchWrap opData = (OpPackInMachineStretchWrap)data;
 
         int partMin = opData.getPartMin();
         int height = opData.getHeight();

@@ -1,15 +1,20 @@
 package ru.wert.normic.controllers.packing.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
 import ru.wert.normic.enums.EWinding;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.DUCT_TAPE_LENGTH;
 import static ru.wert.normic.settings.NormConstants.STRETCH_HAND_WINDING;
 
-public class OpPackInHandStretchWrapCounter {
+public class OpPackInHandStretchWrapCounter implements NormCounter {
 
-    public static OpPackInHandStretchWrap count(OpPackInHandStretchWrap opData){
+    public OpData count(OpData data){
+        OpPackInHandStretchWrap opData = (OpPackInHandStretchWrap)data;
+
         int selectedRadioButton = opData.getSelectedRadioButton();
         int height = opData.getHeight();
         int width = opData.getWidth();

@@ -1,13 +1,16 @@
 package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutGroove;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpLatheCutGrooveCounter {
+public class OpLatheCutGrooveCounter implements NormCounter {
 
-    private static final int maxDepth = 35; //Максимальная глубина канавки
+    private final int maxDepth = 35; //Максимальная глубина канавки
 
     /**
      * Зависимость времени обработки (мин) от глубины канавки (мм)
@@ -34,7 +37,7 @@ public class OpLatheCutGrooveCounter {
     /**
      * Перебирает строки ECutGroove
      */
-    private static Double findTime(double depth){
+    private Double findTime(double depth){
         if(depth == 0.0) return 0.0;
         int prevD = 0; //Начальное значение при переборе
         for(ECutGroove d : ECutGroove.values()){
@@ -47,7 +50,8 @@ public class OpLatheCutGrooveCounter {
         throw new NoSuchElementException("Ошибка при определении значения нормы времени в таблице");
     }
 
-    public static OpLatheCutGroove count(OpLatheCutGroove opData){
+    public OpData count(OpData data){
+        OpLatheCutGroove opData = (OpLatheCutGroove)data;
 
         double depth = opData.getDepth(); //Глубина  точения
 

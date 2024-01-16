@@ -1,14 +1,18 @@
 package ru.wert.normic.controllers.locksmith.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.enums.ESawType;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpCutOffOnTheSawCounter {
+public class OpCutOffOnTheSawCounter implements NormCounter {
 
-    public static OpCutOffOnTheSaw count(OpCutOffOnTheSaw opData){
+    public OpData count(OpData data){
+        OpCutOffOnTheSaw opData = (OpCutOffOnTheSaw)data;
 
         int length = opData.getLength();
         ESawType sawType = opData.getSaw();
@@ -21,7 +25,7 @@ public class OpCutOffOnTheSawCounter {
         return opData;
     }
 
-    private static Double findTime(int length){
+    private Double findTime(int length){
         EMeasure lastMeasure = EMeasure.values()[EMeasure.values().length-1];
         if(length > lastMeasure.getLength())
             return lastMeasure.getTime();

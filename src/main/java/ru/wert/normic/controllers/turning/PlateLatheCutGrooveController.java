@@ -15,7 +15,7 @@ import ru.wert.normic.utils.DoubleParser;
 /**
  * НАРЕЗАНИЕ КАНАВКИ НА ТОКАРНОМ СТАНКЕ
  */
-public class PlateCutGrooveController extends AbstractOpPlate {
+public class PlateLatheCutGrooveController extends AbstractOpPlate {
 
     @FXML
     private TextField tfDepth;
@@ -41,7 +41,7 @@ public class PlateCutGrooveController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLatheCutGrooveCounter.count((OpLatheCutGroove) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
 

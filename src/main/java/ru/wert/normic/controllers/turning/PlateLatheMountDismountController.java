@@ -6,17 +6,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.turning.counters.OpLatheMountDissmountCounter;
+import ru.wert.normic.controllers.turning.counters.OpLatheMountDismountCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
-
-import java.util.NoSuchElementException;
 
 /**
  * УСТАНОВКА И СНЯТИЕ ДЕТАЛИ С ТОКАРНОГО СТАНКА
  */
-public class PlateMountDismountController extends AbstractOpPlate {
+public class PlateLatheMountDismountController extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
@@ -36,7 +33,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
 
-    private OpLatheMountDissmountCounter.ELatheHolders holder;
+    private OpLatheMountDismountCounter.ELatheHolders holder;
 
 
     @Override //AbstractOpPlate
@@ -49,9 +46,9 @@ public class PlateMountDismountController extends AbstractOpPlate {
 
 
         toggleGroup.selectedToggleProperty().addListener((ob, o, n) -> {
-            if(rbCenters.isSelected()) holder = OpLatheMountDissmountCounter.ELatheHolders.CENTERS;
-            else if(rbHolder.isSelected()) holder = OpLatheMountDissmountCounter.ELatheHolders.HOLDER;
-            else holder = OpLatheMountDissmountCounter.ELatheHolders.HOLDER_AND_CENTER;
+            if(rbCenters.isSelected()) holder = OpLatheMountDismountCounter.ELatheHolders.CENTERS;
+            else if(rbHolder.isSelected()) holder = OpLatheMountDismountCounter.ELatheHolders.HOLDER;
+            else holder = OpLatheMountDismountCounter.ELatheHolders.HOLDER_AND_CENTER;
 
             countNorm(opData);
             formController.countSumNormTimeByShops();
@@ -71,7 +68,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
         int length = (((FormDetailController) formController).getMatPatchController()).getParamA();
 
         currentNormTime = ((length == 0) ? currentNormTime = 0.0 :
-                OpLatheMountDissmountCounter.count((OpLatheMountDismount) data).getMechTime());//результат в минутах
+                opData.getNormCounter().count(data).getMechTime());//результат в минутах
 
         setTimeMeasurement();
     }
@@ -96,7 +93,7 @@ public class PlateMountDismountController extends AbstractOpPlate {
     public void fillOpData(OpData data){
         OpLatheMountDismount opData = (OpLatheMountDismount)data;
 
-        holder = OpLatheMountDissmountCounter.ELatheHolders.values()[opData.getHolder()];
+        holder = OpLatheMountDismountCounter.ELatheHolders.values()[opData.getHolder()];
         switch (holder.ordinal()){
             case 0 : rbCenters.setSelected(true); break;
             case 1 : rbHolder.setSelected(true); break;

@@ -2,10 +2,13 @@ package ru.wert.normic.entities.ops.opPaint;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.entities.db_connection.matType.MatType;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.*;
+import ru.wert.normic.interfaces.NormCounter;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
@@ -16,6 +19,8 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Getter
 @Setter
 public class OpPaint extends OpData {
+
+    private transient NormCounter normCounter = new OpPaintCounter();
 
     private Material material; //материал
     private int razvA = 0; //размер развертки А

@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
 /**
  * ТОЧЕНИЕ ИЛИ РАСТАЧИВАНИЕ НА ТОКАРНОМ СТАНКЕ
  */
-public class PlateTurningController extends AbstractOpPlate {
+public class PlateLatheTurningController extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
@@ -63,7 +63,7 @@ public class PlateTurningController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLatheTurningCounter.count((OpLatheTurning) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

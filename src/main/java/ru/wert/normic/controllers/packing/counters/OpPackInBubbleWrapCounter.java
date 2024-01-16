@@ -1,14 +1,18 @@
 package ru.wert.normic.controllers.packing.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.enums.EWinding;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class OpPackInBubbleWrapCounter {
+public class OpPackInBubbleWrapCounter implements NormCounter {
 
-    public static OpPackInBubbleWrap count(OpPackInBubbleWrap opData){
+    public OpData count(OpData data){
+        OpPackInBubbleWrap opData = (OpPackInBubbleWrap)data;
 
         int selectedRadioButton = opData.getSelectedRadioButton();
         int height = opData.getHeight();

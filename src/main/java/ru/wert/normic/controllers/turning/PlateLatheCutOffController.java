@@ -63,7 +63,7 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLatheCutOffCounter.count((OpLatheCutOff) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

@@ -1,15 +1,19 @@
 package ru.wert.normic.controllers.locksmith.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
 import ru.wert.normic.enums.EMeasure;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpChopOffCounter {
+public class OpChopOffCounter implements NormCounter{
 
-    private static double chopTime = 0.05;
+    private double chopTime = 0.05;
 
-    public static OpChopOff count(OpChopOff opData){
+    public OpData count(OpData data){
+        OpChopOff opData = (OpChopOff)data;
 
         int length = opData.getLength();
 
@@ -21,7 +25,7 @@ public class OpChopOffCounter {
         return opData;
     }
 
-    private static Double findTime(int length) {
+    private Double findTime(int length) {
         EMeasure lastMeasure = EMeasure.values()[EMeasure.values().length-1];
         if(length > lastMeasure.getLength())
             return lastMeasure.getTime();

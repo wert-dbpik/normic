@@ -16,7 +16,7 @@ import ru.wert.normic.utils.IntegerParser;
 /**
  * АКАТЫВАНИЕ ПРОФИЛЯ НА ТОКАРНОМ СТАНКЕ
  */
-public class PlateRollingController extends AbstractOpPlate {
+public class PlateLatheRollingController extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
@@ -55,7 +55,7 @@ public class PlateRollingController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLatheRollingCounter.count((OpLatheRolling) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

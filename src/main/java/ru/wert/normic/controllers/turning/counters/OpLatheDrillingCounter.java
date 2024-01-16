@@ -1,18 +1,21 @@
 package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opList.OpBending;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpLatheDrillingCounter {
+public class OpLatheDrillingCounter implements NormCounter{
 
-    private static final int maxTurningDiameter = 30; //Максимальный диаметр свреления
-    private static final int maxTurningLength = 100; //Максимальная длина обработки
+    private final int maxTurningDiameter = 30; //Максимальный диаметр свреления
+    private final int maxTurningLength = 100; //Максимальная длина обработки
 
-    private static int[] lengths = new int[]{10,   20,   40,   60,   80,   100};
-    private static double delta = 0.01;
+    private int[] lengths = new int[]{10,   20,   40,   60,   80,   100};
+    private double delta = 0.01;
 
     /**
      * Зависимость времени сверления (мин) от диаметра (мм) и длины отверстия (мм)
@@ -36,7 +39,9 @@ public class OpLatheDrillingCounter {
             this.times = times;}
     }
 
-    public static OpLatheDrilling count(OpLatheDrilling opData){
+    public OpData count(OpData data){
+        OpLatheDrilling opData = (OpLatheDrilling)data;
+
         int turningDiameter = opData.getDiameter(); //Диаметр обработки
         int length = opData.getLength(); //Глубина  точения
 
@@ -51,7 +56,7 @@ public class OpLatheDrillingCounter {
         return opData;
     }
 
-    private static Double findTime(double diameter, int length){
+    private Double findTime(double diameter, int length){
         if(diameter == 0.0 || length == 0) return 0.0;
         int maxLength = lengths[lengths.length-1];
         if(length > maxLength){

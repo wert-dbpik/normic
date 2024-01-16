@@ -1,14 +1,17 @@
 package ru.wert.normic.controllers.listOperations.counters;
 
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opList.OpCutting;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class OpCuttingCounter {
+public class OpCuttingCounter implements NormCounter {
 
-    public static OpCutting count(OpCutting opData){
+    public OpData count(OpData data){
+        OpCutting opData = (OpCutting)data;
 
         double t = opData.getMaterial().getParamS(); //Толщина материала
         int paramA = opData.getParamA(); //Параметр А развертки

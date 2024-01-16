@@ -2,10 +2,12 @@ package ru.wert.normic.entities.ops.opList;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * ПОЛУЧЕНИЕ ДЕТАЛИ НА ЛАЗЕРНОМ СТАНКЕ С КРП
@@ -13,6 +15,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpCutting extends OpData {
+
+    private transient NormCounter normCounter = new OpCuttingCounter();
 
     private Material material;
     private Integer paramA = 0;

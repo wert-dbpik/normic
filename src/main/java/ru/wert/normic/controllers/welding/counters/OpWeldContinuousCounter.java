@@ -1,13 +1,17 @@
 package ru.wert.normic.controllers.welding.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.WELDING_SPEED;
 
-public class OpWeldContinuousCounter {
+public class OpWeldContinuousCounter implements NormCounter {
 
-    public static OpWeldContinuous count(OpWeldContinuous opData){
+    public OpData count(OpData data){
+        OpWeldContinuous opData = (OpWeldContinuous)data;
 
         double assemblingTime = opData.getPartBigness().getTime(); //Время сборки свариваемого узла
         boolean preEnterSeams = opData.isPreEnterSeams();

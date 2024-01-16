@@ -1,14 +1,18 @@
 package ru.wert.normic.controllers.packing.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackInCartoonBox;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 import static ru.wert.normic.settings.NormConstants.PACK_IN_CARTOON_BOX_SPEED;
 
-public class OpPackInCartoonBoxCounter {
+public class OpPackInCartoonBoxCounter  implements NormCounter {
 
-    public static OpPackInCartoonBox count(OpPackInCartoonBox opData){
+    public OpData count(OpData data){
+        OpPackInCartoonBox opData = (OpPackInCartoonBox)data;
 
         int height = opData.getHeight();
         int width = opData.getWidth();

@@ -1,14 +1,17 @@
 package ru.wert.normic.controllers.locksmith.counters;
 
 import lombok.Getter;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
 import ru.wert.normic.enums.EMeasure;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpDrillingByMarkingCounter {
+public class OpDrillingByMarkingCounter implements NormCounter {
 
-    static int[] depths = new int[]{                       5,    27,   10,   12,   15,   20,   25,   30,   40};
+    int[] depths = new int[]{                       5,    27,   10,   12,   15,   20,   25,   30,   40};
     private final double delta = 0.01;
     //https://sudact.ru/law/obshchemashinostroitelnye-normativy-vremeni-na-slesarno-instrumentalnye-raboty-vypolniaemye/normativnaia-chast/razdel-ii/karta-37/list-1_35/
     public enum EDrillingOnRadial {
@@ -32,7 +35,8 @@ public class OpDrillingByMarkingCounter {
             this.times = times;}
     }
 
-    public static OpDrillingByMarking count(OpDrillingByMarking opData){
+    public OpData count(OpData data){
+        OpDrillingByMarking opData = (OpDrillingByMarking)data;
 
         int holes = opData.getHoles();
         int depth = opData.getDepth();
@@ -56,7 +60,7 @@ public class OpDrillingByMarkingCounter {
     /**
      * Время сверления
      */
-    private static Double findTimeForDrilling(int depth, int diameter) {
+    private Double findTimeForDrilling(int depth, int diameter) {
         int prevDepth = 0;
         for (int i = 0; i < depths.length; i++) {
             if (depth >= prevDepth && depth <= depths[i]) {
@@ -81,7 +85,7 @@ public class OpDrillingByMarkingCounter {
     /**
      * Время разметки
      */
-    private static Double findTimeForMarking(int length){
+    private Double findTimeForMarking(int length){
         EMeasure lastMeasure = EMeasure.values()[EMeasure.values().length-1];
         if(length > lastMeasure.getLength())
             return lastMeasure.getTime();

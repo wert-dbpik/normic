@@ -2,10 +2,13 @@ package ru.wert.normic.entities.ops.opTurning;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.turning.counters.OpLatheDrillingCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ
@@ -13,6 +16,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpLatheDrilling extends OpData {
+
+    private transient NormCounter normCounter = new OpLatheDrillingCounter();
 
     private Integer diameter = 0; //диаметр обработки
     private Integer length = 0; //длина обработки

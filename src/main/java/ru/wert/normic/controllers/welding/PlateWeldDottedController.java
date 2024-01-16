@@ -55,7 +55,7 @@ public class PlateWeldDottedController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpWeldDottedCounter.count((OpWeldDotted) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

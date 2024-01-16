@@ -24,7 +24,7 @@ import java.util.NoSuchElementException;
 /**
  * НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ
  */
-public class PlateThreadingController extends AbstractOpPlate {
+public class PlateLatheThreadingController extends AbstractOpPlate {
 
     @FXML
     private TextField tfDiameter;
@@ -59,7 +59,7 @@ public class PlateThreadingController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLatheThreadingCounter.count((OpLatheThreading) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

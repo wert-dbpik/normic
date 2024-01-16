@@ -1,15 +1,19 @@
 package ru.wert.normic.controllers.packing.counters;
 
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 
-public class OpPackOnPalletCounter {
+public class OpPackOnPalletCounter  implements NormCounter {
 
     private static double palletDepth = 0.800; //габарит квадратного поддона
     private static double palletWidth = 1.200; //габарит квадратного поддона
 
-    public static OpPackOnPallet count(OpPackOnPallet opData){
+    public OpData count(OpData data){
+        OpPackOnPallet opData = (OpPackOnPallet)data;
 
         int height = opData.getHeight();
 

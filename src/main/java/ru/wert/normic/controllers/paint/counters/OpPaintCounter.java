@@ -1,17 +1,20 @@
 package ru.wert.normic.controllers.paint.counters;
 
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EPaintingDifficulty;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class OpPaintCounter {
+public class OpPaintCounter implements NormCounter {
 
-    public static OpPaint count(OpPaint opData){
+    public OpData count(OpData data){
+        OpPaint opData = (OpPaint)data;
 
         Material material = opData.getMaterial();
         EColor color = opData.getColor();

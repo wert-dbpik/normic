@@ -630,7 +630,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateTurning.fxml"));
             VBox vBox = loader.load();
-            PlateTurningController controller = loader.getController();
+            PlateLatheTurningController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ТОЧЕНИЕ ИЛИ РАСТАЧИВАНИЕ");
             addVBox(vBox);
             
@@ -694,7 +694,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateCutGroove.fxml"));
             VBox vBox = loader.load();
-            PlateCutGrooveController controller = loader.getController();
+            PlateLatheCutGrooveController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ТОЧЕНИЕ ПАЗА НА ТОКАРНОМ СТАНКЕ");
             addVBox(vBox);
             
@@ -710,7 +710,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateThreading.fxml"));
             VBox vBox = loader.load();
-            PlateThreadingController controller = loader.getController();
+            PlateLatheThreadingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ");
             addVBox(vBox);
             
@@ -726,7 +726,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateDrilling.fxml"));
             VBox vBox = loader.load();
-            PlateDrillingController controller = loader.getController();
+            PlateLatheDrillingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ");
             addVBox(vBox);
             
@@ -758,7 +758,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateRolling.fxml"));
             VBox vBox = loader.load();
-            PlateRollingController controller = loader.getController();
+            PlateLatheRollingController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "НАКАТЫВАНИЕ РИФЛЕНИЯ НА ТОКАРНОМ СТАНКЕ");
             addVBox(vBox);
             
@@ -774,7 +774,7 @@ public class MenuForm extends ContextMenu {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/turning/plateMountDismount.fxml"));
             VBox vBox = loader.load();
-            PlateMountDismountController controller = loader.getController();
+            PlateLatheMountDismountController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА И СНЯТИЕ ДЕТАЛИ");
             addVBox(vBox);
             

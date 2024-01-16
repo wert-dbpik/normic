@@ -2,9 +2,12 @@ package ru.wert.normic.entities.ops.opLocksmith;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.locksmith.counters.OpDrillingByMarkingCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ
@@ -12,6 +15,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpDrillingByMarking extends OpData {
+
+    private transient NormCounter normCounter = new OpDrillingByMarkingCounter();
 
     private Integer diameter = 0; //диаметр отверстий
     private Integer depth = 0; //глубина отверстий

@@ -51,7 +51,7 @@ public class PlatePackInCartoonBoxController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpPackInCartoonBoxCounter.count((OpPackInCartoonBox) data).getPackTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
         tfCartoon.setText(DECIMAL_FORMAT.format(opData.getCartoon()));
         tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 

@@ -2,9 +2,12 @@ package ru.wert.normic.entities.ops.opPack;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackInCartoonBoxCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * УПАКОВКА В КАРТОННУЮ КОРОБКУ
@@ -12,6 +15,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpPackInCartoonBox extends OpData implements PackingData {
+
+    private transient NormCounter normCounter = new OpPackInCartoonBoxCounter();
 
     private int height = 0;
     private int width = 0;

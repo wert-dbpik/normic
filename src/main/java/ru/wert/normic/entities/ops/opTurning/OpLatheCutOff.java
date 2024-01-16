@@ -2,10 +2,13 @@ package ru.wert.normic.entities.ops.opTurning;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.turning.counters.OpLatheCutOffCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * ОТРЕЗАНИЕ ДЕТАЛИ НА ТОКАРНОМ СТАНКЕ
@@ -13,6 +16,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpLatheCutOff extends OpData {
+
+    private transient NormCounter normCounter = new OpLatheCutOffCounter();
 
     private Material material;
     private Boolean cutOffSolid = true; //отрезание детали сплошного сечения

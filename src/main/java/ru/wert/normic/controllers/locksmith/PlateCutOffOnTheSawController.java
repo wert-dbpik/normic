@@ -50,7 +50,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpCutOffOnTheSawCounter.count((OpCutOffOnTheSaw) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

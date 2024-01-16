@@ -3,9 +3,12 @@ package ru.wert.normic.entities.ops.opPack;
 import javafx.scene.control.RadioButton;
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
+import ru.wert.normic.controllers.packing.counters.OpPackInHandStretchWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 /**
  * УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
@@ -13,6 +16,8 @@ import ru.wert.normic.enums.EOpType;
 @Getter
 @Setter
 public class OpPackInHandStretchWrap extends OpData implements PackingData {
+
+    private transient NormCounter normCounter = new OpPackInHandStretchWrapCounter();
 
     private int height = 0;
     private int width = 0;

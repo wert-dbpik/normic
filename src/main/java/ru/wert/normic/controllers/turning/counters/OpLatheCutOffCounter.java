@@ -2,14 +2,17 @@ package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpLatheCutOffCounter {
+public class OpLatheCutOffCounter implements NormCounter {
 
-    private static final double maxDiameter = 100.0;
-    private static final double maxThickness = 90.0;
+    private final double maxDiameter = 100.0;
+    private final double maxThickness = 90.0;
 
     /**
      * Зависимость времени отрезания (мин) от диаметра отрезаемого прутка (мм)
@@ -55,7 +58,8 @@ public class OpLatheCutOffCounter {
             this.time = time;}
     }
 
-    public static OpLatheCutOff count(OpLatheCutOff opData){
+    public OpData count(OpData data){
+        OpLatheCutOff opData = (OpLatheCutOff)data;
 
         double diameter = opData.getMaterial().getParamS(); //Диаметр заготовки
         boolean cutOffSolid = opData.getCutOffSolid(); //отрезание детали сплошного сечения
@@ -73,7 +77,7 @@ public class OpLatheCutOffCounter {
         return opData;
     }
 
-    private static Double findTime(boolean cutOffSolid, double diameter, double thickness){
+    private Double findTime(boolean cutOffSolid, double diameter, double thickness){
         if(cutOffSolid){
             if(diameter == 0.0) return 0.0;
             int prevD = 0;

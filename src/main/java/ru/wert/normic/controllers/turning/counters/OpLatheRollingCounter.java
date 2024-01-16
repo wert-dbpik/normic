@@ -1,17 +1,20 @@
 package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 import ru.wert.normic.entities.ops.opTurning.OpLatheRolling;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpLatheRollingCounter {
+public class OpLatheRollingCounter implements NormCounter {
 
-    private static final int maxTurningDiameter = 150; //Максимальный диаметр свреления
-    private static final int maxTurningLength = 75; //Максимальная длина обработки
+    private final int maxTurningDiameter = 150; //Максимальный диаметр свреления
+    private final int maxTurningLength = 75; //Максимальная длина обработки
 
-    private static int[] lengths = new int[]{            10,   20,   30,   40,   50,   75};
+    private int[] lengths = new int[]{            10,   20,   30,   40,   50,   75};
 
     enum ERolling { //page 174 (Р6М5)
         ROLLING_D20(20,0.012, new double[]{0.70, 1.90, 2.40, 2.60, 2.70, 3.00}),
@@ -33,7 +36,9 @@ public class OpLatheRollingCounter {
             this.times = times;}
     }
 
-    public static OpLatheRolling count(OpLatheRolling opData){
+    public OpData count(OpData data){
+        OpLatheRolling opData = (OpLatheRolling)data;
+
         int turningDiameter = opData.getDiameter(); //Диаметр накатки
         int length = opData.getLength(); //Длина  накатки
 
@@ -48,7 +53,7 @@ public class OpLatheRollingCounter {
         return opData;
     }
 
-    private static Double findTime(double diameter, int length){
+    private Double findTime(double diameter, int length){
         if(diameter == 0.0 || length == 0) return 0.0;
         int maxLength = lengths[lengths.length-1];
         if(length > maxLength){

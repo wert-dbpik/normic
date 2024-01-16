@@ -15,7 +15,7 @@ import ru.wert.normic.utils.IntegerParser;
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ
  */
-public class PlateDrillingController extends AbstractOpPlate {
+public class PlateLatheDrillingController extends AbstractOpPlate {
 
     @FXML
     private TextField tfDiameter;
@@ -53,7 +53,7 @@ public class PlateDrillingController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpLatheDrillingCounter.count((OpLatheDrilling) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

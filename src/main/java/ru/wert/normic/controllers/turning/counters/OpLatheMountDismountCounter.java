@@ -1,16 +1,19 @@
 package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opList.OpBending;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
-public class OpLatheMountDissmountCounter {
+public class OpLatheMountDismountCounter implements NormCounter {
 
-    private static final double maxWeight = 20; //Максимальный вес заготовки
+    private final double maxWeight = 20; //Максимальный вес заготовки
 
-    private static double[] weights = new double[]{0.3,  1.0,  3.0,  5.0,  10.0,  20.0};
+    private double[] weights = new double[]{0.3,  1.0,  3.0,  5.0,  10.0,  20.0};
     /**
      * Время установки в зависимости от способа установки и массы заготовки (кг)
      */
@@ -26,7 +29,9 @@ public class OpLatheMountDissmountCounter {
             this.times = times;}
     }
 
-    public static OpLatheMountDismount count(OpLatheMountDismount opData){
+    public OpData count(OpData data){
+        OpLatheMountDismount opData = (OpLatheMountDismount)data;
+
         ELatheHolders holder = ELatheHolders.values()[opData.getHolder()];
         double weight = opData.getWeight(); //Масса заготовки
 
@@ -38,7 +43,7 @@ public class OpLatheMountDissmountCounter {
         return opData;
     }
 
-    private static Double findTime(ELatheHolders holder, double weight){
+    private Double findTime(ELatheHolders holder, double weight){
         double countW = Math.min(weight, 20.0);
         double prevW = 0;
         for (int i = 0; i < weights.length; i++) {

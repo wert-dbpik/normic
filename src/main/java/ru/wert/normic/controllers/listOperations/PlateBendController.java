@@ -62,7 +62,7 @@ public class PlateBendController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpBendingCounter.count((OpBending) data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

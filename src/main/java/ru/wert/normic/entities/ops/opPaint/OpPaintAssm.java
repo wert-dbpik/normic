@@ -2,11 +2,14 @@ package ru.wert.normic.entities.ops.opPaint;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
+import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
@@ -16,6 +19,8 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Getter
 @Setter
 public class OpPaintAssm extends OpData {
+
+    private transient NormCounter normCounter = new OpPaintAssmCounter();
 
     private EColor color = EColor.COLOR_I;
     private boolean twoSides = true;

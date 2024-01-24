@@ -56,6 +56,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    private OpPaintAssm opData;
+
     private EColor color; //Цвет краски
     private double dyeWeight; //Вес краски
     private int along; //Параметр А вдоль штанги
@@ -120,36 +122,14 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPaintAssm opData = (OpPaintAssm)data;
+        opData = (OpPaintAssm)data;
 
         countInitialValues();
 
-        dyeWeight = color.getConsumption() * 0.001 * area;
-        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, dyeWeight));
+        currentNormTime = opData.getNormCounter().count(data).getPaintTime();//результат в минутах
 
-        final int alongSize = along + ASSM_DELTA;
-        final int acrossSize = across + ASSM_DELTA;
+        tfDyeWeight.setText(String.format(DOUBLE_FORMAT, opData.getDyeWeight()));
 
-        int partsOnBar = 2500/alongSize;
-
-        //Количество штанг в печи
-        int bakeBars;
-        if(acrossSize < 49) bakeBars = 6;
-        else if(acrossSize >= 50 && acrossSize <= 99) bakeBars = 5;
-        else if(acrossSize >= 100 && acrossSize <= 199) bakeBars = 4;
-        else if(acrossSize >= 200 && acrossSize <= 299) bakeBars = 3;
-        else if(acrossSize >= 300 && acrossSize <= 399) bakeBars = 2;
-        else bakeBars = 1;
-
-        double time;
-        time = HANGING_TIME//Время навешивания
-                + area * WINDING_MOVING_SPEED //Время подготовки к окрашиванию
-                + area * pantingSpeed //Время нанесения покрытия
-                + 40.0/bakeBars/partsOnBar;  //Время полимеризации
-        if(area == 0.0) time = 0.0;
-
-        currentNormTime = time;//результат в минутах
-        collectOpData(opData);
         setTimeMeasurement();
     }
 
@@ -171,11 +151,13 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
         pantingSpeed = cmbxAssemblingType.getValue().getSpeed();
+
+        collectOpData();
     }
 
-    private void collectOpData(OpPaintAssm opData){
+    private void collectOpData(){
 
-        opData.setColor(color);
+        opData.setColor(cmbxColor.getValue());
         opData.setDyeWeight(dyeWeight);
         opData.setTwoSides(twoSides);
         opData.setCalculatedArea(chbxCalculatedArea.isSelected());
@@ -184,7 +166,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         opData.setAcross(across);
         opData.setAssmType(cmbxAssemblingType.getValue());
 
-        opData.setPaintTime(currentNormTime);
     }
 
     @Override//AbstractOpPlate

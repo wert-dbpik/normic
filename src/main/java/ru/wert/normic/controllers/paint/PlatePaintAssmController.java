@@ -75,6 +75,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPaintAssm opData = (OpPaintAssm) data;
+        opData.setController(this);
 
         tfCalculatedArea.disableProperty().bind(chbxCalculatedArea.selectedProperty().not());
         tfManualArea.disableProperty().bind(chbxCalculatedArea.selectedProperty());

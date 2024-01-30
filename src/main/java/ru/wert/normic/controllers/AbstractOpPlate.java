@@ -9,16 +9,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
-import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.AppStatics.MEASURE;
+import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 
@@ -137,6 +142,28 @@ public abstract class AbstractOpPlate implements IOpPlate {
         formController.getListViewTechOperations().getItems().remove(box);
         formController.getAddedOperations().remove(this.getOpData());
         formController.countSumNormTimeByShops();
+        //Пересчет полщади покрытия при удалении деталей и сборок
+        OpData deletingOp = this.getOpData();
+        if(deletingOp instanceof OpDetail || deletingOp instanceof OpAssm){
+            recountPaintedAssm(MAIN_OP_DATA);
+        }
+    }
+
+    /**
+     * Пересчет всех операций окрашивания сборок
+     */
+    protected void recountPaintedAssm(IOpWithOperations opData) {
+        List<OpData> ops = opData.getOperations();
+        for (OpData op : ops) {
+            if (op instanceof OpPaintAssm) {
+                OpPaintAssm opPaintAssm = (OpPaintAssm) ((OpPaintAssm) op).getNormCounter().count(op);
+                PlatePaintAssmController controller = opPaintAssm.getController();
+                if (controller != null) {
+                    controller.countNorm(opPaintAssm);
+                }
+            }
+            if (op instanceof OpAssm) recountPaintedAssm((IOpWithOperations) op);
+        }
     }
 
 

@@ -2,6 +2,7 @@ package ru.wert.normic.entities.ops.opPaint;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
 import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.entities.ops.OpData;
@@ -23,6 +24,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 public class OpPaintAssm extends OpData {
 
     private transient NormCounter normCounter = new OpPaintAssmCounter();
+    private transient PlatePaintAssmController controller;
 
     private OpAssm assm; //ссылка на окрашиваемую сборку
     private EColor color = EColor.COLOR_I;

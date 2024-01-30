@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
@@ -20,6 +21,8 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Getter
 @Setter
 public class OpAssm extends OpData implements IOpWithOperations {
+
+    private transient AbstractOpPlate opPlate;
 
     private boolean done = false;
     private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done); //Расчет сборки завершен

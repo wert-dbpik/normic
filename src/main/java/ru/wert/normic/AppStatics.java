@@ -8,6 +8,7 @@ import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
 import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.User;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 
@@ -34,6 +35,8 @@ public class AppStatics {
     public static UserGroup CURRENT_USER_GROUP = null;
 
     public static MainController MAIN_CONTROLLER;
+    public static OpAssm MAIN_OP_DATA;
+
 
     public static final String SERVER_IP = "192.168.2.132";
     public static final String SERVER_PORT = "8080";

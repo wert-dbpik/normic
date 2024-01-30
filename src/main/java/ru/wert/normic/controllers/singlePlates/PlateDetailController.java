@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -21,14 +22,22 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.interfaces.NormCounter;
 import ru.wert.normic.utils.IntegerParser;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * ДОБАВЛЕНИЕ ДЕТАЛИ
@@ -52,9 +61,11 @@ public class PlateDetailController extends AbstractOpPlate {
 
     //Переменные
     private int quantity;
-    @Setter@Getter
+    @Setter
+    @Getter
     private double currentMechanicalNormTime;
-    @Setter@Getter
+    @Setter
+    @Getter
     private double currentPaintNormTime;
 
     //Переменные для ИМЕНИ
@@ -66,13 +77,14 @@ public class PlateDetailController extends AbstractOpPlate {
     private ImgDouble imgDone;
 
     @Override //AbstractOpPlate
-    public void initViews(OpData data){
-        opData = (OpDetail)data;
+    public void initViews(OpData data) {
+        opData = (OpDetail) data;
+        opData.setOpPlate(this);
 
         imgDone = new ImgDone(ivDone, 24);
 
         //исправляет nullpointer exception при копипасте операции снизу вверх
-        if(opData.getDoneProperty() == null) opData.setDoneProperty(new SimpleBooleanProperty(false));
+        if (opData.getDoneProperty() == null) opData.setDoneProperty(new SimpleBooleanProperty(false));
 
         imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
         imgDone.getStateProperty().setValue(opData.isDone());
@@ -82,24 +94,24 @@ public class PlateDetailController extends AbstractOpPlate {
         lblOperationName.setStyle("-fx-text-fill: darkblue");
         lblQuantity.setStyle("-fx-text-fill: darkblue");
 
-        if(opData.getName() == null &&
+        if (opData.getName() == null &&
                 tfName.getText() == null || tfName.getText().equals("")) {
             detailName = String.format("Деталь #%s", ++nameIndex);
             tfName.setText(detailName);
         }
 
-        ivDone.setOnMouseClicked(e->{
+        ivDone.setOnMouseClicked(e -> {
             openFormEditor(opData);
         });
 
-        vbOperation.setOnMouseClicked(e->{
-            if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
+        vbOperation.setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
                 openFormEditor(opData);
         });
 
         //Сохраняем имя при изменении
         tfName.textProperty().addListener((observable, oldValue, newValue) -> {
-            ((OpDetail)this.opData).setName(tfName.getText());
+            ((OpDetail) this.opData).setName(tfName.getText());
         });
 
         //Сохраняем количество и пересчитываем при изменении
@@ -136,15 +148,15 @@ public class PlateDetailController extends AbstractOpPlate {
     }
 
     @Override//AbstractOpPlate
-    public void countNorm(OpData data){
-        OpDetail opData = (OpDetail)data;
+    public void countNorm(OpData data) {
+        OpDetail opData = (OpDetail) data;
 
         countInitialValues();
 
         double mechanicalTime = 0;
         double paintTime = 0;
 
-        for(OpData op : opData.getOperations()){
+        for (OpData op : opData.getOperations()) {
             mechanicalTime += op.getMechTime();
             paintTime += op.getPaintTime();
         }
@@ -161,29 +173,31 @@ public class PlateDetailController extends AbstractOpPlate {
      * Устанавливает и рассчитывает значения, заданные пользователем
      */
     @Override //AbstractOpPlate
-    public  void countInitialValues() {
+    public void countInitialValues() {
         quantity = IntegerParser.getValue(tfN);
     }
 
 
-    public static void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
+    public void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
-        if(formDetailController != null){
-            opData.setMaterial(((FormDetailController)formDetailController).getCmbxMaterial().getValue());
-            opData.setParamA(IntegerParser.getValue(((FormDetailController)formDetailController).getMatPatchController().getTfA()));
-            opData.setParamB(IntegerParser.getValue(((FormDetailController)formDetailController).getMatPatchController().getTfB()));
+        if (formDetailController != null) {
+            opData.setMaterial(((FormDetailController) formDetailController).getCmbxMaterial().getValue());
+            opData.setParamA(IntegerParser.getValue(((FormDetailController) formDetailController).getMatPatchController().getTfA()));
+            opData.setParamB(IntegerParser.getValue(((FormDetailController) formDetailController).getMatPatchController().getTfB()));
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formDetailController.getAddedOperations()));
         }
+
+        super.recountPaintedAssm(MAIN_OP_DATA);
     }
 
     @Override//AbstractOpPlate
-    public void fillOpData(OpData data){
-        OpDetail opData = (OpDetail)data;
+    public void fillOpData(OpData data) {
+        OpDetail opData = (OpDetail) data;
 
-        if (imgDone != null)imgDone.getStateProperty().setValue(opData.isDone());
+        if (imgDone != null) imgDone.getStateProperty().setValue(opData.isDone());
         tfName.setText(opData.getName());
         tfN.setText(String.valueOf(opData.getQuantity()));
     }

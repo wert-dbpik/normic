@@ -60,6 +60,7 @@ public class PlatePackController extends AbstractOpPlate{
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
+        opData.setOpPlate(this);
 
         imgDone = new ImgDone(ivDone, 24);
 
@@ -96,7 +97,7 @@ public class PlatePackController extends AbstractOpPlate{
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
             formController.countSumNormTimeByShops();
-            formController.calculateAreaByDetails();
+//            formController.calculateAreaByDetails();
         });
 
     }

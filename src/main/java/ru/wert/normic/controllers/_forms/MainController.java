@@ -108,7 +108,10 @@ public class MainController extends AbstractFormController {
         Platform.runLater(this::createButtonInterceptor);
 
         AppStatics.MEASURE = new ToggleGroup();
+
         opData = new OpAssm();
+        MAIN_OP_DATA = (OpAssm) opData;
+
         ((IOpWithOperations)opData).setName("Новое изделие");
 
         //Создаем меню
@@ -645,5 +648,7 @@ public class MainController extends AbstractFormController {
             KEYS_NOW_PRESSED.remove(e.getCode());
         });
     }
+
+
 
 }

@@ -68,18 +68,18 @@ public class PlateDetailController extends AbstractOpPlate {
     @Getter
     private double currentPaintNormTime;
 
+    private OpDetail opData;
+
     //Переменные для ИМЕНИ
     public static int nameIndex = 0;
     private String detailName;
 
     private FormDetailController formDetailController;
-    private OpDetail opData;
     private ImgDouble imgDone;
 
     @Override //AbstractOpPlate
     public void initViews(OpData data) {
         opData = (OpDetail) data;
-        opData.setOpPlate(this);
 
         imgDone = new ImgDone(ivDone, 24);
 
@@ -141,7 +141,7 @@ public class PlateDetailController extends AbstractOpPlate {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, formDetailController, tfName, tfN, imgDone));
+            closer.setOnMousePressed(ev -> collectOpData(formDetailController, tfName, tfN, imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -149,7 +149,8 @@ public class PlateDetailController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data) {
-        OpDetail opData = (OpDetail) data;
+        opData = (OpDetail) data;
+        opData.setOpPlate(this);
 
         countInitialValues();
 
@@ -164,7 +165,7 @@ public class PlateDetailController extends AbstractOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
 
-        collectOpData(opData, formDetailController, tfName, tfN, imgDone);
+        collectOpData(formDetailController, tfName, tfN, imgDone);
         if (formDetailController != null)
             setTimeMeasurement();
     }
@@ -178,7 +179,7 @@ public class PlateDetailController extends AbstractOpPlate {
     }
 
 
-    public void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
+    public void collectOpData(AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
@@ -196,6 +197,7 @@ public class PlateDetailController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data) {
         OpDetail opData = (OpDetail) data;
+        opData.setOpPlate(this);
 
         if (imgDone != null) imgDone.getStateProperty().setValue(opData.isDone());
         tfName.setText(opData.getName());

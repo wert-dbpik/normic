@@ -73,7 +73,6 @@ public class PlateAssmController extends AbstractOpPlate{
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         opData = (OpAssm)data;
-        opData.setOpPlate(this);
 
         imgDone = new ImgDone(ivDone, 24);
 
@@ -133,7 +132,7 @@ public class PlateAssmController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, formAssmController, tfName, tfN, (ImgDone) imgDone));
+            closer.setOnMousePressed(ev -> collectOpData(formAssmController, tfName, tfN, (ImgDone) imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -141,7 +140,8 @@ public class PlateAssmController extends AbstractOpPlate{
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpAssm opData = (OpAssm)data;
+        opData = (OpAssm)data;
+        opData.setOpPlate(this);
 
         countInitialValues();
 
@@ -162,7 +162,7 @@ public class PlateAssmController extends AbstractOpPlate{
         currentAssmNormTime = assmTime * quantity;
         currentPackNormTime = packTime * quantity;
 
-        collectOpData(opData, formAssmController, tfName, tfN, (ImgDone) imgDone);
+        collectOpData(formAssmController, tfName, tfN, (ImgDone) imgDone);
         if (formAssmController != null)
             setTimeMeasurement();
     }
@@ -176,7 +176,7 @@ public class PlateAssmController extends AbstractOpPlate{
     }
 
 
-    public void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
+    public void collectOpData(AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));

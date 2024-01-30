@@ -45,6 +45,8 @@ public class PlatePackController extends AbstractOpPlate{
     @FXML
     private TextField tfN;
 
+    private OpPack opData;
+
     //Переменные
     private int quantity;
     @Setter@Getter
@@ -60,7 +62,6 @@ public class PlatePackController extends AbstractOpPlate{
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         OpPack opData = (OpPack)data;
-        opData.setOpPlate(this);
 
         imgDone = new ImgDone(ivDone, 24);
 
@@ -120,7 +121,7 @@ public class PlatePackController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(opData, tfName, tfN, imgDone));
+            closer.setOnMousePressed(ev -> collectOpData(tfName, tfN, imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -128,7 +129,8 @@ public class PlatePackController extends AbstractOpPlate{
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        OpPack opData = (OpPack)data;
+        opData = (OpPack)data;
+        opData.setOpPlate(this);
 
         countInitialValues();
 
@@ -140,7 +142,7 @@ public class PlatePackController extends AbstractOpPlate{
 
         currentPackNormTime = packingTime * quantity;
 
-        collectOpData(opData, tfName, tfN, imgDone);
+        collectOpData(tfName, tfN, imgDone);
         if (formPackController != null)
             setTimeMeasurement();
     }
@@ -154,7 +156,7 @@ public class PlatePackController extends AbstractOpPlate{
     }
 
 
-    public static void collectOpData(OpPack opData, TextField tfName, TextField tfN, ImgDouble imgDone) {
+    public void collectOpData(TextField tfName, TextField tfN, ImgDouble imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));

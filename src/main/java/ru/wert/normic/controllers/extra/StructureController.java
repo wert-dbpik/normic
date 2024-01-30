@@ -188,9 +188,9 @@ public class StructureController {
             ImageView closer = windowDecoration.getImgCloseWindow();
             closer.setOnMousePressed(ev -> {
                 switch(type){
-                    case DETAIL:    ((PlateDetailController)((IOpWithOperations)opData).getOpPlate()).collectOpData((OpDetail) opData, formController, tfName, tfN, imgDone); break;
-                    case ASSM:      ((PlateAssmController)((IOpWithOperations)opData).getOpPlate()).collectOpData((OpAssm) opData, formController, tfName, tfN, (ImgDone) imgDone); break;
-                    case PACK:      ((PlatePackController)((IOpWithOperations)opData).getOpPlate()).collectOpData((OpPack) opData, tfName, tfN, imgDone); break;
+                    case DETAIL:    ((PlateDetailController)((IOpWithOperations)opData).getOpPlate()).collectOpData(formController, tfName, tfN, imgDone); break;
+                    case ASSM:      ((PlateAssmController)((IOpWithOperations)opData).getOpPlate()).collectOpData(formController, tfName, tfN, (ImgDone) imgDone); break;
+                    case PACK:      ((PlatePackController)((IOpWithOperations)opData).getOpPlate()).collectOpData(tfName, tfN, imgDone); break;
                 }
                 if(opData instanceof OpAssm) {
                     selectedTreeItem.getChildren().clear();

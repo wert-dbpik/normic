@@ -31,7 +31,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getNormCounter().count(data).getMechTime();//результат в минутах
+        currentNormTime = opData.getNormCounter().count(data).getPackTime();//результат в минутах
 
         setTimeMeasurement();
     }

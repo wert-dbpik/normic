@@ -53,7 +53,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
 
         new TfString(tfName, this);
         new BXSealersWidth().create(cmbxSealerWidth, ((OpLevelingSealer)opData).getSealersWidth(), this);
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfA, this);
         new TFIntegerColored(tfB, this);
         new CmBx(cmbxSealerWidth, this);

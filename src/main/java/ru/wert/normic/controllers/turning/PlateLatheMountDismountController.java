@@ -51,11 +51,11 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
             else holder = OpLatheMountDismountCounter.ELatheHolders.HOLDER_AND_CENTER;
 
             countNorm(opData);
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
     }
 
@@ -65,7 +65,7 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
 
         countInitialValues();
 
-        int length = (((FormDetailController) formController).getMatPatchController()).getParamA();
+        int length = (((FormDetailController) prevFormController).getMatPatchController()).getParamA();
 
         currentNormTime = ((length == 0) ? currentNormTime = 0.0 :
                 opData.getNormCounter().count(data).getMechTime());//результат в минутах
@@ -78,7 +78,7 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-        String text = (((FormDetailController)formController).getMatPatchController()).getTfWeight().getText();
+        String text = (((FormDetailController) prevFormController).getMatPatchController()).getTfWeight().getText();
         weight = text == null || text.isEmpty() ? 0.0 : Double.parseDouble(text.replace(",", "."));
 
         collectOpData();

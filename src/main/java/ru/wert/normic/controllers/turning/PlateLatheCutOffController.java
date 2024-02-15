@@ -8,13 +8,9 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.turning.counters.OpLatheCutOffCounter;
-import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.NoSuchElementException;
 
 /**
  * ОТРЕЗАНИЕ ДЕТАЛИ НА ТОКАРНОМ СТАНКЕ
@@ -45,14 +41,14 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
                 tfThickness.setText(String.valueOf(thickness));
             }
 
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
         new TFIntegerColored(tfThickness, this);
 
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
     }
@@ -74,7 +70,7 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        diameter = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
+        diameter = ((FormDetailController) prevFormController).getCmbxMaterial().getValue().getParamS();
         thickness = chbxCutOffSolid.isSelected() ?
                 diameter / 2 :
                 IntegerParser.getValue(tfThickness);
@@ -87,7 +83,7 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
     }
 
     private void collectOpData(){
-        opData.setMaterial(((FormDetailController) formController).getCmbxMaterial().getValue());
+        opData.setMaterial(((FormDetailController) prevFormController).getCmbxMaterial().getValue());
         opData.setCutOffSolid(chbxCutOffSolid.isSelected());
         opData.setThickness(thickness);
     }
@@ -100,7 +96,7 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
         chbxCutOffSolid.setSelected(cutOffSolid);
 
         thickness = opData.getThickness() == 0.0 ?
-                ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS() / 2 :
+                ((FormDetailController) prevFormController).getCmbxMaterial().getValue().getParamS() / 2 :
                 opData.getThickness();
         tfThickness.setText(String.valueOf(thickness));
 

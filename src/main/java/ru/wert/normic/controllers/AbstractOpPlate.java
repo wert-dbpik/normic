@@ -1,5 +1,6 @@
 package ru.wert.normic.controllers;
 
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,7 +15,6 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
@@ -53,7 +53,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     //Переменные
     protected double currentNormTime;
 
-    protected AbstractFormController formController;
+    protected AbstractFormController prevFormController;
     protected OpData opData;
 
     public void setOpData(OpData opData){
@@ -106,7 +106,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public AbstractOpPlate() {
     }
 
-    public void init(AbstractFormController formController, OpData opData, Integer index, String helpTitle) {
+    public void init(AbstractFormController prevFormController, OpData opData, Integer index, String helpTitle) {
 
         ivOperation.setImage(opData.getOpType().getLogo());
 
@@ -116,15 +116,21 @@ public abstract class AbstractOpPlate implements IOpPlate {
         ivHelp.setOnMouseClicked(e->{
             HelpWindow.create(e, helpTitle, helpText(), helpImage());
         });
-        init(formController, opData, index);
+        init(prevFormController, opData, index);
     }
 
-    public void init(AbstractFormController formController, OpData opData, Integer index) {
-        this.formController = formController;
+    public void init(AbstractFormController prevFormController, OpData opData, Integer index) {
+        this.prevFormController = prevFormController;
         this.opData = opData;
 
-        formController.getAddedPlates().add(index, this);
-        formController.getAddedOperations().add(index, opData);
+        prevFormController.getAddedPlates().add(index, this);
+        prevFormController.getAddedOperations().add(index, opData);
+//        OpData prevOpData = prevFormController.getOpData();
+//        if(prevOpData instanceof IOpWithOperations)
+//            Platform.runLater(()->{
+//                ((IOpWithOperations) prevOpData).getOperations().add(index, opData);
+//            });
+
 
         fillOpData(opData);
 
@@ -137,12 +143,12 @@ public abstract class AbstractOpPlate implements IOpPlate {
     }
 
     public void deleteSelectedOperation(Event e) {
-        formController.getAddedPlates().remove(this);
-        VBox box = formController.getListViewTechOperations().getSelectionModel().getSelectedItem();
-        formController.getListViewTechOperations().getItems().remove(box);
-        formController.getAddedOperations().remove(this.getOpData());
-        formController.countSumNormTimeByShops();
-        //Пересчет полщади покрытия при удалении деталей и сборок
+        prevFormController.getAddedPlates().remove(this);
+        VBox box = prevFormController.getListViewTechOperations().getSelectionModel().getSelectedItem();
+        prevFormController.getListViewTechOperations().getItems().remove(box);
+        prevFormController.getAddedOperations().remove(this.getOpData());
+        prevFormController.countSumNormTimeByShops();
+        //Пересчет площади покрытия при удалении деталей и сборок
         OpData deletingOp = this.getOpData();
         if(deletingOp instanceof OpDetail || deletingOp instanceof OpAssm){
             recountPaintedAssm(MAIN_OP_DATA);

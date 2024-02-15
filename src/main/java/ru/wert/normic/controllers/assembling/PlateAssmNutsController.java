@@ -52,7 +52,7 @@ public class PlateAssmNutsController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfScrews, this);
         new TFIntegerColored(tfVSHGs, this);
         new TFIntegerColored(tfRivets, this);

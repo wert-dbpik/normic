@@ -11,12 +11,8 @@ import lombok.Getter;
 import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
-import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
-import ru.wert.normic.controllers.packing.counters.OpPackInHandStretchWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
-import ru.wert.normic.enums.EWinding;
 
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -65,7 +61,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
         new RadBtn(rbByDepth, this);
         new RadBtn(rbByWidth, this);
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> formController.countSumNormTimeByShops());
+        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> prevFormController.countSumNormTimeByShops());
 
     }
 
@@ -89,9 +85,9 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
     public  void countInitialValues() {
         selectedRadioButton = toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
 
-        width = ((FormPackController)formController).getWidth();
-        depth = ((FormPackController)formController).getDepth();
-        height = ((FormPackController)formController).getHeight();
+        width = ((FormPackController) prevFormController).getWidth();
+        depth = ((FormPackController) prevFormController).getDepth();
+        height = ((FormPackController) prevFormController).getHeight();
 
         collectOpData();
 

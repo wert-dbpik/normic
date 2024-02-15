@@ -97,7 +97,7 @@ public class PlatePackController extends AbstractOpPlate{
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
 //            formController.calculateAreaByDetails();
         });
 
@@ -111,7 +111,7 @@ public class PlatePackController extends AbstractOpPlate{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formPack.fxml"));
             Parent parent = loader.load();
             formPackController = loader.getController();
-            formPackController.init(formController, tfName, tfN, this.opData, imgDone);
+            formPackController.init(prevFormController, tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "УПАКОВКА",
                     parent,

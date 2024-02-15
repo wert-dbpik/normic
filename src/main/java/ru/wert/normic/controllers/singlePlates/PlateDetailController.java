@@ -1,8 +1,6 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,20 +20,14 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.interfaces.NormCounter;
 import ru.wert.normic.utils.IntegerParser;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
@@ -117,8 +109,8 @@ public class PlateDetailController extends AbstractOpPlate {
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            formController.countSumNormTimeByShops();
-            formController.calculateAreaByDetails();
+            prevFormController.countSumNormTimeByShops();
+            prevFormController.calculateAreaByDetails();
         });
 
     }
@@ -131,7 +123,7 @@ public class PlateDetailController extends AbstractOpPlate {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
             Parent parent = loader.load();
             formDetailController = loader.getController();
-            formDetailController.init(formController, tfName, tfN, this.opData, imgDone);
+            formDetailController.init(prevFormController, tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "ДЕТАЛЬ",
                     parent,

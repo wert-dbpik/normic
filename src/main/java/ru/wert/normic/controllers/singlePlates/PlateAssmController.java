@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +27,8 @@ import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * ДОБАВЛЕНИЕ СБОРКИ
@@ -65,7 +66,7 @@ public class PlateAssmController extends AbstractOpPlate{
     public static int nameIndex = 0;
     private String assmName;
     
-    private FormAssmController formAssmController;
+    private FormAssmController thisFormAssmController;
 
     private OpAssm opData;
     private ImgDouble imgDone;
@@ -110,7 +111,7 @@ public class PlateAssmController extends AbstractOpPlate{
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
     }
 
@@ -121,8 +122,8 @@ public class PlateAssmController extends AbstractOpPlate{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
             Parent parent = loader.load();
-            formAssmController = loader.getController();
-            formAssmController.init(formController, tfName, tfN, this.opData, imgDone);
+            thisFormAssmController = loader.getController();
+            thisFormAssmController.init(prevFormController, tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "СБОРКА",
                     parent,
@@ -132,7 +133,7 @@ public class PlateAssmController extends AbstractOpPlate{
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(formAssmController, tfName, tfN, (ImgDone) imgDone));
+            closer.setOnMousePressed(ev -> collectOpData(thisFormAssmController, tfName, tfN, (ImgDone) imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -162,8 +163,8 @@ public class PlateAssmController extends AbstractOpPlate{
         currentAssmNormTime = assmTime * quantity;
         currentPackNormTime = packTime * quantity;
 
-        collectOpData(formAssmController, tfName, tfN, (ImgDone) imgDone);
-        if (formAssmController != null)
+        collectOpData(thisFormAssmController, tfName, tfN, (ImgDone) imgDone);
+        if (thisFormAssmController != null)
             setTimeMeasurement();
     }
 
@@ -185,6 +186,8 @@ public class PlateAssmController extends AbstractOpPlate{
             opData.setOperations(new ArrayList<>(formAssmController.getAddedOperations()));
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
+
+        super.recountPaintedAssm(MAIN_OP_DATA);
     }
 
     @Override//AbstractOpPlate

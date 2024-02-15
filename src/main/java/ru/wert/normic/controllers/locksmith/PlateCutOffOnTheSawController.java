@@ -7,15 +7,9 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.BXSawType;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.locksmith.counters.OpAssmNutsMKCounter;
-import ru.wert.normic.controllers.locksmith.counters.OpCutOffOnTheSawCounter;
-import ru.wert.normic.entities.ops.opLocksmith.OpAssmNutMK;
 import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.enums.ESawType;
-
-import java.util.NoSuchElementException;
 
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -39,7 +33,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
         new BXSawType().create(cmbxSaw, ESawType.SMALL_SAW, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
     }
@@ -63,7 +57,7 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        length = ((FormDetailController) formController).getMatPatchController().getParamA();
+        length = ((FormDetailController) prevFormController).getMatPatchController().getParamA();
         sawType = cmbxSaw.getValue();
 
         collectOpData();

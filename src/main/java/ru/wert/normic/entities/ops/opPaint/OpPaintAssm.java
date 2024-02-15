@@ -25,8 +25,8 @@ public class OpPaintAssm extends OpData {
 
     private transient NormCounter normCounter = new OpPaintAssmCounter();
     private transient PlatePaintAssmController controller;
+    private transient OpAssm assm; //ссылка на окрашиваемую сборку
 
-    private OpAssm assm; //ссылка на окрашиваемую сборку
     private EColor color = EColor.COLOR_I;
     private boolean twoSides = true;
     private double dyeWeight = 0.0;

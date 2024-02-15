@@ -112,8 +112,6 @@ public class FormDetailController extends AbstractFormController {
             tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
         }
 
-
-
         new TFInteger(tfDetailQuantity);
 
         //Инициализируем количество

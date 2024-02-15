@@ -100,10 +100,6 @@ public class FormPackController extends AbstractFormController {
 
     private void initViews() {
 
-        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
-            countSumNormTimeByShops();
-        });
-
         addedOperations.addListener((ListChangeListener<OpData>) c -> {
             ((OpPack)opData).setOperations(addedOperations);
         });
@@ -130,6 +126,10 @@ public class FormPackController extends AbstractFormController {
             for(AbstractOpPlate nc : addedPlates){
                 nc.countNorm(nc.getOpData());
             }
+        });
+
+        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
+            countSumNormTimeByShops();
         });
 
 //        ivErase.setOnMouseClicked(e->{
@@ -196,7 +196,7 @@ public class FormPackController extends AbstractFormController {
         String format = DOUBLE_FORMAT;
         if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;
 
-        tfTotalTime.setText(String.format(format,packTime ).trim());
+        tfTotalTime.setText(String.format(format, packTime ).trim());
 
         lblTimeMeasure.setText(measure);
 

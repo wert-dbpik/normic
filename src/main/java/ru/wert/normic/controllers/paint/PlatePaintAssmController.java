@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -81,7 +80,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         tfManualArea.disableProperty().bind(chbxCalculatedArea.selectedProperty());
 
 
-        formController.getFormAreaProperty().addListener((observable, oldValue, newValue) -> {
+        prevFormController.getFormAreaProperty().addListener((observable, oldValue, newValue) -> {
             countNorm(opData);
         });
 
@@ -90,7 +89,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         new TFDoubleColored(tfManualArea, this);
         new BXColor().create(cmbxColor, opData.getColor(), this);
         new BXAssemblingType().create(cmbxAssemblingType, opData.getAssmType(), this);
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFDoubleColored(tfManualArea, this);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);
@@ -123,8 +122,8 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
 
-        assm = (OpAssm) formController.getOpData();
-        assm.setOperations(formController.getAddedOperations());
+        assm = (OpAssm) prevFormController.getOpData();
+        assm.setOperations(prevFormController.getAddedOperations());
 
         collectOpData();
     }

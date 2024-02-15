@@ -2,24 +2,14 @@ package ru.wert.normic.controllers.turning;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.turning.counters.OpLatheDrillingCounter;
-import ru.wert.normic.controllers.turning.counters.OpLatheThreadingCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 import ru.wert.normic.entities.ops.opTurning.OpLatheThreading;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.NoSuchElementException;
 
 /**
  * НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ
@@ -48,7 +38,7 @@ public class PlateLatheThreadingController extends AbstractOpPlate {
         new TFIntegerColored(tfLength, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
     }
@@ -70,14 +60,14 @@ public class PlateLatheThreadingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        diameter = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
+        diameter = ((FormDetailController) prevFormController).getCmbxMaterial().getValue().getParamS();
         turningDiameter = IntegerParser.getValue(tfDiameter);
         if(turningDiameter > diameter)
             tfDiameter.setStyle("-fx-border-color: #FF5555");
         else
             tfDiameter.setStyle(initStyle);
 
-        paramA = ((FormDetailController) formController).getMatPatchController().getParamA();
+        paramA = ((FormDetailController) prevFormController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfLength);
         if(length > paramA)
             tfLength.setStyle("-fx-border-color: #FF5555");

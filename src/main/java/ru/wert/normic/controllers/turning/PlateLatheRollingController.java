@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.turning.counters.OpLatheRollingCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheRolling;
 import ru.wert.normic.utils.IntegerParser;
@@ -45,7 +44,7 @@ public class PlateLatheRollingController extends AbstractOpPlate {
         new TFIntegerColored(tfLength, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
     }
 
@@ -66,14 +65,14 @@ public class PlateLatheRollingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        diameter = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
+        diameter = ((FormDetailController) prevFormController).getCmbxMaterial().getValue().getParamS();
         turningDiameter = IntegerParser.getValue(tfDiameter);
         if(turningDiameter > diameter)
             tfDiameter.setStyle("-fx-border-color: #FF5555");
         else
             tfDiameter.setStyle(initStyle);
 
-        paramA = ((FormDetailController) formController).getMatPatchController().getParamA();
+        paramA = ((FormDetailController) prevFormController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfLength);
         if(length > paramA)
             tfLength.setStyle("-fx-border-color: #FF5555");

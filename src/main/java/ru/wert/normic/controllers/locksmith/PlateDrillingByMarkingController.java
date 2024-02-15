@@ -4,18 +4,12 @@ package ru.wert.normic.controllers.locksmith;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.locksmith.counters.OpCutOffOnTheSawCounter;
 import ru.wert.normic.controllers.locksmith.counters.OpDrillingByMarkingCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
-import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.NoSuchElementException;
 
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЙ ПО РАЗМЕТКЕ
@@ -53,7 +47,7 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
         new TFIntegerColored(tfLength, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
     }
 

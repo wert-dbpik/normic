@@ -48,7 +48,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfPostLocks, this);
         new TFIntegerColored(tfDoubleLocks, this);
         new TFIntegerColored(tfMirrors, this);

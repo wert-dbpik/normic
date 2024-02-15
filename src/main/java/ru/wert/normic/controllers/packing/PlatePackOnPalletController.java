@@ -1,17 +1,11 @@
 package ru.wert.normic.controllers.packing;
 
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
-import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
-import ru.wert.normic.controllers.packing.counters.OpPackOnPalletCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
-import ru.wert.normic.enums.EOpType;
 
 /**
  * УСТАНОВКА НА ПОДДОН
@@ -27,7 +21,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
     }
 
@@ -48,7 +42,7 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        height = ((FormPackController)formController).getHeight();
+        height = ((FormPackController) prevFormController).getHeight();
 
         collectOpData();
     }

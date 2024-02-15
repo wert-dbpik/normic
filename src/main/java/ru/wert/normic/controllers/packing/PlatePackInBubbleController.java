@@ -7,12 +7,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
-import ru.wert.normic.controllers.locksmith.counters.OpLocksmithCounter;
-import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
-import ru.wert.normic.enums.EWinding;
 
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -61,7 +57,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
         new RadBtn(rbByWidth, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
     }
@@ -86,9 +82,9 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
     public  void countInitialValues() {
         selectedRadioButton = toggleGroup.getToggles().indexOf(toggleGroup.getSelectedToggle());
 
-        width = ((FormPackController)formController).getWidth();
-        depth = ((FormPackController)formController).getDepth();
-        height = ((FormPackController)formController).getHeight();
+        width = ((FormPackController) prevFormController).getWidth();
+        depth = ((FormPackController) prevFormController).getDepth();
+        height = ((FormPackController) prevFormController).getHeight();
 
         collectOpData();
     }

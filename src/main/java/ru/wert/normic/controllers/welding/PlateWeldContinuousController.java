@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.enums.EPartBigness;
@@ -75,7 +74,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
         new TfString(tfName, this);
         new BXPartBigness().create(cmbxPartBigness, opData.getPartBigness(), this);
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfSeamLength, this);
         new TFIntegerColored(tfSeams, this);
         new TFIntegerColored(tfMen, this);

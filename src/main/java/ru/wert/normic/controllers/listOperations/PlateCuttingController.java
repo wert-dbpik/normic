@@ -60,12 +60,12 @@ public class PlateCuttingController extends AbstractOpPlate {
         new TFIntegerColored(tfHoles, this);
         new TFIntegerColored(tfPerfHoles, this);
         new TFIntegerColored(tfExtraPerimeter, this);
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new ChBox(chbxStripping, this);
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
-        });
+//        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
+//            prevFormController.countSumNormTimeByShops();
+//        });
     }
 
     /**
@@ -92,9 +92,9 @@ public class PlateCuttingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        material = ((FormDetailController)formController).getCmbxMaterial().getValue();
-        paramA = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfA());
-        paramB = IntegerParser.getValue(((FormDetailController)formController).getMatPatchController().getTfB());
+        material = ((FormDetailController) prevFormController).getCmbxMaterial().getValue();
+        paramA = IntegerParser.getValue(((FormDetailController) prevFormController).getMatPatchController().getTfA());
+        paramB = IntegerParser.getValue(((FormDetailController) prevFormController).getMatPatchController().getTfB());
         t = material.getParamS();
         perimeter = 2 * (paramA + paramB) * MM_TO_M;
         area = paramA * paramB * MM2_TO_M2;

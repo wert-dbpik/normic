@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.turning.counters.OpLatheCutGrooveCounter;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutGroove;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.DoubleParser;
@@ -31,7 +30,7 @@ public class PlateLatheCutGrooveController extends AbstractOpPlate {
         new TFDoubleColored(tfDepth, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
     }
 
@@ -53,7 +52,7 @@ public class PlateLatheCutGrooveController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        diameter = ((FormDetailController) formController).getCmbxMaterial().getValue().getParamS();
+        diameter = ((FormDetailController) prevFormController).getCmbxMaterial().getValue().getParamS();
         depth = DoubleParser.getValue(tfDepth);
         if(depth >= (diameter / 2))
             tfDepth.setStyle("-fx-border-color: #FF5555");

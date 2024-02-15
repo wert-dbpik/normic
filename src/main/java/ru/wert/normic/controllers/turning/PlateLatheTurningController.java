@@ -5,20 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import lombok.Getter;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.turning.counters.OpLatheDrillingCounter;
-import ru.wert.normic.controllers.turning.counters.OpLatheTurningCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 import ru.wert.normic.entities.ops.opTurning.OpLatheTurning;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.NoSuchElementException;
 
 /**
  * ТОЧЕНИЕ ИЛИ РАСТАЧИВАНИЕ НА ТОКАРНОМ СТАНКЕ
@@ -52,7 +45,7 @@ public class PlateLatheTurningController extends AbstractOpPlate {
         new TFIntegerColored(tfNumOfPassings, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
     }
@@ -74,9 +67,9 @@ public class PlateLatheTurningController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
 
-        material = ((FormDetailController)formController).getCmbxMaterial().getValue();
+        material = ((FormDetailController) prevFormController).getCmbxMaterial().getValue();
 
-        paramA = ((FormDetailController) formController).getMatPatchController().getParamA();
+        paramA = ((FormDetailController) prevFormController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfTurningLength);
         if(length > paramA)
             tfTurningLength.setStyle("-fx-border-color: #FF5555");
@@ -99,7 +92,7 @@ public class PlateLatheTurningController extends AbstractOpPlate {
         OpLatheTurning opData = (OpLatheTurning)data;
 
         length = opData.getLength() == 0 ?
-                Integer.parseInt(((FormDetailController)formController).getMatPatchController().getTfA().getText()) :
+                Integer.parseInt(((FormDetailController) prevFormController).getMatPatchController().getTfA().getText()) :
                 opData.getLength();
         tfTurningLength.setText(String.valueOf(length));
 

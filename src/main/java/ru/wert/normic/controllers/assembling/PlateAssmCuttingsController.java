@@ -39,7 +39,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFDoubleColored(tfSealer, this);
         new TFDoubleColored(tfSelfAdhSealer, this);
         new TFDoubleColored(tfInsulation, this);

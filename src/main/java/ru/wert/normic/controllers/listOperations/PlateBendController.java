@@ -11,7 +11,6 @@ import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
@@ -50,7 +49,7 @@ public class PlateBendController extends AbstractOpPlate {
     public void initViews(OpData opData){
 
         new BXBendingTool().create(cmbxBendingTool, ((OpBending)opData).getTool(), this);
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfBends, this);
         new TFIntegerColored(tfMen, this);
     }

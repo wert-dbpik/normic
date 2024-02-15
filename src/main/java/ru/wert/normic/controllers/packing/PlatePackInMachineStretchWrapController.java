@@ -7,10 +7,7 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
-import ru.wert.normic.controllers.packing.counters.OpPackInBubbleWrapCounter;
-import ru.wert.normic.controllers.packing.counters.OpPackInMachineStretchWrapCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -48,7 +45,7 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
         new TFIntegerColored(tfPartMin, this);
 
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            formController.countSumNormTimeByShops();
+            prevFormController.countSumNormTimeByShops();
         });
 
     }
@@ -73,9 +70,9 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-        width = ((FormPackController)formController).getWidth();
-        depth = ((FormPackController)formController).getDepth();
-        height = ((FormPackController)formController).getHeight();
+        width = ((FormPackController) prevFormController).getWidth();
+        depth = ((FormPackController) prevFormController).getDepth();
+        height = ((FormPackController) prevFormController).getHeight();
 
         partMin = IntegerParser.getValue(tfPartMin);
 

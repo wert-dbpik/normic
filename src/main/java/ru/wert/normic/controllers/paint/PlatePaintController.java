@@ -11,17 +11,12 @@ import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
-import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.help.HelpWindow;
-import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
-import ru.wert.normic.materials.matlPatches.ListMatPatchController;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.settings.NormConstants.*;
@@ -79,7 +74,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
         new BXPaintingDifficulty().create(cmbxDifficulty, ((OpPaint)opData).getDifficulty(), this);
         new BXColor().create(cmbxColor, ((OpPaint)opData).getColor(), this);
-        new TFNormTime(tfNormTime, formController);
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);
         new TFIntegerColored(tfHangingTime, this);
@@ -114,10 +109,10 @@ public class PlatePaintController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void countInitialValues() {
 
-        material = ((FormDetailController)formController).getCmbxMaterial().getValue();
+        material = ((FormDetailController) prevFormController).getCmbxMaterial().getValue();
 
-        razvA = IntegerParser.getValue(((FormDetailController) formController).getMatPatchController().getTfA());
-        razvB = IntegerParser.getValue(((FormDetailController) formController).getMatPatchController().getTfB());
+        razvA = IntegerParser.getValue(((FormDetailController) prevFormController).getMatPatchController().getTfA());
+        razvB = IntegerParser.getValue(((FormDetailController) prevFormController).getMatPatchController().getTfB());
 
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);

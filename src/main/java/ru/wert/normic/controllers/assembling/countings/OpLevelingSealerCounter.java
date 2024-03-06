@@ -1,16 +1,18 @@
 package ru.wert.normic.controllers.assembling.countings;
 
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.LEVELING_PREPARED_TIME;
 import static ru.wert.normic.settings.NormConstants.LEVELING_SPEED;
 
-public class OpLevelingSealerCounter {
+public class OpLevelingSealerCounter implements NormCounter {
 
-    public static OpLevelingSealer count(OpLevelingSealer opData){
+    public OpLevelingSealer count(OpLevelingSealer opData){
         String name = opData.getName(); //Наименование
         int paramA = opData.getParamA(); //Размер А
         int paramB = opData.getParamB();//Размер Б
@@ -36,4 +38,8 @@ public class OpLevelingSealerCounter {
         return opData;
     }
 
+    @Override
+    public OpData count(OpData opdata) {
+        return null;
+    }
 }

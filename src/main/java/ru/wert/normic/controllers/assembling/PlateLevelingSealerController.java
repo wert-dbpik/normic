@@ -65,11 +65,10 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
     public void countNorm(OpData data){
         opData = (OpLevelingSealer)data;
 
+
         countInitialValues();
 
-        OpLevelingSealerCounter.count((OpLevelingSealer) data);
-
-        currentNormTime = opData.getAssmTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getAssmTime();//результат в минутах
         tfCompA.setText(String.format(DOUBLE_FORMAT, opData.getCompA()));
         tfCompB.setText(String.format(DOUBLE_FORMAT, opData.getCompB()));
 

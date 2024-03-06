@@ -1,13 +1,15 @@
 package ru.wert.normic.controllers.assembling.countings;
 
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
+import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.SEC_TO_MIN;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class OpAssmCattingCounter {
+public class OpAssmCattingCounter implements NormCounter {
 
-    public static OpAssmCutting count(OpAssmCutting opData){
+    public OpAssmCutting count(OpAssmCutting opData){
         double sealer = opData.getSealer(); //Уплотнитель на ребро корпуса
         double selfAdhSealer = opData.getSelfAdhSealer(); //Уплотнитель самоклеющийся
         double insulation = opData.getInsulation(); //Утеплитель
@@ -21,5 +23,10 @@ public class OpAssmCattingCounter {
 
         opData.setAssmTime(time);
         return opData;
+    }
+
+    @Override
+    public OpData count(OpData opdata) {
+        return null;
     }
 }

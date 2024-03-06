@@ -56,7 +56,7 @@ public class PlatePackInMachineStretchWrapController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getNormCounter().count(data).getPackTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getPackTime();//результат в минутах
         tfCartoon.setText(DECIMAL_FORMAT.format(opData.getCartoon()));
         tfCartoonAngle.setText(DECIMAL_FORMAT.format(opData.getCartoonAngle()));
         tfMachineStretchWrap.setText(DECIMAL_FORMAT.format(opData.getStretchMachineWrap()));

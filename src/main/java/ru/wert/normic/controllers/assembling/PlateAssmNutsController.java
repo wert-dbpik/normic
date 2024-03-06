@@ -69,7 +69,7 @@ public class PlateAssmNutsController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpAssmNutsCounter.count((OpAssmNut) data).getAssmTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getAssmTime();//результат в минутах
 
         setTimeMeasurement();
     }

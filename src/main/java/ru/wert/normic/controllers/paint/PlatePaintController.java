@@ -94,7 +94,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getNormCounter().count(data).getPaintTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getPaintTime();//результат в минутах
 
         tfCoatArea.setText(String.format(DOUBLE_FORMAT, opData.getArea()));
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, opData.getDyeWeight()));

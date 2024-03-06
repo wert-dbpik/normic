@@ -71,7 +71,7 @@ public class PlatePackInHandStretchWrapController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getNormCounter().count(data).getPackTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getPackTime();//результат в минутах
         tfStretchWrap.setText(DECIMAL_FORMAT.format(opData.getStretchHandWrap()));
         tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 

@@ -68,7 +68,7 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
         int length = (((FormDetailController) prevFormController).getMatPatchController()).getParamA();
 
         currentNormTime = ((length == 0) ? currentNormTime = 0.0 :
-                opData.getNormCounter().count(data).getMechTime());//результат в минутах
+                opData.getOpType().getNormCounter().count(data).getMechTime());//результат в минутах
 
         setTimeMeasurement();
     }

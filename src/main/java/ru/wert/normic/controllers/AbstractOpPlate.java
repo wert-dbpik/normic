@@ -10,15 +10,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.interfaces.NormCounter;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -205,4 +208,11 @@ public abstract class AbstractOpPlate implements IOpPlate {
         }
 
     }
+
+//    protected NormCounter getNormCounter(OpData opData){
+//        NormCounter normCounter;
+//        normCounter = opData.getOpType().getNormCounter();
+//
+//        return normCounter;
+//    }
 }

@@ -64,7 +64,7 @@ public class PlateAssmNodesController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = OpAssmNodeCounter.count((OpAssmNode) data).getAssmTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getAssmTime();//результат в минутах
 
         setTimeMeasurement();
     }

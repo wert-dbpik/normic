@@ -52,7 +52,7 @@ public class PlateAssmCuttingsController extends AbstractOpPlate {
 
          countInitialValues();
 
-        currentNormTime = OpAssmCattingCounter.count((OpAssmCutting) data).getAssmTime();//результат в минутах
+        currentNormTime = opData.getOpType().getNormCounter().count(data).getAssmTime();//результат в минутах
 
         setTimeMeasurement();
     }

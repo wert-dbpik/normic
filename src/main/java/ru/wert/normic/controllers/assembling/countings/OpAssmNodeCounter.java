@@ -2,13 +2,16 @@ package ru.wert.normic.controllers.assembling.countings;
 
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmNode;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpAssmNodeCounter implements NormCounter {
 
-    public OpAssmNode count(OpAssmNode opData){
+    public OpData count(OpData data){
+        OpAssmNode opData = (OpAssmNode)data;
+
         int postLocks = opData.getPostLocks(); //Количество почтовых замков
         int doubleLocks = opData.getDoubleLocks(); //Количество замков с рычагами
         int mirrors = opData.getMirrors(); //Количество стекол
@@ -28,8 +31,4 @@ public class OpAssmNodeCounter implements NormCounter {
         return opData;
     }
 
-    @Override
-    public OpData count(OpData opdata) {
-        return null;
-    }
 }

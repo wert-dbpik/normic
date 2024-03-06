@@ -9,7 +9,9 @@ import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpAssmCattingCounter implements NormCounter {
 
-    public OpAssmCutting count(OpAssmCutting opData){
+    public OpData count(OpData data){
+        OpAssmCutting opData = (OpAssmCutting)data;
+
         double sealer = opData.getSealer(); //Уплотнитель на ребро корпуса
         double selfAdhSealer = opData.getSelfAdhSealer(); //Уплотнитель самоклеющийся
         double insulation = opData.getInsulation(); //Утеплитель
@@ -25,8 +27,4 @@ public class OpAssmCattingCounter implements NormCounter {
         return opData;
     }
 
-    @Override
-    public OpData count(OpData opdata) {
-        return null;
-    }
 }

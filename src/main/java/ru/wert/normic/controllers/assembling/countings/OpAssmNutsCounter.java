@@ -2,6 +2,7 @@ package ru.wert.normic.controllers.assembling.countings;
 
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
+import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.SEC_TO_MIN;
@@ -9,7 +10,8 @@ import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpAssmNutsCounter implements NormCounter {
 
-    public OpAssmNut count(OpAssmNut opData){
+    public OpData count(OpData data){
+        OpAssmNut opData = (OpAssmNut)data;
 
         int screws = opData.getScrews(); //Количество винтов
         int vshgs = opData.getVshgs(); //Количество комплектов ВШГ
@@ -31,8 +33,4 @@ public class OpAssmNutsCounter implements NormCounter {
         return opData;
     }
 
-    @Override
-    public OpData count(OpData opdata) {
-        return null;
-    }
 }

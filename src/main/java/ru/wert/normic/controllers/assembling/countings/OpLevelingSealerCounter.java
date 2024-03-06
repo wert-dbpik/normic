@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.assembling.countings;
 
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.interfaces.NormCounter;
@@ -12,7 +13,9 @@ import static ru.wert.normic.settings.NormConstants.LEVELING_SPEED;
 
 public class OpLevelingSealerCounter implements NormCounter {
 
-    public OpLevelingSealer count(OpLevelingSealer opData){
+    public OpData count(OpData data){
+        OpLevelingSealer opData = (OpLevelingSealer)data;
+
         String name = opData.getName(); //Наименование
         int paramA = opData.getParamA(); //Размер А
         int paramB = opData.getParamB();//Размер Б
@@ -38,8 +41,4 @@ public class OpLevelingSealerCounter implements NormCounter {
         return opData;
     }
 
-    @Override
-    public OpData count(OpData opdata) {
-        return null;
-    }
 }

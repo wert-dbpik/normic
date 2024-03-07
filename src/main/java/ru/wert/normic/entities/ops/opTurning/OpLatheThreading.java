@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLatheThreading extends OpData {
 
-    private transient NormCounter normCounter = new OpLatheThreadingCounter();
-
     private Integer diameter = 0; //отрезание детали сплошного сечения
     private Integer length = 0; //количество токарных проходов
 

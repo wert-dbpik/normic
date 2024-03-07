@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLatheCutGroove extends OpData {
 
-    private transient NormCounter normCounter = new OpLatheCutGrooveCounter();
-
     private Double depth = 0.0; //глубина паза
 
 

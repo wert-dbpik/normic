@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpPackInHandStretchWrap extends OpData implements PackingData {
 
-    private transient NormCounter normCounter = new OpPackInHandStretchWrapCounter();
-
     private int height = 0;
     private int width = 0;
     private int depth = 0;

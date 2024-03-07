@@ -165,7 +165,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         List<OpData> ops = opData.getOperations();
         for (OpData op : ops) {
             if (op instanceof OpPaintAssm) {
-                OpPaintAssm opPaintAssm = (OpPaintAssm) ((OpPaintAssm) op).getNormCounter().count(op);
+                OpPaintAssm opPaintAssm = (OpPaintAssm) ((OpPaintAssm) op).getOpType().getNormCounter().count(op);
                 PlatePaintAssmController controller = opPaintAssm.getController();
                 if (controller != null) {
                     controller.countNorm(opPaintAssm);

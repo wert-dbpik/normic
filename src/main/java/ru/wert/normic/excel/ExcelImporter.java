@@ -102,7 +102,7 @@ public class ExcelImporter {
                                     opCutting.setMaterial(mat);
                                     opCutting.setParamA(Integer.parseInt(row.getParamA()));
                                     opCutting.setParamB(Integer.parseInt(row.getParamB()));
-                                    detail.setMechTime(opCutting.getNormCounter().count(opCutting).getMechTime());
+                                    detail.setMechTime(opCutting.getOpType().getNormCounter().count(opCutting).getMechTime());
                                     detail.getOperations().add(opCutting);
 //
 //                                    OpCuttingCounter.count(opCutting);

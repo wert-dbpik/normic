@@ -23,7 +23,6 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpPaintAssm extends OpData {
 
-    private transient NormCounter normCounter = new OpPaintAssmCounter();
     private transient PlatePaintAssmController controller;
     private transient OpAssm assm; //ссылка на окрашиваемую сборку
 

@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpCutting extends OpData {
 
-    private transient NormCounter normCounter = new OpCuttingCounter();
-
     private Material material;
     private Integer paramA = 0;
     private Integer paramB = 0;

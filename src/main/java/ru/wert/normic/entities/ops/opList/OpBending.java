@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpBending extends OpData {
 
-    private transient NormCounter normCounter = new OpBendingCounter();
-
     private Integer bends = 1;
     private Integer men = 1;
     private EBendingTool tool;

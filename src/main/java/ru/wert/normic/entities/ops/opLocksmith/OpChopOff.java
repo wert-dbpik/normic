@@ -16,7 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpChopOff extends OpData {
 
-    private transient NormCounter normCounter = new OpChopOffCounter();
 
     private int length = 0;
 

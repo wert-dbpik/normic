@@ -20,8 +20,6 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 @Setter
 public class OpPaint extends OpData {
 
-    private transient NormCounter normCounter = new OpPaintCounter();
-
     private Material material; //материал
     private int razvA = 0; //размер развертки А
     private int razvB = 0; //размер развертки B

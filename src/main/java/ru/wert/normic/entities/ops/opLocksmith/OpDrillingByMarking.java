@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpDrillingByMarking extends OpData {
 
-    private transient NormCounter normCounter = new OpDrillingByMarkingCounter();
-
     private Integer diameter = 0; //диаметр отверстий
     private Integer depth = 0; //глубина отверстий
     private Integer holes = 0; //количество отверстий

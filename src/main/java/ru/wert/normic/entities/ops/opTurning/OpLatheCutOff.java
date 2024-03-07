@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLatheCutOff extends OpData {
 
-    private transient NormCounter normCounter = new OpLatheCutOffCounter();
-
     private Material material;
     private Boolean cutOffSolid = true; //отрезание детали сплошного сечения
     private Double thickness = 0.0; //количество токарных проходов

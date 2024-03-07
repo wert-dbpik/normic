@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLocksmith extends OpData {
 
-    private transient NormCounter normCounter = new OpLocksmithCounter();
-
     private Integer rivets = 0; //Вытяжные заклепки
     private Integer countersinkings = 0; //Зенкования
     private Integer threadings = 0; //Нарезания резьбы

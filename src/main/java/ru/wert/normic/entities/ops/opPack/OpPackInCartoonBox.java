@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpPackInCartoonBox extends OpData implements PackingData {
 
-    private transient NormCounter normCounter = new OpPackInCartoonBoxCounter();
-
     private int height = 0;
     private int width = 0;
     private int depth = 0;

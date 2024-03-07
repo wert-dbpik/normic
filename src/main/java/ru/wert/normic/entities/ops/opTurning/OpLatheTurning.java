@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLatheTurning extends OpData {
 
-    private transient NormCounter normCounter = new OpLatheTurningCounter();
-
     private Material material; //материал
     private Integer length = 0; //длина точения
     private Integer passages = 1; //количество токарных проходов

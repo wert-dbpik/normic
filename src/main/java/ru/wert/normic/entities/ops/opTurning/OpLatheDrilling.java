@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLatheDrilling extends OpData {
 
-    private transient NormCounter normCounter = new OpLatheDrillingCounter();
-
     private Integer diameter = 0; //диаметр обработки
     private Integer length = 0; //длина обработки
 

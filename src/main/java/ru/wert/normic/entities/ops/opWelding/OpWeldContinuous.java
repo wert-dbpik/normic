@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpWeldContinuous extends OpData {
 
-    private transient NormCounter normCounter = new OpWeldContinuousCounter();
-
     private String name = "";
     private Integer seamLength = 0; //Длина шва
     private EPartBigness partBigness =EPartBigness.SMALL; //размер собираемых деталей

@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpLatheMountDismount extends OpData {
 
-    private transient NormCounter normCounter = new OpLatheMountDismountCounter();
-
     private double weight = 0.0; //Вес заготовки
     private int holder = 1; //тип крепления детали на станке
 

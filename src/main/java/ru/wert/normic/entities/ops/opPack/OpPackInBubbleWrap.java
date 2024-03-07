@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpPackInBubbleWrap extends OpData implements PackingData {
 
-    private transient NormCounter normCounter = new OpPackInBubbleWrapCounter();
-
     private int height = 0;
     private int width = 0;
     private int depth = 0;

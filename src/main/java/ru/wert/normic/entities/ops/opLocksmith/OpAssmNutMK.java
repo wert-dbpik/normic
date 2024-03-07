@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpAssmNutMK extends OpData {
 
-    private transient NormCounter normCounter = new OpAssmNutsMKCounter();
-
     private Integer rivets = 0; //заклепки
     private Integer rivetNuts = 0; //заклепочные гайки
     private Integer others = 0;//другой крепеж

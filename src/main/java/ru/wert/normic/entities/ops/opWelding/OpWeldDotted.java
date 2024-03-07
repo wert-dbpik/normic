@@ -16,8 +16,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpWeldDotted extends OpData {
 
-    private transient NormCounter normCounter = new OpWeldDottedCounter();
-
     private Integer parts = 0; //Количество элементов
     private Integer dots = 0; //Количество точек
     private Integer drops = 0; //Количество прихваток

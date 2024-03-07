@@ -17,8 +17,6 @@ import ru.wert.normic.interfaces.NormCounter;
 @Setter
 public class OpCutOffOnTheSaw extends OpData {
 
-    private transient NormCounter normCounter = new OpCutOffOnTheSawCounter();
-
     private int length = 0;
     private ESawType saw = ESawType.SMALL_SAW; //отрезание детали сплошного сечения
 

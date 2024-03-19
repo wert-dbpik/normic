@@ -223,7 +223,7 @@ public class ReportController {
                     area += ((OpPaint) o).getArea() * op.getOpData().getQuantity();
                     weight += ((OpPaint) o).getDyeWeight() * op.getOpData().getQuantity();
                 }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
-                    area += ((OpPaintAssm) o).getArea() * op.getOpData().getQuantity();
+                    area += ((OpPaintAssm) o).getCountedArea() * op.getOpData().getQuantity();
                     weight += ((OpPaintAssm) o).getDyeWeight() * op.getOpData().getQuantity();
                 }
             }

@@ -68,6 +68,6 @@ public class ListMatPatchController extends AbstractMatPatchController {
         opData.setWeight(weight);
         opData.setArea(area);
 
-        detailController.calculateAreaByDetails();
+//        detailController.calculateAreaByDetails();
     }
 }

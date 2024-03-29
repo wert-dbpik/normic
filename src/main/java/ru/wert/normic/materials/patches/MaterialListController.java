@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import ru.wert.normic.components.BXDensity;
+import ru.wert.normic.components.TFDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
@@ -24,7 +25,7 @@ public class MaterialListController implements MatTypeController {
     @FXML
     void initialize(){
         new BXDensity().create(bxDensity);
-        new TFInteger(txtFldThickness);
+        new TFDouble(txtFldThickness);
     }
 
     @Override //MatTypeController

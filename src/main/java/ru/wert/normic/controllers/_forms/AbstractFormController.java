@@ -167,7 +167,7 @@ public abstract class AbstractFormController implements IForm {
         for(OpData op : ops){
             if(op instanceof IOpWithOperations)
                 area += ((IOpWithOperations) op).getArea()
-                        * op.getQuantity();  //количество деталей в сборке
+                        * op.getOpQuantity();  //количество деталей в сборке
         }
         formAreaProperty.set(area); //здесь надо разделить на количество сборок в изделии, если делался импорт из Excel
         return area;

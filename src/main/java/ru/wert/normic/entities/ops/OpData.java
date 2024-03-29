@@ -17,7 +17,8 @@ public class OpData implements Serializable {
     protected ENormType normType; //Тип нормы по участкам (МК, ППК и т.д.)
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))
 
-    private int quantity = 1; //количество
+    private int quantity = 1; //количество на все изделие
+    private int opQuantity = 1; //количество на операцию (Сборку)
 
     private double mechTime; //МК
     private double paintTime; //ППК

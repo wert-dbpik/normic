@@ -1,13 +1,10 @@
 package ru.wert.normic.controllers.extra.tree_view;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -48,7 +45,8 @@ public class TreeViewCell extends TreeCell<OpData> {
             setGraphic(null);
         } else {
             List<OpData> operations = ((IOpWithOperations)opData).getOperations();
-            int quantity = opData.getQuantity();
+            int quantity = opData.getOpQuantity();
+            int totalQuantity = opData.getQuantity();
             EOpType type = opData.getOpType();
 
 
@@ -77,7 +75,7 @@ public class TreeViewCell extends TreeCell<OpData> {
             txtFinish.setId("title");
 
             txtN.textProperty().bind(tfN.textProperty());
-            tfN.setText(String.valueOf(quantity));
+            tfN.setText(String.valueOf(quantity) + "/" + String.valueOf(totalQuantity));
 
             //Вызов редактора
             ImageView ivDone = new ImageView();
@@ -97,7 +95,7 @@ public class TreeViewCell extends TreeCell<OpData> {
             //СТрока с заголовком
             hbTitle.getChildren().add(logo);
             hbTitle.getChildren().add(txtName);
-            if(quantity > 1)
+
                 hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
             hbTitle.getChildren().add(ivDone);
             hbTitle.setAlignment(Pos.CENTER_LEFT);

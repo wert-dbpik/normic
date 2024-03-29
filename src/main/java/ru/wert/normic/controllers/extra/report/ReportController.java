@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.extra;
+package ru.wert.normic.controllers.extra.report;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -6,8 +6,8 @@ import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.entities.ops.opPack.PackingData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
@@ -220,11 +220,11 @@ public class ReportController {
                 weight += ress.get(1);
             }else{
                 if(o instanceof OpPaint && ((OpPaint)o).getColor().equals(color)) {
-                    area += ((OpPaint) o).getArea() * op.getOpData().getQuantity();
-                    weight += ((OpPaint) o).getDyeWeight() * op.getOpData().getQuantity();
+                    area += ((OpPaint) o).getArea() * op.getOpData().getOpQuantity();
+                    weight += ((OpPaint) o).getDyeWeight() * op.getOpData().getOpQuantity();
                 }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
-                    area += ((OpPaintAssm) o).getCountedArea() * op.getOpData().getQuantity();
-                    weight += ((OpPaintAssm) o).getDyeWeight() * op.getOpData().getQuantity();
+                    area += ((OpPaintAssm) o).getCountedArea() * op.getOpData().getOpQuantity();
+                    weight += ((OpPaintAssm) o).getDyeWeight() * op.getOpData().getOpQuantity();
                 }
             }
 

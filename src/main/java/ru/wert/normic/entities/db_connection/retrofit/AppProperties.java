@@ -77,6 +77,7 @@ public class AppProperties {
             writer.write("IP_ADDRESS=" + SERVER_IP + "\n");
             writer.write("PORT =" + SERVER_PORT  + "\n");
             writer.write("SAVES_DIR=C:/\n");
+            writer.write("IMPORT_DIR=C:/\n");
             writer.write("USER=1\n");
             writer.close();
         } catch (IOException e) {
@@ -105,7 +106,14 @@ public class AppProperties {
 
     public String getSavesDir(){
         log.debug("SAVES_DIR returns...{}", connectionProps.getProperty("SAVES_DIR"));
-        return connectionProps.getProperty("SAVES_DIR");
+        return connectionProps.getProperty("SAVES_DIR") == null ?
+                "C:\\" : connectionProps.getProperty("SAVES_DIR");
+    }
+
+    public String getImportDir(){
+        log.debug("IMPORT_DIR returns...{}", connectionProps.getProperty("IMPORT_DIR"));
+        return connectionProps.getProperty("IMPORT_DIR") == null ?
+                "C:\\" : connectionProps.getProperty("IMPORT_DIR");
     }
 
     public String getUser(){
@@ -137,6 +145,16 @@ public class AppProperties {
         try {
             FileOutputStream fos = new FileOutputStream(appConfigPath);
             connectionProps.setProperty("SAVES_DIR", dir);
+            connectionProps.store(fos, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setImportDirectory(final String dir){
+        try {
+            FileOutputStream fos = new FileOutputStream(appConfigPath);
+            connectionProps.setProperty("IMPORT_DIR", dir);
             connectionProps.store(fos, null);
         } catch (IOException e) {
             e.printStackTrace();

@@ -294,10 +294,13 @@ public class MainController extends AbstractFormController {
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы EXCEL (.xlsx)", "*.xlsx"));
-        File initDir = new File(AppProperties.getInstance().getSavesDir());
+        File initDir = new File(AppProperties.getInstance().getImportDir());
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:\\"));
         File file = chooser.showOpenDialog(owner);
         if(file == null) return;
+
+        //Сохраняем последнюю директорию
+        AppProperties.getInstance().setImportDirectory(file.getParent());
 
         File copied = AppFiles.getInstance().createTempCopyOfFile(file);
         clearAll(e);

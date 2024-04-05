@@ -108,8 +108,7 @@ public class PlateDetailController extends AbstractOpPlate {
 
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.opData.setOpQuantity(IntegerParser.getValue(tfN));
-            this.opData.setQuantity(opData.getOpQuantity() * prevFormController.getOpData().getQuantity());
+            this.opData.setQuantity(IntegerParser.getValue(tfN));
             prevFormController.countSumNormTimeByShops();
             prevFormController.calculateAreaByDetails();
         });
@@ -175,8 +174,7 @@ public class PlateDetailController extends AbstractOpPlate {
     public void collectOpData(AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
-        opData.setOpQuantity(IntegerParser.getValue(tfN));
-        opData.setQuantity(opData.getOpQuantity() * prevFormController.getOpData().getQuantity());
+        opData.setQuantity(IntegerParser.getValue(tfN));
         if (formDetailController != null) {
             opData.setMaterial(((FormDetailController) formDetailController).getCmbxMaterial().getValue());
             opData.setParamA(IntegerParser.getValue(((FormDetailController) formDetailController).getMatPatchController().getTfA()));
@@ -195,7 +193,7 @@ public class PlateDetailController extends AbstractOpPlate {
 
         if (imgDone != null) imgDone.getStateProperty().setValue(opData.isDone());
         tfName.setText(opData.getName());
-        tfN.setText(String.valueOf(opData.getOpQuantity()));
+        tfN.setText(String.valueOf(opData.getQuantity()));
     }
 
     @Override

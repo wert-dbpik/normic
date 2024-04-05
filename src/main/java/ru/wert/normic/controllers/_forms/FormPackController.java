@@ -1,17 +1,21 @@
 package ru.wert.normic.controllers._forms;
 
 
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDone;
+import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
@@ -80,8 +84,7 @@ public class FormPackController extends AbstractFormController {
 
         //Инициализируем количество
         if(tfQuantity != null) {
-            ((OpPack)this.opData).setOpQuantity(Integer.parseInt(tfQuantity.getText()));
-            this.opData.setQuantity(opData.getOpQuantity() * controller.getOpData().getQuantity());
+            ((OpPack)this.opData).setQuantity(Integer.parseInt(tfQuantity.getText()));
             tfPackQuantity.setText(tfQuantity.getText());
             tfQuantity.textProperty().bindBidirectional(tfPackQuantity.textProperty());
         }

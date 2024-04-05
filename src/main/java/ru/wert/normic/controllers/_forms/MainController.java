@@ -25,7 +25,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.StructureController;
-import ru.wert.normic.controllers.extra.report.ReportController;
+import ru.wert.normic.controllers.extra.ReportController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.Decoration;
@@ -309,8 +309,7 @@ public class MainController extends AbstractFormController {
             if(newOpData != null)
                 opData = newOpData;
             else return;
-            newOpData.setOpQuantity(1);
-            countOperationQuantity(newOpData);
+            normalizeQuantity(newOpData, 1);
             createMenu();
             menu.deployData();
             countSumNormTimeByShops();
@@ -321,20 +320,29 @@ public class MainController extends AbstractFormController {
     }
 
     /**
-     * Метод высчитывает количество элементов на сборку, т.к. после парсинга таблицы Excel
-     * мы имеем только количество на все изделие totalQuantity, a количество на операцию opQuantity
-     * приравнено общему же количеству
+     * Метод приводящий структуру изделия к виду, в котором количество входящих деталей и сборок указывается
+     * не на ИЗДЕЛИЕ, а на СБОРКУ.
+     *
+     * Происходит перебор входящих в сборку элементов и им присваивается количество, получаемое от деления
+     * количества элементов в ИЗДЕЛИИ (q) на количество сборок в изделии(assmQuantity).
+     * Если перебираемый элемент ДЕТАЛЬ, то происходит присвоение  нового количества, а если СБОРКА, то происходит
+     * рекурсивный вызов с указанием нового количества этой СБОРКИ.
+     *
+     * В финале: СБОРКЕ присваивается новое количество (newQuantity).
+     * @param assmOpData - сборка
+     * @param newQuantity - новое количество сборок в предыдущей сборке
      */
-    void countOperationQuantity(OpAssm assmOpData){
-        int assmQuantity = assmOpData.getQuantity(); //Количество сборок в изделии
+    void normalizeQuantity(OpAssm assmOpData, int newQuantity){
+        int assmQuantity = assmOpData.getQuantity(); //количество сборок в ИЗДЕЛИИ
         for(OpData opData : assmOpData.getOperations()){
-            if(opData instanceof IOpWithOperations){ //ДЕТАЛЬ, СБОРКА, УПАКОВКА
-                int excelQuantity = opData.getQuantity(); //Значение количества из таблицы Excel
-                opData.setOpQuantity(excelQuantity / assmQuantity);
-                if(opData instanceof OpAssm) //Если СБОРКА, то рекурсивно вызываем себя
-                    countOperationQuantity((OpAssm) opData);
+            if(opData instanceof IOpWithOperations){
+                int q = opData.getQuantity(); //количество элементов в ИЗДЕЛИИ
+                if(opData instanceof OpAssm)
+                    normalizeQuantity((OpAssm) opData, q);
+                opData.setQuantity(q / assmQuantity);
             }
         }
+        assmOpData.setQuantity(newQuantity);
     }
 
     /**

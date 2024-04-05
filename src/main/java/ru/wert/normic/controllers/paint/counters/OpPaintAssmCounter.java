@@ -10,6 +10,7 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.List;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpPaintAssmCounter implements NormCounter {
@@ -75,7 +76,7 @@ public class OpPaintAssmCounter implements NormCounter {
         for (OpData op : ops) {
             if (op instanceof IOpWithOperations) countCalculatedArea((IOpWithOperations) op);
             if (op instanceof OpDetail){
-                area += ((OpDetail) op).getArea()* op.getOpQuantity();//количество деталей в сборке
+                area += ((OpDetail) op).getArea()* op.getQuantity();//количество деталей в сборке
             }
         }
 //        formAreaProperty.set(area); //здесь надо разделить на количество сборок в изделии, если делался импорт из Excel

@@ -96,7 +96,7 @@ public class PlatePackController extends AbstractOpPlate{
 
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.opData.setOpQuantity(IntegerParser.getValue(tfN));
+            this.opData.setQuantity(IntegerParser.getValue(tfN));
             prevFormController.countSumNormTimeByShops();
 //            formController.calculateAreaByDetails();
         });
@@ -159,9 +159,7 @@ public class PlatePackController extends AbstractOpPlate{
     public void collectOpData(TextField tfName, TextField tfN, ImgDouble imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
-        opData.setOpQuantity(IntegerParser.getValue(tfN));
-        System.out.println("total quantity = " + prevFormController.getOpData().getQuantity());
-        opData.setQuantity(opData.getOpQuantity() * prevFormController.getOpData().getQuantity());
+        opData.setQuantity(IntegerParser.getValue(tfN));
     }
 
     @Override//AbstractOpPlate
@@ -169,7 +167,7 @@ public class PlatePackController extends AbstractOpPlate{
         OpPack opData = (OpPack)data;
 
         tfName.setText(opData.getName());
-        tfN.setText(String.valueOf(opData.getOpQuantity()));
+        tfN.setText(String.valueOf(opData.getQuantity()));
     }
 
 

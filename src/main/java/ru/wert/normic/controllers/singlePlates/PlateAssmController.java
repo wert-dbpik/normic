@@ -111,8 +111,6 @@ public class PlateAssmController extends AbstractOpPlate{
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            this.opData.setQuantity(opData.getOpQuantity() * prevFormController.getOpData().getQuantity());
-
             prevFormController.countSumNormTimeByShops();
         });
     }
@@ -182,13 +180,12 @@ public class PlateAssmController extends AbstractOpPlate{
     public void collectOpData(AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
-        opData.setOpQuantity(IntegerParser.getValue(tfN));
-        opData.setQuantity(opData.getOpQuantity() * prevFormController.getOpData().getQuantity());
+        opData.setQuantity(IntegerParser.getValue(tfN));
         if(formAssmController != null){
             //Сохраняем операции
             opData.setOperations(new ArrayList<>(formAssmController.getAddedOperations()));
         }
-        opData.setOpQuantity(IntegerParser.getValue(tfN));
+        opData.setQuantity(IntegerParser.getValue(tfN));
 
         super.recountPaintedAssm(MAIN_OP_DATA);
     }
@@ -199,7 +196,7 @@ public class PlateAssmController extends AbstractOpPlate{
 
         if(imgDone != null)imgDone.getStateProperty().setValue(opData.isDone());
         tfName.setText(opData.getName());
-        tfN.setText(String.valueOf(opData.getOpQuantity()));
+        tfN.setText(String.valueOf(opData.getQuantity()));
     }
 
     @Override

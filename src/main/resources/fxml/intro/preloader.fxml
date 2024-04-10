@@ -13,11 +13,11 @@
    <children>
       <VBox alignment="CENTER">
          <children>
-            <Text id="my_text" strokeType="OUTSIDE" strokeWidth="0.0" text="НормИК" textAlignment="CENTER" wrappingWidth="249.94921875">
+            <Label maxWidth="-Infinity" prefWidth="237.0" text="НормИК" textAlignment="CENTER" VBox.vgrow="NEVER">
                <font>
                   <Font name="Arial Narrow Bold" size="72.0" />
                </font>
-            </Text>
+            </Label>
             <Text id="my_text" strokeType="OUTSIDE" strokeWidth="0.0" text="2023-2024гг" textAlignment="CENTER" wrappingWidth="190.94921875">
                <font>
                   <Font name="Arial Narrow" size="18.0" />

@@ -50,6 +50,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.StartNormic.FIRST_PARAMS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
@@ -127,9 +128,14 @@ public class MainController extends AbstractFormController {
         //Заполняем поля формы
         fillOpData();
 
-        Platform.runLater(()->LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ"));
-
         menu.addEmptyPlate();
+
+        Platform.runLater(()->{
+            if (FIRST_PARAMS.length > 0) { //Если открывается норма по двойному клику
+                openNvrFile(null, EMenuSource.ON_START, new File(FIRST_PARAMS[0]));
+            } else
+                LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
+        });
 
     }
 

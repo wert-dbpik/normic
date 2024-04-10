@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.StartNormic.FIRST_PARAMS;
 import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
 import static ru.wert.normic.decoration.DecorationStatic.TITLE_SEPARATOR;
 import static ru.wert.normic.enums.EColor.*;
@@ -141,6 +142,7 @@ public abstract class AbstractFormController implements IForm {
 
                 }
             });
+
         });
 
     }
@@ -603,6 +605,11 @@ public abstract class AbstractFormController implements IForm {
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:/"));
         File file = chooser.showOpenDialog(owner);;
         if(file == null) return;
+        openNvrFile(e, source, file);
+
+    }
+
+    public void openNvrFile(Event e, EMenuSource source, File file) {
         try {
             //Читаем строки из файла
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
@@ -642,7 +649,8 @@ public abstract class AbstractFormController implements IForm {
                 if (source.equals(EMenuSource.FORM_MENU)) {
                     addFromFile(newOpData);
                 } else { //Вызов из меню с пиктограммами
-                    clearAll(e);
+                    if(!source.equals(EMenuSource.ON_START))
+                        clearAll(e);
                     if (opType.equals("ASSM")) {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
                         blockUndoListFlag = true;
@@ -661,7 +669,6 @@ public abstract class AbstractFormController implements IForm {
         } catch (IOException | JSONException ioException) {
             ioException.printStackTrace();
         }
-
     }
 
     /**

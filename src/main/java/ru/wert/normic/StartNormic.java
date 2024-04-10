@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.controllers.AppPreloader;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.decoration.warnings.Warning0;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
@@ -19,10 +20,7 @@ import ru.wert.normic.settings.NormConstants;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.initQuickServices;
@@ -33,13 +31,15 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 @Slf4j
 public class StartNormic extends Application {
 
+    public static String[] FIRST_PARAMS;
+
     private static final AppProperties normicProps = AppProperties.getInstance();
     private static final File propsFile = new File(PROPS_PATH);
 
     @Override
     public void init() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             initServices();
             initQuickServices();
             initUser();
@@ -84,6 +84,8 @@ public class StartNormic extends Application {
     }
 
     public static void main(String[] args) {
+        FIRST_PARAMS = args;
+
         Locale.setDefault(new Locale("ru"));
         LauncherImpl.launchApplication(StartNormic.class, AppPreloader.class, args);
     }

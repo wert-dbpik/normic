@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.controllers.AppPreloader;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.decoration.warnings.Warning0;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
@@ -20,7 +19,11 @@ import ru.wert.normic.settings.NormConstants;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.initQuickServices;
@@ -38,6 +41,7 @@ public class StartNormic extends Application {
 
     @Override
     public void init() {
+        LAUNCH_TIME = "LAUNCH_TIME = " + LocalDateTime.now().toString();
         try {
             Thread.sleep(1000);
             initServices();

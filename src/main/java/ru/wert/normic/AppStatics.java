@@ -15,6 +15,7 @@ import ru.wert.normic.enums.ETimeMeasurement;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static ru.wert.normic.enums.EOpType.*;
@@ -36,6 +37,8 @@ public class AppStatics {
 
     public static MainController MAIN_CONTROLLER;
     public static OpAssm MAIN_OP_DATA;
+
+    public static String LAUNCH_TIME; //Переменная, по которой происходит идентификация свой/чужой при перетаскивании плашек
 
 
     public static final String SERVER_IP = "192.168.2.132";

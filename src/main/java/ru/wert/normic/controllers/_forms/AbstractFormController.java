@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -33,6 +35,7 @@ import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
@@ -49,11 +52,11 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.StartNormic.FIRST_PARAMS;
 import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
 import static ru.wert.normic.decoration.DecorationStatic.TITLE_SEPARATOR;
 import static ru.wert.normic.enums.EColor.*;
@@ -99,6 +102,10 @@ public abstract class AbstractFormController implements IForm {
 
     protected boolean blockUndoListFlag; //true - undoList заполняется
 
+    //Переменные для DRAG-AND-DROP
+    String launchTime;
+    ArrayList<OpData> passedOpDataArray;
+
     @FXML
     private VBox main;
 
@@ -136,7 +143,7 @@ public abstract class AbstractFormController implements IForm {
                     if (ke.isShiftDown()) redoLastOperation();
                     else undoLastOperation();
 
-                    menu.deployData();
+                    menu.addListOfOperations();
                     countSumNormTimeByShops();
                     blockUndoListFlag = false;
 
@@ -197,7 +204,15 @@ public abstract class AbstractFormController implements IForm {
                         List<Integer> indices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
                         if(indices.isEmpty()) return;
                         clearClipboard();
+                        Gson gson = new Gson();
+                        StringBuilder passingData = new StringBuilder();
+                        //Первой строкой транспондер (определим когда запущено приложение)
+                        passingData.append(LAUNCH_TIME).append("\n");
                         for(int index : indices){
+                            //Формируем для передачи между программами
+//                            passingData.append(gson.toJson(addedOperations.get(index).getOpType().name())).append("\n");
+                            passingData.append(gson.toJson(addedOperations.get(index))).append("\n");
+                            //Для внутреннего использования
                             clipOpDataList.add(addedOperations.get(index)); //
                             clipOpPlateList.add(addedPlates.get(index));
                             clipBoxList.add(getListViewTechOperations().getItems().get(index));
@@ -209,54 +224,91 @@ public abstract class AbstractFormController implements IForm {
                             WritableImage image = new Text("Копируем").snapshot(null, null);
                             db.setDragView(image, 5.0 + image.getWidth(), 0.0);
                         }
-                        cc.putString("data");
+
+                        cc.putString(passingData.toString());
                         db.setContent(cc);
                         e.consume();
                     }
                 });
 
                 cell.setOnDragOver(e -> {
-                    if(cell.getItem() != null) {
-                        boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+                    Dragboard db = e.getDragboard();
+                    ArrayList<String> passArray = new ArrayList<>(Arrays.asList(db.getString().split("\n", -1)));
+                    launchTime = passArray.get(0);
+                    if (!launchTime.contains("LAUNCH_TIME")) {
+                        e.acceptTransferModes(TransferMode.NONE);
+                        return;
+                    } else if (launchTime.equals(LAUNCH_TIME)) { //Если обмен внутри программы
+                        if (cell.getItem() != null) { //Если строка не пустая
+                            boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
 
-                        getListViewTechOperations().getSelectionModel().clearSelection();
-                        if (!lastLine)
-                            getListViewTechOperations().getSelectionModel().select(cell.getItem());
+                            getListViewTechOperations().getSelectionModel().clearSelection();
+                            if (!lastLine)
+                                getListViewTechOperations().getSelectionModel().select(cell.getItem());
 
-                        Dragboard db = e.getDragboard();
 
-                        OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
-                        if (clipOpDataList.contains(targetOpData))
-                            e.acceptTransferModes(TransferMode.MOVE);
-                        else if (db.hasString() && dropIsPossible(targetOpData)) {
-                            e.acceptTransferModes(TransferMode.MOVE);
-                        } else {
-                            e.acceptTransferModes(TransferMode.NONE);
+                            OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
+
+
+                            if (clipOpDataList.contains(targetOpData))
+                                e.acceptTransferModes(TransferMode.MOVE);
+                            else if (db.hasString() && dropIsPossible(targetOpData)) {
+                                e.acceptTransferModes(TransferMode.MOVE);
+                            } else {
+                                e.acceptTransferModes(TransferMode.NONE);
+                            }
+
+                        } else { //Если строка пустая
+                            if (copy) e.acceptTransferModes(TransferMode.MOVE);
+                            else e.acceptTransferModes(TransferMode.NONE);
                         }
-                    } else{
-                        if(copy) e.acceptTransferModes(TransferMode.MOVE);
-                        else e.acceptTransferModes(TransferMode.NONE);
+                    } else { //Если обмен между программами
+                        passedOpDataArray = new ArrayList<>();
+                        for (int i = 1; i < passArray.size(); i = i + 2) {
+                            try {
+                                OpData op = OpDataJsonConverter.convert(passArray.get(i));
+                                passedOpDataArray.add(op);
+                            } catch (Exception jsonException) {
+                                e.acceptTransferModes(TransferMode.NONE);
+                            }
+
+                        }
+                        e.acceptTransferModes(TransferMode.MOVE);
                     }
 
                     e.consume();
                 });
 
                 cell.setOnDragDropped(e -> {
-                    if(cell.getItem() != null) {
-                        boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
-                        OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
-                        whereFromController = getThisController();
-                        if (e.getTransferMode().equals(TransferMode.MOVE) && !clipOpDataList.contains(targetOpData)) {
-                            addOperation(lastLine ? opData : addedOperations.get(cell.getIndex()));
-                            e.setDropCompleted(true);
-                        } else {
-                            e.setDropCompleted(false);
+                    if (launchTime.equals(LAUNCH_TIME)) { //Если обмен внутри программы
+                        if (cell.getItem() != null) {
+                            boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+                            OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
+                            whereFromController = getThisController();
+                            if (e.getTransferMode().equals(TransferMode.MOVE) && !clipOpDataList.contains(targetOpData)) {
+                                addOperation(lastLine ? opData : addedOperations.get(cell.getIndex()));
 
+                                e.setDropCompleted(true);
+                            } else {
+                                e.setDropCompleted(false);
+
+                            }
+                        } else if (e.getTransferMode().equals(TransferMode.MOVE)) {
+                            addOperation(opData);
+                            e.setDropCompleted(true);
                         }
-                    } else if(e.getTransferMode().equals(TransferMode.MOVE)){
-                        addOperation(opData);
+                    } else { //Если обмен между программами
+                        for(OpData op : passedOpDataArray)
+                            menu.addPlateToForm(op);
+                        countSumNormTimeByShops();
                         e.setDropCompleted(true);
                     }
+
+                });
+
+                cell.setOnMouseExited(e->{
+                    launchTime = null;
+                    passedOpDataArray = null;
                 });
 
                 cell.setOnMouseClicked(e -> {
@@ -385,6 +437,8 @@ public abstract class AbstractFormController implements IForm {
             }
 
         }
+
+
         iterateUndoList();
         finishWithPaste(targetOpData);
 
@@ -419,6 +473,7 @@ public abstract class AbstractFormController implements IForm {
 
         ((IOpWithOperations)whereFromController.getOpData())
                 .setOperations(new ArrayList<>(whereFromController.getAddedOperations()));
+
 
         countSumNormTimeByShops();
     }
@@ -484,7 +539,7 @@ public abstract class AbstractFormController implements IForm {
         getListViewTechOperations().getItems().clear();
         addedOperations.clear();
         //Строим список заново
-        menu.deployData();
+        menu.addListOfOperations();
     }
 
     /**
@@ -687,7 +742,7 @@ public abstract class AbstractFormController implements IForm {
         opData = newOpData;
         deployProductSettings(colorsSettings);
         createMenu();
-        menu.deployData();
+        menu.addListOfOperations();
     }
 
     /**
@@ -730,7 +785,7 @@ public abstract class AbstractFormController implements IForm {
         try {
             opData = (OpAssm) OpDataJsonConverter.convert(jsonString);
             createMenu();
-            menu.deployData();
+            menu.addListOfOperations();
         } catch (JSONException e) {
             e.printStackTrace();
         }

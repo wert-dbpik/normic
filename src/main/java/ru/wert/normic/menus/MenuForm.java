@@ -399,107 +399,111 @@ public class MenuForm extends ContextMenu {
     /*==================================================================================================================
      *                                         В О С С Т А Н О В Л Е Н И Е
      * ==================================================================================================================*/
-    public void deployData() {
+    public void addListOfOperations() {
         addEmptyPlate();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
         for (OpData op : operations) {
-            switch (op.getOpType()) {
-                case DETAIL:
-                    addDetailPlate((OpDetail) op);
-                    break;
-                case ASSM:
-                    addAssmPlate((OpAssm) op);
-                    break;
-                case PACK:
-                    addPackPlate((OpPack) op);
-                    break;
-                case CUTTING:
-                    addCattingPlate((OpCutting) op);
-                    break;
-                case BENDING:
-                    addBendingPlate((OpBending) op);
-                    break;
-                case LOCKSMITH:
-                    addLocksmithPlate((OpLocksmith) op);
-                    break;
-                case LATHE_TURNING:
-                    addTurningPlate((OpLatheTurning) op);
-                    break;
-                case LATHE_CUT_GROOVE:
-                    addCutGroovePlate((OpLatheCutGroove) op);
-                    break;
-                case LATHE_THREADING:
-                    addThreadingPlate((OpLatheThreading) op);
-                    break;
-                case LATHE_DRILLING:
-                    addDrillingPlate((OpLatheDrilling) op);
-                    break;
-                case DRILLING_BY_MARKING:
-                    addDrillingByMarkingPlate((OpDrillingByMarking) op);
-                    break;
-                case LATHE_ROLLING:
-                    addRollingPlate((OpLatheRolling) op);
-                    break;
-                case LATHE_CUT_OFF:
-                    addCutOffPlate((OpLatheCutOff) op);
-                    break;
-                case CUT_OFF_ON_SAW:
-                    addCutOffOnTheSawPlate((OpCutOffOnTheSaw) op);
-                    break;
-                case CHOP_OFF:
-                    addChopOffPlate((OpChopOff) op);
-                    break;
-                case LATHE_MOUNT_DISMOUNT:
-                    addMountDismountPlate((OpLatheMountDismount) op);
-                    break;
-                case PAINTING:
-                    addPaintPlate((OpPaint) op);
-                    break;
-                case PAINT_ASSM:
-                    addPaintAssmPlate((OpPaintAssm) op);
-                    break;
-                case WELD_CONTINUOUS:
-                    addWeldContinuousPlate((OpWeldContinuous) op);
-                    break;
-                case WELD_DOTTED:
-                    addWeldDottedPlate((OpWeldDotted) op);
-                    break;
-                case ASSM_CUTTINGS:
-                    addAssmCuttingsPlate((OpAssmCutting) op);
-                    break;
-                case ASSM_NUTS:
-                    addAssmNutsPlate((OpAssmNut) op);
-                    break;
-                case ASSM_NUTS_MK:
-                    addAssmNutsMKPlate((OpAssmNutMK) op);
-                    break;
-                case ASSM_NODES:
-                    addAssmNodesPlate((OpAssmNode) op);
-                    break;
-                case LEVELING_SEALER:
-                    addLevelingSealerPlate((OpLevelingSealer) op);
-                    break;
-                case PACK_IN_CARTOON_BOX:
-                    addPackInCartoonBoxPlate((OpPackInCartoonBox) op);
-                    break;
-                case PACK_IN_MACHINE_STRETCH_WRAP:
-                    addPackInMachineStretchWrapPlate((OpPackInMachineStretchWrap) op);
-                    break;
-                case PACK_IN_HAND_STRETCH_WRAP:
-                    addPackInHandStretchWrapPlate((OpPackInHandStretchWrap) op);
-                    break;
-                case PACK_IN_BUBBLE_WRAP:
-                    addPackInBubbleWrapPlate((OpPackInBubbleWrap) op);
-                    break;
-                case PACK_ON_PALLET:
-                    addPackOnPalletPlate((OpPackOnPallet) op);
-                    break;
-                case ERROR_OP_DATA:
-                    addErrorPlate((OpErrorData) op);
-                    break;
-            }
+            addPlateToForm(op);
         }
+    }
 
+
+    public void addPlateToForm(OpData op) {
+        switch (op.getOpType()) {
+            case DETAIL:
+                addDetailPlate((OpDetail) op);
+                break;
+            case ASSM:
+                addAssmPlate((OpAssm) op);
+                break;
+            case PACK:
+                addPackPlate((OpPack) op);
+                break;
+            case CUTTING:
+                addCattingPlate((OpCutting) op);
+                break;
+            case BENDING:
+                addBendingPlate((OpBending) op);
+                break;
+            case LOCKSMITH:
+                addLocksmithPlate((OpLocksmith) op);
+                break;
+            case LATHE_TURNING:
+                addTurningPlate((OpLatheTurning) op);
+                break;
+            case LATHE_CUT_GROOVE:
+                addCutGroovePlate((OpLatheCutGroove) op);
+                break;
+            case LATHE_THREADING:
+                addThreadingPlate((OpLatheThreading) op);
+                break;
+            case LATHE_DRILLING:
+                addDrillingPlate((OpLatheDrilling) op);
+                break;
+            case DRILLING_BY_MARKING:
+                addDrillingByMarkingPlate((OpDrillingByMarking) op);
+                break;
+            case LATHE_ROLLING:
+                addRollingPlate((OpLatheRolling) op);
+                break;
+            case LATHE_CUT_OFF:
+                addCutOffPlate((OpLatheCutOff) op);
+                break;
+            case CUT_OFF_ON_SAW:
+                addCutOffOnTheSawPlate((OpCutOffOnTheSaw) op);
+                break;
+            case CHOP_OFF:
+                addChopOffPlate((OpChopOff) op);
+                break;
+            case LATHE_MOUNT_DISMOUNT:
+                addMountDismountPlate((OpLatheMountDismount) op);
+                break;
+            case PAINTING:
+                addPaintPlate((OpPaint) op);
+                break;
+            case PAINT_ASSM:
+                addPaintAssmPlate((OpPaintAssm) op);
+                break;
+            case WELD_CONTINUOUS:
+                addWeldContinuousPlate((OpWeldContinuous) op);
+                break;
+            case WELD_DOTTED:
+                addWeldDottedPlate((OpWeldDotted) op);
+                break;
+            case ASSM_CUTTINGS:
+                addAssmCuttingsPlate((OpAssmCutting) op);
+                break;
+            case ASSM_NUTS:
+                addAssmNutsPlate((OpAssmNut) op);
+                break;
+            case ASSM_NUTS_MK:
+                addAssmNutsMKPlate((OpAssmNutMK) op);
+                break;
+            case ASSM_NODES:
+                addAssmNodesPlate((OpAssmNode) op);
+                break;
+            case LEVELING_SEALER:
+                addLevelingSealerPlate((OpLevelingSealer) op);
+                break;
+            case PACK_IN_CARTOON_BOX:
+                addPackInCartoonBoxPlate((OpPackInCartoonBox) op);
+                break;
+            case PACK_IN_MACHINE_STRETCH_WRAP:
+                addPackInMachineStretchWrapPlate((OpPackInMachineStretchWrap) op);
+                break;
+            case PACK_IN_HAND_STRETCH_WRAP:
+                addPackInHandStretchWrapPlate((OpPackInHandStretchWrap) op);
+                break;
+            case PACK_IN_BUBBLE_WRAP:
+                addPackInBubbleWrapPlate((OpPackInBubbleWrap) op);
+                break;
+            case PACK_ON_PALLET:
+                addPackOnPalletPlate((OpPackOnPallet) op);
+                break;
+            case ERROR_OP_DATA:
+                addErrorPlate((OpErrorData) op);
+                break;
+        }
     }
 
 

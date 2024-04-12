@@ -74,7 +74,8 @@ public class OpPaintAssmCounter implements NormCounter {
         double area = 0.0;
         List<OpData> ops = assm.getOperations();
         for (OpData op : ops) {
-            if (op instanceof IOpWithOperations) countCalculatedArea((IOpWithOperations) op);
+            if (op instanceof IOpWithOperations)
+                countCalculatedArea((IOpWithOperations) op);
             if (op instanceof OpDetail){
                 area += ((OpDetail) op).getArea()* op.getQuantity();//количество деталей в сборке
             }

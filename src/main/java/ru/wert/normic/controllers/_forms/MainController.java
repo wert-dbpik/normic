@@ -142,7 +142,7 @@ public class MainController extends AbstractFormController {
     @Override //AbstractFormController
     public void fillOpData(){
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
-            menu.deployData();
+            menu.addListOfOperations();
     }
 
     private void createMainMenu(){
@@ -320,7 +320,7 @@ public class MainController extends AbstractFormController {
             else return;
             normalizeQuantity(newOpData, 1);
             createMenu();
-            menu.deployData();
+            menu.addListOfOperations();
             countSumNormTimeByShops();
             iterateUndoList();
         });

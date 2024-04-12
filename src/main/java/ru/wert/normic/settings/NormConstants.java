@@ -138,6 +138,9 @@ public class NormConstants {
 
     }
 
+    /**
+     * Создание потока
+     */
     public void createConstantsProps() {
         log.debug("createConstantsProps : Properties  constantsProps создается  ...");
         try {
@@ -155,6 +158,9 @@ public class NormConstants {
         loadConstantsFromPropertiesFile();
     }
 
+    /**
+     * Загрузка констант в оперативную память
+     */
     public void loadConstantsFromPropertiesFile(){
 
         //--- РЕЗКА И ЗАЧИСТКА

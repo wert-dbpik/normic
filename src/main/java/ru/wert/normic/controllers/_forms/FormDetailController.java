@@ -1,8 +1,6 @@
 package ru.wert.normic.controllers._forms;
 
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -341,7 +339,7 @@ public class FormDetailController extends AbstractFormController {
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
 
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
-            menu.deployData();
+            menu.addListOfOperations();
     }
 
 

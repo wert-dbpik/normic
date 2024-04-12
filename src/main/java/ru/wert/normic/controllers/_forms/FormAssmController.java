@@ -1,20 +1,16 @@
 package ru.wert.normic.controllers._forms;
 
 
-import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDone;
-import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 
@@ -212,7 +208,7 @@ public class FormAssmController extends AbstractFormController {
     @Override //AbstractFormController
     public void fillOpData(){
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
-            menu.deployData();
+            menu.addListOfOperations();
     }
 
 }

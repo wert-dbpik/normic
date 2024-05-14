@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.NormCounter;
@@ -22,6 +23,7 @@ public class OpWeldDotted extends OpData {
 
     public OpWeldDotted() {
         super.normType = ENormType.NORM_MECHANICAL;
+        super.jobType = EJobType.JOB_WELDING;
         super.opType = EOpType.WELD_DOTTED;
     }
 

@@ -6,6 +6,7 @@ import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.turning.counters.OpLatheDrillingCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.NormCounter;
@@ -23,6 +24,7 @@ public class OpLatheDrilling extends OpData {
 
     public OpLatheDrilling() {
         super.normType = ENormType.NORM_MECHANICAL;
+        super.jobType = EJobType.JOB_MECHANIC;
         super.opType = EOpType.LATHE_DRILLING;
     }
 

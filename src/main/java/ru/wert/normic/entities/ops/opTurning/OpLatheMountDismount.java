@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.turning.counters.OpLatheMountDismountCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ELatheHoldType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
@@ -23,6 +24,7 @@ public class OpLatheMountDismount extends OpData {
 
     public OpLatheMountDismount() {
         super.normType = ENormType.NORM_MECHANICAL;
+        super.jobType = EJobType.JOB_MECHANIC;
         super.opType = EOpType.LATHE_MOUNT_DISMOUNT;
     }
 

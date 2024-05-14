@@ -2,6 +2,7 @@ package ru.wert.normic.entities.ops;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @Setter
 public class OpData implements Serializable {
 
+    protected EJobType jobType = EJobType.JOB_NONE; //Тип операции по участкам (Резка, Гибка, Сварка и т.д)
     protected ENormType normType; //Тип нормы по участкам (МК, ППК и т.д.)
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))
 

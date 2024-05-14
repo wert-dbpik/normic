@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.OpDrillingByMarkingCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.NormCounter;
@@ -24,6 +25,7 @@ public class OpDrillingByMarking extends OpData {
 
     public OpDrillingByMarking() {
         super.normType = ENormType.NORM_MECHANICAL;
+        super.jobType = EJobType.JOB_LOCKSMITH;
         super.opType = EOpType.DRILLING_BY_MARKING;
     }
 

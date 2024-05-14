@@ -6,6 +6,7 @@ import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.NormCounter;
@@ -23,6 +24,7 @@ public class OpBending extends OpData {
 
     public OpBending() {
         super.normType = ENormType.NORM_MECHANICAL;
+        super.jobType = EJobType.JOB_BENDING;
         super.opType = EOpType.BENDING;
     }
 

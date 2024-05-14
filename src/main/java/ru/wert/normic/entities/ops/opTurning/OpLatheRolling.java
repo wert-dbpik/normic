@@ -5,6 +5,7 @@ import lombok.Setter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.turning.counters.OpLatheRollingCounter;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.NormCounter;
@@ -22,6 +23,7 @@ public class OpLatheRolling extends OpData {
 
     public OpLatheRolling() {
         super.normType = ENormType.NORM_MECHANICAL;
+        super.jobType = EJobType.JOB_MECHANIC;
         super.opType = EOpType.LATHE_ROLLING;
     }
 

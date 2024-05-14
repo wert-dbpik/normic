@@ -2,6 +2,8 @@ package ru.wert.normic.controllers.extra;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+import ru.wert.normic.controllers.extra.reports.ReportNormsByJobTypes;
+import ru.wert.normic.controllers.extra.reports.ReportNormsByNormTypes;
 import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
@@ -20,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.NormicServices.DENSITIES;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.EPacks.*;
@@ -70,6 +71,8 @@ public class ReportController {
         String name = opAssm.getName();
         textReport.append("ИЗДЕЛИЕ : ").append(name == null? "< без наименования >" : name);
 
+        //###########################################################################################################
+
         //Материалы
         materials = new HashMap<>();
         List<OpData> ops = opAssm.getOperations();
@@ -102,13 +105,12 @@ public class ReportController {
             addPackReport(cartoon, cartoonAngle, stretchMachine, stretchHand, polyTape, bubble, duct, pallet);
 
 
-        //НОРМЫ ВРЕМЕНИ
+        //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
+        new ReportNormsByNormTypes(textReport, opAssm).create();
 
-        if(opAssm.getMechTime() != 0.0 ||
-                opAssm.getPaintTime() != 0.0 ||
-                opAssm.getAssmTime() != 0.0 ||
-                opAssm.getPackTime() != 0.0)
-            addNormTimesReport(opAssm);
+        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
+        new ReportNormsByJobTypes(textReport, opAssm).create();
+
 
         taReport.setText(textReport.toString());
 
@@ -300,29 +302,5 @@ public class ReportController {
 
 //==========   НОРМЫ ВРЕМЕНИ   ===================================================
 
-    private void addNormTimesReport(OpAssm opAssm) {
-        double k = 1.0; //Коэффициент перевода в ед.измерения
-        switch(CURRENT_MEASURE.name()){
-            case "SEC" : k = MIN_TO_SEC; break;
-            case "HOUR" : k = MIN_TO_HOUR; break;
-        }
-        textReport.append("\n\n").append("НОРМЫ ВРЕМЕНИ :\n");
 
-        if (opAssm.getMechTime() != 0.0)
-            textReport.append("Изготовление \t: ")
-                    .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append(" ")
-                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
-        if (opAssm.getPaintTime() != 0.0)
-            textReport.append("Покраска \t\t: ")
-                    .append(DECIMAL_FORMAT.format(opAssm.getPaintTime() * k)).append(" ")
-                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
-        if (opAssm.getAssmTime() != 0.0)
-            textReport.append("Сборка \t\t\t: ")
-                    .append(DECIMAL_FORMAT.format(opAssm.getAssmTime() * k)).append(" ")
-                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
-        if (opAssm.getPackTime() != 0.0)
-            textReport.append("Упаковка \t\t: "
-            ).append(DECIMAL_FORMAT.format(opAssm.getPackTime() * k)).append(" ")
-                    .append(CURRENT_MEASURE.getMeasure()).append("\n");
-    }
 }

@@ -15,8 +15,8 @@ import java.io.Serializable;
 @Setter
 public class OpData implements Serializable {
 
+    protected ENormType normType; //Тип нормы по цехам (МК, ППК и т.д.)
     protected EJobType jobType = EJobType.JOB_NONE; //Тип операции по участкам (Резка, Гибка, Сварка и т.д)
-    protected ENormType normType; //Тип нормы по участкам (МК, ППК и т.д.)
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))
 
     private int quantity = 1; //количество

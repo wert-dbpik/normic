@@ -66,21 +66,43 @@ public class ReportNormsByJobTypes {
         }
         textReport.append("\n\n").append(String.format("НОРМЫ ВРЕМЕНИ МК ПО ВИДУ РАБОТ (%s):\n", CURRENT_MEASURE.getMeasure()));
 
+        int cuttingPercent = (int)Math.round(cutting / opAssm.getMechTime() * 100);
+        int bendingPercent = (int) Math.round(bending / opAssm.getMechTime() * 100);
+        int weldingPercent = (int) Math.round(welding / opAssm.getMechTime() * 100);
+        int locksmithPercent = (int) Math.round(locksmith / opAssm.getMechTime() * 100);
+        int mechanicPercent = (int) Math.round(mechanic / opAssm.getMechTime() * 100);
+
+        int sum = cuttingPercent + bendingPercent + weldingPercent + locksmithPercent + mechanicPercent;
+
+        if(sum != 100) cuttingPercent = cuttingPercent + 100 - sum;
+
+
+
         if (cutting != 0.0)
             textReport.append("Резка \t\t\t:  ")
-                    .append(DECIMAL_FORMAT.format(cutting * k)).append("\n");
+                    .append(String.format(DOUBLE_FORMAT, cutting * k))
+                    .append("\t\t").append(PERCENTAGE_FORMAT.format(cuttingPercent)).append(" %")
+                    .append("\n");
         if (bending != 0.0)
             textReport.append("Гибка \t\t\t:  ")
-                    .append(DECIMAL_FORMAT.format(bending * k)).append("\n");
+                    .append(String.format(DOUBLE_FORMAT, bending * k))
+                    .append("\t\t").append(PERCENTAGE_FORMAT.format(bendingPercent)).append(" %")
+                    .append("\n");
         if (welding != 0.0)
             textReport.append("Сварка \t\t\t:  ")
-                    .append(DECIMAL_FORMAT.format(welding * k)).append("\n");
+                    .append(String.format(DOUBLE_FORMAT, welding * k))
+                    .append("\t\t").append(PERCENTAGE_FORMAT.format(weldingPercent)).append(" %")
+                    .append("\n");
         if (locksmith != 0.0)
             textReport.append("Слесарка \t\t:  "
-            ).append(DECIMAL_FORMAT.format(locksmith * k)).append("\n");
+            ).append(String.format(DOUBLE_FORMAT, locksmith * k))
+                    .append("\t\t").append(PERCENTAGE_FORMAT.format(locksmithPercent)).append(" %")
+                    .append("\n");
         if (mechanic != 0.0)
             textReport.append("Мехобработка \t:  "
-            ).append(DECIMAL_FORMAT.format(mechanic * k)).append(" ");
+            ).append(String.format(DOUBLE_FORMAT, mechanic * k))
+                    .append("\t\t").append(PERCENTAGE_FORMAT.format(mechanicPercent)).append(" %")
+                    .append("\n");
     }
 
 }

@@ -50,6 +50,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     public static final double SEC_TO_MIN = 1.0/60; //перевод секунды в минут
     public static final double RO = 0.00000785; //плотность стали кг/м3
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###.###");
+    public static final DecimalFormat PERCENTAGE_FORMAT = new DecimalFormat("###");
     public static final String DOUBLE_FORMAT = "%5.3f";
     public static final String INTEGER_FORMAT = "%10.0f";
 

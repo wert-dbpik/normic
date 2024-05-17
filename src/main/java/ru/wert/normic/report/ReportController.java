@@ -14,6 +14,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.report.reports.ReportMaterials;
 import ru.wert.normic.report.reports.ReportNormsByJobTypes;
 import ru.wert.normic.report.reports.ReportNormsByNormTypes;
 import ru.wert.normic.report.reports.ReportPainting;
@@ -61,6 +62,7 @@ public class ReportController {
 
     public void init(OpAssm opAssm){
         this.opAssm = opAssm;
+        List<OpData> ops = opAssm.getOperations();
 
         //Сбрасываем данные преред создание отчета
         componentA = 0.0;
@@ -74,16 +76,9 @@ public class ReportController {
 
         //###########################################################################################################
 
-        //Материалы
-        materials = new HashMap<>();
-        List<OpData> ops = opAssm.getOperations();
-        collectMaterialsByOpData(ops);
-        if(!materials.isEmpty())
-            addMaterialsReport();
+        //Материалы и лом
+        new ReportMaterials(textReport, opAssm).create();
 
-        //Лом стали
-        if(steelScrap != 0.0)
-            textReport.append("\nЛОМ СТАЛИ (10%): ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
 
         //Наливной уплотнитель
         collectComponentsABByOpData(ops);
@@ -112,47 +107,6 @@ public class ReportController {
 
         taReport.setText(textReport.toString());
 
-    }
-
-//==========   МАТЕРИАЛЫ  ===================================================
-
-    /**
-     * Добавить отчет по ИСПОЛЬЗУЕМЫМ МАТЕРИАЛАМ
-     */
-    private void addMaterialsReport() {
-        textReport.append("\n\n").append("МАТЕРИАЛЫ :\n");
-        for(Material m : materials.keySet()){
-            textReport.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
-        }
-    }
-
-    /**
-     * Сосчитать все МАТЕРИАЛЫ
-     */
-    private void collectMaterialsByOpData(List<OpData> ops) {
-        Density steelDensity = DENSITIES.findByName("сталь");
-        for (OpData op : ops) {
-            if (op instanceof OpDetail) {
-                Material m = ((OpDetail) op).getMaterial();
-                //Детали, если не открывать редактор детали, материала не содержат
-                if (m == null) continue;
-                if (materials.containsKey(m)) {
-                    //Прибавляем новый вес к полученному ранее материалу
-                    double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity();
-                    materials.put(m, sumWeight);
-                } else {
-                    //Добавляем новый материал и массу
-                    materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
-                }
-                if(steelDensity != null && m.getParamX() == steelDensity.getAmount())
-                    steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.1;
-
-            } else if (op instanceof OpAssm) {
-                List<OpData> operations = ((OpAssm) op).getOperations();
-                collectMaterialsByOpData(operations);
-            }
-
-        }
     }
 
 //==========   НАЛИВНОЙ УПЛОТНИТЕЛЬ  ===================================================

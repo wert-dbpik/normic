@@ -25,7 +25,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.StructureController;
-import ru.wert.normic.controllers.extra.ReportController;
+import ru.wert.normic.report.ReportController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.Decoration;
@@ -420,7 +420,7 @@ public class MainController extends AbstractFormController {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/report1C.fxml"));
-            VBox report = loader.load();
+            Parent report = loader.load();
             ReportController controller = loader.getController();
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             controller.init((OpAssm) opData);
@@ -428,7 +428,7 @@ public class MainController extends AbstractFormController {
             new Decoration(
                     "ОТЧЕТ",
                     report,
-                    false,
+                    true,
                     owner,
                     "decoration-report",
                     true,

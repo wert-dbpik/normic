@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.extra.reports;
+package ru.wert.normic.report.reports;
 
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -41,7 +41,7 @@ public class ReportNormsByJobTypes {
         for (OpData op : ops){
             if(op instanceof IOpWithOperations)
                 countNormsByJobType((IOpWithOperations) op, op.getQuantity() * quantity);
-            else
+            else {
                 switch(op.getJobType()){
                     case JOB_CUTTING: cutting += op.getMechTime() * quantity; break;
                     case JOB_BENDING: bending += op.getMechTime() * quantity; break;
@@ -49,6 +49,7 @@ public class ReportNormsByJobTypes {
                     case JOB_LOCKSMITH: locksmith += op.getMechTime() * quantity; break;
                     case JOB_MECHANIC: mechanic += op.getMechTime() * quantity; break;
                     default: break;
+                }
                 }
 
         }
@@ -64,7 +65,7 @@ public class ReportNormsByJobTypes {
                 k = MIN_TO_HOUR;
                 break;
         }
-        textReport.append("\n\n").append(String.format("НОРМЫ ВРЕМЕНИ МК ПО ВИДУ РАБОТ (%s):\n", CURRENT_MEASURE.getMeasure()));
+        textReport.append("\n\n").append(String.format("НОРМЫ ВРЕМЕНИ МК ПО ВИДУ РАБОТ  (%s):\n", CURRENT_MEASURE.getMeasure()));
 
         int cuttingPercent = (int)Math.round(cutting / opAssm.getMechTime() * 100);
         int bendingPercent = (int) Math.round(bending / opAssm.getMechTime() * 100);
@@ -103,6 +104,11 @@ public class ReportNormsByJobTypes {
             ).append(String.format(DOUBLE_FORMAT, mechanic * k))
                     .append("\t\t").append(PERCENTAGE_FORMAT.format(mechanicPercent)).append(" %")
                     .append("\n");
+
+        textReport.append("-------------------------------------------------------\n");
+        textReport.append("ИТОГО МК\t\t:  ")
+                .append(String.format(DOUBLE_FORMAT, opAssm.getMechTime() * k * opAssm.getQuantity()))
+                .append("\n");
     }
 
 }

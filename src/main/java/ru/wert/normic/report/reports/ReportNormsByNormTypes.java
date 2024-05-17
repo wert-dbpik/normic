@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.extra.reports;
+package ru.wert.normic.report.reports;
 
 import ru.wert.normic.entities.ops.single.OpAssm;
 
@@ -36,11 +36,14 @@ public class ReportNormsByNormTypes {
                 k = MIN_TO_HOUR;
                 break;
         }
-        textReport.append("\n\n").append(String.format("НОРМЫ ВРЕМЕНИ (%s):\n", CURRENT_MEASURE.getMeasure()));
 
-        if (opAssm.getMechTime() != 0.0)
-            textReport.append("Изготовление \t:  ")
-                    .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append("\n");
+        String title = opAssm.getMechTime() == 0.0 ? "НОРМЫ ВРЕМЕНИ" : "ОСТАЛЬНЫЕ НОРМЫ ВРЕМЕНИ";
+        if(opAssm.getPaintTime() != 0.0 || opAssm.getAssmTime() != 0.0 || opAssm.getPackTime() != 0.0)
+            textReport.append("\n\n").append(String.format("%s  (%s):\n", title, CURRENT_MEASURE.getMeasure()));
+
+//        if (opAssm.getMechTime() != 0.0)
+//            textReport.append("Изготовление \t:  ")
+//                    .append(DECIMAL_FORMAT.format(opAssm.getMechTime() * k)).append("\n");
         if (opAssm.getPaintTime() != 0.0)
             textReport.append("Покраска \t\t:  ")
                     .append(DECIMAL_FORMAT.format(opAssm.getPaintTime() * k)).append("\n");

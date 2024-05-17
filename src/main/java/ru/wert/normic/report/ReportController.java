@@ -1,9 +1,7 @@
-package ru.wert.normic.controllers.extra;
+package ru.wert.normic.report;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import ru.wert.normic.controllers.extra.reports.ReportNormsByJobTypes;
-import ru.wert.normic.controllers.extra.reports.ReportNormsByNormTypes;
 import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
@@ -16,6 +14,8 @@ import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.report.reports.ReportNormsByJobTypes;
+import ru.wert.normic.report.reports.ReportNormsByNormTypes;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -105,11 +105,12 @@ public class ReportController {
             addPackReport(cartoon, cartoonAngle, stretchMachine, stretchHand, polyTape, bubble, duct, pallet);
 
 
-        //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
-        new ReportNormsByNormTypes(textReport, opAssm).create();
 
         //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
         new ReportNormsByJobTypes(textReport, opAssm).create();
+
+        //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
+        new ReportNormsByNormTypes(textReport, opAssm).create();
 
 
         taReport.setText(textReport.toString());

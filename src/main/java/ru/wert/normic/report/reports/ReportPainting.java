@@ -1,17 +1,4 @@
-package ru.wert.normic.controllers.extra.reports;
-
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.enums.EColor;
-import ru.wert.normic.interfaces.IOpWithOperations;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
+package ru.wert.normic.report.reports;
 
 public class ReportPainting {
 //

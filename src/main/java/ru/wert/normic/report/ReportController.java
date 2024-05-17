@@ -16,6 +16,7 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.report.reports.ReportNormsByJobTypes;
 import ru.wert.normic.report.reports.ReportNormsByNormTypes;
+import ru.wert.normic.report.reports.ReportPainting;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -91,12 +92,8 @@ public class ReportController {
 
         //Покрытие
 
-        List<Double> ral1 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_I);
-        List<Double> ral2 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_II);
-        List<Double> ral3 = collectListOfOperationsInOpData(opAssm, EColor.COLOR_III);
-
-        if(ral1.get(0) + ral2.get(0) + ral3.get(0) != 0.0)
-            addColorReport(ral1, ral2, ral3);
+        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
+        new ReportPainting(textReport, opAssm).create();
 
         //УПАКОВКА
         collectPack(ops);

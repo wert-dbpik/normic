@@ -34,23 +34,35 @@ public class ReportNormsByJobTypes {
     /**
      * Метод рекурсивно перебирает механические операции и, в зависимости от вида работ суммирует
      * норму времени. Норма времени с типом JOB_NONE не суммируется.
+     *
      * @param OpWithOperations IOpWithOperations
      */
-    private void countNormsByJobType(IOpWithOperations OpWithOperations, int quantity){
+    private void countNormsByJobType(IOpWithOperations OpWithOperations, int quantity) {
         List<OpData> ops = OpWithOperations.getOperations();
-        for (OpData op : ops){
-            if(op instanceof IOpWithOperations)
+        for (OpData op : ops) {
+            if (op instanceof IOpWithOperations)
                 countNormsByJobType((IOpWithOperations) op, op.getQuantity() * quantity);
             else {
-                switch(op.getJobType()){
-                    case JOB_CUTTING: cutting += op.getMechTime() * quantity; break;
-                    case JOB_BENDING: bending += op.getMechTime() * quantity; break;
-                    case JOB_WELDING: welding += op.getMechTime() * quantity; break;
-                    case JOB_LOCKSMITH: locksmith += op.getMechTime() * quantity; break;
-                    case JOB_MECHANIC: mechanic += op.getMechTime() * quantity; break;
-                    default: break;
+                switch (op.getJobType()) {
+                    case JOB_CUTTING:
+                        cutting += op.getMechTime() * quantity;
+                        break;
+                    case JOB_BENDING:
+                        bending += op.getMechTime() * quantity;
+                        break;
+                    case JOB_WELDING:
+                        welding += op.getMechTime() * quantity;
+                        break;
+                    case JOB_LOCKSMITH:
+                        locksmith += op.getMechTime() * quantity;
+                        break;
+                    case JOB_MECHANIC:
+                        mechanic += op.getMechTime() * quantity;
+                        break;
+                    default:
+                        break;
                 }
-                }
+            }
 
         }
     }

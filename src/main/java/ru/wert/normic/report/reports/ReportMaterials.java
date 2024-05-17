@@ -29,7 +29,7 @@ public class ReportMaterials {
     public void create() {
         materials = new HashMap<>();
         List<OpData> ops = opAssm.getOperations();
-        collectMaterialsByOpData(ops);
+        collectMaterialsByOpData(ops, opAssm.getQuantity());
         if(!materials.isEmpty())
             addMaterialsReport();
 
@@ -60,18 +60,18 @@ public class ReportMaterials {
                 if (m == null) continue;
                 if (materials.containsKey(m)) {
                     //Прибавляем новый вес к полученному ранее материалу
-                    double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity();
+                    double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity() * quantity;
                     materials.put(m, sumWeight);
                 } else {
                     //Добавляем новый материал и массу
-                    materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity());
+                    materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity() * quantity);
                 }
                 if(steelDensity != null && m.getParamX() == steelDensity.getAmount())
                     steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.1;
 
             } else if (op instanceof OpAssm) {
                 List<OpData> operations = ((OpAssm) op).getOperations();
-                collectMaterialsByOpData(operations);
+                collectMaterialsByOpData(operations, op.getQuantity() * quantity);
             }
 
         }

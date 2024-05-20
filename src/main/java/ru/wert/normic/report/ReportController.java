@@ -33,31 +33,9 @@ public class ReportController {
     @FXML
     private TextArea taReport;
 
-    private OpAssm opAssm;
-    private Map<Material, Double> materials;
-    private Density steelDensity;
-    private double steelScrap; //переменная для расчета лома
-    private  StringBuilder textReport;
-
-    //Расход на наливное уплотнение
-    private double componentA; //Компонент полиэфирный А
-    private double componentB; //Компонент изоцинат Б
-
-
-
-    public ReportController() {
-        steelDensity = DENSITIES.findByName("сталь");
-    }
-
     public void init(OpAssm opAssm){
-        this.opAssm = opAssm;
-        List<OpData> ops = opAssm.getOperations();
 
-        //Сбрасываем данные преред создание отчета
-        componentA = 0.0;
-        componentB = 0.0;
-
-        textReport = new StringBuilder();
+        StringBuilder textReport = new StringBuilder();
 
         //Наименование изделия
         String name = opAssm.getName();
@@ -65,23 +43,17 @@ public class ReportController {
 
         //###########################################################################################################
 
-        //Материалы и лом
+        //МАТЕРИАЛЫ И ЛОМ
         new ReportMaterials(textReport, opAssm).create();
 
+        //НАЛИВНОЙ УПЛОТНИТЕЛЬ
+        new ReportLevelingSealer(textReport, opAssm).create();
 
-        //Наливной уплотнитель
-        collectComponentsABByOpData(ops);
-        if(componentA != 0.0)
-            addLevelingSealerReport();
-
-        //Покрытие
-
-        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
+        //ПОКРЫТИЕ
         new ReportPainting(textReport, opAssm).create();
 
         //УПАКОВКА
         new ReportPacking(textReport, opAssm).create();
-
 
         //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
         new ReportNormsByJobTypes(textReport, opAssm).create();
@@ -89,44 +61,8 @@ public class ReportController {
         //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
         new ReportNormsByNormTypes(textReport, opAssm).create();
 
-
         taReport.setText(textReport.toString());
 
     }
-
-//==========   НАЛИВНОЙ УПЛОТНИТЕЛЬ  ===================================================
-
-    /**
-     * Добавить отчет по НАЛИВНОМУ УПЛОТНЕНИЮ
-     */
-    private void addLevelingSealerReport() {
-        textReport.append("\n\n").append("НАЛИВНОЙ УПЛОТНИТЕЛЬ :\n");
-        textReport.append("Компонент полиэфирный\tА = ").append(DECIMAL_FORMAT.format(componentA)).append(" кг.\n");
-        textReport.append("Компонент изоцинат\t\tБ = ").append(DECIMAL_FORMAT.format(componentB)).append(" кг.\n");
-    }
-
-    /**
-     * Сосчитать матириалы по НАЛИВНОМУ УПЛОТНЕНИЮ
-     */
-    private void collectComponentsABByOpData(List<OpData> ops){
-        for (OpData op : ops) {
-            if(op instanceof OpAssm){
-                List<OpData> opsInAssm = ((OpAssm)op).getOperations();
-                collectComponentsABByOpData(opsInAssm);
-            }
-            else if(op instanceof OpLevelingSealer){
-                componentA += ((OpLevelingSealer) op).getCompA();
-                componentB += ((OpLevelingSealer) op).getCompB();
-            }
-        }
-    }
-
-
-
-//==========   УПАКОВКА   ===================================================
-
-
-
-
 
 }

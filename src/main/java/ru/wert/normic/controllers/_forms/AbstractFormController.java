@@ -35,7 +35,6 @@ import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
@@ -132,25 +131,79 @@ public abstract class AbstractFormController implements IForm {
             }
         });
 
-        Platform.runLater(()->{
-            main.setOnKeyPressed(ke->{
-                if (ke.isControlDown() && ke.getCode().equals(KeyCode.Z)) {
-                    blockUndoListFlag = true;
-                    addedPlates.clear();
-                    addedOperations.clear();
-                    getListViewTechOperations().getItems().clear();
+        Platform.runLater(() -> {
+            main.setOnKeyPressed(ke -> {
+                if (ke.isControlDown()) {
+                    if (ke.getCode().equals(KeyCode.Z)) {
+                        blockUndoListFlag = true;
+                        addedPlates.clear();
+                        addedOperations.clear();
+                        getListViewTechOperations().getItems().clear();
 
-                    if (ke.isShiftDown()) redoLastOperation();
-                    else undoLastOperation();
+                        if (ke.isShiftDown()) redoLastOperation();
+                        else undoLastOperation();
 
-                    menu.addListOfOperations();
-                    countSumNormTimeByShops();
-                    blockUndoListFlag = false;
+                        menu.addListOfOperations();
+                        countSumNormTimeByShops();
+                        blockUndoListFlag = false;
 
+                    } else if (ke.getCode().equals(KeyCode.NUMPAD2) || ke.getCode().equals(KeyCode.NUMPAD8) ||
+                            ke.getCode().equals(KeyCode.W) || ke.getCode().equals(KeyCode.S) ||
+                                    ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN) ||
+                                            ke.getCode().equals(KeyCode.PAGE_UP) || ke.getCode().equals(KeyCode.PAGE_DOWN))
+                    {
+                        movePlate(ke.getCode());
+                    }
                 }
-            });
 
+            });
         });
+
+    }
+
+    private void movePlate(KeyCode key){
+        int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
+        if(selectedIndex == -1) return;
+        //Определяем индех плашки для обмена
+        int exchangedIndex;
+        if(key.equals(KeyCode.NUMPAD2) || key.equals(KeyCode.DOWN) || key.equals(KeyCode.PAGE_DOWN) || key.equals(KeyCode.S))
+            exchangedIndex = selectedIndex + 1;
+        else
+            exchangedIndex = selectedIndex -1;
+        //Проверяем, существует ли элемент по индексу обмена
+        int maxIndex = getListViewTechOperations().getItems().size()-2;
+        if(exchangedIndex < 0 ||
+                exchangedIndex > maxIndex) return;
+        //Проверяем допустимость обмена по типу операции
+        EOpType selectedType = addedOperations.get(selectedIndex).getOpType();
+        EOpType exchangedType = addedOperations.get(exchangedIndex).getOpType();
+        if(selectedType.equals(EOpType.ASSM) || selectedType.equals(EOpType.DETAIL) ||  selectedType.equals(EOpType.PACK)){
+            if(!selectedType.equals(exchangedType))
+               return;
+        } else {
+            if(exchangedType.equals(EOpType.ASSM) || exchangedType.equals(EOpType.DETAIL) ||  exchangedType.equals(EOpType.PACK))
+                return;
+        }
+        //Начинаем обмен
+        getListViewTechOperations().getSelectionModel().clearSelection();
+
+        OpData selectedOpData = addedOperations.get(selectedIndex);
+        VBox selectedVBox = getListViewTechOperations().getItems().get(selectedIndex);
+        AbstractOpPlate selectedPlate = addedPlates.get(selectedIndex);
+
+        OpData exchangedOpData =  addedOperations.get(exchangedIndex);
+        VBox exchangeVBox = getListViewTechOperations().getItems().get(exchangedIndex);
+        AbstractOpPlate exchangedPlate = addedPlates.get(exchangedIndex);
+
+        addedOperations.set(exchangedIndex, selectedOpData);
+        getListViewTechOperations().getItems().set(exchangedIndex, selectedVBox);
+        addedPlates.set(exchangedIndex, selectedPlate);
+
+        addedOperations.set(selectedIndex, exchangedOpData);
+        getListViewTechOperations().getItems().set(selectedIndex, exchangeVBox);
+        addedPlates.set(selectedIndex, exchangedPlate);
+
+        getListViewTechOperations().getSelectionModel().select(exchangedIndex);
 
     }
 

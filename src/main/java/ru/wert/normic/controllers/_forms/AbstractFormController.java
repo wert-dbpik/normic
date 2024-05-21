@@ -161,6 +161,10 @@ public abstract class AbstractFormController implements IForm {
 
     }
 
+    /**
+     * Перемещает выбранную плашку на 1 позицию в зависимости от нажатого key
+     * @param key, KeyCode - Используется много вариантов, т.к. не все определяются системой
+     */
     private void movePlate(KeyCode key){
         int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
         if(selectedIndex == -1) return;
@@ -185,24 +189,30 @@ public abstract class AbstractFormController implements IForm {
                 return;
         }
         //Начинаем обмен
+        //Очищаем выделение перед перемещением
         getListViewTechOperations().getSelectionModel().clearSelection();
 
+        //Исходные данные для перемещаемой плашки
         OpData selectedOpData = addedOperations.get(selectedIndex);
         VBox selectedVBox = getListViewTechOperations().getItems().get(selectedIndex);
         AbstractOpPlate selectedPlate = addedPlates.get(selectedIndex);
 
+        //Плашка с которой будет производиться обмен
         OpData exchangedOpData =  addedOperations.get(exchangedIndex);
         VBox exchangeVBox = getListViewTechOperations().getItems().get(exchangedIndex);
         AbstractOpPlate exchangedPlate = addedPlates.get(exchangedIndex);
 
+        //Обменная плашка устанавливается на место выделенной
         addedOperations.set(exchangedIndex, selectedOpData);
         getListViewTechOperations().getItems().set(exchangedIndex, selectedVBox);
         addedPlates.set(exchangedIndex, selectedPlate);
 
+        //Выделенная плашка ставится на место обменной
         addedOperations.set(selectedIndex, exchangedOpData);
         getListViewTechOperations().getItems().set(selectedIndex, exchangeVBox);
         addedPlates.set(selectedIndex, exchangedPlate);
 
+        //Восстанавливаем выделение
         getListViewTechOperations().getSelectionModel().select(exchangedIndex);
 
     }

@@ -1,14 +1,20 @@
 package ru.wert.normic.controllers.paint.counters;
 
+import javafx.application.Platform;
+import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EColor;
+import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.interfaces.NormCounter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
@@ -21,7 +27,8 @@ public class OpPaintAssmCounter implements NormCounter {
     private boolean useCalculatedArea;
     private double kArea;
 
-    double area = 0.0; //Переменная для расчета площади покрытия
+    private double countedArea; //Переменная для расчета площади покрытия
+    List<IOpWithOperations> opsWithDoublePainting = new ArrayList<>();
 
     public OpData count(OpData data) {
         opData = (OpPaintAssm) data;
@@ -39,6 +46,7 @@ public class OpPaintAssmCounter implements NormCounter {
         this.kArea = twoSides ? 1.0 : 0.5;
         //###########################################################################
 
+        countedArea = 0.0;
         double countedArea = countCalculatedArea(assm);
         finalPaintedArea = useCalculatedArea ? countedArea * kArea : area;
 
@@ -75,14 +83,36 @@ public class OpPaintAssmCounter implements NormCounter {
     private double countCalculatedArea(IOpWithOperations assm){
         List<OpData> ops = assm.getOperations();
         for (OpData op : ops) {
-            if (op instanceof IOpWithOperations)
+            if (op instanceof OpAssm) {
+                checkIfDoublePainting((IOpWithOperations) op);
                 countCalculatedArea((IOpWithOperations) op);
-            if (op instanceof OpDetail){
-                area += ((OpDetail) op).getArea()* op.getQuantity();//количество деталей в сборке
+            }
+            if (op instanceof OpDetail) {
+                checkIfDoublePainting((IOpWithOperations) op);
+                countedArea += ((OpDetail) op).getArea() * op.getQuantity();//количество деталей в сборке
             }
         }
-//        formAreaProperty.set(area); //здесь надо разделить на количество сборок в изделии, если делался импорт из Excel
-        return area;
+        return countedArea;
+    }
+
+    private void checkIfDoublePainting(IOpWithOperations opData){
+        for(OpData op : opData.getOperations()) {
+            if (op.getOpType().equals(EOpType.PAINTING) || op.getOpType().equals(EOpType.PAINT_ASSM)) {
+                if (!opsWithDoublePainting.contains(opData)) {
+                    opsWithDoublePainting.add(opData);
+                    Platform.runLater(()->{
+                        boolean res = Warning2.create(
+                                "Внимание!",
+                                String.format("'%s' содержит дублирующую покраску.", opData.getName()),
+                                "Удалить повторное окрашивание?");
+                        if (res) {
+                            opData.getOperations().remove(op);
+                            opsWithDoublePainting.remove(opData);
+                        }
+                    });
+                }
+            }
+        }
     }
 
 

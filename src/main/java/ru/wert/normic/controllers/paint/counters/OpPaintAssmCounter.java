@@ -28,6 +28,7 @@ public class OpPaintAssmCounter implements NormCounter {
     private double kArea;
 
     private double countedArea; //Переменная для расчета площади покрытия
+    //Список операций с дублирующей покраской, создан чтобы сообщения не доставали пользователя
     List<IOpWithOperations> opsWithDoublePainting = new ArrayList<>();
 
     public OpData count(OpData data) {

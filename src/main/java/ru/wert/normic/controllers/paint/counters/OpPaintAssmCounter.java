@@ -21,6 +21,8 @@ public class OpPaintAssmCounter implements NormCounter {
     private boolean useCalculatedArea;
     private double kArea;
 
+    double area = 0.0; //Переменная для расчета площади покрытия
+
     public OpData count(OpData data) {
         opData = (OpPaintAssm) data;
 
@@ -71,7 +73,6 @@ public class OpPaintAssmCounter implements NormCounter {
     }
 
     private double countCalculatedArea(IOpWithOperations assm){
-        double area = 0.0;
         List<OpData> ops = assm.getOperations();
         for (OpData op : ops) {
             if (op instanceof IOpWithOperations)

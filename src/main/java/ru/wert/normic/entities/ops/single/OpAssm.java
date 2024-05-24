@@ -9,6 +9,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.interfaces.Paintable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +21,10 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
  */
 @Getter
 @Setter
-public class OpAssm extends OpData implements IOpWithOperations {
+public class OpAssm extends OpData implements IOpWithOperations, Paintable {
 
     private transient AbstractOpPlate opPlate;
+    private transient OpAssm painter;
 
     private boolean done = false;
     private transient BooleanProperty doneProperty = new SimpleBooleanProperty(done); //Расчет сборки завершен

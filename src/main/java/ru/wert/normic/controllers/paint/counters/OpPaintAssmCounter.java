@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.paint.counters;
 
 import javafx.application.Platform;
+import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.ops.OpData;
@@ -11,11 +12,14 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.interfaces.NormCounter;
+import ru.wert.normic.interfaces.Paintable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -57,23 +61,23 @@ public class OpPaintAssmCounter implements NormCounter {
         final int alongSize = along + ASSM_DELTA;
         final int acrossSize = across + ASSM_DELTA;
 
-        int partsOnBar = 2500/alongSize;
+        int partsOnBar = 2500 / alongSize;
 
         //Количество штанг в печи
         int bakeBars;
-        if(acrossSize < 49) bakeBars = 6;
-        else if(acrossSize >= 50 && acrossSize <= 99) bakeBars = 5;
-        else if(acrossSize >= 100 && acrossSize <= 199) bakeBars = 4;
-        else if(acrossSize >= 200 && acrossSize <= 299) bakeBars = 3;
-        else if(acrossSize >= 300 && acrossSize <= 399) bakeBars = 2;
+        if (acrossSize < 49) bakeBars = 6;
+        else if (acrossSize >= 50 && acrossSize <= 99) bakeBars = 5;
+        else if (acrossSize >= 100 && acrossSize <= 199) bakeBars = 4;
+        else if (acrossSize >= 200 && acrossSize <= 299) bakeBars = 3;
+        else if (acrossSize >= 300 && acrossSize <= 399) bakeBars = 2;
         else bakeBars = 1;
 
         double time;
         time = HANGING_TIME//Время навешивания
                 + finalPaintedArea * WINDING_MOVING_SPEED //Время подготовки к окрашиванию
                 + finalPaintedArea * pantingSpeed //Время нанесения покрытия
-                + 40.0/bakeBars/partsOnBar;  //Время полимеризации
-        if(finalPaintedArea == 0.0) time = 0.0;
+                + 40.0 / bakeBars / partsOnBar;  //Время полимеризации
+        if (finalPaintedArea == 0.0) time = 0.0;
 
         opData.setCountedArea(countedArea);
         opData.setDyeWeight(dyeWeight);
@@ -81,7 +85,7 @@ public class OpPaintAssmCounter implements NormCounter {
         return opData;
     }
 
-    private double countCalculatedArea(IOpWithOperations assm){
+    private double countCalculatedArea(IOpWithOperations assm) {
         List<OpData> ops = assm.getOperations();
         for (OpData op : ops) {
             if (op instanceof OpAssm) {
@@ -96,19 +100,31 @@ public class OpPaintAssmCounter implements NormCounter {
         return countedArea;
     }
 
-    private void checkIfDoublePainting(IOpWithOperations opData){
-        for(OpData op : opData.getOperations()) {
+    /**
+     * Проверяет входящие сборки и детали на дублирующее окрашивание
+     * Выносит предупреждение и предлагает удалить
+     *
+     * @param opWithOperations
+     */
+    private void checkIfDoublePainting(IOpWithOperations opWithOperations) {
+        for (OpData op : opWithOperations.getOperations()) {
+            //Маркируем по пути все окрашиваемые узлы, чтобы контролировать их изменение
+            if (op instanceof Paintable) ((Paintable) op).setPainter(assm);
             if (op.getOpType().equals(EOpType.PAINTING) || op.getOpType().equals(EOpType.PAINT_ASSM)) {
-                if (!opsWithDoublePainting.contains(opData)) {
-                    opsWithDoublePainting.add(opData);
-                    Platform.runLater(()->{
+                if (!opsWithDoublePainting.contains(opWithOperations)) {
+                    opsWithDoublePainting.add(opWithOperations);
+                    Platform.runLater(() -> {
                         boolean res = Warning2.create(
                                 "Внимание!",
-                                String.format("'%s' содержит дублирующую покраску.", opData.getName()),
+                                String.format("'%s' содержит дублирующую покраску.", opWithOperations.getName()),
                                 "Удалить повторное окрашивание?");
                         if (res) {
-                            opData.getOperations().remove(op);
-                            opsWithDoublePainting.remove(opData);
+                            opWithOperations.getOperations().remove(op);
+                            ((OpData) opWithOperations).setPaintTime(0f);
+                            //TODO : удалить плашку также, если она доступна
+                            opsWithDoublePainting.remove(opWithOperations);
+
+                            MAIN_CONTROLLER.recountMainOpData();
                         }
                     });
                 }

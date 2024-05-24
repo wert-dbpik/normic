@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.entities.ops.OpData;

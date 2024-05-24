@@ -660,6 +660,45 @@ public class MainController extends AbstractFormController {
 
     }
 
+    /**
+     * Метод пересчитывает нормы для главного окна
+     * И прописывает их по участкам
+     */
+    public void recountMainOpData(){
+        recountAll(MAIN_OP_DATA, 1);
+        countSumNormTimeByShops();
+    }
+
+    /**
+     * Метод пересчитывает нормы времени для указанной сборки
+     * @param assm, IOpWithOperations - пересчитываемая сборка
+     * @param quantity, количество сборок (изначально 1)
+     * @return
+     */
+    public IOpWithOperations recountAll(IOpWithOperations assm, int quantity){
+        ((OpData)assm).setMechTime(0f);
+        ((OpData)assm).setPaintTime(0f);
+        ((OpData)assm).setAssmTime(0f);
+        ((OpData)assm).setPackTime(0f);
+        List<OpData> ops = assm.getOperations();
+        for(OpData op : ops){
+            if(op instanceof IOpWithOperations) {
+                IOpWithOperations opWithOperations = recountAll((IOpWithOperations) op, quantity * ((OpData) assm).getQuantity());
+                ((OpData)assm).setMechTime(((OpData)assm).getMechTime() + ((OpData)opWithOperations).getMechTime() * ((OpData)assm).getQuantity());
+                ((OpData)assm).setPaintTime(((OpData)assm).getPaintTime() + ((OpData)opWithOperations).getPaintTime() * ((OpData)assm).getQuantity());
+                ((OpData)assm).setAssmTime(((OpData)assm).getAssmTime() + ((OpData)opWithOperations).getAssmTime() * ((OpData)assm).getQuantity());
+                ((OpData)assm).setPackTime(((OpData)assm).getPackTime() + ((OpData)opWithOperations).getPackTime() * ((OpData)assm).getQuantity());
+            } else {
+                OpData opData = op.getOpType().getNormCounter().count(op);
+                ((OpData)assm).setMechTime(((OpData)assm).getMechTime() + opData.getMechTime() * ((OpData)assm).getQuantity());
+                ((OpData)assm).setPaintTime(((OpData)assm).getPaintTime() + opData.getPaintTime() * ((OpData)assm).getQuantity());
+                ((OpData)assm).setAssmTime(((OpData)assm).getAssmTime() + opData.getAssmTime() * ((OpData)assm).getQuantity());
+                ((OpData)assm).setPackTime(((OpData)assm).getPackTime() + opData.getPackTime() * ((OpData)assm).getQuantity());
+            }
+        }
+        return assm;
+    }
+
 
 
     @Override

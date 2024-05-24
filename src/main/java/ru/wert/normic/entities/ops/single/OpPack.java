@@ -10,6 +10,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.interfaces.Paintable;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -772,7 +772,7 @@ public abstract class AbstractFormController implements IForm {
                     if (opType.equals("ASSM")) {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
                         blockUndoListFlag = true;
-                        deployFile(colorsSettings, newOpData);
+                        deployFile(source, colorsSettings, newOpData);
                         iterateUndoList();
                     } else {
                         LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
@@ -801,11 +801,14 @@ public abstract class AbstractFormController implements IForm {
     }
 
     //Сборка разворачивается в главном окне вместе с настройками изделя
-    private void deployFile(ColorsSettings colorsSettings, OpData newOpData) {
+    private void deployFile(EMenuSource source, ColorsSettings colorsSettings, OpData newOpData) {
         opData = newOpData;
         deployProductSettings(colorsSettings);
         createMenu();
         menu.addListOfOperations();
+        //Для вновь открытого изделия
+        if(!source.equals(EMenuSource.FORM_MENU))
+            MAIN_OP_DATA = (OpAssm) newOpData;
     }
 
     /**

@@ -665,8 +665,20 @@ public class MainController extends AbstractFormController {
      * И прописывает их по участкам
      */
     public void recountMainOpData(){
+        MAIN_OP_DATA.setMechTime(0f);
+        MAIN_OP_DATA.setPaintTime(0f);
+        MAIN_OP_DATA.setAssmTime(0f);
+        MAIN_OP_DATA.setPackTime(0f);
+
         recountAll(MAIN_OP_DATA, 1);
         countSumNormTimeByShops();
+    }
+
+    private class Medium{
+        double mech;
+        double paint;
+        double assm;
+        double pack;
     }
 
     /**

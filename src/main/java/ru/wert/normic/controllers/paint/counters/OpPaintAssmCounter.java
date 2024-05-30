@@ -1,8 +1,6 @@
 package ru.wert.normic.controllers.paint.counters;
 
 import javafx.application.Platform;
-import ru.wert.normic.controllers._forms.MainController;
-import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
@@ -16,11 +14,8 @@ import ru.wert.normic.interfaces.Paintable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
-import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpPaintAssmCounter implements NormCounter {
@@ -86,6 +81,7 @@ public class OpPaintAssmCounter implements NormCounter {
     }
 
     private double countCalculatedArea(IOpWithOperations assm) {
+        if(assm == null) return 0f; //При первой загрузке изделия
         List<OpData> ops = assm.getOperations();
         for (OpData op : ops) {
             if (op instanceof OpAssm) {
@@ -124,7 +120,7 @@ public class OpPaintAssmCounter implements NormCounter {
                             //TODO : удалить плашку также, если она доступна
                             opsWithDoublePainting.remove(opWithOperations);
 
-                            MAIN_CONTROLLER.recountMainOpData();
+                            MAIN_CONTROLLER.recountPaintingMainOpData();
                         }
                     });
                 }

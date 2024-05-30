@@ -2,10 +2,7 @@ package ru.wert.normic.enums;
 
 import javafx.scene.image.Image;
 import lombok.Getter;
-import ru.wert.normic.controllers.assembling.countings.OpAssmCattingCounter;
-import ru.wert.normic.controllers.assembling.countings.OpAssmNodeCounter;
-import ru.wert.normic.controllers.assembling.countings.OpAssmNutsCounter;
-import ru.wert.normic.controllers.assembling.countings.OpLevelingSealerCounter;
+import ru.wert.normic.controllers.assembling.countings.*;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
@@ -17,10 +14,7 @@ import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmNode;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
-import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
+import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.*;
@@ -61,6 +55,7 @@ public enum EOpType {
     ASSM_NODES                  ("Сборка стандартных узлов",        OpAssmNode.class,                   new Image("/pics/opLogos/cutting.png"),         new OpAssmNodeCounter()),           //СБОРКА ОТДЕЛЬНЫХ УЗЛОВ
     ASSM_NUTS                   ("Сборка крепежа",                  OpAssmNut.class,                    new Image("/pics/opLogos/nuts.png"),            new OpAssmNutsCounter()),           //СБОРКА КРЕПЕЖА
     LEVELING_SEALER             ("Наливной уплотнитель",            OpLevelingSealer.class,             new Image("/pics/opLogos/sealer.png"),          new OpLevelingSealerCounter()),     //НАЛИВКА УПЛОТНИТЕЛЯ
+    THERMO_INSULATION           ("Термоизоляция",                   OpThermoInsulation.class,           new Image("/pics/opLogos/thermoinsulation.png"),new OpThermoInsulationCounter()),   //МОНТАЖ ТЕРМОИЗОЛЯЦИИ
 
     //СЛЕСАРНЫЕ ОПЕРАЦИИ
     LOCKSMITH                   ("Слесарные операции",              OpLocksmith.class,                  new Image("/pics/opLogos/locksmith.png"),       new OpLocksmithCounter()),          //СЛЕАРНЫЕ РАБОТЫ
@@ -84,7 +79,7 @@ public enum EOpType {
 
     //УПАКОВКА
     PACK_ON_PALLET              ("Монтаж на поддон",                OpPackOnPallet.class,               new Image("/pics/opLogos/pallet.png"),          new OpPackOnPalletCounter()),        //УПАКОВКА НА ПАЛЛЕТ (Установка и закрепление)
-    PACK_IN_MACHINE_STRETCH_WRAP("Упаковка в машинную стрейч-пленку", OpPackInMachineStretchWrap.class, new Image("/pics/opLogos/wrap.png"),           new OpPackInMachineStretchWrapCounter()),//УПАКОВКА В КАРТОН (КРЫШКИ И УГОЛКИ)
+    PACK_IN_MACHINE_STRETCH_WRAP("Упаковка в машинную стрейч-пленку", OpPackInMachineStretchWrap.class, new Image("/pics/opLogos/wrap.png"),            new OpPackInMachineStretchWrapCounter()),//УПАКОВКА В КАРТОН (КРЫШКИ И УГОЛКИ)
     PACK_IN_HAND_STRETCH_WRAP   ("Упаковка в ручную стрейч-пленку", OpPackInHandStretchWrap.class,      new Image("/pics/opLogos/wrap.png"),            new OpPackInHandStretchWrapCounter()),//УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
     PACK_IN_CARTOON_BOX         ("Упаковка в картонную коробку",    OpPackInCartoonBox.class,           new Image("/pics/opLogos/cartoon.png"),         new OpPackInCartoonBoxCounter()),     //УПАКОВКА В КАРТОННУЮ КОРОБКУ
     PACK_IN_BUBBLE_WRAP         ("Упаковка в пузырьковую пленку",   OpPackInBubbleWrap.class,           new Image("/pics/opLogos/wrap.png"),            new OpPackInBubbleWrapCounter()),     //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ

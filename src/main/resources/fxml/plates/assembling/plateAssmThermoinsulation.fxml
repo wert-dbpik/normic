@@ -10,13 +10,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.turning.PlateLatheDrillingController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.assembling.PlateThermoInsulation">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../pics/opLogos/thermoisolation.png" />
+                  <Image url="@../../../pics/opLogos/thermoinsulation.png" />
                </image>
             </ImageView>
             <Label fx:id="lblOperationName" text="УКЛАДКА ТЕРМОИЗОЛЯЦИИ" textFill="#2f23d0">

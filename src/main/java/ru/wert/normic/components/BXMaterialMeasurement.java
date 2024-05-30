@@ -48,7 +48,7 @@ public class BXMaterialMeasurement {
                 if (item == null || empty) {
                     setText(null);
                 } else {
-                    setText(item.getName());
+                    setText(item.getMeasure());
                 }
             }
 

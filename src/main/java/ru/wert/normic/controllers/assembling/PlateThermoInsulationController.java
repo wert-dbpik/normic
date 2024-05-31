@@ -99,7 +99,8 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getOpType().getNormCounter().count(data).getAssmTime();//результат в минутах
+        opData = (OpThermoInsulation) opData.getOpType().getNormCounter().count(opData);
+        currentNormTime = opData.getAssmTime();//результат в минутах
 
         tfOutlay.setText(String.format(DOUBLE_FORMAT, opData.getOutlay()));
         lblMeasurement.setText(opData.getMeasurement().getMeasure());
@@ -129,6 +130,9 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
         opData.setFront(chbxFront.isSelected());
         opData.setBack(chbxBack.isSelected());
 
+        opData.setMeasurement(cmbxMeasurement.getValue());
+        opData.setThickness(cmbxThickness.getValue());
+
         opData.setPlusRatio(plusRatio);
 
     }
@@ -141,11 +145,11 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
         tfWidth.setText(String.valueOf(opData.getWidth()));
         tfDepth.setText(String.valueOf(opData.getDepth()));
 
-        cmbxThickness.getSelectionModel().select(opData.getThickness());
-        cmbxMeasurement.getSelectionModel().select(opData.getMeasurement());
-
         chbxFront.setSelected(opData.getFront());
         chbxBack.setSelected(opData.getBack());
+
+        cmbxThickness.getSelectionModel().select(opData.getThickness());
+        cmbxMeasurement.getSelectionModel().select(opData.getMeasurement());
 
         tfPlusRatio.setText(String.format(DOUBLE_FORMAT, opData.getPlusRatio()));
         lblMeasurement.setText(opData.getMeasurement().getMeasure());
@@ -153,14 +157,14 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Расчет расхода и норм времени на монтаж термоизоляции ведется исходя из габаритов шкафа," +
+        return String.format("Расчет расхода и норм времени на монтаж термоизоляции ведется исходя из габаритов шкафа,\n" +
                 "где В - высота, Ш - ширина, Г - глубина шкафа.\n" +
-                "При расчете можно вычесть фронтальную и заднюю стенки (снять галочки ФРОНТ и ЗАД)." +
-                "Запас термоизоляции выбирается исходя из особенности конструкции и может достигать 30%% - коэффициент 1,3." +
-                "Единицы измерения предназначены: м2 - для листовой термоизоляции типа фольгированного изолона," +
-                "м3 - для толстой термоизоляции типа пеноплекса - выбираются самостоятельно." +
-                "Норма времени на монтаж термоизоляции расчитывается из площади шкафа по формуле:" +
-                "\t\t\tT монт = S шк х V монт," +
+                "При расчете можно вычесть фронтальную и заднюю стенки (снять галочки ФРОНТ и ЗАД).\n" +
+                "Запас термоизоляции выбирается исходя из особенности конструкции и может достигать 30%% - коэффициент 1,3.\n" +
+                "Единицы измерения предназначены: м2 - для листовой термоизоляции типа фольгированного изолона,\n" +
+                "м3 - для толстой термоизоляции типа пеноплекса - выбираются самостоятельно.\n" +
+                "Норма времени на монтаж термоизоляции расчитывается из площади шкафа по формуле:\n" +
+                "\t\t\tT монт = S шк х V монт,\n" +
                 "где V монт = %s мин/м2 - скорость монтажа термоизоляции.", INSULATION_SPEED);
     }
 

@@ -42,6 +42,10 @@
     -fx-font-size: 12;
 }
 
+.check-box{
+    -fx-text-fill: -fx-color-text;
+}
+
 .button{
     -fx-background-color: -fx-color-dark-backround;
     -fx-padding: 0 0 0 0;

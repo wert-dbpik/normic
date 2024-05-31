@@ -49,6 +49,9 @@ public class ReportController {
         //НАЛИВНОЙ УПЛОТНИТЕЛЬ
         new ReportLevelingSealer(textReport, opAssm).create();
 
+        //ТЕРМОИОЛЯЦИЯ
+        new ReportInsulation(textReport, opAssm).create();
+
         //ПОКРЫТИЕ
         new ReportPainting(textReport, opAssm).create();
 

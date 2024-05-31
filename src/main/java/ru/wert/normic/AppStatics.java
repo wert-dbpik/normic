@@ -81,7 +81,7 @@ public class AppStatics {
                     PAINT_ASSM,
                     WELD_CONTINUOUS, WELD_DOTTED,
                     ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES,
-                    LEVELING_SEALER
+                    LEVELING_SEALER, THERMO_INSULATION
                     );
 
     //Перечень операций, которые можно добавить в УПАКОВКУ
@@ -95,7 +95,7 @@ public class AppStatics {
     public static final List<EOpType> DUPLICATED_OPERATIONS =
             Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,
                     LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
-                    DRILLING_BY_MARKING,
+                    DRILLING_BY_MARKING, THERMO_INSULATION,
                     PACK, PACK_ON_PALLET);
 
     //Перечень допустимых операций по типу материала
@@ -126,5 +126,14 @@ public class AppStatics {
                 text
         ));
 
+    }
+
+    /**
+     * Округляет num до 0.001
+     */
+    public static double roundTo001(double num){
+        num = Math.round(num * 1000);
+        num = num/1000;
+        return num;
     }
 }

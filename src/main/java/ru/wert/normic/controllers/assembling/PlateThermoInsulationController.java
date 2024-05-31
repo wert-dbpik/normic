@@ -78,15 +78,16 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
 
     @Override//AbstractOpPlate
-    public void initViews(OpData opData) {
+    public void initViews(OpData data) {
+        OpThermoInsulation opData = (OpThermoInsulation)data;
 
         new TFIntegerColored(tfHeight, this);
         new TFIntegerColored(tfWidth, this);
         new TFIntegerColored(tfDepth, this);
         new ChBox(chbxFront, this);
         new ChBox(chbxBack, this);
-        new BXMaterialMeasurement().create(cmbxMeasurement, EMaterialMeasurement.M2, this);
-        new BXThermoThickness().create(cmbxThickness, 50, this);
+        new BXMaterialMeasurement().create(cmbxMeasurement, opData.getMeasurement(), this);
+        new BXThermoThickness().create(cmbxThickness, opData.getThickness(), this);
         new CmBx(cmbxThickness, this);
         new TFDoubleColored(tfPlusRatio, this);
 
@@ -148,10 +149,10 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
         chbxFront.setSelected(opData.getFront());
         chbxBack.setSelected(opData.getBack());
 
-        cmbxThickness.getSelectionModel().select(opData.getThickness());
-        cmbxMeasurement.getSelectionModel().select(opData.getMeasurement());
+        cmbxThickness.setValue(opData.getThickness());
+        cmbxMeasurement.setValue(opData.getMeasurement());
 
-        tfPlusRatio.setText(String.format(DOUBLE_FORMAT, opData.getPlusRatio()));
+        tfPlusRatio.setText(String.valueOf(opData.getPlusRatio()));
         lblMeasurement.setText(opData.getMeasurement().getMeasure());
     }
 

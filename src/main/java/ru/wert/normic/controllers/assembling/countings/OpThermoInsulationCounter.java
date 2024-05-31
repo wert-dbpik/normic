@@ -1,11 +1,11 @@
 package ru.wert.normic.controllers.assembling.countings;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.entities.ops.opAssembling.OpThermoInsulation;
 import ru.wert.normic.enums.EMaterialMeasurement;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
@@ -38,7 +38,9 @@ public class OpThermoInsulationCounter implements NormCounter {
         //#########################################################################################
 
         EMaterialMeasurement measurement = opData.getMeasurement();
-        opData.setOutlay(measurement.equals(EMaterialMeasurement.M2) ? square * plusRatio : volume * plusRatio);
+        opData.setOutlay(measurement.equals(EMaterialMeasurement.M2) ?
+                roundTo001(square * plusRatio) :
+                roundTo001(volume * plusRatio));
 
         double time =  square * INSULATION_SPEED;  //мин
         opData.setAssmTime(time);
@@ -46,4 +48,5 @@ public class OpThermoInsulationCounter implements NormCounter {
 
         return opData;
     }
+
 }

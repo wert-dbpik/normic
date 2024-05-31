@@ -492,6 +492,9 @@ public class MenuForm extends ContextMenu {
             case LEVELING_SEALER:
                 addLevelingSealerPlate((OpLevelingSealer) op);
                 break;
+            case THERMO_INSULATION:
+                addThermoInsulationPlate((OpThermoInsulation) op);
+                break;
             case PACK_IN_CARTOON_BOX:
                 addPackInCartoonBoxPlate((OpPackInCartoonBox) op);
                 break;

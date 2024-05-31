@@ -74,13 +74,13 @@ public abstract class AbstractOpPlate implements IOpPlate {
      * Метод устанавливает/восстанавливает начальные значения полей
      * согласно данным в классе OpData
      */
-    public abstract void fillOpData(OpData opData);
-
     public abstract void initViews(OpData opData);
 
     public abstract void countNorm(OpData opData);
 
     public abstract void countInitialValues();
+
+    public abstract void fillOpData(OpData opData);
 
     public abstract String helpText();
 

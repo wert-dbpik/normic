@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.assembling.PlateThermoInsulation">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.assembling.PlateThermoInsulationController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -111,7 +111,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField fx:id="plusRatio" prefWidth="50.0" />
+                        <TextField fx:id="tfPlusRatio" prefWidth="50.0" />
                      </children>
                   </HBox>
                </children>

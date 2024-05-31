@@ -183,6 +183,15 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //МОНТАЖ ТЕРМОИЗОЛЯЦИИ
+    public MenuItem createItemThermoInsulation(){
+        MenuItem item = new MenuItem(EOpType.THERMO_INSULATION.getOpName());
+        item.setOnAction(event -> {
+            addThermoInsulationPlate(new OpThermoInsulation());
+        });
+        return item;
+    }
+
     //===========      СЛЕСАРНЫЕ ОПЕРАЦИИ     =========================================
 
     //СЛЕСАРНЫЕ РАБОТЫ
@@ -933,6 +942,24 @@ public class MenuForm extends ContextMenu {
             controller.init(formController, opData, addedOperations.size(), "НАНЕСЕНИЕ НАЛИВНОГО УПЛОТНИТЕЛЯ");
             addVBox(vBox);
             
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //==================================================================================================================
+
+    /**
+     * МОНТАЖ ТЕРМОИЗОЛЯЦИИ
+     */
+    public void addThermoInsulationPlate(OpThermoInsulation opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateThermoInsulation.fxml"));
+            VBox vBox = loader.load();
+            PlateThermoInsulationController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "МОНТАЖ ТЕРМОИЗОЛЯЦИИ");
+            addVBox(vBox);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,6 +8,7 @@ import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -75,9 +76,9 @@ public class OpPaintCounter implements NormCounter {
         if (coatArea == 0.0) time = 0.0;
 
         //Сохраняем все полученные значения
-        opData.setArea(coatArea);
-        opData.setDyeWeight(dyeWeight);
-        opData.setPaintTime(time);
+        opData.setArea(roundTo001(coatArea));
+        opData.setDyeWeight(roundTo001(dyeWeight));
+        opData.setPaintTime(roundTo001(time));
         return opData;
     }
 }

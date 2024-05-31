@@ -43,7 +43,7 @@ public class OpThermoInsulationCounter implements NormCounter {
                 roundTo001(volume * plusRatio));
 
         double time =  square * INSULATION_SPEED;  //мин
-        opData.setAssmTime(time);
+        opData.setAssmTime(roundTo001(time));
 
 
         return opData;

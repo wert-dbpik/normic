@@ -4,6 +4,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.SEC_TO_MIN;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -23,7 +24,7 @@ public class OpAssmCattingCounter implements NormCounter {
                 + selfAdhSealer * SELF_ADH_SEALER_SPEED * SEC_TO_MIN
                 + insulation * INSULATION_SPEED;//мин
 
-        opData.setAssmTime(time);
+        opData.setAssmTime(roundTo001(time));
         return opData;
     }
 

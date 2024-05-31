@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.BENDING_SERVICE_RATIO;
 import static ru.wert.normic.settings.NormConstants.BENDING_SPEED;
 
@@ -22,7 +23,7 @@ public class OpBendingCounter  implements NormCounter {
         double time =  bends * BENDING_SPEED * toolRatio * men  //мин
                 * BENDING_SERVICE_RATIO;
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

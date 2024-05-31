@@ -9,6 +9,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpCutOffOnTheSawCounter implements NormCounter {
 
     public OpData count(OpData data){
@@ -21,7 +23,7 @@ public class OpCutOffOnTheSawCounter implements NormCounter {
 
         double time = findTime(length) + sawType.getSpeed();
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

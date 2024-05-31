@@ -8,6 +8,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpLatheCutGrooveCounter implements NormCounter {
 
     private final int maxDepth = 35; //Максимальная глубина канавки
@@ -61,7 +63,7 @@ public class OpLatheCutGrooveCounter implements NormCounter {
 
         double time = findTime(depth);
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 }

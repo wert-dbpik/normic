@@ -9,6 +9,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpLatheTurningCounter implements NormCounter{
 
     private final int maxTurningDiameter = 200; //Максимальный диаметр свреления
@@ -48,7 +50,7 @@ public class OpLatheTurningCounter implements NormCounter{
 
         double time = findTime(turningDiameter, length) * passages;
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

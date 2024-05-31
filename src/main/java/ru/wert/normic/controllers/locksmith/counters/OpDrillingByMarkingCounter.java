@@ -9,6 +9,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpDrillingByMarkingCounter implements NormCounter {
 
     int[] depths = new int[]{                       5,    27,   10,   12,   15,   20,   25,   30,   40};
@@ -53,7 +55,7 @@ public class OpDrillingByMarkingCounter implements NormCounter {
         double time = findTimeForMarking(length) * (holes + 1) +    //Время разметки
                 holes * findTimeForDrilling(depth, diameter);          //Время сверления
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

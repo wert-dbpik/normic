@@ -9,6 +9,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpLatheMountDismountCounter implements NormCounter {
 
     private final double maxWeight = 20; //Максимальный вес заготовки
@@ -39,7 +41,7 @@ public class OpLatheMountDismountCounter implements NormCounter {
         //##################################################################
         double time = findTime(holder, weight);
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

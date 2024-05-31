@@ -6,6 +6,7 @@ import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 import ru.wert.normic.enums.EWinding;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -45,9 +46,9 @@ public class OpPackInBubbleWrapCounter implements NormCounter {
 
         double time = BUBBLE_CUT_AND_DUCT + bubbleWrap * BUBBLE_HAND_WINDING;
 
-        opData.setBubbleWrap(bubbleWrap);
-        opData.setDuctTape(ductTape);
-        opData.setPackTime(time);
+        opData.setBubbleWrap(roundTo001(bubbleWrap));
+        opData.setDuctTape(roundTo001(ductTape));
+        opData.setPackTime(roundTo001(time));
         return opData;
     }
 }

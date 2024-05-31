@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackInCartoonBox;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 import static ru.wert.normic.settings.NormConstants.PACK_IN_CARTOON_BOX_SPEED;
@@ -34,9 +35,9 @@ public class OpPackInCartoonBoxCounter  implements NormCounter {
         double time = (CARTOON_BOX_SPEED + CARTOON_BOX_PREPARED_TIME / partMin) * 1.07 + //Время изготовления коробки
                 PACK_IN_CARTOON_BOX_SPEED; //Время упаковки изделия в коробку
 
-        opData.setCartoon(cartoon);
-        opData.setDuctTape(ductTape);
-        opData.setPackTime(time);
+        opData.setCartoon(roundTo001(cartoon));
+        opData.setDuctTape(roundTo001(ductTape));
+        opData.setPackTime(roundTo001(time));
         return opData;
     }
 }

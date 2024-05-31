@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.SEC_TO_MIN;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -23,7 +24,7 @@ public class OpLocksmithCounter implements NormCounter {
                 + countersinkings * COUNTERSINKING_SPEED
                 + threadings * THREADING_SPEED;   //мин
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 }

@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpWeldDottedCounter implements NormCounter {
@@ -19,7 +20,7 @@ public class OpWeldDottedCounter implements NormCounter {
         //######################################################
         double time =  parts * WELDING_PARTS_SPEED + dots * WELDING_DOTTED_SPEED + drops * WELDING_DROP_SPEED;   //мин
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 }

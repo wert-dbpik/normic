@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.SEC_TO_MIN;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -29,7 +30,7 @@ public class OpAssmNutsCounter implements NormCounter {
                 + groundSets * GROUND_SETS_SPEED
                 + others * OTHERS_SPEED * SEC_TO_MIN;   //мин
 
-        opData.setAssmTime(time);
+        opData.setAssmTime(roundTo001(time));
         return opData;
     }
 

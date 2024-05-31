@@ -8,6 +8,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpChopOffCounter implements NormCounter{
 
     private double chopTime = 0.05;
@@ -21,7 +23,7 @@ public class OpChopOffCounter implements NormCounter{
 
         double time = findTime(length) + chopTime;
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

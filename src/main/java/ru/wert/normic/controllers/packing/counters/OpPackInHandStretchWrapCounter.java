@@ -6,6 +6,7 @@ import ru.wert.normic.entities.ops.opPack.OpPackInHandStretchWrap;
 import ru.wert.normic.enums.EWinding;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.DUCT_TAPE_LENGTH;
 import static ru.wert.normic.settings.NormConstants.STRETCH_HAND_WINDING;
@@ -46,9 +47,9 @@ public class OpPackInHandStretchWrapCounter implements NormCounter {
 
         double time = handStretchWrap * STRETCH_HAND_WINDING;
 
-        opData.setStretchHandWrap(handStretchWrap);
-        opData.setDuctTape(ductTape);
-        opData.setPackTime(time);
+        opData.setStretchHandWrap(roundTo001(handStretchWrap));
+        opData.setDuctTape(roundTo001(ductTape));
+        opData.setPackTime(roundTo001(time));
         return opData;
     }
 }

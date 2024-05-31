@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpAssmNode;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpAssmNodeCounter implements NormCounter {
@@ -27,7 +28,7 @@ public class OpAssmNodeCounter implements NormCounter {
                 + connectionBoxes * CONNECTION_BOXES_SPEED;   //мин
 
 
-        opData.setAssmTime(time);
+        opData.setAssmTime(roundTo001(time));
         return opData;
     }
 

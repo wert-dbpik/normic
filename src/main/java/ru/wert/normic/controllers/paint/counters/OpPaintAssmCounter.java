@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpPaintAssmCounter implements NormCounter {
@@ -74,9 +75,9 @@ public class OpPaintAssmCounter implements NormCounter {
                 + 40.0 / bakeBars / partsOnBar;  //Время полимеризации
         if (finalPaintedArea == 0.0) time = 0.0;
 
-        opData.setCountedArea(countedArea);
-        opData.setDyeWeight(dyeWeight);
-        opData.setPaintTime(time);
+        opData.setCountedArea(roundTo001(countedArea));
+        opData.setDyeWeight(roundTo001(dyeWeight));
+        opData.setPaintTime(roundTo001(time));
         return opData;
     }
 

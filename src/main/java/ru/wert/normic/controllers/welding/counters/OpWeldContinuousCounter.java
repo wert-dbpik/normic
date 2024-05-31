@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.WELDING_SPEED;
 
@@ -48,7 +49,7 @@ public class OpWeldContinuousCounter implements NormCounter {
         time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED + assemblingTime) + strippingTime;   //мин
         if(sumWeldLength == 0.0) time = 0.0;
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 }

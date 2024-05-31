@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
 import static ru.wert.normic.settings.NormConstants.STRETCH_MACHINE_WINDING;
@@ -36,11 +37,11 @@ public class OpPackInMachineStretchWrapCounter implements NormCounter {
         double time = CARTOON_BOX_AND_ANGLES_SPEED + CARTOON_BOX_PREPARED_TIME / partMin * 1.07 + //Время изготовления 2х крышек
                 STRETCH_MACHINE_WINDING * countHeight; //Время упаковки изделия в коробку
 
-        opData.setCartoon(cartoonTop);
-        opData.setCartoonAngle(cartoonAngle);
-        opData.setStretchMachineWrap(stretchWrap);
-        opData.setDuctTape(ductTape);
-        opData.setPackTime(time);
+        opData.setCartoon(roundTo001(cartoonTop));
+        opData.setCartoonAngle(roundTo001(cartoonAngle));
+        opData.setStretchMachineWrap(roundTo001(stretchWrap));
+        opData.setDuctTape(roundTo001(ductTape));
+        opData.setPackTime(roundTo001(time));
         return opData;
     }
 }

@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 
 public class OpPackOnPalletCounter  implements NormCounter {
@@ -27,9 +28,9 @@ public class OpPackOnPalletCounter  implements NormCounter {
         double pallet = 1.0; //шт
         double time = 14.0; //мин
 
-        opData.setPallet(pallet);
-        opData.setPolyWrap(polyWrapL);
-        opData.setPackTime(time);
+        opData.setPallet(roundTo001(pallet));
+        opData.setPolyWrap(roundTo001(polyWrapL));
+        opData.setPackTime(roundTo001(time));
         return opData;
     }
 }

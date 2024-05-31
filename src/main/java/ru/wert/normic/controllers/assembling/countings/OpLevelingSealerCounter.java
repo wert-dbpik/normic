@@ -6,6 +6,7 @@ import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.LEVELING_PREPARED_TIME;
@@ -35,9 +36,9 @@ public class OpLevelingSealerCounter implements NormCounter {
         double compA = perimeter * normCompA;
         double compB = perimeter * normCompB;
 
-        opData.setCompA(compA);
-        opData.setCompB(compB);
-        opData.setAssmTime(time);
+        opData.setCompA(roundTo001(compA));
+        opData.setCompB(roundTo001(compB));
+        opData.setAssmTime(roundTo001(time));
         return opData;
     }
 

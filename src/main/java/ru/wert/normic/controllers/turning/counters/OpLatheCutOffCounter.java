@@ -9,6 +9,8 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.AppStatics.roundTo001;
+
 public class OpLatheCutOffCounter implements NormCounter {
 
     private final double maxDiameter = 100.0;
@@ -73,7 +75,7 @@ public class OpLatheCutOffCounter implements NormCounter {
 
         double time = findTime(cutOffSolid, diameter, thickness);
 
-        opData.setMechTime(time);
+        opData.setMechTime(roundTo001(time));
         return opData;
     }
 

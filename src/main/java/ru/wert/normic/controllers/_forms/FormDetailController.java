@@ -33,6 +33,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
@@ -301,8 +302,8 @@ public class FormDetailController extends AbstractFormController {
             paintingTime += cn.getPaintTime() * cn.getQuantity();
         }
 
-        opData.setMechTime(mechanicalTime);
-        opData.setPaintTime(paintingTime);
+        opData.setMechTime(roundTo001(mechanicalTime));
+        opData.setPaintTime(roundTo001(paintingTime));
 
         controller.countSumNormTimeByShops();
 

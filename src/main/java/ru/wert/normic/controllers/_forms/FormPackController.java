@@ -18,6 +18,7 @@ import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
@@ -167,7 +168,7 @@ public class FormPackController extends AbstractFormController {
             packTime += cn.getPackTime();
         }
 
-        opData.setPackTime(packTime);
+        opData.setPackTime(roundTo001(packTime));
 
         controller.countSumNormTimeByShops();
 

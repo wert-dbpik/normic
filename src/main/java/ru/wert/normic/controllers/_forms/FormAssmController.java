@@ -15,6 +15,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
@@ -165,10 +166,10 @@ public class FormAssmController extends AbstractFormController {
             packingTime += cn.getPackTime() * cn.getQuantity();
         }
 
-        opData.setMechTime(mechanicalTime);
-        opData.setPaintTime(paintingTime);
-        opData.setAssmTime(assemblingTime);
-        opData.setPackTime(packingTime);
+        opData.setMechTime(roundTo001(mechanicalTime));
+        opData.setPaintTime(roundTo001(paintingTime));
+        opData.setAssmTime(roundTo001(assemblingTime));
+        opData.setPackTime(roundTo001(packingTime));
 
         controller.countSumNormTimeByShops();
 

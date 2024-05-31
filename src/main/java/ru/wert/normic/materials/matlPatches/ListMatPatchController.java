@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import lombok.Getter;
 
+import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 
@@ -65,8 +66,8 @@ public class ListMatPatchController extends AbstractMatPatchController {
         tfWeight.setText(String.format(DOUBLE_FORMAT, weight));
         tfCoat.setText(String.format(DOUBLE_FORMAT, area));
 
-        opData.setWeight(weight);
-        opData.setArea(area);
+        opData.setWeight(roundTo001(weight));
+        opData.setArea(roundTo001(area));
 
 //        detailController.calculateAreaByDetails();
     }

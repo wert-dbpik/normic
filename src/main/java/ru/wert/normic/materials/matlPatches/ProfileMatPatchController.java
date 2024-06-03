@@ -48,7 +48,7 @@ public class ProfileMatPatchController extends AbstractMatPatchController {
     public void countWeightAndArea() {
         try {
             t = detailController.getCmbxMaterial().getValue().getParamS(); //Периметр профиля
-            ro = detailController.getCmbxMaterial().getValue().getParamX(); //Масса погонного метра
+            ro = (double) detailController.getCmbxMaterial().getValue().getParamX(); //Масса погонного метра
             paramA = Integer.parseInt(tfA.getText().trim()); //Длина отрезанной заготовки
             paramB = 0;
             wasteRatio = Double.parseDouble(tfWasteRatio.getText().trim());

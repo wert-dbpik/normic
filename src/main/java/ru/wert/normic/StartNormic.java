@@ -64,7 +64,7 @@ public class StartNormic extends Application {
 
     private void initUser() {
         if (propsFile.exists()){
-            log.info("Tubus props path : " + PROPS_PATH );
+            log.info("Normic props path : " + PROPS_PATH );
             getUserFromConnectionSettings();
         } else{
             log.info("Current user is not identified : propsFile does not exist.");

@@ -66,7 +66,7 @@ public class ReportMaterials {
                     //Добавляем новый материал и массу
                     materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity() * quantity);
                 }
-                if(steelDensity != null && m.getParamX() == steelDensity.getAmount())
+                if(steelDensity != null && (double)m.getParamX() == steelDensity.getAmount())
                     steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.1;
 
             } else if (op instanceof OpAssm) {

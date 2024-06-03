@@ -74,7 +74,7 @@ public class AppProperties {
             log.info("File of application settings is created: {}", props.toString());
 
             FileWriter writer = new FileWriter (props);
-            writer.write("IP_ADDRESS=" + SERVER_IP + "\n");
+            writer.write("IP_ADDRESS=" + (TEST_VERSION ? TEST_SERVER_IP : SERVER_IP) + "\n");
             writer.write("PORT =" + SERVER_PORT  + "\n");
             writer.write("SAVES_DIR=C:/\n");
             writer.write("IMPORT_DIR=C:/\n");

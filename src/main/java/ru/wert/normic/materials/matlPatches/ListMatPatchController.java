@@ -48,7 +48,7 @@ public class ListMatPatchController extends AbstractMatPatchController {
     @Override
     public void countWeightAndArea() {
         try {
-            ro = detailController.getCmbxMaterial().getValue().getParamX();
+            ro = (double) detailController.getCmbxMaterial().getValue().getParamX();
             t = detailController.getCmbxMaterial().getValue().getParamS();
             paramA = Integer.parseInt(tfA.getText().trim());
             paramB = Integer.parseInt(tfB.getText().trim());

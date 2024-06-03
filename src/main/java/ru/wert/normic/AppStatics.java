@@ -28,7 +28,7 @@ public class AppStatics {
     //Последняя доступная версия в БД
     public static String LAST_VERSION_IN_DB;
     //тестовая версия - работает с тестовым сервером
-    public static boolean TEST_VERSION = false;
+    public static boolean TEST_VERSION = true;
 
     //Ползователь
     public static User CURRENT_USER = null;
@@ -41,6 +41,7 @@ public class AppStatics {
     public static String LAUNCH_TIME; //Переменная, по которой происходит идентификация свой/чужой при перетаскивании плашек
 
 
+    public static final String TEST_SERVER_IP = "192.168.2.175";
     public static final String SERVER_IP = "192.168.2.132";
     public static final String SERVER_PORT = "8080";
 

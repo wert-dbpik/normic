@@ -11,7 +11,7 @@ public enum EMatType {
     LIST("Листовой", "/fxml/materials/material_list.fxml"),
     ROUND("Круглый", "/fxml/materials/material_round.fxml"),
     PROFILE("Профильный", "/fxml/materials/material_profile.fxml"),
-    PIECE("Штучный", "");
+    PIECE("Штучный", "/fxml/materials/material_piece.fxml");
 
     @Getter private String name;
     @Getter private String path;

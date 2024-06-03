@@ -87,6 +87,8 @@ public class MaterialsACCController {
                     loader = new FXMLLoader(getClass().getResource(EMatType.ROUND.getPath())); break;
                 case PROFILE:
                     loader = new FXMLLoader(getClass().getResource(EMatType.PROFILE.getPath()));break;
+                case PIECE:
+                    loader = new FXMLLoader(getClass().getResource(EMatType.PIECE.getPath()));break;
             }
             assert loader != null;
             Parent parent = loader.load();

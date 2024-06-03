@@ -13,7 +13,7 @@ public class MaterialMaster {
         int paramB = detail.getParamB();
         double wasteRatio = detail.getWasteRatio();
         double t = material.getParamS();
-        double ro = material.getParamX();
+        double ro = (double) material.getParamX();
         return paramA * paramB * t * ro * MM2_TO_M2 * wasteRatio;
     }
 
@@ -28,7 +28,7 @@ public class MaterialMaster {
         int length = detail.getParamA();
         int cut = detail.getParamB();
         double wasteRatio = detail.getWasteRatio();
-        double weightPerMeter = material.getParamX();
+        double weightPerMeter = (double) material.getParamX();
         return (length + cut) * MM_TO_M * weightPerMeter * wasteRatio;
     }
 
@@ -44,7 +44,7 @@ public class MaterialMaster {
         int length = detail.getParamA();
         int cut = detail.getParamB();
         double wasteRatio = detail.getWasteRatio();
-        double weightPerMeter = material.getParamX();
+        double weightPerMeter = (double) material.getParamX();
         return (length + cut) * MM_TO_M * weightPerMeter * wasteRatio;
     }
 

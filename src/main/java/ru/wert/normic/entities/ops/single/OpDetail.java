@@ -8,8 +8,10 @@ import lombok.Setter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.enums.EMaterialMeasurement;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.enums.EPieceMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.interfaces.Paintable;
 
@@ -35,9 +37,11 @@ public class OpDetail extends OpData implements IOpWithOperations, Paintable {
     private Material material = null;
     private Integer paramA = 0;
     private Integer paramB = 0;
+    private Integer paramC = 0; //Дополнительный параметр для материала штучного типа
     private double wasteRatio = 1.1;
-    private double weight = 0.0;
+    private double weight = 0.0; //Для штучных материалов поле хранит EPieceMeasurement в виде int
     private double area = 0.0;
+    private EPieceMeasurement measurement = EPieceMeasurement.PIECE; //Поле для штучных материалов
     private List<OpData> operations = new ArrayList<>();
 
     public OpDetail() {
@@ -52,6 +56,7 @@ public class OpDetail extends OpData implements IOpWithOperations, Paintable {
         return "Материал = " + (material == null ? "нет" : material.getName()) +
                 ", A = " + paramA + " мм" +
                 ", B = " + paramB + " мм" +
+                ", C = " + paramC + " мм" +
                 ", M = " + DECIMAL_FORMAT.format(weight) + " кг." +
                 ", S покр =" + DECIMAL_FORMAT.format(area) + " м.кв.";
     }

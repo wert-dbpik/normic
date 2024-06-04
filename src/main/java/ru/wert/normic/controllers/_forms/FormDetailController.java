@@ -148,6 +148,9 @@ public class FormDetailController extends AbstractFormController {
                     case PROFILE:
                         loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/profilePatch.fxml"));
                         break;
+                    case PIECE:
+                        loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/piecePatch.fxml"));
+                        break;
                 }
                 assert loader != null;
                 Parent parent = loader.load();
@@ -163,6 +166,7 @@ public class FormDetailController extends AbstractFormController {
             //Сохраняем введенные ранее данные
             ((OpDetail)opData).setParamA(matPatchController.getParamA());
             ((OpDetail)opData).setParamB(matPatchController.getParamB());
+            ((OpDetail)opData).setParamC(matPatchController.getParamC());
         }
 
         matPatchController.fillPatchOpData();
@@ -201,14 +205,6 @@ public class FormDetailController extends AbstractFormController {
         tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
             countSumNormTimeByShops();
         });
-
-//        ivErase.setOnMouseClicked(e->{
-//            ((IOpWithOperations)opData).getOperations().clear();
-//            addedPlates.clear();
-//            addedOperations.clear();
-//            listViewTechOperations.getItems().clear();
-//            countSumNormTimeByShops();
-//        });
     }
 
     @Override
@@ -248,7 +244,7 @@ public class FormDetailController extends AbstractFormController {
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
-        } else { //ПРОФИЛИ
+        } else if (type.equals(EMatType.PROFILE)){ //ПРОФИЛИ
             menu.getItems().add(menu.createItemCutOffOnTheSaw());
             menu.getItems().add(menu.createItemChopOff());
             menu.getItems().add(menu.createItemDrillingByMarking());
@@ -258,6 +254,14 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemPainting());
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
+        } else { //ШТУЧНЫЕ
+            menu.getItems().add(menu.createItemCutOffOnTheSaw());
+            menu.getItems().add(menu.createItemChopOff());
+            menu.getItems().add(menu.createItemDrillingByMarking());
+            menu.getItems().add(menu.createItemBending());
+            menu.getItems().add(menu.createItemLocksmith());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createItemPainting());
         }
 
         linkMenuToButton();

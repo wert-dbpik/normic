@@ -8,7 +8,7 @@ public enum EPieceMeasurement {
     PIECE("шт"),
     METER("м"),
     SQUARE_METER("м2"),
-    CUB_METER("м3");
+    CUBE_METER("м3");
 
     @Getter
     String measureName;

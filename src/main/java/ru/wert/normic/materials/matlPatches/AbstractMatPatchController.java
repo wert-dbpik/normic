@@ -19,6 +19,7 @@ public abstract class AbstractMatPatchController {
     @Getter@Setter protected double wasteRatio; //Коэффициент, учитывающий отход материала
     @Getter@Setter protected int paramA; //параметр А
     @Getter@Setter protected int paramB; //параметр B
+    @Getter@Setter protected int paramC; //параметр B
 
     public abstract TextField getTfA();
     public abstract TextField getTfB();

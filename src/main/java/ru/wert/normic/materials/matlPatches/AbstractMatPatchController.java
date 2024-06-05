@@ -23,6 +23,7 @@ public abstract class AbstractMatPatchController {
 
     public abstract TextField getTfA();
     public abstract TextField getTfB();
+//    public abstract TextField getTfC();
     public abstract TextField getTfWasteRatio();
     public abstract TextField getTfCoat();
     public abstract TextField getTfWeight();
@@ -52,6 +53,7 @@ public abstract class AbstractMatPatchController {
                 nc.countNorm(nc.getOpData());
             }
         });
+
 
         getTfWasteRatio().textProperty().addListener((observable, oldValue, newValue) -> {
             countWeightAndArea();

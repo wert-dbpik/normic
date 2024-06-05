@@ -58,6 +58,8 @@ public class PieceMatPatchController extends AbstractMatPatchController {
         EPieceMeasurement measure = EPieceMeasurement.values()[(int)material.getParamX()];
         opData.setMeasurement(measure);
 
+        tfC.setText(String.valueOf(opData.getParamC()));
+
         if(measure.equals(EPieceMeasurement.PIECE) || measure.equals(EPieceMeasurement.METER)){
             tfA.setDisable(false);
             tfB.setDisable(true);

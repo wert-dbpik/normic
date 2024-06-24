@@ -47,6 +47,8 @@ public class SearchingFileController {
 
     private List<OpData> addedOperations;
 
+    private String searchText;
+
     public void init(){
         createBtnSearchNow();
         createTfAndBtnWhereSearch();
@@ -58,14 +60,29 @@ public class SearchingFileController {
     private void createBtnSearchNow(){
         btnSearchNow.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/search.png")), 32,32, true, true)));
         btnSearchNow.setOnAction(e->{
+            searchText = normalizeSearchedText(btnSearchNow.getText());
+            List<String> foundNVRFiles = collectFoundNVRFiles();
+            for(String path : foundNVRFiles){
+
+            }
             System.out.println(collectFoundNVRFiles());
         });
     }
 
+    /**
+     * В директории поиска собирает все файлы с расширением .nvr, содержащие строку
+     */
     private List<String> collectFoundNVRFiles(){
         List<String> foundNVRFiles = new ArrayList<>();
         try{
-            Set<String> allFiles = collectAllNVRFiles(AppProperties.getInstance().getWhereToSearch());
+            Stream<Path> stream = Files.walk(Paths.get(AppProperties.getInstance().getWhereToSearch()));
+            Set<String> allFiles = stream
+                    .filter(file -> !Files.isDirectory(file))
+                    .map(Path::toString)
+                    .filter(name -> name.endsWith(".nvr"))
+                    .collect(Collectors.toSet());
+            stream.close();
+
             for(String path : allFiles){
                 String content = new String(Files.readAllBytes(Paths.get(path)));
                 if(content.contains(tfSearchText.getText()))
@@ -78,17 +95,41 @@ public class SearchingFileController {
     }
 
     /**
-     * В директории поиска собирает все файлы с расширением .nvr
+     * Позволяет опускать точку при поиске,
+     * вставлять строку с номером с пробелами из 1С
+     * Если набранных символов меньше равно 6, то ничего не делает
      */
-    private Set<String> collectAllNVRFiles(String dir) throws IOException {
-        try (Stream<Path> stream = Files.walk(Paths.get(dir))) {
-            return stream
-                    .filter(file -> !Files.isDirectory(file))
-                    .map(Path::toString)
-                    .filter(name -> name.endsWith(".nvr"))
-                    .collect(Collectors.toSet());
+    private String normalizeSearchedText(String text){
+        String newText = text.replaceAll("\\s+", "");
+        if(newText.matches("[a-zA-ZА-яа-я-]+"))
+            return text;
+
+        if(newText.length() <= 6)
+            return newText;
+
+        else if(newText.length() < 10){
+            if(newText.charAt(6) == '/' && newText.substring(0, 5).matches("[0-9]+")) {
+                newText = newText.replaceAll("/", ".");
+            }
+            if(newText.charAt(6) == '.'){
+                return newText;
+            }
+            StringBuilder sbText = new StringBuilder(newText);
+            return
+                    sbText.insert(6, ".").toString();
         }
+
+        StringBuilder sbText = new StringBuilder(newText.replaceAll("[^\\d]", ""));
+        if(sbText.length() >= 9){
+            sbText.delete(9, sbText.length());
+            sbText.insert(6, ".");
+            return sbText.toString();
+        } else
+            return newText;
     }
+
+
+
 
 
     /**

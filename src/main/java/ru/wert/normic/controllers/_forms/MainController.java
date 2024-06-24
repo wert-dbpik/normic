@@ -595,6 +595,7 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(menu.createItemThermoInsulation());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddFilePallet());
+        menu.getItems().add(menu.createItemFindFilePallet());
 
         linkMenuToButton();
 

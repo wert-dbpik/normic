@@ -12,6 +12,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -30,8 +31,10 @@ import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONException;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
+import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
@@ -44,6 +47,7 @@ import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.menus.MenuPlate;
+import ru.wert.normic.searching.SearchingFileController;
 import ru.wert.normic.settings.ColorsSettings;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
@@ -726,6 +730,39 @@ public abstract class AbstractFormController implements IForm {
         openNvrFile(e, source, file);
 
     }
+
+    /**
+     * НАЙТИ ФАЙЛ
+     */
+    public void find(Event e, EMenuSource source){
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
+                (Stage) ((Node)e.getSource()).getScene().getWindow();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/searching/searchFile.fxml"));
+            VBox settings = loader.load();
+            SearchingFileController controller = loader.getController();
+            controller.init();
+            Decoration decoration = new Decoration(
+                    "ПОИСК",
+                    settings,
+                    false,
+                    owner,
+                    "decoration-settings",
+                    true,
+                    false);
+
+            decoration.getImgCloseWindow().setOnMousePressed(ev->{
+//                controller.saveSettings();
+            });
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
+    }
+
 
     public void openNvrFile(Event e, EMenuSource source, File file) {
         try {

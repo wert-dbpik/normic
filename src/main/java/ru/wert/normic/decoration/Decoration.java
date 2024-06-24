@@ -52,12 +52,12 @@ public class Decoration {
      * 1 - С указанием владельца
      */
     public Decoration(String headerName, Parent rootPane, Boolean resizable, Stage owner, String decorationId, boolean shift, boolean waiting){
-        this.headerName = headerName;
-        this.rootPane = rootPane;
-        this.resizable = resizable;
-        this.decorationId = decorationId;
-        this.shift = shift;
-        this.waiting = waiting;
+        this.headerName = headerName; //Заголовок окна
+        this.rootPane = rootPane; //Панель, вставливаемая в Decoration (VBox)
+        this.resizable = resizable; //Изменяемы размер окна
+        this.decorationId = decorationId; //Стиль оформления
+        this.shift = shift; //Смещение относительно вызывающего окна
+        this.waiting = waiting; //Ожидание реакции от пользвателя
         createWindow(owner);
     }
 

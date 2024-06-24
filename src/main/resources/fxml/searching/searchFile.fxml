@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="main" prefHeight="700.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.searching.SearchingFileController">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label prefWidth="100.0" text="Искать : ">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfSearchText" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <Button fx:id="btnSearchNow" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label prefWidth="100.0" text="Где искать : ">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="tfWhereSearch" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="32.0">
+               <children>
+                  <Button fx:id="btnWhereSearch" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <Separator maxWidth="1.7976931348623157E308">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </Separator>
+      <ListView fx:id="listViewFoundOperations" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </ListView>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="7.0" right="7.0" top="5.0" />
+   </padding>
+</VBox>

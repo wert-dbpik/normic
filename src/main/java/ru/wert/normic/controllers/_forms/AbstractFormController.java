@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers._forms;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -31,7 +30,6 @@ import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONException;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.Decoration;
@@ -49,11 +47,10 @@ import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.searching.SearchingFileController;
 import ru.wert.normic.settings.ColorsSettings;
+import ru.wert.normic.utils.NvrConverter;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
 import java.io.*;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,7 +95,7 @@ public abstract class AbstractFormController implements IForm {
     public abstract ListView<VBox> getListViewTechOperations();
     public abstract Button getBtnAddOperation();
 
-    private String opType; //Тип загружаемого json - временная переменная
+    private EOpType opType; //Тип загружаемого json - временная переменная
 
     private List<List<OpData>> undoList = new ArrayList<>();
     @Getter private int iterator = 0;
@@ -727,8 +724,49 @@ public abstract class AbstractFormController implements IForm {
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:/"));
         File file = chooser.showOpenDialog(owner);;
         if(file == null) return;
-        openNvrFile(e, source, file);
 
+        NvrConverter convertor = new NvrConverter(file);
+        ColorsSettings colorsSettings = convertor.getColorsSettings();
+        OpData newOpData = convertor.getConvertedOpData();
+
+        deployOpDataFromFile(e,
+                source,
+                file,
+                newOpData,
+                colorsSettings);
+
+    }
+
+    public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ColorsSettings colorsSettings) {
+        if(newOpData == null) {
+            Warning1.create("Ошибка!",
+                    "При конвертации файла произошла ошибка",
+                    "Возможно, файл поврежден.");
+        } else {
+
+            //Убираем ".nvr" в конце наименования
+            ((IOpWithOperations) newOpData).setName(((IOpWithOperations) newOpData).getName().replace(".nvr", ""));
+
+            if (source.equals(EMenuSource.FORM_MENU)) {
+                addFromFile(newOpData);
+            } else { //Вызов из меню с пиктограммами
+                if(!source.equals(EMenuSource.ON_START))
+                    clearAll(e);
+                if (opType.equals("ASSM")) {
+                    LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
+                    blockUndoListFlag = true;
+                    deployFile(source, colorsSettings, newOpData);
+                    iterateUndoList();
+                } else {
+                    LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
+                    addFromFile(newOpData);
+                }
+            }
+
+            countSumNormTimeByShops();
+            //Сохраняем путь открытого файла. чтобы его можно было пересохранить
+            MainController.savedProductFile = file;
+        }
     }
 
     /**
@@ -763,68 +801,6 @@ public abstract class AbstractFormController implements IForm {
 
     }
 
-
-    public void openNvrFile(Event e, EMenuSource source, File file) {
-        try {
-            //Читаем строки из файла
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-            ArrayList<String> store = new ArrayList<>();
-            String line;
-            while((line = reader.readLine())!= null){
-                store.add(line);
-            }
-
-            //Тип сохраненных данных (ДЕТАЛЬ, СБОРКА, УПАКОВКА)
-            opType = store.get(0);
-
-            //Настройки
-            String settings = store.get(1);
-            Gson gson = new Gson();
-            Type settingsType = new TypeToken<ColorsSettings>(){}.getType();
-            ColorsSettings colorsSettings = gson.fromJson(settings, settingsType);
-
-            //Структура
-            String jsonString = store.get(2);
-            OpData newOpData = null;
-            switch (opType) {
-                case "DETAIL": newOpData = (OpDetail) OpDataJsonConverter.convert(jsonString); break;
-                case "ASSM"  : newOpData = (OpAssm) OpDataJsonConverter.convert(jsonString); break;
-                case "PACK"  : newOpData = (OpPack) OpDataJsonConverter.convert(jsonString); break;
-            }
-
-            if(newOpData == null) {
-                Warning1.create("Ошибка!",
-                        "При конвертации файла произошла ошибка",
-                        "Возможно, файл поврежден.");
-            } else {
-
-                //Убираем ".nvr" в конце наименования
-                ((IOpWithOperations) newOpData).setName(((IOpWithOperations) newOpData).getName().replace(".nvr", ""));
-
-                if (source.equals(EMenuSource.FORM_MENU)) {
-                    addFromFile(newOpData);
-                } else { //Вызов из меню с пиктограммами
-                    if(!source.equals(EMenuSource.ON_START))
-                        clearAll(e);
-                    if (opType.equals("ASSM")) {
-                        LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
-                        blockUndoListFlag = true;
-                        deployFile(source, colorsSettings, newOpData);
-                        iterateUndoList();
-                    } else {
-                        LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
-                        addFromFile(newOpData);
-                    }
-                }
-
-                countSumNormTimeByShops();
-                //Сохраняем путь открытого файла. чтобы его можно было пересохранить
-                MainController.savedProductFile = file;
-            }
-        } catch (IOException | JSONException ioException) {
-            ioException.printStackTrace();
-        }
-    }
 
     /**
      * В список операций формы добавляется новая деталь, сборка или упаковка

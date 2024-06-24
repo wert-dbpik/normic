@@ -11,18 +11,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import org.apache.poi.util.IOUtils;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.utils.NvrConverter;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,6 +61,7 @@ public class SearchingFileController {
             searchText = normalizeSearchedText(btnSearchNow.getText());
             List<String> foundNVRFiles = collectFoundNVRFiles();
             for(String path : foundNVRFiles){
+                OpData opData = new NvrConverter(new File(path)).getConvertedOpData();
 
             }
             System.out.println(collectFoundNVRFiles());

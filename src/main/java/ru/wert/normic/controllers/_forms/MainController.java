@@ -43,6 +43,7 @@ import ru.wert.normic.menus.MainMenuController;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.settings.ColorsSettings;
 import ru.wert.normic.utils.AppFiles;
+import ru.wert.normic.utils.NvrConverter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -132,7 +133,13 @@ public class MainController extends AbstractFormController {
 
         Platform.runLater(()->{
             if (FIRST_PARAMS.length > 0) { //Если открывается норма по двойному клику
-                openNvrFile(null, EMenuSource.ON_START, new File(FIRST_PARAMS[0]));
+
+                NvrConverter convertor = new NvrConverter(new File(FIRST_PARAMS[0]));
+                ColorsSettings colorsSettings = convertor.getColorsSettings();
+                OpData newOpData = convertor.getConvertedOpData();
+
+                deployOpDataFromFile(null, EMenuSource.ON_START, new File(FIRST_PARAMS[0]), newOpData, colorsSettings);
+
             } else
                 LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
         });

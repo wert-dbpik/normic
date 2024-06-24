@@ -13,6 +13,9 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.utils.NvrConverter;
 
 import java.io.File;
@@ -46,6 +49,7 @@ public class SearchingFileController {
     private List<OpData> addedOperations;
 
     private String searchText;
+    private final List<OpData> foundOpDatas = new ArrayList<>();
 
     public void init(){
         createBtnSearchNow();
@@ -62,10 +66,21 @@ public class SearchingFileController {
             List<String> foundNVRFiles = collectFoundNVRFiles();
             for(String path : foundNVRFiles){
                 OpData opData = new NvrConverter(new File(path)).getConvertedOpData();
-
+                findSearchedOpData((OpAssm) opData);
             }
-            System.out.println(collectFoundNVRFiles());
+            System.out.println(foundOpDatas);
         });
+    }
+
+    private void findSearchedOpData(OpAssm opAssm){
+        for(OpData op : opAssm.getOperations()){
+            if(op instanceof IOpWithOperations)
+                if(((IOpWithOperations) op).getName().contains(searchText)){
+                    foundOpDatas.add(op);
+                    if(op instanceof OpAssm)
+                        findSearchedOpData(opAssm);
+                }
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package ru.wert.normic.decoration;
 
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,6 +36,10 @@ public class Decoration {
     @Getter private ImageView imgCloseWindow;
     private boolean shift;
     private String decorationId;
+
+    @Getter private ImageView imgBtnClose;
+    @Getter private ImageView imgBtnMaximize;
+    @Getter private ImageView imgBtnMinimize;
 
 //    /**
 //     * Конструктор
@@ -86,6 +91,10 @@ public class Decoration {
 
             lblProductName = (Label)decoration.lookup("#lblProductName");
             lblProductName.setStyle("-fx-text-fill: darkblue");
+
+            imgBtnClose = (ImageView) decoration.lookup("#imgBtnClose");
+            imgBtnMaximize = (ImageView) decoration.lookup("#imgBtnMaximize");;
+            imgBtnMinimize = (ImageView) decoration.lookup("#imgBtnMinimize");;
 
             Scene scene = new Scene(decoration);
             scene.getStylesheets().add(this.getClass().getResource(THEME_STYLE).toString());

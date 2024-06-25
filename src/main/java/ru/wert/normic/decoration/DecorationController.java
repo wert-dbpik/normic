@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lombok.Getter;
 import lombok.Setter;
 
 
@@ -23,9 +24,9 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 //@Slf4j
 public class DecorationController {
 
-    @FXML private ImageView imgBtnClose;
-    @FXML private ImageView imgBtnMaximize;
-    @FXML private ImageView imgBtnMinimize;
+    @FXML@Getter private ImageView imgBtnClose;
+    @FXML@Getter  private ImageView imgBtnMaximize;
+    @FXML@Getter  private ImageView imgBtnMinimize;
     @FXML private Label windowName;
     @FXML private Pane paneR;
     @FXML private Pane paneX;

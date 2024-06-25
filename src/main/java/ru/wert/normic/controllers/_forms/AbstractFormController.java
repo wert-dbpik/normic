@@ -784,11 +784,16 @@ public abstract class AbstractFormController implements IForm {
             Decoration decoration = new Decoration(
                     "ПОИСК",
                     settings,
-                    false,
-                    owner,
-                    "decoration-settings",
+                    true,
+                    null,
+                    "decoration-searching",
                     true,
                     false);
+
+//            decoration.getLblProductName().setStyle("-fx-text-fill: white");
+//            decoration.getImgBtnClose().setStyle("-fx-fill: white");
+//            decoration.getImgBtnMaximize().setStyle("-fx-fill: white");
+//            decoration.getImgBtnMinimize().setStyle("-fx-fill: white");
 
             decoration.getImgCloseWindow().setOnMousePressed(ev->{
 //                controller.saveSettings();

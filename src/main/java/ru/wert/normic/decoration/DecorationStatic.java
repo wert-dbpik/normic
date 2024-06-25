@@ -78,12 +78,12 @@ public class DecorationStatic {
             if(MAIN_STAGE.isFullScreen()){
                 centerWindow(window, false, monitor);
             } else {
-                window.setX(owner.getX() + 40);
-                window.setY(owner.getY() + 40);
+                if(owner != null) {
+                    window.setX(owner.getX() + 40);
+                    window.setY(owner.getY() + 40);
+                } else
+                    centerWindow(window, false, monitor);
             }
-
         }
-
     }
-
 }

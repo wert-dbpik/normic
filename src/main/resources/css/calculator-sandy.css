@@ -15,6 +15,10 @@
     -fx-background-color: #fdd590;
 }
 
+#decoration-searching{
+    -fx-background-color: #e5ae4d;
+}
+
 #decoration-detail{
     -fx-background-color: #fad79c;
 }

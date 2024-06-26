@@ -105,8 +105,6 @@ public abstract class AbstractFormController implements IForm {
 
     public abstract Button getBtnAddOperation();
 
-    private EOpType opType; //Тип загружаемого json - временная переменная
-
     private List<List<OpData>> undoList = new ArrayList<>();
     @Getter
     private int iterator = 0;
@@ -769,7 +767,7 @@ public abstract class AbstractFormController implements IForm {
             } else { //Вызов из меню с пиктограммами
                 if (!source.equals(EMenuSource.ON_START))
                     clearAll(e);
-                if (opType.equals("ASSM")) {
+                if (newOpData.getOpType().equals(EOpType.ASSM)) {
                     LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
                     blockUndoListFlag = true;
                     deployFile(source, colorsSettings, newOpData);

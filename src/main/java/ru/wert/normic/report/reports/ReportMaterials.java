@@ -6,9 +6,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static ru.wert.normic.NormicServices.DENSITIES;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
@@ -43,7 +41,9 @@ public class ReportMaterials {
      */
     private void addMaterialsReport() {
         textReport.append("\n\n").append("МАТЕРИАЛЫ :\n");
-        for(Material m : materials.keySet()){
+        List<Material> keys = new ArrayList<>(materials.keySet());
+        keys.sort(Comparator.comparing(Material::getName));
+        for(Material m : keys){
             textReport.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
         }
     }

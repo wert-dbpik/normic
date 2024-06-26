@@ -388,9 +388,9 @@ public class MenuForm extends ContextMenu {
     }
 
     //НАЙТИ ФАЙЛ
-    public MenuItem createItemFindFilePallet(){
+    public MenuItem createItemSearchFilePallet(){
         MenuItem item = new MenuItem("Найти файл");
-        item.setOnAction(e->formController.find(e, EMenuSource.FORM_MENU));
+        item.setOnAction(e->formController.search(e, EMenuSource.FORM_MENU));
         return item;
     }
 

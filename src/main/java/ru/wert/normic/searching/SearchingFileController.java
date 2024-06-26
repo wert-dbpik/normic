@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
+import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;

@@ -2,6 +2,7 @@ package ru.wert.normic;
 
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
@@ -37,6 +38,7 @@ public class AppStatics {
 
     public static MainController MAIN_CONTROLLER;
     public static OpAssm MAIN_OP_DATA;
+    public static Stage SEARCH_WINDOW;
 
     public static String LAUNCH_TIME; //Переменная, по которой происходит идентификация свой/чужой при перетаскивании плашек
 

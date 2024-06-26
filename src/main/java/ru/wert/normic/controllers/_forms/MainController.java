@@ -264,6 +264,11 @@ public class MainController extends AbstractFormController {
         iconMenuController.getBtnProductTree().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/tree_view.png")), 32,32, true, true)));
         iconMenuController.getBtnProductTree().setTooltip(new Tooltip("Схема изделия"));
         iconMenuController.getBtnProductTree().setOnAction(e->productTree(e, EMenuSource.ICON_MENU));
+
+        //ПОИСК
+        iconMenuController.getBtnSearch().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/search.png")), 32,32, true, true)));
+        iconMenuController.getBtnSearch().setTooltip(new Tooltip("Поиск"));
+        iconMenuController.getBtnSearch().setOnAction(e->search(e, EMenuSource.ICON_MENU));
     }
 
     private void initViews() {
@@ -602,7 +607,7 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(menu.createItemThermoInsulation());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddFilePallet());
-        menu.getItems().add(menu.createItemFindFilePallet());
+        menu.getItems().add(menu.createItemSearchFilePallet());
 
         linkMenuToButton();
 

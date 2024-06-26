@@ -29,6 +29,7 @@ import javafx.util.Callback;
 import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONException;
+import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
@@ -75,12 +76,17 @@ public abstract class AbstractFormController implements IForm {
     public static boolean copy; //true - (КОПИРОВАТЬ) переносимые элементы не удаляются, false - (ВЫРЕЗАТЬ) удаляются
     //------------------------
 
-    @Getter protected MenuForm menu;
-    @Getter protected OpData opData;
-    @Getter protected List<AbstractOpPlate> addedPlates = new ArrayList<>();
-    @Getter protected ObservableList<OpData> addedOperations = FXCollections.observableArrayList();
+    @Getter
+    protected MenuForm menu;
+    @Getter
+    protected OpData opData;
+    @Getter
+    protected List<AbstractOpPlate> addedPlates = new ArrayList<>();
+    @Getter
+    protected ObservableList<OpData> addedOperations = FXCollections.observableArrayList();
 
-    @Getter protected DoubleProperty formAreaProperty = new SimpleDoubleProperty(0.0);
+    @Getter
+    protected DoubleProperty formAreaProperty = new SimpleDoubleProperty(0.0);
 
     private final ObjectProperty<ListCell<VBox>> dragSource = new SimpleObjectProperty<>();
     private final Image imageCopy = new Image(String.valueOf(getClass().getResource("/pics/btns/cursor_copy.png")),
@@ -90,15 +96,20 @@ public abstract class AbstractFormController implements IForm {
 
 
     public abstract void countSumNormTimeByShops();
+
     public abstract MenuForm createMenu();
+
     public abstract void fillOpData();
+
     public abstract ListView<VBox> getListViewTechOperations();
+
     public abstract Button getBtnAddOperation();
 
     private EOpType opType; //Тип загружаемого json - временная переменная
 
     private List<List<OpData>> undoList = new ArrayList<>();
-    @Getter private int iterator = 0;
+    @Getter
+    private int iterator = 0;
 
     protected boolean blockUndoListFlag; //true - undoList заполняется
 
@@ -109,15 +120,15 @@ public abstract class AbstractFormController implements IForm {
     @FXML
     private VBox main;
 
-    protected void iterateUndoList(){
+    protected void iterateUndoList() {
         iterator++;
-        if(iterator == undoList.size())
+        if (iterator == undoList.size())
             undoList.add(new ArrayList<>(addedOperations));
         else
             undoList.set(iterator, new ArrayList<>(addedOperations));
         blockUndoListFlag = true;
-        for(int i = iterator + 1; i < undoList.size() - 1; i ++ )
-        undoList.remove(i);
+        for (int i = iterator + 1; i < undoList.size() - 1; i++)
+            undoList.remove(i);
         blockUndoListFlag = false;
     }
 
@@ -127,7 +138,7 @@ public abstract class AbstractFormController implements IForm {
         undoList.add(new ArrayList<>(addedOperations));
 
         addedOperations.addListener((ListChangeListener<OpData>) change -> {
-            if(!blockUndoListFlag) {
+            if (!blockUndoListFlag) {
                 iterateUndoList();
             }
         });
@@ -150,9 +161,8 @@ public abstract class AbstractFormController implements IForm {
 
                     } else if (ke.getCode().equals(KeyCode.NUMPAD2) || ke.getCode().equals(KeyCode.NUMPAD8) ||
                             ke.getCode().equals(KeyCode.W) || ke.getCode().equals(KeyCode.S) ||
-                                    ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN) ||
-                                            ke.getCode().equals(KeyCode.PAGE_UP) || ke.getCode().equals(KeyCode.PAGE_DOWN))
-                    {
+                            ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN) ||
+                            ke.getCode().equals(KeyCode.PAGE_UP) || ke.getCode().equals(KeyCode.PAGE_DOWN)) {
                         movePlate(ke.getCode());
                     }
                 }
@@ -164,29 +174,30 @@ public abstract class AbstractFormController implements IForm {
 
     /**
      * Перемещает выбранную плашку на 1 позицию в зависимости от нажатого key
+     *
      * @param key, KeyCode - Используется много вариантов, т.к. не все определяются системой
      */
-    private void movePlate(KeyCode key){
+    private void movePlate(KeyCode key) {
         int selectedIndex = getListViewTechOperations().getSelectionModel().getSelectedIndex();
-        if(selectedIndex == -1) return;
+        if (selectedIndex == -1) return;
         //Определяем индех плашки для обмена
         int exchangedIndex;
-        if(key.equals(KeyCode.NUMPAD2) || key.equals(KeyCode.DOWN) || key.equals(KeyCode.PAGE_DOWN) || key.equals(KeyCode.S))
+        if (key.equals(KeyCode.NUMPAD2) || key.equals(KeyCode.DOWN) || key.equals(KeyCode.PAGE_DOWN) || key.equals(KeyCode.S))
             exchangedIndex = selectedIndex + 1;
         else
-            exchangedIndex = selectedIndex -1;
+            exchangedIndex = selectedIndex - 1;
         //Проверяем, существует ли элемент по индексу обмена
-        int maxIndex = getListViewTechOperations().getItems().size()-2;
-        if(exchangedIndex < 0 ||
+        int maxIndex = getListViewTechOperations().getItems().size() - 2;
+        if (exchangedIndex < 0 ||
                 exchangedIndex > maxIndex) return;
         //Проверяем допустимость обмена по типу операции
         EOpType selectedType = addedOperations.get(selectedIndex).getOpType();
         EOpType exchangedType = addedOperations.get(exchangedIndex).getOpType();
-        if(selectedType.equals(EOpType.ASSM) || selectedType.equals(EOpType.DETAIL) ||  selectedType.equals(EOpType.PACK)){
-            if(!selectedType.equals(exchangedType))
-               return;
+        if (selectedType.equals(EOpType.ASSM) || selectedType.equals(EOpType.DETAIL) || selectedType.equals(EOpType.PACK)) {
+            if (!selectedType.equals(exchangedType))
+                return;
         } else {
-            if(exchangedType.equals(EOpType.ASSM) || exchangedType.equals(EOpType.DETAIL) ||  exchangedType.equals(EOpType.PACK))
+            if (exchangedType.equals(EOpType.ASSM) || exchangedType.equals(EOpType.DETAIL) || exchangedType.equals(EOpType.PACK))
                 return;
         }
         //Начинаем обмен
@@ -199,7 +210,7 @@ public abstract class AbstractFormController implements IForm {
         AbstractOpPlate selectedPlate = addedPlates.get(selectedIndex);
 
         //Плашка с которой будет производиться обмен
-        OpData exchangedOpData =  addedOperations.get(exchangedIndex);
+        OpData exchangedOpData = addedOperations.get(exchangedIndex);
         VBox exchangeVBox = getListViewTechOperations().getItems().get(exchangedIndex);
         AbstractOpPlate exchangedPlate = addedPlates.get(exchangedIndex);
 
@@ -219,26 +230,26 @@ public abstract class AbstractFormController implements IForm {
     }
 
     private void undoLastOperation() {
-        if(iterator == 0) return;
-        iterator --;
-        ((IOpWithOperations)opData).setOperations(new ArrayList<>(undoList.get(iterator)));
+        if (iterator == 0) return;
+        iterator--;
+        ((IOpWithOperations) opData).setOperations(new ArrayList<>(undoList.get(iterator)));
     }
 
     private void redoLastOperation() {
-        if(iterator == undoList.size()-1) return;
-        iterator ++;
-        ((IOpWithOperations)opData).setOperations(new ArrayList<>(undoList.get(iterator)));
+        if (iterator == undoList.size() - 1) return;
+        iterator++;
+        ((IOpWithOperations) opData).setOperations(new ArrayList<>(undoList.get(iterator)));
     }
 
-    AbstractFormController getThisController(){
+    AbstractFormController getThisController() {
         return this;
     }
 
-    public double calculateAreaByDetails(){
+    public double calculateAreaByDetails() {
         double area = 0.0;
         List<OpData> ops = getAddedOperations();
-        for(OpData op : ops){
-            if(op instanceof IOpWithOperations)
+        for (OpData op : ops) {
+            if (op instanceof IOpWithOperations)
                 area += ((IOpWithOperations) op).getArea()
                         * op.getQuantity();  //количество деталей в сборке
         }
@@ -246,12 +257,12 @@ public abstract class AbstractFormController implements IForm {
         return area;
     }
 
-    protected void setDragAndDropCellFactory(){
+    protected void setDragAndDropCellFactory() {
         getListViewTechOperations().getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         getListViewTechOperations().setCellFactory(new Callback<ListView<VBox>, ListCell<VBox>>() {
             @Override
             public ListCell<VBox> call(ListView<VBox> operationsListView) {
-                ListCell<VBox> cell = new ListCell<VBox>(){
+                ListCell<VBox> cell = new ListCell<VBox>() {
                     @Override
                     protected void updateItem(VBox item, boolean empty) {
                         super.updateItem(item, empty);
@@ -259,20 +270,20 @@ public abstract class AbstractFormController implements IForm {
                     }
                 };
 
-                cell.setOnDragDetected(e->{
-                    if(cell.isEmpty()) return;
+                cell.setOnDragDetected(e -> {
+                    if (cell.isEmpty()) return;
                     boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
                     if (!cell.isEmpty() && !lastLine) {
                         Dragboard db = cell.startDragAndDrop(TransferMode.MOVE);
                         ClipboardContent cc = new ClipboardContent();
                         List<Integer> indices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
-                        if(indices.isEmpty()) return;
+                        if (indices.isEmpty()) return;
                         clearClipboard();
                         Gson gson = new Gson();
                         StringBuilder passingData = new StringBuilder();
                         //Первой строкой транспондер (определим когда запущено приложение)
                         passingData.append(LAUNCH_TIME).append("\n");
-                        for(int index : indices){
+                        for (int index : indices) {
                             //Формируем для передачи между программами
 //                            passingData.append(gson.toJson(addedOperations.get(index).getOpType().name())).append("\n");
                             passingData.append(gson.toJson(addedOperations.get(index))).append("\n");
@@ -281,9 +292,9 @@ public abstract class AbstractFormController implements IForm {
                             clipOpPlateList.add(addedPlates.get(index));
                             clipBoxList.add(getListViewTechOperations().getItems().get(index));
                         }
-                            copy = e.getButton().equals(MouseButton.SECONDARY);
+                        copy = e.getButton().equals(MouseButton.SECONDARY);
 
-                        if(copy) {
+                        if (copy) {
 
                             WritableImage image = new Text("Копируем").snapshot(null, null);
                             db.setDragView(image, 5.0 + image.getWidth(), 0.0);
@@ -362,7 +373,7 @@ public abstract class AbstractFormController implements IForm {
                             e.setDropCompleted(true);
                         }
                     } else { //Если обмен между программами
-                        for(OpData op : passedOpDataArray)
+                        for (OpData op : passedOpDataArray)
                             menu.addPlateToForm(op);
                         countSumNormTimeByShops();
                         e.setDropCompleted(true);
@@ -370,7 +381,7 @@ public abstract class AbstractFormController implements IForm {
 
                 });
 
-                cell.setOnMouseExited(e->{
+                cell.setOnMouseExited(e -> {
                     launchTime = null;
                     passedOpDataArray = null;
                 });
@@ -380,26 +391,26 @@ public abstract class AbstractFormController implements IForm {
                     OpData selectedOpData = null;
                     if (e.getButton().equals(MouseButton.SECONDARY)) {
                         boolean cellIsEmpty = cell.isEmpty() || cell.getItem().getId().equals("LAST_LINE");
-                        if(cellIsEmpty) {
-                            if(clipOpDataList.isEmpty()) e.consume();
+                        if (cellIsEmpty) {
+                            if (clipOpDataList.isEmpty()) e.consume();
                             cell.getListView().getSelectionModel().clearSelection();
                             selectedOpData = opData;
                         } else {
                             boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
-                            if(lastLine) selectedOpData = opData;
+                            if (lastLine) selectedOpData = opData;
                             else selectedOpData = addedOperations.get(cell.getIndex());
                         }
 
                         new MenuPlate().create(getThisController(), selectedOpData, cellIsEmpty).show(
-                                ((Node)e.getSource()).getScene().getWindow(),
+                                ((Node) e.getSource()).getScene().getWindow(),
                                 e.getScreenX(),
                                 e.getScreenY());
                     }
                     e.consume(); //Чтобы не срабатывал слушатель ниже
                 });
 
-                cell.selectedProperty().addListener(e->{
-                    if(cell.getItem() != null && cell.getItem().getId().equals("LAST_LINE"))
+                cell.selectedProperty().addListener(e -> {
+                    if (cell.getItem() != null && cell.getItem().getId().equals("LAST_LINE"))
                         cell.getListView().getSelectionModel().clearSelection(cell.getIndex());
                 });
 
@@ -408,10 +419,10 @@ public abstract class AbstractFormController implements IForm {
         });
 
         //Вызывеает меню при пустом списке операций, когда не срабатывает слушатель на пустой ячейке
-        getListViewTechOperations().setOnMouseClicked(e->{
-            if(e.getButton().equals(MouseButton.SECONDARY))
+        getListViewTechOperations().setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.SECONDARY))
                 new MenuPlate().create(getThisController(), null, true).show(
-                        ((Node)e.getSource()).getScene().getWindow(),
+                        ((Node) e.getSource()).getScene().getWindow(),
                         e.getScreenX(),
                         e.getScreenY());
         });
@@ -428,26 +439,26 @@ public abstract class AbstractFormController implements IForm {
     }
 
 
-    public boolean dropIsPossible(OpData targetOpData){
-        if(targetOpData instanceof OpDetail){
-            for(OpData op : clipOpDataList){
-                if(!DETAIL_OPERATIONS.contains(op.getOpType())) return false;
+    public boolean dropIsPossible(OpData targetOpData) {
+        if (targetOpData instanceof OpDetail) {
+            for (OpData op : clipOpDataList) {
+                if (!DETAIL_OPERATIONS.contains(op.getOpType())) return false;
             }
         } else if (targetOpData instanceof OpAssm) {
-            for(OpData op : clipOpDataList){
-                if(!ASSM_OPERATIONS.contains(op.getOpType())) return false;
+            for (OpData op : clipOpDataList) {
+                if (!ASSM_OPERATIONS.contains(op.getOpType())) return false;
             }
         } else
             return false;
         return true;
     }
 
-    protected void linkMenuToButton(){
+    protected void linkMenuToButton() {
         getBtnAddOperation().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/add.png")),
-                44,44, true, true)));
+                44, 44, true, true)));
         getBtnAddOperation().setTooltip(new Tooltip("Добавить операцию"));
-        getBtnAddOperation().setOnMouseClicked(e->{
-            if(e.getButton().equals(MouseButton.PRIMARY)){
+        getBtnAddOperation().setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.PRIMARY)) {
                 menu.show(
                         getBtnAddOperation(),
                         Side.LEFT,
@@ -455,11 +466,13 @@ public abstract class AbstractFormController implements IForm {
                         32.0);
             }
         });
-    };
+    }
+
+    ;
 
     /**
      * ДОБАВИТЬ ОПЕРАЦИЮ (MenuForm)
-     *
+     * <p>
      * Метод добавляет данные "clipOpData" в targetOpData
      * В случае если targetOpData и opData формы совпадают, форма перерисовывается
      */
@@ -469,14 +482,14 @@ public abstract class AbstractFormController implements IForm {
         //иначе - из Целевой OpData находим Список оперций
         List<OpData> targetOperations = targetOpData.equals(opData) ?
                 addedOperations :
-                ((IOpWithOperations)targetOpData).getOperations();
+                ((IOpWithOperations) targetOpData).getOperations();
         //Перед добавление новых операций снимаем выделение
-        if(targetOpData.equals(opData)) {
+        if (targetOpData.equals(opData)) {
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             getListViewTechOperations().getSelectionModel().clearSelection();
         }
 
-        if(!dropIsPossible(targetOpData)) return;
+        if (!dropIsPossible(targetOpData)) return;
         blockUndoListFlag = true;
         //Добавление новых операций производится в цикле
         for (OpData clipOpData : clipOpDataList) {
@@ -513,10 +526,10 @@ public abstract class AbstractFormController implements IForm {
      * При переносе операций происходит их удаление из источника
      */
     private void finishWithPaste(OpData targetOpData) {
-        if(whereFromController == null) return;
+        if (whereFromController == null) return;
         if (!copy) {
             //Если источник совпадает с текущим контроллером
-            if(whereFromController.equals(this)) {
+            if (whereFromController.equals(this)) {
                 blockUndoListFlag = true;
                 for (int i = 0; i < clipOpDataList.size(); i++) {
                     addedPlates.remove(clipOpPlateList.get(i));
@@ -535,7 +548,7 @@ public abstract class AbstractFormController implements IForm {
             }
         }
 
-        ((IOpWithOperations)whereFromController.getOpData())
+        ((IOpWithOperations) whereFromController.getOpData())
                 .setOperations(new ArrayList<>(whereFromController.getAddedOperations()));
 
 
@@ -544,25 +557,26 @@ public abstract class AbstractFormController implements IForm {
 
     /**
      * ДОБАВИТЬ ОПЕРАЦИЮ В КОНЕЦ СПИСКА
-     * @param targetOpData OpData - Целевая OpData, куда происходит добавление
+     *
+     * @param targetOpData     OpData - Целевая OpData, куда происходит добавление
      * @param targetOperations List<OpData> - Список операций в который добавляются новая операция
-     * @param clipOpData OpData - Добавляемая OpData
+     * @param clipOpData       OpData - Добавляемая OpData
      */
     private void addToTargetOpDataToTheEndOfList(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData) {
-        if(!DUPLICATED_OPERATIONS.contains(clipOpData.getOpType()) &&
+        if (!DUPLICATED_OPERATIONS.contains(clipOpData.getOpType()) &&
                 targetOperations.contains(clipOpData)) return;
         //Если целевая операция совпадает с ткущей операцией
-        if(targetOpData.equals(opData)){
+        if (targetOpData.equals(opData)) {
             //Клонируем копируемый OpData, меняем имя +(копия)
             //К текущему OpData добавляем измененный addedOperations
             OpData addedOpData = SerializationUtils.clone(clipOpData);
-            if(copy) renameWithCopy(addedOpData);
+            if (copy) renameWithCopy(addedOpData);
             addedOperations.add(addedOpData);
-            ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             //Перестраиваем список операций
             rebuildListOfOperations();
 
-            getListViewTechOperations().getSelectionModel().select(addedOperations.size()-1);
+            getListViewTechOperations().getSelectionModel().select(addedOperations.size() - 1);
 
         } else
             targetOperations.add(clipOpData);
@@ -570,22 +584,23 @@ public abstract class AbstractFormController implements IForm {
 
     /**
      * ДОБАВИТЬ ОПЕРАЦИЮ ПО ИНДЕКСУ В СЕРЕДИНУ СПИСКА
+     *
      * @param targetOpData
      * @param targetOperations
      * @param clipOpData
      * @param targetIndex
      */
     private void addToTargetOpDataByIndex(OpData targetOpData, List<OpData> targetOperations, OpData clipOpData, int targetIndex) {
-        if(!DUPLICATED_OPERATIONS.contains(clipOpData.getOpType()) &&
+        if (!DUPLICATED_OPERATIONS.contains(clipOpData.getOpType()) &&
                 targetOperations.contains(clipOpData)) return;
         //Если целевая операция совпадает с ткущей операцией
-        if(targetOpData.equals(opData)){
+        if (targetOpData.equals(opData)) {
             //Клонируем копируемый OpData, меняем имя +(копия)
             //К текущему OpData добавляем измененный addedOperations
             OpData addedOpData = SerializationUtils.clone(clipOpData);
-            if(copy)  renameWithCopy(addedOpData);
+            if (copy) renameWithCopy(addedOpData);
             addedOperations.add(targetIndex, addedOpData);
-            ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             //Перестраиваем список операций
             rebuildListOfOperations();
 
@@ -610,16 +625,16 @@ public abstract class AbstractFormController implements IForm {
      * Метод добавляет -(копия) в конец наименования при копировании
      */
     private void renameWithCopy(OpData addedOpData) {
-        if(addedOpData instanceof OpAssm)
-            ((OpAssm)addedOpData).setName(((OpAssm)addedOpData).getName() + "(копия)");
-        else if(addedOpData instanceof OpDetail)
-            ((OpDetail)addedOpData).setName(((OpDetail)addedOpData).getName() + "(копия)");
+        if (addedOpData instanceof OpAssm)
+            ((OpAssm) addedOpData).setName(((OpAssm) addedOpData).getName() + "(копия)");
+        else if (addedOpData instanceof OpDetail)
+            ((OpDetail) addedOpData).setName(((OpDetail) addedOpData).getName() + "(копия)");
     }
 
     /**
      * ВЫРЕЗАТЬ
      */
-    public void cutOperation(Event e){
+    public void cutOperation(Event e) {
         copyToClipboard();
         copy = false;
     }
@@ -627,7 +642,7 @@ public abstract class AbstractFormController implements IForm {
     private void copyToClipboard() {
         clearClipboard();
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
-        for(int index : selectedIndices){
+        for (int index : selectedIndices) {
             clipOpDataList.add(getAddedOperations().get(index));
             clipOpPlateList.add(addedPlates.get(index));
             clipBoxList.add(getListViewTechOperations().getItems().get(index));
@@ -638,7 +653,7 @@ public abstract class AbstractFormController implements IForm {
     /**
      * КОПИРОВАТЬ (MenuPlate)
      */
-    public void copyOperation(Event e){
+    public void copyOperation(Event e) {
         copyToClipboard();
         copy = true;
     }
@@ -654,8 +669,8 @@ public abstract class AbstractFormController implements IForm {
         addOperation(selectedOpData);
     }
 
-    public boolean isPastePossible(boolean cellIsEmpty){
-        if(clipOpDataList == null) return false;
+    public boolean isPastePossible(boolean cellIsEmpty) {
+        if (clipOpDataList == null) return false;
 
         try {
             //Определяем целевой узел вставки OpData
@@ -663,10 +678,11 @@ public abstract class AbstractFormController implements IForm {
 
             OpData targetOpData = cellIsEmpty ? getOpData() : getAddedOperations().get(selectedIndex);
 
-            if(!(targetOpData instanceof OpDetail) && !(targetOpData instanceof OpAssm) && !(targetOpData instanceof OpPack)) return false;
-            List<EOpType> targetOperations = ((IOpWithOperations)targetOpData).getOperations().stream().map(OpData::getOpType).collect(Collectors.toList());
+            if (!(targetOpData instanceof OpDetail) && !(targetOpData instanceof OpAssm) && !(targetOpData instanceof OpPack))
+                return false;
+            List<EOpType> targetOperations = ((IOpWithOperations) targetOpData).getOperations().stream().map(OpData::getOpType).collect(Collectors.toList());
             //Исключаем автовставку
-            if(clipOpDataList.contains(targetOpData)) return false;
+            if (clipOpDataList.contains(targetOpData)) return false;
 
             for (OpData op : clipOpDataList) {
                 if (targetOpData instanceof OpDetail) {
@@ -681,7 +697,7 @@ public abstract class AbstractFormController implements IForm {
                     if (targetOperations.contains(op.getOpType()) &&
                             !DUPLICATED_OPERATIONS.contains(op.getOpType()))
                         return false;
-                } else{
+                } else {
                     if (!PACK_OPERATIONS.contains(op.getOpType()))
                         return false;
                     if (targetOperations.contains(op.getOpType()) &&
@@ -701,7 +717,7 @@ public abstract class AbstractFormController implements IForm {
      */
     public void deleteSelectedOperation(Event e) {
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
-        for(int index : selectedIndices){
+        for (int index : selectedIndices) {
             addedOperations.remove(getAddedOperations().get(index));
             getListViewTechOperations().getItems().remove(getListViewTechOperations().getItems().get(index));
             addedPlates.remove(addedPlates.get(index));
@@ -713,17 +729,18 @@ public abstract class AbstractFormController implements IForm {
     /**
      * ОТКРЫТЬ СОХРАНЕННОЕ ИЗДЕЛИЕ
      */
-    public void open(Event e, EMenuSource source){
+    public void open(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
         File initDir = new File(AppProperties.getInstance().getSavesDir());
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:/"));
-        File file = chooser.showOpenDialog(owner);;
-        if(file == null) return;
+        File file = chooser.showOpenDialog(owner);
+        ;
+        if (file == null) return;
 
         NvrConverter convertor = new NvrConverter(file);
         ColorsSettings colorsSettings = convertor.getColorsSettings();
@@ -738,7 +755,7 @@ public abstract class AbstractFormController implements IForm {
     }
 
     public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ColorsSettings colorsSettings) {
-        if(newOpData == null) {
+        if (newOpData == null) {
             Warning1.create("Ошибка!",
                     "При конвертации файла произошла ошибка",
                     "Возможно, файл поврежден.");
@@ -750,7 +767,7 @@ public abstract class AbstractFormController implements IForm {
             if (source.equals(EMenuSource.FORM_MENU)) {
                 addFromFile(newOpData);
             } else { //Вызов из меню с пиктограммами
-                if(!source.equals(EMenuSource.ON_START))
+                if (!source.equals(EMenuSource.ON_START))
                     clearAll(e);
                 if (opType.equals("ASSM")) {
                     LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
@@ -772,10 +789,14 @@ public abstract class AbstractFormController implements IForm {
     /**
      * НАЙТИ ФАЙЛ
      */
-    public void find(Event e, EMenuSource source){
+    public void search(Event e, EMenuSource source) {
+        if(SEARCH_WINDOW != null) {
+            SEARCH_WINDOW.toFront();
+            return;
+        }
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/searching/searchFile.fxml"));
             VBox settings = loader.load();
@@ -790,13 +811,15 @@ public abstract class AbstractFormController implements IForm {
                     true,
                     false);
 
+            SEARCH_WINDOW = decoration.getWindow();
+
 //            decoration.getLblProductName().setStyle("-fx-text-fill: white");
 //            decoration.getImgBtnClose().setStyle("-fx-fill: white");
 //            decoration.getImgBtnMaximize().setStyle("-fx-fill: white");
 //            decoration.getImgBtnMinimize().setStyle("-fx-fill: white");
 
-            decoration.getImgCloseWindow().setOnMousePressed(ev->{
-//                controller.saveSettings();
+            decoration.getImgCloseWindow().setOnMousePressed(ev -> {
+                AppStatics.SEARCH_WINDOW = null;
             });
 
         } catch (IOException ex) {
@@ -825,7 +848,7 @@ public abstract class AbstractFormController implements IForm {
         createMenu();
         menu.addListOfOperations();
         //Для вновь открытого изделия
-        if(!source.equals(EMenuSource.FORM_MENU))
+        if (!source.equals(EMenuSource.FORM_MENU))
             MAIN_OP_DATA = (OpAssm) newOpData;
     }
 
@@ -834,7 +857,7 @@ public abstract class AbstractFormController implements IForm {
      */
     public void clearAll(Event e) {
         blockUndoListFlag = true;
-        ((IOpWithOperations)opData).getOperations().clear();
+        ((IOpWithOperations) opData).getOperations().clear();
         addedPlates.clear();
         addedOperations.clear();
         getListViewTechOperations().getItems().clear();

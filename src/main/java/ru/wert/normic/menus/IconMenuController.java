@@ -31,4 +31,9 @@ public class IconMenuController {
             btnReport1C,
             btnProductTree;
 
+    //ПОИСК
+    @FXML@Getter
+    private Button
+            btnSearch;
+
 }

@@ -53,6 +53,7 @@ public class SearchingFileController extends AbstractFormController {
     private ListView<VBox> listViewFoundOperations;
 
     private boolean allTextIsSelected;
+    private String color = "#6e4909";
 
     public void init() {
         progressIndicator.setVisible(false);
@@ -64,6 +65,8 @@ public class SearchingFileController extends AbstractFormController {
 
         opData = new OpAssm();
         menu = new MenuForm(this, listViewFoundOperations, (IOpWithOperations) opData);
+
+        listViewFoundOperations.setStyle("-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: color;" );
 
         setDragAndDropCellFactory();
     }
@@ -122,7 +125,7 @@ public class SearchingFileController extends AbstractFormController {
     private void createBtnSearchNow() {
         btnSearchNow.setTooltip(new Tooltip("Искать!"));
         btnSearchNow.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/search.png")), 56, 56, true, true)));
-        btnSearchNow.setStyle("-fx-border-color: #725b3e; -fx-border-style: solid; -fx-border-radius: 5;");
+        btnSearchNow.setStyle("-fx-border-color: color; -fx-border-style: solid; -fx-border-radius: 5;-fx-border-width: 2;");
         btnSearchNow.setOnAction(e -> {
             searchNow();
         });

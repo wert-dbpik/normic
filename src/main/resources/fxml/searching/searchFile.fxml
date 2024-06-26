@@ -67,11 +67,6 @@
             </HBox>
          </children>
       </HBox>
-      <Separator maxWidth="1.7976931348623157E308">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </Separator>
       <StackPane VBox.vgrow="ALWAYS">
          <children>
             <ListView fx:id="listViewFoundOperations" VBox.vgrow="ALWAYS">

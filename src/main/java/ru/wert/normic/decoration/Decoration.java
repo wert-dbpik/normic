@@ -37,9 +37,9 @@ public class Decoration {
     private boolean shift;
     private String decorationId;
 
-    @Getter private ImageView imgBtnClose;
-    @Getter private ImageView imgBtnMaximize;
-    @Getter private ImageView imgBtnMinimize;
+    private ImageView imgBtnClose;
+    private ImageView imgBtnMaximize;
+    private ImageView imgBtnMinimize;
 
 //    /**
 //     * Конструктор
@@ -146,5 +146,12 @@ public class Decoration {
         ImageView imgMaximizeWindow = (ImageView)decoration.lookup("#imgBtnMaximize");
         imgMaximizeWindow.setVisible(resizable);
         imgCloseWindow = (ImageView)decoration.lookup("#imgBtnClose");
+    }
+
+    public void makeHeaderWhite() {
+        windowName.setStyle("-fx-text-fill: white");
+        imgBtnClose.setImage(new Image("/pics/decoration/close_white.png"));
+        imgBtnMaximize.setImage(new Image("/pics/decoration/maximize_white.png"));
+        imgBtnMinimize.setImage(new Image("/pics/decoration/minimize_white.png"));
     }
 }

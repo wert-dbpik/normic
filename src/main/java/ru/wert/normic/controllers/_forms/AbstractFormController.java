@@ -811,12 +811,9 @@ public abstract class AbstractFormController implements IForm {
                     true,
                     false);
 
-            SEARCH_WINDOW = decoration.getWindow();
+            decoration.makeHeaderWhite();
 
-//            decoration.getLblProductName().setStyle("-fx-text-fill: white");
-//            decoration.getImgBtnClose().setStyle("-fx-fill: white");
-//            decoration.getImgBtnMaximize().setStyle("-fx-fill: white");
-//            decoration.getImgBtnMinimize().setStyle("-fx-fill: white");
+            SEARCH_WINDOW = decoration.getWindow();
 
             decoration.getImgCloseWindow().setOnMousePressed(ev -> {
                 AppStatics.SEARCH_WINDOW = null;

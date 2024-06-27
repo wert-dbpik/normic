@@ -54,7 +54,11 @@ public class SearchService extends Service<Void> {
                 if (showEntry) showNVRFiles(foundNVRFiles);
                 else
                     for (String path : foundNVRFiles) {
-                        OpData opData = new NvrConverter(new File(path)).getConvertedOpData();
+                        File file = new File(path);
+                        OpData opData = new NvrConverter(file).getConvertedOpData();
+                        //Если искомый текст содержится только в названии nvr файла
+                        if(file.getName().toLowerCase().contains(searchText))
+                            Platform.runLater(()->menu.addAssmPlate((OpAssm) opData));
                         findSearchedOpData((OpAssm) opData);
                     }
                 return null;

@@ -11,10 +11,7 @@ import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
-import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
-import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
-import ru.wert.normic.entities.ops.opLocksmith.OpDrillingByMarking;
-import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
+import ru.wert.normic.entities.ops.opLocksmith.*;
 import ru.wert.normic.entities.ops.opPack.*;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
@@ -104,6 +101,8 @@ public class OpDataJsonConverter {
 
             case "LOCKSMITH":
                 return gson.fromJson(op.toString(), OpLocksmith.class);
+            case "ASSM_NUTS_MK":
+                return gson.fromJson(op.toString(), OpAssmNutMK.class);
             case "CHOP_OFF":
                 return gson.fromJson(op.toString(), OpChopOff.class);
             case "DRILLING_BY_MARKING":

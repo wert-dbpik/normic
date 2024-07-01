@@ -47,7 +47,7 @@ public class NormConstants {
             "LEVELING_PREPARED_TIME","LEVELING_SPEED",//--- ЗАЛИВКА УПЛОТНИТЕЛЯ
             "SCREWS_SPEED","VSHGS_SPEED","RIVET_NUTS_SPEED","GROUND_SETS_SPEED","OTHERS_SPEED",//--- СБОРКА КРЕПЕЖНЫХ ЭЛЕМЕНТОВ
             "POST_LOCKS_SPEED","DOUBLE_LOCKS_SPEED","GLASS_SPEED","DETECTORS_SPEED","CONNECTION_BOXES_SPEED",//--- СБОРКА ОТДЕЛЬНЫХ УЗЛОВ
-            "SEALER_SPEED","SELF_ADH_SEALER_SPEED","INSULATION_SPEED",//--- СБОРКА РАСКРОЙНЫХ МАТЕРИАЛОВ
+            "SEALER_SPEED","SELF_ADH_SEALER_SPEED","INSULATION_SPEED","SCOTCH_SPEED",//--- СБОРКА РАСКРОЙНЫХ МАТЕРИАЛОВ
             "CARTOON_BOX_PREPARED_TIME","CARTOON_BOX_SPEED","STRETCH_MACHINE_WINDING","CARTOON_BOX_AND_ANGLES_SPEED",//--- УПАКОВКА
             "PACK_IN_CARTOON_BOX_SPEED","DUCT_TAPE_LENGTH","BUBBLE_CUT_AND_DUCT","BUBBLE_HAND_WINDING","STRETCH_HAND_WINDING");
 
@@ -114,6 +114,7 @@ public class NormConstants {
     public static double SEALER_SPEED; //Скорость монтажа уплотнителя на ребро корпуса, сек/м
     public static double SELF_ADH_SEALER_SPEED; //Скорость установки самоклеющегося уплотнителя, сек/м
     public static double INSULATION_SPEED; //Скорость разметки, резки и укладки утеплителя, мин/м2
+    public static double SCOTCH_SPEED; //Скорость оклеивания металлизированного скотча, мин/м
 
     //--- УПАКОВКА
     public static double CARTOON_BOX_PREPARED_TIME; //ПЗ время изготовления коробок, мин
@@ -227,6 +228,7 @@ public class NormConstants {
         SEALER_SPEED = Double.parseDouble(constantsProps.getProperty("SEALER_SPEED"));
         SELF_ADH_SEALER_SPEED = Double.parseDouble(constantsProps.getProperty("SELF_ADH_SEALER_SPEED"));
         INSULATION_SPEED = Double.parseDouble(constantsProps.getProperty("INSULATION_SPEED"));
+        SCOTCH_SPEED = Double.parseDouble(constantsProps.getProperty("SCOTCH_SPEED"));
 
         //--- УПАКОВКА
         CARTOON_BOX_PREPARED_TIME = Double.parseDouble(constantsProps.getProperty("CARTOON_BOX_PREPARED_TIME"));

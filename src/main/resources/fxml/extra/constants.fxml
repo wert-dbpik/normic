@@ -488,10 +488,20 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
                            <children>
-                              <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость разметки, резки и укладки утеплителя, мин/м" HBox.hgrow="ALWAYS" />
+                              <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость разметки, резки и укладки утеплителя, мин/м2" HBox.hgrow="ALWAYS" />
                               <HBox alignment="CENTER_RIGHT">
                                  <children>
                                     <TextField fx:id="tfINSULATION_SPEED" styleClass="settings-tf-value" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" styleClass="settings-hb-value-block">
+                           <children>
+                              <Label maxWidth="1.7976931348623157E308" styleClass="settings-lb-name" text="Скорость оклеивания металлизированного скотча, мин/м" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT">
+                                 <children>
+                                    <TextField fx:id="tfSCOTCH_SPEED" styleClass="settings-tf-value" />
                                  </children>
                               </HBox>
                            </children>

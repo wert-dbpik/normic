@@ -55,6 +55,12 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
     private Label lblMeasurement;
 
     @FXML
+    private CheckBox chbxUseScotch;
+
+    @FXML
+    private TextField tfScotchOutlay;
+
+    @FXML
     private Label lblOperationName;
 
     @FXML
@@ -91,6 +97,7 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
         new CmBx(cmbxThickness, this);
         new TFDoubleColored(tfPlusRatio, this);
 
+        new ChBox(chbxUseScotch, this);
 
     }
 
@@ -105,6 +112,8 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
         tfOutlay.setText(String.format(DOUBLE_FORMAT, opData.getOutlay()));
         lblMeasurement.setText(opData.getMeasurement().getMeasure());
+
+        tfScotchOutlay.setText(String.format(DOUBLE_FORMAT, opData.getScotchOutlay()));
 
         setTimeMeasurement();
     }
@@ -136,6 +145,8 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
         opData.setPlusRatio(plusRatio);
 
+        opData.setUseScotch(chbxUseScotch.isSelected());
+
     }
 
     @Override
@@ -154,6 +165,8 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
         tfPlusRatio.setText(String.valueOf(opData.getPlusRatio()));
         lblMeasurement.setText(opData.getMeasurement().getMeasure());
+
+        chbxUseScotch.setSelected(opData.isUseScotch());
     }
 
     @Override
@@ -166,7 +179,12 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
                 "м3 - для толстой термоизоляции типа пеноплекса - выбираются самостоятельно.\n" +
                 "Норма времени на монтаж термоизоляции расчитывается из площади шкафа по формуле:\n" +
                 "\t\t\tT монт = S шк х V монт,\n" +
-                "где V монт = %s мин/м2 - скорость монтажа термоизоляции.", INSULATION_SPEED);
+                "где V монт = %s мин/м2 - скорость монтажа термоизоляции.\n\n", INSULATION_SPEED) +
+                "Расход металлизированного скотча расчитывается по формуле :\n" +
+                "\t\t\t((2В + 2Ш) * n + 4Г) / L, где\n" +
+                "L = 50 - длина металлизированного скотча в рулоне, м;\n" +
+                "n = 3 - количество контуров оклеивания скотчем, \n" +
+                "n = 2 - если фронтальная стенка не учитывается\n";
     }
 
     @Override

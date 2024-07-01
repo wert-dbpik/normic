@@ -12,6 +12,7 @@ import static ru.wert.normic.settings.NormConstants.*;
 
 public class OpThermoInsulationCounter implements NormCounter {
 
+    static final int SCOTCH_LENGTH = 50; //Длина металлизированной ленты в рулоне
 
     @Override
     public OpThermoInsulation count(OpData data) {
@@ -23,6 +24,8 @@ public class OpThermoInsulationCounter implements NormCounter {
         int width = opData.getWidth();
         int depth = opData.getDepth();
 
+        boolean useScotch = opData.isUseScotch();
+
         boolean countFront = opData.getFront();
         boolean countBack = opData.getBack();
 
@@ -33,7 +36,16 @@ public class OpThermoInsulationCounter implements NormCounter {
         double square = 2*top + 2*side + (countFront ? front : 0.0) + (countBack ? front : 0.0);
         double volume = square * (thickness * MM_TO_M); //Расход материала
 
-        double plusRatio = opData.getPlusRatio();
+        double plusRatio = opData.getPlusRatio(); //Коэффициент запаса
+
+        double scotchOutlay = 0.0; //Расход металлизированной ленты
+
+        if(useScotch){
+            int perimeter = 2 * height + 2 * width;
+            int layoutMeter = 2 * perimeter + (countFront ? perimeter : 0) + 4 * depth;
+            scotchOutlay = layoutMeter * MM_TO_M / SCOTCH_LENGTH;
+        }
+
 
         //#########################################################################################
 
@@ -42,7 +54,9 @@ public class OpThermoInsulationCounter implements NormCounter {
                 roundTo001(square * plusRatio) :
                 roundTo001(volume * plusRatio));
 
-        double time =  square * INSULATION_SPEED;  //мин
+        opData.setScotchOutlay(scotchOutlay);
+
+        double time =  square * INSULATION_SPEED + scotchOutlay * SCOTCH_LENGTH * SCOTCH_SPEED;  //мин
         opData.setAssmTime(roundTo001(time));
 
 

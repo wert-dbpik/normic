@@ -3,18 +3,12 @@ package ru.wert.normic.report.reports;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.entities.ops.opAssembling.OpThermoInsulation;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EMaterialMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
@@ -22,8 +16,8 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 public class ReportInsulation {
 
     //Расход на наливное уплотнение
-    private Map<ThickMeasure, Double> insulations; //Компонент полиэфирный А
-    private double componentB; //Компонент изоцинат Б
+    private Map<ThickMeasure, Double> insulations; //Термоизоляция
+    private double scotchOutlay = 0.0;
 
     private StringBuilder textReport;
     private OpAssm opAssm;
@@ -49,10 +43,14 @@ public class ReportInsulation {
         textReport.append("\n\n").append("ТЕРМОИЗОЛЯЦИЯ :\n");
         for(ThickMeasure key : insulations.keySet()){
             textReport.append(String.format(
-                    "\tТермоизоляция\tS%s = %s %s \n",
+                    "\tТермоизоляция\t\t\t\tS%s = %s %s \n",
                     DECIMAL_FORMAT.format(key.thick),
                     DECIMAL_FORMAT.format(insulations.get(key)),
                     key.measure.getMeasure()));
+            if(scotchOutlay != 0.0)
+                textReport.append(String.format(
+                        "\tМеталлизированный скотч 48х50\t%s шт.\n",
+                        DECIMAL_FORMAT.format(scotchOutlay)));
         }
     }
 
@@ -84,6 +82,8 @@ public class ReportInsulation {
                                     key,
                                     ((OpThermoInsulation) o).getOutlay() * quantity);
                     }
+                    //Сосчитаем расход металлизированного скотча
+                    scotchOutlay += ((OpThermoInsulation) o).getScotchOutlay();
                 }
             }
         }

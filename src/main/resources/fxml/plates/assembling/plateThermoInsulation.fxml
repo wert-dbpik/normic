@@ -164,6 +164,13 @@
             </VBox>
          </children>
       </HBox>
+      <HBox alignment="CENTER_LEFT" VBox.vgrow="NEVER">
+         <children>
+            <CheckBox fx:id="chbxUseScotch" mnemonicParsing="false" text="Металлизированный скотч 48х50 " />
+            <TextField fx:id="tfScotchOutlay" editable="false" prefHeight="25.0" prefWidth="87.0" />
+            <Label text=" шт" />
+         </children>
+      </HBox>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>
             <Label text="T укл. : ">

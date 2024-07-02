@@ -141,6 +141,7 @@ public class MainController extends AbstractFormController {
                 OpData newOpData = convertor.getConvertedOpData();
 
                 deployOpDataFromFile(null, EMenuSource.ON_START, new File(FIRST_PARAMS[0]), newOpData, colorsSettings);
+                HistoryFile.getInstance().addFileToHistory(new File(FIRST_PARAMS[0]));
 
             } else
                 LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");

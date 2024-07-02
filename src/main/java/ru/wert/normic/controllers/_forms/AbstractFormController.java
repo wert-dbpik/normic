@@ -785,6 +785,16 @@ public abstract class AbstractFormController implements IForm {
 
         recentFilesMenu.getItems().clear();
         recentFilesMenu.getItems().addAll(list);
+
+        if(list.size() > 0){
+            MenuItem itemClearHistory = new MenuItem();
+            itemClearHistory.setText("очистить историю");
+            itemClearHistory.setOnAction(event -> Platform.runLater(()->HistoryFile.getInstance().clearHistory()));
+            itemClearHistory.setStyle("-fx-font-weight: normal; ");
+
+            recentFilesMenu.getItems().addAll(new SeparatorMenuItem());
+            recentFilesMenu.getItems().add(itemClearHistory);
+        }
     }
 
     public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ColorsSettings colorsSettings) {

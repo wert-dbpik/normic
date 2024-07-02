@@ -5,6 +5,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.wert.normic.AppStatics.TEST_VERSION;
+
 public class HistoryFile {
 
     final int MAX = 20;
@@ -34,6 +36,7 @@ public class HistoryFile {
     //================================================================================================
 
     public void addFileToHistory(File file){
+        if(TEST_VERSION) return;
         String newPath = file.getAbsolutePath();
         List<String> history = loadHistory();
         if(history.contains(newPath)) {
@@ -48,6 +51,13 @@ public class HistoryFile {
             history = history.subList(0, MAX);
         //Сохраняем полученный список на диск
         saveToFile(createStringToSave(history));
+    }
+
+    /**
+     * Сохраняет в файл пустой список
+     */
+    public void clearHistory(){
+        saveToFile(createStringToSave(new ArrayList<>()));
     }
 
     /**

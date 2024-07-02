@@ -9,7 +9,7 @@
       <Menu fx:id="mFile" mnemonicParsing="false" text="Файл">
          <items>
             <MenuItem fx:id="mOpen" mnemonicParsing="false" text="Открыть" />
-            <Menu fx:id="mOpenRecent" mnemonicParsing="false" text="Открыть последнее" />
+            <Menu fx:id="mOpenRecent" mnemonicParsing="false" text="Открыть последние" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mSave" mnemonicParsing="false" text="Сохранить" />
             <MenuItem fx:id="mSaveAs" mnemonicParsing="false" text="Сохранить как ..." />

@@ -42,6 +42,7 @@ import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
@@ -737,19 +738,51 @@ public abstract class AbstractFormController implements IForm {
         File initDir = new File(AppProperties.getInstance().getSavesDir());
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:/"));
         File file = chooser.showOpenDialog(owner);
-        ;
+
         if (file == null) return;
 
-        NvrConverter convertor = new NvrConverter(file);
-        ColorsSettings colorsSettings = convertor.getColorsSettings();
-        OpData newOpData = convertor.getConvertedOpData();
+        openFile(e, source, file);
+    }
 
-        deployOpDataFromFile(e,
-                source,
-                file,
-                newOpData,
-                colorsSettings);
 
+    /**
+     * ОТКРЫТЬ FILE
+     */
+    private void openFile(Event e, EMenuSource source, File file){
+        if(file.exists()) {
+            NvrConverter convertor = new NvrConverter(file);
+            ColorsSettings colorsSettings = convertor.getColorsSettings();
+            OpData newOpData = convertor.getConvertedOpData();
+
+            deployOpDataFromFile(e,
+                    source,
+                    file,
+                    newOpData,
+                    colorsSettings);
+
+            HistoryFile.getInstance().addFileToHistory(file);
+        } else {
+            Warning1.create("ОШИБКА!",
+                    String.format("Файл '%s' не найден", file.getAbsolutePath()),
+                    "Вероятно, сменилась буква диска, или файл был перемещен");
+        }
+    }
+
+    public void prepareRecentFiles(Menu recentFilesMenu){
+        //Загружаем историю из файла
+        List<String> history = HistoryFile.getInstance().loadHistory();
+
+        List<MenuItem> list = new ArrayList<>();
+        for(String path : history){
+            File file = new File(path);
+            MenuItem item = new MenuItem();
+            item.setText(file.getName());
+            item.setOnAction(ev -> Platform.runLater(()->openFile(ev, EMenuSource.MAIN_MENU, file)));
+            list.add(item);
+        }
+
+        recentFilesMenu.getItems().clear();
+        recentFilesMenu.getItems().addAll(list);
     }
 
     public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ColorsSettings colorsSettings) {

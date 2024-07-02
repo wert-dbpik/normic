@@ -2,6 +2,7 @@ package ru.wert.normic.menus;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import lombok.Getter;
@@ -18,6 +19,11 @@ public class MainMenuController {
             mImportExcel,
             mChangeUser,
             mExit;
+
+    @FXML@Getter
+    private Menu
+            mFile,        //Файл
+            mOpenRecent;  //Открыть последнее
 
     //ПРАВКА ============================================
 

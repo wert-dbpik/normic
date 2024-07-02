@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -162,9 +163,13 @@ public class MainController extends AbstractFormController {
             e.printStackTrace();
         }
 
+
+
         mainMenuController.getMSave().setOnAction(e-> save(opData, addedOperations, e));
         mainMenuController.getMSaveAs().setOnAction(e-> saveAs(opData, addedOperations, "", e, EMenuSource.MAIN_MENU));
         mainMenuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
+        //При нажатии на МЕНЮ готовится список последних открываемых файлов
+        mainMenuController.getMFile().setOnShowing(e->prepareRecentFiles(mainMenuController.getMOpenRecent()));
         mainMenuController.getMClearAll().setOnAction(this::clearAll);
         mainMenuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMProductTree().setOnAction(e->productTree(e, EMenuSource.MAIN_MENU));

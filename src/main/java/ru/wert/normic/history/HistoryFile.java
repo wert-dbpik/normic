@@ -1,6 +1,7 @@
 package ru.wert.normic.history;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,9 @@ public class HistoryFile {
     public List<String> loadHistory(){
         List<String> history = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(historyFile));
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(historyFilePath), StandardCharsets.UTF_8));
             String st;
             while ((st = br.readLine()) != null)
                 history.add(st);
@@ -72,7 +75,9 @@ public class HistoryFile {
      */
     private void saveToFile(String searchHistoryItems){
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(historyFilePath));
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(
+                            new FileOutputStream(historyFilePath), StandardCharsets.UTF_8));
             writer.write(searchHistoryItems);
             writer.close();
         } catch (IOException e) {

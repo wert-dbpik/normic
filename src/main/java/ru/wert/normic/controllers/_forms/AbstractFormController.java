@@ -776,9 +776,11 @@ public abstract class AbstractFormController implements IForm {
         for(String path : history){
             File file = new File(path);
             MenuItem item = new MenuItem();
-            item.setText(file.getName());
+            item.setText(file.getName().replace(".nvr", ""));
             item.setOnAction(ev -> Platform.runLater(()->openFile(ev, EMenuSource.MAIN_MENU, file)));
             list.add(item);
+            if(!file.exists())
+                item.setStyle("-fx-text-fill: #dacdbb");
         }
 
         recentFilesMenu.getItems().clear();

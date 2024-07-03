@@ -5,6 +5,8 @@ import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.enums.EMatType;
+import ru.wert.normic.enums.EPieceMeasurement;
 
 import java.util.*;
 
@@ -44,7 +46,13 @@ public class ReportMaterials {
         List<Material> keys = new ArrayList<>(materials.keySet());
         keys.sort(Comparator.comparing(Material::getName));
         for(Material m : keys){
-            textReport.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m))).append(" кг.\n");
+            textReport.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m)));
+            if(EMatType.getTypeByName(m.getMatType().getName()).equals(EMatType.PIECE))
+                textReport.append(" ")
+                        .append(EPieceMeasurement.values()[((int)m.getParamX())].getMeasureName())
+                        .append("\n");
+            else
+                textReport.append(" кг.\n");
         }
     }
 

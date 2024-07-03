@@ -35,8 +35,7 @@ public class MaterialPieceController implements MatTypeController {
     @Override //MatTypeController
     public boolean checkData(){
         if(txtFldPieceQuantity.getText().isEmpty()) return false;
-        else if(bxPieceMeasurement.getValue() == null) return false;
-        return true;
+        else return bxPieceMeasurement.getValue() != null;
     }
 
     @Override //MatTypeController

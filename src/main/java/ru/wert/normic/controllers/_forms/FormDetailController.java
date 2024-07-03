@@ -131,12 +131,19 @@ public class FormDetailController extends AbstractFormController {
 
     }
 
+    /**
+     * Устанавливает соответствующую панель для расчета материала
+     * @param prevMaterial
+     * @param newMaterial
+     */
     private void mountMatPatch(Material prevMaterial, Material newMaterial) {
+        //Определяем, если материал щтучный - для него нужно менять панель каждый раз
+        boolean isPieceType = EMatType.getTypeByName(newMaterial.getMatType().getName()).equals(EMatType.PIECE);
 
         EMatType prevMatType = (prevMaterial == null) ? null : EMatType.getTypeByName(prevMaterial.getMatType().getName());
         EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
         //Нам нужна только смена EMatType и первичная инициализация
-        if(!newMatType.equals(prevMatType)) {
+        if((!isPieceType &&!newMatType.equals(prevMatType)) || (isPieceType && !prevMaterial.equals(newMaterial))) {
             try {
                 FXMLLoader loader = null;
                 switch (newMatType) {
@@ -153,7 +160,6 @@ public class FormDetailController extends AbstractFormController {
                         loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialPatches/piecePatch.fxml"));
                         break;
                 }
-                assert loader != null;
                 Parent parent = loader.load();
                 matPatchController = loader.getController();
                 matPatchController.init((OpDetail) getOpData(), this, getAddedPlates());

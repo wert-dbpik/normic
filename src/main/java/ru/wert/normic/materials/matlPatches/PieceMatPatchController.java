@@ -7,7 +7,6 @@ import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EPieceMeasurement;
 
@@ -35,6 +34,9 @@ public class PieceMatPatchController extends AbstractMatPatchController {
 
     @FXML@Getter
     private TextField tfWeight;
+
+    @FXML@Getter
+    private TextField tfPieceOutlay;
 
     @FXML@Getter
     private Label lblMeasure;
@@ -66,6 +68,10 @@ public class PieceMatPatchController extends AbstractMatPatchController {
             tfB.setDisable(true);
             tfC.setDisable(true);
             tfWasteRatio.setDisable(true);
+            tfWeight.setDisable(true);
+
+            tfPieceOutlay.setText("1");
+            opData.setPieceOutlay(1.0);
         }
         if(measure.equals(EPieceMeasurement.METER)){
             tfA.setDisable(false);
@@ -105,12 +111,15 @@ public class PieceMatPatchController extends AbstractMatPatchController {
         tfWeight.setText(String.valueOf(opData.getWeight()));
         lblMeasure.setText(opData.getMeasurement().getMeasureName());
 
+        tfPieceOutlay.setText(String.valueOf(opData.getPieceOutlay()));
+
     }
 
 
     @Override
     public void countWeightAndArea() {
         double weight = 0.0;
+        double pieceOutlay = 0.0;
         EPieceMeasurement measure = opData.getMeasurement();
         paramA = tfA.getText().equals("") ? 0 : Integer.parseInt(tfA.getText().trim());
         paramB = tfB.getText().equals("") ? 0 : Integer.parseInt(tfB.getText().trim());
@@ -126,14 +135,20 @@ public class PieceMatPatchController extends AbstractMatPatchController {
             weight = paramA * paramB * paramC * MM3_TO_M3;
         }
 
+        Material material = detailController.getCmbxMaterial().getValue();
+        pieceOutlay = weight / material.getParamS();
+
+
 
         weight = measure.equals(EPieceMeasurement.PIECE)  ? weight : weight * wasteRatio;
 
         tfWeight.setText(String.format(DOUBLE_FORMAT, weight));
         lblMeasure.setText(measure.getMeasureName());
+        tfPieceOutlay.setText(String.format(DOUBLE_FORMAT, pieceOutlay));
 
         opData.setParamC(paramC);
         opData.setWeight(roundTo001(weight));
+        opData.setPieceOutlay(pieceOutlay);
 
     }
 }

@@ -39,7 +39,8 @@ public class OpDetail extends OpData implements IOpWithOperations, Paintable {
     private Integer paramB = 0;
     private Integer paramC = 0; //Дополнительный параметр для материала штучного типа
     private double wasteRatio = 1.1;
-    private double weight = 0.0; //Для штучных материалов поле хранит EPieceMeasurement в виде int
+    private double weight = 0.0; //Для штучных материалов промежуточное значение - фактический расход в ед.изм.
+    private double pieceOutlay = 0.0; //Для штучных расход материала в штуках
     private double area = 0.0;
     private EPieceMeasurement measurement = EPieceMeasurement.PIECE; //Поле для штучных материалов
     private List<OpData> operations = new ArrayList<>();

@@ -132,6 +132,7 @@ public class FormDetailController extends AbstractFormController {
     }
 
     private void mountMatPatch(Material prevMaterial, Material newMaterial) {
+
         EMatType prevMatType = (prevMaterial == null) ? null : EMatType.getTypeByName(prevMaterial.getMatType().getName());
         EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
         //Нам нужна только смена EMatType и первичная инициализация

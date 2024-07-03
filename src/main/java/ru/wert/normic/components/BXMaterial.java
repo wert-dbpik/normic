@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.enums.EMatType;
 
 import java.util.Comparator;
 
@@ -20,7 +21,8 @@ public class BXMaterial {
     public void create(ComboBox<Material> bxMaterial){
         this.cmbx = bxMaterial;
         ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
-        materials.sort(Comparator.comparing(Material::getName));
+//        materials.sort(Comparator.comparing(Material::getName));
+        materials.sort(createComparator());
         bxMaterial.setItems(materials);
 
         createCellFactory();
@@ -32,6 +34,22 @@ public class BXMaterial {
 
         bxMaterial.getSelectionModel().select(LAST_VAL);
 
+    }
+
+    private Comparator<Material> createComparator(){
+        return new Comparator<Material>() {
+            @Override
+            public int compare(Material m1, Material m2) {
+                int m1_type = EMatType.getTypeByName(m1.getMatType().getName()).ordinal();
+                int m2_type = EMatType.getTypeByName(m2.getMatType().getName()).ordinal();
+
+                int res1 = Integer.compare(m1_type, m2_type);
+                if(res1 == 0)
+                    return m1.getName().compareTo(m2.getName());
+                else
+                    return res1;
+            }
+        };
     }
 
     private void createCellFactory() {

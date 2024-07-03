@@ -156,7 +156,7 @@ public class MaterialsACCController {
 
         oldMaterial.setName(newMaterial.getName());
         oldMaterial.setNote(newMaterial.getNote());
-        oldMaterial.setParamX(matTypeController.readParamS());
+        oldMaterial.setParamS(matTypeController.readParamS());
         oldMaterial.setParamX(matTypeController.readParamX());
 
     }

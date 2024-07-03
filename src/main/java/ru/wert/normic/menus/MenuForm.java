@@ -3,6 +3,7 @@ package ru.wert.normic.menus;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers.PlateEmptyController;
@@ -242,6 +243,21 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    /**
+     * ВСЕ СЛЕСАРНЫЕ ОПЕРАЦИИ
+     */
+    public Menu createAllLocksmithOperations(){
+        Menu menu = new Menu("Слесарные операции");
+        menu.getItems().add(createItemLocksmith());
+        menu.getItems().add(createItemAssmNutsMK());
+        menu.getItems().add(createItemChopOff());
+        menu.getItems().add(createItemDrillingByMarking());
+        menu.getItems().add(createItemCutOffOnTheSaw());
+
+
+        return menu;
+    }
+
     //===========      ТОКАРНЫЕ ОПЕРАЦИИ     =========================================
 
     //УСТАНОВКА / СНЯТИЕ детали
@@ -308,6 +324,22 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    /**
+     * ВСЕ ТОКАРНЫЕ ОПЕРАЦИИ
+     */
+    public Menu createAllLatheOperations(){
+        Menu menu = new Menu("Токарные операции");
+        menu.getItems().add(createItemMountDismount());
+        menu.getItems().add(createItemTurning());
+        menu.getItems().add(createItemCutGroove());
+        menu.getItems().add(createItemThreading());
+        menu.getItems().add(createItemDrilling());
+        menu.getItems().add(createItemRolling());
+        menu.getItems().add(createItemCutOff());
+
+        return menu;
+    }
+
     //===========      СВАРОЧНЫЕ ОПЕРАЦИИ     =========================================
 
     //СВАРКА НЕПРЕРЫВНАЯ
@@ -328,6 +360,17 @@ public class MenuForm extends ContextMenu {
             addWeldDottedPlate(new OpWeldDotted());
         });
         return item;
+    }
+
+    /**
+     * ВСЕ ТОКАРНЫЕ ОПЕРАЦИИ
+     */
+    public Menu createAllWeldingOperations(){
+        Menu menu = new Menu("Сварочные операции");
+        menu.getItems().add(createItemWeldLongSeam());
+        menu.getItems().add(createItemWeldingDotted());
+
+        return menu;
     }
 
     //===========      УПАКОВКА     =========================================

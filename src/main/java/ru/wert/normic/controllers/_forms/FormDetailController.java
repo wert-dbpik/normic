@@ -255,13 +255,13 @@ public class FormDetailController extends AbstractFormController {
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
         } else { //ШТУЧНЫЕ
-            menu.getItems().add(menu.createItemCutOffOnTheSaw());
-            menu.getItems().add(menu.createItemChopOff());
-            menu.getItems().add(menu.createItemDrillingByMarking());
             menu.getItems().add(menu.createItemBending());
-            menu.getItems().add(menu.createItemLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPainting());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createAllLatheOperations());
+            menu.getItems().add(menu.createAllLocksmithOperations());
+            menu.getItems().add(menu.createAllWeldingOperations());
         }
 
         linkMenuToButton();

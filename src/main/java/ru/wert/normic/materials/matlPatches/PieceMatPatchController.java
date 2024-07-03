@@ -7,6 +7,7 @@ import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EPieceMeasurement;
 
@@ -60,7 +61,13 @@ public class PieceMatPatchController extends AbstractMatPatchController {
 
         tfC.setText(String.valueOf(opData.getParamC()));
 
-        if(measure.equals(EPieceMeasurement.PIECE) || measure.equals(EPieceMeasurement.METER)){
+        if(measure.equals(EPieceMeasurement.PIECE)){
+            tfA.setDisable(false);
+            tfB.setDisable(true);
+            tfC.setDisable(true);
+            tfWasteRatio.setDisable(true);
+        }
+        if(measure.equals(EPieceMeasurement.METER)){
             tfA.setDisable(false);
             tfB.setDisable(true);
             tfC.setDisable(true);
@@ -109,7 +116,9 @@ public class PieceMatPatchController extends AbstractMatPatchController {
         paramB = tfB.getText().equals("") ? 0 : Integer.parseInt(tfB.getText().trim());
         paramC = tfC.getText().equals("") ? 0 : Integer.parseInt(tfC.getText().trim());
 
-        if(measure.equals(EPieceMeasurement.PIECE) || measure.equals(EPieceMeasurement.METER)){
+        if(measure.equals(EPieceMeasurement.PIECE)){
+            weight = 1;
+        } else if (measure.equals(EPieceMeasurement.METER)){
             weight = paramA * MM_TO_M;
         } else if(measure.equals(EPieceMeasurement.SQUARE_METER)){
             weight = paramA * paramB * MM2_TO_M2;

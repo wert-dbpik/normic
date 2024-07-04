@@ -143,7 +143,8 @@ public class FormDetailController extends AbstractFormController {
         EMatType prevMatType = (prevMaterial == null) ? null : EMatType.getTypeByName(prevMaterial.getMatType().getName());
         EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
         //Нам нужна только смена EMatType и первичная инициализация
-        if((!isPieceType &&!newMatType.equals(prevMatType)) || (isPieceType && !prevMaterial.equals(newMaterial))) {
+        if((!isPieceType &&!newMatType.equals(prevMatType)) ||
+                (isPieceType && prevMaterial != null && !prevMaterial.equals(newMaterial))) {
             try {
                 FXMLLoader loader = null;
                 switch (newMatType) {

@@ -172,7 +172,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
         //При нажатии на МЕНЮ готовится список последних открываемых файлов
         mainMenuController.getMFile().setOnShowing(e->prepareRecentFiles(mainMenuController.getMOpenRecent()));
-        mainMenuController.getMClearAll().setOnAction(this::clearAll);
+        mainMenuController.getMClearAll().setOnAction(e->clearAll(e, true));
         mainMenuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMProductTree().setOnAction(e->productTree(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMColors().setOnAction(e->colors(e, EMenuSource.MAIN_MENU));
@@ -240,7 +240,7 @@ public class MainController extends AbstractFormController {
         //ОЧИСТИТЬ
         iconMenuController.getBtnClearAll().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32,32, true, true)));
         iconMenuController.getBtnClearAll().setTooltip(new Tooltip("Очистить"));
-        iconMenuController.getBtnClearAll().setOnAction(this::clearAll);
+        iconMenuController.getBtnClearAll().setOnAction(e->clearAll(e, true));
 
         //ОТЧЕТ
         iconMenuController.getBtnReport1C().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32,32, true, true)));
@@ -328,7 +328,7 @@ public class MainController extends AbstractFormController {
         AppProperties.getInstance().setImportDirectory(file.getParent());
 
         File copied = AppFiles.getInstance().createTempCopyOfFile(file);
-        clearAll(e);
+        clearAll(e, true);
 
         ImportExcelFileService service = new ImportExcelFileService(this, copied);
         service.setOnSucceeded(workerStateEvent ->{

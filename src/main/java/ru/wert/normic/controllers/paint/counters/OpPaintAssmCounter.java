@@ -35,6 +35,11 @@ public class OpPaintAssmCounter implements NormCounter {
         opData = (OpPaintAssm) data;
 
         assm = opData.getAssm();
+        /*
+        assm = null при загрузке изделия из файла. Поле assm класса OpPaintAssm является transient и не хранит сборку изначально.
+        поэтому при пересчете лучше вернуть opData неизменным
+         */
+        if(assm == null) return opData;
 
         EColor color = opData.getColor(); //Цвет краски
         int along = opData.getAlong(); //Параметр А вдоль штанги
@@ -81,8 +86,11 @@ public class OpPaintAssmCounter implements NormCounter {
         return opData;
     }
 
+    /**
+     * Расчитывает площадь всех входящих в сборку других деталей и сборок.
+     * Нулевое значение assm при первоначальной загрузке из файла уже отсечено
+     */
     private double countCalculatedArea(IOpWithOperations assm) {
-        if(assm == null) return 0f; //При первой загрузке изделия
         List<OpData> ops = assm.getOperations();
         for (OpData op : ops) {
             if (op instanceof OpAssm) {

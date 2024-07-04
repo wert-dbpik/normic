@@ -760,7 +760,8 @@ public abstract class AbstractFormController implements IForm {
                     newOpData,
                     colorsSettings);
 
-            HistoryFile.getInstance().addFileToHistory(file);
+            if(!source.equals(EMenuSource.FORM_MENU))
+                HistoryFile.getInstance().addFileToHistory(file);
         } else {
             Warning1.create("ОШИБКА!",
                     String.format("Файл '%s' не найден", file.getAbsolutePath()),

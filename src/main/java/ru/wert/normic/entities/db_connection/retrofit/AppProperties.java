@@ -76,7 +76,7 @@ public class AppProperties {
             FileWriter writer = new FileWriter (props);
             writer.write("IP_ADDRESS=" + (TEST_VERSION ? TEST_SERVER_IP : SERVER_IP) + "\n");
             writer.write("PORT =" + SERVER_PORT  + "\n");
-            writer.write("SAVES_DIR=C:/\n");
+            writer.write("LAST_DIR=C:/\n");
             writer.write("IMPORT_DIR=C:/\n");
             writer.write("SEARCH_DIR=C:/\n");
             writer.write("USER=1\n");
@@ -105,10 +105,10 @@ public class AppProperties {
         return connectionProps.getProperty("PORT");
     }
 
-    public String getSavesDir(){
-        log.debug("SAVES_DIR returns...{}", connectionProps.getProperty("SAVES_DIR"));
-        return connectionProps.getProperty("SAVES_DIR") == null ?
-                "C:\\" : connectionProps.getProperty("SAVES_DIR");
+    public String getLastDir(){
+        log.debug("LAST_DIR returns...{}", connectionProps.getProperty("LAST_DIR"));
+        return connectionProps.getProperty("LAST_DIR") == null ?
+                "C:\\" : connectionProps.getProperty("LAST_DIR");
     }
 
     public String getImportDir(){
@@ -148,10 +148,10 @@ public class AppProperties {
         }
     }
 
-    public void setSavesDirectory(final String dir){
+    public void setLastDir(final String dir){
         try {
             FileOutputStream fos = new FileOutputStream(appConfigPath);
-            connectionProps.setProperty("SAVES_DIR", dir);
+            connectionProps.setProperty("LAST_DIR", dir);
             connectionProps.store(fos, null);
         } catch (IOException e) {
             e.printStackTrace();

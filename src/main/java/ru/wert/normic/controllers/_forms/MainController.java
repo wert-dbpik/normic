@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,6 +25,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.extra.StructureController;
+import ru.wert.normic.decoration.DecorationController;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.report.ReportController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
@@ -168,7 +168,9 @@ public class MainController extends AbstractFormController {
 
 
         mainMenuController.getMSave().setOnAction(e-> save(opData, addedOperations, e));
-        mainMenuController.getMSaveAs().setOnAction(e-> saveAs(opData, addedOperations, "", e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMSaveAs().setOnAction(e-> saveAs(opData, addedOperations,
+                CURRENT_PRODUCT_NAME,
+                e, EMenuSource.MAIN_MENU));
         mainMenuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
         //При нажатии на МЕНЮ готовится список последних открываемых файлов
         mainMenuController.getMFile().setOnShowing(e->prepareRecentFiles(mainMenuController.getMOpenRecent()));
@@ -377,7 +379,12 @@ public class MainController extends AbstractFormController {
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
     public static void save(OpData opData, List<OpData> addedOperations, Event e) {
-        if(savedProductFile == null) saveAs(opData, addedOperations, "", e, EMenuSource.ICON_MENU);
+        if(savedProductFile == null) saveAs(
+                opData,
+                addedOperations,
+                CURRENT_PRODUCT_NAME,
+                e,
+                EMenuSource.ICON_MENU);
         else loadProductToFile(savedProductFile, opData, addedOperations);
     }
 
@@ -391,12 +398,20 @@ public class MainController extends AbstractFormController {
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
-        File initFile = new File(AppProperties.getInstance().getSavesDir());
+        File initFile = new File(AppProperties.getInstance().getLastDir());
         chooser.setInitialDirectory(initFile.exists() ? initFile : new File("C:\\"));
         chooser.setInitialFileName(initialName);
 
         File file = chooser.showSaveDialog(owner);
-        if (file != null) loadProductToFile(file, opData, addedOperations);
+        if (file != null) {
+            loadProductToFile(file, opData, addedOperations);
+            if(source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU)) {
+                AppProperties.getInstance().setLastDir(file.getParent());
+                savedProductFile = file;
+                CURRENT_PRODUCT_NAME = file.getName().replace(".nvr", "");
+                LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + CURRENT_PRODUCT_NAME);
+            }
+        }
 
     }
 
@@ -406,7 +421,7 @@ public class MainController extends AbstractFormController {
     public static void loadProductToFile(File file, OpData opData, List<OpData> addedOperations) {
 
         ((IOpWithOperations)opData).setName(file.getName());
-        AppProperties.getInstance().setSavesDirectory(file.getParent());
+        AppProperties.getInstance().setLastDir(file.getParent());
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
         Gson gson = new Gson();
@@ -422,8 +437,8 @@ public class MainController extends AbstractFormController {
         List<String> product = Arrays.asList(savedOpType, productSettings, productData);
         saveTextToFile(product, file);
 
-        savedProductFile = file;
-        LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
+
+
         Warning0.create("Внимание!", "Файл успешно сохранен!");
 
         HistoryFile.getInstance().addFileToHistory(file);

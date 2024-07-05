@@ -68,6 +68,9 @@ public class AppStatics {
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";
 
+    public static String NEW_PRODUCT = "НОВОЕ ИЗДЕЛИЕ";
+    public static String CURRENT_PRODUCT_NAME;
+
     public static List<KeyCode> KEYS_NOW_PRESSED; //Массив хранения нажатых клавиш
 
     //Перечень операций, которые можно добавить в Деталь

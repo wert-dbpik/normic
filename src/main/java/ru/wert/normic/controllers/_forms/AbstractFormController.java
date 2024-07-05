@@ -37,6 +37,7 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
@@ -45,6 +46,7 @@ import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.interfaces.Paintable;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.searching.SearchingFileController;
@@ -735,11 +737,13 @@ public abstract class AbstractFormController implements IForm {
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
-        File initDir = new File(AppProperties.getInstance().getSavesDir());
+        File initDir = new File(AppProperties.getInstance().getLastDir());
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:/"));
         File file = chooser.showOpenDialog(owner);
 
         if (file == null) return;
+
+        AppProperties.getInstance().setLastDir(file.getParent());
 
         openFile(e, source, file);
     }
@@ -804,23 +808,31 @@ public abstract class AbstractFormController implements IForm {
                     "При конвертации файла произошла ошибка",
                     "Возможно, файл поврежден.");
         } else {
-
-            //Убираем ".nvr" в конце наименования
-            ((IOpWithOperations) newOpData).setName(((IOpWithOperations) newOpData).getName().replace(".nvr", ""));
-
             if (source.equals(EMenuSource.FORM_MENU)) {
                 addFromFile(newOpData);
             } else { //Вызов из меню с пиктограммами
-                if (!source.equals(EMenuSource.ON_START))
+                if (!source.equals(EMenuSource.ON_START)) {
                     clearAll(e, true);
+                }
+
+                if (source.equals(EMenuSource.MAIN_MENU)){
+                    //Убираем ".nvr" в конце наименования
+                    CURRENT_PRODUCT_NAME = ((IOpWithOperations) newOpData).getName().replace(".nvr", "");
+                    LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + CURRENT_PRODUCT_NAME);
+                    ((IOpWithOperations) newOpData).setName(CURRENT_PRODUCT_NAME);
+                }
+
                 if (newOpData.getOpType().equals(EOpType.ASSM)) {
-                    LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + file.getName().replace(".nvr", ""));
                     blockUndoListFlag = true;
                     deployFile(source, colorsSettings, newOpData);
                     iterateUndoList();
-                } else {
-                    LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");
+                } else if (newOpData.getOpType().equals(EOpType.DETAIL)) {
                     addFromFile(newOpData);
+                } else {
+                    LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + NEW_PRODUCT);
+                    blockUndoListFlag = true;
+                    addFromFile(newOpData);
+                    iterateUndoList();
                 }
             }
 
@@ -891,6 +903,8 @@ public abstract class AbstractFormController implements IForm {
         //Для вновь открытого изделия
         if (!source.equals(EMenuSource.FORM_MENU))
             MAIN_OP_DATA = (OpAssm) newOpData;
+        if(opData instanceof OpAssm)
+            fillTransientFieldsWithPropperAssm((OpAssm) opData);
     }
 
     /**
@@ -929,6 +943,21 @@ public abstract class AbstractFormController implements IForm {
     }
 
     /**
+     * Устанавливает transient поля в нужное значение assm
+     * Применяется при загрузке ранее сохраненных структур
+     */
+    protected void fillTransientFieldsWithPropperAssm(OpAssm assm){
+        for(OpData op : assm.getOperations()){
+            if(op instanceof Paintable)
+                ((Paintable) op).setPainter(assm);
+            if(op instanceof OpPaintAssm)
+                ((OpPaintAssm) op).setAssm(assm);
+            if(op instanceof OpAssm)
+                fillTransientFieldsWithPropperAssm((OpAssm) op);
+        }
+    }
+
+    /**
      * Применение СТРУКТУРЫ
      */
     private void createStructureFromJson(String jsonString) {
@@ -940,6 +969,8 @@ public abstract class AbstractFormController implements IForm {
             e.printStackTrace();
         }
     }
+
+
 
 
 }

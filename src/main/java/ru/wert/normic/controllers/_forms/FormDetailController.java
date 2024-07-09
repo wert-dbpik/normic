@@ -87,8 +87,12 @@ public class FormDetailController extends AbstractFormController {
 
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
+        if(((OpDetail) opData).getMaterial() != null)
+            cmbxMaterial.setValue(((OpDetail) opData).getMaterial());
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue == null) return;
+//            if(EMatType.getTypeByName(newValue.getMatType().getName()).equals(EMatType.PIECE))
+
             mountMatPatch(oldValue, newValue);
             createMenu();
             matPatchController.countWeightAndArea();
@@ -143,8 +147,7 @@ public class FormDetailController extends AbstractFormController {
         EMatType prevMatType = (prevMaterial == null) ? null : EMatType.getTypeByName(prevMaterial.getMatType().getName());
         EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
         //Нам нужна только смена EMatType и первичная инициализация
-        if((!isPieceType &&!newMatType.equals(prevMatType)) ||
-                (isPieceType && prevMaterial != null && !prevMaterial.equals(newMaterial))) {
+        if(isPieceType || !newMatType.equals(prevMatType)) {
             try {
                 FXMLLoader loader = null;
                 switch (newMatType) {
@@ -172,9 +175,9 @@ public class FormDetailController extends AbstractFormController {
             }
         } else {
             //Сохраняем введенные ранее данные
-            ((OpDetail)opData).setParamA(matPatchController.getParamA());
-            ((OpDetail)opData).setParamB(matPatchController.getParamB());
-            ((OpDetail)opData).setParamC(matPatchController.getParamC());
+            ((OpDetail) opData).setParamA(matPatchController.getParamA());
+            ((OpDetail) opData).setParamB(matPatchController.getParamB());
+            ((OpDetail) opData).setParamC(matPatchController.getParamC());
         }
 
         matPatchController.fillPatchOpData();

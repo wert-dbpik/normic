@@ -93,12 +93,12 @@ public class PlateDetailController extends AbstractOpPlate {
         }
 
         ivDone.setOnMouseClicked(e -> {
-            openFormEditor(opData);
+            openFormEditor();
         });
 
         vbOperation.setOnMouseClicked(e -> {
             if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
-                openFormEditor(opData);
+                openFormEditor();
         });
 
         //Сохраняем имя при изменении
@@ -118,7 +118,7 @@ public class PlateDetailController extends AbstractOpPlate {
     /**
      * Открыть форму редактирования детали
      */
-    private void openFormEditor(OpDetail opData) {
+    private void openFormEditor() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
             Parent parent = loader.load();

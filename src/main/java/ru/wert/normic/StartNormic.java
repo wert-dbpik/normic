@@ -5,11 +5,13 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.controllers.AppPreloader;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
+import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.db_connection.user.UserService;
@@ -107,6 +109,17 @@ public class StartNormic extends Application {
                     "decoration-main",
                     false,
                     false);
+
+            windowDecoration.getImgCloseWindow().setOnMousePressed(e->{
+
+                if(e.getButton().equals(MouseButton.PRIMARY)) {
+                    boolean res = Warning2.create("Внимание!",
+                            "Вы уверены, что хотите выйти?",
+                            "Может, забыли сохраниться?");
+                    if(res)
+                        System.exit(0);
+                }
+            });
 
             MAIN_STAGE = windowDecoration.getWindow();
             LABEL_PRODUCT_NAME = windowDecoration.getLblProductName();

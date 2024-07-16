@@ -136,12 +136,14 @@ public class MainController extends AbstractFormController {
         Platform.runLater(()->{
             if (FIRST_PARAMS.length > 0) { //Если открывается норма по двойному клику
 
-                NvrConverter convertor = new NvrConverter(new File(FIRST_PARAMS[0]));
+                File openingFile = new File(FIRST_PARAMS[0]);
+
+                NvrConverter convertor = new NvrConverter(openingFile);
                 ColorsSettings colorsSettings = convertor.getColorsSettings();
                 OpData newOpData = convertor.getConvertedOpData();
 
-                deployOpDataFromFile(null, EMenuSource.ON_START, new File(FIRST_PARAMS[0]), newOpData, colorsSettings);
-                HistoryFile.getInstance().addFileToHistory(new File(FIRST_PARAMS[0]));
+                deployOpDataFromFile(null, EMenuSource.ON_START, openingFile, newOpData, colorsSettings);
+                HistoryFile.getInstance().addFileToHistory(openingFile);
 
             } else
                 LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + "НОВОЕ ИЗДЕЛИЕ");

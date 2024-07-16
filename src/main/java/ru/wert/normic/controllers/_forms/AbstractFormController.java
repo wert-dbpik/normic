@@ -815,7 +815,7 @@ public abstract class AbstractFormController implements IForm {
                     clearAll(e, true);
                 }
 
-                if (source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU) ){
+                if (source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU) || source.equals(EMenuSource.ON_START)){
                     //Убираем ".nvr" в конце наименования
                     CURRENT_PRODUCT_NAME = ((IOpWithOperations) newOpData).getName().replace(".nvr", "");
                     LABEL_PRODUCT_NAME.setText(TITLE_SEPARATOR + CURRENT_PRODUCT_NAME);

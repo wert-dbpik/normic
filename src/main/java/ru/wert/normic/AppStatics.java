@@ -78,6 +78,7 @@ public class AppStatics {
             Arrays.asList(CUTTING, BENDING, WELD_CONTINUOUS, WELD_DOTTED,
                     LATHE_MOUNT_DISMOUNT, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING, LOCKSMITH, LATHE_CUT_OFF, CHOP_OFF,
+                    ASSM_CHOP_OFF,
                     PAINTING
                    );
 

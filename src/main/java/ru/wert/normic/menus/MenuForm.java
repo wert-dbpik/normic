@@ -130,8 +130,6 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
-
-
     //ПОКРАСКА СБОРОЧНОЙ ЕДИНИЦЫ
     public MenuItem createItemPaintAssm(){
         MenuItem item = new MenuItem(EOpType.PAINT_ASSM.getOpName());
@@ -193,6 +191,25 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //ОТРУБАНИЕ
+    public MenuItem createItemAssmChopOff(){
+        MenuItem item = new MenuItem(EOpType.ASSM_CHOP_OFF.getOpName());
+        item.setOnAction(event -> {
+            addAssmChopOffPlate(new OpAssmChopOff());
+        });
+        return item;
+    }
+
+    /**
+     * ВСЕ СБОРОЧНЫЕ ОПЕРАЦИИ
+     */
+    public Menu createAllAssmOperations(){
+        Menu menu = new Menu("СБ операции");
+        menu.getItems().add(createItemAssmChopOff());
+
+        return menu;
+    }
+
     //===========      СЛЕСАРНЫЕ ОПЕРАЦИИ     =========================================
 
     //СЛЕСАРНЫЕ РАБОТЫ
@@ -247,7 +264,7 @@ public class MenuForm extends ContextMenu {
      * ВСЕ СЛЕСАРНЫЕ ОПЕРАЦИИ
      */
     public Menu createAllLocksmithOperations(){
-        Menu menu = new Menu("Слесарные операции");
+        Menu menu = new Menu("МК: слесарные операции");
         menu.getItems().add(createItemLocksmith());
         menu.getItems().add(createItemAssmNutsMK());
         menu.getItems().add(createItemChopOff());
@@ -328,7 +345,7 @@ public class MenuForm extends ContextMenu {
      * ВСЕ ТОКАРНЫЕ ОПЕРАЦИИ
      */
     public Menu createAllLatheOperations(){
-        Menu menu = new Menu("Токарные операции");
+        Menu menu = new Menu("МК: токарные операции");
         menu.getItems().add(createItemMountDismount());
         menu.getItems().add(createItemTurning());
         menu.getItems().add(createItemCutGroove());
@@ -366,7 +383,7 @@ public class MenuForm extends ContextMenu {
      * ВСЕ ТОКАРНЫЕ ОПЕРАЦИИ
      */
     public Menu createAllWeldingOperations(){
-        Menu menu = new Menu("Сварочные операции");
+        Menu menu = new Menu("МК: сварочные операции");
         menu.getItems().add(createItemWeldLongSeam());
         menu.getItems().add(createItemWeldingDotted());
 
@@ -544,6 +561,9 @@ public class MenuForm extends ContextMenu {
                 break;
             case THERMO_INSULATION:
                 addThermoInsulationPlate((OpThermoInsulation) op);
+                break;
+            case ASSM_CHOP_OFF:
+                addAssmChopOffPlate((OpAssmChopOff) op);
                 break;
             case PACK_IN_CARTOON_BOX:
                 addPackInCartoonBoxPlate((OpPackInCartoonBox) op);
@@ -977,6 +997,22 @@ public class MenuForm extends ContextMenu {
             controller.init(formController, opData, addedOperations.size(), "СБОРКА СТАНДАРТНЫХ УЗЛОВ");
             addVBox(vBox);
             
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * РУБКА НА УЧАСТКЕ СБОРКИ
+     */
+    public void addAssmChopOffPlate(OpAssmChopOff opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/assembling/plateAssmChopOff.fxml"));
+            VBox vBox = loader.load();
+            PlateAssmChopOffController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ОТРУБАНИЕ НА СБОРКЕ");
+            addVBox(vBox);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -89,6 +89,8 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpLevelingSealer.class);
             case "THERMO_INSULATION":
                 return gson.fromJson(op.toString(), OpThermoInsulation.class);
+            case "ASSM_CHOP_OFF":
+                return gson.fromJson(op.toString(), OpAssmChopOff.class);
 
             //ОКРАШИВАНИЕ
 

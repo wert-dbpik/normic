@@ -56,6 +56,7 @@ public enum EOpType {
     ASSM_NUTS                   ("Сборка крепежа",                  OpAssmNut.class,                    new Image("/pics/opLogos/nuts.png"),            new OpAssmNutsCounter()),           //СБОРКА КРЕПЕЖА
     LEVELING_SEALER             ("Наливной уплотнитель",            OpLevelingSealer.class,             new Image("/pics/opLogos/sealer.png"),          new OpLevelingSealerCounter()),     //НАЛИВКА УПЛОТНИТЕЛЯ
     THERMO_INSULATION           ("Термоизоляция",                   OpThermoInsulation.class,           new Image("/pics/opLogos/thermoinsulation.png"),new OpThermoInsulationCounter()),   //МОНТАЖ ТЕРМОИЗОЛЯЦИИ
+    ASSM_CHOP_OFF               ("Рубка в размер",                  OpAssmChopOff.class,                new Image("/pics/opLogos/guillotine.png"),      new OpAssmChopOffCounter()),        //ОТРУБКА ЗАГОТОВКИ НА СБОРОЧНОМ УЧАСТКЕ
 
     //СЛЕСАРНЫЕ ОПЕРАЦИИ
     LOCKSMITH                   ("Слесарные операции",              OpLocksmith.class,                  new Image("/pics/opLogos/locksmith.png"),       new OpLocksmithCounter()),          //СЛЕАРНЫЕ РАБОТЫ

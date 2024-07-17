@@ -469,8 +469,6 @@ public abstract class AbstractFormController implements IForm {
         });
     }
 
-    ;
-
     /**
      * ДОБАВИТЬ ОПЕРАЦИЮ (MenuForm)
      * <p>
@@ -904,6 +902,7 @@ public abstract class AbstractFormController implements IForm {
         if (!source.equals(EMenuSource.FORM_MENU))
             MAIN_OP_DATA = (OpAssm) newOpData;
         if(opData instanceof OpAssm)
+            //Чтобы не было nullpointerexception
             fillTransientFieldsWithPropperAssm((OpAssm) opData);
     }
 

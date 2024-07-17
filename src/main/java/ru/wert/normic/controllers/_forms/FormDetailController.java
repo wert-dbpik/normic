@@ -273,6 +273,7 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createAllLatheOperations());
             menu.getItems().add(menu.createAllLocksmithOperations());
             menu.getItems().add(menu.createAllWeldingOperations());
+            menu.getItems().add(menu.createAllAssmOperations());
         }
 
         linkMenuToButton();
@@ -311,26 +312,31 @@ public class FormDetailController extends AbstractFormController {
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
+        double assmTime = 0.0;
 
         for(OpData cn: addedOperations){
             mechanicalTime += cn.getMechTime() * cn.getQuantity();
             paintingTime += cn.getPaintTime() * cn.getQuantity();
+            assmTime += cn.getAssmTime() * cn.getQuantity();
         }
 
         opData.setMechTime(roundTo001(mechanicalTime));
         opData.setPaintTime(roundTo001(paintingTime));
+        opData.setAssmTime(roundTo001(assmTime));
 
         controller.countSumNormTimeByShops();
 
         if(CURRENT_MEASURE.equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
+            assmTime = assmTime * MIN_TO_SEC;
 
             measure = SEC.getMeasure();
         }
         if(CURRENT_MEASURE.equals(HOUR)){
             mechanicalTime = mechanicalTime * MIN_TO_HOUR;
             paintingTime = paintingTime * MIN_TO_HOUR;
+            assmTime = assmTime * MIN_TO_HOUR;
 
             measure = HOUR.getMeasure();
         }
@@ -340,8 +346,9 @@ public class FormDetailController extends AbstractFormController {
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
         tfPaintingTime.setText(String.format(format, paintingTime).trim());
+//        tfAssmTime.setText(String.format(format, paintingTime).trim());
 
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime ).trim());
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assmTime).trim());
 
         lblTimeMeasure.setText(measure);
 

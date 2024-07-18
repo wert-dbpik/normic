@@ -1,10 +1,9 @@
-package ru.wert.normic.controllers.extra;
+package ru.wert.normic.controllers.structure;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,15 +16,13 @@ import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
-import ru.wert.normic.controllers.extra.tree_view.StructureTreeView;
+import ru.wert.normic.controllers.structure.StructureTreeView;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.print.PrinterDialogController;
@@ -38,7 +35,7 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 public class StructureController {
 
-    @FXML
+    @FXML@Getter
     private TreeView<OpData> treeView;
 
     @FXML
@@ -187,21 +184,31 @@ public class StructureController {
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
             closer.setOnMousePressed(ev -> {
-                switch(type){
-                    case DETAIL:    ((PlateDetailController)((IOpWithOperations)opData).getOpPlate()).collectOpData(formController, tfName, tfN, imgDone); break;
-                    case ASSM:      ((PlateAssmController)((IOpWithOperations)opData).getOpPlate()).collectOpData(formController, tfName, tfN, (ImgDone) imgDone); break;
-                    case PACK:      ((PlatePackController)((IOpWithOperations)opData).getOpPlate()).collectOpData(tfName, tfN, imgDone); break;
+                switch (type) {
+                    case DETAIL:
+                        ((PlateDetailController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(formController, tfName, tfN, imgDone);
+                        break;
+                    case ASSM:
+                        ((PlateAssmController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(formController, tfName, tfN, (ImgDone) imgDone);
+                        break;
+                    case PACK:
+                        ((PlatePackController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(tfName, tfN, imgDone);
+                        break;
                 }
-                if(opData instanceof OpAssm) {
-                    selectedTreeItem.getChildren().clear();
-                    structureTreeView.buildTree(selectedTreeItem);
-                } else
-                    treeView.refresh();
-                MAIN_CONTROLLER.countSumNormTimeByShops();
+                rebuildTree(selectedTreeItem, opData);
             });
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void rebuildTree(TreeItem<OpData> selectedTreeItem, OpData opData) {
+        if (opData instanceof OpAssm) {
+            selectedTreeItem.getChildren().clear();
+            structureTreeView.buildTree(selectedTreeItem);
+        } else
+            treeView.refresh();
+        MAIN_CONTROLLER.countSumNormTimeByShops();
     }
 
 }

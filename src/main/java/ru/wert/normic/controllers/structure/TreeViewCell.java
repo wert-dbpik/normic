@@ -1,11 +1,9 @@
-package ru.wert.normic.controllers.extra.tree_view;
+package ru.wert.normic.controllers.structure;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
-import javafx.scene.image.Image;
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
@@ -13,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
-import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -83,15 +80,22 @@ public class TreeViewCell extends TreeCell<OpData> {
             ImageView ivDone = new ImageView();
             ImgDouble imgDone = new ImgDone(ivDone,20);
             imgDone.getStateProperty().setValue(((IOpWithOperations) opData).isDone());
-            ivDone.setOnMouseClicked(e -> {
-                if (opData instanceof OpDetail) {
-                    controller.openFormEditor(getTreeItem(), EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
-                } else if (opData instanceof OpAssm) {
-                    controller.openFormEditor(getTreeItem(), EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
-                } else if (opData instanceof OpPack) {
-                    controller.openFormEditor(getTreeItem(), EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
+
+            //Вызов контекстного меню
+            setOnMouseClicked(e->{
+                if(e.getButton().equals(MouseButton.SECONDARY)) {
+                    new CellContextMenu(
+                            this.getTreeItem(),
+                            this.getTreeItem().getParent(),
+                            controller,
+                            tfName,
+                            tfN,
+                            imgDone
+                    ).show(
+                            ((Node) e.getSource()).getScene().getWindow(),
+                            e.getScreenX(),
+                            e.getScreenY());
                 }
-                e.consume();
             });
 
             //СТрока с заголовком

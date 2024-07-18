@@ -1,10 +1,8 @@
-package ru.wert.normic.controllers.extra.tree_view;
+package ru.wert.normic.controllers.structure;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import ru.wert.normic.controllers.extra.StructureController;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.ArrayList;

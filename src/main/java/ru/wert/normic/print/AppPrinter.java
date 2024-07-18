@@ -2,22 +2,15 @@ package ru.wert.normic.print;
 
 import javafx.print.*;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import ru.wert.normic.controllers.extra.StructureController;
+import ru.wert.normic.controllers.structure.StructureController;
 
-import java.awt.*;
 import java.util.Objects;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Root;
 
 public class AppPrinter {
 

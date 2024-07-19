@@ -133,7 +133,7 @@ public class PlateDetailController extends AbstractOpPlate {
                     true,
                     false);
             ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> collectOpData(formDetailController, tfName, tfN, imgDone));
+            closer.setOnMousePressed(ev -> collectOpData((AbstractFormController) formDetailController, tfName, tfN, imgDone));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -157,7 +157,7 @@ public class PlateDetailController extends AbstractOpPlate {
         currentMechanicalNormTime = mechanicalTime * quantity;
         currentPaintNormTime = paintTime * quantity;
 
-        collectOpData(formDetailController, tfName, tfN, imgDone);
+        collectOpData((AbstractFormController) formDetailController, tfName, tfN, imgDone);
         if (formDetailController != null)
             setTimeMeasurement();
     }
@@ -171,7 +171,12 @@ public class PlateDetailController extends AbstractOpPlate {
     }
 
 
-    public void collectOpData(AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
+    private void collectOpData(AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
+        collectOpData(opData, formDetailController, tfName, tfN, imgDone);
+
+    }
+
+    public static void collectOpData(OpDetail opData, AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
@@ -183,8 +188,9 @@ public class PlateDetailController extends AbstractOpPlate {
             opData.setOperations(new ArrayList<>(formDetailController.getAddedOperations()));
         }
 
-        super.recountPaintedAssm(MAIN_OP_DATA);
+        recountPaintedAssm(MAIN_OP_DATA);
     }
+
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data) {

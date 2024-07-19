@@ -438,8 +438,6 @@ public class MainController extends AbstractFormController {
         List<String> product = Arrays.asList(savedOpType, productSettings, productData);
         saveTextToFile(product, file);
 
-
-
         Warning0.create("Внимание!", "Файл успешно сохранен!");
 
         HistoryFile.getInstance().addFileToHistory(file);
@@ -754,6 +752,20 @@ public class MainController extends AbstractFormController {
         });
     }
 
+    /**
+     * Перестраивает listView, пересчитывает нормы времени и покраску
+     * Вызывается из StructureController
+     */
+    public void rebuildAll() {
+        Platform.runLater(()->{
+            listViewTechOperations.getItems().clear();
+            addedPlates.clear();
+            addedOperations.clear();
+            menu.addListOfOperations();
+            recountPainting(MAIN_OP_DATA, 1);
+            countSumNormTimeByShops();
+        });
 
 
+    }
 }

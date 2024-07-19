@@ -130,12 +130,6 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         prevFormController.getAddedPlates().add(index, this);
         prevFormController.getAddedOperations().add(index, opData);
-//        OpData prevOpData = prevFormController.getOpData();
-//        if(prevOpData instanceof IOpWithOperations)
-//            Platform.runLater(()->{
-//                ((IOpWithOperations) prevOpData).getOperations().add(index, opData);
-//            });
-
 
         fillOpData(opData);
 
@@ -163,7 +157,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
     /**
      * Пересчет всех операций окрашивания сборок
      */
-    protected void recountPaintedAssm(IOpWithOperations opData) {
+    public static  void recountPaintedAssm(IOpWithOperations opData) {
         List<OpData> ops = opData.getOperations();
         for (OpData op : ops) {
             if (op instanceof OpPaintAssm) {

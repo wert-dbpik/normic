@@ -16,18 +16,19 @@ import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
-import ru.wert.normic.controllers.structure.StructureTreeView;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.print.PrinterDialogController;
 
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
 import static java.lang.String.format;
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
@@ -145,11 +146,6 @@ public class StructureController {
                 PrinterDialogController controller = loader.getController();
                 controller.init(opRoot);
 
-//                Scene scene = new Scene(parent);
-//                Stage stage = new Stage();
-//                stage.setScene(scene);
-//                stage.show();
-
                 Decoration decoration = new Decoration("ПЕЧАТЬ",
                         parent,
                         false,
@@ -182,33 +178,34 @@ public class StructureController {
                     "decoration-assm",
                     true,
                     false);
-            ImageView closer = windowDecoration.getImgCloseWindow();
-            closer.setOnMousePressed(ev -> {
+            ImageView closeWindow = windowDecoration.getImgCloseWindow();
+            closeWindow.setOnMousePressed(ev -> {
                 switch (type) {
                     case DETAIL:
-                        ((PlateDetailController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(formController, tfName, tfN, imgDone);
+                        PlateDetailController.collectOpData((OpDetail) opData, formController, tfName, tfN, imgDone);
                         break;
                     case ASSM:
-                        ((PlateAssmController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(formController, tfName, tfN, (ImgDone) imgDone);
+                        PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN, (ImgDone) imgDone);
                         break;
                     case PACK:
                         ((PlatePackController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(tfName, tfN, imgDone);
                         break;
                 }
-                rebuildTree(selectedTreeItem, opData);
+                rebuildAll(selectedTreeItem, opData);
             });
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void rebuildTree(TreeItem<OpData> selectedTreeItem, OpData opData) {
+    public void rebuildAll(TreeItem<OpData> selectedTreeItem, OpData opData) {
         if (opData instanceof OpAssm) {
             selectedTreeItem.getChildren().clear();
-            structureTreeView.buildTree(selectedTreeItem);
-        } else
+            StructureTreeView.buildTree(selectedTreeItem);
+        } else if(opData instanceof OpDetail) {
             treeView.refresh();
-        MAIN_CONTROLLER.countSumNormTimeByShops();
+        }
+        MAIN_CONTROLLER.rebuildAll();
     }
 
 }

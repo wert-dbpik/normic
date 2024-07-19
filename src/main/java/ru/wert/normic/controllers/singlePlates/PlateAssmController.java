@@ -177,7 +177,11 @@ public class PlateAssmController extends AbstractOpPlate{
     }
 
 
-    public void collectOpData(AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
+    private void collectOpData(AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
+        collectOpData(opData, formAssmController, tfName, tfN, imgDone);
+    }
+
+    public static void collectOpData(OpAssm opData, AbstractFormController formAssmController, TextField tfName, TextField tfN, ImgDone imgDone) {
         opData.setDone(imgDone.getStateProperty().getValue());
         opData.setName(tfName.getText());
         opData.setQuantity(IntegerParser.getValue(tfN));
@@ -187,7 +191,7 @@ public class PlateAssmController extends AbstractOpPlate{
         }
         opData.setQuantity(IntegerParser.getValue(tfN));
 
-        super.recountPaintedAssm(MAIN_OP_DATA);
+        recountPaintedAssm(MAIN_OP_DATA);
     }
 
     @Override//AbstractOpPlate

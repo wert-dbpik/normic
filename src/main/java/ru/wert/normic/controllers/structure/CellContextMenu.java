@@ -3,7 +3,6 @@ package ru.wert.normic.controllers.structure;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -55,7 +54,7 @@ public class CellContextMenu extends ContextMenu{
             int indexToSelect = controller.getTreeView().getRow(item) - 1;
             controller.getTreeView().getSelectionModel().clearSelection();
             ((IOpWithOperations) parentItem.getValue()).getOperations().remove(item.getValue());
-            controller.rebuildTree(parentItem, ((IOpWithOperations) parentItem.getValue()).getOpData());
+            controller.rebuildAll(parentItem, ((IOpWithOperations) parentItem.getValue()).getOpData());
             controller.getTreeView().getSelectionModel().select(indexToSelect);
         }
     }

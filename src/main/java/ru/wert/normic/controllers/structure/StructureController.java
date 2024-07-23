@@ -202,6 +202,7 @@ public class StructureController {
         if (opData instanceof OpAssm) {
             selectedTreeItem.getChildren().clear();
             StructureTreeView.buildTree(selectedTreeItem);
+
         } else if(opData instanceof OpDetail) {
             treeView.refresh();
         }

@@ -757,10 +757,15 @@ public class MainController extends AbstractFormController {
      * Вызывается из StructureController
      */
     public void rebuildAll() {
+
         Platform.runLater(()->{
+            List<OpData> ops = new ArrayList<>(((IOpWithOperations)opData).getOperations());
             listViewTechOperations.getItems().clear();
             addedPlates.clear();
             addedOperations.clear();
+
+            if(((IOpWithOperations) opData).getOperations().isEmpty())
+                ((IOpWithOperations) opData).setOperations(ops);
             menu.addListOfOperations();
             recountPainting(MAIN_OP_DATA, 1);
             countSumNormTimeByShops();

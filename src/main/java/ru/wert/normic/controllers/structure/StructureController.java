@@ -169,7 +169,6 @@ public class StructureController {
         window.setOnKeyPressed(e->{
             TreeItem<OpData> selectedItem = treeView.getSelectionModel().getSelectedItem();
             if(selectedItem == null) return;
-            TreeViewCell cell = TreeViewCell.selectedCell;
             if(e.getCode().equals(KeyCode.DELETE))
                 manipulator.deleteItem(e);
             if(e.isControlDown()){
@@ -184,13 +183,6 @@ public class StructureController {
         });
 
     }
-
-//    public static TreeCell findCellByItem(TreeItem treeItem, TreeView treeView) {
-//        return (TreeCell) treeView.lookupAll(".tree-cell").stream()
-//                .filter(n -> ((TreeCell) n).getTreeItem() == treeItem)
-//                .findFirst()
-//                .orElse(null);
-//    }
 
     /**
      * Открыть форму редактирования сборки

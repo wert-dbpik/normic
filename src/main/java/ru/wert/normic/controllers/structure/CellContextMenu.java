@@ -1,26 +1,19 @@
 package ru.wert.normic.controllers.structure;
 
-import javafx.event.Event;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.entities.ops.single.OpPack;
-import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.interfaces.IOpWithOperations;
 
 public class CellContextMenu extends ContextMenu{
 
     static final int size = 20; //Размер для пиктограмм
     private final TreeItem<OpData> selectedItem;
-    private final TreeItem<OpData> parentItem;
     private final StructureController controller;
-    private final TextField tfName;
-    private final TextField tfN;
-    private final ImgDouble imgDone;
+
 
     private static OpData clipOpData; //Объект в клипборде
     private boolean cuttingOn; //Флаг операции вырезания
@@ -31,17 +24,12 @@ public class CellContextMenu extends ContextMenu{
     boolean usePaste = true;
     boolean useDelete = true;
 
-    private Manipulator manipulator;
+    private final Manipulator manipulator;
 
 
-    public CellContextMenu(TreeItem<OpData> selectedItem, TreeItem<OpData> parentItem, StructureController controller,
-                           TextField tfName, TextField tfN, ImgDouble imgDone) {
+    public CellContextMenu(TreeItem<OpData> selectedItem, StructureController controller) {
         this.selectedItem = selectedItem;
-        this.parentItem = parentItem;
         this.controller = controller;
-        this.tfName = tfName;
-        this.tfN = tfN;
-        this.imgDone = imgDone;
 
         manipulator = new Manipulator(controller);
 
@@ -80,7 +68,8 @@ public class CellContextMenu extends ContextMenu{
             useDelete = false;
         }
 
-        if(clipOpData == null) usePaste = false;
+        if(Manipulator.clipOpData == null)
+            usePaste = false;
 
         if(useEdit) getItems().add(edit);
         if(useCopy) getItems().add(copy);

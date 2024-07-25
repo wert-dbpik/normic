@@ -28,7 +28,6 @@ import static ru.wert.normic.enums.ETimeMeasurement.SEC;
 
 public class TreeViewCell extends TreeCell<OpData> {
 
-//    private ImgDouble imgDone;
     private String initTitleStyle;
     private String initLblNormsTimeStyle;
     private final StructureController controller;
@@ -94,20 +93,12 @@ public class TreeViewCell extends TreeCell<OpData> {
                 if(e.getButton().equals(MouseButton.SECONDARY)) {
                     new CellContextMenu(
                             this.getTreeItem(),
-                            this.getTreeItem().getParent(),
-                            controller,
-                            tfName,
-                            tfN,
-                            imgDone
+                            controller
                     ).show(
                             ((Node) e.getSource()).getScene().getWindow(),
                             e.getScreenX(),
                             e.getScreenY());
                 }
-            });
-
-            setOnKeyPressed(e->{
-                if(this.isSelected()) System.out.println("Я выделена");
             });
 
             //СТрока с заголовком

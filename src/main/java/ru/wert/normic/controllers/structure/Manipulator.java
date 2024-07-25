@@ -12,7 +12,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 
 public class Manipulator {
 
-    private static OpData clipOpData; //Объект в клипборде
+    public static OpData clipOpData; //Объект в клипборде
     private final StructureController controller;
 
     public Manipulator(StructureController controller) {

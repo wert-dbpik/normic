@@ -485,7 +485,7 @@ public class MainController extends AbstractFormController {
         ((OpAssm)opData).setOperations(getAddedOperations());
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/structure.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/structure/structure.fxml"));
             Parent report = loader.load();
             StructureController controller = loader.getController();
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
@@ -759,18 +759,19 @@ public class MainController extends AbstractFormController {
     public void rebuildAll() {
 
         Platform.runLater(()->{
+            //Создаем копию списка ops
             List<OpData> ops = new ArrayList<>(((IOpWithOperations)opData).getOperations());
             listViewTechOperations.getItems().clear();
             addedPlates.clear();
             addedOperations.clear();
 
+            //Возвращаем список оперций
             if(((IOpWithOperations) opData).getOperations().isEmpty())
                 ((IOpWithOperations) opData).setOperations(ops);
             menu.addListOfOperations();
             recountPainting(MAIN_OP_DATA, 1);
             countSumNormTimeByShops();
         });
-
 
     }
 }

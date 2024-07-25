@@ -9,6 +9,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import lombok.Getter;
 import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.entities.ops.OpData;
@@ -31,6 +32,13 @@ public class TreeViewCell extends TreeCell<OpData> {
     private String initTitleStyle;
     private String initLblNormsTimeStyle;
     private final StructureController controller;
+
+    static TreeViewCell selectedCell;
+
+    @Getter
+    private TextField tfName, tfN;
+    @Getter
+    private ImgDouble imgDone;
 
     public TreeViewCell(StructureController controller) {
         this.controller = controller;
@@ -57,14 +65,14 @@ public class TreeViewCell extends TreeCell<OpData> {
             logo.setFitWidth(16);
             logo.setFitHeight(16);
             //Номер с наименованием
-            TextField tfName = new TextField();
+            tfName = new TextField();
             Text txtName = new Text();
             txtName.setId("title");
             txtName.textProperty().bind(tfName.textProperty());
             tfName.setText(((IOpWithOperations) opData).getName());
 
             //Количество
-            TextField tfN = new TextField();
+            tfN = new TextField();
             Text txtStart = new Text("(");
             Text txtN = new Text();
             Text txtFinish = new Text(" шт.)");
@@ -78,7 +86,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             //Вызов редактора
             ImageView ivDone = new ImageView();
-            ImgDouble imgDone = new ImgDone(ivDone,20);
+            imgDone = new ImgDone(ivDone,20);
             imgDone.getStateProperty().setValue(((IOpWithOperations) opData).isDone());
 
             //Вызов контекстного меню
@@ -96,6 +104,10 @@ public class TreeViewCell extends TreeCell<OpData> {
                             e.getScreenX(),
                             e.getScreenY());
                 }
+            });
+
+            setOnKeyPressed(e->{
+                if(this.isSelected()) System.out.println("Я выделена");
             });
 
             //СТрока с заголовком
@@ -147,21 +159,22 @@ public class TreeViewCell extends TreeCell<OpData> {
 
             setGraphic(vbItemBlock);
 
-//            selectedProperty().addListener((observable, oldValue, newValue) -> {
-//                if(newValue){
-//                    lblNorms.setStyle("-fx-background-color: #f1e2af");
-//                    hbTitle.setStyle("-fx-background-color: #f1e2af");
-//                    vbItemBlock.setStyle("-fx-background-color: #f1e2af");
-//
-//                } else {
-//                    lblNorms.setStyle(initLblNormsTimeStyle);
-//                    hbTitle.setStyle(initTitleStyle);
-//                    vbItemBlock.setStyle(initTitleStyle);
-//
-//
-//                    setStyle(initTitleStyle);
-//                }
-//            });
+            selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue){
+                    selectedCell = this;
+                    lblNorms.setStyle("-fx-background-color: #f1e2af");
+                    hbTitle.setStyle("-fx-background-color: #f1e2af");
+                    vbItemBlock.setStyle("-fx-background-color: #f1e2af");
+
+                } else {
+                    lblNorms.setStyle(initLblNormsTimeStyle);
+                    hbTitle.setStyle(initTitleStyle);
+                    vbItemBlock.setStyle(initTitleStyle);
+
+
+                    setStyle(initTitleStyle);
+                }
+            });
 
             selectedProperty().addListener((observable, oldValue, newValue) -> {
                 imgDone.setVisible(newValue);

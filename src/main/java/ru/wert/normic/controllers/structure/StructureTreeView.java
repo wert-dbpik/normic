@@ -2,16 +2,19 @@ package ru.wert.normic.controllers.structure;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import lombok.Getter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class StructureTreeView {
 
     private StructureController controller;
     private TreeView<OpData> treeView;
+    @Getter
     private TreeItem<OpData> root;
     private boolean treeExpanded;
 
@@ -27,6 +30,24 @@ public class StructureTreeView {
         treeView.setCellFactory(param -> new TreeViewCell(controller));
         buildTree(root);
         if(treeExpanded) expandTree(treeView, root);
+    }
+    public static Map<TreeItem<OpData>, Boolean> expandedItemsMap;
+
+    public static Map<TreeItem<OpData>, Boolean> rememberExpended(TreeItem<OpData> item){
+        expandedItemsMap.put(item, item.isExpanded());
+        for(TreeItem<OpData> i : item.getChildren()){
+            rememberExpended(i);
+        }
+        return expandedItemsMap;
+    }
+
+    public static void expandTreeItemsIfNeeded(TreeItem<OpData> item) {
+        item.setExpanded(expandedItemsMap.get(item));
+        for (TreeItem<OpData> i : item.getChildren()) {
+            if (!expandedItemsMap.containsKey(i))
+                expandedItemsMap.put(i, true);
+            expandTreeItemsIfNeeded(i);
+        }
     }
 
     /**

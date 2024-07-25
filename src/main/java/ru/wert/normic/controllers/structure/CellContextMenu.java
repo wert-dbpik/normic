@@ -1,8 +1,9 @@
 package ru.wert.normic.controllers.structure;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -13,63 +14,80 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 
 public class CellContextMenu extends ContextMenu{
 
-    private final TreeItem<OpData> item;
+    static final int size = 20; //Размер для пиктограмм
+    private final TreeItem<OpData> selectedItem;
     private final TreeItem<OpData> parentItem;
     private final StructureController controller;
     private final TextField tfName;
     private final TextField tfN;
     private final ImgDouble imgDone;
 
-    public CellContextMenu(TreeItem<OpData> item, TreeItem<OpData> parentItem, StructureController controller,
+    private static OpData clipOpData; //Объект в клипборде
+    private boolean cuttingOn; //Флаг операции вырезания
+
+    boolean useEdit = true;
+    boolean useCopy = true;
+    boolean useCut = true;
+    boolean usePaste = true;
+    boolean useDelete = true;
+
+    private Manipulator manipulator;
+
+
+    public CellContextMenu(TreeItem<OpData> selectedItem, TreeItem<OpData> parentItem, StructureController controller,
                            TextField tfName, TextField tfN, ImgDouble imgDone) {
-        this.item = item;
+        this.selectedItem = selectedItem;
         this.parentItem = parentItem;
         this.controller = controller;
         this.tfName = tfName;
         this.tfN = tfN;
         this.imgDone = imgDone;
 
+        manipulator = new Manipulator(controller);
+
         createMenu();
     }
 
     private void createMenu() {
+
         MenuItem edit = new MenuItem("Редактировать");
-        edit.setOnAction(this::editItem);
+        edit.setOnAction(manipulator::editItem);
+        edit.setGraphic(new ImageView(new Image(getClass().getResource(
+                "/pics/btns/edit.png").toString(), size, size, true, true)));
+
+        MenuItem copy = new MenuItem("Копировать");
+        copy.setOnAction(manipulator::copyOperation);
+        copy.setGraphic(new ImageView(new Image(getClass().getResource(
+                "/pics/btns/copy.png").toString(), size, size, true, true)));
+
+        MenuItem cut = new MenuItem("Вырезать");
+        cut.setOnAction(manipulator::cutOperation);
+        cut.setGraphic(new ImageView(new Image(getClass().getResource(
+                "/pics/btns/cut.png").toString(), size, size, true, true)));
+
+        MenuItem paste = new MenuItem("Вставить");
+        paste.setOnAction(manipulator::pasteOperation);
+        paste.setGraphic(new ImageView(new Image(getClass().getResource(
+                "/pics/btns/paste.png").toString(), size, size, true, true)));
 
         MenuItem delete = new MenuItem("Удалить");
-        delete.setOnAction(this::deleteItem);
+        delete.setOnAction(manipulator::deleteItem);
+        delete.setGraphic(new ImageView(new Image(getClass().getResource(
+                "/pics/btns/close.png").toString(), size, size, true, true)));
 
-        getItems().addAll(edit, delete);
-    }
-
-    /**
-     * УДАЛИТЬ
-     */
-    private void deleteItem(ActionEvent actionEvent) {
-        //Нельзя удалить корневой элемент
-        if(controller.getTreeView().getRoot().equals(item)) return;
-
-        if(parentItem != null && parentItem.getValue() instanceof IOpWithOperations) {
-            //Получим индекс выше удаляемого элемента
-            int indexToSelect = controller.getTreeView().getRow(item) - 1;
-            controller.getTreeView().getSelectionModel().clearSelection();
-            ((IOpWithOperations) parentItem.getValue()).getOperations().remove(item.getValue());
-            controller.rebuildAll(parentItem, ((IOpWithOperations) parentItem.getValue()).getOpData());
-            controller.getTreeView().getSelectionModel().select(indexToSelect);
+        if(selectedItem.equals(controller.getTreeView().getRoot())){
+            useCut = false;
+            useDelete = false;
         }
+
+        if(clipOpData == null) usePaste = false;
+
+        if(useEdit) getItems().add(edit);
+        if(useCopy) getItems().add(copy);
+        if(useCut) getItems().add(cut);
+        if(usePaste) getItems().add(paste);
+        if(useDelete) getItems().add(new SeparatorMenuItem());
+        if(useDelete) getItems().add(delete);
     }
 
-    /**
-     * РЕДАКТИРОВАТЬ
-     */
-    private void editItem(Event event){
-        OpData opData = item.getValue();
-        if (opData instanceof OpDetail) {
-            controller.openFormEditor(item, EOpType.DETAIL, "ДЕТАЛЬ", "/fxml/formDetail.fxml", opData, tfName, tfN, imgDone);
-        } else if (opData instanceof OpAssm) {
-            controller.openFormEditor(item, EOpType.ASSM, "СБОРКА", "/fxml/formAssm.fxml", opData, tfName, tfN, imgDone);
-        } else if (opData instanceof OpPack) {
-            controller.openFormEditor(item, EOpType.PACK, "УПАКОВКА", "/fxml/formPack.fxml", opData, tfName, tfN, imgDone);
-        }
-    }
 }

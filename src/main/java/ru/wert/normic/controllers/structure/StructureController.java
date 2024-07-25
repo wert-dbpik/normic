@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,7 +16,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.components.ImgDone;
-import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
@@ -28,7 +29,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.print.PrinterDialogController;
 
 import java.io.IOException;
-import java.util.function.UnaryOperator;
+import java.util.HashMap;
 
 import static java.lang.String.format;
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
@@ -37,10 +38,14 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 public class StructureController {
 
     @FXML@Getter
+    private AnchorPane window;
+
+    @FXML@Getter
     private TreeView<OpData> treeView;
 
     @FXML
     private StackPane spTreeView;
+
     @FXML
     private VBox vbTools;
 
@@ -159,17 +164,43 @@ public class StructureController {
             }
         });
 
+        Manipulator manipulator = new Manipulator(this);
+
+        window.setOnKeyPressed(e->{
+            TreeItem<OpData> selectedItem = treeView.getSelectionModel().getSelectedItem();
+            if(selectedItem == null) return;
+            TreeViewCell cell = TreeViewCell.selectedCell;
+            if(e.getCode().equals(KeyCode.DELETE))
+                manipulator.deleteItem(e);
+            if(e.isControlDown()){
+                if(e.getCode().equals(KeyCode.F)) {
+                    manipulator.editItem(e);
+                } else if(e.getCode().equals(KeyCode.C))
+                    manipulator.copyOperation(e);
+                else if(e.getCode().equals(KeyCode.V))
+                    manipulator.pasteOperation(e);;
+            }
+
+        });
+
     }
+
+//    public static TreeCell findCellByItem(TreeItem treeItem, TreeView treeView) {
+//        return (TreeCell) treeView.lookupAll(".tree-cell").stream()
+//                .filter(n -> ((TreeCell) n).getTreeItem() == treeItem)
+//                .findFirst()
+//                .orElse(null);
+//    }
 
     /**
      * Открыть форму редактирования сборки
      */
-    public void openFormEditor(TreeItem<OpData> selectedTreeItem, EOpType type, String title, String path, OpData opData, TextField tfName, TextField tfN, ImgDouble imgDone) {
+    public void openFormEditor(TreeItem<OpData> selectedTreeItem, EOpType type, String title, String path, OpData opData, TreeViewCell cell) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Parent parent = loader.load();
             AbstractFormController formController = loader.getController();
-            formController.init(MAIN_CONTROLLER, tfName, tfN, opData, imgDone);
+            formController.init(MAIN_CONTROLLER, cell.getTfName(), cell.getTfN(), opData, cell.getImgDone());
             Decoration windowDecoration = new Decoration(
                     title,
                     parent,
@@ -182,28 +213,36 @@ public class StructureController {
             closeWindow.setOnMousePressed(ev -> {
                 switch (type) {
                     case DETAIL:
-                        PlateDetailController.collectOpData((OpDetail) opData, formController, tfName, tfN, imgDone);
+                        PlateDetailController.collectOpData((OpDetail) opData, formController, cell.getTfN(), cell.getTfN(), cell.getImgDone());
                         break;
                     case ASSM:
-                        PlateAssmController.collectOpData((OpAssm) opData, formController, tfName, tfN, (ImgDone) imgDone);
+                        PlateAssmController.collectOpData((OpAssm) opData, formController, cell.getTfN(), cell.getTfN(), (ImgDone) cell.getImgDone());
                         break;
                     case PACK:
-                        ((PlatePackController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(tfName, tfN, imgDone);
+                        ((PlatePackController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(cell.getTfN(), cell.getTfN(), cell.getImgDone());
                         break;
                 }
-                rebuildAll(selectedTreeItem, opData);
+                rebuildAll(selectedTreeItem);
             });
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void rebuildAll(TreeItem<OpData> selectedTreeItem, OpData opData) {
-        if (opData instanceof OpAssm) {
+    public void rebuildAll(TreeItem<OpData> selectedTreeItem) {
+        OpData selectedData = selectedTreeItem.getValue();
+
+        if (selectedData instanceof OpAssm) {
+            //Сохраняем состояние дерева
+            StructureTreeView.expandedItemsMap = new HashMap<>();
+            StructureTreeView.rememberExpended(root);
+
             selectedTreeItem.getChildren().clear();
             StructureTreeView.buildTree(selectedTreeItem);
 
-        } else if(opData instanceof OpDetail) {
+            //Восстанавливаем состояние дерева
+            StructureTreeView.expandTreeItemsIfNeeded(root);
+        } else if(selectedData instanceof OpDetail) {
             treeView.refresh();
         }
         MAIN_CONTROLLER.rebuildAll();

@@ -3,16 +3,12 @@ package ru.wert.normic.entities.ops.opPaint;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
-import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
-import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 

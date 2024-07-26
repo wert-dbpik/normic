@@ -712,7 +712,7 @@ public class MainController extends AbstractFormController {
      * Метод пересчитывает нормы времени для указанной сборки
      * @param assm, IOpWithOperations - пересчитываемая сборка
      * @param quantity, количество сборок (изначально 1)
-     * @return
+
      */
     public IOpWithOperations recountPainting(IOpWithOperations assm, int quantity){
         ((OpData)assm).setPaintTime(0f);

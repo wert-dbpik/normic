@@ -112,13 +112,14 @@ public class StartNormic extends Application {
 
             windowDecoration.getImgCloseWindow().setOnMousePressed(e->{
 
-                if(e.getButton().equals(MouseButton.PRIMARY)) {
+                if(e.getButton().equals(MouseButton.PRIMARY) && !MAIN_OP_DATA.getOperations().isEmpty()) {
                     boolean res = Warning2.create("Внимание!",
                             "Вы уверены, что хотите выйти?",
                             "Может, забыли сохраниться?");
                     if(res)
                         System.exit(0);
-                }
+                } else
+                    System.exit(0);
             });
 
             MAIN_STAGE = windowDecoration.getWindow();

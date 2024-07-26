@@ -55,6 +55,8 @@ public class ModalWindow {
         ModalWindow.mountStage(stage, monitor);
     }
 
+
+
     /**
      * Метод задает расположение окна на мониторе
      */

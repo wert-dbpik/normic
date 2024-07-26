@@ -39,7 +39,9 @@ public class DecorationStatic {
 
     }
 
-
+    /**
+     * ЦЕНТРИРОВАНИЕ ОКНА, КОТОРОЕ РАБОТАЕТ ПРИ СТАРТЕ ПРОГРАММЫ
+     */
     public static void centerWindow(Stage window, Boolean fullScreen, int mainMonitor){
 
         List<Screen> screenList = Screen.getScreens();

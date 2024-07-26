@@ -134,7 +134,7 @@ public class Manipulator {
     /**
      * ОТМЕНИТЬ ВСТАВКУ
      */
-    public void cancelPasting(KeyEvent e) {
+    public void cancelPasting(Event e) {
         if (clipItem == null) return;
         if (cuttedPosition != null) {
             pasteOperation(e);

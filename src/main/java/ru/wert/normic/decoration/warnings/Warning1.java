@@ -41,9 +41,11 @@ public class Warning1 extends ModalWindow {
 
             Label lblTitle = (Label)parent.lookup("#lblTitle");
             lblTitle.setText(title);
+            lblTitle.setStyle("-fx-text-fill: #5d2308");
 
             Label lblProblem = (Label)parent.lookup("#lblProblem");
             lblProblem.setText(problem);
+            lblProblem.setStyle("-fx-text-fill: #d0561d");
 
             Label lblDecision = (Label)parent.lookup("#lblDecision");
 //            int index = parent.getChildrenUnmodifiable().indexOf(lblDecision);

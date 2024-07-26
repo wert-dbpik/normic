@@ -56,6 +56,7 @@ public class StructureTreeView {
     public static void buildTree(TreeItem<OpData> treeItem){
         OpData opData = treeItem.getValue();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
+
         for(OpData op : operations){
             if(op instanceof IOpWithOperations){
                 TreeItem<OpData> newTreeItem = new TreeItem<>(op);

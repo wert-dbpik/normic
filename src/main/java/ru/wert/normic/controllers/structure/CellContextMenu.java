@@ -68,7 +68,7 @@ public class CellContextMenu extends ContextMenu{
             useDelete = false;
         }
 
-        if(Manipulator.clipOpData == null)
+        if(Manipulator.clipItem == null)
             usePaste = false;
 
         if(useEdit) getItems().add(edit);

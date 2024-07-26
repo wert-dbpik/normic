@@ -171,13 +171,17 @@ public class StructureController {
             if(selectedItem == null) return;
             if(e.getCode().equals(KeyCode.DELETE))
                 manipulator.deleteItem(e);
+            if(e.getCode().equals(KeyCode.ESCAPE))
+                manipulator.cancelPasting(e);
             if(e.isControlDown()){
-                if(e.getCode().equals(KeyCode.F)) {
+                if(e.getCode().equals(KeyCode.F))
                     manipulator.editItem(e);
-                } else if(e.getCode().equals(KeyCode.C))
+                else if(e.getCode().equals(KeyCode.C))
                     manipulator.copyOperation(e);
                 else if(e.getCode().equals(KeyCode.V))
-                    manipulator.pasteOperation(e);;
+                    manipulator.pasteOperation(e);
+                else if(e.getCode().equals(KeyCode.X))
+                    manipulator.cancelPasting(e);
             }
 
         });
@@ -205,13 +209,13 @@ public class StructureController {
             closeWindow.setOnMousePressed(ev -> {
                 switch (type) {
                     case DETAIL:
-                        PlateDetailController.collectOpData((OpDetail) opData, formController, cell.getTfN(), cell.getTfN(), cell.getImgDone());
+                        PlateDetailController.collectOpData((OpDetail) opData, formController, cell.getTfName(), cell.getTfN(), cell.getImgDone());
                         break;
                     case ASSM:
-                        PlateAssmController.collectOpData((OpAssm) opData, formController, cell.getTfN(), cell.getTfN(), (ImgDone) cell.getImgDone());
+                        PlateAssmController.collectOpData((OpAssm) opData, formController, cell.getTfName(), cell.getTfN(), (ImgDone) cell.getImgDone());
                         break;
                     case PACK:
-                        ((PlatePackController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(cell.getTfN(), cell.getTfN(), cell.getImgDone());
+                        ((PlatePackController) ((IOpWithOperations) opData).getOpPlate()).collectOpData(cell.getTfName(), cell.getTfN(), cell.getImgDone());
                         break;
                 }
                 rebuildAll(selectedTreeItem);
@@ -221,22 +225,23 @@ public class StructureController {
         }
     }
 
-    public void rebuildAll(TreeItem<OpData> selectedTreeItem) {
-        OpData selectedData = selectedTreeItem.getValue();
+    public void rebuildAll(TreeItem<OpData> targetTreeItem) {
+        OpData selectedData = targetTreeItem.getValue();
 
         if (selectedData instanceof OpAssm) {
             //Сохраняем состояние дерева
             StructureTreeView.expandedItemsMap = new HashMap<>();
             StructureTreeView.rememberExpended(root);
 
-            selectedTreeItem.getChildren().clear();
-            StructureTreeView.buildTree(selectedTreeItem);
+            targetTreeItem.getChildren().clear();
+            StructureTreeView.buildTree(targetTreeItem);
 
             //Восстанавливаем состояние дерева
             StructureTreeView.expandTreeItemsIfNeeded(root);
         } else if(selectedData instanceof OpDetail) {
             treeView.refresh();
         }
+
         MAIN_CONTROLLER.rebuildAll();
     }
 

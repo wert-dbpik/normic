@@ -118,7 +118,7 @@ public class Decoration {
                 window.setMinHeight(window.getHeight());
                 int monitor = ModalWindow.findCurrentMonitorByMainStage(owner);
                 if (!shift)
-                    DecorationStatic.centerWindowRelativeToScreen(window,false, monitor);
+                    DecorationStatic.centerWindowRelativeToScreen(window,false, monitor, owner);
                 else
                     DecorationStatic.centerShiftedWindow(window, false, monitor, owner);
                 window.toFront();

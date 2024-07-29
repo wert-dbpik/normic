@@ -42,17 +42,27 @@ public class DecorationStatic {
     /**
      * ЦЕНТРИРОВАНИЕ ОКНА ОТНОСИТЕЛЬНО ЭКРАНА, КОТОРОЕ РАБОТАЕТ ПРИ СТАРТЕ ПРОГРАММЫ
      */
-    public static void centerWindowRelativeToScreen(Stage window, Boolean fullScreen, int mainMonitor){
+    public static void centerWindowRelativeToScreen(Stage window, Boolean fullScreen, int mainMonitor, Stage owner){
 
         List<Screen> screenList = Screen.getScreens();
         //Если всего один монитор, то открываем на нем
         int monitor = Math.min(mainMonitor, screenList.size() - 1);
 
-        if(fullScreen) {
+        if (fullScreen) {
             window.setWidth(screenList.get(monitor).getVisualBounds().getWidth());
             window.setHeight(screenList.get(monitor).getVisualBounds().getHeight());
             window.setX(screenList.get(monitor).getVisualBounds().getMinX());
             window.setY(screenList.get(monitor).getVisualBounds().getMinY());
+        } else if (owner != null) {
+            double mainX = owner.getX();
+            double mainY = owner.getY();
+            double mainWidth = owner.getWidth();
+            double mainHeight = owner.getHeight();
+            double winWidth = window.getWidth();
+            double winHeight = window.getHeight();
+
+            window.setX(mainX + ((mainWidth - winWidth) / 2));
+            window.setY(mainY + ((mainHeight - winHeight) / 2));
         } else {
             double screenMinX = screenList.get(monitor).getVisualBounds().getMinX();
             double screenMinY = screenList.get(monitor).getVisualBounds().getMinY();
@@ -78,13 +88,13 @@ public class DecorationStatic {
             window.setY(screenList.get(monitor).getVisualBounds().getMinY());
         } else {
             if(MAIN_STAGE.isFullScreen()){
-                centerWindowRelativeToScreen(window, false, monitor);
+                centerWindowRelativeToScreen(window, false, monitor, owner);
             } else {
                 if(owner != null) {
                     window.setX(owner.getX() + 40);
                     window.setY(owner.getY() + 40);
                 } else
-                    centerWindowRelativeToScreen(window, false, monitor);
+                    centerWindowRelativeToScreen(window, false, monitor, owner);
             }
         }
     }

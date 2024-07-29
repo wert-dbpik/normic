@@ -147,11 +147,11 @@ public class NormConstants {
         try {
             constantsProps = new Properties();
             constantsProps.load(new FileInputStream(appConstantsPath));
-        } catch (IOException e) {
-            Warning1.create("Ошибка!",
+        } catch (IOException ex) {
+            Warning1.create(null, "Ошибка!",
                     "Не удалось загрузить настройки доступа к серверу",
                     "Возможно, файл настроек поврежден");
-            e.printStackTrace();
+            ex.printStackTrace();
         }
 
         log.debug("createConstantsProps : Properties  constantsProps  успешно создан");

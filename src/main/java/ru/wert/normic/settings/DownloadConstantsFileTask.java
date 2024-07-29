@@ -54,7 +54,7 @@ public class DownloadConstantsFileTask extends Service<Void> {
     protected void failed() {
         super.failed();
         log.error("Ошибка при скачивании файла с константами с сервера");
-        Warning1.create("Ошибка!",
+        Warning1.create(null, "Ошибка!",
                 "Не удалось создать файл  с константами с сервера",
                 "Возможно, ошибка на сервере");
     }

@@ -120,6 +120,7 @@ public class OpPaintAssmCounter implements NormCounter {
                     opsWithDoublePainting.add(opWithOperations);
                     Platform.runLater(() -> {
                         boolean res = Warning2.create(
+                                null,
                                 "Внимание!",
                                 String.format("'%s' содержит дублирующую покраску.", opWithOperations.getName()),
                                 "Удалить повторное окрашивание?");

@@ -1,7 +1,6 @@
 package ru.wert.normic.decoration;
 
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -119,7 +118,7 @@ public class Decoration {
                 window.setMinHeight(window.getHeight());
                 int monitor = ModalWindow.findCurrentMonitorByMainStage(owner);
                 if (!shift)
-                    DecorationStatic.centerWindow(window, false, monitor);
+                    DecorationStatic.centerWindowRelativeToScreen(window,false, monitor);
                 else
                     DecorationStatic.centerShiftedWindow(window, false, monitor, owner);
                 window.toFront();

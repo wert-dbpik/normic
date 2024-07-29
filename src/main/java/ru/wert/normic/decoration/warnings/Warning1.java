@@ -1,6 +1,7 @@
 package ru.wert.normic.decoration.warnings;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -21,21 +22,21 @@ import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 public class Warning1 extends ModalWindow {
 
-    public static void create(String title, String problem, String decision){
+    public static void create(Event event, String title, String problem, String decision){
 
 
         try {
-            Stage stage = new Stage();
+            Stage thisStage = new Stage();
             FXMLLoader userDialogLoader = new FXMLLoader(Warning1.class.getResource("/fxml/warnings/warning1.fxml"));
             Parent parent = userDialogLoader.load();
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
+            thisStage.setScene(new Scene(parent));
+            thisStage.initModality(Modality.APPLICATION_MODAL);
+            thisStage.setResizable(false);
+            thisStage.initStyle(StageStyle.UNDECORATED);
 
             Button btnOK = (Button)parent.lookup("#btnOK");
-            btnOK.setOnAction((event -> {
-                ((Node)event.getSource()).getScene().getWindow().hide();
+            btnOK.setOnAction((e -> {
+                ((Node)e.getSource()).getScene().getWindow().hide();
 
             }));
 
@@ -57,13 +58,13 @@ public class Warning1 extends ModalWindow {
             ModalWindow.setMovingPane(parent);
 
             Platform.runLater(()->{
-                ModalWindow.centerWindow(stage, MAIN_STAGE, null);
+                ModalWindow.centerModalWindowRelativeToOwner(thisStage, event);
             });
-            stage.isAlwaysOnTop();
-            stage.showAndWait();
+            thisStage.isAlwaysOnTop();
+            thisStage.showAndWait();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
 

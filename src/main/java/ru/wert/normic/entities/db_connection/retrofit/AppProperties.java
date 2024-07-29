@@ -47,7 +47,7 @@ public class AppProperties {
                 connectionProps = new Properties();
                 connectionProps.load(new FileInputStream(appConfigPath));
             } catch (IOException e) {
-                Warning1.create("Ошибка!",
+                Warning1.create(null, "Ошибка!",
                         "Не удалось загрузить настройки доступа к серверу",
                         "Возможно, файл настроек поврежден");
                 e.printStackTrace();
@@ -85,7 +85,7 @@ public class AppProperties {
             if(++attempt < 3) new AppProperties();
             else{
 
-                Warning1.create("Ошибка!",
+                Warning1.create(null, "Ошибка!",
                         "Не удалось создать файл настроек доступа к серверу",
                         "Возможно, стоит защита от создания файлов,\n обратитесь к разработчику");
                 e.printStackTrace();

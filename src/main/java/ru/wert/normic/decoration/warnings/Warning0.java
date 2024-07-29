@@ -26,13 +26,13 @@ public class Warning0 extends ModalWindow {
 
 
         try {
-            Stage stage = new Stage();
+            Stage thisStage = new Stage();
             FXMLLoader userDialogLoader = new FXMLLoader(Warning0.class.getResource("/fxml/warnings/warning0.fxml"));
             Parent parent = userDialogLoader.load();
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
+            thisStage.setScene(new Scene(parent));
+            thisStage.initModality(Modality.APPLICATION_MODAL);
+            thisStage.setResizable(false);
+            thisStage.initStyle(StageStyle.UNDECORATED);
 
             Button btnOK = (Button)parent.lookup("#btnOK");
             btnOK.setOnAction((event -> {
@@ -51,10 +51,10 @@ public class Warning0 extends ModalWindow {
             ModalWindow.setMovingPane(parent);
 
             Platform.runLater(()->{
-                ModalWindow.centerWindow(stage, MAIN_STAGE, null);
+                ModalWindow.centerModalWindowRelativeToOwner(thisStage, null);
             });
-            stage.isAlwaysOnTop();
-            stage.showAndWait();
+            thisStage.isAlwaysOnTop();
+            thisStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();

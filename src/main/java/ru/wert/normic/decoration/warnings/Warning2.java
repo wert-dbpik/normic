@@ -3,6 +3,7 @@ package ru.wert.normic.decoration.warnings;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,28 +26,28 @@ public class Warning2 extends ModalWindow {
 
     private static final BooleanProperty agreevation = new SimpleBooleanProperty();
 
-    public static boolean create(String title, String problem, String decision){
+    public static boolean create(Event event, String title, String problem, String decision){
 
         try {
-            Stage stage = new Stage();
+            Stage thisStage = new Stage();
             FXMLLoader userDialogLoader = new FXMLLoader(Warning2.class.getResource("/fxml/warnings/warning2.fxml"));
             Parent parent = userDialogLoader.load();
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
-            stage.initStyle(StageStyle.UNDECORATED);
+            thisStage.setScene(new Scene(parent));
+            thisStage.initModality(Modality.APPLICATION_MODAL);
+            thisStage.setResizable(false);
+            thisStage.initStyle(StageStyle.UNDECORATED);
 
             Button btnOK = (Button)parent.lookup("#btnYes");
-            btnOK.setOnAction((event -> {
+            btnOK.setOnAction((e -> {
                 agreevation.set(true);
-                DecorationStatic.closeWindow(event);
+                DecorationStatic.closeWindow(e);
 
             }));
 
             Button btnCancel = (Button)parent.lookup("#btnCancel");
-            btnCancel.setOnAction((event -> {
+            btnCancel.setOnAction((e -> {
                 agreevation.set(false);
-                DecorationStatic.closeWindow(event);
+                DecorationStatic.closeWindow(e);
 
             }));
 
@@ -66,10 +67,10 @@ public class Warning2 extends ModalWindow {
             ModalWindow.setMovingPane(parent);
 
             Platform.runLater(()->{
-                ModalWindow.centerWindow(stage, MAIN_STAGE, null);
+                ModalWindow.centerModalWindowRelativeToOwner(thisStage, null);
             });
 
-            stage.showAndWait();
+            thisStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();

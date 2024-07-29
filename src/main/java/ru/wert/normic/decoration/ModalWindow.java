@@ -1,13 +1,18 @@
 package ru.wert.normic.decoration;
 
+import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.util.List;
+
+import static java.lang.String.format;
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 public class ModalWindow {
 
@@ -41,34 +46,44 @@ public class ModalWindow {
     /**
      * Метод центрирует модальное окно относительно главного окна приложения
      * @param stage сцена модального окна
-     * @param mainStage сцена окна, относительного которогро происходит размещение модального окна
      */
-    public static void centerWindow(Stage stage, Stage mainStage, MouseEvent event){
+    public static void centerModalWindowRelativeToScreen(Stage stage, MouseEvent event){
         int monitor;
         if (event != null) {
 
             monitor = findCurrentMonitorByMousePointer(event);
         } else {
-            monitor = findCurrentMonitorByMainStage(mainStage);
+            monitor = findCurrentMonitorByMainStage(MAIN_STAGE);
         }
 
-        ModalWindow.mountStage(stage, monitor);
-    }
-
-
-
-    /**
-     * Метод задает расположение окна на мониторе
-     */
-    public static void mountStage(Stage window, int monitor) {
         List<Screen> screenList = Screen.getScreens();
         double screenMinX = screenList.get(monitor).getBounds().getMinX();
         double screenMinY = screenList.get(monitor).getBounds().getMinY();
         double screenWidth = screenList.get(monitor).getBounds().getWidth();
         double screenHeight = screenList.get(monitor).getBounds().getHeight();
 
-        window.setX(screenMinX + ((screenWidth - window.getWidth()) / 2));
-        window.setY(screenMinY + ((screenHeight - window.getHeight()) / 2));
+        stage.setX(screenMinX + ((screenWidth - stage.getWidth()) / 2));
+        stage.setY(screenMinY + ((screenHeight - stage.getHeight()) / 2));
+    }
+
+    /**
+     * Метод задает расположение окна на мониторе относительно главного окна программы
+     */
+    public static void centerModalWindowRelativeToOwner(Stage window, Event e) {
+
+        Window owner = e == null ? MAIN_STAGE : ((Node)e.getSource()).getScene().getWindow();
+
+        double mainX = owner.getX();
+        double mainY = owner.getY();
+
+        double mainWidth = owner.getWidth();
+        double mainHeight = owner.getHeight();
+
+        double winWidth = window.getWidth();
+        double winHeight = window.getHeight();
+
+        window.setX(mainX + ((mainWidth - winWidth) / 2));
+        window.setY(mainY + ((mainHeight - winHeight) / 2));
     }
 
     /**

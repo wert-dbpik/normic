@@ -46,7 +46,7 @@ public class LoginController {
                 ((Node) e.getSource()).getScene().getWindow().hide();
             } else {
                 passwordField.setText("");
-                Warning1.create("Внимание!", "Пользователь не найден", "Попробуйте еще раз");
+                Warning1.create(e, "Внимание!", "Пользователь не найден", "Попробуйте еще раз");
             }
         });
 

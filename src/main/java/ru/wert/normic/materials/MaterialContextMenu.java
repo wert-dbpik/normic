@@ -18,7 +18,7 @@ public class MaterialContextMenu extends ContextMenu {
         changeItem.setOnAction(e-> controller.changeMaterial(tableRow));
 
         final MenuItem deleteItem = new MenuItem("Удалить");
-        deleteItem.setOnAction(e-> controller.deleteMaterial(tableRow));
+        deleteItem.setOnAction(e-> controller.deleteMaterial(e, tableRow));
 
         getItems().addAll(copyItem, changeItem, deleteItem);
 

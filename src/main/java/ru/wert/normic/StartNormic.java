@@ -113,7 +113,9 @@ public class StartNormic extends Application {
             windowDecoration.getImgCloseWindow().setOnMousePressed(e->{
 
                 if(e.getButton().equals(MouseButton.PRIMARY) && !MAIN_CONTROLLER.getAddedOperations().isEmpty()) {
-                    boolean res = Warning2.create("Внимание!",
+                    boolean res = Warning2.create(
+                            e,
+                            "Внимание!",
                             "Вы уверены, что хотите выйти?",
                             "Может, забыли сохраниться?");
                     if(res)
@@ -134,7 +136,7 @@ public class StartNormic extends Application {
                         List<VersionNormic> allVersions = VersionNormicService.getInstance().findAll();
                         LAST_VERSION_IN_DB = allVersions.get(allVersions.size() - 1).getName();
                         if (CURRENT_PROJECT_VERSION.compareTo(LAST_VERSION_IN_DB) < 0)
-                            Warning1.create("Внимание!", "Доступна новая версия программы " + LAST_VERSION_IN_DB,
+                            Warning1.create(null, "Внимание!", "Доступна новая версия программы " + LAST_VERSION_IN_DB,
                                     "Скачайте самостоятельно\nили обратитесь к администратору");
                     });
                 }

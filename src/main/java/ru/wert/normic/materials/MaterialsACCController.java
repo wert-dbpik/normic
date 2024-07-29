@@ -1,6 +1,7 @@
 package ru.wert.normic.materials;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -106,7 +107,7 @@ public class MaterialsACCController {
     }
 
     @FXML
-    void ok(ActionEvent event) {
+    void ok(Event event) {
         Material selectedMaterial = null;
         if(operation.equals(EMatOperations.ADD) || operation.equals(EMatOperations.COPY)){
             if(!checkData()) return;
@@ -116,12 +117,12 @@ public class MaterialsACCController {
                 newMaterial.setAnyPart(finalPart);
                 selectedMaterial = QUICK_MATERIALS.save(newMaterial);
                 if(selectedMaterial == null)
-                    Warning1.create("Ошибка!",
+                    Warning1.create(event, "Ошибка!",
                             "Не удалось сохранить материал!",
                             "Возможно, сервер не доступен");
             }
 
-            else Warning1.create("Ошибка!",
+            else Warning1.create(event, "Ошибка!",
                     "Такой материал уже существует!",
                     "Материал должен быть уникальным");
 
@@ -133,11 +134,11 @@ public class MaterialsACCController {
                 updateOldMaterial(newMaterial);
                 boolean res = QUICK_MATERIALS.update(oldMaterial);
                 if(!res)
-                    Warning1.create("Ошибка!",
+                    Warning1.create(event, "Ошибка!",
                             "Не удалось сохранить материал!",
                             "Возможно, сервер не доступен");
             }
-            else Warning1.create("Ошибка!",
+            else Warning1.create(event, "Ошибка!",
                     "Такой материал уже существует!",
                     "Материал должен быть уникальным");
 
@@ -224,7 +225,7 @@ public class MaterialsACCController {
             if (savedPart != null) { //Если сохранение произошло
                 finalPart = savedPart;
             } else { //Если сохранение не произошло
-                Warning1.create("Ошибка!", String.format("Не удалось создать AnyPart \n%s, %s", newPart.getName(), newPart.getSecondName()),
+                Warning1.create(null, "Ошибка!", String.format("Не удалось создать AnyPart \n%s, %s", newPart.getName(), newPart.getSecondName()),
                         "Возможно, сервер не доступен");
             }
         }else { //Если newPart уже есть в базе

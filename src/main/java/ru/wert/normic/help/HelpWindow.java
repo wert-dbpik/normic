@@ -58,7 +58,7 @@ public class HelpWindow extends ModalWindow{
             ModalWindow.setMovingPane(parent);
 
             Platform.runLater(()->{
-                ModalWindow.centerWindow(stage, owner, null);
+                ModalWindow.centerModalWindowRelativeToOwner(stage, event);
             });
             stage.isAlwaysOnTop();
             stage.showAndWait();

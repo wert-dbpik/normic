@@ -765,7 +765,7 @@ public abstract class AbstractFormController implements IForm {
             if(!source.equals(EMenuSource.FORM_MENU))
                 HistoryFile.getInstance().addFileToHistory(file);
         } else {
-            Warning1.create("ОШИБКА!",
+            Warning1.create(e, "ОШИБКА!",
                     String.format("Файл '%s' не найден", file.getAbsolutePath()),
                     "Вероятно, сменилась буква диска, или файл был перемещен");
         }
@@ -802,7 +802,7 @@ public abstract class AbstractFormController implements IForm {
 
     public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ColorsSettings colorsSettings) {
         if (newOpData == null) {
-            Warning1.create("Ошибка!",
+            Warning1.create(e, "Ошибка!",
                     "При конвертации файла произошла ошибка",
                     "Возможно, файл поврежден.");
         } else {

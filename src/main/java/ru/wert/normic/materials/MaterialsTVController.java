@@ -152,14 +152,17 @@ public class MaterialsTVController {
         mainController.init(this, tableRow.getItem(), matTypeController, EMatOperations.CHANGE);
     }
 
-    public void deleteMaterial(TableRow<Material> tableRow){
+    public void deleteMaterial(Event e, TableRow<Material> tableRow){
         Material deletedMaterial = tableRow.getItem();
-        boolean ans = Warning2.create("Внимание!",String.format( "Вы уверены, что нужно удалить '%s'?", deletedMaterial.getName()),
+        boolean ans = Warning2.create(
+                e,
+                "Внимание!",
+                String.format( "Вы уверены, что нужно удалить '%s'?", deletedMaterial.getName()),
                 "Восстановить будет невозможно!");
         if(ans){
             boolean res = QUICK_MATERIALS.delete(deletedMaterial);
             if(!res)
-                Warning1.create("Ошибка!",
+                Warning1.create(e, "Ошибка!",
                         "Удалить '%s' не получилось!",
                         "Материал используется или сервер не дотупен");
             else

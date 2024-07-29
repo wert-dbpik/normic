@@ -40,9 +40,9 @@ public class DecorationStatic {
     }
 
     /**
-     * ЦЕНТРИРОВАНИЕ ОКНА, КОТОРОЕ РАБОТАЕТ ПРИ СТАРТЕ ПРОГРАММЫ
+     * ЦЕНТРИРОВАНИЕ ОКНА ОТНОСИТЕЛЬНО ЭКРАНА, КОТОРОЕ РАБОТАЕТ ПРИ СТАРТЕ ПРОГРАММЫ
      */
-    public static void centerWindow(Stage window, Boolean fullScreen, int mainMonitor){
+    public static void centerWindowRelativeToScreen(Stage window, Boolean fullScreen, int mainMonitor){
 
         List<Screen> screenList = Screen.getScreens();
         //Если всего один монитор, то открываем на нем
@@ -78,13 +78,13 @@ public class DecorationStatic {
             window.setY(screenList.get(monitor).getVisualBounds().getMinY());
         } else {
             if(MAIN_STAGE.isFullScreen()){
-                centerWindow(window, false, monitor);
+                centerWindowRelativeToScreen(window, false, monitor);
             } else {
                 if(owner != null) {
                     window.setX(owner.getX() + 40);
                     window.setY(owner.getY() + 40);
                 } else
-                    centerWindow(window, false, monitor);
+                    centerWindowRelativeToScreen(window, false, monitor);
             }
         }
     }

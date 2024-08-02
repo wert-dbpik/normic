@@ -23,7 +23,8 @@ public class IconMenuController {
     private Button
             btnColors,
             btnMaterials,
-            btnConstants;
+            btnConstants,
+            btnOperations;
 
     //ОТЧЕТЫ
     @FXML@Getter

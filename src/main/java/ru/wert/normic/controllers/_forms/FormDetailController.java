@@ -21,6 +21,7 @@ import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EMatType;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
@@ -274,6 +275,7 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createAllLocksmithOperations());
             menu.getItems().add(menu.createAllWeldingOperations());
             menu.getItems().add(menu.createAllAssmOperations());
+            menu.getItems().add(menu.createAllSimpleOtherOperations(ENormType.NORM_ASSEMBLE));
         }
 
         linkMenuToButton();

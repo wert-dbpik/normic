@@ -230,3 +230,14 @@
     -fx-background-color: #FFFFFC;
 }
 
+#operations-tf-name{
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-size: 14;
+    -fx-text-fill: #2f23d0;
+}
+
+#operations-tf-norm{
+    -fx-font-size: 14;
+}
+

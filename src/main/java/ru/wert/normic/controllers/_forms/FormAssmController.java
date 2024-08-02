@@ -11,6 +11,7 @@ import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 
@@ -140,6 +141,8 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createAllSimpleOtherOperations(ENormType.NORM_ASSEMBLE));
 
 
         linkMenuToButton();

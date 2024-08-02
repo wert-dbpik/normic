@@ -18,7 +18,7 @@ import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.anyPart.AnyPart;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
-import ru.wert.normic.enums.EMatOperations;
+import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.EMatType;
 
 import java.io.IOException;
@@ -57,14 +57,14 @@ public class MaterialsACCController {
     private Material oldMaterial;
     private MatTypeController matTypeController;
     private MaterialsTVController tableViewController;
-    private EMatOperations operation;
+    private ECommands command;
 
 
-    public void init(MaterialsTVController tableViewController, Material material, MatTypeController matTypeController, EMatOperations operation){
+    public void init(MaterialsTVController tableViewController, Material material, MatTypeController matTypeController, ECommands command){
         this.tableViewController = tableViewController;
         this.oldMaterial = material;
         this.matTypeController = matTypeController;
-        this.operation = operation;
+        this.command = command;
 
         new BXMatTypes().create(bxMatType);
         bxMatType.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -73,7 +73,7 @@ public class MaterialsACCController {
         bxMatType.setValue(EMatType.LIST);
         new BXMaterialGroups().create(bxMaterialGroup);
 
-        if(operation.equals(EMatOperations.COPY) || operation.equals(EMatOperations.CHANGE)) fillData();
+        if(command.equals(ECommands.COPY) || command.equals(ECommands.CHANGE)) fillData();
 
     }
 
@@ -109,7 +109,7 @@ public class MaterialsACCController {
     @FXML
     void ok(Event event) {
         Material selectedMaterial = null;
-        if(operation.equals(EMatOperations.ADD) || operation.equals(EMatOperations.COPY)){
+        if(command.equals(ECommands.ADD) || command.equals(ECommands.COPY)){
             if(!checkData()) return;
             Material newMaterial = creatNewMaterial();
             if(!isDuplicated(newMaterial, null)){
@@ -127,7 +127,7 @@ public class MaterialsACCController {
                     "Материал должен быть уникальным");
 
         }
-        else if(operation.equals(EMatOperations.CHANGE) ){
+        else if(command.equals(ECommands.CHANGE) ){
             if(!checkData()) return;
             Material newMaterial = creatNewMaterial();
             if(!isDuplicated(newMaterial, oldMaterial)){

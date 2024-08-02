@@ -1,4 +1,4 @@
-package ru.wert.normic.materials;
+package ru.wert.normic.operations;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,31 +9,24 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.EMatType;
+import ru.wert.normic.materials.MatTypeController;
+import ru.wert.normic.materials.MaterialsACCController;
 
 import java.io.IOException;
 
-public class MaterialACCLoader {
+public class OperationsACCLoader {
 
-    @Getter private MaterialsACCController mainController;
-    @Getter private MatTypeController matTypeController;
+    @Getter private OperationsACCController mainController;
 
-    public MaterialACCLoader(ECommands operation, TableView<Material> tableView, TableRow<Material> row) {
+    public OperationsACCLoader(ECommands operation, TableView<SimpleOperation> tableView, TableRow<SimpleOperation> row) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialACC.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/operations/operationsACC.fxml"));
             Parent parent = loader.load();
             mainController = loader.getController();
-            final StackPane sp = (StackPane) parent.lookup("#spForCalculation");
-
-            if(operation.equals(ECommands.COPY) || operation.equals(ECommands.CHANGE)) {
-                String matTypePath = EMatType.getPathByName(row.getItem().getMatType().getName());
-                FXMLLoader typeLoader = new FXMLLoader(getClass().getResource(matTypePath));
-                Parent typeParent = typeLoader.load();
-                matTypeController = typeLoader.getController();
-                sp.getChildren().add(typeParent);
-            }
 
             Decoration decoration = new Decoration(
                     "МАТЕРИАЛЫ",

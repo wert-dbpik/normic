@@ -1,17 +1,17 @@
 package ru.wert.normic.menus;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import ru.wert.normic.controllers.PlateEmptyController;
 import ru.wert.normic.controllers.PlateErrorController;
 import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.listOperations.PlateBendController;
 import ru.wert.normic.controllers.listOperations.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.*;
+import ru.wert.normic.controllers.others.PlateSimpleOtherController;
 import ru.wert.normic.controllers.packing.*;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.controllers.paint.PlatePaintController;
@@ -21,6 +21,9 @@ import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.controllers.turning.*;
 import ru.wert.normic.controllers.welding.PlateWeldContinuousController;
 import ru.wert.normic.controllers.welding.PlateWeldDottedController;
+import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
+import ru.wert.normic.entities.db_connection.othersOps.SimpleOperationService;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
@@ -33,13 +36,16 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.other.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMenuSource;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.operations.OperationsACCController;
 
 import java.io.IOException;
 import java.util.List;
@@ -380,7 +386,7 @@ public class MenuForm extends ContextMenu {
     }
 
     /**
-     * ВСЕ ТОКАРНЫЕ ОПЕРАЦИИ
+     * ВСЕ СВАРОЧНЫЕ ОПЕРАЦИИ
      */
     public Menu createAllWeldingOperations(){
         Menu menu = new Menu("МК: сварочные операции");
@@ -436,6 +442,58 @@ public class MenuForm extends ContextMenu {
         });
         return item;
     }
+
+    //===========      ПРОЧИЕ     =========================================
+
+    //ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
+    public MenuItem createItemSimpleOther(SimpleOperation operation){
+        MenuItem item = new MenuItem(operation.getName());
+        item.setOnAction(event -> {
+            addSimpleOtherPlate(new OpSimpleOperation(operation));
+        });
+        return item;
+    }
+
+
+    /**
+     * ВСЕ ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
+     */
+    public Menu createAllSimpleOtherOperations(ENormType normType){
+        Menu menu = new Menu("Все прочие операции");
+        List<SimpleOperation> ops = SimpleOperationService.getInstance().getAllSimpleOps();
+        for(SimpleOperation op : ops){
+            menu.getItems().add(createItemSimpleOther(op));
+        }
+        MenuItem itemCreateNew = new MenuItem("Создать операцию");
+        itemCreateNew.setOnAction(e->{
+
+            Stage owner = (Stage) ((MenuItem)e.getSource()).getParentMenu().getParentPopup().getOwnerWindow();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/operations/operationsACC.fxml"));
+                Parent parent = loader.load();
+                OperationsACCController controller = loader.getController();
+                controller.init(normType);
+
+                new Decoration("ДОБАВИТЬ ОПЕРАЦИЮ",
+                        parent,
+                        false,
+                        owner,
+                        "decoration-settings",
+                        false,
+                        true);
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(itemCreateNew);
+
+
+        return menu;
+    }
+
 
     //===========      ОСТАЛЬНОЕ     =========================================
 
@@ -579,6 +637,9 @@ public class MenuForm extends ContextMenu {
                 break;
             case PACK_ON_PALLET:
                 addPackOnPalletPlate((OpPackOnPallet) op);
+                break;
+            case SIMPLE_OPERATION:
+                addSimpleOtherPlate((OpSimpleOperation) op);
                 break;
             case ERROR_OP_DATA:
                 addErrorPlate((OpErrorData) op);
@@ -1118,6 +1179,26 @@ public class MenuForm extends ContextMenu {
             e.printStackTrace();
         }
     }
+
+    /**
+     * ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
+     */
+    public void addSimpleOtherPlate(OpSimpleOperation opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/others/plateSimpleOther.fxml"));
+            VBox vBox = loader.load();
+            PlateSimpleOtherController controller = loader.getController();
+            SimpleOperation operation = SimpleOperationService.getInstance().getSimpleOpById(opData.getSimpleOtherOpId());
+            opData.setOperation(operation);
+            controller.init(formController, opData, addedOperations.size(), operation.getName());
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     /**
      * УПАКОВКА НА ПОДДОН

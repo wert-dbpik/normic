@@ -12,7 +12,7 @@ public class TFIntegerColored {
 
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("")) {
-                tf.setStyle("-fx-border-color: #FF5555");
+                tf.setStyle("-fx-border-color: #ff5555");
                 if (counter != null) {
                     counter.getTfNormTime().setStyle("-fx-border-color: #FF5555");
                 }

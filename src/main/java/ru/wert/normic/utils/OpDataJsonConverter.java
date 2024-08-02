@@ -18,6 +18,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.other.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
@@ -150,6 +151,10 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpPackInCartoonBox.class);
             case "PACK_IN_BUBBLE_WRAP":
                 return gson.fromJson(op.toString(), OpPackInBubbleWrap.class);
+
+                //ПРОЧИЕ ОПЕРАЦИИ
+            case "SIMPLE_OTHER":
+                return gson.fromJson(op.toString(), OpSimpleOperation.class);
 
             default:
                 return new OpErrorData(opType);

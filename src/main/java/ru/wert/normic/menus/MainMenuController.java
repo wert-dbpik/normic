@@ -37,6 +37,7 @@ public class MainMenuController {
     private MenuItem
             mColors,
             mMaterials,
+            mOperations,
             mConstants,
             mIconMenu;
 

@@ -3,8 +3,6 @@ package ru.wert.normic.materials;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -14,13 +12,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import lombok.Getter;
-import ru.wert.normic.components.BXMaterialGroups;
 import ru.wert.normic.components.BXMaterialGroupsWithAll;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
-import ru.wert.normic.enums.EMatOperations;
+import ru.wert.normic.enums.ECommands;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -133,23 +130,23 @@ public class MaterialsTVController {
     }
 
     public void addMaterial(Event event){
-        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.ADD, tableView, null);
+        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(ECommands.ADD, tableView, null);
         final MaterialsACCController mainController = materialACCLoader.getMainController();
-        mainController.init(this, null, null, EMatOperations.ADD);
+        mainController.init(this, null, null, ECommands.ADD);
     }
 
     public void copyMaterial(TableRow<Material> tableRow){
-        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.COPY, tableView, tableRow);
+        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(ECommands.COPY, tableView, tableRow);
         final MaterialsACCController mainController = materialACCLoader.getMainController();
         final MatTypeController matTypeController = materialACCLoader.getMatTypeController();
-        mainController.init(this, tableRow.getItem(), matTypeController, EMatOperations.COPY);
+        mainController.init(this, tableRow.getItem(), matTypeController, ECommands.COPY);
     }
 
     public void changeMaterial(TableRow<Material> tableRow){
-        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(EMatOperations.CHANGE, tableView, tableRow);
+        final MaterialACCLoader materialACCLoader = new MaterialACCLoader(ECommands.CHANGE, tableView, tableRow);
         final MaterialsACCController mainController = materialACCLoader.getMainController();
         final MatTypeController matTypeController = materialACCLoader.getMatTypeController();
-        mainController.init(this, tableRow.getItem(), matTypeController, EMatOperations.CHANGE);
+        mainController.init(this, tableRow.getItem(), matTypeController, ECommands.CHANGE);
     }
 
     public void deleteMaterial(Event e, TableRow<Material> tableRow){

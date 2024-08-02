@@ -90,7 +90,6 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         new BXColor().create(cmbxColor, opData.getColor(), this);
         new BXAssemblingType().create(cmbxAssemblingType, opData.getAssmType(), this);
         new TFNormTime(tfNormTime, prevFormController);
-        new TFDoubleColored(tfManualArea, this);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);
         new CmBx(cmbxAssemblingType, this);

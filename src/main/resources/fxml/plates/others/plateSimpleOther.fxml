@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.others.PlateSimpleOtherController">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <ImageView fx:id="ivOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../pics/opLogos/operations.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblOperationName" text="ПРОЧИЕ ПРОСТЫЕ" textFill="#2f23d0">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <ImageView fx:id="ivHelp" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../pics/btns/help.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="ivDeleteOperation" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../pics/btns/close.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <HBox fx:id="hbContainer" alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <CheckBox fx:id="chbInputCounted" mnemonicParsing="false" />
+                     </children>
+                  </VBox>
+                  <HBox fx:id="hbContainer11">
+                     <children>
+                        <Label text="Г: ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="tfParamB" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hbContainer1">
+                     <children>
+                        <Label text="Ш">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="tfParamA" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="hbHeight">
+                     <children>
+                        <Label text="В: ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="tfParamC" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+                     </children>
+                  </HBox>
+                  <Label text="мм.">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label text="Итого : ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfAmount" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="70.0" />
+            <Label fx:id="lblMeasurement" text="ед.">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" spacing="10.0">
+         <children>
+            <Label text="T изг. : ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="tfNormTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+            <Label fx:id="lblNormTimeMeasure" text="мин">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+   </padding>
+</VBox>

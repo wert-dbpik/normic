@@ -6,13 +6,13 @@ import ru.wert.normic.controllers.assembling.countings.*;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
+import ru.wert.normic.controllers.others.counters.OpSimpleOperationsCounter;
 import ru.wert.normic.controllers.packing.counters.*;
 import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
 import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.controllers.turning.counters.*;
 import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
-import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
@@ -24,11 +24,11 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.other.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.NormCounter;
-import ru.wert.normic.utils.OpDataJsonConverter;
 
 import java.util.NoSuchElementException;
 
@@ -84,6 +84,9 @@ public enum EOpType {
     PACK_IN_HAND_STRETCH_WRAP   ("Упаковка в ручную стрейч-пленку", OpPackInHandStretchWrap.class,      new Image("/pics/opLogos/wrap.png"),            new OpPackInHandStretchWrapCounter()),//УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
     PACK_IN_CARTOON_BOX         ("Упаковка в картонную коробку",    OpPackInCartoonBox.class,           new Image("/pics/opLogos/cartoon.png"),         new OpPackInCartoonBoxCounter()),     //УПАКОВКА В КАРТОННУЮ КОРОБКУ
     PACK_IN_BUBBLE_WRAP         ("Упаковка в пузырьковую пленку",   OpPackInBubbleWrap.class,           new Image("/pics/opLogos/wrap.png"),            new OpPackInBubbleWrapCounter()),     //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
+
+    //ПРОЧИЕ ОПЕРАЦИИ
+    SIMPLE_OPERATION            ("Прочие простые операции",         OpSimpleOperation.class,            new Image("/pics/opLogos/operations.png"),      new OpSimpleOperationsCounter()),     //ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
 
     ERROR_OP_DATA               ("Error",                           OpErrorData.class,                  new Image("/pics/opLogos/error.png"),null);
 

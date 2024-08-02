@@ -25,7 +25,9 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.structure.StructureController;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.history.HistoryFile;
+import ru.wert.normic.operations.OperationsController;
 import ru.wert.normic.report.ReportController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
@@ -180,6 +182,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMProductTree().setOnAction(e->productTree(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMColors().setOnAction(e->colors(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMConstants().setOnAction(e->constants(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMOperations().setOnAction(e->operations(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMImportExcel().setOnAction(e->importExcel(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMChangeUser().setOnAction(e->changeUser(e, EMenuSource.MAIN_MENU));
@@ -196,6 +199,30 @@ public class MainController extends AbstractFormController {
                 spIconMenu.getChildren().clear();
             }
         });
+
+    }
+
+    private void operations(ActionEvent e, EMenuSource source) {
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
+                (Stage) ((Node)e.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/operations/operations.fxml"));
+            Parent parent = loader.load();
+            OperationsController controller = loader.getController();
+            controller.init();
+            new Decoration("Свои операции",
+                    parent,
+                    false,
+                    owner,
+                    "decoration-login",
+                    false,
+                    true);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -264,6 +291,11 @@ public class MainController extends AbstractFormController {
         iconMenuController.getBtnMaterials().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 32,32, true, true)));
         iconMenuController.getBtnMaterials().setTooltip(new Tooltip("Материалы"));
         iconMenuController.getBtnMaterials().setOnAction(e->materials(e, EMenuSource.ICON_MENU));
+
+        //ПРОЧИЕ ОПЕРАЦИИ
+        iconMenuController.getBtnOperations().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/operations.png")), 32,32, true, true)));
+        iconMenuController.getBtnOperations().setTooltip(new Tooltip("Свои операции"));
+        iconMenuController.getBtnOperations().setOnAction(e->operations(e, EMenuSource.ICON_MENU));
 
         //ИМПОРТ EXCEL
         iconMenuController.getBtnImportExcel().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32,32, true, true)));
@@ -631,6 +663,8 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createAllSimpleOtherOperations(ENormType.NORM_ASSEMBLE));
 
         linkMenuToButton();
 

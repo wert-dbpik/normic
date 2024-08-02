@@ -31,6 +31,7 @@
             <MenuItem fx:id="mMaterials" mnemonicParsing="false" text="Материалы" />
             <MenuItem fx:id="mColors" mnemonicParsing="false" text="ППК палитра" />
             <MenuItem fx:id="mConstants" mnemonicParsing="false" text="Константы" />
+            <MenuItem fx:id="mOperations" mnemonicParsing="false" text="Свои операции" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <Menu mnemonicParsing="false" text="Единицы измерения">
                <items>

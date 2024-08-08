@@ -51,6 +51,7 @@ import ru.wert.normic.utils.NvrConverter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
@@ -214,7 +215,7 @@ public class MainController extends AbstractFormController {
             controller.init();
             new Decoration("Свои операции",
                     parent,
-                    false,
+                    true,
                     owner,
                     "decoration-login",
                     false,
@@ -664,7 +665,7 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createAllSimpleOtherOperations(ENormType.NORM_ASSEMBLE));
+        menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLE)));
 
         linkMenuToButton();
 

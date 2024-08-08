@@ -10,7 +10,6 @@ import ru.wert.normic.enums.EJobType;
 
 public class BXJobType {
 
-    private static EJobType LAST_VAL;
     private ComboBox<EJobType> cmbx;
 
     public void create(ComboBox<EJobType> cmbx){
@@ -22,10 +21,7 @@ public class BXJobType {
         createCellFactory();
         createConverter();
 
-        if(LAST_VAL == null)
-            LAST_VAL = EJobType.JOB_NONE;
-
-        cmbx.getSelectionModel().select(LAST_VAL);
+        cmbx.setValue(EJobType.JOB_NONE);
 
     }
 
@@ -49,7 +45,6 @@ public class BXJobType {
         cmbx.setConverter(new StringConverter<EJobType>() {
             @Override
             public String toString(EJobType job) {
-                LAST_VAL = job; //последний выбранный префикс становится префиксом по умолчанию
                 return job.getJobName();
             }
 

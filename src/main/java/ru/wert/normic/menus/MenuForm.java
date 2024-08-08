@@ -40,12 +40,14 @@ import ru.wert.normic.entities.ops.other.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
+import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.operations.OperationsACCController;
+import ru.wert.normic.operations.OperationsController;
 
 import java.io.IOException;
 import java.util.List;
@@ -458,11 +460,13 @@ public class MenuForm extends ContextMenu {
     /**
      * ВСЕ ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
      */
-    public Menu createAllSimpleOtherOperations(ENormType normType){
+    public Menu createAllSimpleOperations(List<ENormType> normTypes){
         Menu menu = new Menu("Все прочие операции");
         List<SimpleOperation> ops = SimpleOperationService.getInstance().getAllSimpleOps();
         for(SimpleOperation op : ops){
-            menu.getItems().add(createItemSimpleOther(op));
+            for(ENormType nt : normTypes)
+                if(op.getNormType().equals(nt))
+                    menu.getItems().add(createItemSimpleOther(op));
         }
         MenuItem itemCreateNew = new MenuItem("Создать операцию");
         itemCreateNew.setOnAction(e->{
@@ -473,7 +477,7 @@ public class MenuForm extends ContextMenu {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/operations/operationsACC.fxml"));
                 Parent parent = loader.load();
                 OperationsACCController controller = loader.getController();
-                controller.init(normType);
+                controller.init(normTypes.get(0), new OperationsController(), null, ECommands.ADD);
 
                 new Decoration("ДОБАВИТЬ ОПЕРАЦИЮ",
                         parent,

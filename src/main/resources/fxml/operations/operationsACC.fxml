@@ -86,7 +86,7 @@
             <VBox spacing="5.0">
                <children>
                   <Label text="Описание операции" />
-                  <TextArea fx:id="taDescription" prefHeight="200.0" prefWidth="450.0">
+                  <TextArea fx:id="taDescription" minHeight="-Infinity" prefHeight="150.0" prefWidth="450.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -100,11 +100,11 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>
-            <Button fx:id="btnCancel" mnemonicParsing="false" text="ОТМЕНИТЬ">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#cancel" text="ОТМЕНИТЬ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>
-            <Button fx:id="btnOK" mnemonicParsing="false" text="ПРИНЯТЬ">
+            <Button fx:id="btnOK" mnemonicParsing="false" onAction="#ok" text="ПРИНЯТЬ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Button>

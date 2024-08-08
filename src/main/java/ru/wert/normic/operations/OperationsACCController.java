@@ -57,19 +57,17 @@ public class OperationsACCController {
     private ECommands command;
 
 
-    public void init(ENormType normType) {
-
-        new BXPieceMeasurement().create(bxMeasurement);
-        new BXJobType().create(bxJobType);
-        new BXNormType().create(bxNormType);
-        new TFDouble(tfNormTime);
-
-    }
-
-    public void init(OperationsController tableViewController, SimpleOperation oldSimpleOperation, ECommands command){
+    public void init(ENormType normType, OperationsController tableViewController, SimpleOperation oldSimpleOperation, ECommands command){
         this.tableViewController = tableViewController;
         this.oldSimpleOperation = oldSimpleOperation;
         this.command = command;
+
+        new BXNormType().create(bxNormType, normType);
+        new BXJobType().create(bxJobType);
+        new BXPieceMeasurement().create(bxMeasurement);
+        new TFDouble(tfNormTime);
+
+        bxJobType.disableProperty().bind(bxNormType.valueProperty().isNotEqualTo(ENormType.NORM_MECHANICAL));
 
         if(command.equals(ECommands.COPY) || command.equals(ECommands.CHANGE)) fillData();
 
@@ -124,7 +122,8 @@ public class OperationsACCController {
     private boolean checkData(){
         if(tfName.getText().isEmpty()) return false;
         else if(bxNormType.getValue() == null) return false;
-        else if(bxJobType.getValue() == null) return false;
+        else if(bxNormType.getValue().equals(ENormType.NORM_MECHANICAL) && bxJobType.getValue() == null) return false;
+        else if(bxMeasurement.getValue() == null) return false;
         else if(tfNormTime.getText().isEmpty()) return false;
         return true;
     }
@@ -150,7 +149,8 @@ public class OperationsACCController {
         SimpleOperation newSimpleOperation = new SimpleOperation();
         newSimpleOperation.setName(tfName.getText().trim());
         newSimpleOperation.setNormType(bxNormType.getValue());
-        newSimpleOperation.setJobType(bxJobType.getValue());
+        newSimpleOperation.setJobType(bxJobType.isDisabled() ? EJobType.JOB_NONE : bxJobType.getValue());
+        newSimpleOperation.setMeasurement(bxMeasurement.getValue());
         newSimpleOperation.setNorm(DoubleParser.getValue(tfNormTime));
         newSimpleOperation.setDescription(taDescription.getText().trim());
 
@@ -158,9 +158,10 @@ public class OperationsACCController {
     }
 
     private void fillData(){
-        tfName.setText(oldSimpleOperation.getName());
+        tfName.setText(oldSimpleOperation.getName().toUpperCase());
         bxNormType.setValue(oldSimpleOperation.getNormType());
         bxJobType.setValue(oldSimpleOperation.getJobType());
+        bxMeasurement.setValue(oldSimpleOperation.getMeasurement());
         tfNormTime.setText(format(DOUBLE_FORMAT, oldSimpleOperation.getNorm()));
         taDescription.setText(oldSimpleOperation.getDescription());
 
@@ -169,6 +170,10 @@ public class OperationsACCController {
     private void updateOldSimpleOperation(SimpleOperation newSimpleOperation) {
 
         oldSimpleOperation.setName(newSimpleOperation.getName());
+        oldSimpleOperation.setNormType(newSimpleOperation.getNormType());
+        oldSimpleOperation.setJobType(newSimpleOperation.getJobType());
+        oldSimpleOperation.setMeasurement(newSimpleOperation.getMeasurement());
+        oldSimpleOperation.setNorm(newSimpleOperation.getNorm());
         oldSimpleOperation.setDescription(newSimpleOperation.getDescription());
     }
 }

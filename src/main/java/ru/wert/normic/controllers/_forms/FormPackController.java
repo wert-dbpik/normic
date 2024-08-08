@@ -13,9 +13,12 @@ import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpPack;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.utils.IntegerParser;
+
+import java.util.Collections;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.AppStatics.roundTo001;
@@ -143,11 +146,13 @@ public class FormPackController extends AbstractFormController {
     public MenuForm createMenu(){
         menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
 
-            menu.getItems().add(menu.createItemPackInCartoonBox());
-            menu.getItems().add(menu.createItemPackOnPalletizer());
-            menu.getItems().add(menu.createItemPackInHandStretchWrap());
-            menu.getItems().add(menu.createItemPackInBubbleWrap());
-            menu.getItems().add(menu.createItemPackOnPallet());
+        menu.getItems().add(menu.createItemPackInCartoonBox());
+        menu.getItems().add(menu.createItemPackOnPalletizer());
+        menu.getItems().add(menu.createItemPackInHandStretchWrap());
+        menu.getItems().add(menu.createItemPackInBubbleWrap());
+        menu.getItems().add(menu.createItemPackOnPallet());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLE)));
 
 
         linkMenuToButton();

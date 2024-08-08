@@ -13,7 +13,7 @@ public enum ENormType {
     NORM_ASSEMBLE("Сборка"); //Плашка из операций на сборочную единицу
 
     @Getter
-    private String normName;
+    private final String normName;
 
     ENormType(String normName) {
         this.normName = normName;

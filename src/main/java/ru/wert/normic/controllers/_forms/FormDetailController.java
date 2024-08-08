@@ -29,9 +29,7 @@ import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.entities.db_connection.material.Material;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.AppStatics.roundTo001;
@@ -234,6 +232,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemWeldLongSeam());
             menu.getItems().add(menu.createItemWeldingDotted());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL)));
 
             deleteImproperOperations(AppStatics.LIST_OPERATIONS);
 
@@ -253,6 +253,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPainting());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL)));
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
@@ -264,6 +266,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPainting());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL)));
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
         } else { //ШТУЧНЫЕ
@@ -275,7 +279,8 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createAllLocksmithOperations());
             menu.getItems().add(menu.createAllWeldingOperations());
             menu.getItems().add(menu.createAllAssmOperations());
-            menu.getItems().add(menu.createAllSimpleOtherOperations(ENormType.NORM_ASSEMBLE));
+            menu.getItems().add(menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLE)));
+
         }
 
         linkMenuToButton();

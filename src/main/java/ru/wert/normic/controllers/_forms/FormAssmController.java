@@ -15,6 +15,8 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 
+import java.util.Collections;
+
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
@@ -142,7 +144,7 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createAllSimpleOtherOperations(ENormType.NORM_ASSEMBLE));
+        menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLE)));
 
 
         linkMenuToButton();

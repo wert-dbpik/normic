@@ -10,27 +10,26 @@ import ru.wert.normic.enums.ENormType;
 
 public class BXNormType {
 
-    private static ENormType LAST_VAL;
     private ComboBox<ENormType> cmbx;
 
-    public void create(ComboBox<ENormType> cmbx){
+    public void create(ComboBox<ENormType> cmbx, ENormType normType){
         this.cmbx = cmbx;
-        ObservableList<ENormType> measurements = FXCollections.observableArrayList(ENormType.values());
+        ObservableList<ENormType> values = FXCollections.observableArrayList(ENormType.values());
+        values.removeAll(ENormType.NORM_DETAIL, ENormType.NORM_ASSEMBLE);
 
-        cmbx.setItems(measurements);
+        cmbx.setItems(values);
 
         createCellFactory();
         createConverter();
 
-        if(LAST_VAL == null)
-            LAST_VAL = ENormType.NORM_ASSEMBLE;
-
-        cmbx.getSelectionModel().select(LAST_VAL);
+        if(normType != null)
+            cmbx.setValue(normType);
+        else
+            cmbx.setValue(ENormType.NORM_ASSEMBLING);
 
     }
 
     private void createCellFactory() {
-        //CellFactory определяет вид элементов комбобокса - только имя префикса
         cmbx.setCellFactory(i -> new ListCell<ENormType>() {
             @Override
             protected void updateItem (ENormType item,boolean empty){
@@ -49,7 +48,6 @@ public class BXNormType {
         cmbx.setConverter(new StringConverter<ENormType>() {
             @Override
             public String toString(ENormType normType) {
-                LAST_VAL = normType; //последний выбранный префикс становится префиксом по умолчанию
                 return normType.getNormName();
             }
 

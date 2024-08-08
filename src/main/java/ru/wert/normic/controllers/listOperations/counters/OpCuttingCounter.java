@@ -1,7 +1,7 @@
 package ru.wert.normic.controllers.listOperations.counters;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpCutting;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;

@@ -1,0 +1,11 @@
+package ru.wert.normic.dataBaseEntities.db_connection.user;
+
+
+import ru.wert.normic.dataBaseEntities.db_connection.ItemService;
+
+public interface IUserService extends ItemService<User> {
+
+    User findByName(String name);
+    User findByPassword(String pass);
+
+}

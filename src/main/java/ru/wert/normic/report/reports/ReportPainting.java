@@ -1,9 +1,9 @@
 package ru.wert.normic.report.reports;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opPaint.OpPaint;
+import ru.wert.normic.dataBaseEntities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.interfaces.IOpWithOperations;
 

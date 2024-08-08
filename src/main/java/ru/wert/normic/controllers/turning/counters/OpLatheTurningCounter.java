@@ -1,10 +1,8 @@
 package ru.wert.normic.controllers.turning.counters;
 
 import lombok.Getter;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpCutting;
-import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
-import ru.wert.normic.entities.ops.opTurning.OpLatheTurning;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opTurning.OpLatheTurning;
 import ru.wert.normic.interfaces.NormCounter;
 
 import java.util.NoSuchElementException;

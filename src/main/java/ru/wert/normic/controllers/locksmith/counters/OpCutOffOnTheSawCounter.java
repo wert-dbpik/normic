@@ -1,8 +1,7 @@
 package ru.wert.normic.controllers.locksmith.counters;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opList.OpCutting;
-import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opLocksmith.OpCutOffOnTheSaw;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.enums.ESawType;
 import ru.wert.normic.interfaces.NormCounter;

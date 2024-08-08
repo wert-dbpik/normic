@@ -21,8 +21,8 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;

@@ -12,11 +12,11 @@ import ru.wert.normic.controllers.AppPreloader;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
-import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
-import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
-import ru.wert.normic.entities.db_connection.user.UserService;
-import ru.wert.normic.entities.db_connection.version.VersionNormic;
-import ru.wert.normic.entities.db_connection.version.VersionNormicService;
+import ru.wert.normic.dataBaseEntities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.dataBaseEntities.db_connection.retrofit.RetrofitClient;
+import ru.wert.normic.dataBaseEntities.db_connection.user.UserService;
+import ru.wert.normic.dataBaseEntities.db_connection.version.VersionNormic;
+import ru.wert.normic.dataBaseEntities.db_connection.version.VersionNormicService;
 import ru.wert.normic.settings.NormConstants;
 
 import java.io.File;

@@ -5,14 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
-import ru.wert.normic.entities.db_connection.density.Density;
-import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EPieceMeasurement;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import static ru.wert.normic.NormicServices.DENSITIES;
 
 
 public class BXPieceMeasurement {

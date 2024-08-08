@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.ModalWindow;
-import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
+import ru.wert.normic.dataBaseEntities.db_connection.retrofit.RetrofitClient;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;

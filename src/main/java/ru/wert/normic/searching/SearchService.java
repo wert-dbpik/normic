@@ -3,17 +3,12 @@ package ru.wert.normic.searching;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.Event;
 import lombok.extern.slf4j.Slf4j;
-import ru.wert.normic.controllers._forms.MainController;
-import ru.wert.normic.controllers.singlePlates.PlateAssmController;
-import ru.wert.normic.controllers.singlePlates.PlateDetailController;
-import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.entities.ops.single.OpPack;
-import ru.wert.normic.excel.ExcelImporter;
+import ru.wert.normic.dataBaseEntities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
+import ru.wert.normic.dataBaseEntities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.utils.NvrConverter;
@@ -28,8 +23,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
 
 
 @Slf4j

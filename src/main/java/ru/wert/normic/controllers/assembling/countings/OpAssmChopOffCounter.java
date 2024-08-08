@@ -1,8 +1,7 @@
 package ru.wert.normic.controllers.assembling.countings;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmChopOff;
-import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opAssembling.OpAssmChopOff;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.interfaces.NormCounter;
 

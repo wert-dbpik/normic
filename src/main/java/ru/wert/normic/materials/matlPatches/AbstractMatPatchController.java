@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
 
 import java.util.List;
 

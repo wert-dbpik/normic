@@ -1,8 +1,7 @@
 package ru.wert.normic.interfaces;
 
-import javafx.beans.property.BooleanProperty;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
 
 import java.util.List;
 

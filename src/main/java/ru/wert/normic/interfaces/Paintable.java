@@ -1,6 +1,6 @@
 package ru.wert.normic.interfaces;
 
-import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
 
 public interface Paintable {
 

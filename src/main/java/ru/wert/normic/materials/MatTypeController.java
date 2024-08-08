@@ -1,8 +1,6 @@
 package ru.wert.normic.materials;
 
-import ru.wert.normic.entities.db_connection.material.Material;
-
-import java.util.List;
+import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
 
 public interface MatTypeController {
 

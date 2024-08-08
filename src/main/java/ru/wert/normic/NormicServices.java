@@ -1,18 +1,18 @@
 package ru.wert.normic;
 
 
-import ru.wert.normic.entities.db_connection.anyPart.AnyPartQuickService;
-import ru.wert.normic.entities.db_connection.anyPart.AnyPartService;
-import ru.wert.normic.entities.db_connection.anyPartGroup.AnyPartGroupService;
-import ru.wert.normic.entities.db_connection.density.DensityService;
-import ru.wert.normic.entities.db_connection.density.IDensityService;
-import ru.wert.normic.entities.db_connection.matType.IMatTypeService;
-import ru.wert.normic.entities.db_connection.matType.MatTypeService;
-import ru.wert.normic.entities.db_connection.material.IMaterialService;
-import ru.wert.normic.entities.db_connection.material.MaterialQuickService;
-import ru.wert.normic.entities.db_connection.material.MaterialService;
-import ru.wert.normic.entities.db_connection.material_group.IMaterialGroupService;
-import ru.wert.normic.entities.db_connection.material_group.MaterialGroupService;
+import ru.wert.normic.dataBaseEntities.db_connection.anyPart.AnyPartQuickService;
+import ru.wert.normic.dataBaseEntities.db_connection.anyPart.AnyPartService;
+import ru.wert.normic.dataBaseEntities.db_connection.anyPartGroup.AnyPartGroupService;
+import ru.wert.normic.dataBaseEntities.db_connection.density.DensityService;
+import ru.wert.normic.dataBaseEntities.db_connection.density.IDensityService;
+import ru.wert.normic.dataBaseEntities.db_connection.matType.IMatTypeService;
+import ru.wert.normic.dataBaseEntities.db_connection.matType.MatTypeService;
+import ru.wert.normic.dataBaseEntities.db_connection.material.IMaterialService;
+import ru.wert.normic.dataBaseEntities.db_connection.material.MaterialQuickService;
+import ru.wert.normic.dataBaseEntities.db_connection.material.MaterialService;
+import ru.wert.normic.dataBaseEntities.db_connection.material_group.IMaterialGroupService;
+import ru.wert.normic.dataBaseEntities.db_connection.material_group.MaterialGroupService;
 
 public class NormicServices {
 

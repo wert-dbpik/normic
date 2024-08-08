@@ -1,7 +1,7 @@
 package ru.wert.normic.report.reports;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package ru.wert.normic.controllers.assembling.countings;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpThermoInsulation;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opAssembling.OpThermoInsulation;
 import ru.wert.normic.enums.EMaterialMeasurement;
 import ru.wert.normic.interfaces.NormCounter;
 

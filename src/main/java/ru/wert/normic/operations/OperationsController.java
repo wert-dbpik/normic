@@ -16,17 +16,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
-import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperationService;
-import ru.wert.normic.enums.EJobType;
+import ru.wert.normic.dataBaseEntities.db_connection.othersOps.SimpleOperation;
+import ru.wert.normic.dataBaseEntities.db_connection.othersOps.SimpleOperationService;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.ENormType;
-import ru.wert.normic.enums.EPieceMeasurement;
-import ru.wert.normic.materials.MaterialContextMenu;
 
 
-import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class OperationsController {

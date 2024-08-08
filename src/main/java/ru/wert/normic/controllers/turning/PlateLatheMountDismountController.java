@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.controllers.turning.counters.OpLatheMountDismountCounter;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opTurning.OpLatheMountDismount;
 
 /**
  * УСТАНОВКА И СНЯТИЕ ДЕТАЛИ С ТОКАРНОГО СТАНКА

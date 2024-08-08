@@ -2,7 +2,7 @@ package ru.wert.normic.settings;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.entities.colors.AppColor;
+import ru.wert.normic.dataBaseEntities.colors.AppColor;
 
 @Getter
 @Setter

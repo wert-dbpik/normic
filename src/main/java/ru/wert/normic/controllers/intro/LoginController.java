@@ -9,9 +9,9 @@ import javafx.scene.control.PasswordField;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BXUsers;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
-import ru.wert.normic.entities.db_connection.user.User;
-import ru.wert.normic.entities.db_connection.user.UserService;
+import ru.wert.normic.dataBaseEntities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.dataBaseEntities.db_connection.user.User;
+import ru.wert.normic.dataBaseEntities.db_connection.user.UserService;
 
 import static ru.wert.normic.AppStatics.CURRENT_USER;
 import static ru.wert.normic.AppStatics.CURRENT_USER_GROUP;

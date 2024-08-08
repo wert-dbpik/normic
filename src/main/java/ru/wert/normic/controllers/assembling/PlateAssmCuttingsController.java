@@ -7,9 +7,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.assembling.countings.OpAssmCattingCounter;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
-import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opAssembling.OpAssmCutting;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
 import ru.wert.normic.utils.DoubleParser;
 
 import static ru.wert.normic.settings.NormConstants.*;

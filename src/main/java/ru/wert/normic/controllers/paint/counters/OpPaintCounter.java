@@ -1,8 +1,8 @@
 package ru.wert.normic.controllers.paint.counters;
 
-import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opPaint.OpPaint;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EPaintingDifficulty;

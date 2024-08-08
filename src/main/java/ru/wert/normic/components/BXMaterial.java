@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
-import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
 import ru.wert.normic.enums.EMatType;
 
 import java.util.Comparator;

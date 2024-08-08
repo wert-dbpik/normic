@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
-import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
+import ru.wert.normic.dataBaseEntities.db_connection.material_group.MaterialGroup;
 
 
 import static ru.wert.normic.NormicServices.MATERIAL_GROUPS;

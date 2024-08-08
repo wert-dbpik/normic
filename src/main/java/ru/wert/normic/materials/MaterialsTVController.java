@@ -15,8 +15,8 @@ import lombok.Getter;
 import ru.wert.normic.components.BXMaterialGroupsWithAll;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
-import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
+import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
+import ru.wert.normic.dataBaseEntities.db_connection.material_group.MaterialGroup;
 import ru.wert.normic.enums.ECommands;
 
 import java.util.ArrayList;

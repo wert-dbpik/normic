@@ -2,28 +2,8 @@ package ru.wert.normic.report;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import ru.wert.normic.entities.db_connection.density.Density;
-import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
-import ru.wert.normic.entities.ops.single.OpPack;
-import ru.wert.normic.entities.ops.opPack.PackingData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.enums.EColor;
-import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
 import ru.wert.normic.report.reports.*;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static ru.wert.normic.NormicServices.DENSITIES;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.enums.EPacks.*;
 
 /**
  * ОТЧЕТ

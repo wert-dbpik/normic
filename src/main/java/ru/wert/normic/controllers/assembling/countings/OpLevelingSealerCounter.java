@@ -1,13 +1,10 @@
 package ru.wert.normic.controllers.assembling.countings;
 
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmCutting;
-import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
-import ru.wert.normic.enums.ESealersWidth;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.LEVELING_PREPARED_TIME;
 import static ru.wert.normic.settings.NormConstants.LEVELING_SPEED;

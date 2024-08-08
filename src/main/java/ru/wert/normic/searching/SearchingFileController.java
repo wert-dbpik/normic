@@ -15,13 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
-import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDouble;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers._forms.AbstractFormController;
-import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 

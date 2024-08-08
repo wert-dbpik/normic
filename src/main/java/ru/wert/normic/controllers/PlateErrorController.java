@@ -4,8 +4,8 @@ package ru.wert.normic.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.OpErrorData;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.OpErrorData;
 import ru.wert.normic.enums.EOpType;
 
 /**

@@ -1,10 +1,10 @@
 package ru.wert.normic.report.reports;
 
-import ru.wert.normic.entities.db_connection.density.Density;
-import ru.wert.normic.entities.db_connection.material.Material;
-import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.dataBaseEntities.db_connection.density.Density;
+import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
+import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
+import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.EPieceMeasurement;
 

@@ -2,10 +2,10 @@ package ru.wert.normic.controllers.paint.counters;
 
 import javafx.application.Platform;
 import ru.wert.normic.decoration.warnings.Warning2;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
-import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;

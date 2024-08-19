@@ -7,7 +7,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import lombok.Getter;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.dataBaseEntities.db_connection.othersOps.SimpleOperation;
+import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
 import ru.wert.normic.enums.ECommands;
 
 import java.io.IOException;

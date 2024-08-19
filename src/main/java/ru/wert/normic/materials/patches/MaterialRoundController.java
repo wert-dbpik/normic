@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import ru.wert.normic.components.TFDouble;
 import ru.wert.normic.components.TFInteger;
-import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.materials.MatTypeController;
 import ru.wert.normic.utils.DoubleParser;
 

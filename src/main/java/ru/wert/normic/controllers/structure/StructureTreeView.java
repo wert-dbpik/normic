@@ -3,7 +3,7 @@ package ru.wert.normic.controllers.structure;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import lombok.Getter;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.ArrayList;

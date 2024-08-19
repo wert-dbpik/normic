@@ -13,8 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import ru.wert.normic.controllers.structure.StructureTreeView;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpAssm;
 
 public class PrinterDialogController {
 

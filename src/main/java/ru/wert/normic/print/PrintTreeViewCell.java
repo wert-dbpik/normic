@@ -8,9 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
-import ru.wert.normic.dataBaseEntities.ops.single.OpPack;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 

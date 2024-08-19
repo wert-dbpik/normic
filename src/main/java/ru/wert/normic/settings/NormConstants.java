@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.dataBaseEntities.db_connection.files.FilesService;
+import ru.wert.normic.entities.db_connection.files.FilesService;
 
 import java.io.File;
 import java.io.FileInputStream;

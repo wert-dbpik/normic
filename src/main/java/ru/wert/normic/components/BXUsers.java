@@ -4,8 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.util.StringConverter;
-import ru.wert.normic.dataBaseEntities.db_connection.user.User;
-import ru.wert.normic.dataBaseEntities.db_connection.user.UserService;
+import ru.wert.normic.entities.db_connection.user.User;
+import ru.wert.normic.entities.db_connection.user.UserService;
 
 
 import java.util.ArrayList;

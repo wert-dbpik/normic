@@ -11,9 +11,9 @@ import javafx.scene.text.Text;
 import lombok.Getter;
 import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
-import ru.wert.normic.dataBaseEntities.ops.single.OpPack;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 

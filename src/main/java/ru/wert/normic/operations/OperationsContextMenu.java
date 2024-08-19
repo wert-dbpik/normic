@@ -3,7 +3,7 @@ package ru.wert.normic.operations;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableRow;
-import ru.wert.normic.dataBaseEntities.db_connection.othersOps.SimpleOperation;
+import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
 
 public class OperationsContextMenu extends ContextMenu {
     final TableRow<SimpleOperation> tableRow;

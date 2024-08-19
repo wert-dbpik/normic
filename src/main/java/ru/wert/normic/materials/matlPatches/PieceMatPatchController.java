@@ -6,8 +6,8 @@ import javafx.scene.control.TextField;
 import lombok.Getter;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
-import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
+import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EPieceMeasurement;
 
 import java.util.List;

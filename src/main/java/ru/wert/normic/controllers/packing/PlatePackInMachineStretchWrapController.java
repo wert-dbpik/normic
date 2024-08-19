@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opPack.OpPackInMachineStretchWrap;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPack.OpPackInMachineStretchWrap;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.settings.NormConstants.*;

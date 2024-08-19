@@ -5,7 +5,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import ru.wert.normic.components.BXPieceMeasurement;
 import ru.wert.normic.components.TFDouble;
-import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EPieceMeasurement;
 import ru.wert.normic.materials.MatTypeController;
 import ru.wert.normic.utils.DoubleParser;

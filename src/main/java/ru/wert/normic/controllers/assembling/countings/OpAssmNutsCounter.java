@@ -1,7 +1,7 @@
 package ru.wert.normic.controllers.assembling.countings;
 
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opAssembling.OpAssmNut;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;

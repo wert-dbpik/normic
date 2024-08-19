@@ -5,11 +5,11 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.controllers.intro.ConnectionParams;
-import ru.wert.normic.dataBaseEntities.db_connection.UserGroup.UserGroup;
-import ru.wert.normic.dataBaseEntities.db_connection.logs.AppLog;
-import ru.wert.normic.dataBaseEntities.db_connection.logs.AppLogService;
-import ru.wert.normic.dataBaseEntities.db_connection.user.User;
-import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
+import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
+import ru.wert.normic.entities.db_connection.logs.AppLog;
+import ru.wert.normic.entities.db_connection.logs.AppLogService;
+import ru.wert.normic.entities.db_connection.user.User;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 

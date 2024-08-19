@@ -15,9 +15,9 @@ import javafx.stage.Stage;
 import ru.wert.normic.components.BXMatTypes;
 import ru.wert.normic.components.BXMaterialGroups;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.dataBaseEntities.db_connection.anyPart.AnyPart;
-import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
-import ru.wert.normic.dataBaseEntities.db_connection.material_group.MaterialGroup;
+import ru.wert.normic.entities.db_connection.anyPart.AnyPart;
+import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.db_connection.material_group.MaterialGroup;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.EMatType;
 

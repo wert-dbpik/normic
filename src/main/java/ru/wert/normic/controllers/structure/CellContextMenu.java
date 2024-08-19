@@ -6,7 +6,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.entities.ops.OpData;
 
 public class CellContextMenu extends ContextMenu{
 

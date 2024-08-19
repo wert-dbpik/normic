@@ -11,8 +11,8 @@ import javafx.stage.StageStyle;
 import lombok.SneakyThrows;
 import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.controllers.intro.NoConnection;
-import ru.wert.normic.dataBaseEntities.db_connection.retrofit.AppProperties;
-import ru.wert.normic.dataBaseEntities.db_connection.retrofit.RetrofitClient;
+import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 
 import java.util.List;
 

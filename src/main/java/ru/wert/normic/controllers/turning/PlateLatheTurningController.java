@@ -8,9 +8,9 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opTurning.OpLatheTurning;
+import ru.wert.normic.entities.db_connection.material.Material;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opTurning.OpLatheTurning;
 import ru.wert.normic.utils.IntegerParser;
 
 /**

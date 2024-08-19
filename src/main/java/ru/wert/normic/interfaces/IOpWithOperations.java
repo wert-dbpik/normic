@@ -1,7 +1,7 @@
 package ru.wert.normic.interfaces;
 
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.entities.ops.OpData;
 
 import java.util.List;
 

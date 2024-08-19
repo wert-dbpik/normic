@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opLocksmith.OpLocksmith;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpLocksmith;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.utils.IntegerParser;
 

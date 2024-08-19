@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.BXSawType;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.dataBaseEntities.ops.opLocksmith.OpCutOffOnTheSaw;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.entities.ops.opLocksmith.OpCutOffOnTheSaw;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.ESawType;
 
 import static ru.wert.normic.settings.NormConstants.*;

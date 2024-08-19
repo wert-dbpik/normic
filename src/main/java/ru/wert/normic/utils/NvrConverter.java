@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import org.json.JSONException;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.single.OpAssm;
-import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
-import ru.wert.normic.dataBaseEntities.ops.single.OpPack;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.settings.ColorsSettings;
 

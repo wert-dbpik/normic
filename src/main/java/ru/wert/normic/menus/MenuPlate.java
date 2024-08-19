@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.MainController;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.interfaces.IOpWithOperations;
 

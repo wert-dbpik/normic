@@ -1,7 +1,7 @@
 package ru.wert.normic.materials.matlPatches;
 
-import ru.wert.normic.dataBaseEntities.ops.single.OpDetail;
-import ru.wert.normic.dataBaseEntities.db_connection.material.Material;
+import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.db_connection.material.Material;
 
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;

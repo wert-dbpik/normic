@@ -1,7 +1,7 @@
 package ru.wert.normic.controllers.welding.counters;
 
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;

@@ -4,8 +4,8 @@ package ru.wert.normic.controllers.assembling;
 import javafx.scene.image.Image;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
-import ru.wert.normic.dataBaseEntities.ops.OpData;
-import ru.wert.normic.dataBaseEntities.ops.opAssembling.OpAssmChopOff;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opAssembling.OpAssmChopOff;
 import ru.wert.normic.enums.EOpType;
 
 import static ru.wert.normic.settings.NormConstants.CHOP_SPEED;

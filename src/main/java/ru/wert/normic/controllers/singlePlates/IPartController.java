@@ -1,6 +1,6 @@
 package ru.wert.normic.controllers.singlePlates;
 
-import ru.wert.normic.dataBaseEntities.ops.OpData;
+import ru.wert.normic.entities.ops.OpData;
 
 public interface IPartController {
 

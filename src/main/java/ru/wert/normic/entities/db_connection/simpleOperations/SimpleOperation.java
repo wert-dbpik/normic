@@ -1,4 +1,4 @@
-package ru.wert.normic.entities.db_connection.othersOps;
+package ru.wert.normic.entities.db_connection.simpleOperations;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;

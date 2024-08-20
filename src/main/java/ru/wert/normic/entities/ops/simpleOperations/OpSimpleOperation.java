@@ -2,7 +2,7 @@ package ru.wert.normic.entities.ops.simpleOperations;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EOpType;
 

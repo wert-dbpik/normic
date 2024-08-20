@@ -1,6 +1,6 @@
 package ru.wert.normic.controllers.simplOperations.counters;
 
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.enums.ENormType;

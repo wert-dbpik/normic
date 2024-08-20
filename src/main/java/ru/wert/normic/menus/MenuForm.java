@@ -22,8 +22,8 @@ import ru.wert.normic.controllers.turning.*;
 import ru.wert.normic.controllers.welding.PlateWeldContinuousController;
 import ru.wert.normic.controllers.welding.PlateWeldDottedController;
 import ru.wert.normic.decoration.Decoration;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperationService;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
@@ -462,7 +462,7 @@ public class MenuForm extends ContextMenu {
      */
     public Menu createAllSimpleOperations(List<ENormType> normTypes){
         Menu menu = new Menu("Все прочие операции");
-        List<SimpleOperation> ops = SimpleOperationService.getInstance().getAllSimpleOps();
+        List<SimpleOperation> ops = SimpleOperationServiceImpl.getInstance().findAll();
         for(SimpleOperation op : ops){
             for(ENormType nt : normTypes)
                 if(op.getNormType().equals(nt))
@@ -1192,7 +1192,7 @@ public class MenuForm extends ContextMenu {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/others/plateSimpleOther.fxml"));
             VBox vBox = loader.load();
             PlateSimpleOperationController controller = loader.getController();
-            SimpleOperation operation = SimpleOperationService.getInstance().getSimpleOpById(opData.getSimpleOtherOpId());
+            SimpleOperation operation = SimpleOperationServiceImpl.getInstance().findById(opData.getSimpleOtherOpId());
             opData.setOperation(operation);
             controller.init(formController, opData, addedOperations.size(), operation.getName());
             addVBox(vBox);

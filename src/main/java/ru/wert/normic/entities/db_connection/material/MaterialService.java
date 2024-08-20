@@ -111,11 +111,6 @@ public class MaterialService implements IMaterialService, ItemService<Material>,
     //Получаем строку из модели Класса, там ее удобнее написать
 
     @Override
-    public Material createFakeProduct(String name){
-        return new Material(name);
-    }
-
-    @Override
     public String getPartName(Item material) {
         return material.getName();
     }

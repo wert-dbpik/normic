@@ -13,8 +13,8 @@ import ru.wert.normic.components.BXNormType;
 import ru.wert.normic.components.BXPieceMeasurement;
 import ru.wert.normic.components.TFDouble;
 import ru.wert.normic.decoration.warnings.Warning1;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperationService;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
@@ -85,7 +85,7 @@ public class OperationsACCController {
             if(!checkData()) return;
             SimpleOperation newSimpleOperation = creatNewSimpleOperation();
             if(!isDuplicated(newSimpleOperation, null)){
-                selectedSimpleOperation = SimpleOperationService.getInstance().save(newSimpleOperation);
+                selectedSimpleOperation = SimpleOperationServiceImpl.getInstance().save(newSimpleOperation);
                 if(selectedSimpleOperation == null)
                     Warning1.create(event, "Ошибка!",
                             "Не удалось сохранить операцию!",
@@ -102,7 +102,7 @@ public class OperationsACCController {
             SimpleOperation newSimpleOperation = creatNewSimpleOperation();
             if(!isDuplicated(newSimpleOperation, oldSimpleOperation)){
                 updateOldSimpleOperation(newSimpleOperation);
-                boolean res = SimpleOperationService.update(oldSimpleOperation);
+                boolean res = SimpleOperationServiceImpl.getInstance().update(oldSimpleOperation);
                 if(!res)
                     Warning1.create(event, "Ошибка!",
                             "Не удалось сохранить материал!",
@@ -136,7 +136,7 @@ public class OperationsACCController {
     protected boolean isDuplicated(SimpleOperation newItem, SimpleOperation oldItem){
 
         //Из листа удаляется выделенная запись (старая)
-        List<SimpleOperation> items = SimpleOperationService.getInstance().getAllSimpleOps();
+        List<SimpleOperation> items = SimpleOperationServiceImpl.getInstance().findAll();
         if(oldItem != null)items.remove(oldItem);
 
         //Теперь новая запись сравнивается только с оставшимися записями

@@ -1,5 +1,7 @@
-package ru.wert.normic.entities.db_connection.othersOps;
+package ru.wert.normic.entities.db_connection.simpleOperations;
 
+
+import ru.wert.normic.entities.db_connection.ItemService;
 import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EPieceMeasurement;
@@ -8,64 +10,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SimpleOperationService {
+class SimpleOperationTestService implements ISimpleOperationsService, ItemService<SimpleOperation>{
 
-    private static SimpleOperationService instance;
-
-    public static SimpleOperationService getInstance() {
-        if (instance == null)
-            instance =  new SimpleOperationService();
-        return instance;
-    }
-
-
-
-    /**
-     * НАЙТИ ВСЕ
-     */
-    public List<SimpleOperation> getAllSimpleOps(){
-        return getAll();
-    }
 
     /**
      * НАЙТИ ПО ID
      */
-    public SimpleOperation getSimpleOpById(Long id){
-        return getById(id);
-    }
-
-    /**
-     * СОХРАНИТЬ
-     */
-    public SimpleOperation save(SimpleOperation newSimpleOperation) {
-        return new SimpleOperation();
-    }
-
-    /**
-     * ОБНОВИТЬ
-     */
-    public static boolean update(SimpleOperation oldOperation) {
-        return true;
-    }
-
-    /**
-     * УДАЛИТЬ
-     */
-    public boolean delete(SimpleOperation deletedSimpleOperation) {
-        return true;
-    }
-
-    //====================================================================================================
-
-    private SimpleOperation getById(Long id){
-        for(SimpleOperation op : getAll()){
+    @Override
+    public SimpleOperation findById(Long id) {
+        for(SimpleOperation op : findAll()){
             if(op.getId().equals(id))
                 return op;
         }
         return null;
     }
 
-    private List<SimpleOperation> getAll() {
+    /**
+     * НАЙТИ ВСЕ
+     */
+    @Override
+    public List<SimpleOperation> findAll() {
         return new ArrayList<>(Arrays.asList(
                 createOp1(),
                 createOp2(),
@@ -74,7 +38,45 @@ public class SimpleOperationService {
         ));
     }
 
+    @Override
+    public List<SimpleOperation> findAllByText(String text) {
+        return null; //НЕ ИСПОЛЬЗУЕТСЯ
+    }
 
+    /**
+     * СОХРАНИТЬ
+     */
+    @Override
+    public SimpleOperation save(SimpleOperation entity) {
+
+            return null;
+
+    }
+
+    /**
+     * ОБНОВИТЬ
+     */
+    @Override
+    public boolean update(SimpleOperation entity) {
+
+            return false;
+
+    }
+
+    /**
+     * УДАЛИТЬ
+     */
+    @Override
+    public boolean delete(SimpleOperation entity) {
+
+
+            return false;
+
+    }
+
+
+
+    //===============================================================
 
     private SimpleOperation createOp1(){
         SimpleOperation op = new SimpleOperation();

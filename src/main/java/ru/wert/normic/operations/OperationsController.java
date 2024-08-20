@@ -16,8 +16,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperation;
-import ru.wert.normic.entities.db_connection.othersOps.SimpleOperationService;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.ENormType;
 
@@ -53,7 +53,7 @@ public class OperationsController {
     public void init(){
         initializeColumns();
 
-        ObservableList<SimpleOperation> ops = FXCollections.observableArrayList(SimpleOperationService.getInstance().getAllSimpleOps());
+        ObservableList<SimpleOperation> ops = FXCollections.observableArrayList(SimpleOperationServiceImpl.getInstance().findAll());
         tableView.getItems().addAll(ops);
 
     }
@@ -99,7 +99,7 @@ public class OperationsController {
         tableView.getItems().clear();
         tableView.refresh();
 
-        ObservableList<SimpleOperation> items = FXCollections.observableArrayList(SimpleOperationService.getInstance().getAllSimpleOps());
+        ObservableList<SimpleOperation> items = FXCollections.observableArrayList(SimpleOperationServiceImpl.getInstance().findAll());
         Platform.runLater(()->{
             tableView.setItems(FXCollections.observableArrayList(items));
             if(selectedSimpleOperation != null) {
@@ -135,7 +135,7 @@ public class OperationsController {
                 String.format( "Вы уверены, что нужно удалить '%s'?", deletedSimpleOperation.getName()),
                 "Восстановить будет невозможно!");
         if(ans){
-            boolean res = SimpleOperationService.getInstance().delete(deletedSimpleOperation);
+            boolean res = SimpleOperationServiceImpl.getInstance().delete(deletedSimpleOperation);
             if(!res)
                 Warning1.create(e, "Ошибка!",
                         "Удалить '%s' не получилось!",

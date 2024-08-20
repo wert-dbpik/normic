@@ -104,11 +104,6 @@ public class MaterialQuickService implements IMaterialService, CatalogService<Ma
         return foundMaterials;
     }
 
-    //Получаем строку из модели Класса, там ее удобнее написать
 
-    @Override
-    public Material createFakeProduct(String name){
-        return new Material(name);
-    }
 
 }

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lombok.Getter;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import ru.wert.normic.excel.model.enums.EColName;
@@ -14,13 +15,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static java.lang.String.format;
 import static ru.wert.normic.excel.model.enums.EColName.*;
 
 
-@Log
+@Slf4j
 @Getter
 public class POIReader {
 
+    static private int MAX_LINES = 2000;
     private final File file;
     private final Workbook book;
     private final Sheet sheet;
@@ -90,12 +93,19 @@ public class POIReader {
      * @param sheet
      * @return headRowIndex
      */
-    private int findHeadRowIndex(Sheet sheet){
-        for(int i = 0; ; i++){
-            if(getDataFromCell(i, 0).equals(ROW_NUM.toString()) ||
-                    getDataFromCell(i, 1).equals(KRP.toString()))
-                return sheet.getRow(i).getRowNum();
+    private Integer findHeadRowIndex(Sheet sheet) {
+        Integer num = null;
+        for (int i = 0; i < MAX_LINES; i++) {
+            if (getDataFromCell(i, 0).equals(ROW_NUM.toString()) ||
+                    getDataFromCell(i, 1).equals(KRP.toString())) {
+                num = sheet.getRow(i).getRowNum();
+                log.info(format("Header has been found at row #%s", num));
+                break;
+            }
         }
+        if (num == null)
+            log.error("Header has not been found!");
+        return num;
     }
 
     /**
@@ -160,7 +170,7 @@ public class POIReader {
         Cell cell = sheet.getRow(rowNum).getCell(3);
         XSSFColor color = (XSSFColor) cell.getCellStyle().getFillForegroundColorColor();
 
-        if(color == null)
+        if (color == null || EColor.byHEX(color.getARGBHex()) == null)
             return "WHITE";
         else
             return EColor.byHEX(color.getARGBHex()).toString();

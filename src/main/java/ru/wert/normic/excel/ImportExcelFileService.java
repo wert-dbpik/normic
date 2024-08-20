@@ -40,6 +40,11 @@ public class ImportExcelFileService extends Service<OpAssm> {
                 super.failed();
                 mainController.getProgressIndicator().setVisible(false);
             }
+
+//            @Override
+//            protected void updateMessage(String message) {
+//                super.updateMessage(message);
+//            }
         };
     }
 

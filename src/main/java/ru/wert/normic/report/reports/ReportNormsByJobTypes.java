@@ -1,6 +1,7 @@
 package ru.wert.normic.report.reports;
 
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.LocksmithOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
@@ -51,7 +52,12 @@ public class ReportNormsByJobTypes {
                         bending += op.getMechTime() * quantity;
                         break;
                     case JOB_WELDING:
-                        welding += op.getMechTime() * quantity;
+                        if (op instanceof LocksmithOperation) {
+                            double strippingTime = ((LocksmithOperation) op).getLocksmithTime();
+                            welding += (op.getMechTime() - strippingTime) * quantity;
+                            locksmith += strippingTime * quantity;
+                        } else
+                            welding += op.getMechTime() * quantity;
                         break;
                     case JOB_LOCKSMITH:
                         locksmith += op.getMechTime() * quantity;

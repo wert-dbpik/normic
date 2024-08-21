@@ -92,7 +92,8 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
+        opData = (OpWeldContinuous) opData.getOpType().getNormCounter().count(data);
+        currentNormTime = opData.getMechTime();//результат в минутах
 
         setTimeMeasurement();
     }

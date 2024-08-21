@@ -49,6 +49,7 @@ public class OpWeldContinuousCounter implements NormCounter {
         if(sumWeldLength == 0.0) time = 0.0;
 
         opData.setMechTime(roundTo001(time));
+
         return opData;
     }
 }

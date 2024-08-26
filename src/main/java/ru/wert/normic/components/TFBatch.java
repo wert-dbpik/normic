@@ -14,7 +14,7 @@ public class TFBatch {
         String normStyle = counter == null ? "" : counter.getTfBatch().getStyle();
 
         tf.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("") || Integer.parseInt(newValue) == 0) {
+            if (newValue.equals("")) {
                 tf.setStyle("-fx-border-color: #ff5555");
                 if (counter != null) {
                     counter.getTfBatch().setStyle("-fx-border-color: #FF5555");
@@ -25,7 +25,13 @@ public class TFBatch {
             if (counter != null) {
                 counter.getTfBatch().setStyle(normStyle);
                 //Пересчитываем с учетом новой партии
-                CURRENT_BATCH = Integer.parseInt(newValue);
+                int batch = Integer.parseInt(newValue);
+                if (batch > 0)
+                    CURRENT_BATCH = batch;
+                else{
+                    tf.setText("1");
+                }
+
                 counter.recountMainOpData();
             }
         });

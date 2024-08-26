@@ -6,8 +6,9 @@ import ru.wert.normic.entities.colors.AppColor;
 
 @Getter
 @Setter
-public class ColorsSettings {
+public class ProductSettings {
 
+    private Integer batch;
     private AppColor color1;
     private AppColor color2;
     private AppColor color3;

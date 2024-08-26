@@ -9,7 +9,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.settings.ColorsSettings;
+import ru.wert.normic.settings.ProductSettings;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class NvrConverter {
 
     @Getter private final OpData convertedOpData;
-    @Getter private final ColorsSettings colorsSettings;
+    @Getter private final ProductSettings productSettings;
 
     public NvrConverter(File file) {
         ArrayList<String> store = getStringsStore(file);
         EOpType opType = getOpDataType(store.get(0));
-        colorsSettings = getSettingFromNVRFile(store.get(1));
+        productSettings = getSettingFromNVRFile(store.get(1));
         convertedOpData = convertOpDataFromNVRFile(store.get(2), opType);
     }
 
@@ -59,9 +59,9 @@ public class NvrConverter {
     /**
      * Определяеет настройки палитры
      */
-    public ColorsSettings getSettingFromNVRFile(String jsonString) {
+    public ProductSettings getSettingFromNVRFile(String jsonString) {
         Gson gson = new Gson();
-        Type settingsType = new TypeToken<ColorsSettings>() {
+        Type settingsType = new TypeToken<ProductSettings>() {
         }.getType();
         return gson.fromJson(jsonString, settingsType);
     }

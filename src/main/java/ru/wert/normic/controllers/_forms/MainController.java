@@ -24,8 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFBatch;
-import ru.wert.normic.components.TFInteger;
-import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.enums.ENormType;
@@ -47,7 +45,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.IconMenuController;
 import ru.wert.normic.menus.MainMenuController;
 import ru.wert.normic.menus.MenuForm;
-import ru.wert.normic.settings.ColorsSettings;
+import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.AppFiles;
 import ru.wert.normic.utils.NvrConverter;
 
@@ -149,10 +147,10 @@ public class MainController extends AbstractFormController {
                 File openingFile = new File(FIRST_PARAMS[0]);
 
                 NvrConverter convertor = new NvrConverter(openingFile);
-                ColorsSettings colorsSettings = convertor.getColorsSettings();
+                ProductSettings productSettings = convertor.getProductSettings();
                 OpData newOpData = convertor.getConvertedOpData();
 
-                deployOpDataFromFile(null, EMenuSource.ON_START, openingFile, newOpData, colorsSettings);
+                deployOpDataFromFile(null, EMenuSource.ON_START, openingFile, newOpData, productSettings);
                 HistoryFile.getInstance().addFileToHistory(openingFile);
 
             } else
@@ -469,7 +467,8 @@ public class MainController extends AbstractFormController {
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
         Gson gson = new Gson();
-        ColorsSettings settings = new ColorsSettings();
+        ProductSettings settings = new ProductSettings();
+        settings.setBatch(CURRENT_BATCH);
         settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
         settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));
         settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));

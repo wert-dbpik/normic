@@ -50,7 +50,7 @@ import ru.wert.normic.interfaces.Paintable;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.searching.SearchingFileController;
-import ru.wert.normic.settings.ColorsSettings;
+import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.NvrConverter;
 import ru.wert.normic.utils.OpDataJsonConverter;
 
@@ -753,14 +753,14 @@ public abstract class AbstractFormController implements IForm {
     private void openFile(Event e, EMenuSource source, File file){
         if(file.exists()) {
             NvrConverter convertor = new NvrConverter(file);
-            ColorsSettings colorsSettings = convertor.getColorsSettings();
+            ProductSettings productSettings = convertor.getProductSettings();
             OpData newOpData = convertor.getConvertedOpData();
 
             deployOpDataFromFile(e,
                     source,
                     file,
                     newOpData,
-                    colorsSettings);
+                    productSettings);
 
             if(!source.equals(EMenuSource.FORM_MENU))
                 HistoryFile.getInstance().addFileToHistory(file);
@@ -800,7 +800,7 @@ public abstract class AbstractFormController implements IForm {
         }
     }
 
-    public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ColorsSettings colorsSettings) {
+    public void deployOpDataFromFile(Event e, EMenuSource source, File file, OpData newOpData, ProductSettings productSettings) {
         if (newOpData == null) {
             Warning1.create(e, "Ошибка!",
                     "При конвертации файла произошла ошибка",
@@ -822,7 +822,7 @@ public abstract class AbstractFormController implements IForm {
 
                 if (newOpData.getOpType().equals(EOpType.ASSM)) {
                     blockUndoListFlag = true;
-                    deployFile(source, colorsSettings, newOpData);
+                    deployFile(source, productSettings, newOpData);
                     iterateUndoList();
                 } else if (newOpData.getOpType().equals(EOpType.DETAIL)) {
                     addFromFile(newOpData);
@@ -893,9 +893,9 @@ public abstract class AbstractFormController implements IForm {
     }
 
     //Сборка разворачивается в главном окне вместе с настройками изделя
-    private void deployFile(EMenuSource source, ColorsSettings colorsSettings, OpData newOpData) {
+    private void deployFile(EMenuSource source, ProductSettings productSettings, OpData newOpData) {
         opData = newOpData;
-        deployProductSettings(colorsSettings);
+        deployProductSettings(productSettings);
         createMenu();
         menu.addListOfOperations();
         //Для вновь открытого изделия
@@ -931,7 +931,10 @@ public abstract class AbstractFormController implements IForm {
     /**
      * Применение НАСТРОЕК
      */
-    private void deployProductSettings(ColorsSettings settings) {
+    private void deployProductSettings(ProductSettings settings) {
+        CURRENT_BATCH = settings.getBatch() == null ? DEFAULT_BATCH : settings.getBatch();
+        MAIN_CONTROLLER.getTfBatch().setText(String.valueOf(CURRENT_BATCH));
+
         COLOR_I.setRal(settings.getColor1().getRal());
         COLOR_II.setRal(settings.getColor2().getRal());
         COLOR_III.setRal(settings.getColor3().getRal());

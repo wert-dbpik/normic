@@ -30,6 +30,7 @@ public class AppStatics {
     //тестовая версия - работает с тестовым сервером
     public static boolean TEST_VERSION = false;
 
+    public static int DEFAULT_BATCH = 10; //расчетная партия штук по умолчанию
     public static int CURRENT_BATCH = 10; //расчетная партия штук
 
     //Ползователь

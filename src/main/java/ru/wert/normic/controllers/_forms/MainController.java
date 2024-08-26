@@ -747,7 +747,27 @@ public class MainController extends AbstractFormController {
      * И прописывает их по участкам
      */
     public void recountMainOpData(){
+        MAIN_OP_DATA.setMechTime(0);
 
+        recount(MAIN_OP_DATA, 1);
+    }
+
+    private void recount(IOpWithOperations opAssm, int quantity){
+        for(OpData op : opAssm.getOperations()){
+            if(op instanceof IOpWithOperations){
+                recount((IOpWithOperations) op, op.getQuantity() * quantity);
+            } else {
+                switch(op.getNormType()){
+                    case NORM_MECHANICAL:
+                        double time = op.getOpType().getNormCounter().count(op).getMechTime();
+                        MAIN_OP_DATA.setMechTime(MAIN_OP_DATA.getMechTime() + time);
+//                        tfMechanicalTime.setText(String.valueOf(MAIN_OP_DATA.getMechTime()));
+                        countSumNormTimeByShops();
+                        break;
+                }
+            }
+        }
+//        countSumNormTimeByShops();
     }
 
     /**

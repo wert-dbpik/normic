@@ -20,6 +20,7 @@ import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.controllers.turning.*;
 import ru.wert.normic.controllers.welding.PlateWeldContinuousController;
+import ru.wert.normic.controllers.welding.PlateWeldDifficultyController;
 import ru.wert.normic.controllers.welding.PlateWeldDottedController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
@@ -35,6 +36,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
+import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -376,6 +378,14 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //СЛОЖНОСТЬ НЕПРЕРЫВНОЙ СВАРКИ
+    public MenuItem createItemWeldDifficulty(){
+        MenuItem item = new MenuItem(EOpType.WELD_DIFFICULTY.getOpName());
+        item.setOnAction(event -> {
+            addWeldDifficultyPlate(new OpWeldDifficulty());
+        });
+        return item;
+    }
 
     //СВАРКА ТОЧЕЧНАЯ
     public MenuItem createItemWeldingDotted(){
@@ -602,6 +612,9 @@ public class MenuForm extends ContextMenu {
                 break;
             case WELD_CONTINUOUS:
                 addWeldContinuousPlate((OpWeldContinuous) op);
+                break;
+            case WELD_DIFFICULTY:
+                addWeldDifficultyPlate((OpWeldDifficulty) op);
                 break;
             case WELD_DOTTED:
                 addWeldDottedPlate((OpWeldDotted) op);
@@ -986,6 +999,22 @@ public class MenuForm extends ContextMenu {
     }
 
     /**
+     * СЛОЖНОСТЬ СВАРИВАЕМОЙ СБОРКИ
+     */
+    public void addWeldDifficultyPlate(OpWeldDifficulty opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldDifficulty.fxml"));
+            VBox vBox = loader.load();
+            PlateWeldDifficultyController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "СЛОЖНОСТЬ СВАРИВАЕМОЙ СБОРКИ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * СВАРКА ТОЧЕЧНАЯ
      */
     public void addWeldDottedPlate(OpWeldDotted opData) {
@@ -1189,7 +1218,7 @@ public class MenuForm extends ContextMenu {
      */
     public void addSimpleOtherPlate(OpSimpleOperation opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/others/plateSimpleOther.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/simpleOperations/plateSimpleOther.fxml"));
             VBox vBox = loader.load();
             PlateSimpleOperationController controller = loader.getController();
             SimpleOperation operation = SimpleOperationServiceImpl.getInstance().findById(opData.getSimpleOtherOpId());

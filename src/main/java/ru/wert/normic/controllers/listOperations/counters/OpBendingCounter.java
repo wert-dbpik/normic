@@ -4,6 +4,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.BENDING_SERVICE_RATIO;
 import static ru.wert.normic.settings.NormConstants.BENDING_SPEED;
@@ -17,10 +18,13 @@ public class OpBendingCounter  implements NormCounter {
         int men = opData.getMen(); //Количество рабочих
         double toolRatio = opData.getTool().getToolRatio(); //Коэффициент зависящий от гибочного станка
 
+        double timePZ = opData.isDifficult() ? 12.0 : 3.0; //Подготовительно заключительное время от сложности
+
         //######################################################
 
-        double time =  bends * BENDING_SPEED * toolRatio * men  //мин
-                * BENDING_SERVICE_RATIO;
+        double operationTime =  bends * BENDING_SPEED * toolRatio * men  * BENDING_SERVICE_RATIO; //Оперативное время
+        double time = operationTime + operationTime * 0.1 +
+                timePZ / CURRENT_BATCH;
 
         opData.setMechTime(roundTo001(time));
         return opData;

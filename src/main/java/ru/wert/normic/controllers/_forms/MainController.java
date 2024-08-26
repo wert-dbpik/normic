@@ -663,6 +663,7 @@ public class MainController extends AbstractFormController {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemWeldLongSeam());
         menu.getItems().addAll(menu.createItemWeldingDotted());
+        menu.getItems().addAll(menu.createItemWeldDifficulty());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().addAll(menu.createItemAssmNuts());
         menu.getItems().addAll(menu.createItemAssmNutsMK());

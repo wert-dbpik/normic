@@ -43,13 +43,15 @@ public class OpCuttingCounter implements NormCounter {
         } else
             strippingTime = 0.0;
 
-        double time;
-
-        time = ((perimeter + PLUS_LENGTH)/speed                 //Время на резку по периметру
+        double operationTime =
+                ((perimeter + PLUS_LENGTH)/speed                 //Время на резку по периметру
                 + CUTTING_SPEED * area                          //Время подготовительное - заключительоне
                 + REVOLVER_SPEED * holes                //Время на пробивку отверстий
                 + PERFORATION_SPEED * perfHoles)        //Время на пробивку перфорации
-                * CUTTING_SERVICE_RATIO
+                * CUTTING_SERVICE_RATIO;
+
+
+        double time = operationTime + 0.25 * operationTime
                 + strippingTime;
 
         if(area == 0.0) time = 0.0;

@@ -12,6 +12,7 @@ import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
 import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
 import ru.wert.normic.controllers.turning.counters.*;
 import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
+import ru.wert.normic.controllers.welding.counters.OpWeldDifficultyCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.opAssembling.*;
@@ -23,6 +24,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
+import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -77,6 +79,7 @@ public enum EOpType {
     //СВАРОЧНЫЕ ОПЕРАЦИИ
     WELD_CONTINUOUS             ("Сварка непрерывная",              OpWeldContinuous.class,             new Image("/pics/opLogos/weld.png"),            new OpWeldContinuousCounter()),      //СВАРКА НЕПРЕРЫВНЫМ ШВОМ
     WELD_DOTTED                 ("Сварка точечная",                 OpWeldDotted.class,                 new Image("/pics/opLogos/weld.png"),            new OpWeldDottedCounter()),          //СВАРКА ТОЧЕЧНАЯ И ПРИХВАТКАМИ
+    WELD_DIFFICULTY             ("Сложность сварки",                OpWeldDifficulty.class,             new Image("/pics/opLogos/weld.png"),            new OpWeldDifficultyCounter()),      //СЛОЖНОСТЬ (Тпз) СВАРКИ
 
     //УПАКОВКА
     PACK_ON_PALLET              ("Монтаж на поддон",                OpPackOnPallet.class,               new Image("/pics/opLogos/pallet.png"),          new OpPackOnPalletCounter()),        //УПАКОВКА НА ПАЛЛЕТ (Установка и закрепление)

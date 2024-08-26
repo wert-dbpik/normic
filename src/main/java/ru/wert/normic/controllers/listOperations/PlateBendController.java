@@ -2,12 +2,14 @@ package ru.wert.normic.controllers.listOperations;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import ru.wert.normic.components.BXBendingTool;
+import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
@@ -26,6 +28,9 @@ public class PlateBendController extends AbstractOpPlate {
 
     @FXML@Getter
     private ImageView ivHelp;
+
+    @FXML
+    private CheckBox chDifficulty;
 
     @FXML
     private TextField tfBends;
@@ -48,6 +53,7 @@ public class PlateBendController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData opData){
 
+        new ChBox(chDifficulty, this);
         new BXBendingTool().create(cmbxBendingTool, ((OpBending)opData).getTool(), this);
         new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfBends, this);
@@ -79,6 +85,7 @@ public class PlateBendController extends AbstractOpPlate {
     }
 
     private void collectOpData(){
+        opData.setDifficult(chDifficulty.isSelected());
         opData.setBends(bends);
         opData.setMen(men);
         opData.setTool(cmbxBendingTool.getValue());
@@ -87,6 +94,8 @@ public class PlateBendController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpBending opData = (OpBending)data;
+
+        chDifficulty.setSelected(opData.isDifficult());
 
         bends = opData.getBends();
         tfBends.setText(String.valueOf(bends));
@@ -105,11 +114,15 @@ public class PlateBendController extends AbstractOpPlate {
                         "N человек - число человек выполняющих гибку (2 - для крупных деталей);\n" +
                         "Оборудование - коэффициент, учитывающий оборудование\n" +
                         "\t(универсал : К обор = 2, панелегиб : К обор = 1).\n\n" +
-                        "Время гибки вычисляется по формуле:\n\n" +
-                        "\t\t\tТгиб = N гибов х Vгиб х К обор х N человек х Кпз, мин\n" +
+                        "Время гибки вычисляется по формулам:\n\n" +
+                        "\t\t\tТоп = N гибов х Vгиб х К обор х N человек х Кобсл, мин\n" +
                         "где\n" +
                         "\tV гиб = %s скорость гибки, мин/гиб ;\n" +
-                        "\tК пз = %s - коэффициент ПЗ времени.",
+                        "\tК пз = %s - коэффициент обслуживания;\n" +
+                        "\t\t\tТшт = Топ + 0.1 * Топ + Tсл/Партия\n" +
+                        "где\n" +
+                        "\tTсл - ПЗ время, 3мин - для простых деталей, 12 мин - для сложных;\n" +
+                        "\tПартия - число деталей в партии",
                 BENDING_SPEED, BENDING_SERVICE_RATIO
                 );
     }

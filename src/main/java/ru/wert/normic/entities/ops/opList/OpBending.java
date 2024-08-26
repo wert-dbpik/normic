@@ -18,6 +18,7 @@ public class OpBending extends OpData {
     private Integer bends = 1;
     private Integer men = 1;
     private EBendingTool tool;
+    private boolean difficult = false;
 
     public OpBending() {
         super.normType = ENormType.NORM_MECHANICAL;

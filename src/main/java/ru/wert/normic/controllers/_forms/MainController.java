@@ -23,6 +23,9 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
+import ru.wert.normic.components.TFBatch;
+import ru.wert.normic.components.TFInteger;
+import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.enums.ENormType;
@@ -94,6 +97,9 @@ public class MainController extends AbstractFormController {
     @FXML
     private Label lblTimeMeasure;
 
+    @FXML @Getter
+    private TextField tfBatch;
+
     public static File savedProductFile = null;
 
     private MainMenuController mainMenuController;
@@ -113,6 +119,8 @@ public class MainController extends AbstractFormController {
         Platform.runLater(this::createButtonInterceptor);
 
         AppStatics.MEASURE = new ToggleGroup();
+
+        new TFBatch(tfBatch, this);
 
         opData = new OpAssm();
         MAIN_OP_DATA = (OpAssm) opData;
@@ -157,6 +165,8 @@ public class MainController extends AbstractFormController {
     public void fillOpData(){
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.addListOfOperations();
+
+        tfBatch.setText(String.valueOf(CURRENT_BATCH));
     }
 
     private void createMainMenu(){
@@ -729,6 +739,14 @@ public class MainController extends AbstractFormController {
         tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
 
         lblTimeMeasure.setText(measure);
+
+    }
+
+    /**
+     * Метод пересчитывает нормы для главного окна
+     * И прописывает их по участкам
+     */
+    public void recountMainOpData(){
 
     }
 

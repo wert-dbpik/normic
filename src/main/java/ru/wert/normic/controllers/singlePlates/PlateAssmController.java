@@ -51,6 +51,7 @@ public class PlateAssmController extends AbstractOpPlate{
     @FXML
     private Label lblQuantity;
 
+
     //Переменные
     private int quantity;
     @Setter@Getter

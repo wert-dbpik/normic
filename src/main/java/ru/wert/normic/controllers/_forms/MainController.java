@@ -747,27 +747,33 @@ public class MainController extends AbstractFormController {
      * И прописывает их по участкам
      */
     public void recountMainOpData(){
-        MAIN_OP_DATA.setMechTime(0);
-
-        recount(MAIN_OP_DATA, 1);
+        recount((IOpWithOperations) opData, 1);
+        countSumNormTimeByShops();
     }
 
-    private void recount(IOpWithOperations opAssm, int quantity){
-        for(OpData op : opAssm.getOperations()){
+    private IOpWithOperations recount(IOpWithOperations opsData, int quantity){
+        ((OpData)opsData).setMechTime(0.0);
+        ((OpData)opsData).setPaintTime(0.0);
+        ((OpData)opsData).setAssmTime(0.0);
+        ((OpData)opsData).setPackTime(0.0);
+        for(OpData op : opsData.getOperations()){
             if(op instanceof IOpWithOperations){
-                recount((IOpWithOperations) op, op.getQuantity() * quantity);
+                IOpWithOperations newOpData = recount((IOpWithOperations) op, op.getQuantity() * quantity);
+                ((OpData)opsData).setMechTime(((OpData) opsData).getMechTime() + ((OpData)newOpData).getMechTime());
+                ((OpData)opsData).setPaintTime(((OpData) opsData).getPaintTime() + ((OpData)newOpData).getPaintTime());
+                ((OpData)opsData).setAssmTime(((OpData) opsData).getAssmTime() + ((OpData)newOpData).getAssmTime());
+                ((OpData)opsData).setPackTime(((OpData) opsData).getPackTime() + ((OpData)newOpData).getPackTime());
             } else {
-                switch(op.getNormType()){
-                    case NORM_MECHANICAL:
-                        double time = op.getOpType().getNormCounter().count(op).getMechTime();
-                        MAIN_OP_DATA.setMechTime(MAIN_OP_DATA.getMechTime() + time);
-//                        tfMechanicalTime.setText(String.valueOf(MAIN_OP_DATA.getMechTime()));
-                        countSumNormTimeByShops();
-                        break;
-                }
+                op = op.getOpType().getNormCounter().count(op);
+                ((OpData)opsData).setMechTime(((OpData) opsData).getMechTime() + op.getMechTime() * quantity);
+                ((OpData)opsData).setPaintTime(((OpData) opsData).getPaintTime() + op.getPaintTime() * quantity);
+                ((OpData)opsData).setAssmTime(((OpData) opsData).getAssmTime() + op.getAssmTime() * quantity);
+                ((OpData)opsData).setPackTime(((OpData) opsData).getPackTime() + op.getPackTime() * quantity);
             }
         }
-//        countSumNormTimeByShops();
+
+        return opsData;
+
     }
 
     /**

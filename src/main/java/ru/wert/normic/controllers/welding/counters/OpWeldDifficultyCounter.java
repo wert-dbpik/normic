@@ -18,7 +18,10 @@ public class OpWeldDifficultyCounter implements NormCounter {
         EWeldDifficulty difficulty = opData.getDifficulty();
 
         //######################################################
-        double time =  difficulty.getTime() / CURRENT_BATCH;   //мин
+        double d = difficulty.getTime();
+        double t = CURRENT_BATCH;
+
+        double time = d / t;   //мин
 
         opData.setMechTime(roundTo001(time));
         return opData;

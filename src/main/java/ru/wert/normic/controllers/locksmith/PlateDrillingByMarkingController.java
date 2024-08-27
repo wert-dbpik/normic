@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers.locksmith.counters.OpDrillingByMarkingCounter;
 import ru.wert.normic.entities.ops.OpData;
@@ -28,6 +29,9 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
     @FXML
     private TextField tfLength;
 
+    @FXML
+    private TextField tfNormTime;
+
     private String initStyle;
 
     private OpDrillingByMarking opData;
@@ -41,14 +45,12 @@ public class PlateDrillingByMarkingController extends AbstractOpPlate {
     public void initViews(OpData data){
         initStyle = tfLength.getStyle(); //Сохраняем исходный стиль
 
+        new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfDiameter, this);
         new TFIntegerColored(tfDepth, this);
         new TFIntegerColored(tfHoles, this);
         new TFIntegerColored(tfLength, this);
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
     }
 
     @Override//AbstractOpPlate

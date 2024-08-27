@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
@@ -54,6 +55,8 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
     @FXML
     private HBox hbHeight;
 
+    @FXML
+    private TextField tfNormTime;
 
     private OpSimpleOperation opData;
     private SimpleOperation operation;
@@ -64,6 +67,8 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
     public void initViews(OpData data){
         OpSimpleOperation opData = (OpSimpleOperation) data;
         operation = opData.getOperation();
+
+        new TFNormTime(tfNormTime, prevFormController);
 
         lblOperationName.setText(operation.getName().toUpperCase());
 
@@ -102,11 +107,6 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         //ПАРАМЕТР С
         new TFIntegerColored(tfParamC, this);
         tfParamC.disableProperty().bind(chbInputCounted.selectedProperty().not());
-
-        //ИТОГОВАЯ НОРМА ВРЕМЕНИ
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
 
         //НАСТРАИВАЕМ ПЕРЕМЕННОЕ КОЛИЧЕСТВО ПАРАМЕТРОВ
         if (measurement.equals(EPieceMeasurement.PIECE)) {

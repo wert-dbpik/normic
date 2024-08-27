@@ -4,11 +4,9 @@ package ru.wert.normic.controllers.welding;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import ru.wert.normic.components.BXPartBigness;
-import ru.wert.normic.components.BXWeldDifficulty;
-import ru.wert.normic.components.TFDoubleColored;
-import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
@@ -32,6 +30,9 @@ public class PlateWeldDifficultyController extends AbstractOpPlate {
     @FXML
     private ComboBox<EWeldDifficulty> bxDifficulty;
 
+    @FXML
+    private TextField tfNormTime;
+
     
     private OpWeldDifficulty opData;
 
@@ -39,6 +40,7 @@ public class PlateWeldDifficultyController extends AbstractOpPlate {
     public void initViews(OpData data){
         opData = (OpWeldDifficulty) data;
 
+        new TFNormTime(tfNormTime, prevFormController);
         new BXWeldDifficulty().create(bxDifficulty, opData.getDifficulty(), this);
     }
 
@@ -80,7 +82,7 @@ public class PlateWeldDifficultyController extends AbstractOpPlate {
         return
                 "Здесь добавляется врямя на непрерывную сварку на всю сборку\n" +
                         "в зависимости от ее сложности\n" +
-                format("\t\tСредняя сложность %d минут", EWeldDifficulty.MIDDLE.getTime()) +
+                format("\t\tСредняя сложность %d минут\n", EWeldDifficulty.MIDDLE.getTime()) +
                 format("\t\tВысокая сложность %d минут", EWeldDifficulty.HEIGHT.getTime());
 
     }

@@ -1,7 +1,10 @@
 package ru.wert.normic.controllers.packing;
 
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
@@ -12,6 +15,9 @@ import ru.wert.normic.entities.ops.opPack.OpPackOnPallet;
  */
 public class PlatePackOnPalletController extends AbstractOpPlate {
 
+    @FXML
+    private TextField tfNormTime;
+
     private OpPackOnPallet opData;
 
     private int height; //габарит квадратного поддона
@@ -20,9 +26,8 @@ public class PlatePackOnPalletController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
+
+        new TFNormTime(tfNormTime, prevFormController);
     }
 
     @Override//AbstractOpPlate

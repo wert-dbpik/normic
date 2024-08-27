@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.RadBtn;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
 import ru.wert.normic.entities.ops.OpData;
@@ -32,6 +33,9 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
     @FXML
     private TextField tfDuctTape;
 
+    @FXML
+    private TextField tfNormTime;
+
     private int width, depth, height;
     private ToggleGroup toggleGroup; //Накручивание по
     private int selectedRadioButton; //выделенный
@@ -52,13 +56,11 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
+
+        new TFNormTime(tfNormTime, prevFormController);
         new RadBtn(rbByHeight, this);
         new RadBtn(rbByDepth, this);
         new RadBtn(rbByWidth, this);
-
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
 
     }
 

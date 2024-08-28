@@ -46,20 +46,6 @@
       <Separator prefWidth="200.0" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
-            <VBox alignment="BOTTOM_LEFT" maxWidth="-Infinity" minWidth="-Infinity" spacing="10.0">
-               <children>
-                  <Label text="Сложно!">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <CheckBox fx:id="chDifficulty" mnemonicParsing="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </CheckBox>
-               </children>
-            </VBox>
             <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
                <children>
                   <Label text="N гибов">
@@ -88,6 +74,20 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cmbxBendingTool" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_LEFT" maxWidth="-Infinity" minWidth="-Infinity" spacing="10.0">
+               <children>
+                  <Label text="Сложно!">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="chDifficulty" mnemonicParsing="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
                </children>
             </VBox>
          </children>

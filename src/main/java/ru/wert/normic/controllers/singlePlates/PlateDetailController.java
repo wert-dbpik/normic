@@ -22,6 +22,8 @@ import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -113,6 +115,24 @@ public class PlateDetailController extends AbstractOpPlate {
             prevFormController.calculateAreaByDetails();
         });
 
+        changeOperationImageIfPainted();
+    }
+
+    /**
+     * Метод устанавливает логотип операции если деталь окрашена
+     */
+    private void changeOperationImageIfPainted() {
+        boolean painted = false;
+        for(OpData op : opData.getOperations()){
+            if(op instanceof OpPaint) {
+                painted = true;
+                break;
+            }
+        }
+        if (painted)
+            ivOperation.setImage(new Image("/pics/opLogos/detail-painted.png"));
+        else
+            ivOperation.setImage(new Image("/pics/opLogos/detail.png"));
     }
 
     /**

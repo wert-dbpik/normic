@@ -21,6 +21,8 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormAssmController;
 import ru.wert.normic.decoration.Decoration;
+import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
@@ -35,6 +37,8 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
  */
 public class PlateAssmController extends AbstractOpPlate{
 
+    @FXML @Getter
+    private ImageView ivOperation;
 
     @FXML
     private VBox vbOperation;
@@ -114,6 +118,25 @@ public class PlateAssmController extends AbstractOpPlate{
             this.opData.setQuantity(IntegerParser.getValue(tfN));
             prevFormController.countSumNormTimeByShops();
         });
+
+        changeOperationImageIfPainted();
+    }
+
+    /**
+     * Метод устанавливает логотип операции если деталь окрашена
+     */
+    private void changeOperationImageIfPainted() {
+        boolean painted = false;
+        for(OpData op : opData.getOperations()){
+            if(op instanceof OpPaintAssm) {
+                painted = true;
+                break;
+            }
+        }
+        if (painted)
+            ivOperation.setImage(new Image("/pics/opLogos/assemble-painted.png"));
+        else
+            ivOperation.setImage(new Image("/pics/opLogos/assemble.png"));
     }
 
     /**

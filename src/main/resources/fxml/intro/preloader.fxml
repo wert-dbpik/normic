@@ -13,7 +13,7 @@
    <children>
       <VBox alignment="CENTER">
          <children>
-            <Label maxWidth="-Infinity" prefWidth="237.0" text="НормИК" textAlignment="CENTER" VBox.vgrow="NEVER">
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="237.0" snapToPixel="false" text="НормИК" textAlignment="CENTER" VBox.vgrow="NEVER">
                <font>
                   <Font name="Arial Narrow Bold" size="72.0" />
                </font>

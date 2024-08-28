@@ -691,22 +691,18 @@ public class MainController extends AbstractFormController {
     public void countSumNormTimeByShops(){
         String measure = MIN.getMeasure();
 
-        double mechanicalTime = 0.0;
-        double paintingTime = 0.0;
-        double assemblingTime = 0.0;
-        double packingTime = 0.0;
+        double mechanicalTime;
+        double paintingTime;
+        double assemblingTime;
+        double packingTime;
 
-        for(OpData cn: addedOperations){
-            mechanicalTime += cn.getMechTime() * cn.getQuantity();
-            paintingTime += cn.getPaintTime() * cn.getQuantity();
-            assemblingTime += cn.getAssmTime() * cn.getQuantity();
-            packingTime += cn.getPackTime() * cn.getQuantity();
-        }
 
-        opData.setMechTime(mechanicalTime);
-        opData.setPaintTime(paintingTime);
-        opData.setAssmTime(assemblingTime);
-        opData.setPackTime(packingTime);
+        opData = (OpData) recount((IOpWithOperations) opData, 1);
+
+        mechanicalTime = opData.getMechTime();
+        paintingTime = opData.getPaintTime();
+        assemblingTime = opData.getAssmTime();
+        packingTime = opData.getPackTime();
 
         //Перевод в секунды
         if(CURRENT_MEASURE.equals(SEC)){
@@ -751,6 +747,10 @@ public class MainController extends AbstractFormController {
         countSumNormTimeByShops();
     }
 
+    /**
+     * Пересчет норм времени по подразделениям МК, Покраска и т.д.
+     * Результаты суммируются и на выходе имеем измененный opsData
+     */
     private IOpWithOperations recount(IOpWithOperations opsData, int quantity){
         ((OpData)opsData).setMechTime(0.0);
         ((OpData)opsData).setPaintTime(0.0);

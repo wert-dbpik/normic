@@ -119,24 +119,6 @@ public class PlateAssmController extends AbstractOpPlate{
             prevFormController.countSumNormTimeByShops();
         });
 
-        changeOperationImageIfPainted();
-    }
-
-    /**
-     * Метод устанавливает логотип операции если деталь окрашена
-     */
-    private void changeOperationImageIfPainted() {
-        boolean painted = false;
-        for(OpData op : opData.getOperations()){
-            if(op instanceof OpPaintAssm) {
-                painted = true;
-                break;
-            }
-        }
-        if (painted)
-            ivOperation.setImage(new Image("/pics/opLogos/assemble-painted.png"));
-        else
-            ivOperation.setImage(new Image("/pics/opLogos/assemble.png"));
     }
 
     /**

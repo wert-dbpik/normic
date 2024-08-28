@@ -3,6 +3,7 @@ package ru.wert.normic.controllers.structure;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
@@ -12,6 +13,9 @@ import lombok.Getter;
 import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EOpType;
@@ -20,6 +24,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.AppStatics.checkIfPainted;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.HOUR;
 import static ru.wert.normic.enums.ETimeMeasurement.SEC;
@@ -57,10 +62,14 @@ public class TreeViewCell extends TreeCell<OpData> {
             HBox hbTitle = new HBox();
             hbTitle.setSpacing(5.0);
             initTitleStyle = hbTitle.getStyle();
+
+
+
             //Лого
-            ImageView logo = new ImageView(type.getLogo());
-            logo.setFitWidth(16);
-            logo.setFitHeight(16);
+            Image logo = getLogo(opData, type);
+            ImageView imageViewLogo = new ImageView(logo);
+            imageViewLogo.setFitWidth(16);
+            imageViewLogo.setFitHeight(16);
             //Номер с наименованием
             tfName = new TextField();
             Text txtName = new Text();
@@ -100,7 +109,7 @@ public class TreeViewCell extends TreeCell<OpData> {
             });
 
             //СТрока с заголовком
-            hbTitle.getChildren().add(logo);
+            hbTitle.getChildren().add(imageViewLogo);
             hbTitle.getChildren().add(txtName);
             if(quantity > 1)
                 hbTitle.getChildren().addAll(txtStart, txtN, txtFinish);
@@ -171,6 +180,34 @@ public class TreeViewCell extends TreeCell<OpData> {
         }
     }
 
+    /**
+     * Определяет логотип операции.
+     * Для ДЕТАЛЕЙ и сборок логотип может быть окрашенным, если узел красится
+     */
+    private Image getLogo(OpData opData, EOpType type) {
+        Image logo;
+        if(opData instanceof OpDetail || opData instanceof OpAssm){
+            boolean paintedItself = checkIfPainted((IOpWithOperations) opData);
+            boolean paintedParent = false;
+            if(getTreeItem().getParent() != null && getTreeItem().getParent().getValue() != null)
+                paintedParent = checkIfPainted((IOpWithOperations) getTreeItem().getParent().getValue());
+
+            if(opData instanceof OpDetail && (paintedItself || paintedParent))
+                logo = new Image("/pics/opLogos/detail-painted.png");
+            else
+                logo = new Image("/pics/opLogos/detail.png");
+            if(opData instanceof OpAssm && paintedItself){
+                if(checkIfPainted((IOpWithOperations) opData))
+                    logo = new Image("/pics/opLogos/detail-painted.png");
+                else
+                    logo = new Image("/pics/opLogos/detail.png");
+            }
+        } else
+            logo = type.getLogo();
+
+        return logo;
+    }
+
     private void formOperationBlock(VBox vbItemBlock, OpData op) {
         //НИМЕНОВАНИЕ ОПЕРАЦИИ
         String opName = op.getOpType().getOpName();
@@ -227,4 +264,5 @@ public class TreeViewCell extends TreeCell<OpData> {
             this.value = value;
         }
     }
+
 }

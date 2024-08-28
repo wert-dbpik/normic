@@ -9,9 +9,13 @@ import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
 import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.user.User;
+import ru.wert.normic.entities.ops.OpData;
+import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -144,5 +148,19 @@ public class AppStatics {
         num = Math.round(num * 1000);
         num = num/1000;
         return num;
+    }
+
+    /**
+     * Определяет если деталь или сборка окрашены
+     */
+    public static boolean checkIfPainted(IOpWithOperations opData){
+        boolean painted = false;
+        for(OpData op : opData.getOperations()){
+            if(op instanceof OpPaint || op instanceof OpPaintAssm) {
+                painted = true;
+                break;
+            }
+        }
+        return painted;
     }
 }

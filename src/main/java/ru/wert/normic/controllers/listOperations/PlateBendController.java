@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.BXBendingTool;
 import ru.wert.normic.components.ChBox;
@@ -18,6 +19,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.AppStatics.BATCHNESS;
 import static ru.wert.normic.settings.NormConstants.BENDING_SERVICE_RATIO;
 import static ru.wert.normic.settings.NormConstants.BENDING_SPEED;
 
@@ -44,6 +46,9 @@ public class PlateBendController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+    @FXML
+    private VBox vbDifficultyness;
+
     private OpBending opData;
 
     private int bends;
@@ -58,6 +63,8 @@ public class PlateBendController extends AbstractOpPlate {
         new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfBends, this);
         new TFIntegerColored(tfMen, this);
+
+        vbDifficultyness.setVisible(BATCHNESS.get());
     }
 
 

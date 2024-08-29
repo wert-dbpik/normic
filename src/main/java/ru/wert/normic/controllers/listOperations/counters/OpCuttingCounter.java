@@ -52,7 +52,7 @@ public class OpCuttingCounter implements NormCounter {
 
 
         double time = operationTime + strippingTime;
-        if(BATCHNESS) time = time + 0.25 * operationTime / CURRENT_BATCH;
+        if(BATCHNESS.get()) time = time + 0.25 * operationTime / CURRENT_BATCH;
 
 
 

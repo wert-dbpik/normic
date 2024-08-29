@@ -23,7 +23,7 @@ public class OpBendingCounter  implements NormCounter {
 
         double operationTime =  bends * BENDING_SPEED * toolRatio * men  * BENDING_SERVICE_RATIO; //Оперативное время
         double time = operationTime;
-        if(BATCHNESS) time = time +
+        if(BATCHNESS.get()) time = time +
 //                0.1 * operationTime +
                 timePZ / CURRENT_BATCH;
 

@@ -8,7 +8,8 @@ import ru.wert.normic.entities.colors.AppColor;
 @Setter
 public class ProductSettings {
 
-    private Integer batch;
+    private boolean batchness; //Использование партийности
+    private Integer batch; //Расчет на партию
     private AppColor color1;
     private AppColor color2;
     private AppColor color3;

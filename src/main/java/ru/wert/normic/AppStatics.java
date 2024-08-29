@@ -1,5 +1,7 @@
 package ru.wert.normic;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -36,7 +38,7 @@ public class AppStatics {
 
     public static int DEFAULT_BATCH = 10; //расчетная партия штук по умолчанию
     public static int CURRENT_BATCH = 10; //расчетная партия штук
-    public static boolean BATCHNESS = true; //учет партийности
+    public static BooleanProperty BATCHNESS = new SimpleBooleanProperty(true); //учет партийности
 
     //Ползователь
     public static User CURRENT_USER = null;

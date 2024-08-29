@@ -198,8 +198,11 @@ public class MainController extends AbstractFormController {
         //При нажатии на МЕНЮ готовится список последних открываемых файлов
         mainMenuController.getMFile().setOnShowing(e -> prepareRecentFiles(mainMenuController.getMOpenRecent()));
         mainMenuController.getMClearAll().setOnAction(e -> clearAll(e, true));
-        mainMenuController.getChmBatchness().setSelected(BATCHNESS);
+
+        mainMenuController.getChmBatchness().setSelected(BATCHNESS.get());
         mainMenuController.getChmBatchness().setOnAction(this::batchness);
+        mainMenuController.getChmBatchness().selectedProperty().bindBidirectional(BATCHNESS);
+
         mainMenuController.getMRapport1C().setOnAction(e -> report(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMProductTree().setOnAction(e -> productTree(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMColors().setOnAction(e -> colors(e, EMenuSource.MAIN_MENU));
@@ -225,8 +228,8 @@ public class MainController extends AbstractFormController {
     }
 
     private void batchness(Event e) {
-        BATCHNESS = mainMenuController.getChmBatchness().isSelected();
-        hbBatchness.setVisible(BATCHNESS);
+        BATCHNESS.set(mainMenuController.getChmBatchness().isSelected());
+        hbBatchness.setVisible(BATCHNESS.get());
         recountMainOpData();
     }
 
@@ -487,6 +490,7 @@ public class MainController extends AbstractFormController {
 
         Gson gson = new Gson();
         ProductSettings settings = new ProductSettings();
+        settings.setBatchness(BATCHNESS.get());
         settings.setBatch(CURRENT_BATCH);
         settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
         settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));

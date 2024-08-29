@@ -932,6 +932,9 @@ public abstract class AbstractFormController implements IForm {
      * Применение НАСТРОЕК
      */
     private void deployProductSettings(ProductSettings settings) {
+        BATCHNESS.set(settings.isBatchness());
+        MAIN_CONTROLLER.getHbBatchness().setVisible(BATCHNESS.get());
+
         CURRENT_BATCH = settings.getBatch() == null ? DEFAULT_BATCH : settings.getBatch();
         MAIN_CONTROLLER.getTfBatch().setText(String.valueOf(CURRENT_BATCH));
 

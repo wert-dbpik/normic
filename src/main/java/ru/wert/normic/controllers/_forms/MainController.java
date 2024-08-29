@@ -357,12 +357,12 @@ public class MainController extends AbstractFormController {
             addedPlates.clear();
             addedOperations.clear();
             getListViewTechOperations().getItems().clear();
-            countSumNormTimeByShops();
+            finalCountSumNormTimeByShops();
             PlateDetailController.nameIndex = 0;
             PlateAssmController.nameIndex = 0;
 
             fillOpData();
-            countSumNormTimeByShops();
+            finalCountSumNormTimeByShops();
         });
 
         //Единицы измерения
@@ -373,7 +373,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getRbmHours().setToggleGroup(MEASURE);
         mainMenuController.getRbmHours().setUserData(HOUR.name());
         mainMenuController.getRbmHours().setSelected(true);
-        countSumNormTimeByShops();
+        finalCountSumNormTimeByShops();
 
 
     }
@@ -406,7 +406,7 @@ public class MainController extends AbstractFormController {
             normalizeQuantity(newOpData, 1);
             createMenu();
             menu.addListOfOperations();
-            countSumNormTimeByShops();
+            finalCountSumNormTimeByShops();
             iterateUndoList();
         });
         service.start();
@@ -706,19 +706,15 @@ public class MainController extends AbstractFormController {
 
     }
 
-
     /**
-     * Метод расчитывает суммарное время по участкам
+     * Метод используется для пересчета и вывода норм времени в нижнюю строку программы
+     * при открытии готовых норм
      */
-    @Override //AbstractFormController
-    public void countSumNormTimeByShops() {
-        String measure = MIN.getMeasure();
-
+    public void finalCountSumNormTimeByShops(){
         double mechanicalTime;
         double paintingTime;
         double assemblingTime;
         double packingTime;
-
 
         opData = (OpData) recount((IOpWithOperations) opData, 1);
 
@@ -726,6 +722,35 @@ public class MainController extends AbstractFormController {
         paintingTime = opData.getPaintTime();
         assemblingTime = opData.getAssmTime();
         packingTime = opData.getPackTime();
+
+        fillNormsAndMeasurment(mechanicalTime, paintingTime, assemblingTime, packingTime);
+    }
+
+
+    /**
+     * Метод расчитывает суммарное время по участкам при заполнении плашек вручную
+     */
+    @Override //AbstractFormController
+    public void countSumNormTimeByShops() {
+
+        double mechanicalTime = 0;
+        double paintingTime = 0;
+        double assemblingTime = 0;
+        double packingTime = 0;
+
+        for(OpData cn: addedOperations){
+            mechanicalTime += cn.getMechTime() * cn.getQuantity();
+            paintingTime += cn.getPaintTime() * cn.getQuantity();
+            assemblingTime += cn.getAssmTime() * cn.getQuantity();
+            packingTime += cn.getPackTime() * cn.getQuantity();
+        }
+
+        fillNormsAndMeasurment( mechanicalTime, paintingTime, assemblingTime, packingTime);
+
+    }
+
+    private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
+        String measure = MIN.getMeasure();
 
         //Перевод в секунды
         if (CURRENT_MEASURE.equals(SEC)) {
@@ -758,7 +783,6 @@ public class MainController extends AbstractFormController {
         tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
 
         lblTimeMeasure.setText(measure);
-
     }
 
     /**
@@ -767,7 +791,7 @@ public class MainController extends AbstractFormController {
      */
     public void recountMainOpData() {
         recount((IOpWithOperations) opData, 1);
-        countSumNormTimeByShops();
+        finalCountSumNormTimeByShops();
     }
 
     /**
@@ -807,7 +831,7 @@ public class MainController extends AbstractFormController {
         MAIN_OP_DATA.setPaintTime(0f);
 
         recountPainting(MAIN_OP_DATA, 1);
-        countSumNormTimeByShops();
+        finalCountSumNormTimeByShops();
     }
 
     /**
@@ -872,7 +896,7 @@ public class MainController extends AbstractFormController {
                 ((IOpWithOperations) opData).setOperations(ops);
             menu.addListOfOperations();
             recountPainting(MAIN_OP_DATA, 1);
-            countSumNormTimeByShops();
+            finalCountSumNormTimeByShops();
         });
 
     }

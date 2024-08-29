@@ -6,6 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
@@ -22,6 +23,9 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
 
     @FXML
     private CheckBox chbxCutOffSolid;
+
+    @FXML
+    private TextField tfNormTime;
 
     private OpLatheCutOff opData;
 
@@ -47,10 +51,7 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
         new TFIntegerColored(tfThickness, this);
 
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
-
+        new TFNormTime(tfNormTime, prevFormController);
     }
 
     @Override//AbstractOpPlate

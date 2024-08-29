@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.TFDoubleColored;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.ops.opTurning.OpLatheCutGroove;
@@ -19,6 +20,9 @@ public class PlateLatheCutGrooveController extends AbstractOpPlate {
     @FXML
     private TextField tfDepth;
 
+    @FXML
+    private TextField tfNormTime;
+
     private OpLatheCutGroove opData;
 
     private String initStyle;
@@ -28,10 +32,7 @@ public class PlateLatheCutGrooveController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         new TFDoubleColored(tfDepth, this);
-
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
+        new TFNormTime(tfNormTime, prevFormController);
     }
 
     @Override//AbstractOpPlate

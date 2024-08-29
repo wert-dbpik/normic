@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.db_connection.material.Material;
@@ -27,6 +28,9 @@ public class PlateLatheTurningController extends AbstractOpPlate {
     @FXML
     private TextField tfNumOfPassings;
 
+    @FXML
+    private TextField tfNormTime;
+
     private OpLatheTurning opData;
 
     private String initStyle;
@@ -44,9 +48,7 @@ public class PlateLatheTurningController extends AbstractOpPlate {
         new TFIntegerColored(tfTurningLength, this);
         new TFIntegerColored(tfNumOfPassings, this);
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
+        new TFNormTime(tfNormTime, prevFormController);
 
     }
 

@@ -4,6 +4,7 @@ package ru.wert.normic.controllers.turning;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.controllers.turning.counters.OpLatheMountDismountCounter;
@@ -26,6 +27,9 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
 
     @FXML
     private RadioButton rbCenters;
+
+    @FXML
+    private TextField tfNormTime;
 
     private OpLatheMountDismount opData;
 
@@ -54,9 +58,7 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
             prevFormController.countSumNormTimeByShops();
         });
 
-        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
-        });
+        new TFNormTime(tfNormTime, prevFormController);
     }
 
     @Override//AbstractOpPlate

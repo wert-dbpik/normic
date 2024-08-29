@@ -63,9 +63,6 @@ public class PlateCuttingController extends AbstractOpPlate {
         new TFNormTime(tfNormTime, prevFormController);
         new ChBox(chbxStripping, this);
 
-//        getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-//            prevFormController.countSumNormTimeByShops();
-//        });
     }
 
     /**
@@ -141,10 +138,11 @@ public class PlateCuttingController extends AbstractOpPlate {
                         "P экстра , мм - периметр, вырезаемый станком в детали помимо\n" +
                         "\t\tосновного контура;\n\n" +
                         "Время резания вычисляется по формуле:\n\n" +
-                        "\t\t\tТрез = Tоп + 0,25 * Топ + Tчист, мин\n" +
+                        "\t\t\tТрез = Tоп + Tчист + 0,25 * Топ / партия , мин\n" +
                         "где \n" +
                         "\tTоп  - оперативное время,\n" +
                         "\tTчист  - время зачистки кромок,\n" +
+                        "\tпартия  - расчет на партию штук,\n" +
                         "\t\t\tТоп = (P / V рез + T пз.рез х S дет + \n" +
                         "\t\t\t\t\t+ V рев * N отв + V перф x N перф) х K пз.общ\n" +
                         "где \n" +

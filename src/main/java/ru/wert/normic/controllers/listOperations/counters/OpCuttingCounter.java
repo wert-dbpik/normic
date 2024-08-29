@@ -4,7 +4,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.interfaces.NormCounter;
 
-import static ru.wert.normic.AppStatics.roundTo001;
+import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.*;
@@ -51,8 +51,10 @@ public class OpCuttingCounter implements NormCounter {
                 * CUTTING_SERVICE_RATIO;
 
 
-        double time = operationTime + 0.25 * operationTime
-                + strippingTime;
+        double time = operationTime + strippingTime;
+        if(BATCHNESS) time = time + 0.25 * operationTime / CURRENT_BATCH;
+
+
 
         if(area == 0.0) time = 0.0;
 

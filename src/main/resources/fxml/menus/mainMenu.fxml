@@ -24,6 +24,7 @@
       <Menu mnemonicParsing="false" text="Правка">
          <items>
             <MenuItem fx:id="mClearAll" mnemonicParsing="false" text="Очистить все" />
+            <CheckMenuItem fx:id="chmBatchness" mnemonicParsing="false" text="Партийность" />
          </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Настройки">

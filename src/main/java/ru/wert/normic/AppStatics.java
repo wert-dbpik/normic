@@ -36,6 +36,7 @@ public class AppStatics {
 
     public static int DEFAULT_BATCH = 10; //расчетная партия штук по умолчанию
     public static int CURRENT_BATCH = 10; //расчетная партия штук
+    public static boolean BATCHNESS = true; //учет партийности
 
     //Ползователь
     public static User CURRENT_USER = null;

@@ -27,9 +27,11 @@ public class MainMenuController {
 
     //ПРАВКА ============================================
 
-    @FXML@Getter
-    private MenuItem
-            mClearAll;
+    @FXML @Getter
+    private MenuItem mClearAll;
+
+    @FXML @Getter
+    private CheckMenuItem chmBatchness;
 
     //НАСТРОЙКА =========================================
 

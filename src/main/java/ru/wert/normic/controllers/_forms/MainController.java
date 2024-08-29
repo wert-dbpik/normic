@@ -68,35 +68,47 @@ import static ru.wert.normic.enums.ETimeMeasurement.*;
 @Slf4j
 public class MainController extends AbstractFormController {
 
-    @FXML@Getter
+    @FXML
+    @Getter
     private StackPane spMenuBar;
 
-    @FXML@Getter
+    @FXML
+    @Getter
     private StackPane spIconMenu;
 
-    @FXML@Getter
+    @FXML
+    @Getter
     private HBox progressIndicator;
 
-    @FXML@Getter
+    @FXML
+    @Getter
     private HBox vbAboutPane;
 
-    @FXML @Getter //AbstractFormController
+    @FXML
+    @Getter //AbstractFormController
     private ListView<VBox> listViewTechOperations;
 
-    @FXML @Getter
+    @FXML
+    @Getter
     private Button btnAddOperation;
 
     @FXML
     private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;
 
-    @FXML @Getter
+    @FXML
+    @Getter
     private TextField tfTotalTime;
 
     @FXML
     private Label lblTimeMeasure;
 
-    @FXML @Getter
+    @FXML
+    @Getter
     private TextField tfBatch;
+
+    @FXML
+    @Getter
+    private HBox hbBatchness;
 
     public static File savedProductFile = null;
 
@@ -107,7 +119,7 @@ public class MainController extends AbstractFormController {
 
 
     @FXML
-    void initialize(){
+    void initialize() {
         MAIN_CONTROLLER = this;
 
         progressIndicator.setVisible(false);
@@ -123,7 +135,7 @@ public class MainController extends AbstractFormController {
         opData = new OpAssm();
         MAIN_OP_DATA = (OpAssm) opData;
 
-        ((IOpWithOperations)opData).setName("Новое изделие");
+        ((IOpWithOperations) opData).setName("Новое изделие");
 
         //Создаем меню
         createMenu();
@@ -141,7 +153,7 @@ public class MainController extends AbstractFormController {
 
         menu.addEmptyPlate();
 
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             if (FIRST_PARAMS.length > 0) { //Если открывается норма по двойному клику
 
                 File openingFile = new File(FIRST_PARAMS[0]);
@@ -160,14 +172,14 @@ public class MainController extends AbstractFormController {
     }
 
     @Override //AbstractFormController
-    public void fillOpData(){
-        if(!((IOpWithOperations)opData).getOperations().isEmpty())
+    public void fillOpData() {
+        if (!((IOpWithOperations) opData).getOperations().isEmpty())
             menu.addListOfOperations();
 
         tfBatch.setText(String.valueOf(CURRENT_BATCH));
     }
 
-    private void createMainMenu(){
+    private void createMainMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/menus/mainMenu.fxml"));
             Parent menuBar = loader.load();
@@ -178,32 +190,33 @@ public class MainController extends AbstractFormController {
         }
 
 
-
-        mainMenuController.getMSave().setOnAction(e-> save(opData, addedOperations, e));
-        mainMenuController.getMSaveAs().setOnAction(e-> saveAs(opData, addedOperations,
+        mainMenuController.getMSave().setOnAction(e -> save(opData, addedOperations, e));
+        mainMenuController.getMSaveAs().setOnAction(e -> saveAs(opData, addedOperations,
                 CURRENT_PRODUCT_NAME,
                 e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMOpen().setOnAction(e->open(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMOpen().setOnAction(e -> open(e, EMenuSource.MAIN_MENU));
         //При нажатии на МЕНЮ готовится список последних открываемых файлов
-        mainMenuController.getMFile().setOnShowing(e->prepareRecentFiles(mainMenuController.getMOpenRecent()));
-        mainMenuController.getMClearAll().setOnAction(e->clearAll(e, true));
-        mainMenuController.getMRapport1C().setOnAction(e->report(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMProductTree().setOnAction(e->productTree(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMColors().setOnAction(e->colors(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMConstants().setOnAction(e->constants(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMOperations().setOnAction(e->operations(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMMaterials().setOnAction(e->materials(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMImportExcel().setOnAction(e->importExcel(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMChangeUser().setOnAction(e->changeUser(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMIconMenu().setOnAction(e->showIconMenuProperty.set(!showIconMenuProperty.get()));
-        mainMenuController.getMAbout().setOnAction(e-> vbAboutPane.setVisible(true));
+        mainMenuController.getMFile().setOnShowing(e -> prepareRecentFiles(mainMenuController.getMOpenRecent()));
+        mainMenuController.getMClearAll().setOnAction(e -> clearAll(e, true));
+        mainMenuController.getChmBatchness().setSelected(BATCHNESS);
+        mainMenuController.getChmBatchness().setOnAction(this::batchness);
+        mainMenuController.getMRapport1C().setOnAction(e -> report(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMProductTree().setOnAction(e -> productTree(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMColors().setOnAction(e -> colors(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMConstants().setOnAction(e -> constants(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMOperations().setOnAction(e -> operations(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMMaterials().setOnAction(e -> materials(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMImportExcel().setOnAction(e -> importExcel(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMChangeUser().setOnAction(e -> changeUser(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMIconMenu().setOnAction(e -> showIconMenuProperty.set(!showIconMenuProperty.get()));
+        mainMenuController.getMAbout().setOnAction(e -> vbAboutPane.setVisible(true));
 
         showIconMenuProperty.addListener((observable, oldValue, newValue) -> {
-            if(showIconMenuProperty.get()){
+            if (showIconMenuProperty.get()) {
                 mainMenuController.getMIconMenu().setText("Скрыть панель управления");
                 spIconMenu.getChildren().clear();
                 spIconMenu.getChildren().add(iconBar);
-            }else{
+            } else {
                 mainMenuController.getMIconMenu().setText("Показать панель управления");
                 spIconMenu.getChildren().clear();
             }
@@ -211,10 +224,16 @@ public class MainController extends AbstractFormController {
 
     }
 
+    private void batchness(Event e) {
+        BATCHNESS = mainMenuController.getChmBatchness().isSelected();
+        hbBatchness.setVisible(BATCHNESS);
+        recountMainOpData();
+    }
+
     private void operations(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/operations/operations.fxml"));
@@ -237,8 +256,8 @@ public class MainController extends AbstractFormController {
 
     private void changeUser(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/intro/login.fxml"));
@@ -267,66 +286,66 @@ public class MainController extends AbstractFormController {
         }
 
         //СОХРАНИТЬ КАК
-        iconMenuController.getBtnSave().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32,32, true, true)));
+        iconMenuController.getBtnSave().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32, 32, true, true)));
         iconMenuController.getBtnSave().setTooltip(new Tooltip("Сохранить"));
-        iconMenuController.getBtnSave().setOnAction(e-> save(opData, addedOperations, e));
+        iconMenuController.getBtnSave().setOnAction(e -> save(opData, addedOperations, e));
 
         //ОТКРЫТЬ
-        iconMenuController.getBtnOpen().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32,32, true, true)));
+        iconMenuController.getBtnOpen().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32, 32, true, true)));
         iconMenuController.getBtnOpen().setTooltip(new Tooltip("Открыть"));
-        iconMenuController.getBtnOpen().setOnAction(e->open(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnOpen().setOnAction(e -> open(e, EMenuSource.ICON_MENU));
 
         //ОЧИСТИТЬ
-        iconMenuController.getBtnClearAll().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32,32, true, true)));
+        iconMenuController.getBtnClearAll().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32, 32, true, true)));
         iconMenuController.getBtnClearAll().setTooltip(new Tooltip("Очистить"));
-        iconMenuController.getBtnClearAll().setOnAction(e->clearAll(e, true));
+        iconMenuController.getBtnClearAll().setOnAction(e -> clearAll(e, true));
 
         //ОТЧЕТ
-        iconMenuController.getBtnReport1C().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32,32, true, true)));
+        iconMenuController.getBtnReport1C().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32, 32, true, true)));
         iconMenuController.getBtnReport1C().setTooltip(new Tooltip("Отчет"));
-        iconMenuController.getBtnReport1C().setOnAction(e->report(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnReport1C().setOnAction(e -> report(e, EMenuSource.ICON_MENU));
 
         //ПОКРЫТИЕ
-        iconMenuController.getBtnColors().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/colors.png")), 32,32, true, true)));
+        iconMenuController.getBtnColors().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/colors.png")), 32, 32, true, true)));
         iconMenuController.getBtnColors().setTooltip(new Tooltip("Покрытие"));
-        iconMenuController.getBtnColors().setOnAction(e->colors(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnColors().setOnAction(e -> colors(e, EMenuSource.ICON_MENU));
 
         //РАСЧЕТНЫЕ КОНСТАНТЫ
-        iconMenuController.getBtnConstants().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/constants.png")), 32,32, true, true)));
+        iconMenuController.getBtnConstants().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/constants.png")), 32, 32, true, true)));
         iconMenuController.getBtnConstants().setTooltip(new Tooltip("Расчетные константы"));
-        iconMenuController.getBtnConstants().setOnAction(e->constants(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnConstants().setOnAction(e -> constants(e, EMenuSource.ICON_MENU));
 
         //МАТЕРИАЛЫ
-        iconMenuController.getBtnMaterials().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 32,32, true, true)));
+        iconMenuController.getBtnMaterials().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 32, 32, true, true)));
         iconMenuController.getBtnMaterials().setTooltip(new Tooltip("Материалы"));
-        iconMenuController.getBtnMaterials().setOnAction(e->materials(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnMaterials().setOnAction(e -> materials(e, EMenuSource.ICON_MENU));
 
         //ПРОЧИЕ ОПЕРАЦИИ
-        iconMenuController.getBtnOperations().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/operations.png")), 32,32, true, true)));
+        iconMenuController.getBtnOperations().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/operations.png")), 32, 32, true, true)));
         iconMenuController.getBtnOperations().setTooltip(new Tooltip("Свои операции"));
-        iconMenuController.getBtnOperations().setOnAction(e->operations(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnOperations().setOnAction(e -> operations(e, EMenuSource.ICON_MENU));
 
         //ИМПОРТ EXCEL
-        iconMenuController.getBtnImportExcel().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32,32, true, true)));
+        iconMenuController.getBtnImportExcel().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32, 32, true, true)));
         iconMenuController.getBtnImportExcel().setTooltip(new Tooltip("Импорт Excel"));
-        iconMenuController.getBtnImportExcel().setOnAction(e->importExcel(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnImportExcel().setOnAction(e -> importExcel(e, EMenuSource.ICON_MENU));
 
         //ОТЧЕТ
-        iconMenuController.getBtnProductTree().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/tree_view.png")), 32,32, true, true)));
+        iconMenuController.getBtnProductTree().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/tree_view.png")), 32, 32, true, true)));
         iconMenuController.getBtnProductTree().setTooltip(new Tooltip("Схема изделия"));
-        iconMenuController.getBtnProductTree().setOnAction(e->productTree(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnProductTree().setOnAction(e -> productTree(e, EMenuSource.ICON_MENU));
 
         //ПОИСК
-        iconMenuController.getBtnSearch().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/search.png")), 32,32, true, true)));
+        iconMenuController.getBtnSearch().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/search.png")), 32, 32, true, true)));
         iconMenuController.getBtnSearch().setTooltip(new Tooltip("Поиск"));
-        iconMenuController.getBtnSearch().setOnAction(e->search(e, EMenuSource.ICON_MENU));
+        iconMenuController.getBtnSearch().setOnAction(e -> search(e, EMenuSource.ICON_MENU));
     }
 
     private void initViews() {
 
         MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
 
-            ((IOpWithOperations)opData).setOperations(new ArrayList<>(addedOperations));
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
             CURRENT_MEASURE = ETimeMeasurement.findValueOf(AppStatics.MEASURE.getSelectedToggle().getUserData().toString());
             lblTimeMeasure.setText(ETimeMeasurement.findValueOf(newValue.getUserData().toString()).getMeasure());
@@ -353,20 +372,19 @@ public class MainController extends AbstractFormController {
         countSumNormTimeByShops();
 
 
-
     }
 
     private void importExcel(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы EXCEL (.xlsx)", "*.xlsx"));
         File initDir = new File(AppProperties.getInstance().getImportDir());
         chooser.setInitialDirectory(initDir.exists() ? initDir : new File("C:\\"));
         File file = chooser.showOpenDialog(owner);
-        if(file == null) return;
+        if (file == null) return;
 
         //Сохраняем последнюю директорию
         AppProperties.getInstance().setImportDirectory(file.getParent());
@@ -375,10 +393,10 @@ public class MainController extends AbstractFormController {
         clearAll(e, true);
 
         ImportExcelFileService service = new ImportExcelFileService(this, copied);
-        service.setOnSucceeded(workerStateEvent ->{
+        service.setOnSucceeded(workerStateEvent -> {
             blockUndoListFlag = true;
             OpAssm newOpData = service.getValue();
-            if(newOpData != null)
+            if (newOpData != null)
                 opData = newOpData;
             else return;
             normalizeQuantity(newOpData, 1);
@@ -394,22 +412,23 @@ public class MainController extends AbstractFormController {
     /**
      * Метод приводящий структуру изделия к виду, в котором количество входящих деталей и сборок указывается
      * не на ИЗДЕЛИЕ, а на СБОРКУ.
-     *
+     * <p>
      * Происходит перебор входящих в сборку элементов и им присваивается количество, получаемое от деления
      * количества элементов в ИЗДЕЛИИ (q) на количество сборок в изделии(assmQuantity).
      * Если перебираемый элемент ДЕТАЛЬ, то происходит присвоение  нового количества, а если СБОРКА, то происходит
      * рекурсивный вызов с указанием нового количества этой СБОРКИ.
-     *
+     * <p>
      * В финале: СБОРКЕ присваивается новое количество (newQuantity).
-     * @param assmOpData - сборка
+     *
+     * @param assmOpData  - сборка
      * @param newQuantity - новое количество сборок в предыдущей сборке
      */
-    void normalizeQuantity(OpAssm assmOpData, int newQuantity){
+    void normalizeQuantity(OpAssm assmOpData, int newQuantity) {
         int assmQuantity = assmOpData.getQuantity(); //количество сборок в ИЗДЕЛИИ
-        for(OpData opData : assmOpData.getOperations()){
-            if(opData instanceof IOpWithOperations){
+        for (OpData opData : assmOpData.getOperations()) {
+            if (opData instanceof IOpWithOperations) {
                 int q = opData.getQuantity(); //количество элементов в ИЗДЕЛИИ
-                if(opData instanceof OpAssm)
+                if (opData instanceof OpAssm)
                     normalizeQuantity((OpAssm) opData, q);
                 opData.setQuantity(q / assmQuantity);
             }
@@ -421,7 +440,7 @@ public class MainController extends AbstractFormController {
      * СОХРАНИТЬ ИЗДЕЛИЕ
      */
     public static void save(OpData opData, List<OpData> addedOperations, Event e) {
-        if(savedProductFile == null) saveAs(
+        if (savedProductFile == null) saveAs(
                 opData,
                 addedOperations,
                 CURRENT_PRODUCT_NAME,
@@ -434,9 +453,9 @@ public class MainController extends AbstractFormController {
      * Выбрать файл для сохранения изделия
      */
     public static void saveAs(OpData opData, List<OpData> addedOperations, String initialName, Event e, EMenuSource source) {
-        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU)  ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
 
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Файлы норм времени (.nvr)", "*.nvr"));
@@ -447,7 +466,7 @@ public class MainController extends AbstractFormController {
         File file = chooser.showSaveDialog(owner);
         if (file != null) {
             loadProductToFile(file, opData, addedOperations);
-            if(source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU)) {
+            if (source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU)) {
                 AppProperties.getInstance().setLastDir(file.getParent());
                 savedProductFile = file;
                 CURRENT_PRODUCT_NAME = file.getName().replace(".nvr", "");
@@ -458,11 +477,11 @@ public class MainController extends AbstractFormController {
     }
 
     /**
-     *Загрузить изделие в файл
+     * Загрузить изделие в файл
      */
     public static void loadProductToFile(File file, OpData opData, List<OpData> addedOperations) {
 
-        ((IOpWithOperations)opData).setName(file.getName());
+        ((IOpWithOperations) opData).setName(file.getName());
         AppProperties.getInstance().setLastDir(file.getParent());
         ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
@@ -491,9 +510,9 @@ public class MainController extends AbstractFormController {
      */
     private void report(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
-        ((OpAssm)opData).setOperations(getAddedOperations());
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
+        ((OpAssm) opData).setOperations(getAddedOperations());
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/report1C.fxml"));
@@ -522,9 +541,9 @@ public class MainController extends AbstractFormController {
      */
     private void productTree(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
-        ((OpAssm)opData).setOperations(getAddedOperations());
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
+        ((OpAssm) opData).setOperations(getAddedOperations());
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/structure/structure.fxml"));
@@ -553,8 +572,8 @@ public class MainController extends AbstractFormController {
      */
     private void colors(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/colors.fxml"));
             VBox settings = loader.load();
@@ -569,7 +588,7 @@ public class MainController extends AbstractFormController {
                     false,
                     false);
 
-            decoration.getImgCloseWindow().setOnMousePressed(ev->{
+            decoration.getImgCloseWindow().setOnMousePressed(ev -> {
                 controller.saveSettings();
             });
 
@@ -585,8 +604,8 @@ public class MainController extends AbstractFormController {
      */
     private void constants(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/constants.fxml"));
             Parent parent = loader.load();
@@ -608,8 +627,8 @@ public class MainController extends AbstractFormController {
      */
     private void materials(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
-                (Stage) ((MenuItem)e.getSource()).getParentPopup().getOwnerWindow():
-                (Stage) ((Node)e.getSource()).getScene().getWindow();
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialsTV.fxml"));
@@ -629,14 +648,15 @@ public class MainController extends AbstractFormController {
 
     /**
      * Сохранение строк в созданный файл
+     *
      * @param product, List<String>
-     * @param file, File
+     * @param file,    File
      */
     private static void saveTextToFile(List<String> product, File file) {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file, "UTF-8");
-            for(String line : product) {
+            for (String line : product) {
                 writer.println(line);
             }
             writer.close();
@@ -645,8 +665,6 @@ public class MainController extends AbstractFormController {
             exception.printStackTrace();
         }
     }
-
-
 
 
     @Override
@@ -688,7 +706,7 @@ public class MainController extends AbstractFormController {
      * Метод расчитывает суммарное время по участкам
      */
     @Override //AbstractFormController
-    public void countSumNormTimeByShops(){
+    public void countSumNormTimeByShops() {
         String measure = MIN.getMeasure();
 
         double mechanicalTime;
@@ -705,7 +723,7 @@ public class MainController extends AbstractFormController {
         packingTime = opData.getPackTime();
 
         //Перевод в секунды
-        if(CURRENT_MEASURE.equals(SEC)){
+        if (CURRENT_MEASURE.equals(SEC)) {
             mechanicalTime = mechanicalTime * MIN_TO_SEC;
             paintingTime = paintingTime * MIN_TO_SEC;
             assemblingTime = assemblingTime * MIN_TO_SEC;
@@ -715,7 +733,7 @@ public class MainController extends AbstractFormController {
         }
 
         //Перевод в часы
-        if(CURRENT_MEASURE.equals(HOUR)){
+        if (CURRENT_MEASURE.equals(HOUR)) {
             mechanicalTime = mechanicalTime * MIN_TO_HOUR;
             paintingTime = paintingTime * MIN_TO_HOUR;
             assemblingTime = assemblingTime * MIN_TO_HOUR;
@@ -725,7 +743,7 @@ public class MainController extends AbstractFormController {
         }
 
         String format = DOUBLE_FORMAT;
-        if(MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())) format = INTEGER_FORMAT;
+        if (MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
         tfPaintingTime.setText(String.format(format, paintingTime).trim());
@@ -742,7 +760,7 @@ public class MainController extends AbstractFormController {
      * Метод пересчитывает нормы для главного окна
      * И прописывает их по участкам
      */
-    public void recountMainOpData(){
+    public void recountMainOpData() {
         recount((IOpWithOperations) opData, 1);
         countSumNormTimeByShops();
     }
@@ -751,24 +769,24 @@ public class MainController extends AbstractFormController {
      * Пересчет норм времени по подразделениям МК, Покраска и т.д.
      * Результаты суммируются и на выходе имеем измененный opsData
      */
-    private IOpWithOperations recount(IOpWithOperations opsData, int quantity){
-        ((OpData)opsData).setMechTime(0.0);
-        ((OpData)opsData).setPaintTime(0.0);
-        ((OpData)opsData).setAssmTime(0.0);
-        ((OpData)opsData).setPackTime(0.0);
-        for(OpData op : opsData.getOperations()){
-            if(op instanceof IOpWithOperations){
+    private IOpWithOperations recount(IOpWithOperations opsData, int quantity) {
+        ((OpData) opsData).setMechTime(0.0);
+        ((OpData) opsData).setPaintTime(0.0);
+        ((OpData) opsData).setAssmTime(0.0);
+        ((OpData) opsData).setPackTime(0.0);
+        for (OpData op : opsData.getOperations()) {
+            if (op instanceof IOpWithOperations) {
                 IOpWithOperations newOpData = recount((IOpWithOperations) op, op.getQuantity() * quantity);
-                ((OpData)opsData).setMechTime(((OpData) opsData).getMechTime() + ((OpData)newOpData).getMechTime());
-                ((OpData)opsData).setPaintTime(((OpData) opsData).getPaintTime() + ((OpData)newOpData).getPaintTime());
-                ((OpData)opsData).setAssmTime(((OpData) opsData).getAssmTime() + ((OpData)newOpData).getAssmTime());
-                ((OpData)opsData).setPackTime(((OpData) opsData).getPackTime() + ((OpData)newOpData).getPackTime());
+                ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + ((OpData) newOpData).getMechTime());
+                ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + ((OpData) newOpData).getPaintTime());
+                ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + ((OpData) newOpData).getAssmTime());
+                ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + ((OpData) newOpData).getPackTime());
             } else {
                 op = op.getOpType().getNormCounter().count(op);
-                ((OpData)opsData).setMechTime(((OpData) opsData).getMechTime() + op.getMechTime() * quantity);
-                ((OpData)opsData).setPaintTime(((OpData) opsData).getPaintTime() + op.getPaintTime() * quantity);
-                ((OpData)opsData).setAssmTime(((OpData) opsData).getAssmTime() + op.getAssmTime() * quantity);
-                ((OpData)opsData).setPackTime(((OpData) opsData).getPackTime() + op.getPackTime() * quantity);
+                ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + op.getMechTime() * quantity);
+                ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + op.getPaintTime() * quantity);
+                ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + op.getAssmTime() * quantity);
+                ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + op.getPackTime() * quantity);
             }
         }
 
@@ -780,7 +798,7 @@ public class MainController extends AbstractFormController {
      * Метод пересчитывает нормы для главного окна
      * И прописывает их по участкам
      */
-    public void recountPaintingMainOpData(){
+    public void recountPaintingMainOpData() {
         MAIN_OP_DATA.setPaintTime(0f);
 
         recountPainting(MAIN_OP_DATA, 1);
@@ -789,20 +807,20 @@ public class MainController extends AbstractFormController {
 
     /**
      * Метод пересчитывает нормы времени для указанной сборки
-     * @param assm, IOpWithOperations - пересчитываемая сборка
+     *
+     * @param assm,     IOpWithOperations - пересчитываемая сборка
      * @param quantity, количество сборок (изначально 1)
-
      */
-    public IOpWithOperations recountPainting(IOpWithOperations assm, int quantity){
-        ((OpData)assm).setPaintTime(0f);
+    public IOpWithOperations recountPainting(IOpWithOperations assm, int quantity) {
+        ((OpData) assm).setPaintTime(0f);
         List<OpData> ops = assm.getOperations();
-        for(OpData op : ops){
-            if(op instanceof IOpWithOperations) {
+        for (OpData op : ops) {
+            if (op instanceof IOpWithOperations) {
                 IOpWithOperations opWithOperations = recountPainting((IOpWithOperations) op, quantity * ((OpData) assm).getQuantity());
-                ((OpData)assm).setPaintTime(((OpData)assm).getPaintTime() + ((OpData)opWithOperations).getPaintTime() * ((OpData)assm).getQuantity());
+                ((OpData) assm).setPaintTime(((OpData) assm).getPaintTime() + ((OpData) opWithOperations).getPaintTime() * ((OpData) assm).getQuantity());
             } else {
                 OpData opData = op.getOpType().getNormCounter().count(op);
-                ((OpData)assm).setPaintTime(((OpData)assm).getPaintTime() + opData.getPaintTime() * ((OpData)assm).getQuantity());
+                ((OpData) assm).setPaintTime(((OpData) assm).getPaintTime() + opData.getPaintTime() * ((OpData) assm).getQuantity());
             }
         }
         return assm;
@@ -822,11 +840,11 @@ public class MainController extends AbstractFormController {
 
         KEYS_NOW_PRESSED = new ArrayList<>();
 
-        MAIN_STAGE.getScene().setOnKeyPressed((e)->{
+        MAIN_STAGE.getScene().setOnKeyPressed((e) -> {
             KEYS_NOW_PRESSED.add(e.getCode());
         });
 
-        MAIN_STAGE.getScene().setOnKeyReleased((e)->{
+        MAIN_STAGE.getScene().setOnKeyReleased((e) -> {
             KEYS_NOW_PRESSED.remove(e.getCode());
         });
     }
@@ -837,15 +855,15 @@ public class MainController extends AbstractFormController {
      */
     public void rebuildAll() {
 
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             //Создаем копию списка ops
-            List<OpData> ops = new ArrayList<>(((IOpWithOperations)opData).getOperations());
+            List<OpData> ops = new ArrayList<>(((IOpWithOperations) opData).getOperations());
             listViewTechOperations.getItems().clear();
             addedPlates.clear();
             addedOperations.clear();
 
             //Возвращаем список оперций
-            if(((IOpWithOperations) opData).getOperations().isEmpty())
+            if (((IOpWithOperations) opData).getOperations().isEmpty())
                 ((IOpWithOperations) opData).setOperations(ops);
             menu.addListOfOperations();
             recountPainting(MAIN_OP_DATA, 1);

@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -200,7 +202,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMClearAll().setOnAction(e -> clearAll(e, true));
 
         mainMenuController.getChmBatchness().setSelected(BATCHNESS.get());
-        mainMenuController.getChmBatchness().setOnAction(this::batchness);
+        mainMenuController.getChmBatchness().setOnAction(e->batchness());
         mainMenuController.getChmBatchness().selectedProperty().bindBidirectional(BATCHNESS);
 
         mainMenuController.getMRapport1C().setOnAction(e -> report(e, EMenuSource.MAIN_MENU));
@@ -227,8 +229,7 @@ public class MainController extends AbstractFormController {
 
     }
 
-    private void batchness(Event e) {
-        BATCHNESS.set(mainMenuController.getChmBatchness().isSelected());
+    private void batchness() {
         hbBatchness.setVisible(BATCHNESS.get());
         recountMainOpData();
     }

@@ -157,7 +157,7 @@ public abstract class AbstractFormController implements IForm {
                         else undoLastOperation();
 
                         menu.addListOfOperations();
-                        countSumNormTimeByShops();
+                        MAIN_CONTROLLER.finalCountSumNormTimeByShops();
                         blockUndoListFlag = false;
 
                     } else if (ke.getCode().equals(KeyCode.NUMPAD2) || ke.getCode().equals(KeyCode.NUMPAD8) ||
@@ -722,7 +722,7 @@ public abstract class AbstractFormController implements IForm {
             addedPlates.remove(addedPlates.get(index));
         }
 
-        countSumNormTimeByShops();
+        MAIN_CONTROLLER.finalCountSumNormTimeByShops();
     }
 
     /**
@@ -834,7 +834,7 @@ public abstract class AbstractFormController implements IForm {
                 }
             }
 
-            countSumNormTimeByShops();
+            MAIN_CONTROLLER.finalCountSumNormTimeByShops();
             //Сохраняем путь открытого файла. чтобы его можно было пересохранить
             MainController.savedProductFile = file;
         }
@@ -915,7 +915,7 @@ public abstract class AbstractFormController implements IForm {
         addedPlates.clear();
         addedOperations.clear();
         getListViewTechOperations().getItems().clear();
-        countSumNormTimeByShops();
+        MAIN_CONTROLLER.finalCountSumNormTimeByShops();
         PlateDetailController.nameIndex = 0;
         PlateAssmController.nameIndex = 0;
         iterateUndoList();

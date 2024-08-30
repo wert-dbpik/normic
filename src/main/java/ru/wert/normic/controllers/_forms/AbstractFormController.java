@@ -97,7 +97,7 @@ public abstract class AbstractFormController implements IForm {
     private final Image imageCut = new Image(String.valueOf(getClass().getResource("/pics/btns/cursor_cut.png")),
             32, 32, true, true);
 
-
+    //Вызывается из контроллеров на плашки для отображения текущих норм, получаемых на лету
     public abstract void countSumNormTimeByShops();
 
     public abstract MenuForm createMenu();

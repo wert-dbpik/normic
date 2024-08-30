@@ -728,7 +728,7 @@ public class MainController extends AbstractFormController {
 
 
     /**
-     * Метод расчитывает суммарное время по участкам при заполнении плашек вручную
+     * Метод вызывается из контроллеров плашек для суммирования норм времени на лету
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops() {

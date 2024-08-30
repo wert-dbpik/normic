@@ -36,9 +36,11 @@ public class AppStatics {
     //тестовая версия - работает с тестовым сервером
     public static boolean TEST_VERSION = false;
 
+    public static String AUTHOR_HISTORY; //Пользователь, последний сохранивший нормы
+    public static BooleanProperty BATCHNESS = new SimpleBooleanProperty(true); //учет партийности
     public static int DEFAULT_BATCH = 10; //расчетная партия штук по умолчанию
     public static int CURRENT_BATCH = 10; //расчетная партия штук
-    public static BooleanProperty BATCHNESS = new SimpleBooleanProperty(true); //учет партийности
+
 
     //Ползователь
     public static User CURRENT_USER = null;

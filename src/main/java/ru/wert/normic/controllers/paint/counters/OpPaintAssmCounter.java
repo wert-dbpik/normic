@@ -73,6 +73,18 @@ public class OpPaintAssmCounter implements NormCounter {
         else if (acrossSize >= 300 && acrossSize <= 399) bakeBars = 2;
         else bakeBars = 1;
 
+/*        //Внутренняя ширина печи 1560 мм
+        int bakeBars;
+        if (acrossSize < 259) bakeBars = 6;
+        else if (acrossSize >= 260 && acrossSize <= 311) bakeBars = 5;
+        else if (acrossSize >= 312 && acrossSize <= 389) bakeBars = 4;
+        else if (acrossSize >= 390 && acrossSize <= 519) bakeBars = 3;
+        else if (acrossSize >= 520 && acrossSize <= 779) bakeBars = 2;
+        else bakeBars = 1;*/
+
+        //Для цветной краски максимальное количество штанг 4
+        if(bakeBars > 4 && !color.getRal().contains("7035")) bakeBars = 4;
+
         double time;
         time = HANGING_TIME//Время навешивания
                 + finalPaintedArea * WINDING_MOVING_SPEED //Время подготовки к окрашиванию

@@ -28,6 +28,7 @@ import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFBatch;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.structure.StructureController;
+import ru.wert.normic.entities.saves.SaveNormEntry;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.operations.OperationsController;
@@ -60,6 +61,7 @@ import java.util.List;
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.StartNormic.FIRST_PARAMS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.controllers.extra.SavesHistoryController.getCurrentTime;
 import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
@@ -191,7 +193,6 @@ public class MainController extends AbstractFormController {
             e.printStackTrace();
         }
 
-
         mainMenuController.getMSave().setOnAction(e -> save(opData, addedOperations, e));
         mainMenuController.getMSaveAs().setOnAction(e -> saveAs(opData, addedOperations,
                 CURRENT_PRODUCT_NAME,
@@ -200,7 +201,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMOpen().setOnAction(e -> open(e, EMenuSource.MAIN_MENU));
         //При нажатии на МЕНЮ готовится список последних открываемых файлов
         mainMenuController.getMFile().setOnShowing(e -> prepareRecentFiles(mainMenuController.getMOpenRecent()));
-        mainMenuController.getMClearAll().setOnAction(e -> clearAll(e, true));
+        mainMenuController.getMClearAll().setOnAction(e -> clearAll(e, true, true));
 
         mainMenuController.getChmBatchness().setSelected(BATCHNESS.get());
         mainMenuController.getChmBatchness().setOnAction(e->batchness());
@@ -231,7 +232,7 @@ public class MainController extends AbstractFormController {
     }
 
     /**
-     * ИСТОРИЯ СОХРАНЕНИЙ}
+     * ИСТОРИЯ СОХРАНЕНИЙ
      */
     private void openSavesHistory(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
@@ -280,7 +281,6 @@ public class MainController extends AbstractFormController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 
     private void changeUser(ActionEvent e, EMenuSource source) {
@@ -327,7 +327,7 @@ public class MainController extends AbstractFormController {
         //ОЧИСТИТЬ
         iconMenuController.getBtnClearAll().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32, 32, true, true)));
         iconMenuController.getBtnClearAll().setTooltip(new Tooltip("Очистить"));
-        iconMenuController.getBtnClearAll().setOnAction(e -> clearAll(e, true));
+        iconMenuController.getBtnClearAll().setOnAction(e -> clearAll(e, true, true));
 
         //ОТЧЕТ
         iconMenuController.getBtnReport1C().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32, 32, true, true)));
@@ -419,7 +419,7 @@ public class MainController extends AbstractFormController {
         AppProperties.getInstance().setImportDirectory(file.getParent());
 
         File copied = AppFiles.getInstance().createTempCopyOfFile(file);
-        clearAll(e, true);
+        clearAll(e, true, true);
 
         ImportExcelFileService service = new ImportExcelFileService(this, copied);
         service.setOnSucceeded(workerStateEvent -> {
@@ -495,6 +495,7 @@ public class MainController extends AbstractFormController {
         File file = chooser.showSaveDialog(owner);
         if (file != null) {
             loadProductToFile(file, opData, addedOperations);
+
             if (source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU)) {
                 AppProperties.getInstance().setLastDir(file.getParent());
                 savedProductFile = file;
@@ -526,7 +527,16 @@ public class MainController extends AbstractFormController {
         String savedOpType = opData.getOpType().name().replace("\"", "");
         String productSettings = gson.toJson(settings);
         String productData = gson.toJson(opData);
-        List<String> product = Arrays.asList(savedOpType, productSettings, productData);
+
+        SAVES_HISTORY.add(new SaveNormEntry(getCurrentTime(), CURRENT_USER));
+        String savesHistory = gson.toJson(SAVES_HISTORY);
+
+        List<String> product = Arrays.asList(
+                savedOpType, //Тип нормы (ДЕТАЛЬ, СБОРКА)
+                productSettings, //Настройки дщля расчета норм
+                productData, //Файл с данными НОРМ
+                savesHistory); //История сохранений
+
         saveTextToFile(product, file);
 
         Warning0.create("Внимание!", "Файл успешно сохранен!");

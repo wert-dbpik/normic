@@ -810,7 +810,7 @@ public abstract class AbstractFormController implements IForm {
                 addFromFile(newOpData);
             } else { //Вызов из меню с пиктограммами
                 if (!source.equals(EMenuSource.ON_START)) {
-                    clearAll(e, true);
+                    clearAll(e, true, false);
                 }
 
                 if (source.equals(EMenuSource.MAIN_MENU) || source.equals(EMenuSource.ICON_MENU) || source.equals(EMenuSource.ON_START)){
@@ -909,7 +909,7 @@ public abstract class AbstractFormController implements IForm {
     /**
      * ОЧИСТИТЬ ВСЕ
      */
-    public void clearAll(Event e, boolean changeTitle) {
+    public void clearAll(Event e, boolean changeTitle, boolean clearSavesHistory) {
         blockUndoListFlag = true;
         ((IOpWithOperations) opData).getOperations().clear();
         addedPlates.clear();
@@ -925,6 +925,7 @@ public abstract class AbstractFormController implements IForm {
             LABEL_PRODUCT_NAME.setText("");
         }
 
+        if(clearSavesHistory) SAVES_HISTORY = new ArrayList<>(); //Обнуляем историю сохранений
         menu.addEmptyPlate();
     }
 

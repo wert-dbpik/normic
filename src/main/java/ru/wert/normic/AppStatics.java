@@ -15,12 +15,14 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.saves.SaveNormEntry;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,10 +38,10 @@ public class AppStatics {
     //тестовая версия - работает с тестовым сервером
     public static boolean TEST_VERSION = false;
 
-    public static String AUTHOR_HISTORY; //Пользователь, последний сохранивший нормы
-    public static BooleanProperty BATCHNESS = new SimpleBooleanProperty(true); //учет партийности
-    public static int DEFAULT_BATCH = 10; //расчетная партия штук по умолчанию
-    public static int CURRENT_BATCH = 10; //расчетная партия штук
+    public static List<SaveNormEntry> SAVES_HISTORY = new ArrayList<>(); //История сохранений
+    public final static BooleanProperty BATCHNESS = new SimpleBooleanProperty(true); //учет партийности
+    public static int DEFAULT_BATCH = 1; //расчетная партия штук по умолчанию
+    public static int CURRENT_BATCH = 1; //расчетная партия штук
 
 
     //Ползователь

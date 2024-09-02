@@ -8,6 +8,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
+import ru.wert.normic.entities.saves.SaveNormEntry;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.settings.ProductSettings;
 
@@ -15,6 +16,9 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
+
+import static ru.wert.normic.AppStatics.SAVES_HISTORY;
 
 public class NvrConverter {
 
@@ -26,6 +30,14 @@ public class NvrConverter {
         EOpType opType = getOpDataType(store.get(0));
         productSettings = getSettingFromNVRFile(store.get(1));
         convertedOpData = convertOpDataFromNVRFile(store.get(2), opType);
+
+        try {
+            String savesHistoryString = store.get(3);
+            if (savesHistoryString != null || !savesHistoryString.isEmpty())
+                SAVES_HISTORY = convertSavesHistoryFromNVRFile(savesHistoryString);
+        } catch (Exception e) {
+            SAVES_HISTORY = new ArrayList<>();
+        }
     }
 
     /**
@@ -64,6 +76,15 @@ public class NvrConverter {
         Type settingsType = new TypeToken<ProductSettings>() {
         }.getType();
         return gson.fromJson(jsonString, settingsType);
+    }
+
+    /**
+     * Определяеет настройки палитры
+     */
+    public List<SaveNormEntry> convertSavesHistoryFromNVRFile(String jsonString) {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<SaveNormEntry>>(){}.getType();
+        return gson.fromJson(jsonString, listType);
     }
 
     /**

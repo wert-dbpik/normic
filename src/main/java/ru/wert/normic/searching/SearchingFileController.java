@@ -132,7 +132,7 @@ public class SearchingFileController extends AbstractFormController {
     private void searchNow() {
         String searchText = normalizeSearchedText(tfSearchText.getText());
         if(searchText.isEmpty()) return;
-        clearAll(null, false);
+        clearAll(null, false, false);
         SearchService searchService = new SearchService(this, (OpAssm) opData, searchText, showResult.getStateProperty().get());
         searchService.start();
     }

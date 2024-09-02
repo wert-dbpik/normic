@@ -196,6 +196,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMSaveAs().setOnAction(e -> saveAs(opData, addedOperations,
                 CURRENT_PRODUCT_NAME,
                 e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMSavesHistory().setOnAction(e -> openSavesHistory(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMOpen().setOnAction(e -> open(e, EMenuSource.MAIN_MENU));
         //При нажатии на МЕНЮ готовится список последних открываемых файлов
         mainMenuController.getMFile().setOnShowing(e -> prepareRecentFiles(mainMenuController.getMOpenRecent()));
@@ -227,6 +228,30 @@ public class MainController extends AbstractFormController {
             }
         });
 
+    }
+
+    /**
+     * ИСТОРИЯ СОХРАНЕНИЙ}
+     */
+    private void openSavesHistory(ActionEvent e, EMenuSource source) {
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/extra/savesHistory.fxml"));
+            Parent parent = loader.load();
+            new Decoration("История сохранений",
+                    parent,
+                    true,
+                    owner,
+                    "decoration-login",
+                    false,
+                    true);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void batchness() {

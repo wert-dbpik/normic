@@ -48,8 +48,9 @@ public class OpPaintCounter implements NormCounter {
 
         final double HANGING_TIME = hangingTime / 60.0; //время навешивания, мин
 
-        final int alongSize = Math.max(along, across) + DETAIL_DELTA;
-        final int acrossSize = Math.min(along, across) + DETAIL_DELTA;
+        final int alongSize = along + DETAIL_DELTA;
+        final int acrossSize = across + DETAIL_DELTA;
+
 
         //Количество штанг в сушилке
         int dryingBars;

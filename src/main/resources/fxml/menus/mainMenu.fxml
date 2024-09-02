@@ -13,6 +13,7 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mSave" mnemonicParsing="false" text="Сохранить" />
             <MenuItem fx:id="mSaveAs" mnemonicParsing="false" text="Сохранить как ..." />
+            <MenuItem fx:id="mSavesHistory" mnemonicParsing="false" text="История сохранений" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mImportExcel" mnemonicParsing="false" text="Импортировать из Excel" />
             <SeparatorMenuItem mnemonicParsing="false" />

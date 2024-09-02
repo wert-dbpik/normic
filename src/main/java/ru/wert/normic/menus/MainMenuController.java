@@ -16,6 +16,7 @@ public class MainMenuController {
             mOpen,
             mSave,
             mSaveAs,
+            mSavesHistory,
             mImportExcel,
             mChangeUser,
             mExit;
@@ -28,10 +29,12 @@ public class MainMenuController {
     //ПРАВКА ============================================
 
     @FXML @Getter
-    private MenuItem mClearAll;
+    private MenuItem
+            mClearAll;
 
     @FXML @Getter
-    private CheckMenuItem chmBatchness;
+    private CheckMenuItem
+            chmBatchness;
 
     //НАСТРОЙКА =========================================
 

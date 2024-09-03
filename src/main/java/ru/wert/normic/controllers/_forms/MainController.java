@@ -27,6 +27,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFBatch;
 import ru.wert.normic.controllers.extra.ColorsController;
+import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
 import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.entities.saves.SaveNormEntry;
 import ru.wert.normic.enums.ENormType;
@@ -209,6 +210,7 @@ public class MainController extends AbstractFormController {
 
         mainMenuController.getMRapport1C().setOnAction(e -> report(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMProductTree().setOnAction(e -> productTree(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMTableView().setOnAction(e -> openTableView(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMColors().setOnAction(e -> colors(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMConstants().setOnAction(e -> constants(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMOperations().setOnAction(e -> operations(e, EMenuSource.MAIN_MENU));
@@ -228,6 +230,33 @@ public class MainController extends AbstractFormController {
                 spIconMenu.getChildren().clear();
             }
         });
+
+    }
+
+    /**
+     * ТАБЛИЧНОЕ ПРЕДСТАВЛЕНИЕ
+     */
+    private void openTableView(ActionEvent e, EMenuSource source) {
+        Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
+                (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
+                (Stage) ((Node) e.getSource()).getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/normsTableView/normsTableView.fxml"));
+            Parent parent = loader.load();
+            NormsTableViewController controller = loader.getController();
+            controller.init((OpAssm) opData, 1);
+            new Decoration("Табличное представление",
+                    parent,
+                    true,
+                    owner,
+                    "decoration-login",
+                    false,
+                    true);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
     }
 

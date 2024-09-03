@@ -38,8 +38,8 @@ public class SavesHistoryController {
         tcUser.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getUser().getName()));
         tcUser.setStyle("-fx-alignment: CENTER;");
 
-        ObservableList<SaveNormEntry> list = FXCollections.observableArrayList(SAVES_HISTORY);
-        tableView.setItems(list);
+        ObservableList<SaveNormEntry> data = FXCollections.observableArrayList(SAVES_HISTORY);
+        tableView.setItems(data);
 
     }
 

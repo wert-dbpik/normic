@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.normsTableView.NormsTableViewController">
+   <children>
+      <HBox fx:id="materials" alignment="CENTER_LEFT">
+         <children>
+            <ComboBox fx:id="bxMaterials" prefWidth="200.0">
+               <HBox.margin>
+                  <Insets bottom="3.0" top="3.0" />
+               </HBox.margin>
+            </ComboBox>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btn" mnemonicParsing="false" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <TableView fx:id="tableView" prefHeight="400.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="tcName" editable="false" minWidth="200.0" prefWidth="75.0" text="Наименование" />
+            <TableColumn fx:id="tcQuantity" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Кол." />
+          <TableColumn fx:id="tcMaterial" editable="false" minWidth="150.0" prefWidth="75.0" text="Материал" />
+            <TableColumn fx:id="tcParamA" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="А" />
+            <TableColumn fx:id="tcParamB" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="B" />
+            <TableColumn fx:id="tcParamC" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="C" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

@@ -49,6 +49,7 @@
          <items>
             <MenuItem fx:id="mRapport1C" mnemonicParsing="false" text="Отчет 1С" />
             <MenuItem fx:id="mProductTree" mnemonicParsing="false" text="Структурное древо" />
+            <MenuItem fx:id="mTableView" mnemonicParsing="false" text="Табличное представление" />
          </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Помощь">

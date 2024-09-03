@@ -12,17 +12,16 @@
    <children>
       <HBox fx:id="materials" alignment="CENTER_LEFT">
          <children>
-            <ComboBox fx:id="bxMaterials" prefWidth="200.0">
-               <HBox.margin>
-                  <Insets bottom="3.0" top="3.0" />
-               </HBox.margin>
-            </ComboBox>
+            <ComboBox fx:id="bxMaterials" prefWidth="150.0" />
             <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="btn" mnemonicParsing="false" />
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
       </HBox>
       <TableView fx:id="tableView" prefHeight="400.0" VBox.vgrow="ALWAYS">
         <columns>

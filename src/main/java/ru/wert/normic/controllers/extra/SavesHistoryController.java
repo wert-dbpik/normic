@@ -10,12 +10,9 @@ import ru.wert.normic.entities.saves.SaveNormEntry;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-import static ru.wert.normic.AppStatics.CURRENT_USER;
 import static ru.wert.normic.AppStatics.SAVES_HISTORY;
 
 public class SavesHistoryController {

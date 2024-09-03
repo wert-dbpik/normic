@@ -27,7 +27,7 @@ public class VersionNormic extends _BaseEntity implements Item, Comparable<Versi
 
     @Override
     public int compareTo(VersionNormic o) {
-        String[] nn1 = getName().split("\\.", -1);
+        String[] nn1 = this.getName().split("\\.", -1);
         System.out.println(Arrays.toString(nn1));
         String[] nn2 = o.getName().split("\\.", -1);
         System.out.println(Arrays.toString(nn2));

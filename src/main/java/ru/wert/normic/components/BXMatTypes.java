@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
-import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.enums.EMatType;
-import ru.wert.normic.materials.MaterialsACCController;
 
 
 public class BXMatTypes {
@@ -38,7 +36,7 @@ public class BXMatTypes {
                 if (item == null || empty) {
                     setText(null);
                 } else {
-                    setText(item.getName());
+                    setText(item.getMatTypeName());
                 }
             }
 
@@ -50,7 +48,7 @@ public class BXMatTypes {
             @Override
             public String toString(EMatType val) {
                 LAST_VAL = val; //последний выбранный префикс становится префиксом по умолчанию
-                return val.getName();
+                return val.getMatTypeName();
             }
 
             @Override

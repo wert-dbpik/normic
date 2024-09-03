@@ -32,7 +32,7 @@ public class OpPaintCounter implements NormCounter {
         double dyeWeight; //Расход краски
 
         //Определяем площадь покрытия
-        if (material.getMatType().getName().equals(EMatType.LIST.getName())) {
+        if (material.getMatType().getName().equals(EMatType.LIST.getMatTypeName())) {
             kArea = twoSides ? 1.0 : 0.5;
             coatArea = razvA * razvB * 2 * MM2_TO_M2 * kArea; //Площадь покрытия
         } else {

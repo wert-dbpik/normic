@@ -4,30 +4,35 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.wert.normic.components.BXMaterialForTableView;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.enums.EMatType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static java.lang.String.format;
+import static ru.wert.normic.NormicServices.MATERIALS;
+import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class NormsTableViewController {
 
     @FXML
     private HBox materials;
 
-    @FXML
-    private ComboBox<Material> bxMaterials;
+    @FXML@Getter
+    private ComboBox<String> bxMaterials;
 
     @FXML
     private TableView<DetailTableRow> tableView;
@@ -58,9 +63,10 @@ public class NormsTableViewController {
 
     @FXML
     private Button btn; //НЕ ИСПОЛЬЗУЕТСЯ
-
-    private final List<DetailTableRow> details = new ArrayList<>();
-
+    @Getter
+    private final ObservableList<DetailTableRow> details = FXCollections.observableArrayList();
+    @Getter
+    private final Set<Material> usedMaterials = new HashSet<>();
 
 
     public void init(OpAssm assm, int amount){
@@ -70,6 +76,9 @@ public class NormsTableViewController {
 
         initColumns();
         tableView.setItems(data);
+
+        new BXMaterialForTableView().create(this);
+
     }
 
     private void getListOfDetails(OpAssm assm, int amount) {
@@ -82,15 +91,16 @@ public class NormsTableViewController {
 
                 row.name = ((OpDetail) op).getName();
                 row.amount = op.getQuantity() * amount;
-                row.material = ((OpDetail) op).getMaterial().getName();
+                row.material = ((OpDetail) op).getMaterial();
                 row.weight = ((OpDetail) op).getWeight();
                 row.sumWeight = row.weight * row.amount ;
                 row.paramA = ((OpDetail) op).getParamA();
                 row.paramB = ((OpDetail) op).getParamB();
                 row.paramC = ((OpDetail) op).getParamC();
 
-
                 details.add(row);
+
+                usedMaterials.add(((OpDetail) op).getMaterial());
             }
         }
 
@@ -103,22 +113,37 @@ public class NormsTableViewController {
         tcQuantity.setCellValueFactory(new PropertyValueFactory<>("amount"));
         tcQuantity.setStyle("-fx-alignment: CENTER;");
 
-        tcMaterial.setCellValueFactory(new PropertyValueFactory<>("material"));
+        tcMaterial.setCellValueFactory(cd->{
+            String name = cd.getValue().material.getName();
+            return new ReadOnlyStringWrapper(name);
+        });
 
-        tcWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
-
+        tcWeight.setCellValueFactory(cd->{
+            double val = cd.getValue().weight;
+            return new ReadOnlyStringWrapper(format(DOUBLE_FORMAT, val));
+        });
         tcWeight.setStyle("-fx-alignment: CENTER;");
 
         tcSumWeight.setCellValueFactory(new PropertyValueFactory<>("sumWeight"));
+        tcSumWeight.setCellValueFactory(cd->{
+            double val = cd.getValue().sumWeight;
+            return new ReadOnlyStringWrapper(format(DOUBLE_FORMAT, val));
+        });
         tcSumWeight.setStyle("-fx-alignment: CENTER;");
 
-        tcParamA.setCellValueFactory(new PropertyValueFactory<>("paramA"));
+        tcParamA.setCellValueFactory(cd->{
+            int val = cd.getValue().paramA;
+            String str = val == 0 ? "" : String.valueOf(val);
+            return new ReadOnlyStringWrapper(str);
+        });
         tcParamA.setStyle("-fx-alignment: CENTER;");
 
-        tcParamB.setCellValueFactory(new PropertyValueFactory<>("paramB"));
+        tcParamB.setCellValueFactory(cd->{
+            int val = cd.getValue().paramB;
+            String str = val == 0 ? "" : String.valueOf(val);
+            return new ReadOnlyStringWrapper(str);
+        });
         tcParamB.setStyle("-fx-alignment: CENTER;");
-
-//        tcParamC.setCellValueFactory(new PropertyValueFactory<>("paramC"));
 
         tcParamC.setCellValueFactory(cd->{
             int val = cd.getValue().paramC;
@@ -129,6 +154,11 @@ public class NormsTableViewController {
 
     }
 
+    private void updateTableView(ObservableList<DetailTableRow> showingItems){
+        tableView.getItems().clear();
+        tableView.setItems(showingItems);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -136,7 +166,7 @@ public class NormsTableViewController {
 
         private String name;
         private int amount;
-        private String material;
+        private Material material;
         private double sumWeight;
         private double weight;
         private int paramA;
@@ -146,6 +176,59 @@ public class NormsTableViewController {
         private OpDetail opData;
 
     }
+
+    public void showAll(){
+        updateTableView(details);
+    }
+
+    public void showLists(){
+        ObservableList<DetailTableRow> showingItems = FXCollections.observableArrayList();
+        for(DetailTableRow detail : details){
+            if(detail.getMaterial().getMatType().getName().equals(EMatType.LIST.getMatTypeName()))
+                showingItems.add(detail);
+        }
+        updateTableView(showingItems);
+    }
+
+    public void showRounds(){
+        ObservableList<DetailTableRow> showingItems = FXCollections.observableArrayList();
+        for(DetailTableRow detail : details){
+            if(detail.getMaterial().getMatType().getName().equals(EMatType.ROUND.getMatTypeName()))
+                showingItems.add(detail);
+        }
+        updateTableView(showingItems);
+    }
+
+    public void showProfiles(){
+        ObservableList<DetailTableRow> showingItems = FXCollections.observableArrayList();
+        for(DetailTableRow detail : details){
+            if(detail.getMaterial().getMatType().getName().equals(EMatType.PROFILE.getMatTypeName()))
+                showingItems.add(detail);
+        }
+        updateTableView(showingItems);
+    }
+
+    public void showPieces(){
+        ObservableList<DetailTableRow> showingItems = FXCollections.observableArrayList();
+        for(DetailTableRow detail : details){
+            if(detail.getMaterial().getMatType().getName().equals(EMatType.PIECE.getMatTypeName()))
+                showingItems.add(detail);
+        }
+        updateTableView(showingItems);
+    }
+
+    public void showExactMaterial(String materialName){
+        Material exactMaterial = MATERIALS.findByName(materialName);
+        if(exactMaterial == null) return;
+        ObservableList<DetailTableRow> showingItems = FXCollections.observableArrayList();
+        for(DetailTableRow detail : details){
+            if(detail.getMaterial().getName().equals(exactMaterial.getName()))
+                showingItems.add(detail);
+        }
+        updateTableView(showingItems);
+    }
+
+
 
 
 }

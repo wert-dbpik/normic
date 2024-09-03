@@ -184,7 +184,7 @@ public class MaterialsACCController {
         Material newMaterial = new Material();
         newMaterial.setAnyPart(new AnyPart(tfMaterialName.getText().trim(), "", ANY_PART_GROUPS.findById(1L)));//1L - Материалы
         newMaterial.setName(tfMaterialName.getText().trim());
-        newMaterial.setMatType(MAT_TYPES.findByName(bxMatType.getValue().getName()));
+        newMaterial.setMatType(MAT_TYPES.findByName(bxMatType.getValue().getMatTypeName()));
         newMaterial.setCatalogGroup(MATERIAL_GROUPS.findByName(bxMaterialGroup.getValue().getName()));
         newMaterial.setParamS(matTypeController.readParamS());
         newMaterial.setParamX(matTypeController.readParamX());

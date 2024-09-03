@@ -1,5 +1,6 @@
 package ru.wert.normic.controllers.normsTableView;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,6 +42,12 @@ public class NormsTableViewController {
     private TableColumn<DetailTableRow, String> tcMaterial;
 
     @FXML
+    private TableColumn<DetailTableRow, String> tcWeight;
+
+    @FXML
+    private TableColumn<DetailTableRow, String> tcSumWeight;
+
+    @FXML
     private TableColumn<DetailTableRow, String> tcParamA;
 
     @FXML
@@ -69,12 +76,15 @@ public class NormsTableViewController {
         List<OpData> ops = assm.getOperations();
 
         for(OpData op : ops){
-            if(op instanceof OpAssm) getListOfDetails((OpAssm) op, amount * ((OpData)op).getQuantity());
+            if(op instanceof OpAssm) getListOfDetails((OpAssm) op, ((OpData)op).getQuantity() * amount);
             if(op instanceof OpDetail){
                 DetailTableRow row = new DetailTableRow();
+
                 row.name = ((OpDetail) op).getName();
                 row.amount = op.getQuantity() * amount;
                 row.material = ((OpDetail) op).getMaterial().getName();
+                row.weight = ((OpDetail) op).getWeight();
+                row.sumWeight = row.weight * row.amount ;
                 row.paramA = ((OpDetail) op).getParamA();
                 row.paramB = ((OpDetail) op).getParamB();
                 row.paramC = ((OpDetail) op).getParamC();
@@ -95,14 +105,28 @@ public class NormsTableViewController {
 
         tcMaterial.setCellValueFactory(new PropertyValueFactory<>("material"));
 
+        tcWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+
+        tcWeight.setStyle("-fx-alignment: CENTER;");
+
+        tcSumWeight.setCellValueFactory(new PropertyValueFactory<>("sumWeight"));
+        tcSumWeight.setStyle("-fx-alignment: CENTER;");
+
         tcParamA.setCellValueFactory(new PropertyValueFactory<>("paramA"));
         tcParamA.setStyle("-fx-alignment: CENTER;");
 
         tcParamB.setCellValueFactory(new PropertyValueFactory<>("paramB"));
         tcParamB.setStyle("-fx-alignment: CENTER;");
 
-        tcParamC.setCellValueFactory(new PropertyValueFactory<>("paramC"));
+//        tcParamC.setCellValueFactory(new PropertyValueFactory<>("paramC"));
+
+        tcParamC.setCellValueFactory(cd->{
+            int val = cd.getValue().paramC;
+            String str = val == 0 ? "" : String.valueOf(val);
+            return new ReadOnlyStringWrapper(str);
+        });
         tcParamC.setStyle("-fx-alignment: CENTER;");
+
     }
 
     @Getter
@@ -113,9 +137,13 @@ public class NormsTableViewController {
         private String name;
         private int amount;
         private String material;
+        private double sumWeight;
+        private double weight;
         private int paramA;
         private int paramB;
         private int paramC;
+
+        private OpDetail opData;
 
     }
 

@@ -2,6 +2,7 @@ package ru.wert.normic.components;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TableView;
@@ -10,9 +11,10 @@ import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.EMatType;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 
 public class BXMaterialForTableView {
@@ -23,32 +25,19 @@ public class BXMaterialForTableView {
     final static String PROFILE = "Профильный";
     final static String PIECE = "Штучный";
 
-    private Set<Material> usedMaterials;
+    private NormsTableViewController controller;
     private ComboBox<String> bxMaterials;
-    private List<NormsTableViewController.DetailTableRow> details;
-    private TableView<NormsTableViewController.DetailTableRow> tableView;
-
-    public final static String LISTOK = EMatType.LIST.getMatTypeName();
 
     public void create(NormsTableViewController controller){
-        this.usedMaterials = controller.getUsedMaterials();
+        this.controller = controller;
         this.bxMaterials = controller.getBxMaterials();
-        this.details = controller.getDetails();
 
-        ObservableList items = FXCollections.observableArrayList();
+        updateItems();
 
-        items.add(ALL);
-        items.addAll(Arrays.stream(EMatType.values()).map(EMatType::getMatTypeName).collect(Collectors.toList()));
-
-        items.add(new Separator());
-        items.addAll(usedMaterials.stream().map(Material::getName).sorted().collect(Collectors.toList()));
-
-
-        bxMaterials.getItems().clear();
-        bxMaterials.getItems().addAll(items);
         bxMaterials.getSelectionModel().select(ALL);
 
         bxMaterials.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue == null) return;
             switch (newValue) {
                 case ALL:
                     controller.showAll();
@@ -72,7 +61,21 @@ public class BXMaterialForTableView {
         });
     }
 
-    private void addChangeListener(){
+    public void updateItems() {
+        String selectedItem = bxMaterials.getValue();
+        controller.getUsedMaterials().clear();
+        controller.collectUsedMaterials(MAIN_OP_DATA);
+        ObservableList items = FXCollections.observableArrayList();
+        items.add(ALL);
+        items.addAll(Arrays.stream(EMatType.values()).map(EMatType::getMatTypeName).collect(Collectors.toList()));
 
+        items.add(new Separator());
+        items.addAll(controller.getUsedMaterials().stream().map(Material::getName).sorted().collect(Collectors.toList()));
+
+
+        bxMaterials.getItems().clear();
+        bxMaterials.getItems().addAll(items);
+        if(selectedItem != null) bxMaterials.setValue(selectedItem);
     }
+
 }

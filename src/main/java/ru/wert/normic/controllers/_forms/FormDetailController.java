@@ -60,7 +60,7 @@ public class FormDetailController extends AbstractFormController {
     @FXML
     private Button btnAddMaterial;
 
-    @FXML
+    @FXML @Getter
     private Button btnDone;
 
     @FXML
@@ -76,21 +76,36 @@ public class FormDetailController extends AbstractFormController {
 
     private AbstractFormController controller;
 
+    @Getter private BtnDone done;
+
+
     @Override //AbstractFormController
     public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
-        this.opData = (OpDetail) opData;
+        this.opData = opData;
         this.controller = controller;
 
-        BtnDone done = new BtnDone(btnDone);
-        done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
+        initCommon();
+        initConnectedFields(tfName, tfQuantity, imgDone);
 
+    }
+
+    /**
+     * Вызывается из табличного представления, где деталь не связана с предыдущей формой
+     */
+    public void init(OpDetail opData){
+        this.opData = opData;
+
+        initCommon();
+        initConnectedFieldsSeparately();
+    }
+
+    private void initCommon() {
         //Инициализируем комбобоксы
         new BXMaterial().create(cmbxMaterial);
-        if(((OpDetail) opData).getMaterial() != null)
-            cmbxMaterial.setValue(((OpDetail) opData).getMaterial());
+        if(((OpDetail)opData).getMaterial() != null)
+            cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue == null) return;
-//            if(EMatType.getTypeByName(newValue.getMatType().getName()).equals(EMatType.PIECE))
 
             mountMatPatch(oldValue, newValue);
             createMenu();
@@ -107,21 +122,7 @@ public class FormDetailController extends AbstractFormController {
 
         setDragAndDropCellFactory();
 
-        //Инициализируем наименование
-        if(tfName != null) {
-            ((OpDetail)this.opData).setName(tfName.getText());
-            tfDetailName.setText(tfName.getText());
-            tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
-        }
-
         new TFInteger(tfDetailQuantity);
-
-        //Инициализируем количество
-        if(tfQuantity != null) {
-            ((OpDetail)this.opData).setQuantity(Integer.parseInt(tfQuantity.getText()));
-            tfDetailQuantity.setText(tfQuantity.getText());
-            tfQuantity.textProperty().bindBidirectional(tfDetailQuantity.textProperty());
-        }
 
         mountMatPatch(null, cmbxMaterial.getValue());
 
@@ -131,7 +132,30 @@ public class FormDetailController extends AbstractFormController {
         countSumNormTimeByShops();
 
         menu.addEmptyPlate();
+    }
 
+    private void initConnectedFieldsSeparately(){
+        tfDetailName.setText(((OpDetail)opData).getName());
+        tfDetailQuantity.setText(String.valueOf(opData.getQuantity()));
+        done.getStateProperty().setValue(((OpDetail)opData).isDone());
+    }
+
+
+    private void initConnectedFields(TextField tfName, TextField tfQuantity, ImgDouble imgDone){
+        //Инициализируем наименование
+        if(tfName != null) {
+            ((OpDetail)this.opData).setName(tfName.getText());
+            tfDetailName.setText(tfName.getText());
+            tfName.textProperty().bindBidirectional(tfDetailName.textProperty());
+        }
+        //Инициализируем количество
+        if(tfQuantity != null) {
+            ((OpDetail)this.opData).setQuantity(Integer.parseInt(tfQuantity.getText()));
+            tfDetailQuantity.setText(tfQuantity.getText());
+            tfQuantity.textProperty().bindBidirectional(tfDetailQuantity.textProperty());
+        }
+
+        done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
     }
 
     /**
@@ -183,6 +207,9 @@ public class FormDetailController extends AbstractFormController {
     }
 
     private void initViews() {
+
+        done = new BtnDone(btnDone);
+
         btnAddMaterial.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 18,18, true, true)));
         btnAddMaterial.setTooltip(new Tooltip("Добавить материал"));
         btnAddMaterial.setOnAction(e->{
@@ -331,7 +358,8 @@ public class FormDetailController extends AbstractFormController {
         opData.setPaintTime(roundTo001(paintingTime));
         opData.setAssmTime(roundTo001(assmTime));
 
-        controller.countSumNormTimeByShops();
+        if(controller != null)
+            controller.countSumNormTimeByShops();
 
         if(CURRENT_MEASURE.equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;

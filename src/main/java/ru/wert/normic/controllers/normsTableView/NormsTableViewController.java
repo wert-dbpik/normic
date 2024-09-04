@@ -47,6 +47,9 @@ public class NormsTableViewController {
     private ComboBox<String> bxMaterials;
 
     @FXML
+    private TextField tfSumWeight;
+
+    @FXML
     private TableView<DetailTableRow> tableView;
 
     @FXML
@@ -84,12 +87,9 @@ public class NormsTableViewController {
 
 
     public void init(OpAssm assm, int amount){
-
-        getListOfDetails(assm, amount);
-        ObservableSet<DetailTableRow> data = FXCollections.observableSet(details);
-
         initColumns();
-        tableView.setItems(FXCollections.observableArrayList(data));
+        getListOfDetails(assm, amount); //ObservableSet<DetailTableRow> details
+        showAll();
         sortTableViewAscending();
 
         tableView.setRowFactory(new Callback<TableView<DetailTableRow>, TableRow<DetailTableRow>>() {
@@ -127,7 +127,7 @@ public class NormsTableViewController {
                     true,
                     MAIN_STAGE,
                     "decoration-assm",
-                    true,
+                    false,
                     false);
             ImageView closeWindow = windowDecoration.getImgCloseWindow();
             closeWindow.setOnMousePressed(ev -> {
@@ -293,6 +293,13 @@ public class NormsTableViewController {
     private void updateTableView(ObservableSet<DetailTableRow> showingItems){
         tableView.getItems().clear();
         tableView.getItems().addAll(showingItems);
+
+        double total = 0 ;
+        for (DetailTableRow row : tableView.getItems()) {
+            total += + row.getSumWeight();
+        }
+
+        tfSumWeight.setText(String.format(DOUBLE_FORMAT, total));
     }
 
 

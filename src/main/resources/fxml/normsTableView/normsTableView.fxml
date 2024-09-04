@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -10,26 +11,44 @@
 
 <VBox stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.normsTableView.NormsTableViewController">
    <children>
-      <HBox fx:id="materials" alignment="CENTER_LEFT">
+      <HBox fx:id="materials" alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <ComboBox fx:id="bxMaterials" prefWidth="150.0" />
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="СУММ. ВЕС : ">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfSumWeight" editable="false" />
+                  <Label text=" кг.">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="NEVER">
                <children>
                   <Button fx:id="btn" mnemonicParsing="false" />
                </children>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="5.0" />
+            <Insets bottom="5.0" top="5.0" />
          </padding>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </HBox>
       <TableView fx:id="tableView" prefHeight="400.0" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="tcName" editable="false" minWidth="200.0" prefWidth="75.0" text="Наименование" />
           <TableColumn fx:id="tcMaterial" editable="false" minWidth="150.0" prefWidth="75.0" text="Материал" />
-            <TableColumn fx:id="tcQuantity" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Кол." />
             <TableColumn fx:id="tcWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Вес, кг" />
-            <TableColumn fx:id="tcSumWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Сум.вес, кг" />
+            <TableColumn fx:id="tcQuantity" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Кол." />
+            <TableColumn fx:id="tcSumWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Сумм.вес, кг" />
             <TableColumn fx:id="tcParamA" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="А" />
             <TableColumn fx:id="tcParamB" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="B" />
             <TableColumn fx:id="tcParamC" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="C" />

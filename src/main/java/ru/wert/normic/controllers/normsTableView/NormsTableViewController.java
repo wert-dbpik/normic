@@ -92,17 +92,14 @@ public class NormsTableViewController {
         showAll();
         sortTableViewAscending();
 
-        tableView.setRowFactory(new Callback<TableView<DetailTableRow>, TableRow<DetailTableRow>>() {
-            @Override
-            public TableRow<DetailTableRow> call(TableView<DetailTableRow> param) {
-                final TableRow<DetailTableRow> row = new TableRow<>();
-                row.setOnMouseClicked(e->{
-                    if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2){
-                        openFormEditor(row.getItem().opData, row);
-                    }
-                });
-                return row;
-            }
+        tableView.setRowFactory(param -> {
+            final TableRow<DetailTableRow> row = new TableRow<>();
+            row.setOnMouseClicked(e->{
+                if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2){
+                    openFormEditor(row.getItem().opData, row);
+                }
+            });
+            return row;
         });
 
         bx = new BXMaterialForTableView();
@@ -298,7 +295,6 @@ public class NormsTableViewController {
         for (DetailTableRow row : tableView.getItems()) {
             total += + row.getSumWeight();
         }
-
         tfSumWeight.setText(String.format(DOUBLE_FORMAT, total));
     }
 

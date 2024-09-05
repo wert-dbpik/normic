@@ -15,7 +15,7 @@ public class SimpleOperationServiceImpl implements ISimpleOperationsService{
     }
 
     public SimpleOperationServiceImpl() {
-        impl = new SimpleOperationTestService();
+        impl = new SimpleOperationDBService();
     }
 
     @Override
@@ -41,6 +41,11 @@ public class SimpleOperationServiceImpl implements ISimpleOperationsService{
     @Override
     public List<SimpleOperation> findAll() {
         return impl.findAll();
+    }
+
+    @Override
+    public SimpleOperation findByName(String name) {
+        return impl.findByName(name);
     }
 
     @Override

@@ -39,6 +39,17 @@ public class SimpleOperationDBService implements ISimpleOperationsService{
     }
 
     @Override
+    public SimpleOperation findByName(String name) {
+        try {
+            Call<SimpleOperation> call = api.getByName(name);
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<SimpleOperation> findAll() {
         try {
             Call<List<SimpleOperation>> call = api.getAll();
@@ -51,7 +62,13 @@ public class SimpleOperationDBService implements ISimpleOperationsService{
 
     @Override
     public List<SimpleOperation> findAllByText(String text) {
-        return null; //НЕ ИСПОЛЬЗУЕТСЯ
+        try {
+            Call<List<SimpleOperation>> call = api.getAllByText(text);
+            return call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

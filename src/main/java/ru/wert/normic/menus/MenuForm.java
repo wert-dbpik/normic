@@ -473,6 +473,7 @@ public class MenuForm extends ContextMenu {
     public Menu createAllSimpleOperations(List<ENormType> normTypes){
         Menu menu = new Menu("Все прочие операции");
         List<SimpleOperation> ops = SimpleOperationServiceImpl.getInstance().findAll();
+        if(ops == null) return null;
         for(SimpleOperation op : ops){
             for(ENormType nt : normTypes)
                 if(op.getNormType().equals(nt))

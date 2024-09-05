@@ -39,6 +39,11 @@ class SimpleOperationTestService implements ISimpleOperationsService, ItemServic
     }
 
     @Override
+    public SimpleOperation findByName(String name) {
+        return null;
+    }
+
+    @Override
     public List<SimpleOperation> findAllByText(String text) {
         return null; //НЕ ИСПОЛЬЗУЕТСЯ
     }
@@ -83,7 +88,7 @@ class SimpleOperationTestService implements ISimpleOperationsService, ItemServic
         op.setId(1L);
         op.setName("Изготовление заземляющего кабеля");
         op.setMeasurement(EPieceMeasurement.PIECE);
-        op.setNormType(ENormType.NORM_ASSEMBLE);
+        op.setNormType(ENormType.NORM_ASSEMBLING);
         op.setJobType(EJobType.JOB_NONE);
         op.setNorm(2); //2 мин на операцию
         op.setDescription("Изготовление заземляющего кабеля включает  в себя:\n" +

@@ -7,19 +7,25 @@ import java.util.List;
 
 public interface SimpleOperationApiInterface {
 
-    @GET("simpleops/id/{id}")
+    @GET("simple-operations/id/{id}")
     Call<SimpleOperation> getById(@Path("id") Long id);
 
-    @GET("simpleops/all")
+    @GET("simple-operations/all")
     Call<List<SimpleOperation>> getAll();
 
-    @POST("simpleops/create")
+    @GET("simple-operations/name/{name}")
+    Call<SimpleOperation> getByName(@Path("name") String name);
+
+    @GET("simple-operations/all-by-text/{text}")
+    Call<List<SimpleOperation>> getAllByText(@Path("text") String text);
+
+    @POST("simple-operations/create")
     Call<SimpleOperation> create(@Body SimpleOperation entity);
 
-    @PUT("simpleops/update")
+    @PUT("simple-operations/update")
     Call<Void> update(@Body SimpleOperation entity);
 
-    @DELETE("simpleops/delete/{id}")
+    @DELETE("simple-operations/delete/{id}")
     Call<Void> deleteById(@Path("id") Long id);
 
 }

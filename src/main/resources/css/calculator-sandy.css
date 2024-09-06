@@ -241,3 +241,14 @@
     -fx-font-size: 14;
 }
 
+/*ПРОГРЕСС БАР*/
+.progress-bar .bar {
+    -fx-padding:3px;
+    -fx-background-insets:0;
+}
+
+.progress-bar > .track {
+    -fx-text-box-border: -fx-color-text;
+    -fx-control-inner-background: #fdd590;
+}
+

@@ -8,16 +8,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="login" prefHeight="165.0" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<VBox id="login" prefHeight="165.0" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Отсутствует связь с сервером" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </Label>
+      <StackPane>
+         <children>
+            <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Отсутствует связь с сервером" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <ProgressBar fx:id="progressBar" maxWidth="1.7976931348623157E308" StackPane.alignment="CENTER" />
+         </children>
+      </StackPane>
       <Label text="IP-адрес" />
       <TextField fx:id="tfIP" minWidth="250.0" />
       <Label text="Порт" />

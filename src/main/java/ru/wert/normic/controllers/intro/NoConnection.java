@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.wert.normic.decoration.Decoration;
@@ -22,6 +24,8 @@ public class NoConnection extends ModalWindow {
     private TextField tfAddressIP;
     private TextField tfPort;
     private Stage stage;
+    private ProgressBar progressBar;
+    private Label lblText;
 
     public NoConnection(Stage stage) {
         this.stage = stage;
@@ -34,6 +38,9 @@ public class NoConnection extends ModalWindow {
             Parent parent = loader.load();
             stage.setScene(new Scene(parent));
             stage.setResizable(false);
+
+            progressBar = ((ProgressBar) parent.lookup("#progressBar"));
+            progressBar.setVisible(false);
 
             tfAddressIP = ((TextField) parent.lookup("#tfIP"));
             tfAddressIP.setText(RetrofitClient.params.getIp());

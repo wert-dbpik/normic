@@ -17,8 +17,6 @@
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mImportExcel" mnemonicParsing="false" text="Импортировать из Excel" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="mChangeUser" mnemonicParsing="false" text="Сменить пользователя" />
-            <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mExit" mnemonicParsing="false" text="Выйти" />
          </items>
       </Menu>
@@ -59,6 +57,9 @@
       <Menu mnemonicParsing="false" text="Помощь">
          <items>
             <MenuItem fx:id="mAbout" mnemonicParsing="false" text="О программе" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mChangeUser" mnemonicParsing="false" text="Сменить пользователя" />
+            <MenuItem fx:id="mChangeServer" mnemonicParsing="false" text="Сменить сервер баз данных" />
          </items>
       </Menu>
    </menus>

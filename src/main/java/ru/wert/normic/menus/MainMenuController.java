@@ -18,13 +18,19 @@ public class MainMenuController {
             mSaveAs,
             mSavesHistory,
             mImportExcel,
-            mChangeUser,
             mExit;
 
     @FXML@Getter
     private Menu
             mFile,        //Файл
             mOpenRecent;  //Открыть последнее
+
+    //ВИД ===============================================
+
+    @FXML @Getter
+    private MenuItem
+            mProductTree,
+            mTableView;
 
     //ПРАВКА ============================================
 
@@ -56,14 +62,14 @@ public class MainMenuController {
 
     @FXML@Getter
     private MenuItem
-            mRapport1C,
-            mProductTree,
-            mTableView;
+            mRapport1C;
 
     //ПОМОЩЬ=============================================
 
     @FXML@Getter
     private MenuItem
-            mAbout;
+            mAbout,
+            mChangeUser,
+            mChangeServer;
 
 }

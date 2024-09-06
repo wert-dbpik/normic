@@ -27,8 +27,10 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFBatch;
 import ru.wert.normic.controllers.extra.ColorsController;
+import ru.wert.normic.controllers.intro.NoConnection;
 import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
 import ru.wert.normic.controllers.structure.StructureController;
+import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.saves.SaveNormEntry;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.history.HistoryFile;
@@ -217,6 +219,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getMMaterials().setOnAction(e -> materials(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMImportExcel().setOnAction(e -> importExcel(e, EMenuSource.MAIN_MENU));
         mainMenuController.getMChangeUser().setOnAction(e -> changeUser(e, EMenuSource.MAIN_MENU));
+        mainMenuController.getMChangeServer().setOnAction(e -> changeServer());
         mainMenuController.getMIconMenu().setOnAction(e -> showIconMenuProperty.set(!showIconMenuProperty.get()));
         mainMenuController.getMAbout().setOnAction(e -> vbAboutPane.setVisible(true));
 
@@ -312,6 +315,9 @@ public class MainController extends AbstractFormController {
         }
     }
 
+    /**
+     * СМЕНИТЬ ПОЛЬЗОВАТЕЛЯ
+     */
     private void changeUser(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
@@ -331,6 +337,29 @@ public class MainController extends AbstractFormController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * СМЕНИТЬ СЕРВЕР БАЗ ДАННЫХ
+     */
+    private void changeServer() {
+        NoConnection window = new NoConnection(new Stage());
+        boolean r = window.create();
+        if (!r)
+            window.close(); //Окно просто закрыли
+        else
+            try { //Нажали кнопку
+                RetrofitClient.getInstance();
+                if (!RetrofitClient.checkUpConnection()) {
+                    window.close();
+                    changeServer();
+                } else {
+
+                    window.close();
+                }
+            } catch (Exception e) {
+                changeServer();
+            }
     }
 
     private void createIconMenu() {

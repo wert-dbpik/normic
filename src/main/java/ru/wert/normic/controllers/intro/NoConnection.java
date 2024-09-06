@@ -68,4 +68,8 @@ public class NoConnection extends ModalWindow {
 
         return answer.get();
     }
+
+    public void close(){
+        stage.hide();
+    }
 }

@@ -151,8 +151,12 @@ public class FormPackController extends AbstractFormController {
         menu.getItems().add(menu.createItemPackInHandStretchWrap());
         menu.getItems().add(menu.createItemPackInBubbleWrap());
         menu.getItems().add(menu.createItemPackOnPallet());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLE)));
+
+        Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_PACKING));
+        if(simpleOperationsMenu != null) {
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(simpleOperationsMenu);
+        }
 
 
         linkMenuToButton();

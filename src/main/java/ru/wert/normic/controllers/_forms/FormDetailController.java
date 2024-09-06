@@ -259,8 +259,12 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemWeldLongSeam());
             menu.getItems().add(menu.createItemWeldingDotted());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL)));
+
+            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL));
+            if(simpleOperationsMenu != null) {
+                menu.getItems().add(new SeparatorMenuItem());
+                menu.getItems().add(simpleOperationsMenu);
+            }
 
             deleteImproperOperations(AppStatics.LIST_OPERATIONS);
 
@@ -280,8 +284,12 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPainting());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL)));
+
+            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL));
+            if(simpleOperationsMenu != null) {
+                menu.getItems().add(new SeparatorMenuItem());
+                menu.getItems().add(simpleOperationsMenu);
+            }
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 
@@ -293,8 +301,12 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPainting());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL)));
+
+            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_MECHANICAL));
+            if(simpleOperationsMenu != null) {
+                menu.getItems().add(new SeparatorMenuItem());
+                menu.getItems().add(simpleOperationsMenu);
+            }
 
             deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
         } else { //ШТУЧНЫЕ
@@ -306,8 +318,12 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createAllLocksmithOperations());
             menu.getItems().add(menu.createAllWeldingOperations());
             menu.getItems().add(menu.createAllAssmOperations());
-            menu.getItems().add(menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLE)));
 
+            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLE));
+            if(simpleOperationsMenu != null) {
+                menu.getItems().add(new SeparatorMenuItem());
+                menu.getItems().add(simpleOperationsMenu);
+            }
         }
 
         linkMenuToButton();

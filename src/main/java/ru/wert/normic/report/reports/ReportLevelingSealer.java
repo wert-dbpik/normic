@@ -27,7 +27,7 @@ public class ReportLevelingSealer {
         componentA = 0.0;
         componentB = 0.0;
 
-        collectComponentsABByOpData(opAssm.getOperations());
+        collectComponentsABByOpData(opAssm.getOperations(), opAssm.getQuantity());
         if(componentA != 0.0)
             addLevelingSealerReport();
     }
@@ -44,15 +44,15 @@ public class ReportLevelingSealer {
     /**
      * Сосчитать матириалы по НАЛИВНОМУ УПЛОТНЕНИЮ
      */
-    private void collectComponentsABByOpData(List<OpData> ops){
+    private void collectComponentsABByOpData(List<OpData> ops, int amount){
         for (OpData op : ops) {
             if(op instanceof OpAssm){
                 List<OpData> opsInAssm = ((OpAssm)op).getOperations();
-                collectComponentsABByOpData(opsInAssm);
+                collectComponentsABByOpData(opsInAssm, amount * op.getQuantity());
             }
             else if(op instanceof OpLevelingSealer){
-                componentA += ((OpLevelingSealer) op).getCompA();
-                componentB += ((OpLevelingSealer) op).getCompB();
+                componentA += ((OpLevelingSealer) op).getCompA() * amount;
+                componentB += ((OpLevelingSealer) op).getCompB() * amount;
             }
         }
     }

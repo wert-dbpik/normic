@@ -73,7 +73,8 @@ public class OperationsController {
         tcNormTime.setCellValueFactory(cd -> new ReadOnlyStringWrapper(DECIMAL_FORMAT.format(cd.getValue().getNorm()).trim()));
         tcNormTime.setStyle("-fx-alignment: CENTER;");
 
-        tcDescription.setCellValueFactory(new PropertyValueFactory<>("note"));
+        tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+
 
         tableView.setRowFactory(tableView-> {
             final TableRow<SimpleOperation> tableRow = new TableRow<>();
@@ -95,7 +96,7 @@ public class OperationsController {
     }
 
     public void updateTableView(SimpleOperation selectedSimpleOperation){
-
+        if(tableView == null) return;
         tableView.getItems().clear();
         tableView.refresh();
 

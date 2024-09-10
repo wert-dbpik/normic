@@ -115,6 +115,8 @@ public class OperationsACCController {
         }
         SimpleOperation finalSelectedSimpleOperation = selectedSimpleOperation;
 
+        //Добавление операции возможно и без открытия таблицы
+        //Если окно с таблицей создано, то его нужно обновить
         tableViewController.updateTableView(finalSelectedSimpleOperation);
         ((Node) event.getSource()).getScene().getWindow().hide();
     }

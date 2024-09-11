@@ -76,6 +76,11 @@ public class OperationsController {
 
         tcDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
+        if(tableView.getItems().isEmpty())
+            tableView.setOnMouseClicked(e->{
+                if(e.getButton() == MouseButton.SECONDARY)
+                    tableView.setContextMenu(new OperationsContextMenu(this, null));
+            });
 
         tableView.setRowFactory(tableView-> {
             final TableRow<SimpleOperation> tableRow = new TableRow<>();

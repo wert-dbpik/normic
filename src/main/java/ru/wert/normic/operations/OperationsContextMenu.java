@@ -23,12 +23,12 @@ public class OperationsContextMenu extends ContextMenu {
         final MenuItem deleteItem = new MenuItem("Удалить");
         deleteItem.setOnAction(e-> controller.deleteSimpleOperation(e, tableRow));
 
-        if(tableRow.getItem() != null) {
+        if(tableRow == null)
+            getItems().addAll(addItem);
+        else if(tableRow.getItem() != null) {
             getItems().addAll(addItem, copyItem, changeItem, deleteItem);
         } else
             getItems().addAll(addItem);
-
-
 
     }
 

@@ -36,7 +36,7 @@ public class AppStatics {
     //Последняя доступная версия в БД
     public static String LAST_VERSION_IN_DB;
     //тестовая версия - работает с тестовым сервером
-    public static boolean TEST_VERSION = true;
+    public static boolean TEST_VERSION = false;
 
     public static List<SaveNormEntry> SAVES_HISTORY = new ArrayList<>(); //История сохранений
     public final static BooleanProperty BATCHNESS = new SimpleBooleanProperty(true); //учет партийности

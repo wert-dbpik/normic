@@ -64,22 +64,19 @@
             </VBox>
          </children>
       </HBox>
-      <HBox>
+      <HBox alignment="CENTER_LEFT" spacing="2.0">
          <children>
-            <VBox spacing="5.0">
-               <children>
-                  <Label text="Норма времени на выполнение операции с ед. изм.  материала (мин)" />
-                  <TextField id="operations-tf-norm" fx:id="tfNormTime" prefWidth="450.0">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-               <HBox.margin>
-                  <Insets left="34.0" />
-               </HBox.margin>
-            </VBox>
+            <Label text="Норма времени" />
+            <TextField id="operations-tf-norm" fx:id="tfNormTime" prefHeight="26.0" prefWidth="59.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label text=", мин" />
          </children>
+         <VBox.margin>
+            <Insets left="34.0" top="5.0" />
+         </VBox.margin>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>

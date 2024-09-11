@@ -11,6 +11,9 @@ public class OperationsContextMenu extends ContextMenu {
     public OperationsContextMenu(OperationsController controller, TableRow<SimpleOperation> tableRow) {
         this.tableRow = tableRow;
 
+        final MenuItem addItem = new MenuItem("Добавить");
+        addItem.setOnAction(e-> controller.addSimpleOperation(e));
+
         final MenuItem copyItem = new MenuItem("Добавить копированием");
         copyItem.setOnAction(e-> controller.copySimpleOperation(tableRow));
 
@@ -20,7 +23,12 @@ public class OperationsContextMenu extends ContextMenu {
         final MenuItem deleteItem = new MenuItem("Удалить");
         deleteItem.setOnAction(e-> controller.deleteSimpleOperation(e, tableRow));
 
-        getItems().addAll(copyItem, changeItem, deleteItem);
+        if(tableRow.getItem() != null) {
+            getItems().addAll(addItem, copyItem, changeItem, deleteItem);
+        } else
+            getItems().addAll(addItem);
+
+
 
     }
 

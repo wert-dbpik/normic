@@ -24,7 +24,7 @@ public class OperationsACCLoader {
             mainController = loader.getController();
 
             Decoration decoration = new Decoration(
-                    "МАТЕРИАЛЫ",
+                    "СВОЯ ОПЕРАЦИЯ",
                     parent,
                     false,
                     (Stage)tableView.getScene().getWindow(),

@@ -59,7 +59,8 @@ public class OperationsController {
     }
 
     private void initializeColumns() {
-        tcName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcName.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getName().toUpperCase()));
+        tcName.setStyle("-fx-alignment: CENTER-LEFT;");
 
         tcNormType.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getNormType().getNormName()));
         tcNormType.setStyle("-fx-alignment: CENTER;");
@@ -78,20 +79,21 @@ public class OperationsController {
 
         tableView.setRowFactory(tableView-> {
             final TableRow<SimpleOperation> tableRow = new TableRow<>();
-            final ContextMenu menu = new OperationsContextMenu(this, tableRow);
-
-            tableRow.contextMenuProperty().bind(Bindings.when(Bindings.isNotNull(tableRow.itemProperty())).then(menu)
-                    .otherwise((ContextMenu) null));
 
             tableRow.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
                     changeSimpleOperation(tableRow);
                 }
+                if(e.getButton() == MouseButton.SECONDARY){
+                    if(tableRow.getItem() == null) {
+                        tableView.getSelectionModel().clearSelection();
+                    }
+                    tableRow.setContextMenu(new OperationsContextMenu(this, tableRow));
+                }
             });
 
             return tableRow;
         });
-
 
     }
 

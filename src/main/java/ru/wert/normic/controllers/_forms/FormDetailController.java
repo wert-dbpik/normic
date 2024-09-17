@@ -31,8 +31,8 @@ import ru.wert.normic.entities.db_connection.material.Material;
 import java.io.IOException;
 import java.util.*;
 
-import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.AppStatics.roundTo001;
+import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
@@ -122,8 +122,6 @@ public class FormDetailController extends AbstractFormController {
 
         setDragAndDropCellFactory();
 
-        new TFInteger(tfDetailQuantity);
-
         mountMatPatch(null, cmbxMaterial.getValue());
 
         //Заполняем поля формы
@@ -135,9 +133,14 @@ public class FormDetailController extends AbstractFormController {
     }
 
     private void initConnectedFieldsSeparately(){
+        new TFInteger(tfDetailQuantity);
         tfDetailName.setText(((OpDetail)opData).getName());
         tfDetailQuantity.setText(String.valueOf(opData.getQuantity()));
         done.getStateProperty().setValue(((OpDetail)opData).isDone());
+        tfDetailQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            MAIN_CONTROLLER.recountTotals(MAIN_OP_DATA, 1);
+            MAIN_CONTROLLER.recountMainOpData();
+        });
     }
 
 
@@ -153,6 +156,7 @@ public class FormDetailController extends AbstractFormController {
             ((OpDetail)this.opData).setQuantity(Integer.parseInt(tfQuantity.getText()));
             tfDetailQuantity.setText(tfQuantity.getText());
             tfQuantity.textProperty().bindBidirectional(tfDetailQuantity.textProperty());
+
         }
 
         done.getStateProperty().bindBidirectional(imgDone.getStateProperty());

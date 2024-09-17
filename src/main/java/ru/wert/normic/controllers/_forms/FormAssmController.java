@@ -17,8 +17,7 @@ import ru.wert.normic.menus.MenuForm;
 
 import java.util.Collections;
 
-import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.AppStatics.roundTo001;
+import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
@@ -89,6 +88,11 @@ public class FormAssmController extends AbstractFormController {
 
 
         new TFInteger(tfAssmQuantity);
+        tfAssmQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            MAIN_CONTROLLER.recountTotals(MAIN_OP_DATA, 1);
+            MAIN_CONTROLLER.recountMainOpData();
+        });
+
 
         //Инициализируем количество
         if(tfQuantity != null) {

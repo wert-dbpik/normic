@@ -2,6 +2,7 @@ package ru.wert.normic.entities.ops;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
@@ -20,6 +21,7 @@ public class OpData implements Serializable {
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))
 
     transient protected int total = 1; //Общее количество в изделии
+    transient protected AbstractOpPlate plate; //
     private int quantity = 1; //количество
 
     private double mechTime; //МК

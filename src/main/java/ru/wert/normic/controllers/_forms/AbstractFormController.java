@@ -831,6 +831,7 @@ public abstract class AbstractFormController implements IForm {
                 }
             }
 
+            TotalCounter.recountTotals(MAIN_OP_DATA, 1);
             MAIN_CONTROLLER.finalCountSumNormTimeByShops();
             //Сохраняем путь открытого файла. чтобы его можно было пересохранить
             MainController.savedProductFile = file;

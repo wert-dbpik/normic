@@ -20,6 +20,7 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.controllers._forms.FormAssmController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
@@ -116,7 +117,10 @@ public class PlateAssmController extends AbstractOpPlate{
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
+            int total = Integer.parseInt(newValue) * prevFormController.getOpData().getTotal();
+            TotalCounter.recountNormsWithNewTotal(total, opData,null);
             prevFormController.countSumNormTimeByShops();
+            prevFormController.calculateAreaByDetails();
         });
 
     }

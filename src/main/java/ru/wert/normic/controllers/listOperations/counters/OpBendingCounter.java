@@ -26,7 +26,6 @@ public class OpBendingCounter  implements NormCounter {
         if(BATCHNESS.get()) time = time +
 //                0.1 * operationTime +
                 timePZ / CURRENT_BATCH / data.getTotal();
-        System.out.println(" toatal = " + data.getTotal());
 
         opData.setMechTime(roundTo001(time));
         return opData;

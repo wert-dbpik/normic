@@ -39,6 +39,7 @@ public class PlateWeldDifficultyController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         opData = (OpWeldDifficulty) data;
+        opData.setPlate(this);
 
         new TFNormTime(tfNormTime, prevFormController);
         new BXWeldDifficulty().create(bxDifficulty, opData.getDifficulty(), this);

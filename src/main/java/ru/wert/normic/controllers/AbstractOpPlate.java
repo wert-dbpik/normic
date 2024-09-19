@@ -14,6 +14,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
@@ -22,6 +23,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static java.lang.String.format;
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
@@ -194,16 +196,30 @@ public abstract class AbstractOpPlate implements IOpPlate {
         }
 
         if(tfNormTime != null){
-            tfNormTime.setText(String.format(format,time).trim());
+            tfNormTime.setText(format(format,time).trim());
             lblNormTimeMeasure.setText(measure);
         }
 
     }
 
-//    protected NormCounter getNormCounter(OpData opData){
-//        NormCounter normCounter;
-//        normCounter = opData.getOpType().getNormCounter();
-//
-//        return normCounter;
-//    }
+    /**
+     * Прописывает расчитанную норму времени в поле tfNormTime
+     * Вызывается при пересчете норм при изменении общего количества деталей в изделии
+     * Пр: из FormDetailController, FormAssmController
+     */
+    public void writeNormTime(OpData opData){
+
+        ENormType type = opData.getNormType();
+        double time = 0.0;
+        switch (type){
+            case NORM_MECHANICAL: time = opData.getMechTime(); break;
+            case NORM_PAINTING: time = opData.getPaintTime(); break;
+            case NORM_ASSEMBLING: time = opData.getAssmTime(); break;
+            case NORM_PACKING: time = opData.getPackTime(); break;
+        }
+
+
+        tfNormTime.setText(format(DOUBLE_FORMAT, time * CURRENT_MEASURE.getRate()));
+    }
+
 }

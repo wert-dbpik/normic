@@ -59,15 +59,15 @@ public class FormAssmController extends AbstractFormController {
     @FXML @Getter
     private TextField tfTotalTime;
 
-    private AbstractFormController controller;
+    private AbstractFormController prevAssmController;
 
     public FormAssmController() {
     }
 
     @Override
-    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
+    public void init(AbstractFormController prevAssnController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = (OpAssm) opData;
-        this.controller = controller;
+        this.prevAssmController = prevAssnController;
 
         BtnDone done = new BtnDone(btnDone);
         done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
@@ -89,8 +89,10 @@ public class FormAssmController extends AbstractFormController {
 
         new TFInteger(tfAssmQuantity);
         tfAssmQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            MAIN_CONTROLLER.recountTotals(MAIN_OP_DATA, 1);
-            MAIN_CONTROLLER.recountMainOpData();
+            if (!newValue.equals("")) {
+                int total = Integer.parseInt(newValue) * prevAssmController.getOpData().getTotal();
+                TotalCounter.recountNormsWithNewTotal(total, opData,prevAssmController);
+            }
         });
 
 
@@ -115,13 +117,6 @@ public class FormAssmController extends AbstractFormController {
             countSumNormTimeByShops();
         });
 
-//        ivClear.setOnMouseClicked(e->{
-//            ((IOpWithOperations)opData).getOperations().clear();
-//            addedPlates.clear();
-//            addedOperations.clear();
-//            listViewTechOperations.getItems().clear();
-//            countSumNormTimeByShops();
-//        });
     }
 
     @Override
@@ -166,7 +161,6 @@ public class FormAssmController extends AbstractFormController {
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
-        String measure = MIN.getMeasure();
 
         double mechanicalTime = 0.0;
         double paintingTime = 0.0;
@@ -185,25 +179,16 @@ public class FormAssmController extends AbstractFormController {
         opData.setAssmTime(roundTo001(assemblingTime));
         opData.setPackTime(roundTo001(packingTime));
 
-        controller.countSumNormTimeByShops();
+        prevAssmController.countSumNormTimeByShops();
 
-        if(CURRENT_MEASURE.equals(SEC)){
-            mechanicalTime = mechanicalTime * MIN_TO_SEC;
-            paintingTime = paintingTime * MIN_TO_SEC;
-            assemblingTime = assemblingTime * MIN_TO_SEC;
-            packingTime = packingTime * MIN_TO_SEC;
+        //Пересчитываем нормы согласно единице измерения
+        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
+        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
+        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
+        packingTime = packingTime * CURRENT_MEASURE.getRate();
 
-            measure = SEC.getMeasure();
-        }
-        if(CURRENT_MEASURE.equals(HOUR)){
-            mechanicalTime = mechanicalTime * MIN_TO_HOUR;
-            paintingTime = paintingTime * MIN_TO_HOUR;
-            assemblingTime = assemblingTime * MIN_TO_HOUR;
-            packingTime = packingTime * MIN_TO_HOUR;
-
-            measure = HOUR.getMeasure();
-        }
-
+        //Единица ихмерения
+        String measure = CURRENT_MEASURE.getMeasure();
 
         String format = DOUBLE_FORMAT;
         if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;

@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -813,7 +811,7 @@ public class MainController extends AbstractFormController {
         double assemblingTime;
         double packingTime;
 
-        opData = (OpData) recount((IOpWithOperations) opData, 1);
+        opData = (OpData) recountNormTimes((IOpWithOperations) opData, 1);
 
         mechanicalTime = opData.getMechTime();
         paintingTime = opData.getPaintTime();
@@ -887,7 +885,7 @@ public class MainController extends AbstractFormController {
      * И прописывает их по участкам
      */
     public void recountMainOpData() {
-        recount((IOpWithOperations) opData, 1);
+        recountNormTimes((IOpWithOperations) opData, 1);
         finalCountSumNormTimeByShops();
     }
 
@@ -895,14 +893,14 @@ public class MainController extends AbstractFormController {
      * Пересчет норм времени по подразделениям МК, Покраска и т.д.
      * Результаты суммируются и на выходе имеем измененный opsData
      */
-    private IOpWithOperations recount(IOpWithOperations opsData, int quantity) {
+    public IOpWithOperations recountNormTimes(IOpWithOperations opsData, int quantity) {
         ((OpData) opsData).setMechTime(0.0);
         ((OpData) opsData).setPaintTime(0.0);
         ((OpData) opsData).setAssmTime(0.0);
         ((OpData) opsData).setPackTime(0.0);
         for (OpData op : opsData.getOperations()) {
             if (op instanceof IOpWithOperations) {
-                IOpWithOperations newOpData = recount((IOpWithOperations) op, op.getQuantity() * quantity);
+                IOpWithOperations newOpData = recountNormTimes((IOpWithOperations) op, op.getQuantity() * quantity);
                 ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + ((OpData) newOpData).getMechTime());
                 ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + ((OpData) newOpData).getPaintTime());
                 ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + ((OpData) newOpData).getAssmTime());
@@ -998,17 +996,17 @@ public class MainController extends AbstractFormController {
 
     }
 
-    public void recountTotals(IOpWithOperations opData, int total){
-        List<OpData> ops = opData.getOperations();
-        for(OpData op : ops){
-            if(op instanceof IOpWithOperations) {
-                int currentTotal = op.getQuantity() * total;
-                op.setTotal(currentTotal);
-                recountTotals((IOpWithOperations) op, currentTotal);
-            } else {
-                int currentTotal = op.getQuantity() * total;
-                op.setTotal(currentTotal);
-            }
-        }
-    }
+//    public void recountTotals(IOpWithOperations opData, int total){
+//        List<OpData> ops = opData.getOperations();
+//        for(OpData op : ops){
+//            if(op instanceof IOpWithOperations) {
+//                int currentTotal = op.getQuantity() * total;
+//                op.setTotal(currentTotal);
+//                recountTotals((IOpWithOperations) op, currentTotal);
+//            } else {
+//                int currentTotal = op.getQuantity() * total;
+//                op.setTotal(currentTotal);
+//            }
+//        }
+//    }
 }

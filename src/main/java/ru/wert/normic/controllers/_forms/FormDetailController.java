@@ -74,15 +74,15 @@ public class FormDetailController extends AbstractFormController {
 
     @Getter private AbstractMatPatchController matPatchController;
 
-    private AbstractFormController controller;
+    private AbstractFormController assmController;
 
     @Getter private BtnDone done;
 
 
     @Override //AbstractFormController
-    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
+    public void init(AbstractFormController assmController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = opData;
-        this.controller = controller;
+        this.assmController = assmController;
 
         initCommon();
         initConnectedFields(tfName, tfQuantity, imgDone);
@@ -137,10 +137,12 @@ public class FormDetailController extends AbstractFormController {
         tfDetailName.setText(((OpDetail)opData).getName());
         tfDetailQuantity.setText(String.valueOf(opData.getQuantity()));
         done.getStateProperty().setValue(((OpDetail)opData).isDone());
-        tfDetailQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            MAIN_CONTROLLER.recountTotals(MAIN_OP_DATA, 1);
-            MAIN_CONTROLLER.recountMainOpData();
-        });
+//        tfDetailQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
+//            opData.setTotal(Integer.parseInt(newValue));
+//            System.out.println("detail form total = " + opData.getTotal());
+//            MAIN_CONTROLLER.recountTotals(MAIN_OP_DATA, 1);
+//            MAIN_CONTROLLER.recountMainOpData();
+//        });
     }
 
 
@@ -158,6 +160,15 @@ public class FormDetailController extends AbstractFormController {
             tfQuantity.textProperty().bindBidirectional(tfDetailQuantity.textProperty());
 
         }
+        //При изменении значения в поле tfDetailQuantity изменяется общее количество данной детали в изделли (total),
+        //что влечет изменение норм времени на некоторые оперции
+        tfDetailQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.equals("")) {
+                int total = Integer.parseInt(newValue) * assmController.getOpData().getTotal();
+                TotalCounter.recountNormsWithNewTotal(total, opData, this);
+            }
+
+        });
 
         done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
     }
@@ -378,8 +389,8 @@ public class FormDetailController extends AbstractFormController {
         opData.setPaintTime(roundTo001(paintingTime));
         opData.setAssmTime(roundTo001(assmTime));
 
-        if(controller != null)
-            controller.countSumNormTimeByShops();
+        if(assmController != null)
+            assmController.countSumNormTimeByShops();
 
         if(CURRENT_MEASURE.equals(SEC)){
             mechanicalTime = mechanicalTime * MIN_TO_SEC;

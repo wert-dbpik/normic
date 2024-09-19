@@ -4,16 +4,21 @@ import lombok.Getter;
 
 import java.util.NoSuchElementException;
 
+import static ru.wert.normic.controllers.AbstractOpPlate.MIN_TO_HOUR;
+import static ru.wert.normic.controllers.AbstractOpPlate.MIN_TO_SEC;
+
 public enum ETimeMeasurement {
 
-    SEC("сек"),
-    MIN("мин"),
-    HOUR("н.ч");
+    SEC("сек", MIN_TO_SEC),
+    MIN("мин", 1.0),
+    HOUR("н.ч", MIN_TO_HOUR);
 
     @Getter String measure;
+    @Getter Double rate;
 
-    ETimeMeasurement(String measure) {
+    ETimeMeasurement(String measure, double rate) {
         this.measure = measure;
+        this.rate = rate;
     }
 
     public static ETimeMeasurement findValueOf(String name){

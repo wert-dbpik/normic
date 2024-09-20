@@ -40,6 +40,7 @@ import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -58,6 +59,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.wert.normic.AppStatics.*;
+import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers.AbstractOpPlate.INTEGER_FORMAT;
 import static ru.wert.normic.decoration.DecorationStatic.LABEL_PRODUCT_NAME;
 import static ru.wert.normic.decoration.DecorationStatic.TITLE_SEPARATOR;
 import static ru.wert.normic.enums.EColor.*;
@@ -132,6 +135,7 @@ public abstract class AbstractFormController implements IForm {
 
 
     public AbstractFormController() {
+
         //Нулевая позиция
         undoList.add(new ArrayList<>(addedOperations));
 
@@ -972,6 +976,42 @@ public abstract class AbstractFormController implements IForm {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML protected TextField tfMechanicalTime;
+    @FXML protected TextField tfPaintingTime;
+    @FXML protected TextField tfAssemblingTime;
+    @FXML protected TextField tfPackingTime;
+    @FXML protected TextField tfTotalTime;
+    @FXML protected Label lblTimeMeasure;
+
+    protected void writeNormTime(OpData opData) {
+
+        double mechanicalTime = opData.getMechTime();
+        double paintingTime = opData.getPaintTime();
+        double assemblingTime = opData.getAssmTime();
+        double packingTime = opData.getPackTime();
+
+        //Пересчитываем нормы согласно единице измерения
+        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
+        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
+        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
+        packingTime = packingTime * CURRENT_MEASURE.getRate();
+
+        String format = DOUBLE_FORMAT;
+        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
+
+        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
+        tfPaintingTime.setText(String.format(format, paintingTime).trim());
+
+        if(opData instanceof OpAssm) {
+            tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
+            tfPackingTime.setText(String.format(format, packingTime).trim());
+        }
+
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
+
+        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
 

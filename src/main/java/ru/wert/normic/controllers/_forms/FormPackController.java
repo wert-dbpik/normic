@@ -63,6 +63,8 @@ public class FormPackController extends AbstractFormController {
         this.opData = (OpPack) opData;
         this.controller = controller;
 
+        ((IOpWithOperations)opData).setFormController(this);
+
         BtnDone done = new BtnDone(btnDone);
         done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
 

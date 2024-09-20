@@ -11,32 +11,11 @@ public class TFNormTime {
 
     public TFNormTime(TextField tf, AbstractFormController controller) {
 
-        tf.textProperty().addListener((observable) -> {
-
-/*
-            double mechanicalTime = 0.0;
-            double paintingTime = 0.0;
-            double assemblingTime = 0.0;
-            double packingTime = 0.0;
-
-            for(OpData cn: MAIN_CONTROLLER.getAddedOperations()){
-                mechanicalTime += cn.getMechTime() * cn.getQuantity();
-                paintingTime += cn.getPaintTime() * cn.getQuantity();
-                assemblingTime += cn.getAssmTime() * cn.getQuantity();
-                packingTime += cn.getPackTime() * cn.getQuantity();
-            }
-
-            OpData op = new OpData();
-            op.setMechTime(mechanicalTime);
-            op.setPaintTime(paintingTime);
-            op.setAssmTime(assemblingTime);
-            op.setPackTime(packingTime);
-
- */
-
-            controller.countSumNormTimeByShops();
-
-        });
+//        tf.textProperty().addListener((observable) -> {
+//
+//            controller.countSumNormTimeByShops();
+//
+//        });
 
     }
 }

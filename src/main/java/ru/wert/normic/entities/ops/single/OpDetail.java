@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.enums.ENormType;
@@ -28,6 +29,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 public class OpDetail extends OpData implements IOpWithOperations, Paintable {
 
     private transient AbstractOpPlate opPlate;
+    private transient AbstractFormController formController;
     private transient OpAssm painter;
 
     private boolean done = false;

@@ -68,6 +68,8 @@ public class FormAssmController extends AbstractFormController {
         this.opData = (OpAssm) opData;
         this.prevAssmController = prevAssnController;
 
+        ((IOpWithOperations)opData).setFormController(this);
+
         BtnDone done = new BtnDone(btnDone);
         done.getStateProperty().bindBidirectional(imgDone.getStateProperty());
 
@@ -112,9 +114,9 @@ public class FormAssmController extends AbstractFormController {
 
     private void initViews() {
 
-        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
-            countSumNormTimeByShops();
-        });
+//        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
+//            countSumNormTimeByShops();
+//        });
 
     }
 
@@ -161,32 +163,33 @@ public class FormAssmController extends AbstractFormController {
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
 
-        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
+//        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
 
-        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
+        new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_CONTROLLER.getOpData(), 1);
+//        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
 
     }
 
-    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
-
-        //Пересчитываем нормы согласно единице измерения
-        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
-        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
-        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
-        packingTime = packingTime * CURRENT_MEASURE.getRate();
-
-        String format = DOUBLE_FORMAT;
-        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
-
-        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
-        tfPaintingTime.setText(String.format(format, paintingTime).trim());
-        tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
-        tfPackingTime.setText(String.format(format, packingTime).trim());
-
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
-
-        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
-    }
+//    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
+//
+//        //Пересчитываем нормы согласно единице измерения
+//        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
+//        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
+//        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
+//        packingTime = packingTime * CURRENT_MEASURE.getRate();
+//
+//        String format = DOUBLE_FORMAT;
+//        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
+//
+//        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
+//        tfPaintingTime.setText(String.format(format, paintingTime).trim());
+//        tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
+//        tfPackingTime.setText(String.format(format, packingTime).trim());
+//
+//        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
+//
+//        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
+//    }
 
 
     @Override //AbstractFormController

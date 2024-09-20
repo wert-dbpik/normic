@@ -28,7 +28,7 @@ public class TotalCounter {
             if (plate != null) plate.writeNormTime(op);
         }
         if (thisController instanceof FormAssmController)
-            recountNormTimes((IOpWithOperations) opData, opData.getTotal());
+//            recountNormTimes((IOpWithOperations) opData, opData.getTotal());
         if(thisController != null)
             thisController.countSumNormTimeByShops();
     }
@@ -81,28 +81,50 @@ public class TotalCounter {
      * Пересчет норм времени по подразделениям МК, Покраска и т.д.
      * Результаты суммируются и на выходе имеем измененный opsData
      */
-    public static IOpWithOperations recountNormTimes(IOpWithOperations opsData, int quantity) {
+    public IOpWithOperations recountNormTimes(IOpWithOperations opsData, int amount) {
+
         ((OpData) opsData).setMechTime(0.0);
         ((OpData) opsData).setPaintTime(0.0);
         ((OpData) opsData).setAssmTime(0.0);
         ((OpData) opsData).setPackTime(0.0);
+
         for (OpData op : opsData.getOperations()) {
             if (op instanceof IOpWithOperations) {
-                IOpWithOperations newOpData = recountNormTimes((IOpWithOperations) op, op.getQuantity() * quantity);
+
+                op.setTotal(amount * op.getQuantity());
+                IOpWithOperations newOpData = recountNormTimes((IOpWithOperations) op, amount * op.getQuantity());
+
+                AbstractFormController formController = ((IOpWithOperations)op).getFormController();
+                if(formController != null)
+                    formController.writeNormTime((OpData) op);
+
                 ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + ((OpData) newOpData).getMechTime());
                 ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + ((OpData) newOpData).getPaintTime());
                 ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + ((OpData) newOpData).getAssmTime());
                 ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + ((OpData) newOpData).getPackTime());
+
+
+
             } else {
+
+                op.setTotal(amount * op.getQuantity());
                 op = op.getOpType().getNormCounter().count(op);
-                ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + op.getMechTime() * quantity);
-                ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + op.getPaintTime() * quantity);
-                ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + op.getAssmTime() * quantity);
-                ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + op.getPackTime() * quantity);
+
+                AbstractOpPlate plate = op.getPlate();
+                if(plate != null)
+                    plate.writeNormTime(op);
+
+                ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + op.getMechTime() * amount);
+                ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + op.getPaintTime() * amount);
+                ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + op.getAssmTime() * amount);
+                ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + op.getPackTime() * amount);
             }
         }
+
+
 
         return opsData;
 
     }
+
 }

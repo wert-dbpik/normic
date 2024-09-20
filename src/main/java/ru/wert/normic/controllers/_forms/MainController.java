@@ -127,6 +127,10 @@ public class MainController extends AbstractFormController {
     void initialize() {
         MAIN_CONTROLLER = this;
 
+        opData = new OpAssm();
+        MAIN_OP_DATA = (OpAssm) opData;
+        ((IOpWithOperations)opData).setFormController(this);
+
         progressIndicator.setVisible(false);
         vbAboutPane.setVisible(false);
 
@@ -137,8 +141,7 @@ public class MainController extends AbstractFormController {
 
         new TFBatch(tfBatch, this);
 
-        opData = new OpAssm();
-        MAIN_OP_DATA = (OpAssm) opData;
+
 
         ((IOpWithOperations) opData).setName("Новое изделие");
 
@@ -438,7 +441,6 @@ public class MainController extends AbstractFormController {
             addedPlates.clear();
             addedOperations.clear();
             getListViewTechOperations().getItems().clear();
-            finalCountSumNormTimeByShops();
             PlateDetailController.nameIndex = 0;
             PlateAssmController.nameIndex = 0;
 
@@ -811,7 +813,7 @@ public class MainController extends AbstractFormController {
         double assemblingTime;
         double packingTime;
 
-        OpData opData = (OpData) TotalCounter.recountNormTimes((IOpWithOperations) this.opData, 1);
+        OpData opData = (OpData) new TotalCounter().recountNormTimes((IOpWithOperations) this.opData, 1);
 
         mechanicalTime = opData.getMechTime();
         paintingTime = opData.getPaintTime();
@@ -860,7 +862,7 @@ public class MainController extends AbstractFormController {
      * И прописывает их по участкам
      */
     public void recountMainOpData() {
-        TotalCounter.recountNormTimes((IOpWithOperations) opData, 1);
+        new TotalCounter().recountNormTimes((IOpWithOperations) opData, 1);
         finalCountSumNormTimeByShops();
     }
 

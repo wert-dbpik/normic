@@ -12,6 +12,7 @@ import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.ENormType;
+import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.menus.MenuForm;
 
@@ -162,24 +163,13 @@ public class FormAssmController extends AbstractFormController {
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
 
-        double mechanicalTime = 0.0;
-        double paintingTime = 0.0;
-        double assemblingTime = 0.0;
-        double packingTime = 0.0;
+        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
 
-        for(OpData cn: addedOperations){
-            mechanicalTime += cn.getMechTime() * cn.getQuantity();
-            paintingTime += cn.getPaintTime() * cn.getQuantity();
-            assemblingTime += cn.getAssmTime() * cn.getQuantity();
-            packingTime += cn.getPackTime() * cn.getQuantity();
-        }
+        fillNormsAndMeasurment( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
 
-        opData.setMechTime(roundTo001(mechanicalTime));
-        opData.setPaintTime(roundTo001(paintingTime));
-        opData.setAssmTime(roundTo001(assemblingTime));
-        opData.setPackTime(roundTo001(packingTime));
+    }
 
-        prevAssmController.countSumNormTimeByShops();
+    private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
 
         //Пересчитываем нормы согласно единице измерения
         mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
@@ -187,11 +177,8 @@ public class FormAssmController extends AbstractFormController {
         assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
         packingTime = packingTime * CURRENT_MEASURE.getRate();
 
-        //Единица ихмерения
-        String measure = CURRENT_MEASURE.getMeasure();
-
         String format = DOUBLE_FORMAT;
-        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;
+        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
         tfPaintingTime.setText(String.format(format, paintingTime).trim());
@@ -200,8 +187,7 @@ public class FormAssmController extends AbstractFormController {
 
         tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
 
-        lblTimeMeasure.setText(measure);
-
+        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
 

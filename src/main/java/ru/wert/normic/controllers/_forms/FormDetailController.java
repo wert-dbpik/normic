@@ -23,6 +23,7 @@ import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
+import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuForm;
@@ -32,10 +33,8 @@ import java.io.IOException;
 import java.util.*;
 
 import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**
  * ДЕТАЛЬ - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ ДЕТАЛИ
@@ -74,7 +73,7 @@ public class FormDetailController extends AbstractFormController {
 
     @Getter private AbstractMatPatchController matPatchController;
 
-    private AbstractFormController assmController;
+    private AbstractFormController prevAssmController;
 
     @Getter private BtnDone done;
 
@@ -82,7 +81,7 @@ public class FormDetailController extends AbstractFormController {
     @Override //AbstractFormController
     public void init(AbstractFormController assmController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = opData;
-        this.assmController = assmController;
+        this.prevAssmController = assmController;
 
         initCommon();
         initConnectedFields(tfName, tfQuantity, imgDone);
@@ -164,7 +163,7 @@ public class FormDetailController extends AbstractFormController {
         //что влечет изменение норм времени на некоторые оперции
         tfDetailQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.equals("")) {
-                int total = Integer.parseInt(newValue) * assmController.getOpData().getTotal();
+                int total = Integer.parseInt(newValue) * prevAssmController.getOpData().getTotal();
                 TotalCounter.recountNormsWithNewTotal(total, opData, this);
             }
 
@@ -373,51 +372,29 @@ public class FormDetailController extends AbstractFormController {
      * Метод расчитывает суммарное время по участкам
      */
     public void countSumNormTimeByShops(){
-        String measure = MIN.getMeasure();
 
-        double mechanicalTime = 0.0;
-        double paintingTime = 0.0;
-        double assmTime = 0.0;
+        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
 
-        for(OpData cn: addedOperations){
-            mechanicalTime += cn.getMechTime() * cn.getQuantity();
-            paintingTime += cn.getPaintTime() * cn.getQuantity();
-            assmTime += cn.getAssmTime() * cn.getQuantity();
-        }
+        fillNormsAndMeasurment( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime());
 
-        opData.setMechTime(roundTo001(mechanicalTime));
-        opData.setPaintTime(roundTo001(paintingTime));
-        opData.setAssmTime(roundTo001(assmTime));
+    }
 
-        if(assmController != null)
-            assmController.countSumNormTimeByShops();
+    private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime) {
 
-        if(CURRENT_MEASURE.equals(SEC)){
-            mechanicalTime = mechanicalTime * MIN_TO_SEC;
-            paintingTime = paintingTime * MIN_TO_SEC;
-            assmTime = assmTime * MIN_TO_SEC;
-
-            measure = SEC.getMeasure();
-        }
-        if(CURRENT_MEASURE.equals(HOUR)){
-            mechanicalTime = mechanicalTime * MIN_TO_HOUR;
-            paintingTime = paintingTime * MIN_TO_HOUR;
-            assmTime = assmTime * MIN_TO_HOUR;
-
-            measure = HOUR.getMeasure();
-        }
+        //Пересчитываем нормы согласно единице измерения
+        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
+        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
+        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
 
         String format = DOUBLE_FORMAT;
-        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;
+        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
         tfPaintingTime.setText(String.format(format, paintingTime).trim());
-//        tfAssmTime.setText(String.format(format, paintingTime).trim());
 
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assmTime).trim());
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime).trim());
 
-        lblTimeMeasure.setText(measure);
-
+        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
 

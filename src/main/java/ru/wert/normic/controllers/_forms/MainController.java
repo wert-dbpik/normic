@@ -828,47 +828,22 @@ public class MainController extends AbstractFormController {
     @Override //AbstractFormController
     public void countSumNormTimeByShops() {
 
-        double mechanicalTime = 0;
-        double paintingTime = 0;
-        double assemblingTime = 0;
-        double packingTime = 0;
+        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), null);
 
-        for(OpData cn: addedOperations){
-            mechanicalTime += cn.getMechTime() * cn.getQuantity();
-            paintingTime += cn.getPaintTime() * cn.getQuantity();
-            assemblingTime += cn.getAssmTime() * cn.getQuantity();
-            packingTime += cn.getPackTime() * cn.getQuantity();
-        }
-
-        fillNormsAndMeasurment( mechanicalTime, paintingTime, assemblingTime, packingTime);
+        fillNormsAndMeasurment( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
 
     }
 
     private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
-        String measure = MIN.getMeasure();
 
-        //Перевод в секунды
-        if (CURRENT_MEASURE.equals(SEC)) {
-            mechanicalTime = mechanicalTime * MIN_TO_SEC;
-            paintingTime = paintingTime * MIN_TO_SEC;
-            assemblingTime = assemblingTime * MIN_TO_SEC;
-            packingTime = packingTime * MIN_TO_SEC;
+        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
+        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
+        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
+        packingTime = packingTime * CURRENT_MEASURE.getRate();
 
-            measure = SEC.getMeasure();
-        }
-
-        //Перевод в часы
-        if (CURRENT_MEASURE.equals(HOUR)) {
-            mechanicalTime = mechanicalTime * MIN_TO_HOUR;
-            paintingTime = paintingTime * MIN_TO_HOUR;
-            assemblingTime = assemblingTime * MIN_TO_HOUR;
-            packingTime = packingTime * MIN_TO_HOUR;
-
-            measure = HOUR.getMeasure();
-        }
 
         String format = DOUBLE_FORMAT;
-        if (MEASURE.getSelectedToggle().getUserData().equals(ETimeMeasurement.SEC.name())) format = INTEGER_FORMAT;
+        if (CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
         tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
         tfPaintingTime.setText(String.format(format, paintingTime).trim());
@@ -877,7 +852,7 @@ public class MainController extends AbstractFormController {
 
         tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
 
-        lblTimeMeasure.setText(measure);
+        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
     /**

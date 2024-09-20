@@ -7,6 +7,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
+import static ru.wert.normic.AppStatics.roundTo001;
 
 public class TotalCounter {
 
@@ -49,5 +50,30 @@ public class TotalCounter {
                 op.setTotal(currentTotal);
             }
         }
+    }
+
+    public static OpData countSumNormTimeByShops(IOpWithOperations opData, AbstractFormController prevAssmController){
+
+        double mechanicalTime = 0.0;
+        double paintingTime = 0.0;
+        double assemblingTime = 0.0;
+        double packingTime = 0.0;
+
+        for(OpData cn: opData.getOperations()){
+            mechanicalTime += cn.getMechTime() * cn.getQuantity();
+            paintingTime += cn.getPaintTime() * cn.getQuantity();
+            assemblingTime += cn.getAssmTime() * cn.getQuantity();
+            packingTime += cn.getPackTime() * cn.getQuantity();
+        }
+
+        ((OpData)opData).setMechTime(roundTo001(mechanicalTime));
+        ((OpData)opData).setPaintTime(roundTo001(paintingTime));
+        ((OpData)opData).setAssmTime(roundTo001(assemblingTime));
+        ((OpData)opData).setPackTime(roundTo001(packingTime));
+
+        if(prevAssmController != null)
+            prevAssmController.countSumNormTimeByShops();
+
+        return (OpData) opData;
     }
 }

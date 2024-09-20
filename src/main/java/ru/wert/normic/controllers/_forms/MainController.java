@@ -818,7 +818,7 @@ public class MainController extends AbstractFormController {
         assemblingTime = opData.getAssmTime();
         packingTime = opData.getPackTime();
 
-        fillNormsAndMeasurment(mechanicalTime, paintingTime, assemblingTime, packingTime);
+        fillNormsAndMeasurement(mechanicalTime, paintingTime, assemblingTime, packingTime);
     }
 
 
@@ -830,11 +830,11 @@ public class MainController extends AbstractFormController {
 
         OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), null);
 
-        fillNormsAndMeasurment( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
+        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
 
     }
 
-    private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
+    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
 
         mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
         paintingTime = paintingTime * CURRENT_MEASURE.getRate();

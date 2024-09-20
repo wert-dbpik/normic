@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
-import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
@@ -20,7 +19,6 @@ import java.util.Collections;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**
  * СБОРКА - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ СБОРКИ
@@ -165,11 +163,11 @@ public class FormAssmController extends AbstractFormController {
 
         OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
 
-        fillNormsAndMeasurment( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
+        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
 
     }
 
-    private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
+    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
 
         //Пересчитываем нормы согласно единице измерения
         mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();

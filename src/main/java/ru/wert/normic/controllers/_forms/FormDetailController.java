@@ -369,17 +369,18 @@ public class FormDetailController extends AbstractFormController {
 
 
     /**
-     * Метод расчитывает суммарное время по участкам
+     * Метод вызывается из контроллеров плашек для суммирования норм времени на лету
      */
+    @Override //AbstractFormController
     public void countSumNormTimeByShops(){
 
         OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
 
-        fillNormsAndMeasurment( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime());
+        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime());
 
     }
 
-    private void fillNormsAndMeasurment(double mechanicalTime, double paintingTime, double assemblingTime) {
+    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime) {
 
         //Пересчитываем нормы согласно единице измерения
         mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();

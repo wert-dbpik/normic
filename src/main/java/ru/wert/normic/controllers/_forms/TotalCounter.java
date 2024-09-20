@@ -28,7 +28,7 @@ public class TotalCounter {
             if (plate != null) plate.writeNormTime(op);
         }
         if (thisController instanceof FormAssmController)
-            MAIN_CONTROLLER.recountNormTimes((IOpWithOperations) opData, opData.getTotal());
+            recountNormTimes((IOpWithOperations) opData, opData.getTotal());
         if(thisController != null)
             thisController.countSumNormTimeByShops();
     }
@@ -75,5 +75,34 @@ public class TotalCounter {
             prevAssmController.countSumNormTimeByShops();
 
         return (OpData) opData;
+    }
+
+    /**
+     * Пересчет норм времени по подразделениям МК, Покраска и т.д.
+     * Результаты суммируются и на выходе имеем измененный opsData
+     */
+    public static IOpWithOperations recountNormTimes(IOpWithOperations opsData, int quantity) {
+        ((OpData) opsData).setMechTime(0.0);
+        ((OpData) opsData).setPaintTime(0.0);
+        ((OpData) opsData).setAssmTime(0.0);
+        ((OpData) opsData).setPackTime(0.0);
+        for (OpData op : opsData.getOperations()) {
+            if (op instanceof IOpWithOperations) {
+                IOpWithOperations newOpData = recountNormTimes((IOpWithOperations) op, op.getQuantity() * quantity);
+                ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + ((OpData) newOpData).getMechTime());
+                ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + ((OpData) newOpData).getPaintTime());
+                ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + ((OpData) newOpData).getAssmTime());
+                ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + ((OpData) newOpData).getPackTime());
+            } else {
+                op = op.getOpType().getNormCounter().count(op);
+                ((OpData) opsData).setMechTime(((OpData) opsData).getMechTime() + op.getMechTime() * quantity);
+                ((OpData) opsData).setPaintTime(((OpData) opsData).getPaintTime() + op.getPaintTime() * quantity);
+                ((OpData) opsData).setAssmTime(((OpData) opsData).getAssmTime() + op.getAssmTime() * quantity);
+                ((OpData) opsData).setPackTime(((OpData) opsData).getPackTime() + op.getPackTime() * quantity);
+            }
+        }
+
+        return opsData;
+
     }
 }

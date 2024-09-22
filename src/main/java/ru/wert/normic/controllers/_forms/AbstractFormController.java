@@ -985,7 +985,7 @@ public abstract class AbstractFormController implements IForm {
     @FXML protected TextField tfTotalTime;
     @FXML protected Label lblTimeMeasure;
 
-    protected void writeNormTime(OpData opData) {
+    public void writeNormTime(OpData opData) {
 
         double mechanicalTime = opData.getMechTime();
         double paintingTime = opData.getPaintTime();

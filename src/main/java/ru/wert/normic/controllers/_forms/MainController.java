@@ -815,12 +815,7 @@ public class MainController extends AbstractFormController {
 
         OpData opData = (OpData) new TotalCounter().recountNormTimes((IOpWithOperations) this.opData, 1);
 
-        mechanicalTime = opData.getMechTime();
-        paintingTime = opData.getPaintTime();
-        assemblingTime = opData.getAssmTime();
-        packingTime = opData.getPackTime();
-
-        fillNormsAndMeasurement(mechanicalTime, paintingTime, assemblingTime, packingTime);
+        writeNormTime(opData);
     }
 
 
@@ -830,31 +825,10 @@ public class MainController extends AbstractFormController {
     @Override //AbstractFormController
     public void countSumNormTimeByShops() {
 
-        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), null);
+        OpData opData = (OpData) new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
 
-        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
+        writeNormTime(opData);
 
-    }
-
-    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
-
-        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
-        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
-        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
-        packingTime = packingTime * CURRENT_MEASURE.getRate();
-
-
-        String format = DOUBLE_FORMAT;
-        if (CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
-
-        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
-        tfPaintingTime.setText(String.format(format, paintingTime).trim());
-        tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
-        tfPackingTime.setText(String.format(format, packingTime).trim());
-
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
-
-        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
     /**

@@ -384,23 +384,7 @@ public class FormDetailController extends AbstractFormController {
 
     }
 
-//    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime) {
-//
-//        //Пересчитываем нормы согласно единице измерения
-//        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
-//        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
-//        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
-//
-//        String format = DOUBLE_FORMAT;
-//        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
-//
-//        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
-//        tfPaintingTime.setText(String.format(format, paintingTime).trim());
-//
-//        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime).trim());
-//
-//        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
-//    }
+
 
 
     @Override //AbstractFormController

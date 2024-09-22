@@ -10,6 +10,7 @@ import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -106,7 +107,8 @@ public class FormAssmController extends AbstractFormController {
 
         //Заполняем поля формы
         fillOpData();
-        countSumNormTimeByShops();
+//        countSumNormTimeByShops();
+        writeNormTime(opData);
 
         menu.addEmptyPlate();
 
@@ -170,26 +172,7 @@ public class FormAssmController extends AbstractFormController {
 
     }
 
-//    private void fillNormsAndMeasurement(double mechanicalTime, double paintingTime, double assemblingTime, double packingTime) {
-//
-//        //Пересчитываем нормы согласно единице измерения
-//        mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
-//        paintingTime = paintingTime * CURRENT_MEASURE.getRate();
-//        assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
-//        packingTime = packingTime * CURRENT_MEASURE.getRate();
-//
-//        String format = DOUBLE_FORMAT;
-//        if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
-//
-//        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
-//        tfPaintingTime.setText(String.format(format, paintingTime).trim());
-//        tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
-//        tfPackingTime.setText(String.format(format, packingTime).trim());
-//
-//        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
-//
-//        lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
-//    }
+
 
 
     @Override //AbstractFormController

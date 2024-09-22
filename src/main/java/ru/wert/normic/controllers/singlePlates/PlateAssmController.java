@@ -117,9 +117,7 @@ public class PlateAssmController extends AbstractOpPlate{
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            int total = Integer.parseInt(newValue) * prevFormController.getOpData().getTotal();
-            TotalCounter.recountNormsWithNewTotal(total, opData,null);
-            prevFormController.countSumNormTimeByShops();
+            new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
             prevFormController.calculateAreaByDetails();
         });
 

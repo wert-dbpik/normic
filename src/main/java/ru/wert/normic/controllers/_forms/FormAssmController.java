@@ -92,8 +92,7 @@ public class FormAssmController extends AbstractFormController {
         new TFInteger(tfAssmQuantity);
         tfAssmQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals("")) {
-                int total = Integer.parseInt(newValue) * prevAssmController.getOpData().getTotal();
-                TotalCounter.recountNormsWithNewTotal(total, opData,prevAssmController);
+                new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
             }
         });
 

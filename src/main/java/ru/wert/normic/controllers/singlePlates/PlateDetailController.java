@@ -113,9 +113,7 @@ public class PlateDetailController extends AbstractOpPlate {
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.equals("")) {
                 this.opData.setQuantity(IntegerParser.getValue(tfN));
-                int total = Integer.parseInt(newValue) * prevFormController.getOpData().getTotal();
-                TotalCounter.recountNormsWithNewTotal(total, opData,null);
-                prevFormController.countSumNormTimeByShops();
+                new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
                 prevFormController.calculateAreaByDetails();
             }
 

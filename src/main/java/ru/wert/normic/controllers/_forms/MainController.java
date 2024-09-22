@@ -129,7 +129,7 @@ public class MainController extends AbstractFormController {
 
         opData = new OpAssm();
         MAIN_OP_DATA = (OpAssm) opData;
-        ((IOpWithOperations)opData).setFormController(this);
+        ((IOpWithOperations)opData).setFormController(MAIN_CONTROLLER);
 
         progressIndicator.setVisible(false);
         vbAboutPane.setVisible(false);

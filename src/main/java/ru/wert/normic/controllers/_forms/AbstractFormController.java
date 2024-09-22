@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers._forms;
 
 import com.google.gson.Gson;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -835,6 +836,7 @@ public abstract class AbstractFormController implements IForm {
                 }
             }
 
+            ((IOpWithOperations)opData).setFormController(this);
             TotalCounter.recountTotals(MAIN_OP_DATA, 1);
             MAIN_CONTROLLER.finalCountSumNormTimeByShops();
             //Сохраняем путь открытого файла. чтобы его можно было пересохранить

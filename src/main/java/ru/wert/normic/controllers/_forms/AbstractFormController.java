@@ -552,8 +552,9 @@ public abstract class AbstractFormController implements IForm {
         ((IOpWithOperations) whereFromController.getOpData())
                 .setOperations(new ArrayList<>(whereFromController.getAddedOperations()));
 
-
         countSumNormTimeByShops();
+
+//        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

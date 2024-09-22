@@ -138,12 +138,6 @@ public class FormDetailController extends AbstractFormController {
         tfDetailName.setText(((OpDetail)opData).getName());
         tfDetailQuantity.setText(String.valueOf(opData.getQuantity()));
         done.getStateProperty().setValue(((OpDetail)opData).isDone());
-//        tfDetailQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
-//            opData.setTotal(Integer.parseInt(newValue));
-//            System.out.println("detail form total = " + opData.getTotal());
-//            MAIN_CONTROLLER.recountTotals(MAIN_OP_DATA, 1);
-//            MAIN_CONTROLLER.recountMainOpData();
-//        });
     }
 
 

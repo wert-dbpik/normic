@@ -141,8 +141,6 @@ public class MainController extends AbstractFormController {
 
         new TFBatch(tfBatch, this);
 
-
-
         ((IOpWithOperations) opData).setName("Новое изделие");
 
         //Создаем меню
@@ -838,6 +836,7 @@ public class MainController extends AbstractFormController {
     public void recountMainOpData() {
         new TotalCounter().recountNormTimes((IOpWithOperations) opData, 1);
         finalCountSumNormTimeByShops();
+
     }
 
 
@@ -919,18 +918,4 @@ public class MainController extends AbstractFormController {
         });
 
     }
-
-//    public void recountTotals(IOpWithOperations opData, int total){
-//        List<OpData> ops = opData.getOperations();
-//        for(OpData op : ops){
-//            if(op instanceof IOpWithOperations) {
-//                int currentTotal = op.getQuantity() * total;
-//                op.setTotal(currentTotal);
-//                recountTotals((IOpWithOperations) op, currentTotal);
-//            } else {
-//                int currentTotal = op.getQuantity() * total;
-//                op.setTotal(currentTotal);
-//            }
-//        }
-//    }
 }

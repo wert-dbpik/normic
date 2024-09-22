@@ -7,13 +7,11 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import java.util.List;
 
 import static java.lang.String.format;
-import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
-import static ru.wert.normic.AppStatics.roundTo001;
+import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.controllers.AbstractOpPlate.MIN_TO_HOUR;
 
 public class TotalCounter {
-
 
     /**
      * Пересчет норм времени по подразделениям МК, Покраска и т.д.
@@ -43,11 +41,10 @@ public class TotalCounter {
                 tempPackTime += op.getPackTime() * op.getQuantity();
 
             } else {//Простая операция
-
+                op.setTotal(amount * op.getQuantity());
                 op = op.getOpType().getNormCounter().count(op); //Вычисляем, аргуметом передаем саму операцию
 
                 //Если операция отображается на плашке, то
-                op.setTotal(amount * op.getQuantity());
                 AbstractOpPlate plate = op.getPlate();
                 if(plate != null)
                     plate.writeNormTime(op); //заполняем ее tfNormTime обновленными данными
@@ -70,11 +67,11 @@ public class TotalCounter {
         if(formController != null)
             formController.writeNormTime((OpData) opsData);
 
-        System.out.println("Наименование : " + opsData.getName());
-        System.out.println("formController : " + opsData.getFormController());
-        System.out.println("Количество   : " + ((OpData) opsData).getQuantity());
-        System.out.println("Норма времени : " + format(DOUBLE_FORMAT, ((OpData) opsData).getMechTime() * MIN_TO_HOUR));
-        System.out.println("______________________________");
+//        System.out.println("Наименование : " + opsData.getName());
+//        System.out.println("formController : " + opsData.getFormController());
+//        System.out.println("Количество   : " + ((OpData) opsData).getQuantity());
+//        System.out.println("Норма времени : " + format(DOUBLE_FORMAT, ((OpData) opsData).getMechTime() * MIN_TO_HOUR));
+//        System.out.println("______________________________");
 
 
         return opsData;

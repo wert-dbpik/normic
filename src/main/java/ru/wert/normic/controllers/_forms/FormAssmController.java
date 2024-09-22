@@ -65,9 +65,9 @@ public class FormAssmController extends AbstractFormController {
     }
 
     @Override
-    public void init(AbstractFormController prevAssnController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
+    public void init(AbstractFormController prevAssmController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = (OpAssm) opData;
-        this.prevAssmController = prevAssnController;
+        this.prevAssmController = prevAssmController;
 
         ((IOpWithOperations)opData).setFormController(this);
 
@@ -166,7 +166,7 @@ public class FormAssmController extends AbstractFormController {
 
 //        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
 
-        new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_CONTROLLER.getOpData(), 1);
+        new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_OP_DATA, 1);
 //        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
 
     }

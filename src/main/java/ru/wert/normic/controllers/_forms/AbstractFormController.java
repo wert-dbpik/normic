@@ -552,7 +552,7 @@ public abstract class AbstractFormController implements IForm {
         ((IOpWithOperations) whereFromController.getOpData())
                 .setOperations(new ArrayList<>(whereFromController.getAddedOperations()));
 
-        countSumNormTimeByShops();
+//        countSumNormTimeByShops();
 
 //        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
@@ -606,7 +606,9 @@ public abstract class AbstractFormController implements IForm {
             //Перестраиваем список операций
             rebuildListOfOperations();
 
-            getListViewTechOperations().getSelectionModel().select(targetIndex);
+            Platform.runLater(()->{
+                getListViewTechOperations().getSelectionModel().select(targetIndex);
+            });
         } else
             targetOperations.add(targetIndex, clipOpData);
     }

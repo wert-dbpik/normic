@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ru.wert.normic.controllers.PlateEmptyController;
 import ru.wert.normic.controllers.PlateErrorController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.listOperations.PlateBendController;
 import ru.wert.normic.controllers.listOperations.PlateCuttingController;
@@ -53,6 +54,8 @@ import ru.wert.normic.operations.OperationsController;
 
 import java.io.IOException;
 import java.util.List;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * МЕНЮ ДОБАВЛЕНИЯ ОПЕРАЦИЙ
@@ -549,13 +552,10 @@ public class MenuForm extends ContextMenu {
     public void addListOfOperations() {
         addEmptyPlate();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
-        for(int i = 0; i < operations.size(); i++){
-            addPlateToForm(operations.get(i));
+        for (OpData op : operations) {
+            addPlateToForm(op);
         }
-
-//        for (OpData op : operations) {
-//            addPlateToForm(op);
-//        }
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
 

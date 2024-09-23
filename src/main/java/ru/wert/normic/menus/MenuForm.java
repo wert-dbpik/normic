@@ -549,9 +549,13 @@ public class MenuForm extends ContextMenu {
     public void addListOfOperations() {
         addEmptyPlate();
         List<OpData> operations = ((IOpWithOperations)opData).getOperations();
-        for (OpData op : operations) {
-            addPlateToForm(op);
+        for(int i = 0; i < operations.size(); i++){
+            addPlateToForm(operations.get(i));
         }
+
+//        for (OpData op : operations) {
+//            addPlateToForm(op);
+//        }
     }
 
 

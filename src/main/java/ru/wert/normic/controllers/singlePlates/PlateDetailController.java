@@ -1,6 +1,7 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -101,6 +102,7 @@ public class PlateDetailController extends AbstractOpPlate {
         vbOperation.setOnMouseClicked(e -> {
             if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2)
                 openFormEditor();
+
         });
 
         //Сохраняем имя при изменении

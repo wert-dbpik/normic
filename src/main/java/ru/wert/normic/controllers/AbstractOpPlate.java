@@ -9,14 +9,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
-import ru.wert.normic.controllers._forms.TotalCounter;
-import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.ENormType;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.interfaces.IOpPlate;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -26,7 +23,6 @@ import java.util.List;
 
 import static java.lang.String.format;
 import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 
 /**
@@ -126,8 +122,12 @@ public abstract class AbstractOpPlate implements IOpPlate {
         this.prevFormController = prevFormController;
         this.opData = opData;
 
+        opData.setPlateController(this);
+
         prevFormController.getAddedPlates().add(index, this);
         prevFormController.getAddedOperations().add(index, opData);
+        //Добавим новую операцию в OpData
+        ((IOpWithOperations)prevFormController.getOpData()).getOperations().add(index, opData);
 
         fillOpData(opData);
 
@@ -144,6 +144,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         VBox box = prevFormController.getListViewTechOperations().getSelectionModel().getSelectedItem();
         prevFormController.getListViewTechOperations().getItems().remove(box);
         prevFormController.getAddedOperations().remove(this.getOpData());
+        ((IOpWithOperations)prevFormController.getOpData()).getOperations().remove(this.getOpData());
         prevFormController.countSumNormTimeByShops();
         //Пересчет площади покрытия при удалении деталей и сборок
         OpData deletingOp = this.getOpData();
@@ -160,7 +161,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         for (OpData op : ops) {
             if (op instanceof OpPaintAssm) {
                 OpPaintAssm opPaintAssm = (OpPaintAssm) ((OpPaintAssm) op).getOpType().getNormCounter().count(op);
-                PlatePaintAssmController controller = opPaintAssm.getController();
+                AbstractOpPlate controller = opPaintAssm.getPlateController();
                 if (controller != null) {
                     controller.countNorm(opPaintAssm);
                 }

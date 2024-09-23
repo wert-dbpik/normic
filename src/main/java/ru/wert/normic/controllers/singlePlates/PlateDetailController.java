@@ -63,7 +63,7 @@ public class PlateDetailController extends AbstractOpPlate {
     @Getter
     private double currentPaintNormTime;
 
-    private OpDetail opData;
+//    private OpDetail opData;
 
     //Переменные для ИМЕНИ
     public static int nameIndex = 0;
@@ -74,22 +74,21 @@ public class PlateDetailController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data) {
-        opData = (OpDetail) data;
 
         imgDone = new ImgDone(ivDone, 24);
 
         //исправляет nullpointer exception при копипасте операции снизу вверх
-        if (opData.getDoneProperty() == null) opData.setDoneProperty(new SimpleBooleanProperty(false));
+        if (((OpDetail)opData).getDoneProperty() == null) ((OpDetail)opData).setDoneProperty(new SimpleBooleanProperty(false));
 
-        imgDone.getStateProperty().bindBidirectional(opData.getDoneProperty());
-        imgDone.getStateProperty().setValue(opData.isDone());
+        imgDone.getStateProperty().bindBidirectional(((OpDetail)opData).getDoneProperty());
+        imgDone.getStateProperty().setValue(((OpDetail)opData).isDone());
 
         new TFIntegerColored(tfN, null);
 
         lblOperationName.setStyle("-fx-text-fill: darkblue");
         lblQuantity.setStyle("-fx-text-fill: darkblue");
 
-        if (opData.getName() == null &&
+        if (((OpDetail)opData).getName() == null &&
                 tfName.getText() == null || tfName.getText().equals("")) {
             detailName = String.format("Деталь #%s", ++nameIndex);
             tfName.setText(detailName);
@@ -148,14 +147,14 @@ public class PlateDetailController extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void countNorm(OpData data) {
         opData = (OpDetail) data;
-        opData.setOpPlate(this);
+        ((OpDetail)opData).setOpPlate(this);
 
         countInitialValues();
 
         double mechanicalTime = 0;
         double paintTime = 0;
 
-        for (OpData op : opData.getOperations()) {
+        for (OpData op : ((OpDetail)opData).getOperations()) {
             mechanicalTime += op.getMechTime();
             paintTime += op.getPaintTime();
         }
@@ -178,7 +177,7 @@ public class PlateDetailController extends AbstractOpPlate {
 
 
     private void collectOpData(AbstractFormController formDetailController, TextField tfName, TextField tfN, ImgDouble imgDone) {
-        collectOpData(opData, formDetailController, tfName, tfN, imgDone);
+        collectOpData(((OpDetail)opData), formDetailController, tfName, tfN, imgDone);
 
     }
 

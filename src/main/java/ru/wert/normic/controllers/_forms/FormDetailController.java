@@ -248,6 +248,8 @@ public class FormDetailController extends AbstractFormController {
             }
         });
 
+        countSumNormTimeByShops();
+
 //        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
 //            countSumNormTimeByShops();
 //        });
@@ -374,6 +376,8 @@ public class FormDetailController extends AbstractFormController {
 
         new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_OP_DATA, 1);
 //        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
+
+        writeNormTime(opData);
 
     }
 

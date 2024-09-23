@@ -9,14 +9,9 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
-import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
-import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.enums.EPieceMeasurement;
 import ru.wert.normic.enums.EWeldDifficulty;
-import ru.wert.normic.utils.DoubleParser;
-import ru.wert.normic.utils.IntegerParser;
 
 import static java.lang.String.format;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -41,7 +36,6 @@ public class PlateWeldDifficultyController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         opData = (OpWeldDifficulty) data;
-        opData.setPlate(this);
 
         new TFNormTime(tfNormTime, prevFormController);
         new BXWeldDifficulty().create(bxDifficulty, opData.getDifficulty(), this);

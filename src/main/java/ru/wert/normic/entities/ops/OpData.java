@@ -16,12 +16,13 @@ import java.io.Serializable;
 @Setter
 public class OpData implements Serializable {
 
+    transient protected int total = 1; //Общее количество в изделии
+    transient protected AbstractOpPlate plateController; //
+
     protected ENormType normType; //Тип нормы по цехам (МК, ППК и т.д.)
     protected EJobType jobType = EJobType.JOB_NONE; //Тип операции по участкам (Резка, Гибка, Сварка и т.д)
     protected EOpType opType; //Тип олперации (Гибка, покраска и т.д))
 
-    transient protected int total = 1; //Общее количество в изделии
-    transient protected AbstractOpPlate plate; //
     private int quantity = 1; //количество
 
     private double mechTime; //МК

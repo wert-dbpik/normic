@@ -454,8 +454,9 @@ public class MainController extends AbstractFormController {
         mainMenuController.getRbmHours().setToggleGroup(MEASURE);
         mainMenuController.getRbmHours().setUserData(HOUR.name());
         mainMenuController.getRbmHours().setSelected(true);
-        finalCountSumNormTimeByShops();
 
+
+        finalCountSumNormTimeByShops();
 
     }
 

@@ -4,12 +4,7 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
-import java.util.List;
-
 import static java.lang.String.format;
-import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
-import static ru.wert.normic.controllers.AbstractOpPlate.MIN_TO_HOUR;
 
 public class TotalCounter {
 
@@ -45,7 +40,7 @@ public class TotalCounter {
                 op = op.getOpType().getNormCounter().count(op); //Вычисляем, аргуметом передаем саму операцию
 
                 //Если операция отображается на плашке, то
-                AbstractOpPlate plate = op.getPlate();
+                AbstractOpPlate plate = op.getPlateController();
                 if(plate != null)
                     plate.writeNormTime(op); //заполняем ее tfNormTime обновленными данными
 

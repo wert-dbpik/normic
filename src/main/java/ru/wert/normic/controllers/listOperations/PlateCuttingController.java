@@ -59,8 +59,6 @@ public class PlateCuttingController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
-        data.setPlate(this);
-
         new TFIntegerColored(tfHoles, this);
         new TFIntegerColored(tfPerfHoles, this);
         new TFIntegerColored(tfExtraPerimeter, this);
@@ -84,6 +82,7 @@ public class PlateCuttingController extends AbstractOpPlate {
         currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
 
         new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
+
     }
 
 

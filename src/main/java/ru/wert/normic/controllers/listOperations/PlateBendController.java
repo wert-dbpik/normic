@@ -60,8 +60,6 @@ public class PlateBendController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData opData){
 
-        opData.setPlate(this);
-
         new ChBox(chDifficulty, this);
         new BXBendingTool().create(cmbxBendingTool, ((OpBending)opData).getTool(), this);
         new TFNormTime(tfNormTime, prevFormController);

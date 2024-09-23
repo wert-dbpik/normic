@@ -8,9 +8,12 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheDrilling;
 import ru.wert.normic.utils.IntegerParser;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ
@@ -56,7 +59,7 @@ public class PlateLatheDrillingController extends AbstractOpPlate {
 
         currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

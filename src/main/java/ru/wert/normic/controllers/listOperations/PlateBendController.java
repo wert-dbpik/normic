@@ -14,12 +14,14 @@ import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EBendingTool;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.BATCHNESS;
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.BENDING_SERVICE_RATIO;
 import static ru.wert.normic.settings.NormConstants.BENDING_SPEED;
 
@@ -78,7 +80,7 @@ public class PlateBendController extends AbstractOpPlate {
 
         currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

@@ -11,6 +11,7 @@ import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
@@ -19,6 +20,7 @@ import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.help.HelpWindow;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
@@ -99,7 +101,7 @@ public class PlatePaintController extends AbstractOpPlate {
         tfCoatArea.setText(String.format(DOUBLE_FORMAT, opData.getArea()));
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, opData.getDyeWeight()));
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
 

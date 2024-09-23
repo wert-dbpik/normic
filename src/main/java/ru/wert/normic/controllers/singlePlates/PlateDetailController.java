@@ -165,7 +165,7 @@ public class PlateDetailController extends AbstractOpPlate {
 
         collectOpData((AbstractFormController) formDetailController, tfName, tfN, imgDone);
         if (formDetailController != null)
-            setTimeMeasurement();
+            new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

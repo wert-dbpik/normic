@@ -7,9 +7,12 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.controllers.turning.counters.OpLatheMountDismountCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * УСТАНОВКА И СНЯТИЕ ДЕТАЛИ С ТОКАРНОГО СТАНКА
@@ -72,7 +75,7 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
         currentNormTime = ((length == 0) ? currentNormTime = 0.0 :
                 opData.getOpType().getNormCounter().count(data).getMechTime());//результат в минутах
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

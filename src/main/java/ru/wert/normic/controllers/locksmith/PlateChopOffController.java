@@ -7,10 +7,12 @@ import javafx.scene.image.Image;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opLocksmith.OpChopOff;
 import ru.wert.normic.enums.EOpType;
 
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.CHOP_SPEED;
 
 /**
@@ -40,7 +42,7 @@ public class PlateChopOffController extends AbstractOpPlate {
 
         currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
 

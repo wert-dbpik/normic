@@ -11,6 +11,7 @@ import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
@@ -20,6 +21,7 @@ import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
 import static java.lang.String.format;
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
@@ -149,7 +151,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
                 break;
         }
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

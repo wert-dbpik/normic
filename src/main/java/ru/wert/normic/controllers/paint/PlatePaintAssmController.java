@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -17,6 +18,7 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
@@ -110,7 +112,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         tfCalculatedArea.setText(String.format(DOUBLE_FORMAT, opData.getCountedArea()));
         tfDyeWeight.setText(String.format(DOUBLE_FORMAT, opData.getDyeWeight()));
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

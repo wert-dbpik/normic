@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
@@ -18,6 +19,7 @@ import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
 import static java.lang.String.format;
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
@@ -53,7 +55,7 @@ public class PlateWeldDifficultyController extends AbstractOpPlate {
 
         currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

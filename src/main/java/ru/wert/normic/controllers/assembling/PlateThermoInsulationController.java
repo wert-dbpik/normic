@@ -10,12 +10,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpThermoInsulation;
 import ru.wert.normic.enums.EMaterialMeasurement;
 import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.INSULATION_SPEED;
 
 public class PlateThermoInsulationController extends AbstractOpPlate {
@@ -114,7 +116,7 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
         tfScotchOutlay.setText(String.format(DOUBLE_FORMAT, opData.getScotchOutlay()));
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
 

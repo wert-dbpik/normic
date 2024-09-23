@@ -7,11 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpLevelingSealer;
 import ru.wert.normic.enums.ESealersWidth;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.LEVELING_PREPARED_TIME;
 import static ru.wert.normic.settings.NormConstants.LEVELING_SPEED;
 
@@ -71,7 +73,7 @@ public class PlateLevelingSealerController extends AbstractOpPlate {
         tfCompA.setText(String.format(DOUBLE_FORMAT, opData.getCompA()));
         tfCompB.setText(String.format(DOUBLE_FORMAT, opData.getCompB()));
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

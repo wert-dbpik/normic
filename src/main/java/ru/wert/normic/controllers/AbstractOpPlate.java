@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
@@ -177,30 +178,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         return currentNormTime;
     }
 
-    /**
-     * Метод устанавливает поле с расчитанной нормой в значением требуемой размерности
-     */
-    public void setTimeMeasurement(){
-        double time = currentNormTime;
-        String format = DOUBLE_FORMAT;
-        String measure = MIN.getMeasure();
-        if (CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) {
-            time = currentNormTime * MIN_TO_SEC;
-            format = INTEGER_FORMAT;
-            measure = SEC.getMeasure();
-        }
-        if (CURRENT_MEASURE.equals(HOUR)) {
-            time = currentNormTime * MIN_TO_HOUR;
-            format = DOUBLE_FORMAT;
-            measure = HOUR.getMeasure();
-        }
 
-        if(tfNormTime != null){
-            tfNormTime.setText(format(format,time).trim());
-            lblNormTimeMeasure.setText(measure);
-        }
-
-    }
 
     /**
      * Прописывает расчитанную норму времени в поле tfNormTime
@@ -220,6 +198,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
 
         tfNormTime.setText(format(DOUBLE_FORMAT, time * CURRENT_MEASURE.getRate()));
+        lblNormTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
 }

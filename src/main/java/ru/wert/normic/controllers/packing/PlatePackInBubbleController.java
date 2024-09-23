@@ -8,9 +8,11 @@ import ru.wert.normic.components.RadBtn;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPack.OpPackInBubbleWrap;
 
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
@@ -74,7 +76,7 @@ public class PlatePackInBubbleController extends AbstractOpPlate {
         tfBubbleWrap.setText(DECIMAL_FORMAT.format(opData.getBubbleWrap()));
         tfDuctTape.setText(DECIMAL_FORMAT.format(opData.getDuctTape()));
 
-        setTimeMeasurement();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

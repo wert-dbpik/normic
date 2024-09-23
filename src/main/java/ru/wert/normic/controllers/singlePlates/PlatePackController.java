@@ -18,12 +18,15 @@ import ru.wert.normic.components.ImgDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormPackController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
+
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
  * ДОБАВЛЕНИЕ ДЕТАЛИ
@@ -144,7 +147,7 @@ public class PlatePackController extends AbstractOpPlate{
 
         collectOpData(tfName, tfN, imgDone);
         if (formPackController != null)
-            setTimeMeasurement();
+            new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

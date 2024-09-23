@@ -173,7 +173,7 @@ public class PlateAssmController extends AbstractOpPlate{
 
         collectOpData(thisFormAssmController, tfName, tfN, (ImgDone) imgDone);
         if (thisFormAssmController != null)
-            setTimeMeasurement();
+            new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 
     /**

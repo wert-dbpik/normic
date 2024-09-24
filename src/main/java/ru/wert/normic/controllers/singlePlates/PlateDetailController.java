@@ -126,6 +126,7 @@ public class PlateDetailController extends AbstractOpPlate {
      * Открыть форму редактирования детали
      */
     private void openFormEditor() {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formDetail.fxml"));
             Parent parent = loader.load();

@@ -599,6 +599,7 @@ public abstract class AbstractFormController implements IForm {
             OpData addedOpData = SerializationUtils.clone(clipOpData);
             if (copy) renameWithCopy(addedOpData);
             addedOperations.add(targetIndex, addedOpData);
+//            ((IOpWithOperations)opData).getOperations().add(targetIndex, addedOpData);
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
             //Перестраиваем список операций
             rebuildListOfOperations();

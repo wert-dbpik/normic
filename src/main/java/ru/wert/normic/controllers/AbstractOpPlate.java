@@ -134,7 +134,9 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         initViews(opData);
 
-        ivDeleteOperation.setOnMouseClicked(this::deleteSelectedOperation);
+        ivDeleteOperation.setOnMouseClicked(e->{
+            if(e.getClickCount() == 1) deleteSelectedOperation(e);
+        });
 
         countNorm(opData);
 

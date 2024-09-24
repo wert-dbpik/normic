@@ -10,29 +10,33 @@ import ru.wert.normic.enums.EMatType;
 
 import java.util.Comparator;
 
+import static ru.wert.normic.AppStatics.NO_MATERIAL;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 
 
 public class BXMaterial {
 
-    private static Material LAST_VAL;
+    private static Material LAST_VAL = null;
     private ComboBox<Material> cmbx;
 
-    public void create(ComboBox<Material> bxMaterial){
+    public void create(ComboBox<Material> bxMaterial, boolean useNoMaterial, Material materialToBeSelected){
         this.cmbx = bxMaterial;
         ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
-//        materials.sort(Comparator.comparing(Material::getName));
         materials.sort(createComparator());
+        Material noMaterial = new Material();
+        noMaterial.setName(NO_MATERIAL);
+        if(useNoMaterial){
+            materials.add(0, noMaterial);
+        }
+
         bxMaterial.setItems(materials);
 
         createCellFactory();
         //Выделяем префикс по умолчанию
         createConverter();
 
-        if(LAST_VAL == null)
-            LAST_VAL = QUICK_MATERIALS.findByName("лист 1");
-
-        bxMaterial.getSelectionModel().select(LAST_VAL);
+        if (materialToBeSelected != null)
+            bxMaterial.setValue(materialToBeSelected);
 
     }
 

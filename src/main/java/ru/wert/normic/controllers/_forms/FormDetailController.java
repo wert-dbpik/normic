@@ -103,7 +103,7 @@ public class FormDetailController extends AbstractFormController {
 
     private void initCommon() {
         //Инициализируем комбобоксы
-        new BXMaterial().create(cmbxMaterial);
+        new BXMaterial().create(cmbxMaterial, false, QUICK_MATERIALS.findByName("лист 1"));
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -175,9 +175,17 @@ public class FormDetailController extends AbstractFormController {
      */
     private void mountMatPatch(Material prevMaterial, Material newMaterial) {
         //Определяем, если материал щтучный - для него нужно менять панель каждый раз
+
+        if(newMaterial.getName().equals(NO_MATERIAL)) {
+
+            cmbxMaterial.setValue(QUICK_MATERIALS.findByName("лист 1"));
+            newMaterial = QUICK_MATERIALS.findByName("лист 1");
+        }
         boolean isPieceType = EMatType.getTypeByName(newMaterial.getMatType().getName()).equals(EMatType.PIECE);
 
-        EMatType prevMatType = (prevMaterial == null) ? null : EMatType.getTypeByName(prevMaterial.getMatType().getName());
+        EMatType prevMatType = (prevMaterial == null || prevMaterial.getName().equals(NO_MATERIAL)) ?
+                null :
+                EMatType.getTypeByName(prevMaterial.getMatType().getName());
         EMatType newMatType = EMatType.getTypeByName(newMaterial.getMatType().getName());
         //Нам нужна только смена EMatType и первичная инициализация
         if(isPieceType || !newMatType.equals(prevMatType)) {

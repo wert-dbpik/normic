@@ -9,6 +9,7 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.enums.ENormType.*;
 
 public class OpSimpleOperationsCounter implements NormCounter{
 
@@ -20,6 +21,7 @@ public class OpSimpleOperationsCounter implements NormCounter{
         int paramA = opData.getParamA();
         int paramB = opData.getParamB();
         int paramC = opData.getParamC();
+        int number = opData.getNum();
 
 
         double normTime = operation.getNorm();
@@ -49,12 +51,12 @@ public class OpSimpleOperationsCounter implements NormCounter{
 
         //#############################################################################
 
-        double time = amount * normTime;
+        double time = amount * normTime * number;
 
         switch(eNormType){
             case NORM_MECHANICAL: opData.setMechTime(roundTo001(time)); break;
             case NORM_PAINTING: opData.setPaintTime(roundTo001(time)); break;
-            case NORM_ASSEMBLE: opData.setAssmTime(roundTo001(time)); break;
+            case NORM_ASSEMBLING: opData.setAssmTime(roundTo001(time)); break;
             case NORM_PACKING: opData.setPackTime(roundTo001(time)); break;
         }
 

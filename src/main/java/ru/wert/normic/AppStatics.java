@@ -81,6 +81,7 @@ public class AppStatics {
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";
 
+    public static String NO_MATERIAL = "нет";
     public static String NEW_PRODUCT = "НОВОЕ ИЗДЕЛИЕ";
     public static String CURRENT_PRODUCT_NAME;
 

@@ -3,15 +3,18 @@ package ru.wert.normic.controllers.simplOperations;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
@@ -28,10 +31,14 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
  */
 public class PlateSimpleOperationController extends AbstractOpPlate {
 
-
+    @FXML
+    private ComboBox<Material> bxMaterial;
     
     @FXML
     private TextField tfAmount;
+
+    @FXML
+    private TextField tfN;
 
     @FXML
     private Label lblOperationName;
@@ -67,10 +74,14 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpSimpleOperation opData = (OpSimpleOperation) data;
+        opData = (OpSimpleOperation) data;
         operation = opData.getOperation();
 
-        new TFNormTime(tfNormTime, prevFormController);
+        //Материал
+        new BXMaterial().create(bxMaterial, true, opData.getMaterial());
+
+        //Количество
+        new TFIntegerColored(tfN, this);
 
         lblOperationName.setText(operation.getName().toUpperCase());
 
@@ -90,13 +101,14 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
             }
         });
 
+        //1 шт
+        tfAmount.disableProperty().bind(chbInputCounted.selectedProperty());
         if(measurement.equals(EPieceMeasurement.METER) ||
                 measurement.equals(EPieceMeasurement.SQUARE_METER) ||
                 measurement.equals(EPieceMeasurement.CUBE_METER))
             new TFDoubleColored(tfAmount, this);
         else
             new TFIntegerColored(tfAmount, this);
-        tfAmount.disableProperty().bind(chbInputCounted.selectedProperty());
 
         //ПАРАМЕТР А
         new TFIntegerColored(tfParamA, this);
@@ -130,26 +142,9 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         ivOperation.setImage(EOpType.SIMPLE_OPERATION.getLogo());
 
         countInitialValues();
-        opData = (OpSimpleOperation) opData.getOpType().getNormCounter().count(data);
 
         if(opData.isInputCounted())
             tfAmount.setText(String.format(DOUBLE_FORMAT, opData.getCountedAmount()));
-
-
-        switch (operation.getNormType()) {//результат в минутах
-            case NORM_MECHANICAL:
-                currentNormTime = opData.getMechTime();
-                break;
-            case NORM_PAINTING:
-                currentNormTime = opData.getPaintTime();
-                break;
-            case NORM_ASSEMBLE:
-                currentNormTime = opData.getAssmTime();
-                break;
-            case NORM_PACKING:
-                currentNormTime = opData.getPackTime();
-                break;
-        }
 
         new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
@@ -167,6 +162,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         } else {
             opData.setManualAmount(DoubleParser.getValue(tfAmount));
         }
+        opData.setNum(IntegerParser.getValue(tfN));
 
         collectOpData();
     }
@@ -174,15 +170,18 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
     private void collectOpData(){
         opData.setInputCounted(chbInputCounted.isSelected());
+        opData.setMaterial(bxMaterial.getValue());
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpSimpleOperation opData = (OpSimpleOperation)data;
 
+        bxMaterial.setValue(opData.getMaterial());
         tfParamA.setText(String.valueOf(opData.getParamA()));
         tfParamB.setText(String.valueOf(opData.getParamB()));
         tfParamC.setText(String.valueOf(opData.getParamC()));
+        tfN.setText(String.valueOf(opData.getNum()));
 
         chbInputCounted.setSelected(opData.isInputCounted());
         if(opData.isInputCounted()){

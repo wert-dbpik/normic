@@ -156,7 +156,7 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpPackInBubbleWrap.class);
 
                 //ПРОЧИЕ ОПЕРАЦИИ
-            case "SIMPLE_OTHER":
+            case "SIMPLE_OPERATION":
                 return gson.fromJson(op.toString(), OpSimpleOperation.class);
 
             default:

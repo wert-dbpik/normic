@@ -62,13 +62,6 @@ public class TotalCounter {
         if(formController != null)
             formController.writeNormTime((OpData) opsData);
 
-//        System.out.println("Наименование : " + opsData.getName());
-//        System.out.println("formController : " + opsData.getFormController());
-//        System.out.println("Количество   : " + ((OpData) opsData).getQuantity());
-//        System.out.println("Норма времени : " + format(DOUBLE_FORMAT, ((OpData) opsData).getMechTime() * MIN_TO_HOUR));
-//        System.out.println("______________________________");
-
-
         return opsData;
 
     }

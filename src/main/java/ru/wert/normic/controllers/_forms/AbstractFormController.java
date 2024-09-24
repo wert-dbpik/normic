@@ -337,8 +337,9 @@ public abstract class AbstractFormController implements IForm {
                             }
 
                         } else { //Если строка пустая
-                            if (copy) e.acceptTransferModes(TransferMode.MOVE);
-                            else e.acceptTransferModes(TransferMode.NONE);
+//                            if (copy)
+                                e.acceptTransferModes(TransferMode.MOVE);
+//                            else e.acceptTransferModes(TransferMode.NONE);
                         }
                     } else { //Если обмен между программами
                         passedOpDataArray = new ArrayList<>();
@@ -359,17 +360,15 @@ public abstract class AbstractFormController implements IForm {
 
                 cell.setOnDragDropped(e -> {
                     if (launchTime.equals(LAUNCH_TIME)) { //Если обмен внутри программы
-                        if (cell.getItem() != null) {
-                            boolean lastLine = cell.getItem().getId().equals("LAST_LINE");
+                        boolean lastLine = cell.getItem() == null ? false : cell.getItem().getId().equals("LAST_LINE");
+                        if (cell.getItem() != null && !lastLine) {
                             OpData targetOpData = lastLine ? opData : addedOperations.get(cell.getIndex());
                             whereFromController = getThisController();
                             if (e.getTransferMode().equals(TransferMode.MOVE) && !clipOpDataList.contains(targetOpData)) {
                                 addOperation(lastLine ? opData : addedOperations.get(cell.getIndex()));
-
                                 e.setDropCompleted(true);
                             } else {
                                 e.setDropCompleted(false);
-
                             }
                         } else if (e.getTransferMode().equals(TransferMode.MOVE)) {
                             addOperation(opData);

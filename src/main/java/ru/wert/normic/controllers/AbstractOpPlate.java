@@ -135,6 +135,8 @@ public abstract class AbstractOpPlate implements IOpPlate {
         initViews(opData);
 
         ivDeleteOperation.setOnMouseClicked(e->{
+            //При двойном клике на крестик возникает ошибка, т.к.
+            //операция должна быть и удалена, и должен открыться ее редактор
             if(e.getClickCount() == 1) deleteSelectedOperation(e);
         });
 

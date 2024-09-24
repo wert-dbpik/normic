@@ -2,6 +2,7 @@ package ru.wert.normic.entities.ops.simpleOperations;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EOpType;
@@ -14,10 +15,12 @@ public class OpSimpleOperation extends OpData {
 
     transient SimpleOperation operation;
 
+    private Material material;
     private Long simpleOtherOpId; //id операции из БД
     private int paramA = 0; //парамет А
     private int paramB = 0; //парамет B
     private int paramC = 0; //парамет C
+    private int num = 1; //Количество
     private boolean inputCounted = true; //Ручной ввод параметров A, B и C
     private double countedAmount = 0.0; //Окончательно изготовлено
     private double manualAmount = 0.0; //Окончательно изготовлено

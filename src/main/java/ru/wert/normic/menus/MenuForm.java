@@ -1223,7 +1223,7 @@ public class MenuForm extends ContextMenu {
      */
     public void addSimpleOtherPlate(OpSimpleOperation opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/simpleOperations/plateSimpleOther.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/simpleOperations/plateSimpleOperation.fxml"));
             VBox vBox = loader.load();
             PlateSimpleOperationController controller = loader.getController();
             SimpleOperation operation = SimpleOperationServiceImpl.getInstance().findById(opData.getSimpleOtherOpId());

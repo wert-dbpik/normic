@@ -57,9 +57,9 @@
       <Separator fx:id="separatorMaterial" prefWidth="200.0" />
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
-            <VBox spacing="5.0">
+            <VBox fx:id="vbParamsContainer" alignment="CENTER" minWidth="315.0" spacing="5.0">
                <children>
-                  <HBox fx:id="hbContainer" alignment="CENTER_LEFT">
+                  <HBox fx:id="hbParamsContainer" alignment="CENTER" maxWidth="1.7976931348623157E308">
                      <children>
                         <VBox>
                            <children>
@@ -115,7 +115,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <Separator prefWidth="200.0" />
+                  <Separator fx:id="separatorParams" />
                   <HBox alignment="CENTER" spacing="5.0">
                      <children>
                         <Label text="1 шт : ">
@@ -123,13 +123,13 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <HBox.margin>
-                              <Insets bottom="5.0" top="5.0" />
+                              <Insets />
                            </HBox.margin>
                         </Label>
                         <TextField fx:id="tfAmount" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                         <Label fx:id="lblMeasurement" text="ед.">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -144,13 +144,13 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <HBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="tfN" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="50.0" />
                   <Label fx:id="lblMeasurement1" text="шт.">
                      <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>

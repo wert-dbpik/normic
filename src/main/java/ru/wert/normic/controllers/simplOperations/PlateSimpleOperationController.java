@@ -56,7 +56,13 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
     private Label lblMeasurement;
 
     @FXML
-    private HBox hbContainer;
+    private VBox vbParamsContainer;
+
+    @FXML
+    private HBox hbParamsContainer;
+
+    @FXML
+    private Separator separatorParams;
 
     @FXML
     private TextField tfParamA;
@@ -139,16 +145,17 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
         //НАСТРАИВАЕМ ПЕРЕМЕННОЕ КОЛИЧЕСТВО ПАРАМЕТРОВ
         if (measurement.equals(EPieceMeasurement.PIECE)) {
-            hbContainer.getChildren().clear();
+            hbParamsContainer.getChildren().clear();
+            vbParamsContainer.getChildren().remove(separatorParams);
             opData.setInputCounted(false);
             chbInputCounted.setSelected(false);
         } else if(measurement.equals(EPieceMeasurement.METER)){
-            hbContainer.getChildren().remove(hbHeight);
+            hbParamsContainer.getChildren().remove(hbHeight);
             opData.setInputCounted(false);
             chbInputCounted.setSelected(false);
         }
         else if(measurement.equals(EPieceMeasurement.SQUARE_METER))
-            hbContainer.getChildren().remove(hbHeight);
+            hbParamsContainer.getChildren().remove(hbHeight);
     }
 
     @Override//AbstractOpPlate

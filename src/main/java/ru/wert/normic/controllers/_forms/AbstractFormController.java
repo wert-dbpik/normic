@@ -1015,7 +1015,4 @@ public abstract class AbstractFormController implements IForm {
         lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }
 
-
-
-
 }

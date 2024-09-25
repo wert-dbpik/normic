@@ -20,6 +20,7 @@ import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.ENormType;
+import ru.wert.normic.menus.MenuForm;
 
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;

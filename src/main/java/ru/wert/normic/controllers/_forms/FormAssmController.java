@@ -116,10 +116,6 @@ public class FormAssmController extends AbstractFormController {
 
     private void initViews() {
 
-//        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
-//            countSumNormTimeByShops();
-//        });
-
     }
 
     @Override
@@ -164,14 +160,8 @@ public class FormAssmController extends AbstractFormController {
      */
     @Override //AbstractFormController
     public void countSumNormTimeByShops(){
-
-//        OpData opData = TotalCounter.countSumNormTimeByShops((IOpWithOperations) getOpData(), prevAssmController);
-
         new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_OP_DATA, 1);
-//        fillNormsAndMeasurement( opData.getMechTime(), opData.getPaintTime(), opData.getAssmTime(), opData.getPackTime());
-
         writeNormTime(opData);
-
     }
 
 

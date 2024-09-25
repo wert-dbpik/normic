@@ -739,6 +739,9 @@ public class MainController extends AbstractFormController {
                     "decoration-settings",
                     false,
                     false);
+            decoration.getImgCloseWindow().setOnMousePressed(ev->{
+                createMenu();
+            });
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -808,10 +811,6 @@ public class MainController extends AbstractFormController {
      * при открытии готовых норм
      */
     public void finalCountSumNormTimeByShops(){
-        double mechanicalTime;
-        double paintingTime;
-        double assemblingTime;
-        double packingTime;
 
         OpData opData = (OpData) new TotalCounter().recountNormTimes((IOpWithOperations) this.opData, 1);
 

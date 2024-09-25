@@ -474,7 +474,7 @@ public class MenuForm extends ContextMenu {
      * ВСЕ ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
      */
     public Menu createAllSimpleOperations(List<ENormType> normTypes){
-        Menu menu = new Menu("Все прочие операции");
+        Menu menu = new Menu("Дополнительные операции");
         List<SimpleOperation> ops = SimpleOperationServiceImpl.getInstance().findAll();
         if(ops == null) return null;
         for(SimpleOperation op : ops){

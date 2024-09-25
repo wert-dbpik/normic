@@ -6,13 +6,15 @@ import ru.wert.normic.entities.db_connection.Item;
 import ru.wert.normic.entities.db_connection._BaseEntity;
 import ru.wert.normic.enums.*;
 
+import java.io.Serializable;
+
 @Slf4j
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"name"}, callSuper = false)
-public class SimpleOperation extends _BaseEntity implements Item {
+public class SimpleOperation extends _BaseEntity implements Item{
 
     private String name; //Наименование операции
     private EPieceMeasurement measurement; //Единицы измерения количество изготовленного

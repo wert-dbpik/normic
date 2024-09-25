@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
+import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.EOpType;
 
@@ -13,7 +14,7 @@ import static java.lang.String.format;
 @Setter
 public class OpSimpleOperation extends OpData {
 
-    transient SimpleOperation operation;
+    transient SimpleOperation operationPrototype;
 
     private Material material;
     private Long simpleOtherOpId; //id операции из БД
@@ -25,18 +26,25 @@ public class OpSimpleOperation extends OpData {
     private double countedAmount = 0.0; //Окончательно изготовлено
     private double manualAmount = 0.0; //Окончательно изготовлено
 
-    public OpSimpleOperation(SimpleOperation operation) {
-        this.operation = operation;
-        simpleOtherOpId = operation.getId();
+    public OpSimpleOperation(SimpleOperation operationPrototype) {
+        this.operationPrototype = operationPrototype;
+        simpleOtherOpId = operationPrototype.getId();
 
-        super.normType = operation.getNormType();
-        super.jobType = operation.getJobType();
+        super.normType = operationPrototype.getNormType();
+        super.jobType = operationPrototype.getJobType();
         super.opType = EOpType.SIMPLE_OPERATION;
     }
 
     @Override
     public String toString() {
 
-        return format("Изготовлено = %f.3 %s", countedAmount, operation.getMeasurement());
+        return format("Изготовлено = %f.3 %s", countedAmount, operationPrototype.getMeasurement());
+    }
+
+    public SimpleOperation getOperationPrototype(){
+        if(operationPrototype == null)
+            operationPrototype = SimpleOperationServiceImpl.getInstance().findById(simpleOtherOpId);
+        return operationPrototype;
+
     }
 }

@@ -9,13 +9,12 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.enums.ENormType.*;
 
 public class OpSimpleOperationsCounter implements NormCounter{
 
     public OpData count(OpData data){
         OpSimpleOperation opData = (OpSimpleOperation)data;
-        SimpleOperation operation = opData.getOperation();
+        SimpleOperation operation = opData.getOperationPrototype();
         EPieceMeasurement measurement = operation.getMeasurement();
 
         int paramA = opData.getParamA();

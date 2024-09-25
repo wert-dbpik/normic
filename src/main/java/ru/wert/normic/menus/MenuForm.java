@@ -461,7 +461,7 @@ public class MenuForm extends ContextMenu {
     //===========      ПРОЧИЕ     =========================================
 
     //ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
-    public MenuItem createItemSimpleOther(SimpleOperation operation){
+    public MenuItem createItemSimpleOperation(SimpleOperation operation){
         MenuItem item = new MenuItem(operation.getName());
         item.setOnAction(event -> {
             addSimpleOtherPlate(new OpSimpleOperation(operation));
@@ -480,7 +480,7 @@ public class MenuForm extends ContextMenu {
         for(SimpleOperation op : ops){
             for(ENormType nt : normTypes)
                 if(op.getNormType().equals(nt))
-                    menu.getItems().add(createItemSimpleOther(op));
+                    menu.getItems().add(createItemSimpleOperation(op));
         }
         MenuItem itemCreateNew = new MenuItem("Создать операцию");
         itemCreateNew.setOnAction(e->{
@@ -1227,7 +1227,7 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateSimpleOperationController controller = loader.getController();
             SimpleOperation operation = SimpleOperationServiceImpl.getInstance().findById(opData.getSimpleOtherOpId());
-            opData.setOperation(operation);
+            opData.setOperationPrototype(operation);
             controller.init(formController, opData, addedOperations.size(), operation.getName());
             addVBox(vBox);
 

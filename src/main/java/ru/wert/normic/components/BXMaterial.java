@@ -37,6 +37,8 @@ public class BXMaterial {
 
         if (materialToBeSelected != null)
             bxMaterial.setValue(materialToBeSelected);
+        else
+            bxMaterial.getSelectionModel().select(0);
 
     }
 

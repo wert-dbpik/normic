@@ -2,16 +2,13 @@ package ru.wert.normic.controllers.simplOperations;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXMaterial;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
-import ru.wert.normic.components.TFNormTime;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
@@ -30,6 +27,14 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
  * ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
  */
 public class PlateSimpleOperationController extends AbstractOpPlate {
+    @FXML
+    private VBox vbOperation;
+
+    @FXML
+    private HBox hbMaterialContainer;
+
+    @FXML
+    private Separator separatorMaterial;
 
     @FXML
     private ComboBox<Material> bxMaterial;
@@ -75,10 +80,16 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         opData = (OpSimpleOperation) data;
-        operation = opData.getOperation();
+        operation = opData.getOperationPrototype();
+
+        if(opData.getOperationPrototype().isCountMaterial()){
+            new BXMaterial().create(bxMaterial, true, opData.getMaterial());
+        }
+        else
+            vbOperation.getChildren().removeAll(hbMaterialContainer, separatorMaterial);
 
         //Материал
-        new BXMaterial().create(bxMaterial, true, opData.getMaterial());
+
 
         //Количество
         new TFIntegerColored(tfN, this);
@@ -154,6 +165,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
+
         if (chbInputCounted != null && chbInputCounted.isSelected()) {
             opData.setParamA(IntegerParser.getValue(tfParamA));
             opData.setParamB(IntegerParser.getValue(tfParamB));
@@ -187,7 +199,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         if(opData.isInputCounted()){
             tfAmount.setText(String.format(DOUBLE_FORMAT, opData.getCountedAmount()));
         } else {
-            if (opData.getOperation().getMeasurement().equals(EPieceMeasurement.PIECE))
+            if (opData.getOperationPrototype().getMeasurement().equals(EPieceMeasurement.PIECE))
                 tfAmount.setText(String.format(INTEGER_FORMAT, opData.getManualAmount()).trim());
             else
                 tfAmount.setText(String.format(DOUBLE_FORMAT, opData.getManualAmount()));

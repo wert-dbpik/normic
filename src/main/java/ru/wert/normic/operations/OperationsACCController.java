@@ -146,7 +146,7 @@ public class OperationsACCController {
 
     private SimpleOperation creatNewSimpleOperation(){
         SimpleOperation newSimpleOperation = new SimpleOperation();
-        newSimpleOperation.setName(tfName.getText().trim());
+        newSimpleOperation.setName(tfName.getText().trim().toUpperCase());
         newSimpleOperation.setNormType(bxNormType.getValue());
         newSimpleOperation.setJobType(bxJobType.isDisabled() ? EJobType.JOB_NONE : bxJobType.getValue());
         newSimpleOperation.setMeasurement(bxMeasurement.getValue());

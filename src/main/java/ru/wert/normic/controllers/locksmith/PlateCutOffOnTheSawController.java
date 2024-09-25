@@ -36,9 +36,9 @@ public class PlateCutOffOnTheSawController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-
+        opData = (OpCutOffOnTheSaw) data;
         new TFNormTime(tfNormTime, prevFormController);
-        new BXSawType().create(cmbxSaw, ESawType.SMALL_SAW, this);
+        new BXSawType().create(cmbxSaw, this, ((OpCutOffOnTheSaw) data).getSaw());
 
     }
 

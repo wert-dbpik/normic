@@ -11,10 +11,9 @@ import ru.wert.normic.enums.ESawType;
 
 public class BXSawType {
 
-    public static ESawType LAST_VAL;
     private ComboBox<ESawType> cmbx;
 
-    public void create(ComboBox<ESawType> cmbx, ESawType initVal, AbstractOpPlate counter){
+    public void create(ComboBox<ESawType> cmbx, AbstractOpPlate counter, ESawType sawToBeSelected){
         this.cmbx = cmbx;
         ObservableList<ESawType> values = FXCollections.observableArrayList(ESawType.values());
         cmbx.setItems(values);
@@ -27,14 +26,8 @@ public class BXSawType {
             counter.countNorm(counter.getOpData());
         });
 
-        if(LAST_VAL == null)
-            LAST_VAL = ESawType.SMALL_SAW;
+        cmbx.setValue(sawToBeSelected == null ? ESawType.SMALL_SAW : sawToBeSelected);
 
-        if (initVal == null) {
-            cmbx.setValue(LAST_VAL);
-        } else {
-            cmbx.setValue(initVal);
-        }
 
     }
 
@@ -58,7 +51,6 @@ public class BXSawType {
         cmbx.setConverter(new StringConverter<ESawType>() {
             @Override
             public String toString(ESawType val) {
-                LAST_VAL = val; //последний выбранный префикс становится префиксом по умолчанию
                 return val.getName();
             }
 

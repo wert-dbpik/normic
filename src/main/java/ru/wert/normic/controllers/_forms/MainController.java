@@ -488,7 +488,8 @@ public class MainController extends AbstractFormController {
             normalizeQuantity(newOpData, 1);
             createMenu();
             menu.addListOfOperations();
-            finalCountSumNormTimeByShops();
+            MAIN_OP_DATA = (OpAssm) opData;
+            new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
             iterateUndoList();
         });
         service.start();

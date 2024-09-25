@@ -252,3 +252,34 @@
     -fx-control-inner-background: #fdd590;
 }
 
+/*КОМБОБОКСЫ*/
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: lightgrey;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-style: inset;
+    -fx-background-insets: 3 0 0 0;
+}
+
+.combo-box .arrow-button{
+    -fx-background-color: transparent;
+}
+
+.combo-box .list-cell:selected{
+    -fx-background-color: white;
+    -fx-background-insets: 3 0 0 0;
+    -fx-text-fill: darkblue;
+}
+
+.combo-box .list-view .list-cell:selected{
+    -fx-background-color: -fx-color-selected;
+}
+
+.combo-box .list-view .list-cell:hover{
+    -fx-font-weight: bolder;
+    -fx-text-fill: -fx-color-text;
+}
+
+

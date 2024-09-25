@@ -66,13 +66,25 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" spacing="2.0">
          <children>
-            <Label text="Норма времени" />
-            <TextField id="operations-tf-norm" fx:id="tfNormTime" prefHeight="26.0" prefWidth="59.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </TextField>
-            <Label text=", мин" />
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Норма времени" />
+                  <TextField id="operations-tf-norm" fx:id="tfNormTime" prefHeight="26.0" prefWidth="59.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label text=", мин" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <CheckBox fx:id="chbxCountMaterial" mnemonicParsing="false" text="Считать расход материала" />
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets left="34.0" top="5.0" />

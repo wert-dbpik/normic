@@ -4,14 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import ru.wert.normic.components.BXJobType;
-import ru.wert.normic.components.BXNormType;
-import ru.wert.normic.components.BXPieceMeasurement;
-import ru.wert.normic.components.TFDouble;
+import javafx.scene.control.*;
+import ru.wert.normic.components.*;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
@@ -42,6 +36,9 @@ public class OperationsACCController {
 
     @FXML
     private TextField tfNormTime;
+
+    @FXML
+    private CheckBox chbxCountMaterial;
 
     @FXML
     private TextArea taDescription;
@@ -154,6 +151,7 @@ public class OperationsACCController {
         newSimpleOperation.setJobType(bxJobType.isDisabled() ? EJobType.JOB_NONE : bxJobType.getValue());
         newSimpleOperation.setMeasurement(bxMeasurement.getValue());
         newSimpleOperation.setNorm(DoubleParser.getValue(tfNormTime));
+        newSimpleOperation.setCountMaterial(chbxCountMaterial.isSelected());
         newSimpleOperation.setDescription(taDescription.getText().trim());
 
         return newSimpleOperation;
@@ -165,6 +163,7 @@ public class OperationsACCController {
         bxJobType.setValue(oldSimpleOperation.getJobType());
         bxMeasurement.setValue(oldSimpleOperation.getMeasurement());
         tfNormTime.setText(format(DOUBLE_FORMAT, oldSimpleOperation.getNorm()));
+        chbxCountMaterial.setSelected(oldSimpleOperation.isCountMaterial());
         taDescription.setText(oldSimpleOperation.getDescription());
 
     }
@@ -176,6 +175,7 @@ public class OperationsACCController {
         oldSimpleOperation.setJobType(newSimpleOperation.getJobType());
         oldSimpleOperation.setMeasurement(newSimpleOperation.getMeasurement());
         oldSimpleOperation.setNorm(newSimpleOperation.getNorm());
+        oldSimpleOperation.setCountMaterial(newSimpleOperation.isCountMaterial());
         oldSimpleOperation.setDescription(newSimpleOperation.getDescription());
     }
 }

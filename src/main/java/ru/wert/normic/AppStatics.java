@@ -10,6 +10,7 @@ import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
 import ru.wert.normic.entities.db_connection.logs.AppLogService;
+import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.user.User;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
@@ -81,7 +82,7 @@ public class AppStatics {
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";
 
-    public static String NO_MATERIAL = "нет";
+    public static Material NO_MATERIAL = new Material("нет");
     public static String NEW_PRODUCT = "НОВОЕ ИЗДЕЛИЕ";
     public static String CURRENT_PRODUCT_NAME;
 

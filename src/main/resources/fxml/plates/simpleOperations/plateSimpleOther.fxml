@@ -47,6 +47,11 @@
          <children>
             <Label text="Материал : " />
             <ComboBox fx:id="bxMaterial" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnAddMaterial" mnemonicParsing="false">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
       <Separator fx:id="separatorMaterial" prefWidth="200.0" />

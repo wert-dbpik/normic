@@ -38,6 +38,8 @@ public class Material extends _BaseEntity implements Item, CatalogableItem, Seri
         this.paramX = 0;
     }
 
+
+
     @Override
     public void setCatalogGroup(CatalogGroup catalogGroup) {
         this.catalogGroup = (MaterialGroup) catalogGroup;

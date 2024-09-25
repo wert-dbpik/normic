@@ -228,40 +228,9 @@ public class FormDetailController extends AbstractFormController {
 
         done = new BtnDone(btnDone);
 
-        btnAddMaterial.setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 18,18, true, true)));
-        btnAddMaterial.setTooltip(new Tooltip("Добавить материал"));
-        btnAddMaterial.setOnAction(e->{
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/materials/materialsTV.fxml"));
-                Parent parent = loader.load();
-                Decoration decoration = new Decoration(
-                        "МАТЕРИАЛЫ",
-                        parent,
-                        false,
-                        (Stage) ((Node)e.getSource()).getScene().getWindow(),
-                        "decoration-settings",
-                        false,
-                        false);
-
-                decoration.getWindow().setOnHiding(r->{
-                    Material chosenMaterial = cmbxMaterial.getValue();
-                    ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
-                    materials.sort(Comparator.comparing(Material::getName));
-                    cmbxMaterial.getItems().clear();
-                    cmbxMaterial.getItems().addAll(materials);
-                    if(!materials.contains(chosenMaterial)) chosenMaterial = materials.get(0);
-                    cmbxMaterial.getSelectionModel().select(chosenMaterial);
-                });
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+        new BtnAddMaterial(btnAddMaterial, cmbxMaterial);
 
         countSumNormTimeByShops();
-
-//        tfTotalTime.textProperty().addListener((observable, oldValue, newValue) -> {
-//            countSumNormTimeByShops();
-//        });
     }
 
     @Override

@@ -23,10 +23,8 @@ public class BXMaterial {
         this.cmbx = bxMaterial;
         ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
         materials.sort(createComparator());
-        Material noMaterial = new Material();
-        noMaterial.setName(NO_MATERIAL);
         if(useNoMaterial){
-            materials.add(0, noMaterial);
+            materials.add(0, NO_MATERIAL);
         }
 
         bxMaterial.setItems(materials);
@@ -38,7 +36,7 @@ public class BXMaterial {
         if (materialToBeSelected != null)
             bxMaterial.setValue(materialToBeSelected);
         else
-            bxMaterial.getSelectionModel().select(0);
+            bxMaterial.getSelectionModel().select(NO_MATERIAL);
 
     }
 

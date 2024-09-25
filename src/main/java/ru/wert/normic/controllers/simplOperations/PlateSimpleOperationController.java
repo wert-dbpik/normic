@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ru.wert.normic.components.BXMaterial;
+import ru.wert.normic.components.BtnAddMaterial;
 import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
@@ -38,7 +39,10 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
     @FXML
     private ComboBox<Material> bxMaterial;
-    
+
+    @FXML
+    private Button btnAddMaterial;
+
     @FXML
     private TextField tfAmount;
 
@@ -82,14 +86,14 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         opData = (OpSimpleOperation) data;
         operation = opData.getOperationPrototype();
 
+        //Материал
         if(opData.getOperationPrototype().isCountMaterial()){
             new BXMaterial().create(bxMaterial, true, opData.getMaterial());
+            //Кнопка Добавить материал
+            new BtnAddMaterial(btnAddMaterial, bxMaterial);
         }
         else
             vbOperation.getChildren().removeAll(hbMaterialContainer, separatorMaterial);
-
-        //Материал
-
 
         //Количество
         new TFIntegerColored(tfN, this);

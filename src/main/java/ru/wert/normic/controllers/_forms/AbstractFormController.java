@@ -1002,9 +1002,10 @@ public abstract class AbstractFormController implements IForm {
         String format = DOUBLE_FORMAT;
         if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
 
-        tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
-        tfPaintingTime.setText(String.format(format, paintingTime).trim());
-
+        if(opData instanceof OpDetail || opData instanceof OpAssm){
+            tfMechanicalTime.setText(String.format(format, mechanicalTime).trim());
+            tfPaintingTime.setText(String.format(format, paintingTime).trim());
+        }
         if(opData instanceof OpAssm) {
             tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
             tfPackingTime.setText(String.format(format, packingTime).trim());

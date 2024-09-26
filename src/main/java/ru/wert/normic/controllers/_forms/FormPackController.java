@@ -20,8 +20,7 @@ import ru.wert.normic.utils.IntegerParser;
 
 import java.util.Collections;
 
-import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.AppStatics.roundTo001;
+import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
@@ -181,25 +180,11 @@ public class FormPackController extends AbstractFormController {
 
         opData.setPackTime(roundTo001(packTime));
 
-        controller.countSumNormTimeByShops();
+//        controller.countSumNormTimeByShops();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
 
-        if(CURRENT_MEASURE.equals(SEC)){
-            packTime = packTime * MIN_TO_SEC;
-
-            measure = SEC.getMeasure();
-        }
-
-        if(CURRENT_MEASURE.equals(HOUR)){
-            packTime = packTime * MIN_TO_HOUR;
-
-            measure = HOUR.getMeasure();
-        }
-
-        if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())){
-            packTime = packTime * MIN_TO_SEC;
-
-            measure = SEC.getMeasure();
-        }
+        packTime = packTime * CURRENT_MEASURE.getRate();
+        measure = CURRENT_MEASURE.getMeasure();
 
         String format = DOUBLE_FORMAT;
         if(AppStatics.MEASURE.getSelectedToggle().getUserData().equals(SEC.name())) format = INTEGER_FORMAT;

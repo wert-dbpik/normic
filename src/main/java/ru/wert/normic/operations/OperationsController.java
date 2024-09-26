@@ -49,6 +49,9 @@ public class OperationsController {
     private TableColumn<SimpleOperation, String> tcNormTime;
 
     @FXML
+    private TableColumn<SimpleOperation, String> tcTpz;
+
+    @FXML
     private TableColumn<SimpleOperation, String> tcCountMaterial;
 
     @FXML
@@ -77,6 +80,9 @@ public class OperationsController {
 
         tcNormTime.setCellValueFactory(cd -> new ReadOnlyStringWrapper(DECIMAL_FORMAT.format(cd.getValue().getNorm()).trim()));
         tcNormTime.setStyle("-fx-alignment: CENTER;");
+
+        tcTpz.setCellValueFactory(cd -> new ReadOnlyStringWrapper(DECIMAL_FORMAT.format(cd.getValue().getTpz()).trim()));
+        tcTpz.setStyle("-fx-alignment: CENTER;");
 
         tcCountMaterial.setCellValueFactory(cd->{
             boolean val = cd.getValue().isCountMaterial();

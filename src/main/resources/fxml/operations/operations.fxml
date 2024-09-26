@@ -16,6 +16,7 @@
             <TableColumn fx:id="tcJobType" minWidth="80.0" resizable="false" text="Участок МК" />
             <TableColumn fx:id="tcMeasurement" minWidth="80.0" resizable="false" text="Ед.изм." />
             <TableColumn fx:id="tcNormTime" minWidth="100.0" prefWidth="100.0" resizable="false" text="Норма, мин/ед" />
+            <TableColumn fx:id="tcTpz" minWidth="100.0" prefWidth="100.0" resizable="false" text="Тпз, мин/парт" />
             <TableColumn fx:id="tcCountMaterial" minWidth="120.0" prefWidth="120.0" resizable="false" text="Расход материала" />
             <TableColumn fx:id="tcDescription" prefWidth="250.0" text="Описание" />
         </columns>

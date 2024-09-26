@@ -58,25 +58,34 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Ед. изм. материала" />
-                  <ComboBox fx:id="bxMeasurement" prefHeight="25.0" prefWidth="128.0" />
+                  <Label text="Ед.изм. материала" />
+                  <ComboBox fx:id="bxMeasurement" prefWidth="150.0" />
                </children>
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" spacing="2.0">
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="5.0">
+            <VBox spacing="5.0">
                <children>
-                  <Label text="Норма времени" />
-                  <TextField id="operations-tf-norm" fx:id="tfNormTime" prefHeight="26.0" prefWidth="59.0">
+                  <Label text="Нвр, мин" />
+                  <TextField id="operations-tf-norm" fx:id="tfNormTime" prefHeight="26.0" prefWidth="120.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </TextField>
-                  <Label text=", мин" />
                </children>
-            </HBox>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Тпз, мин" />
+                  <TextField id="operations-tf-norm" fx:id="tfTpz" prefHeight="26.0" prefWidth="120.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
             <HBox alignment="CENTER_LEFT">
                <children>
                   <CheckBox fx:id="chbxCountMaterial" mnemonicParsing="false" text="Считать расход материала" />

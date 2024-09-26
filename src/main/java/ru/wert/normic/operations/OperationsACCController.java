@@ -38,6 +38,9 @@ public class OperationsACCController {
     private TextField tfNormTime;
 
     @FXML
+    private TextField tfTpz;
+
+    @FXML
     private CheckBox chbxCountMaterial;
 
     @FXML
@@ -63,6 +66,7 @@ public class OperationsACCController {
         new BXJobType().create(bxJobType);
         new BXPieceMeasurement().create(bxMeasurement);
         new TFDouble(tfNormTime);
+        new TFDouble(tfTpz);
 
         bxJobType.disableProperty().bind(bxNormType.valueProperty().isNotEqualTo(ENormType.NORM_MECHANICAL));
 
@@ -124,6 +128,7 @@ public class OperationsACCController {
         else if(bxNormType.getValue().equals(ENormType.NORM_MECHANICAL) && bxJobType.getValue() == null) return false;
         else if(bxMeasurement.getValue() == null) return false;
         else if(tfNormTime.getText().isEmpty()) return false;
+        else if(tfTpz.getText().isEmpty()) return false;
         return true;
     }
 
@@ -151,6 +156,7 @@ public class OperationsACCController {
         newSimpleOperation.setJobType(bxJobType.isDisabled() ? EJobType.JOB_NONE : bxJobType.getValue());
         newSimpleOperation.setMeasurement(bxMeasurement.getValue());
         newSimpleOperation.setNorm(DoubleParser.getValue(tfNormTime));
+        newSimpleOperation.setTpz(DoubleParser.getValue(tfTpz));
         newSimpleOperation.setCountMaterial(chbxCountMaterial.isSelected());
         newSimpleOperation.setDescription(taDescription.getText().trim());
 
@@ -163,6 +169,7 @@ public class OperationsACCController {
         bxJobType.setValue(oldSimpleOperation.getJobType());
         bxMeasurement.setValue(oldSimpleOperation.getMeasurement());
         tfNormTime.setText(format(DOUBLE_FORMAT, oldSimpleOperation.getNorm()));
+        tfTpz.setText(format(DOUBLE_FORMAT, oldSimpleOperation.getTpz()));
         chbxCountMaterial.setSelected(oldSimpleOperation.isCountMaterial());
         taDescription.setText(oldSimpleOperation.getDescription());
 
@@ -175,6 +182,7 @@ public class OperationsACCController {
         oldSimpleOperation.setJobType(newSimpleOperation.getJobType());
         oldSimpleOperation.setMeasurement(newSimpleOperation.getMeasurement());
         oldSimpleOperation.setNorm(newSimpleOperation.getNorm());
+        oldSimpleOperation.setTpz(newSimpleOperation.getTpz());
         oldSimpleOperation.setCountMaterial(newSimpleOperation.isCountMaterial());
         oldSimpleOperation.setDescription(newSimpleOperation.getDescription());
     }

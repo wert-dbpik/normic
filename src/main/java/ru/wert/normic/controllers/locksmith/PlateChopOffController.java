@@ -40,8 +40,6 @@ public class PlateChopOffController extends AbstractOpPlate {
 
         countInitialValues();
 
-        currentNormTime = opData.getOpType().getNormCounter().count(data).getMechTime();//результат в минутах
-
         new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
     }
 

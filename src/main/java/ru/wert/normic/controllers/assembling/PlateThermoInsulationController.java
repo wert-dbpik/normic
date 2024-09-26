@@ -108,15 +108,14 @@ public class PlateThermoInsulationController extends AbstractOpPlate {
 
         countInitialValues();
 
-        opData = (OpThermoInsulation) opData.getOpType().getNormCounter().count(opData);
-        currentNormTime = opData.getAssmTime();//результат в минутах
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
 
         tfOutlay.setText(String.format(DOUBLE_FORMAT, opData.getOutlay()));
         lblMeasurement.setText(opData.getMeasurement().getMeasure());
 
         tfScotchOutlay.setText(String.format(DOUBLE_FORMAT, opData.getScotchOutlay()));
 
-        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
+
     }
 
 

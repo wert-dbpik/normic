@@ -19,6 +19,7 @@
           <RowConstraints minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Наименование">
@@ -51,6 +52,16 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </ComboBox>
+            <Label text="Учитывать лом :" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <CheckBox fx:id="chbxAsScrap" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </CheckBox>
          </children>
       </GridPane>
       <StackPane fx:id="spForCalculation" />

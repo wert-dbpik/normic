@@ -24,7 +24,7 @@ public class Material extends _BaseEntity implements Item, CatalogableItem, Seri
     String note;
     double paramS; //толщина (t), диаметр (D), периметр P
     double paramX;//плотность, масса пог. м. (Mпог.м)
-
+    boolean asScrap; //Учитывать лом
 
     //Конструктор необходим для создания узлов дерева
     public Material(String name) {
@@ -36,6 +36,7 @@ public class Material extends _BaseEntity implements Item, CatalogableItem, Seri
         this.note = "";
         this.paramS = 0;
         this.paramX = 0;
+        this.asScrap = false;
     }
 
 

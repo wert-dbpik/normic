@@ -734,7 +734,7 @@ public class MainController extends AbstractFormController {
             Decoration decoration = new Decoration(
                     "МАТЕРИАЛЫ",
                     parent,
-                    false,
+                    true,
                     owner,
                     "decoration-settings",
                     false,

@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import ru.wert.normic.components.BXMatTypes;
@@ -46,6 +43,9 @@ public class MaterialsACCController {
     private TextField tfMaterialName;
 
     @FXML
+    private CheckBox chbxAsScrap;
+
+    @FXML
     private TextArea taMaterialNote;
 
     @FXML
@@ -65,6 +65,8 @@ public class MaterialsACCController {
         this.oldMaterial = material;
         this.matTypeController = matTypeController;
         this.command = command;
+
+//        chbxAsScrap.setSelected(material.isAsScrap());
 
         new BXMatTypes().create(bxMatType);
         bxMatType.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -159,12 +161,14 @@ public class MaterialsACCController {
         oldMaterial.setNote(newMaterial.getNote());
         oldMaterial.setParamS(matTypeController.readParamS());
         oldMaterial.setParamX(matTypeController.readParamX());
+        oldMaterial.setAsScrap(newMaterial.isAsScrap());
 
     }
 
 
     private void fillData(){
         tfMaterialName.setText(oldMaterial.getName());
+        chbxAsScrap.setSelected(oldMaterial.isAsScrap());
         bxMatType.setValue(EMatType.getTypeByName(oldMaterial.getMatType().getName()));
         bxMaterialGroup.setValue(oldMaterial.getCatalogGroup());
         taMaterialNote.setText(oldMaterial.getNote());
@@ -188,6 +192,7 @@ public class MaterialsACCController {
         newMaterial.setCatalogGroup(MATERIAL_GROUPS.findByName(bxMaterialGroup.getValue().getName()));
         newMaterial.setParamS(matTypeController.readParamS());
         newMaterial.setParamX(matTypeController.readParamX());
+        newMaterial.setAsScrap(chbxAsScrap.isSelected());
         newMaterial.setNote(taMaterialNote.getText().trim());
 
         return newMaterial;

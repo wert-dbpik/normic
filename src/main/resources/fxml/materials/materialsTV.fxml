@@ -24,12 +24,13 @@
             </HBox>
          </children>
       </HBox>
-      <TableView fx:id="tableView" prefHeight="400.0" prefWidth="700.0">
+      <TableView fx:id="tableView" prefHeight="400.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="tcName" prefWidth="75.0" text="Материал" />
           <TableColumn fx:id="tcType" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Группа" />
             <TableColumn fx:id="tcParamS" maxWidth="80.0" minWidth="80.0" resizable="false" text="S" />
             <TableColumn fx:id="tcParamX" maxWidth="80.0" minWidth="80.0" resizable="false" text="X" />
+            <TableColumn fx:id="tcAsScrap" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Лом" />
             <TableColumn fx:id="tcNote" prefWidth="75.0" text="Примечание" />
         </columns>
          <columnResizePolicy>

@@ -50,6 +50,9 @@ public class MaterialsTVController {
     private TableColumn<Material, String> tcParamX;
 
     @FXML
+    private TableColumn<Material, String> tcAsScrap;
+
+    @FXML
     private TableColumn<Material, String> tcNote;
 
     private MaterialGroup allMaterials = new MaterialGroup(0L, "Все");
@@ -87,6 +90,12 @@ public class MaterialsTVController {
 
         tcParamX.setCellValueFactory(cd -> new ReadOnlyStringWrapper(DECIMAL_FORMAT.format(cd.getValue().getParamX()).trim()));
         tcParamX.setStyle("-fx-alignment: CENTER;");
+
+        tcAsScrap.setCellValueFactory(cd->{
+            boolean val = cd.getValue().isAsScrap();
+            return new ReadOnlyStringWrapper(val ? "Да" : "Нет");
+        });
+        tcAsScrap.setStyle("-fx-alignment: CENTER;");
 
         tcNote.setCellValueFactory(new PropertyValueFactory<>("note"));
 

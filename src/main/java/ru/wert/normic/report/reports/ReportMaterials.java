@@ -11,6 +11,7 @@ import ru.wert.normic.enums.EPieceMeasurement;
 import java.util.*;
 
 import static ru.wert.normic.NormicServices.DENSITIES;
+import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
 import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class ReportMaterials {
@@ -35,7 +36,8 @@ public class ReportMaterials {
 
         //Лом стали
         if(steelScrap != 0.0)
-            textReport.append("\nЛОМ СТАЛИ (10%): ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
+            textReport.append("----------------------------------")
+                    .append("\nЛОМ СТАЛИ (10%): ").append(String.format(DOUBLE_FORMAT, steelScrap)).append(" кг.");
     }
 
     /**
@@ -61,12 +63,14 @@ public class ReportMaterials {
      * Сосчитать все МАТЕРИАЛЫ
      */
     private void collectMaterialsByOpData(List<OpData> ops, int quantity) {
-        Density steelDensity = DENSITIES.findByName("сталь");
+
         for (OpData op : ops) {
             if (op instanceof OpDetail) {
-                Material m = ((OpDetail) op).getMaterial();
+
+                Material m = QUICK_MATERIALS.findById(((OpDetail) op).getMaterial().getId());
+                if(m == null) m = ((OpDetail) op).getMaterial();
                 //Детали, если не открывать редактор детали, материала не содержат
-                if (m == null) continue;
+//                if (m == null) continue;
                 if (materials.containsKey(m)) {
                     //Прибавляем новый вес к полученному ранее материалу
                     double sumWeight = materials.get(m) + ((OpDetail) op).getWeight() * op.getQuantity() * quantity;
@@ -75,8 +79,8 @@ public class ReportMaterials {
                     //Добавляем новый материал и массу
                     materials.put(m, ((OpDetail) op).getWeight() * op.getQuantity() * quantity);
                 }
-                if(steelDensity != null && (double)m.getParamX() == steelDensity.getAmount())
-                    steelScrap += ((OpDetail) op).getWeight() * op.getQuantity() * 0.1;
+                if(m.isAsScrap())
+                    steelScrap += ((OpDetail) op).getWeight() * op.getTotal() * 0.1;
 
             } else if (op instanceof OpAssm) {
                 List<OpData> operations = ((OpAssm) op).getOperations();

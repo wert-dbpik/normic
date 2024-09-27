@@ -47,7 +47,7 @@ public class BXColor {
                 if (item == null || empty) {
                     setText(null);
                 } else {
-                    setText(item.getName());
+                    setText(item.getRal());
                 }
             }
 
@@ -59,7 +59,7 @@ public class BXColor {
             @Override
             public String toString(EColor val) {
                 LAST_VAL = val; //последний выбранный префикс становится префиксом по умолчанию
-                return val.getName();
+                return val.getRal();
             }
 
             @Override

@@ -6,10 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ru.wert.normic.components.BXMaterial;
-import ru.wert.normic.components.BtnAddMaterial;
-import ru.wert.normic.components.TFDoubleColored;
-import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
@@ -30,6 +27,9 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 public class PlateSimpleOperationController extends AbstractOpPlate {
     @FXML
     private VBox vbOperation;
+
+    @FXML
+    private TextField tfName;
 
     @FXML
     private HBox hbMaterialContainer;
@@ -95,6 +95,8 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         opData = (OpSimpleOperation) data;
         operation = opData.getOperationPrototype();
 
+        new TfString(tfName, this);
+
         //Материал
         if(opData.getOperationPrototype().isCountMaterial()){
             new BXMaterial().create(bxMaterial, true, opData.getMaterial());
@@ -102,7 +104,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
             new BtnAddMaterial(btnAddMaterial, bxMaterial);
         }
         else
-            vbOperation.getChildren().removeAll(hbMaterialContainer, separatorMaterial);
+            vbOperation.getChildren().removeAll(hbMaterialContainer);
 
         //Количество
         new TFIntegerColored(tfN, this);
@@ -180,6 +182,8 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
+        opData.setName(tfName.getText());
+
         if(opData.getOperationPrototype().isCountMaterial())
             opData.setMaterial(bxMaterial.getValue());
         opData.setInputCounted(chbInputCounted.isSelected());
@@ -201,6 +205,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
     public void fillOpData(OpData data){
         OpSimpleOperation opData = (OpSimpleOperation)data;
 
+        tfName.setText(opData.getName());
         chbInputCounted.setSelected(opData.isInputCounted());
         if(opData.getOperationPrototype().isCountMaterial())
             bxMaterial.setValue(opData.getMaterial());

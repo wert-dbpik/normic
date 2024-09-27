@@ -16,6 +16,7 @@ public class OpSimpleOperation extends OpData {
 
     transient SimpleOperation operationPrototype;
 
+    private String name;
     private Material material;
     private Long simpleOtherOpId; //id операции из БД
     private int paramA = 0; //парамет А

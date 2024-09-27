@@ -7,6 +7,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EPieceMeasurement;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
 
@@ -50,7 +51,7 @@ public class OpSimpleOperationsCounter implements NormCounter{
 
         //#############################################################################
 
-        double time = amount * normTime * number;
+        double time = amount * normTime * number + operation.getTpz() / opData.getTotal() / CURRENT_BATCH;
 
         switch(eNormType){
             case NORM_MECHANICAL: opData.setMechTime(roundTo001(time)); break;

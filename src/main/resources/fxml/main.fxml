@@ -86,7 +86,7 @@
                            </font>
                         </Label>
                         <TextField fx:id="tfBatch" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
-                        <Label text="шт.">
+                        <Label text=" шт.">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>

@@ -64,7 +64,8 @@ public class ReportPacking {
      */
     private void addPackReport(double cartoon, double cartoonAngle, double stretchMachine, double stretchHand, double polyTape,
                                double bubble, double duct, double pallet){
-        textReport.append("\n\n").append("УПАКОВКА :\n");
+        textReport.append("\n\n").append("УПАКОВКА :\n")
+                .append("---------------------------\n");
         if (cartoon != 0.0)
             textReport.append(CARTOON.getName())
                     .append(DECIMAL_FORMAT.format(cartoon)).append(" ")

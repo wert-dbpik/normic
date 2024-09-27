@@ -42,7 +42,8 @@ public class ReportMaterials {
      * Добавить отчет по ИСПОЛЬЗУЕМЫМ МАТЕРИАЛАМ
      */
     private void addMaterialsReport() {
-        textReport.append("\n\n").append("МАТЕРИАЛЫ :\n");
+        textReport.append("\n\n").append("МАТЕРИАЛЫ :\n")
+                .append("----------------\n");
         List<Material> keys = new ArrayList<>(materials.keySet());
         keys.sort(Comparator.comparing(Material::getName));
         for(Material m : keys){

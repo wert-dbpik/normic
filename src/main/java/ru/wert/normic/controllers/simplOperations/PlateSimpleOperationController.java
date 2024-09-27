@@ -35,6 +35,9 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
     private HBox hbMaterialContainer;
 
     @FXML
+    private HBox hbAllParamsContainer;
+
+    @FXML
     private Separator separatorMaterial;
 
     @FXML
@@ -145,14 +148,13 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
         //НАСТРАИВАЕМ ПЕРЕМЕННОЕ КОЛИЧЕСТВО ПАРАМЕТРОВ
         if (measurement.equals(EPieceMeasurement.PIECE)) {
-            hbParamsContainer.getChildren().clear();
-            vbParamsContainer.getChildren().remove(separatorParams);
+            opData.setManualAmount(1);
+            hbAllParamsContainer.getChildren().removeAll(vbParamsContainer);
             opData.setInputCounted(false);
             chbInputCounted.setSelected(false);
         } else if(measurement.equals(EPieceMeasurement.METER)){
             hbParamsContainer.getChildren().remove(hbHeight);
             opData.setInputCounted(false);
-            chbInputCounted.setSelected(false);
         }
         else if(measurement.equals(EPieceMeasurement.SQUARE_METER))
             hbParamsContainer.getChildren().remove(hbHeight);
@@ -165,10 +167,12 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
         countInitialValues();
 
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
+
         if(opData.isInputCounted())
             tfAmount.setText(String.format(DOUBLE_FORMAT, opData.getCountedAmount()));
 
-        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
+
     }
 
     /**
@@ -176,10 +180,13 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public  void countInitialValues() {
-
+        if(opData.getOperationPrototype().isCountMaterial())
+            opData.setMaterial(bxMaterial.getValue());
+        opData.setInputCounted(chbInputCounted.isSelected());
         if (chbInputCounted != null && chbInputCounted.isSelected()) {
             opData.setParamA(IntegerParser.getValue(tfParamA));
             opData.setParamB(IntegerParser.getValue(tfParamB));
+            opData.setManualAmount(DoubleParser.getValue(tfAmount));
             if (measurement.equals(EPieceMeasurement.CUBE_METER))
                 opData.setParamC(IntegerParser.getValue(tfParamC));
         } else {
@@ -187,26 +194,23 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
         }
         opData.setNum(IntegerParser.getValue(tfN));
 
-        collectOpData();
     }
 
-
-    private void collectOpData(){
-        opData.setInputCounted(chbInputCounted.isSelected());
-        opData.setMaterial(bxMaterial.getValue());
-    }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpSimpleOperation opData = (OpSimpleOperation)data;
 
-        bxMaterial.setValue(opData.getMaterial());
+        chbInputCounted.setSelected(opData.isInputCounted());
+        if(opData.getOperationPrototype().isCountMaterial())
+            bxMaterial.setValue(opData.getMaterial());
+
         tfParamA.setText(String.valueOf(opData.getParamA()));
         tfParamB.setText(String.valueOf(opData.getParamB()));
         tfParamC.setText(String.valueOf(opData.getParamC()));
         tfN.setText(String.valueOf(opData.getNum()));
 
-        chbInputCounted.setSelected(opData.isInputCounted());
+
         if(opData.isInputCounted()){
             tfAmount.setText(String.format(DOUBLE_FORMAT, opData.getCountedAmount()));
         } else {

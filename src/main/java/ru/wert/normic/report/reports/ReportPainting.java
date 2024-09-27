@@ -44,7 +44,8 @@ public class ReportPainting {
      * Добавить отчет по РАСХОДУ КРАСКИ (начало)
      */
     private void addColorReport(List<Double> ral1, List<Double> ral2, List<Double> ral3) {
-        textReport.append("\n\n").append("ПОКРЫТИЕ :\n");
+        textReport.append("\n\n").append("ПОКРЫТИЕ :\n")
+                .append("--------------\n");
         if(ral1.get(0) != 0.0) addRal1Report(ral1, EColor.COLOR_I);
         if(ral2.get(0) != 0.0) addRal1Report(ral2, EColor.COLOR_II);
         if(ral3.get(0) != 0.0) addRal1Report(ral3, EColor.COLOR_III);
@@ -55,7 +56,7 @@ public class ReportPainting {
     private void addRal1Report(List<Double> ral1, EColor color) {
         textReport.append("Краска '")
                 .append(color.getRal())
-                .append("', площадь = ")
+                .append("', Sп = ")
                 .append(DECIMAL_FORMAT.format(ral1.get(0)))
                 .append(" м.кв., ")
                 .append("расход = ")

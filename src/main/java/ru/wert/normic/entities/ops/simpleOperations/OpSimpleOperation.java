@@ -35,16 +35,18 @@ public class OpSimpleOperation extends OpData {
         super.opType = EOpType.SIMPLE_OPERATION;
     }
 
-    @Override
-    public String toString() {
-
-        return format("Изготовлено = %f.3 %s", countedAmount, operationPrototype.getMeasurement());
-    }
-
     public SimpleOperation getOperationPrototype(){
         if(operationPrototype == null)
             operationPrototype = SimpleOperationServiceImpl.getInstance().findById(simpleOtherOpId);
         return operationPrototype;
 
     }
+
+    @Override
+    public String toString() {
+
+        return format("Изготовлено = %f.3 %s", countedAmount, operationPrototype.getMeasurement());
+    }
+
+
 }

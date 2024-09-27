@@ -83,7 +83,8 @@ public class ReportNormsByJobTypes {
                 k = MIN_TO_HOUR;
                 break;
         }
-        textReport.append("\n\n").append(String.format("НОРМЫ ВРЕМЕНИ МК ПО ВИДУ РАБОТ  (%s):\n", CURRENT_MEASURE.getMeasure()));
+        textReport.append("\n\n").append(String.format("НОРМЫ ВРЕМЕНИ МК ПО ВИДУ РАБОТ  (%s):\n", CURRENT_MEASURE.getMeasure()))
+                .append("------------------------------------------------------\n");
 
         int cuttingPercent = (int)Math.round(cutting / opAssm.getMechTime() * 100);
         int bendingPercent = (int) Math.round(bending / opAssm.getMechTime() * 100);

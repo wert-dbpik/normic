@@ -39,7 +39,8 @@ public class ReportNormsByNormTypes {
 
         String title = opAssm.getMechTime() == 0.0 ? "НОРМЫ ВРЕМЕНИ" : "ОСТАЛЬНЫЕ НОРМЫ ВРЕМЕНИ";
         if(opAssm.getPaintTime() != 0.0 || opAssm.getAssmTime() != 0.0 || opAssm.getPackTime() != 0.0)
-            textReport.append("\n\n").append(String.format("%s  (%s):\n", title, CURRENT_MEASURE.getMeasure()));
+            textReport.append("\n\n").append(String.format("%s  (%s):\n", title, CURRENT_MEASURE.getMeasure()))
+                    .append("------------------------------------------\n");
 
 //        if (opAssm.getMechTime() != 0.0)
 //            textReport.append("Изготовление \t:  ")

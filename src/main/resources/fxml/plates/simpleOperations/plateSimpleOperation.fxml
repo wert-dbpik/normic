@@ -55,11 +55,11 @@
          </children>
       </HBox>
       <Separator fx:id="separatorMaterial" prefWidth="200.0" />
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
+      <HBox fx:id="hbAllParamsContainer" alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <VBox fx:id="vbParamsContainer" alignment="CENTER" minWidth="300.0" spacing="5.0">
                <children>
-                  <HBox fx:id="hbParamsContainer" alignment="CENTER" maxWidth="1.7976931348623157E308">
+                  <HBox fx:id="hbParamsContainer" alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5.0">
                      <children>
                         <VBox>
                            <children>
@@ -76,7 +76,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="tfParamA" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" />
+                              <TextField fx:id="tfParamA" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </HBox>
                         <HBox fx:id="hbContainer11">
@@ -89,7 +89,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="tfParamB" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" />
+                              <TextField fx:id="tfParamB" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </HBox>
                         <HBox fx:id="hbHeight">
@@ -102,7 +102,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="tfParamC" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" />
+                              <TextField fx:id="tfParamC" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </HBox>
                         <Label text="мм.">
@@ -136,10 +136,16 @@
                   </HBox>
                </children>
             </VBox>
-            <Separator orientation="VERTICAL" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
+         <children>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label text="Кол N :">
+                  <Label text="Кол.">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -155,27 +161,24 @@
                   </Label>
                </children>
             </HBox>
-         </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </HBox>
-      <HBox alignment="CENTER_RIGHT" spacing="10.0">
-         <children>
-            <Label text="T изг. : ">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="tfNormTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-            <Label fx:id="lblNormTimeMeasure" text="мин">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="T изг. : ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tfNormTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <Label fx:id="lblNormTimeMeasure" text="мин">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </children>

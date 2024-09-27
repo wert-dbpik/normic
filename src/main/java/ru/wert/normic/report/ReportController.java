@@ -26,6 +26,9 @@ public class ReportController {
         //МАТЕРИАЛЫ И ЛОМ
         new ReportMaterials(textReport, opAssm).create();
 
+        //ДОПОЛНИТЕЛЬНЫЕ МАТЕРИАЛЫ
+        new ReportSOMaterials(textReport, opAssm).create();
+
         //НАЛИВНОЙ УПЛОТНИТЕЛЬ
         new ReportLevelingSealer(textReport, opAssm).create();
 

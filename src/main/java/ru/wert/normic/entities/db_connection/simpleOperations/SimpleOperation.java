@@ -22,6 +22,7 @@ public class SimpleOperation extends _BaseEntity implements Item{
     private double tpz; //Подготовительно-заключительное время на партию (мин)
     private ENormType normType; //Цех (тип нормы )
     private boolean countMaterial; //Расчитывать указанный материал
+    private boolean countTimeForPiece; //Расчитывать время за 1 шт
     private EJobType jobType = EJobType.JOB_NONE; //Тип работы для ENormType.MECHANICAL
     private String description; //Описание операции
 

@@ -70,6 +70,7 @@ public class ReportSOMaterials {
         keys.sort(Comparator.comparing(Material::getName));
         for(Material m : keys){
             textReport.append(m.getName()).append("\t: ").append(String.format(DOUBLE_FORMAT, materials.get(m)));
+            if(m.getMatType() == null) continue;
             if(EMatType.getTypeByName(m.getMatType().getName()).equals(EMatType.PIECE))
                 textReport.append(" ")
                         .append(EPieceMeasurement.values()[((int)m.getParamX())].getMeasureName())

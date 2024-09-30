@@ -27,7 +27,7 @@
                   <Insets />
                </HBox.margin>
             </ImageView>
-            <TextField id="operations-tf-name" fx:id="tfName" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="450.0" HBox.hgrow="ALWAYS">
+            <TextField id="operations-tf-name" fx:id="tfName" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="30.0" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -88,7 +88,12 @@
             </VBox>
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <CheckBox fx:id="chbxCountMaterial" mnemonicParsing="false" text="Считать расход материала" />
+                  <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <CheckBox fx:id="chbxCountMaterial" mnemonicParsing="false" text="Считать расход материала" />
+                        <CheckBox fx:id="chbxCountTimeForPiece" mnemonicParsing="false" text="Считать время за 1шт" />
+                     </children>
+                  </VBox>
                </children>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -104,7 +109,7 @@
             <VBox spacing="5.0">
                <children>
                   <Label text="Описание операции" />
-                  <TextArea fx:id="taDescription" minHeight="-Infinity" prefHeight="150.0" prefWidth="450.0">
+                  <TextArea fx:id="taDescription" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="150.0">
                      <font>
                         <Font size="14.0" />
                      </font>

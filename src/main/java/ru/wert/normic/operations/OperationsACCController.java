@@ -44,6 +44,9 @@ public class OperationsACCController {
     private CheckBox chbxCountMaterial;
 
     @FXML
+    private CheckBox chbxCountTimeForPiece;
+
+    @FXML
     private TextArea taDescription;
 
     @FXML
@@ -158,6 +161,7 @@ public class OperationsACCController {
         newSimpleOperation.setNorm(DoubleParser.getValue(tfNormTime));
         newSimpleOperation.setTpz(DoubleParser.getValue(tfTpz));
         newSimpleOperation.setCountMaterial(chbxCountMaterial.isSelected());
+        newSimpleOperation.setCountTimeForPiece(chbxCountTimeForPiece.isSelected());
         newSimpleOperation.setDescription(taDescription.getText().trim());
 
         return newSimpleOperation;
@@ -171,6 +175,7 @@ public class OperationsACCController {
         tfNormTime.setText(format(DOUBLE_FORMAT, oldSimpleOperation.getNorm()));
         tfTpz.setText(format(DOUBLE_FORMAT, oldSimpleOperation.getTpz()));
         chbxCountMaterial.setSelected(oldSimpleOperation.isCountMaterial());
+        chbxCountTimeForPiece.setSelected(oldSimpleOperation.isCountTimeForPiece());
         taDescription.setText(oldSimpleOperation.getDescription());
 
     }
@@ -184,6 +189,7 @@ public class OperationsACCController {
         oldSimpleOperation.setNorm(newSimpleOperation.getNorm());
         oldSimpleOperation.setTpz(newSimpleOperation.getTpz());
         oldSimpleOperation.setCountMaterial(newSimpleOperation.isCountMaterial());
+        oldSimpleOperation.setCountTimeForPiece(newSimpleOperation.isCountTimeForPiece());
         oldSimpleOperation.setDescription(newSimpleOperation.getDescription());
     }
 }

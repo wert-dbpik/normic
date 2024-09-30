@@ -23,7 +23,7 @@ public class OpSimpleOperation extends OpData {
     private int paramB = 0; //парамет B
     private int paramC = 0; //парамет C
     private int num = 1; //Количество
-    private boolean inputCounted = true; //Ручной ввод параметров A, B и C
+    private boolean inputCounted = false; //Ручной ввод параметров A, B и C
     private double countedAmount = 0.0; //Окончательно изготовлено
     private double manualAmount = 0.0; //Окончательно изготовлено
 

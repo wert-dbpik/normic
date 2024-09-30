@@ -51,7 +51,13 @@ public class OpSimpleOperationsCounter implements NormCounter{
 
         //#############################################################################
 
-        double time = amount * normTime * number + operation.getTpz() / opData.getTotal() / CURRENT_BATCH;
+        double mainTime;
+        if(operation.isCountTimeForPiece()) //countTimeForPiece
+            mainTime = normTime * number;
+        else
+            mainTime = amount * normTime * number;
+
+        double time = mainTime + operation.getTpz() / opData.getTotal() / CURRENT_BATCH;
 
         switch(eNormType){
             case NORM_MECHANICAL: opData.setMechTime(roundTo001(time)); break;

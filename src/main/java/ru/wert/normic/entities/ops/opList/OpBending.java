@@ -30,7 +30,7 @@ public class OpBending extends OpData {
     @Override
     public String toString() {
         return "Оборудование = " + tool.getToolName() +
-                "N гибов = " + bends +
+                ", N гибов = " + bends +
                 (tool.equals(EBendingTool.UNIVERSAL) ?
                 ", N рабочих = " + men + (difficult ? ", сложная" : ", не сложная") :
                 ", N поворотов = " + turns);

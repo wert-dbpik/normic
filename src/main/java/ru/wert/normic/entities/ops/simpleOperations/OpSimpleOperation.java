@@ -45,8 +45,12 @@ public class OpSimpleOperation extends OpData {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder()
+                .append(format("Операция: %s\n", operationPrototype.getName()))
+                .append(format("материал : %s, ", (material == null ? "" : material.getName())))
+                .append(format("A = %s, B = %s, C = %s, кол = %s\\n", paramA, paramB, paramC, num));
 
-        return format("Изготовлено = %f.3 %s", countedAmount, operationPrototype.getMeasurement());
+        return sb.toString();
     }
 
 

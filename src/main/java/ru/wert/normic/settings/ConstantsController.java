@@ -1,8 +1,6 @@
 package ru.wert.normic.settings;
 
-import javafx.concurrent.Service;
 import javafx.fxml.FXML;
-import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -187,7 +185,7 @@ public class ConstantsController {
 
         //--- ГИБКА
 
-        tfBENDING_SPEED.setText(DECIMAL_FORMAT.format(BENDING_SPEED).trim());
+        tfBENDING_SPEED.setText(DECIMAL_FORMAT.format(UNIVERSAL_BENDING_SPEED).trim());
         tfBENDING_SERVICE_RATIO.setText(DECIMAL_FORMAT.format(BENDING_SERVICE_RATIO).trim());
 
         //--- СЛЕСАРНЫЕ РАБОТЫ

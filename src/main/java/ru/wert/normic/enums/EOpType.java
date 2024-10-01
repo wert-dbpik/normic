@@ -6,7 +6,7 @@ import ru.wert.normic.controllers.assembling.countings.*;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
-import ru.wert.normic.controllers.simplOperations.counters.OpSimpleOperationsCounter;
+import ru.wert.normic.controllers.simpleOperations.counters.OpSimpleOperationsCounter;
 import ru.wert.normic.controllers.packing.counters.*;
 import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
 import ru.wert.normic.controllers.paint.counters.OpPaintCounter;

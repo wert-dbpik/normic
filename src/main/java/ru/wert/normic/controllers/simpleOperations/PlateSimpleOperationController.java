@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.simplOperations;
+package ru.wert.normic.controllers.simpleOperations;
 
 
 import javafx.fxml.FXML;

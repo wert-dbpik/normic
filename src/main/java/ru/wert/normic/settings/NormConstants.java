@@ -59,7 +59,7 @@ public class NormConstants {
     public static double STRIPING_SPEED; //Скорость зачистки резанных кромок, сек
 
     //--- ГИБКА
-    public static double BENDING_SPEED; //Скорость гибки, мин/гиб
+    public static double UNIVERSAL_BENDING_SPEED; //Скорость гибки, мин/гиб
     public static double BENDING_SERVICE_RATIO; //коэфффициент, учитывающий 25% времени на обслуживание при гибке
 
     //--- СЛЕСАРНЫЕ РАБОТЫ
@@ -172,7 +172,7 @@ public class NormConstants {
         STRIPING_SPEED = Double.parseDouble(constantsProps.getProperty("STRIPING_SPEED"));
 
         //--- ГИБКА
-        BENDING_SPEED = Double.parseDouble(constantsProps.getProperty("BENDING_SPEED"));
+        UNIVERSAL_BENDING_SPEED = Double.parseDouble(constantsProps.getProperty("BENDING_SPEED"));
         BENDING_SERVICE_RATIO = Double.parseDouble(constantsProps.getProperty("BENDING_SERVICE_RATIO"));
 
         //--- СЛЕСАРНЫЕ РАБОТЫ

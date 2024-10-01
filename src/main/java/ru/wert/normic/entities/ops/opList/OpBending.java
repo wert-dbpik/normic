@@ -16,6 +16,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpBending extends OpData {
 
     private Integer bends = 1;
+    private Integer turns = 0;
     private Integer men = 1;
     private EBendingTool tool;
     private boolean difficult = false;
@@ -28,8 +29,12 @@ public class OpBending extends OpData {
 
     @Override
     public String toString() {
-        return "N гибов = " + bends +
-                ", N рабочих = " + men +
-                ", оборудование = " + tool.getToolName();
+        return "Оборудование = " + tool.getToolName() +
+                "N гибов = " + bends +
+                (tool.equals(EBendingTool.UNIVERSAL) ?
+                ", N рабочих = " + men + (difficult ? ", сложная" : ", не сложная") :
+                ", N поворотов = " + turns);
+
+
     }
 }

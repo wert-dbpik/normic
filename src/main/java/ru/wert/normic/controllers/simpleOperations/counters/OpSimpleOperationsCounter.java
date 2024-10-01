@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers.simplOperations.counters;
+package ru.wert.normic.controllers.simpleOperations.counters;
 
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.ops.OpData;

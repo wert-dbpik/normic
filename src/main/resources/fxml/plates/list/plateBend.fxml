@@ -46,6 +46,16 @@
       <Separator prefWidth="200.0" />
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
+            <VBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Оборудование">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbxBendingTool" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+               </children>
+            </VBox>
             <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
                <children>
                   <Label text="N гибов">
@@ -66,16 +76,6 @@
                   <TextField fx:id="tfMen" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" spacing="5.0">
-               <children>
-                  <Label text="Оборудование">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="cmbxBendingTool" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
-               </children>
-            </VBox>
             <VBox fx:id="vbDifficultyness" alignment="BOTTOM_LEFT" maxWidth="-Infinity" minWidth="-Infinity" spacing="10.0">
                <children>
                   <Label text="Сложно!">
@@ -92,26 +92,44 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
-            <Label text="T гиб : ">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <Label text="N поворотов">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfTurns" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+               </children>
                <HBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
+                  <Insets left="160.0" />
                </HBox.margin>
-            </Label>
-            <TextField fx:id="tfNormTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-            <Label fx:id="lblNormTimeMeasure" text="мин">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
+            </VBox>
+            <VBox alignment="BOTTOM_RIGHT" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Label text="T гиб : ">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="tfNormTime" editable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                        <Label fx:id="lblNormTimeMeasure" text="мин">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
       </HBox>
    </children>
    <padding>

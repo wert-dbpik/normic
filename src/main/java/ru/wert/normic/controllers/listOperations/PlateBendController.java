@@ -23,7 +23,7 @@ import ru.wert.normic.utils.IntegerParser;
 import static ru.wert.normic.AppStatics.BATCHNESS;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.BENDING_SERVICE_RATIO;
-import static ru.wert.normic.settings.NormConstants.BENDING_SPEED;
+import static ru.wert.normic.settings.NormConstants.UNIVERSAL_BENDING_SPEED;
 
 /**
  * ГИБКА ЛИСТА НА ЛИСТОГИБЕ
@@ -40,6 +40,9 @@ public class PlateBendController extends AbstractOpPlate {
     private TextField tfBends;
 
     @FXML
+    private TextField tfTurns;
+
+    @FXML
     private TextField tfMen;
 
     @FXML
@@ -54,6 +57,7 @@ public class PlateBendController extends AbstractOpPlate {
     private OpBending opData;
 
     private int bends;
+    private int turns;
     private int men;
     private double toolRatio;
 
@@ -64,6 +68,7 @@ public class PlateBendController extends AbstractOpPlate {
         new BXBendingTool().create(cmbxBendingTool, ((OpBending)opData).getTool(), this);
         new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfBends, this);
+        new TFIntegerColored(tfTurns, this);
         new TFIntegerColored(tfMen, this);
 
         vbDifficultyness.setVisible(BATCHNESS.get());
@@ -85,8 +90,15 @@ public class PlateBendController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public  void countInitialValues() {
         bends = IntegerParser.getValue(tfBends);
+
+        turns = IntegerParser.getValue(tfTurns);
+        tfTurns.disableProperty().bind(cmbxBendingTool.valueProperty().isEqualTo(EBendingTool.UNIVERSAL));
+
         men = IntegerParser.getValue(tfMen);
+        tfMen.disableProperty().bind(cmbxBendingTool.valueProperty().isEqualTo(EBendingTool.PANELEGIB));
+
         toolRatio = cmbxBendingTool.getValue().getToolRatio();
+        chDifficulty.disableProperty().bind(cmbxBendingTool.valueProperty().isEqualTo(EBendingTool.PANELEGIB));
 
         collectOpData();
     }
@@ -94,6 +106,7 @@ public class PlateBendController extends AbstractOpPlate {
     private void collectOpData(){
         opData.setDifficult(chDifficulty.isSelected());
         opData.setBends(bends);
+        opData.setTurns(turns);
         opData.setMen(men);
         opData.setTool(cmbxBendingTool.getValue());
     }
@@ -107,6 +120,9 @@ public class PlateBendController extends AbstractOpPlate {
         bends = opData.getBends();
         tfBends.setText(String.valueOf(bends));
 
+        turns = opData.getTurns();
+        tfTurns.setText(String.valueOf(turns));
+
         men = opData.getMen();
         tfMen.setText(String.valueOf(men));
 
@@ -117,21 +133,37 @@ public class PlateBendController extends AbstractOpPlate {
     }
 
     public String helpText() {
-        return String.format("N гибов - число гибов;\n" +
-                        "N человек - число человек выполняющих гибку (2 - для крупных деталей);\n" +
-                        "Оборудование - коэффициент, учитывающий оборудование\n" +
-                        "\t(универсал : К обор = 2, панелегиб : К обор = 1).\n\n" +
-                        "Время гибки вычисляется по формулам:\n\n" +
-                        "\t\t\tТоп = N гибов х Vгиб х К обор х N человек х Кобсл, мин\n" +
+        return String.format(
+                "Расчет нормы времени зависит от оборудования.\n" +
+                        "Для гибки на универсальном оборудовании формуладля оперативного времени:.\n" +
+                        "\t\t\tТоп = N гибов х Vгиб х N человек х Кобсл , мин\n" +
                         "где\n" +
+                        "\tN гибов - число гибов;\n" +
+                        "\tN человек - число человек выполняющих гибку (2 - для крупных деталей);\n" +
                         "\tV гиб = %s скорость гибки, мин/гиб ;\n" +
-                        "\tК пз = %s - коэффициент обслуживания;\n" +
-                        "\t\t\tТшт = Топ + Tсл / партия\n" +
+                        "\tКобсл = %s - коэффициент обслуживания;\n" +
+
+                        "Окончательно норма времени вычисляется как:.\n" +
+                        "\t\t\tТшт = Топ + Тпз / партия, мин\n" +
                         "где\n" +
-                        "\tTсл - 3мин - для простых деталей, 12 мин - для сложных;\n" +
-                        "\tпартия - число деталей в партии",
-                BENDING_SPEED, BENDING_SERVICE_RATIO
-                );
+
+                        "\tТпз - время зависит от сложности детали \n" +
+                        "\t\t(12 мин для сложных, 3мин - для простых);\n\n" +
+                        "\t\tпартия - число деталей в партии. \n" +
+                        "Расчет оперативного времени на панелегибе:\n" +
+                        "\t\t\tТоп = N гибов х Vгиб +  N поворот х Vповорот , мин + Твсп, мин\n" +
+                        "где\n" +
+                        "\tVгиб - скорость гибки на панелегибе (4с/гиб);\n" +
+                        "\tN поворот - число поворотов детали на станке (3 поворота для гибки с 3х сторон);\n" +
+                        "\tVповорот - скорость этих поворотов (8с/поворот);\n" +
+                        "\tТвсп - вспомогательное время (1.28 мин).\n" +
+                        "Окончательно норма времени вычисляется как:\n" +
+                        "\t\t\tТшт = Топ + Топ х Кобсл + Топ х Котд + Тпз / партия, мин,\n" +
+                        "где\n" +
+                        "\tКобсл - коэф. обслуживания (0.04);\n" +
+                        "\tКотд - коэф. отдыха (0.07);\n",
+                UNIVERSAL_BENDING_SPEED, BENDING_SERVICE_RATIO
+        );
     }
 
     public Image helpImage() {

@@ -12,7 +12,7 @@ import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.listOperations.PlateBendController;
 import ru.wert.normic.controllers.listOperations.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.*;
-import ru.wert.normic.controllers.simplOperations.PlateSimpleOperationController;
+import ru.wert.normic.controllers.simpleOperations.PlateSimpleOperationController;
 import ru.wert.normic.controllers.packing.*;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.controllers.paint.PlatePaintController;

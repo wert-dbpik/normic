@@ -28,19 +28,19 @@ import java.util.stream.Stream;
 @Slf4j
 public class SearchService extends Service<Void> {
 
-    private final String searchText;
-    private final OpAssm opAssm;
-    private final SearchingFileController mainController;
-    private final MenuForm menu;
-    private final boolean showEntry;
-    private final List<OpData> addedOperations = new ArrayList<>();
+    private final String searchText; //Искомый текст (номер или наименование)
+    private final OpAssm opAssm; //Сюда добавляем найденные элементы
+    private final SearchingFileController mainController; //Контроллер из которого запущен поиск
+    private final MenuForm menu; //Необходим длоя добавления найденных плашек
+    private final boolean showEntries; //Показываеть входимости - т.е. изделия куда входит искомый узел
+    private final List<OpData> addedOperations = new ArrayList<>(); //Перечень найденных плашек
 
-    public SearchService(SearchingFileController mainController, OpAssm opAssm, String searchText, boolean showEntry) {
+    public SearchService(SearchingFileController mainController, OpAssm opAssm, String searchText, boolean showEntries) {
         this.mainController = mainController;
         this.opAssm = opAssm;
         this.searchText = searchText.toLowerCase();
         this.menu = mainController.getMenu();
-        this.showEntry = showEntry;
+        this.showEntries = showEntries;
     }
 
     @Override
@@ -49,24 +49,17 @@ public class SearchService extends Service<Void> {
             @Override
             protected Void call() throws Exception {
                 mainController.getProgressIndicator().setVisible(true);
-                List<String> foundNVRFiles = collectFoundNVRFiles();
-                if (showEntry) showNVRFiles(foundNVRFiles);
-                else
-                    for (String path : foundNVRFiles) {
-                        File file = new File(path);
-                        OpData opData = new NvrConverter(file).getConvertedOpData();
-                        //Если искомый текст содержится только в названии nvr файла
-                        if(file.getName().toLowerCase().contains(searchText))
-                            Platform.runLater(()->{
-                                if(opData instanceof OpDetail)
-                                    menu.addDetailPlate((OpDetail) opData);
-                                if(opData instanceof OpAssm)
-                                    menu.addAssmPlate((OpAssm) opData);
-                                if(opData instanceof OpPack)
-                                    menu.addPackPlate((OpPack) opData);
-                            });
-                        findSearchedOpData((IOpWithOperations) opData);
-                    }
+                List<String> allNVRFilesWithSearchedText = collectAllNVRFilesWithSearchedText();
+                for (String path : allNVRFilesWithSearchedText) {
+                    File file = new File(path);
+                    OpData opData = new NvrConverter(file).getConvertedOpData();
+                    //Если искомый текст содержится только в названии nvr файла
+                    if (showEntries)
+                        showFoundOpData(opData);
+                    else
+                        searchAndShowEveryDataSeparatly(opData);
+                }
+
                 return null;
             }
 
@@ -84,21 +77,45 @@ public class SearchService extends Service<Void> {
         };
     }
 
-    private void showNVRFiles(List<String> foundNVRFiles) {
-        for(String path : foundNVRFiles){
-            OpAssm op = (OpAssm) new NvrConverter(new File(path)).getConvertedOpData();
-            Platform.runLater(()->{
-                menu.addAssmPlate((OpAssm) op);
-            });
+    /**
+     * Рекурсивно проходит по файлу и выводит в поле поиска найденные узлы
+     */
+    private void searchAndShowEveryDataSeparatly(OpData opData){
+        if(((IOpWithOperations)opData).getName().toLowerCase().contains(searchText)) {
+                showFoundOpData(opData);
         }
+
+        List<OpData> ops = ((IOpWithOperations)opData).getOperations();
+        for (OpData op : ops) {
+            if (op instanceof IOpWithOperations)
+                searchAndShowEveryDataSeparatly(op);
+
+        }
+    }
+
+    /**
+     * Метод добавляет найденный узел в окно поиска, если он не повторяется
+     */
+    private void showFoundOpData(OpData opData) {
+        if(opDataIsDubbed(opData)) return;
+        Platform.runLater(()->{
+            addedOperations.add(opData);
+            if(opData instanceof OpDetail)
+                menu.addDetailPlate((OpDetail) opData);
+            if(opData instanceof OpAssm)
+                menu.addAssmPlate((OpAssm) opData);
+            if(opData instanceof OpPack)
+                menu.addPackPlate((OpPack) opData);
+        });
     }
 
     /**
      * В директории поиска собирает все файлы с расширением .nvr, содержащие строку
      */
-    private List<String> collectFoundNVRFiles(){
+    private List<String> collectAllNVRFilesWithSearchedText(){
         List<String> foundNVRFiles = new ArrayList<>();
         try{
+            //Собираем в дирректории все файлы с расширением nvr
             Stream<Path> stream = Files.walk(Paths.get(AppProperties.getInstance().getWhereToSearch()));
             Set<String> allFiles = stream
                     .filter(file -> !Files.isDirectory(file))
@@ -107,6 +124,7 @@ public class SearchService extends Service<Void> {
                     .collect(Collectors.toSet());
             stream.close();
 
+            //В полученном списке находим файлы, где встречается искомый текст
             for(String path : allFiles){
                 String content = new String(Files.readAllBytes(Paths.get(path))).toLowerCase();
                 if(content.contains(searchText))
@@ -118,31 +136,13 @@ public class SearchService extends Service<Void> {
         return foundNVRFiles;
     }
 
-    private void findSearchedOpData(IOpWithOperations opWithOperations) {
-        for(OpData op : opWithOperations.getOperations()){
-            if(op instanceof IOpWithOperations)
-                if(((IOpWithOperations) op).getName().toLowerCase().contains(searchText)){
-                    if(!doubleOperations(op)){
-                        addedOperations.add(op);
-                        Platform.runLater(()->{
-                            if(op instanceof OpDetail)
-                                menu.addDetailPlate((OpDetail) op);
-                            if(op instanceof OpAssm)
-                                menu.addAssmPlate((OpAssm) op);
-                        });
-                        if(op instanceof OpAssm)
-                            findSearchedOpData((OpAssm) op);
-                    }
-                }
-        }
-    }
 
     /**
      * Проверка на одинаковые операции в списке
      * Если имена разные и сумма норм времении не совпадают,
      * то элементы считаются разными
      */
-    private boolean doubleOperations(OpData opData) {
+    private boolean opDataIsDubbed(OpData opData) {
         for (OpData op : addedOperations) {
             if (
                     ((IOpWithOperations) op).getName().toLowerCase().equals(((IOpWithOperations) opData).getName().toLowerCase()) &&

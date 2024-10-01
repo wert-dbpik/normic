@@ -38,9 +38,9 @@ public class SearchingFileController extends AbstractFormController {
     @FXML
     private Button btnSearchNow;
 
-    @FXML
+    @FXML//Кнопка - Показываеть найдейнный результат или входимости
     private Button btnShowResult;
-    private BtnDouble showResult;
+    private BtnDouble showResultOrEntries;
 
     @FXML
     private TextField tfWhereSearch;
@@ -73,11 +73,11 @@ public class SearchingFileController extends AbstractFormController {
         Image imgClockOFF =  new Image("/pics/btns/show_norm.png", 32, 32, true, true);
         Image imgClockONN =  new Image("/pics/btns/show_nvr.png", 32, 32, true, true);
 
-        showResult = new BtnDouble(btnShowResult,
+        showResultOrEntries = new BtnDouble(btnShowResult,
                 imgClockOFF, "Показывает норму",
                 imgClockONN, "Показывает входимость нормы");
 
-        showResult.getStateProperty().addListener((observable, oldValue, newValue) -> {
+        showResultOrEntries.getStateProperty().addListener((observable, oldValue, newValue) -> {
             searchNow();
         });
     }
@@ -133,7 +133,7 @@ public class SearchingFileController extends AbstractFormController {
         String searchText = normalizeSearchedText(tfSearchText.getText());
         if(searchText.isEmpty()) return;
         clearAll(null, false, false);
-        SearchService searchService = new SearchService(this, (OpAssm) opData, searchText, showResult.getStateProperty().get());
+        SearchService searchService = new SearchService(this, (OpAssm) opData, searchText, showResultOrEntries.getStateProperty().get());
         searchService.start();
     }
 

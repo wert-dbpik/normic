@@ -67,7 +67,9 @@ public class ReportMaterials {
         for (OpData op : ops) {
             if (op instanceof OpDetail) {
 
-                Material m = QUICK_MATERIALS.findById(((OpDetail) op).getMaterial().getId());
+                Material mat = ((OpDetail) op).getMaterial();
+                if(mat == null) continue;
+                Material m = QUICK_MATERIALS.findById(mat.getId());
                 if(m == null) m = ((OpDetail) op).getMaterial();
                 //Детали, если не открывать редактор детали, материала не содержат
 //                if (m == null) continue;

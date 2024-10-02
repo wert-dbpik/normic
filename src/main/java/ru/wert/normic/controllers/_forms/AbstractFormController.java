@@ -713,16 +713,18 @@ public abstract class AbstractFormController implements IForm {
     }
 
     /**
-     * УДАЛИТЬ ВЫДЕЛЕННУЮ ОПЕРАЦИЮ
+     * УДАЛИТЬ ВЫДЕЛЕННЫЕ ОПЕРАЦИИ
      */
     public void deleteSelectedOperation(Event e) {
         List<Integer> selectedIndices = getListViewTechOperations().getSelectionModel().getSelectedIndices();
+        List<OpData> selectedOps = new ArrayList<>();
         for (int index : selectedIndices) {
-            addedOperations.remove(getAddedOperations().get(index));
-            getListViewTechOperations().getItems().remove(getListViewTechOperations().getItems().get(index));
-            addedPlates.remove(addedPlates.get(index));
+            selectedOps.add(((IOpWithOperations) opData).getOperations().get(index));
         }
-
+        for(OpData op : selectedOps){
+            ((IOpWithOperations) opData).getOperations().remove(op);
+        }
+        rebuildListOfOperations();
         MAIN_CONTROLLER.finalCountSumNormTimeByShops();
     }
 

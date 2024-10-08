@@ -54,8 +54,13 @@ public class OpSimpleOperationsCounter implements NormCounter{
         double mainTime;
         if(operation.isCountTimeForPiece()) //countTimeForPiece
             mainTime = normTime * number;
-        else
-            mainTime = amount * normTime * number;
+        else {
+            if(amount != 0.0)
+                mainTime = amount * normTime * number;
+            else
+                mainTime = normTime * number;
+        }
+
 
         double time = mainTime + operation.getTpz() / opData.getTotal() / CURRENT_BATCH;
 

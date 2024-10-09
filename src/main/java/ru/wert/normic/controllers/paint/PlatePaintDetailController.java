@@ -12,11 +12,9 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaintNew;
-import ru.wert.normic.entities.ops.single.OpAssm;
+import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.enums.EAssemblingType;
 import ru.wert.normic.enums.EColor;
-import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -25,7 +23,7 @@ import static ru.wert.normic.settings.NormConstants.*;
 /**
  * ОКРАШИВАНИЕ СБОРОЧНОЙ ЕДИНИЦЫ
  */
-public class PlatePaintNewController extends AbstractOpPlate {
+public class PlatePaintDetailController extends AbstractOpPlate {
 
     @FXML
     private ComboBox<EColor> cmbxColor;
@@ -54,7 +52,7 @@ public class PlatePaintNewController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private OpPaintNew opData;
+    private OpPaintDetail opData;
 
     private EColor color; //Цвет краски
     private double dyeWeight; //Вес краски
@@ -67,7 +65,7 @@ public class PlatePaintNewController extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpPaintNew opData = (OpPaintNew) data;
+        OpPaintDetail opData = (OpPaintDetail) data;
 
 
         prevFormController.getFormAreaProperty().addListener((observable, oldValue, newValue) -> {
@@ -89,7 +87,7 @@ public class PlatePaintNewController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        opData = (OpPaintNew)data;
+        opData = (OpPaintDetail)data;
 
         countInitialValues();
 
@@ -126,7 +124,7 @@ public class PlatePaintNewController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpPaintNew opData = (OpPaintNew)data;
+        OpPaintDetail opData = (OpPaintDetail)data;
 
         cmbxColor.setValue(opData.getColor());
 

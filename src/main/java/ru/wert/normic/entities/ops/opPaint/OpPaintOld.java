@@ -13,7 +13,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
  */
 @Getter
 @Setter
-public class OpPaint extends OpData {
+public class OpPaintOld extends OpData {
 
     private Material material; //материал
     private int razvA = 0; //размер развертки А
@@ -28,7 +28,7 @@ public class OpPaint extends OpData {
     private EPaintingDifficulty difficulty = EPaintingDifficulty.SIMPLE;
     private Integer hangingTime = 20;
 
-    public OpPaint() {
+    public OpPaintOld() {
         super.normType = ENormType.NORM_PAINTING;
         super.opType = EOpType.PAINTING;
     }

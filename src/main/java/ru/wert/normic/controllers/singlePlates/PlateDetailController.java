@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.singlePlates;
 
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,8 +23,6 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
-import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.utils.IntegerParser;
 

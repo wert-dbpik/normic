@@ -1,7 +1,7 @@
 package ru.wert.normic.report.reports;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.EColor;
@@ -72,9 +72,9 @@ public class ReportPainting {
             if(o instanceof IOpWithOperations) {
                 collectListOfOperationsInOpData((IOpWithOperations) o, o.getQuantity() * quantity, color);
             }else{
-                if(o instanceof OpPaint && ((OpPaint)o).getColor().equals(color)) {
-                    area += ((OpPaint) o).getArea() * quantity;
-                    weight += ((OpPaint) o).getDyeWeight() * quantity;
+                if(o instanceof OpPaintOld && ((OpPaintOld)o).getColor().equals(color)) {
+                    area += ((OpPaintOld) o).getArea() * quantity;
+                    weight += ((OpPaintOld) o).getDyeWeight() * quantity;
                 }else if(o instanceof OpPaintAssm && ((OpPaintAssm)o).getColor().equals(color)) {
                     area += ((OpPaintAssm) o).getCountedArea() * quantity;
                     weight += ((OpPaintAssm) o).getDyeWeight() * quantity;

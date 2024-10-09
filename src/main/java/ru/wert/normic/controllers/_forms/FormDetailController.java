@@ -1,30 +1,21 @@
 package ru.wert.normic.controllers._forms;
 
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.AppStatics;
-import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EMatType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
 import ru.wert.normic.menus.MenuForm;
@@ -35,7 +26,6 @@ import java.util.*;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
 
 /**
  * ДЕТАЛЬ - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ ДЕТАЛИ
@@ -244,7 +234,7 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemDrillingByMarking());
             menu.getItems().add(menu.createItemLocksmith());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPaintNew());
+            menu.getItems().add(menu.createItemPaintDetail());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemWeldLongSeam());
             menu.getItems().add(menu.createItemWeldingDotted());
@@ -272,7 +262,7 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPainting());
+            menu.getItems().add(menu.createItemPaintingOld());
 
             Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
             if(simpleOperationsMenu != null) {
@@ -289,7 +279,7 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemLocksmith());
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPainting());
+            menu.getItems().add(menu.createItemPaintingOld());
 
             Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
             if(simpleOperationsMenu != null) {
@@ -301,7 +291,7 @@ public class FormDetailController extends AbstractFormController {
         } else { //ШТУЧНЫЕ
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPainting());
+            menu.getItems().add(menu.createItemPaintingOld());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createAllLatheOperations());
             menu.getItems().add(menu.createAllLocksmithOperations());

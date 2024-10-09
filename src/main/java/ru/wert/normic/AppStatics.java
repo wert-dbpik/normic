@@ -13,7 +13,7 @@ import ru.wert.normic.entities.db_connection.logs.AppLogService;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.db_connection.user.User;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.saves.SaveNormEntry;
@@ -165,7 +165,7 @@ public class AppStatics {
     public static boolean checkIfPainted(IOpWithOperations opData){
         boolean painted = false;
         for(OpData op : opData.getOperations()){
-            if(op instanceof OpPaint || op instanceof OpPaintAssm) {
+            if(op instanceof OpPaintOld || op instanceof OpPaintAssm) {
                 painted = true;
                 break;
             }

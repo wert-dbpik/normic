@@ -6,11 +6,11 @@ import ru.wert.normic.controllers.assembling.countings.*;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
-import ru.wert.normic.controllers.paint.counters.OpPaintNewCounter;
+import ru.wert.normic.controllers.paint.counters.OpPaintDetailCounter;
 import ru.wert.normic.controllers.simpleOperations.counters.OpSimpleOperationsCounter;
 import ru.wert.normic.controllers.packing.counters.*;
 import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
-import ru.wert.normic.controllers.paint.counters.OpPaintCounter;
+import ru.wert.normic.controllers.paint.counters.OpPaintOldCounter;
 import ru.wert.normic.controllers.turning.counters.*;
 import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDifficultyCounter;
@@ -21,9 +21,9 @@ import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.*;
 import ru.wert.normic.entities.ops.opPack.*;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.entities.ops.opPaint.OpPaintNew;
+import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
@@ -51,8 +51,8 @@ public enum EOpType {
     BENDING                     ("Гибка",                           OpBending.class,                    new Image("/pics/opLogos/bend.png"),            new OpBendingCounter()),           //ГИБКА ЛИСТОВОЙ ДЕТАЛИ
 
     //ОКРАШИВАНИЕ
-    PAINTING                    ("Покраска детали",                 OpPaint.class,                      new Image("/pics/opLogos/paint.png"),           new OpPaintCounter()),              //ОКРАШИВАНИЕ ДЕТАЛИ
-    PAINT_NEW                  ( "Покраска детали",                 OpPaintNew.class,                   new Image("/pics/opLogos/paint.png"),           new OpPaintNewCounter()),          //ОКРАШИВАНИЕ СБОРКИ
+    PAINTING                    ("Покраска",                        OpPaintOld.class,                   new Image("/pics/opLogos/paint.png"),           new OpPaintOldCounter()),           //ОКРАШИВАНИЕ СТАРОЕ
+    PAINT_DETAIL                ("Покраска детали",                 OpPaintDetail.class,                new Image("/pics/opLogos/paint.png"),           new OpPaintDetailCounter()),        //ОКРАШИВАНИЕ ДЕТАЛИ
     PAINT_ASSM                  ("Покраска сборки",                 OpPaintAssm.class,                  new Image("/pics/opLogos/paint.png"),           new OpPaintAssmCounter()),          //ОКРАШИВАНИЕ СБОРКИ
 
     //СБОРОЧНЫЕ ОПЕРАЦИИ

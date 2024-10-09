@@ -13,9 +13,9 @@ import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
 import ru.wert.normic.entities.ops.opLocksmith.*;
 import ru.wert.normic.entities.ops.opPack.*;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
-import ru.wert.normic.entities.ops.opPaint.OpPaintNew;
+import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
@@ -98,9 +98,9 @@ public class OpDataJsonConverter {
             //ОКРАШИВАНИЕ
 
             case "PAINTING":
-                return gson.fromJson(op.toString(), OpPaint.class);
+                return gson.fromJson(op.toString(), OpPaintOld.class);
             case "PAINT_NEW":
-                return gson.fromJson(op.toString(), OpPaintNew.class);
+                return gson.fromJson(op.toString(), OpPaintDetail.class);
             case "PAINT_ASSM":
                 return gson.fromJson(op.toString(), OpPaintAssm.class);
 

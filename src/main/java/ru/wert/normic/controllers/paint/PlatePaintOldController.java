@@ -14,7 +14,7 @@ import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaint;
+import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EPaintingDifficulty;
 import ru.wert.normic.help.HelpWindow;
@@ -26,7 +26,7 @@ import static ru.wert.normic.settings.NormConstants.*;
 /**
  * ОКРАШИВАНИЕ ЛИСТОВОЙ ДЕТАЛИ
  */
-public class PlatePaintController extends AbstractOpPlate {
+public class PlatePaintOldController extends AbstractOpPlate {
 
     @FXML
     private ComboBox<EColor> cmbxColor;
@@ -61,7 +61,7 @@ public class PlatePaintController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private OpPaint opData;
+    private OpPaintOld opData;
 
     private Material material; //Материал
     private int razvA; //Параметр А развертки
@@ -74,8 +74,8 @@ public class PlatePaintController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData opData) {
 
-        new BXPaintingDifficulty().create(cmbxDifficulty, ((OpPaint)opData).getDifficulty(), this);
-        new BXColor().create(cmbxColor, ((OpPaint)opData).getColor(), this);
+        new BXPaintingDifficulty().create(cmbxDifficulty, ((OpPaintOld)opData).getDifficulty(), this);
+        new BXColor().create(cmbxColor, ((OpPaintOld)opData).getColor(), this);
         new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);
@@ -92,7 +92,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data) {
-        opData = (OpPaint) data;
+        opData = (OpPaintOld) data;
 
         countInitialValues();
 
@@ -140,7 +140,7 @@ public class PlatePaintController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data) {
-        OpPaint opData = (OpPaint) data;
+        OpPaintOld opData = (OpPaintOld) data;
 
         cmbxColor.setValue(opData.getColor());
 

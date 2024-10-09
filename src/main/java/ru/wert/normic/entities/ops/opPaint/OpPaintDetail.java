@@ -17,7 +17,7 @@ import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
  */
 @Getter
 @Setter
-public class OpPaintNew extends OpData {
+public class OpPaintDetail extends OpData {
 
     private Material material; //материал
     private int razvA = 0; //размер развертки А
@@ -30,7 +30,7 @@ public class OpPaintNew extends OpData {
     private Integer across = 0; //длина сборки поперек штанги
     private EAssemblingType assmType = EAssemblingType.SOLID; //Тип сборочной единицы
 
-    public OpPaintNew() {
+    public OpPaintDetail() {
         super.normType = ENormType.NORM_PAINTING;
         super.opType = EOpType.PAINT_NEW;
     }

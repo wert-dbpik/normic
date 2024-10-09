@@ -1,35 +1,28 @@
 package ru.wert.normic.controllers.paint.counters;
 
-import javafx.application.Platform;
-import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opPaint.OpPaintNew;
-import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.EMatType;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.interfaces.NormCounter;
-import ru.wert.normic.interfaces.Paintable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
 import static ru.wert.normic.settings.NormConstants.*;
 
-public class OpPaintNewCounter implements NormCounter {
+public class OpPaintDetailCounter implements NormCounter {
 
     private double countedArea; //Переменная для расчета площади покрытия
     //Список операций с дублирующей покраской, создан чтобы сообщения не доставали пользователя
     List<IOpWithOperations> opsWithDoublePainting = new ArrayList<>();
 
     public OpData count(OpData data) {
-        OpPaintNew opData = (OpPaintNew) data;
+        OpPaintDetail opData = (OpPaintDetail) data;
 
         int razvA = opData.getRazvA();
         int razvB = opData.getRazvB();

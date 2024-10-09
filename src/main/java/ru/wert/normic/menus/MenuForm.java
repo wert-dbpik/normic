@@ -12,6 +12,7 @@ import ru.wert.normic.controllers.assembling.*;
 import ru.wert.normic.controllers.listOperations.PlateBendController;
 import ru.wert.normic.controllers.listOperations.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.*;
+import ru.wert.normic.controllers.paint.PlatePaintNewController;
 import ru.wert.normic.controllers.simpleOperations.PlateSimpleOperationController;
 import ru.wert.normic.controllers.packing.*;
 import ru.wert.normic.controllers.paint.PlatePaintAssmController;
@@ -35,6 +36,7 @@ import ru.wert.normic.entities.ops.opLocksmith.*;
 import ru.wert.normic.entities.ops.opPack.*;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.opPaint.OpPaintNew;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
@@ -139,6 +141,16 @@ public class MenuForm extends ContextMenu {
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINTING)) return ;
             addPaintPlate(new OpPaint());
+        });
+        return item;
+    }
+
+    //ПОКРАСКА
+    public MenuItem createItemPaintNew(){
+        MenuItem item = new MenuItem(EOpType.PAINT_NEW.getOpName());
+        item.setOnAction(event -> {
+            if(isDuplicate(EOpType.PAINT_NEW)) return ;
+            addPaintNewPlate(new OpPaintNew());
         });
         return item;
     }
@@ -612,6 +624,9 @@ public class MenuForm extends ContextMenu {
             case PAINTING:
                 addPaintPlate((OpPaint) op);
                 break;
+                case PAINT_NEW:
+                addPaintNewPlate((OpPaintNew) op);
+                break;
             case PAINT_ASSM:
                 addPaintAssmPlate((OpPaintAssm) op);
                 break;
@@ -964,6 +979,22 @@ public class MenuForm extends ContextMenu {
             controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА ДЕТАЛИ");
             addVBox(vBox);
             
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ПОКРАСКА ДЕТАЛИ
+     */
+    public void addPaintNewPlate(OpPaintNew opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaintNew.fxml"));
+            VBox vBox = loader.load();
+            PlatePaintNewController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА ДЕТАЛИ");
+            addVBox(vBox);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

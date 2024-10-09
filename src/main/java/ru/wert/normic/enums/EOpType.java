@@ -6,6 +6,7 @@ import ru.wert.normic.controllers.assembling.countings.*;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
+import ru.wert.normic.controllers.paint.counters.OpPaintNewCounter;
 import ru.wert.normic.controllers.simpleOperations.counters.OpSimpleOperationsCounter;
 import ru.wert.normic.controllers.packing.counters.*;
 import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
@@ -22,6 +23,7 @@ import ru.wert.normic.entities.ops.opLocksmith.*;
 import ru.wert.normic.entities.ops.opPack.*;
 import ru.wert.normic.entities.ops.opPaint.OpPaint;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
+import ru.wert.normic.entities.ops.opPaint.OpPaintNew;
 import ru.wert.normic.entities.ops.opTurning.*;
 import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
 import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
@@ -50,6 +52,7 @@ public enum EOpType {
 
     //ОКРАШИВАНИЕ
     PAINTING                    ("Покраска детали",                 OpPaint.class,                      new Image("/pics/opLogos/paint.png"),           new OpPaintCounter()),              //ОКРАШИВАНИЕ ДЕТАЛИ
+    PAINT_NEW                  ( "Покраска детали",                 OpPaintNew.class,                   new Image("/pics/opLogos/paint.png"),           new OpPaintNewCounter()),          //ОКРАШИВАНИЕ СБОРКИ
     PAINT_ASSM                  ("Покраска сборки",                 OpPaintAssm.class,                  new Image("/pics/opLogos/paint.png"),           new OpPaintAssmCounter()),          //ОКРАШИВАНИЕ СБОРКИ
 
     //СБОРОЧНЫЕ ОПЕРАЦИИ

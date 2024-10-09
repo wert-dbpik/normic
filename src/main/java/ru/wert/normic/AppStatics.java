@@ -94,7 +94,7 @@ public class AppStatics {
                     LATHE_MOUNT_DISMOUNT, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING, LOCKSMITH, LATHE_CUT_OFF, CHOP_OFF,
                     ASSM_CHOP_OFF,
-                    PAINTING
+                    PAINTING, PAINT_NEW
                    );
 
     //Перечень операций, которые можно добавить в Сборку
@@ -123,10 +123,10 @@ public class AppStatics {
     //Перечень допустимых операций по типу материала
     public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING,
             LOCKSMITH, DRILLING_BY_MARKING,
-            PAINTING,
+            PAINTING, PAINT_NEW,
             WELD_CONTINUOUS, WELD_DOTTED);//Листовой
     public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(LATHE_MOUNT_DISMOUNT,
-            PAINTING, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
+            PAINTING, PAINT_NEW, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
             LATHE_CUT_OFF, CHOP_OFF); //Круглый
     public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING,
             LOCKSMITH, DRILLING_BY_MARKING,

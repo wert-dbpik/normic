@@ -109,7 +109,7 @@
             <VBox spacing="5.0">
                <children>
                   <Label text="Описание операции" />
-                  <TextArea fx:id="taDescription" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="150.0">
+                  <TextArea fx:id="taDescription" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="225.0" prefWidth="470.0">
                      <font>
                         <Font size="14.0" />
                      </font>

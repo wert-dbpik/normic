@@ -32,7 +32,7 @@ public class OpPaintDetail extends OpData {
 
     public OpPaintDetail() {
         super.normType = ENormType.NORM_PAINTING;
-        super.opType = EOpType.PAINT_NEW;
+        super.opType = EOpType.PAINT_DETAIL;
     }
 
     @Override

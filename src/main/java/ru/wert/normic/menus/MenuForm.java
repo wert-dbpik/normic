@@ -147,9 +147,9 @@ public class MenuForm extends ContextMenu {
 
     //ПОКРАСКА ДЕТАЛИ
     public MenuItem createItemPaintDetail(){
-        MenuItem item = new MenuItem(EOpType.PAINT_NEW.getOpName());
+        MenuItem item = new MenuItem(EOpType.PAINT_DETAIL.getOpName());
         item.setOnAction(event -> {
-            if(isDuplicate(EOpType.PAINT_NEW)) return ;
+            if(isDuplicate(EOpType.PAINT_DETAIL)) return ;
             addPaintDetailPlate(new OpPaintDetail());
         });
         return item;
@@ -624,7 +624,7 @@ public class MenuForm extends ContextMenu {
             case PAINTING:
                 addPaintOldPlate((OpPaintOld) op);
                 break;
-                case PAINT_NEW:
+                case PAINT_DETAIL:
                 addPaintDetailPlate((OpPaintDetail) op);
                 break;
             case PAINT_ASSM:
@@ -973,7 +973,7 @@ public class MenuForm extends ContextMenu {
      */
     public void addPaintOldPlate(OpPaintOld opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaint.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaintOld.fxml"));
             VBox vBox = loader.load();
             PlatePaintOldController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА ДЕТАЛИ");
@@ -989,7 +989,7 @@ public class MenuForm extends ContextMenu {
      */
     public void addPaintDetailPlate(OpPaintDetail opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaintNew.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/paint/platePaintDetail.fxml"));
             VBox vBox = loader.load();
             PlatePaintDetailController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "ПОКРАСКА ДЕТАЛИ");

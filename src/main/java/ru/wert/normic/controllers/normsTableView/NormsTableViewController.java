@@ -144,11 +144,6 @@ public class NormsTableViewController {
                 MAIN_CONTROLLER.recountMainOpData();
                 MAIN_CONTROLLER.recountPainting(MAIN_OP_DATA, 1);
 
-                //Перезаполняем сет из используемых материалов
-                usedMaterials.clear();
-                getListOfDetails(MAIN_OP_DATA, 1);
-                bx.updateItems();
-
             });
         } catch (IOException ex) {
             ex.printStackTrace();

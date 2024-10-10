@@ -624,7 +624,7 @@ public class MenuForm extends ContextMenu {
             case PAINTING:
                 addPaintOldPlate((OpPaintOld) op);
                 break;
-                case PAINT_DETAIL:
+            case PAINT_DETAIL:
                 addPaintDetailPlate((OpPaintDetail) op);
                 break;
             case PAINT_ASSM:

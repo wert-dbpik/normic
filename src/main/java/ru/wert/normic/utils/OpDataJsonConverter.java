@@ -99,7 +99,7 @@ public class OpDataJsonConverter {
 
             case "PAINTING":
                 return gson.fromJson(op.toString(), OpPaintOld.class);
-            case "PAINT_NEW":
+            case "PAINT_DETAIL":
                 return gson.fromJson(op.toString(), OpPaintDetail.class);
             case "PAINT_ASSM":
                 return gson.fromJson(op.toString(), OpPaintAssm.class);

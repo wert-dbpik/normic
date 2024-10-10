@@ -23,6 +23,12 @@ public class ReportController {
 
         //###########################################################################################################
 
+        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
+        new ReportNormsByJobTypes(textReport, opAssm).create();
+
+        //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
+        new ReportNormsByNormTypes(textReport, opAssm).create();
+
         //МАТЕРИАЛЫ И ЛОМ
         new ReportMaterials(textReport, opAssm).create();
 
@@ -41,11 +47,6 @@ public class ReportController {
         //УПАКОВКА
         new ReportPacking(textReport, opAssm).create();
 
-        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
-        new ReportNormsByJobTypes(textReport, opAssm).create();
-
-        //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
-        new ReportNormsByNormTypes(textReport, opAssm).create();
 
         taReport.setText(textReport.toString());
 

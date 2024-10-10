@@ -37,6 +37,8 @@ public class TotalCounter {
 
             } else {//Простая операция
                 op.setTotal(amount * op.getQuantity());
+                if(op.getOpType().getNormCounter() == null) //Плашка ERROR
+                    continue;
                 op = op.getOpType().getNormCounter().count(op); //Вычисляем, аргуметом передаем саму операцию
 
                 //Если операция отображается на плашке, то

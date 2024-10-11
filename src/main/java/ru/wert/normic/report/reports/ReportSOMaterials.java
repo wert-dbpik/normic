@@ -6,8 +6,11 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
+import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMatType;
+import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EPieceMeasurement;
+import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.*;
 
@@ -51,8 +54,8 @@ public class ReportSOMaterials {
                     materials.put(m, ((OpSimpleOperation) op).getManualAmount() * ((OpSimpleOperation) op).getNum() * quantity);
                 }
 
-            } else if (op instanceof OpAssm) {
-                List<OpData> operations = ((OpAssm) op).getOperations();
+            } else if (op instanceof OpAssm || op instanceof OpPack) {
+                List<OpData> operations = ((IOpWithOperations) op).getOperations();
                 collectMaterialsByOpData(operations, op.getQuantity() * quantity);
             }
 

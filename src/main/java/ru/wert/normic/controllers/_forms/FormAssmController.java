@@ -59,15 +59,12 @@ public class FormAssmController extends AbstractFormController {
     @FXML @Getter
     private TextField tfTotalTime;
 
-    private AbstractFormController prevAssmController;
-
     public FormAssmController() {
     }
 
     @Override
-    public void init(AbstractFormController prevAssmController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
+    public void init(TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = (OpAssm) opData;
-        this.prevAssmController = prevAssmController;
 
         ((IOpWithOperations)opData).setFormController(this);
 
@@ -106,7 +103,6 @@ public class FormAssmController extends AbstractFormController {
 
         //Заполняем поля формы
         fillOpData();
-//        writeNormTime(opData);
 
         menu.addEmptyPlate();
         MAIN_CONTROLLER.recountMainOpData();

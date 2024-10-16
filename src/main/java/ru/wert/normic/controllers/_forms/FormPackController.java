@@ -55,12 +55,9 @@ public class FormPackController extends AbstractFormController {
 
     @Getter private int width, depth, height;
 
-    private AbstractFormController controller;
-
     @Override //AbstractFormController
-    public void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
+    public void init(TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = (OpPack) opData;
-        this.controller = controller;
 
         ((IOpWithOperations)opData).setFormController(this);
 

@@ -129,7 +129,7 @@ public class PlateAssmController extends AbstractOpPlate{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/formAssm.fxml"));
             Parent parent = loader.load();
             thisFormAssmController = loader.getController();
-            thisFormAssmController.init(prevFormController, tfName, tfN, this.opData, imgDone);
+            thisFormAssmController.init(tfName, tfN, this.opData, imgDone);
             Decoration windowDecoration = new Decoration(
                     "СБОРКА",
                     parent,

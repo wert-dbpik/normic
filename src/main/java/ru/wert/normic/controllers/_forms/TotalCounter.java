@@ -62,9 +62,6 @@ public class TotalCounter {
         ((OpData) opsData).setAssmTime(tempAssmTime);
         ((OpData) opsData).setPackTime(tempPackTime);
 
-        if(opsData.equals(MAIN_OP_DATA))
-            System.out.println("ooops");
-
         //Заполняем окно нашей ДЕТАЛИ или СБОРКИ если оно отображается
         AbstractFormController formController = opsData.getFormController();
         if(formController != null)

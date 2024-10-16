@@ -12,5 +12,5 @@ import ru.wert.normic.entities.ops.OpData;
  */
 public interface IForm {
 
-    void init(AbstractFormController controller, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone);
+    void init(TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone);
 }

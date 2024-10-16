@@ -64,17 +64,13 @@ public class FormDetailController extends AbstractFormController {
 
     @Getter private AbstractMatPatchController matPatchController;
 
-    private AbstractFormController prevAssmController;
-
-
 
     @Getter private BtnDone done;
 
 
     @Override //AbstractFormController
-    public void init(AbstractFormController assmController, TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
+    public void init(TextField tfName, TextField tfQuantity, OpData opData, ImgDouble imgDone) {
         this.opData = opData;
-        this.prevAssmController = assmController;
 
         ((IOpWithOperations)opData).setFormController(this);
 

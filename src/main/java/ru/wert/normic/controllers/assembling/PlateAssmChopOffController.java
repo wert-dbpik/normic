@@ -9,6 +9,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opAssembling.OpAssmChopOff;
 import ru.wert.normic.enums.EOpType;
 
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.CHOP_SPEED;
 
@@ -24,7 +25,7 @@ public class PlateAssmChopOffController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
         getTfNormTime().textProperty().addListener((observable, oldValue, newValue) -> {
-            prevFormController.countSumNormTimeByShops();
+            MAIN_CONTROLLER.recountMainOpData();
         });
     }
 

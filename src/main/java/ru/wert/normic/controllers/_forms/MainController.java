@@ -811,23 +811,12 @@ public class MainController extends AbstractFormController {
 
 
     /**
-     * Метод вызывается из контроллеров плашек для суммирования норм времени на лету
-     */
-    @Override //AbstractFormController
-    public void countSumNormTimeByShops() {
-
-        recountMainOpData();
-
-    }
-
-    /**
      * Метод пересчитывает нормы для главного окна
      * И прописывает их по участкам
      */
     public void recountMainOpData() {
         new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
         writeNormTime(MAIN_OP_DATA);
-
     }
 
 

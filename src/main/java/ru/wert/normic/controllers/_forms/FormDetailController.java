@@ -121,7 +121,7 @@ public class FormDetailController extends AbstractFormController {
         //Заполняем поля формы
         fillOpData();
         matPatchController.countWeightAndArea();
-        countSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
 
         menu.addEmptyPlate();
     }
@@ -222,7 +222,7 @@ public class FormDetailController extends AbstractFormController {
 
         new BtnAddMaterial(btnAddMaterial, cmbxMaterial);
 
-        countSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
     }
 
     @Override
@@ -331,19 +331,8 @@ public class FormDetailController extends AbstractFormController {
             }
         }
 
-        countSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
     }
-
-
-    /**
-     * Метод вызывается из контроллеров плашек для суммирования норм времени на лету
-     */
-    @Override //AbstractFormController
-    public void countSumNormTimeByShops(){
-        new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_OP_DATA, 1);
-        writeNormTime(opData);
-    }
-
 
 
 

@@ -150,7 +150,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
         prevFormController.getListViewTechOperations().getItems().remove(box);
         prevFormController.getAddedOperations().remove(this.getOpData());
         ((IOpWithOperations)prevFormController.getOpData()).getOperations().remove(this.getOpData());
-        prevFormController.countSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
         //Пересчет площади покрытия при удалении деталей и сборок
         OpData deletingOp = this.getOpData();
         if(deletingOp instanceof OpDetail || deletingOp instanceof OpAssm){

@@ -26,6 +26,7 @@ import ru.wert.normic.utils.IntegerParser;
 
 import java.io.IOException;
 
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
@@ -100,8 +101,7 @@ public class PlatePackController extends AbstractOpPlate{
         //Сохраняем количество и пересчитываем при изменении
         tfN.textProperty().addListener((observable, oldValue, newValue) -> {
             this.opData.setQuantity(IntegerParser.getValue(tfN));
-            prevFormController.countSumNormTimeByShops();
-//            formController.calculateAreaByDetails();
+            MAIN_CONTROLLER.recountMainOpData();
         });
 
     }

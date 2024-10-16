@@ -106,11 +106,10 @@ public class FormAssmController extends AbstractFormController {
 
         //Заполняем поля формы
         fillOpData();
-//        countSumNormTimeByShops();
-        writeNormTime(opData);
+//        writeNormTime(opData);
 
         menu.addEmptyPlate();
-        countSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
 
     }
 
@@ -153,18 +152,6 @@ public class FormAssmController extends AbstractFormController {
 
         return menu;
     }
-
-
-    /**
-     * Метод расчитывает суммарное время по участкам
-     */
-    @Override //AbstractFormController
-    public void countSumNormTimeByShops(){
-        new TotalCounter().recountNormTimes((IOpWithOperations) MAIN_OP_DATA, 1);
-        writeNormTime(opData);
-    }
-
-
 
 
     @Override //AbstractFormController

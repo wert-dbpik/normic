@@ -196,10 +196,6 @@ public class SearchingFileController extends AbstractFormController {
         });
     }
 
-    @Override
-    public void countSumNormTimeByShops() {
-        //НЕ ИСПОЛЬЗУЕТСЯ
-    }
 
     @Override
     public MenuForm createMenu() {

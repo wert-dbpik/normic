@@ -12,6 +12,7 @@ import ru.wert.normic.controllers.turning.counters.OpLatheMountDismountCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.opTurning.OpLatheMountDismount;
 
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
@@ -58,7 +59,7 @@ public class PlateLatheMountDismountController extends AbstractOpPlate {
             else holder = OpLatheMountDismountCounter.ELatheHolders.HOLDER_AND_CENTER;
 
             countNorm(opData);
-            prevFormController.countSumNormTimeByShops();
+            MAIN_CONTROLLER.recountMainOpData();
         });
 
         new TFNormTime(tfNormTime, prevFormController);

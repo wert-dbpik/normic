@@ -14,6 +14,7 @@ import ru.wert.normic.entities.ops.opTurning.OpLatheCutOff;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.utils.IntegerParser;
 
+import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 /**
@@ -48,7 +49,7 @@ public class PlateLatheCutOffController extends AbstractOpPlate {
                 tfThickness.setText(String.valueOf(thickness));
             }
 
-            prevFormController.countSumNormTimeByShops();
+            MAIN_CONTROLLER.recountMainOpData();
         });
 
         new TFIntegerColored(tfThickness, this);

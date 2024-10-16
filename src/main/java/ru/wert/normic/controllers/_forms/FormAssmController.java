@@ -138,10 +138,10 @@ public class FormAssmController extends AbstractFormController {
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
         menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createAllLocksmithOperations());
 
         Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLING));
-        if(simpleOperationsMenu != null)
-            menu.getItems().add(simpleOperationsMenu);
+        menu.getItems().add(simpleOperationsMenu);
 
 
         linkMenuToButton();

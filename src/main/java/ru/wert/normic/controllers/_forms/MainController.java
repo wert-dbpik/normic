@@ -128,8 +128,9 @@ public class MainController extends AbstractFormController {
         MAIN_CONTROLLER = this;
 
         opData = new OpAssm();
-        MAIN_OP_DATA = (OpAssm) opData;
+
         ((IOpWithOperations)opData).setFormController(MAIN_CONTROLLER);
+        MAIN_OP_DATA = (OpAssm) opData;
 
         progressIndicator.setVisible(false);
         vbAboutPane.setVisible(false);
@@ -443,7 +444,7 @@ public class MainController extends AbstractFormController {
             PlateAssmController.nameIndex = 0;
 
             fillOpData();
-            finalCountSumNormTimeByShops();
+            recountMainOpData();
         });
 
         //Единицы измерения
@@ -456,7 +457,7 @@ public class MainController extends AbstractFormController {
         mainMenuController.getRbmHours().setSelected(true);
 
 
-        finalCountSumNormTimeByShops();
+        recountMainOpData();
 
     }
 
@@ -489,7 +490,9 @@ public class MainController extends AbstractFormController {
             createMenu();
             menu.addListOfOperations();
             MAIN_OP_DATA = (OpAssm) opData;
-            new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
+            MAIN_OP_DATA.setFormController(this);
+            recountMainOpData();
+
             iterateUndoList();
         });
         service.start();
@@ -806,17 +809,6 @@ public class MainController extends AbstractFormController {
 
     }
 
-    /**
-     * Метод используется для пересчета и вывода норм времени в нижнюю строку программы
-     * при открытии готовых норм
-     */
-    public void finalCountSumNormTimeByShops(){
-
-        OpData opData = (OpData) new TotalCounter().recountNormTimes((IOpWithOperations) this.opData, 1);
-
-        writeNormTime(opData);
-    }
-
 
     /**
      * Метод вызывается из контроллеров плашек для суммирования норм времени на лету
@@ -824,9 +816,7 @@ public class MainController extends AbstractFormController {
     @Override //AbstractFormController
     public void countSumNormTimeByShops() {
 
-        OpData opData = (OpData) new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
-
-        writeNormTime(opData);
+        recountMainOpData();
 
     }
 
@@ -835,8 +825,8 @@ public class MainController extends AbstractFormController {
      * И прописывает их по участкам
      */
     public void recountMainOpData() {
-        new TotalCounter().recountNormTimes((IOpWithOperations) opData, 1);
-        finalCountSumNormTimeByShops();
+        new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
+        writeNormTime(MAIN_OP_DATA);
 
     }
 
@@ -850,7 +840,7 @@ public class MainController extends AbstractFormController {
         MAIN_OP_DATA.setPaintTime(0f);
 
         recountPainting(MAIN_OP_DATA, 1);
-        finalCountSumNormTimeByShops();
+        recountMainOpData();
     }
 
     /**
@@ -915,7 +905,7 @@ public class MainController extends AbstractFormController {
                 ((IOpWithOperations) opData).setOperations(ops);
             menu.addListOfOperations();
             recountPainting(MAIN_OP_DATA, 1);
-            finalCountSumNormTimeByShops();
+            recountMainOpData();
         });
 
     }

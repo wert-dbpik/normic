@@ -158,7 +158,7 @@ public abstract class AbstractFormController implements IForm {
                         else undoLastOperation();
 
                         menu.addListOfOperations();
-                        MAIN_CONTROLLER.finalCountSumNormTimeByShops();
+                        MAIN_CONTROLLER.recountMainOpData();
                         blockUndoListFlag = false;
 
                     } else if (ke.getCode().equals(KeyCode.NUMPAD2) || ke.getCode().equals(KeyCode.NUMPAD8) ||
@@ -725,7 +725,7 @@ public abstract class AbstractFormController implements IForm {
             ((IOpWithOperations) opData).getOperations().remove(op);
         }
         rebuildListOfOperations();
-        MAIN_CONTROLLER.finalCountSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
     }
 
     /**
@@ -839,7 +839,7 @@ public abstract class AbstractFormController implements IForm {
 
             MAIN_OP_DATA = (OpAssm) opData;
             ((IOpWithOperations)opData).setFormController(this);
-            MAIN_CONTROLLER.finalCountSumNormTimeByShops();
+            MAIN_CONTROLLER.recountMainOpData();
             //Сохраняем путь открытого файла. чтобы его можно было пересохранить
             MainController.savedProductFile = file;
         }
@@ -920,7 +920,7 @@ public abstract class AbstractFormController implements IForm {
         addedPlates.clear();
         addedOperations.clear();
         getListViewTechOperations().getItems().clear();
-        MAIN_CONTROLLER.finalCountSumNormTimeByShops();
+        MAIN_CONTROLLER.recountMainOpData();
         PlateDetailController.nameIndex = 0;
         PlateAssmController.nameIndex = 0;
         iterateUndoList();

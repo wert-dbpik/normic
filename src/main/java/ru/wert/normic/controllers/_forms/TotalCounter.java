@@ -5,6 +5,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import static java.lang.String.format;
+import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 
 public class TotalCounter {
 
@@ -35,6 +36,8 @@ public class TotalCounter {
                 tempAssmTime += op.getAssmTime() * op.getQuantity();
                 tempPackTime += op.getPackTime() * op.getQuantity();
 
+
+
             } else {//Простая операция
                 op.setTotal(amount * op.getQuantity());
                 if(op.getOpType().getNormCounter() == null) //Плашка ERROR
@@ -58,6 +61,9 @@ public class TotalCounter {
         ((OpData) opsData).setPaintTime(tempPaintTime);
         ((OpData) opsData).setAssmTime(tempAssmTime);
         ((OpData) opsData).setPackTime(tempPackTime);
+
+        if(opsData.equals(MAIN_OP_DATA))
+            System.out.println("ooops");
 
         //Заполняем окно нашей ДЕТАЛИ или СБОРКИ если оно отображается
         AbstractFormController formController = opsData.getFormController();

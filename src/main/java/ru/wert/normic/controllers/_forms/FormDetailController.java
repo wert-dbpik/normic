@@ -253,20 +253,16 @@ public class FormDetailController extends AbstractFormController {
             menu.getItems().add(menu.createItemCutGroove());
             menu.getItems().add(menu.createItemThreading());
             menu.getItems().add(menu.createItemRolling());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemChopOff());
-            menu.getItems().add(menu.createItemCutOffOnTheSaw());
             menu.getItems().add(menu.createItemCutOff());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
             menu.getItems().add(menu.createItemPaintingOld());
+            menu.getItems().add(new SeparatorMenuItem());
+            menu.getItems().add(menu.createAllLocksmithOperations());
 
             Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
-            if(simpleOperationsMenu != null) {
-                menu.getItems().add(new SeparatorMenuItem());
-                menu.getItems().add(simpleOperationsMenu);
-            }
+            menu.getItems().add(simpleOperationsMenu);
 
             deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
 

@@ -71,13 +71,13 @@ public enum EOpType {
     CUT_OFF_ON_SAW              ("Отрезание на пиле",               OpCutOffOnTheSaw.class,             new Image("/pics/opLogos/saw.png"),             new OpCutOffOnTheSawCounter()),     //ОТРЕЗАНИЕ НА ПИЛЕ
 
     //ТОКАРНЫЕ ОПЕРАЦИИ
-    LATHE_MOUNT_DISMOUNT        ("Установка и снятие детали",       OpLatheMountDismount.class,         new Image("/pics/opLogos/lathe.png"),           new OpLatheMountDismountCounter()),  //УСТАНОВКА И СНЯТИЕ ДЕТАЛИ С ТОКАРНОГО СТАНКА
+    LATHE_MOUNT_DISMOUNT        ("Установка/снятие детали, переворот", OpLatheMountDismount.class,      new Image("/pics/opLogos/lathe.png"),           new OpLatheMountDismountCounter()),  //УСТАНОВКА И СНЯТИЕ ДЕТАЛИ С ТОКАРНОГО СТАНКА
     LATHE_TURNING               ("Точение и растачивание",          OpLatheTurning.class,               new Image("/pics/opLogos/lathe.png"),           new OpLatheTurningCounter()),        //ТОЧЕНИЕ И РАСТАЧИВАНИЕ
     LATHE_CUT_GROOVE            ("Точение канавки",                 OpLatheCutGroove.class,             new Image("/pics/opLogos/lathe.png"),           new OpLatheCutGrooveCounter()),      //ТОЧЕНИЕ КАНАВКИ НА ТОКАРНОМ СТАНКЕ
     LATHE_THREADING             ("Нарезание резьбы",                OpLatheThreading.class,             new Image("/pics/opLogos/threading.png"),       new OpLatheThreadingCounter()),      //НАРЕЗАНИЕ РЕЗЬБЫ НА ТОКАРНОМ СТАНКЕ
     LATHE_DRILLING              ("Сверление",                       OpLatheDrilling.class,              new Image("/pics/opLogos/lathe_drill.png"),     new OpLatheDrillingCounter()),       //СВЕРЛЕНИЕ ОТВЕРСТИЯ НА ТОКАРНОМ СТАНКЕ
     LATHE_ROLLING               ("Накатывание рифления",            OpLatheRolling.class,               new Image("/pics/opLogos/lathe.png"),           new OpLatheRollingCounter()),        //НАКАТЫВАНИЕ ПРОФИЛЯ НА ТОАРНОМ СТАНКЕ
-    LATHE_CUT_OFF               ("Отрезание",                       OpLatheCutOff.class,                new Image("/pics/opLogos/lathe.png"),           new OpLatheCutOffCounter()),         //ОТРЕЗАНИЕ НА ТОКАРНОМ СТАНКЕ
+    LATHE_CUT_OFF               ("Отрезание резцом",                       OpLatheCutOff.class,                new Image("/pics/opLogos/lathe.png"),           new OpLatheCutOffCounter()),         //ОТРЕЗАНИЕ НА ТОКАРНОМ СТАНКЕ
 
     //СВАРОЧНЫЕ ОПЕРАЦИИ
     WELD_CONTINUOUS             ("Сварка непрерывная",              OpWeldContinuous.class,             new Image("/pics/opLogos/weld.png"),            new OpWeldContinuousCounter()),      //СВАРКА НЕПРЕРЫВНЫМ ШВОМ

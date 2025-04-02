@@ -92,9 +92,11 @@ public class ExcelImporter {
                             if(mat != null) {
                                 matType = EMatType.getTypeByName(mat.getMatType().getName());
                                 detail.setMaterial(mat);
-                                detail.setParamA(Integer.parseInt(row.getParamA()));
+                                String pA = row.getParamA();
+                                detail.setParamA(pA.isEmpty() ? 0 : Integer.parseInt(pA));
                                 if(matType.equals(EMatType.LIST)) {
-                                    detail.setParamB(Integer.parseInt(row.getParamB()));
+                                    String pB = row.getParamB();
+                                    detail.setParamB(pB.isEmpty() ? 0 : Integer.parseInt(pB));
                                     detail.setArea(MaterialMaster.countListArea(detail));
                                     detail.setWeight(MaterialMaster.countListWeight(detail, mat));
                                     //Вырезание детали

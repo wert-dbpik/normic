@@ -14,11 +14,13 @@ public class OpMountOnScrewsWithDisAssmCounter implements NormCounter{
 
         int twoScrews = opData.getTwoScrews(); //Количество креплений на 2 винта
         int fourScrews = opData.getFourScrews(); //Количество креплений на 4 винта
+        boolean difficult = opData.isDifficult(); // Сложно устанавливать
+        double k = difficult ? 1.3 : 1.0; //Коэффициент сложности
 
         //################################################################
 
-        double time =  twoScrews * MOUNT_ON_2_SCREWS_WITH_DISASSM
-                + fourScrews * MOUNT_ON_4_SCREWS_WITH_DISASSM;   //мин
+        double time =  twoScrews * MOUNT_ON_2_SCREWS_WITH_DISASSM * k
+                + fourScrews * MOUNT_ON_4_SCREWS_WITH_DISASSM * k;   //мин
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

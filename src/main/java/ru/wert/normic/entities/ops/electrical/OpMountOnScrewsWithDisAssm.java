@@ -16,6 +16,7 @@ public class OpMountOnScrewsWithDisAssm extends OpData {
 
     private int twoScrews = 0;
     private int fourScrews = 0;
+    private boolean difficult = false;
 
 
     public OpMountOnScrewsWithDisAssm() {

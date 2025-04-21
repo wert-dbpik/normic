@@ -2,8 +2,10 @@ package ru.wert.normic.controllers.electricalOperations;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
@@ -29,16 +31,21 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
     @FXML
     private TextField tf4Screws;
 
+    @FXML
+    private CheckBox chbDifficult;
+
     private OpMountOnScrewsWithDisAssm opData;
 
     private int twoScrews; //Количество автоматов
     private int fourScrews; //Количество нагревателей
+    private boolean difficult; //Сложность сборки
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
         new TFIntegerColored(tf2Screws, this);
         new TFIntegerColored(tf4Screws, this);
+        new ChBox(chbDifficult, this);
 
     }
 
@@ -60,6 +67,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
     public void countInitialValues() {
         twoScrews = IntegerParser.getValue(tf2Screws);
         fourScrews = IntegerParser.getValue(tf4Screws);
+        difficult = chbDifficult.isSelected();
         
         collectOpData();
     }
@@ -67,6 +75,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
     private void collectOpData(){
         opData.setTwoScrews(twoScrews);
         opData.setFourScrews(fourScrews);
+        opData.setDifficult(difficult);
     }
 
     @Override//AbstractOpPlate
@@ -78,6 +87,9 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
 
         fourScrews = opData.getFourScrews();
         tf4Screws.setText(String.valueOf(fourScrews));
+
+        difficult = opData.isDifficult();
+        chbDifficult.setSelected(difficult);
     }
 
     @Override
@@ -87,7 +99,9 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
                         "(прогонка резьбы учтена):" +
                 "\n" +
                 "\tна 2 винта %s мин/элемент.\n" +
-                "\tна 4 винта %s мин/элемент.\n",
+                "\tна 4 винта %s мин/элемент.\n" +
+                "\n" +
+                "Установка в стесненных условиях - коэффициент 1,3",
 
                 MOUNT_ON_2_SCREWS_NO_DISASSM, MOUNT_ON_4_SCREWS_NO_DISASSM);
     }

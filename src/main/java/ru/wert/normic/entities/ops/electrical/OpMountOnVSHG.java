@@ -14,6 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpMountOnVSHG extends OpData {
 
     private int elements = 0;
+    private boolean difficult = false;
 
 
     public OpMountOnVSHG() {

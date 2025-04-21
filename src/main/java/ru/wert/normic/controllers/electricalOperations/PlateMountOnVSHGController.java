@@ -2,8 +2,10 @@ package ru.wert.normic.controllers.electricalOperations;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
@@ -26,15 +28,20 @@ public class PlateMountOnVSHGController extends AbstractOpPlate {
     @FXML
     private TextField tfElements;
 
+    @FXML
+    private CheckBox chbDifficult;
+
+
     private OpMountOnVSHG opData;
 
     private int elements; //Количество элементов
+    private boolean difficult; //Сложность сборки
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
         new TFIntegerColored(tfElements, this);
-
+        new ChBox(chbDifficult, this);
     }
 
 
@@ -54,12 +61,14 @@ public class PlateMountOnVSHGController extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void countInitialValues() {
         elements = IntegerParser.getValue(tfElements);
+        difficult = chbDifficult.isSelected();
 
         collectOpData();
     }
 
     private void collectOpData(){
         opData.setElements(elements);
+        opData.setDifficult(difficult);
     }
 
     @Override//AbstractOpPlate
@@ -69,12 +78,17 @@ public class PlateMountOnVSHGController extends AbstractOpPlate {
         elements = opData.getElements();
         tfElements.setText(String.valueOf(elements));
 
+
+        difficult = opData.isDifficult();
+        chbDifficult.setSelected(difficult);
     }
 
     @Override
     public String helpText() {
         return String.format("Установка на ВШГ(4 шт) изделий при установке на кронштейны,\n" +
-                        "монтажные панели за %s мин/элемент.\n",
+                        "монтажные панели за %s мин/элемент.\n" +
+                        "\n" +
+                        "Установка в стесненных условиях - коэффициент 1,3",
                 MOUNT_ON_VSHG);
     }
 

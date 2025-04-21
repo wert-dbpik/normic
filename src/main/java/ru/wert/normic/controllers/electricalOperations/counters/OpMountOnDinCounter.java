@@ -14,11 +14,13 @@ public class OpMountOnDinCounter implements NormCounter{
 
         int avtomats = opData.getAvtomats(); //Количество винтов
         int heaters = opData.getHeaters(); //Количество комплектов ВШГ
+        boolean difficult = opData.isDifficult(); // Сложно устанавливать
+        double k = difficult ? 1.3 : 1.0; //Коэффициент сложности
 
         //################################################################
 
-        double time =  avtomats * MOUNT_ON_DIN_AUTOMATS
-                + heaters * MOUNT_ON_DIN_HEATERS;   //мин
+        double time =  avtomats * MOUNT_ON_DIN_AUTOMATS * k
+                + heaters * MOUNT_ON_DIN_HEATERS * k;   //мин
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

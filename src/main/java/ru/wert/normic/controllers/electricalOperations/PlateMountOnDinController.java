@@ -2,8 +2,10 @@ package ru.wert.normic.controllers.electricalOperations;
 
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
@@ -28,16 +30,21 @@ public class PlateMountOnDinController extends AbstractOpPlate {
     @FXML
     private TextField tfHeaters;
 
+    @FXML
+    private CheckBox chbDifficult;
+
     private OpMountOnDin opData;
 
     private int avtomats; //Количество автоматов
     private int heaters; //Количество нагревателей
+    private boolean difficult; //Сложность сборки
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
         new TFIntegerColored(tfAvtomats, this);
         new TFIntegerColored(tfHeaters, this);
+        new ChBox(chbDifficult, this);
 
     }
 
@@ -59,6 +66,7 @@ public class PlateMountOnDinController extends AbstractOpPlate {
     public void countInitialValues() {
         heaters = IntegerParser.getValue(tfHeaters);
         avtomats = IntegerParser.getValue(tfAvtomats);
+        difficult = chbDifficult.isSelected();
 
         collectOpData();
     }
@@ -66,6 +74,7 @@ public class PlateMountOnDinController extends AbstractOpPlate {
     private void collectOpData(){
         opData.setHeaters(heaters);
         opData.setAvtomats(avtomats);
+        opData.setDifficult(difficult);
     }
 
     @Override//AbstractOpPlate
@@ -77,6 +86,9 @@ public class PlateMountOnDinController extends AbstractOpPlate {
 
         heaters = opData.getHeaters();
         tfHeaters.setText(String.valueOf(heaters));
+
+        difficult = opData.isDifficult();
+        chbDifficult.setSelected(difficult);
     }
 
     @Override
@@ -85,7 +97,10 @@ public class PlateMountOnDinController extends AbstractOpPlate {
                         "\tкоммутаторов, зажимов и т.п устанавливается за %s мин/элемент.\n" +
                         "\n" +
                         "Установка на динрейку нагревателей, счетчиков.\n" +
-                        "\tустанавливается за %s мин/элемент.\n",
+                        "\tустанавливается за %s мин/элемент.\n" +
+                        "\n" +
+                        "Установка в стесненных условиях - коэффициент 1,3",
+
 
                 MOUNT_ON_DIN_AUTOMATS, MOUNT_ON_DIN_HEATERS);
     }

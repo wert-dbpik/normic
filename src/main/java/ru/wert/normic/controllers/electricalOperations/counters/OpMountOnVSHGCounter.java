@@ -13,10 +13,12 @@ public class OpMountOnVSHGCounter implements NormCounter{
         OpMountOnVSHG opData = (OpMountOnVSHG)data;
 
         int elements = opData.getElements(); //Количество элементов'
+        boolean difficult = opData.isDifficult(); // Сложно устанавливать
+        double k = difficult ? 1.3 : 1.0; //Коэффициент сложности
 
         //################################################################
 
-        double time =  elements * MOUNT_ON_VSHG;//мин
+        double time =  elements * MOUNT_ON_VSHG * k;//мин
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

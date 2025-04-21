@@ -7,6 +7,7 @@ import ru.wert.normic.entities.ops.electrical.OpFixOfCables;
 import ru.wert.normic.entities.ops.electrical.OpMarking;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.FIX_OF_CABLES_SPEED;
 import static ru.wert.normic.settings.NormConstants.MARKING_SPEED;
@@ -21,7 +22,9 @@ public class OpFixOfCablesCounter implements NormCounter{
 
         //################################################################
 
-        double time =  elements * FIX_OF_CABLES_SPEED;//мин
+        double timeOp =  elements * FIX_OF_CABLES_SPEED;//мин
+
+        double time = timeOp + timeOp * 0.064 + timeOp * 0.029 / CURRENT_BATCH;
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

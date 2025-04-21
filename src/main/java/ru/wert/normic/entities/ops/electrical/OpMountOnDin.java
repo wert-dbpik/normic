@@ -16,6 +16,7 @@ public class OpMountOnDin extends OpData {
 
     private int avtomats = 0;
     private int heaters = 0;
+    private boolean difficult = false;
 
 
     public OpMountOnDin() {

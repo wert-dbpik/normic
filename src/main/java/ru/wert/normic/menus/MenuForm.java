@@ -9,9 +9,7 @@ import ru.wert.normic.controllers.PlateEmptyController;
 import ru.wert.normic.controllers.PlateErrorController;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.controllers.assembling.*;
-import ru.wert.normic.controllers.electricalOperations.PlateMountOnDinController;
-import ru.wert.normic.controllers.electricalOperations.PlateMountOnScrewsNoDisAssmController;
-import ru.wert.normic.controllers.electricalOperations.PlateMountOnScrewsWithDisAssmController;
+import ru.wert.normic.controllers.electricalOperations.*;
 import ru.wert.normic.controllers.listOperations.PlateBendController;
 import ru.wert.normic.controllers.listOperations.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.*;
@@ -32,9 +30,7 @@ import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
+import ru.wert.normic.entities.ops.electrical.*;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -577,6 +573,60 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //МОНТАЖ НА ВШГ(4 шт)
+    public MenuItem createItemMountOnVSHG(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_VSHG.getOpName());
+        item.setOnAction(event -> {
+            addMountOnVSHGPlate(new OpMountOnVSHG());
+        });
+        return item;
+    }
+
+    //МАРКИРОВКА
+    public MenuItem createItemMarking(){
+        MenuItem item = new MenuItem(EOpType.EL_MARKING.getOpName());
+        item.setOnAction(event -> {
+            addMarkingPlate(new OpMarking());
+        });
+        return item;
+    }
+
+    //УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ
+    public MenuItem createItemMountOfSignalEquip(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_SIGNAL_EQUIP.getOpName());
+        item.setOnAction(event -> {
+            addMountOfSignalEquipPlate(new OpMountOfSignalEquip());
+        });
+        return item;
+    }
+
+    //СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ
+    public MenuItem createItemSoldering(){
+        MenuItem item = new MenuItem(EOpType.EL_SOLDERING.getOpName());
+        item.setOnAction(event -> {
+            addSolderingPlate(new OpSoldering());
+        });
+        return item;
+    }
+
+    //УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ
+    public MenuItem createItemMountOfCableEntries(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_CABLE_ENTRIES.getOpName());
+        item.setOnAction(event -> {
+            addMountOfCableEntriesPlate(new OpMountOfCableEntries());
+        });
+        return item;
+    }
+
+    //УКЛАДКА ЖГУТОВ
+    public MenuItem createItemFixOfCables(){
+        MenuItem item = new MenuItem(EOpType.EL_FIX_OF_CABLES.getOpName());
+        item.setOnAction(event -> {
+            addFixOfCablesPlate(new OpFixOfCables());
+        });
+        return item;
+    }
+
 
 //*****************************************************************************************************************
 //              МЕТОДЫ
@@ -726,6 +776,24 @@ public class MenuForm extends ContextMenu {
                 break;
             case EL_MOUNT_ON_SCREWS_WITH_DISASSM:
                 addMountOnScrewsWithDisAssmPlate((OpMountOnScrewsWithDisAssm) op);
+                break;
+            case EL_MOUNT_ON_VSHG:
+                addMountOnVSHGPlate((OpMountOnVSHG) op);
+                break;
+            case EL_MARKING:
+                addMarkingPlate((OpMarking) op);
+                break;
+            case EL_MOUNT_OF_SIGNAL_EQUIP:
+                addMountOfSignalEquipPlate((OpMountOfSignalEquip) op);
+                break;
+            case EL_SOLDERING:
+                addSolderingPlate((OpSoldering) op);
+                break;
+            case EL_MOUNT_OF_CABLE_ENTRIES:
+                addMountOfCableEntriesPlate((OpMountOfCableEntries) op);
+                break;
+            case EL_FIX_OF_CABLES:
+                addFixOfCablesPlate((OpFixOfCables) op);
                 break;
 
         }
@@ -1424,6 +1492,102 @@ public class MenuForm extends ContextMenu {
             VBox vBox = loader.load();
             PlateMountOnScrewsWithDisAssmController controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
+     */
+    public void addMountOnVSHGPlate(OpMountOnVSHG opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnVSHG.fxml"));
+            VBox vBox = loader.load();
+            PlateMountOnVSHGController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВШГ(4 шт)");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * МАРКИРОВКА
+     */
+    public void addMarkingPlate(OpMarking opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMarking.fxml"));
+            VBox vBox = loader.load();
+            PlateMarkingController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "МАРКИРОВКА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ
+     */
+    public void addMountOfSignalEquipPlate(OpMountOfSignalEquip opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOfSignalEquip.fxml"));
+            VBox vBox = loader.load();
+            PlateMountOfSignalEquipController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ
+     */
+    public void addSolderingPlate(OpSoldering opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateSoldering.fxml"));
+            VBox vBox = loader.load();
+            PlateSolderingController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ
+     */
+    public void addMountOfCableEntriesPlate(OpMountOfCableEntries opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOfCableEntries.fxml"));
+            VBox vBox = loader.load();
+            PlateMountOfCableEntriesController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УКЛАДКА ЖГУТОВ
+     */
+    public void addFixOfCablesPlate(OpFixOfCables opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateFixOfCables.fxml"));
+            VBox vBox = loader.load();
+            PlateFixOfCablesController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УКЛАДКА ЖГУТОВ");
             addVBox(vBox);
 
         } catch (IOException e) {

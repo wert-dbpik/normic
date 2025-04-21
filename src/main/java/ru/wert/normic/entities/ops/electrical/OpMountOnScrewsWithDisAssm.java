@@ -25,6 +25,6 @@ public class OpMountOnScrewsWithDisAssm extends OpData {
 
     @Override
     public String toString() {
-        return String.format("2 винта - %s, 4 винта - %s", twoScrews, fourScrews);
+        return String.format("2 винта - %s; 4 винта - %s", twoScrews, fourScrews);
     }
 }

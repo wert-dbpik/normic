@@ -15,7 +15,7 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
- * ОТРУБАНИЕ НА ГЕКЕ
+ * УСТАНОВКА НА ДИНРЕЙКУ
  */
 public class PlateMountOnDinController extends AbstractOpPlate {
 
@@ -82,10 +82,10 @@ public class PlateMountOnDinController extends AbstractOpPlate {
     @Override
     public String helpText() {
         return String.format("Установка на динрейку автоматов, термостатов, УЗО,\n" +
-                        "\tкоммутаторов, зажимов и т.п устанавливается за %s мин.\n" +
+                        "\tкоммутаторов, зажимов и т.п устанавливается за %s мин/элемент.\n" +
                         "\n" +
                         "Установка на динрейку нагревателей, счетчиков.\n" +
-                        "\tустанавливается за %s мин.\n",
+                        "\tустанавливается за %s мин/элемент.\n",
 
                 MOUNT_ON_DIN_AUTOMATS, MOUNT_ON_DIN_HEATERS);
     }

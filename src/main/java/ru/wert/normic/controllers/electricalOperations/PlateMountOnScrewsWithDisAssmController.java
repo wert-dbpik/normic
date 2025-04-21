@@ -16,7 +16,7 @@ import static ru.wert.normic.settings.NormConstants.MOUNT_ON_2_SCREWS_NO_DISASSM
 import static ru.wert.normic.settings.NormConstants.MOUNT_ON_4_SCREWS_NO_DISASSM;
 
 /**
- * ОТРУБАНИЕ НА ГЕКЕ
+ * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
  */
 public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
 
@@ -86,8 +86,8 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
                         "на винты, при установке которых требуется снятие крышки\n" +
                         "(прогонка резьбы учтена):" +
                 "\n" +
-                "\tна 2 винта %s мин.\n" +
-                "\tна 4 винта %s мин.\n",
+                "\tна 2 винта %s мин/элемент.\n" +
+                "\tна 4 винта %s мин/элемент.\n",
 
                 MOUNT_ON_2_SCREWS_NO_DISASSM, MOUNT_ON_4_SCREWS_NO_DISASSM);
     }

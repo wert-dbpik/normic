@@ -15,7 +15,7 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
- * ОТРУБАНИЕ НА ГЕКЕ
+ * УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
  */
 public class PlateMountOnScrewsNoDisAssmController extends AbstractOpPlate {
 
@@ -85,8 +85,8 @@ public class PlateMountOnScrewsNoDisAssmController extends AbstractOpPlate {
                         "на монтажную панель на винты без разборки корпуса\n" +
                         "(прогонка резьбы учтена):" +
                 "\n" +
-                "\tна 2 винта %s мин.\n" +
-                "\tна 4 винта %s мин.\n",
+                "\tна 2 винта %s мин/элемент.\n" +
+                "\tна 4 винта %s мин/элемент.\n",
 
                 MOUNT_ON_2_SCREWS_NO_DISASSM, MOUNT_ON_4_SCREWS_NO_DISASSM);
     }

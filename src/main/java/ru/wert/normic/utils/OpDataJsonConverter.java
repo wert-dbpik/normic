@@ -8,6 +8,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
+import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
+import ru.wert.normic.entities.ops.electrical.OpMountOnVSHG;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -161,6 +165,16 @@ public class OpDataJsonConverter {
                 //ПРОЧИЕ ОПЕРАЦИИ
             case "SIMPLE_OPERATION":
                 return gson.fromJson(op.toString(), OpSimpleOperation.class);
+
+            //ЭЛЕКТРОМОНТАЖ
+            case "EL_MOUNT_ON_DIN":
+                return gson.fromJson(op.toString(), OpMountOnDin.class);
+            case "EL_MOUNT_ON_SCREWS_NO_DISASSM":
+                return gson.fromJson(op.toString(), OpMountOnScrewsNoDisAssm.class);
+            case "EL_MOUNT_ON_SCREWS_WITH_DISASSM":
+                return gson.fromJson(op.toString(), OpMountOnScrewsWithDisAssm.class);
+            case "EL_MOUNT_ON_VSHG":
+                return gson.fromJson(op.toString(), OpMountOnVSHG.class);
 
             default:
                 return new OpErrorData(opType);

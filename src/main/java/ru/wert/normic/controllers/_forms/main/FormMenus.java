@@ -120,6 +120,14 @@ public class FormMenus {
         menu.getItems().add(menu.createItemMountOnDin());
         menu.getItems().add(menu.createItemMountOnScrewsNoDisAssm());
         menu.getItems().add(menu.createItemMountOnScrewsWithDisAssm());
+        menu.getItems().add(menu.createItemMountOnVSHG());
+        menu.getItems().add(menu.createItemMarking());
+        menu.getItems().add(menu.createItemMountOfSignalEquip());
+        menu.getItems().add(menu.createItemSoldering());
+        menu.getItems().add(menu.createItemMountOfCableEntries());
+        menu.getItems().add(menu.createItemFixOfCables());
+
+
 
         return menu;
     }

@@ -136,6 +136,18 @@ public class NormConstants {
     public static double MOUNT_ON_2_SCREWS_WITH_DISASSM = 3.0; //Скорость установки на 2 винта с разборкой, мин
     public static double MOUNT_ON_4_SCREWS_WITH_DISASSM = 5.0; //Скорость установки на 4 винта с разборкой, мин
 
+    public static double MOUNT_ON_VSHG = 2.5; //Скорость установки на ВШГ (4 шт), мин
+
+    public static double MARKING_SPEED = 0.3; //Скорость маркировки, мин/элемент
+
+    public static double SOLDERING_SPEED = 0.2; //Скорость пайки, мин/элемент
+
+    public static double MOUNT_OF_SIGNAL_EQUIP_SPEED = 1.3; //Скорость установки сигнальной аппаратуры, мин/элемент
+
+    public static double MOUNT_OF_CABLE_ENTRIES = 0.15; //Скорость установки кабельных вводов, мин/элемент
+
+    public static double FIX_OF_CABLES_SPEED = 1.5; //Скорость укладки жгутов, мин/элемент (каждые 0,3 м)
+
 
     private NormConstants() {
 

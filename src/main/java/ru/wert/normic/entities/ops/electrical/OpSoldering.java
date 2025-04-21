@@ -3,7 +3,6 @@ package ru.wert.normic.entities.ops.electrical;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
@@ -12,19 +11,18 @@ import ru.wert.normic.enums.EOpType;
  */
 @Getter
 @Setter
-public class OpMountOnDin extends OpData {
+public class OpSoldering extends OpData {
 
-    private int avtomats = 0;
-    private int heaters = 0;
+    private int elements = 0;
 
 
-    public OpMountOnDin() {
+    public OpSoldering() {
         super.normType = ENormType.NORM_ELECTRICAL;
-        super.opType = EOpType.EL_MOUNT_ON_DIN;
+        super.opType = EOpType.EL_SOLDERING;
     }
 
     @Override
     public String toString() {
-        return String.format("автоматы - %s; нагреватели - %s", avtomats, heaters);
+        return String.format("элементов- %s", elements);
     }
 }

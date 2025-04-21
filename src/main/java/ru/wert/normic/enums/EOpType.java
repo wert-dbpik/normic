@@ -3,9 +3,7 @@ package ru.wert.normic.enums;
 import javafx.scene.image.Image;
 import lombok.Getter;
 import ru.wert.normic.controllers.assembling.countings.*;
-import ru.wert.normic.controllers.electricalOperations.counters.OpMountOnDinCounter;
-import ru.wert.normic.controllers.electricalOperations.counters.OpMountOnScrewsNoDisAssmCounter;
-import ru.wert.normic.controllers.electricalOperations.counters.OpMountOnScrewsWithDisAssmCounter;
+import ru.wert.normic.controllers.electricalOperations.counters.*;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
@@ -19,9 +17,7 @@ import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDifficultyCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpErrorData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
+import ru.wert.normic.entities.ops.electrical.*;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -104,9 +100,15 @@ public enum EOpType {
 
     //===================================================================================================================================================================================================
     //ОПЕРАЦИИ ЭЛЕКТРОМОНТАЖА
-    EL_MOUNT_ON_DIN                     ("Установка на динрейку",               OpMountOnDin.class,               new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinCounter()),               //Установка на динрейку
-    EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,   new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),   //Установка на винты без разборки корпуса
-    EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class, new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()); //Установка на винты с разборкой корпуса
+    EL_MOUNT_ON_DIN                     ("Установка на динрейку",               OpMountOnDin.class,                 new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinCounter()),                  //Установка на динрейку
+    EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,     new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),      //Установка на винты без разборки корпуса
+    EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class,   new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()),    //Установка на винты с разборкой корпуса
+    EL_MOUNT_ON_VSHG                    ("Установка на ВШГ(4шт)",               OpMountOnVSHG.class,                new Image("/pics/opLogos/lamp.png"),       new OpMountOnVSHGCounter()),                 //Установка на ВШГ (4шт)
+    EL_MARKING                          ("Маркировка",                          OpMarking.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMarkingCounter()),                     //Маркировка
+    EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),          //Установка сигнальной аппаратуры
+    EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                  new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                   //Соединение элементов пайкой
+    EL_MOUNT_OF_CABLE_ENTRIES           ("Установка кабельных вводов",          OpMountOfCableEntries.class,        new Image("/pics/opLogos/lamp.png"),       new OpMountOfCableEntriesCounter()),         //Установка кабельных вводов
+    EL_FIX_OF_CABLES                    ("Укладка жгутов",                      OpFixOfCables.class,                new Image("/pics/opLogos/lamp.png"),       new OpFixOfCablesCounter());                 //Укладка жгутов
 
     @Getter String opName;
     @Getter Class<?> clazz;

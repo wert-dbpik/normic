@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="main" prefHeight="800.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers._forms.MainController">
+<VBox fx:id="main" prefHeight="800.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers._forms.main.MainController">
    <children>
       <StackPane fx:id="spMenuBar" alignment="TOP_LEFT" />
       <StackPane fx:id="spIconMenu" alignment="TOP_LEFT" />
@@ -20,9 +21,10 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
+                  <ImageView fx:id="imgLamp" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
+            <HBox alignment="TOP_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="btnAddOperation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="44.0" prefWidth="44.0">
                      <HBox.margin>
@@ -86,7 +88,7 @@
                            </font>
                         </Label>
                         <TextField fx:id="tfBatch" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" />
-                        <Label text=" шт.">
+                        <Label text="шт.">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>

@@ -28,6 +28,7 @@ import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONException;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.main.MainController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.decoration.Decoration;

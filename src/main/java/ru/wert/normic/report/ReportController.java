@@ -47,6 +47,8 @@ public class ReportController {
         //УПАКОВКА
         new ReportPacking(textReport, opAssm).create();
 
+        //УПАКОВКА
+        new ReportElectrical(textReport, opAssm).create();
 
         taReport.setText(textReport.toString());
 

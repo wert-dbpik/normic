@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<MenuBar fx:id="menuBar" stylesheets="@../../css/menu-bar.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.menus.MainMenuController">
+<MenuBar fx:id="menuBar" stylesheets="@../../css/menu-bar.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers._forms.main.MainMenuController">
    <menus>
       <Menu fx:id="mFile" mnemonicParsing="false" text="Файл">
          <items>
@@ -21,10 +21,12 @@
          </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Вид">
-        <items>
+         <items>
             <MenuItem fx:id="mProductTree" mnemonicParsing="false" text="Структурное древо" />
             <MenuItem fx:id="mTableView" mnemonicParsing="false" text="Табличное представление" />
-        </items>
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="mOperationsType" mnemonicParsing="false" text="Расчет электромонтажа" />
+         </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Правка">
          <items>

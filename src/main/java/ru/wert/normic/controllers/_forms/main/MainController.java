@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers._forms;
+package ru.wert.normic.controllers._forms.main;
 
 
 import com.google.gson.Gson;
@@ -20,10 +20,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFBatch;
+import ru.wert.normic.controllers._forms.AbstractFormController;
+import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.intro.NoConnection;
 import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
@@ -46,8 +49,6 @@ import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.excel.ImportExcelFileService;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.IconMenuController;
-import ru.wert.normic.menus.MainMenuController;
 import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.AppFiles;
@@ -61,7 +62,6 @@ import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.StartNormic.FIRST_PARAMS;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
 import static ru.wert.normic.controllers.extra.SavesHistoryController.getCurrentTime;
 import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
@@ -98,6 +98,10 @@ public class MainController extends AbstractFormController {
     private Button btnAddOperation;
 
     @FXML
+    @Getter
+    private ImageView imgLamp;
+
+    @FXML
     private TextField tfMechanicalTime, tfPaintingTime, tfAssemblingTime, tfPackingTime;
 
     @FXML
@@ -117,11 +121,12 @@ public class MainController extends AbstractFormController {
 
     public static File savedProductFile = null;
 
-    private MainMenuController mainMenuController;
-    private IconMenuController iconMenuController;
-    private Parent iconBar;
-    private final BooleanProperty showIconMenuProperty = new SimpleBooleanProperty();
+    @Getter private MainMenuCreator mainMenuCreator;
+    @Getter private IconMenuCreator iconMenuCreator;
 
+    @Getter@Setter private Parent iconBar;
+    @Getter public final BooleanProperty showIconMenuProperty = new SimpleBooleanProperty();
+    @Getter private Image lamp = new Image(String.valueOf(getClass().getResource("/pics/opLogos/lamp.png")));
 
     @FXML
     void initialize() {
@@ -140,6 +145,15 @@ public class MainController extends AbstractFormController {
 
         AppStatics.MEASURE = new ToggleGroup();
 
+        imgLamp.setImage(lamp);
+        if(USE_ELECTRICAL_MENUS){
+            imgLamp.setVisible(true);
+        } else {
+            imgLamp.setVisible(false);
+        }
+        MAIN_CONTROLLER.getImgLamp().setImage(lamp);
+
+
         new TFBatch(tfBatch, this);
 
         ((IOpWithOperations) opData).setName("Новое изделие");
@@ -147,9 +161,12 @@ public class MainController extends AbstractFormController {
         //Создаем меню
         createMenu();
 
-        createMainMenu();
+        //Создаем главное меню
+        mainMenuCreator = new MainMenuCreator(this);
 
-        createIconMenu();
+        //Создаем меню иконок
+        iconMenuCreator = new IconMenuCreator(this);
+
 
         initViews();
 
@@ -186,60 +203,10 @@ public class MainController extends AbstractFormController {
         tfBatch.setText(String.valueOf(CURRENT_BATCH));
     }
 
-    private void createMainMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/menus/mainMenu.fxml"));
-            Parent menuBar = loader.load();
-            mainMenuController = loader.getController();
-            spMenuBar.getChildren().add(menuBar);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        mainMenuController.getMSave().setOnAction(e -> save(opData, addedOperations, e));
-        mainMenuController.getMSaveAs().setOnAction(e -> saveAs(opData, addedOperations,
-                CURRENT_PRODUCT_NAME,
-                e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMSavesHistory().setOnAction(e -> openSavesHistory(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMOpen().setOnAction(e -> open(e, EMenuSource.MAIN_MENU));
-        //При нажатии на МЕНЮ готовится список последних открываемых файлов
-        mainMenuController.getMFile().setOnShowing(e -> prepareRecentFiles(mainMenuController.getMOpenRecent()));
-        mainMenuController.getMClearAll().setOnAction(e -> clearAll(e, true, true));
-
-        mainMenuController.getChmBatchness().setSelected(BATCHNESS.get());
-        mainMenuController.getChmBatchness().setOnAction(e->batchness());
-        mainMenuController.getChmBatchness().selectedProperty().bindBidirectional(BATCHNESS);
-
-        mainMenuController.getMRapport1C().setOnAction(e -> report(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMProductTree().setOnAction(e -> productTree(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMTableView().setOnAction(e -> openTableView(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMColors().setOnAction(e -> colors(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMConstants().setOnAction(e -> constants(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMOperations().setOnAction(e -> operations(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMMaterials().setOnAction(e -> materials(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMImportExcel().setOnAction(e -> importExcel(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMChangeUser().setOnAction(e -> changeUser(e, EMenuSource.MAIN_MENU));
-        mainMenuController.getMChangeServer().setOnAction(e -> changeServer());
-        mainMenuController.getMIconMenu().setOnAction(e -> showIconMenuProperty.set(!showIconMenuProperty.get()));
-        mainMenuController.getMAbout().setOnAction(e -> vbAboutPane.setVisible(true));
-
-        showIconMenuProperty.addListener((observable, oldValue, newValue) -> {
-            if (showIconMenuProperty.get()) {
-                mainMenuController.getMIconMenu().setText("Скрыть панель управления");
-                spIconMenu.getChildren().clear();
-                spIconMenu.getChildren().add(iconBar);
-            } else {
-                mainMenuController.getMIconMenu().setText("Показать панель управления");
-                spIconMenu.getChildren().clear();
-            }
-        });
-
-    }
-
     /**
      * ТАБЛИЧНОЕ ПРЕДСТАВЛЕНИЕ
      */
-    private void openTableView(ActionEvent e, EMenuSource source) {
+    public void openTableView(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -266,7 +233,7 @@ public class MainController extends AbstractFormController {
     /**
      * ИСТОРИЯ СОХРАНЕНИЙ
      */
-    private void openSavesHistory(ActionEvent e, EMenuSource source) {
+    public void openSavesHistory(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -287,12 +254,12 @@ public class MainController extends AbstractFormController {
         }
     }
 
-    private void batchness() {
+    public void batchness() {
         hbBatchness.setVisible(BATCHNESS.get());
         recountMainOpData();
     }
 
-    private void operations(ActionEvent e, EMenuSource source) {
+    public void operations(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -318,7 +285,7 @@ public class MainController extends AbstractFormController {
     /**
      * СМЕНИТЬ ПОЛЬЗОВАТЕЛЯ
      */
-    private void changeUser(ActionEvent e, EMenuSource source) {
+    public void changeUser(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -342,7 +309,7 @@ public class MainController extends AbstractFormController {
     /**
      * СМЕНИТЬ СЕРВЕР БАЗ ДАННЫХ
      */
-    private void changeServer() {
+    public void changeServer() {
         NoConnection window = new NoConnection(new Stage());
         boolean r = window.create();
         if (!r)
@@ -360,72 +327,6 @@ public class MainController extends AbstractFormController {
             } catch (Exception e) {
                 changeServer();
             }
-    }
-
-    private void createIconMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/menus/iconMenu.fxml"));
-            iconBar = loader.load();
-            iconMenuController = loader.getController();
-            showIconMenuProperty.set(true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //СОХРАНИТЬ КАК
-        iconMenuController.getBtnSave().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/save.png")), 32, 32, true, true)));
-        iconMenuController.getBtnSave().setTooltip(new Tooltip("Сохранить"));
-        iconMenuController.getBtnSave().setOnAction(e -> save(opData, addedOperations, e));
-
-        //ОТКРЫТЬ
-        iconMenuController.getBtnOpen().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/open.png")), 32, 32, true, true)));
-        iconMenuController.getBtnOpen().setTooltip(new Tooltip("Открыть"));
-        iconMenuController.getBtnOpen().setOnAction(e -> open(e, EMenuSource.ICON_MENU));
-
-        //ОЧИСТИТЬ
-        iconMenuController.getBtnClearAll().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/erase.png")), 32, 32, true, true)));
-        iconMenuController.getBtnClearAll().setTooltip(new Tooltip("Очистить"));
-        iconMenuController.getBtnClearAll().setOnAction(e -> clearAll(e, true, true));
-
-        //ОТЧЕТ
-        iconMenuController.getBtnReport1C().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/report.png")), 32, 32, true, true)));
-        iconMenuController.getBtnReport1C().setTooltip(new Tooltip("Отчет"));
-        iconMenuController.getBtnReport1C().setOnAction(e -> report(e, EMenuSource.ICON_MENU));
-
-        //ПОКРЫТИЕ
-        iconMenuController.getBtnColors().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/colors.png")), 32, 32, true, true)));
-        iconMenuController.getBtnColors().setTooltip(new Tooltip("Покрытие"));
-        iconMenuController.getBtnColors().setOnAction(e -> colors(e, EMenuSource.ICON_MENU));
-
-        //РАСЧЕТНЫЕ КОНСТАНТЫ
-        iconMenuController.getBtnConstants().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/constants.png")), 32, 32, true, true)));
-        iconMenuController.getBtnConstants().setTooltip(new Tooltip("Расчетные константы"));
-        iconMenuController.getBtnConstants().setOnAction(e -> constants(e, EMenuSource.ICON_MENU));
-
-        //МАТЕРИАЛЫ
-        iconMenuController.getBtnMaterials().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/materials.png")), 32, 32, true, true)));
-        iconMenuController.getBtnMaterials().setTooltip(new Tooltip("Материалы"));
-        iconMenuController.getBtnMaterials().setOnAction(e -> materials(e, EMenuSource.ICON_MENU));
-
-        //ПРОЧИЕ ОПЕРАЦИИ
-        iconMenuController.getBtnOperations().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/operations.png")), 32, 32, true, true)));
-        iconMenuController.getBtnOperations().setTooltip(new Tooltip("Свои операции"));
-        iconMenuController.getBtnOperations().setOnAction(e -> operations(e, EMenuSource.ICON_MENU));
-
-        //ИМПОРТ EXCEL
-        iconMenuController.getBtnImportExcel().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/excel.png")), 32, 32, true, true)));
-        iconMenuController.getBtnImportExcel().setTooltip(new Tooltip("Импорт Excel"));
-        iconMenuController.getBtnImportExcel().setOnAction(e -> importExcel(e, EMenuSource.ICON_MENU));
-
-        //ОТЧЕТ
-        iconMenuController.getBtnProductTree().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/tree_view.png")), 32, 32, true, true)));
-        iconMenuController.getBtnProductTree().setTooltip(new Tooltip("Схема изделия"));
-        iconMenuController.getBtnProductTree().setOnAction(e -> productTree(e, EMenuSource.ICON_MENU));
-
-        //ПОИСК
-        iconMenuController.getBtnSearch().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/search.png")), 32, 32, true, true)));
-        iconMenuController.getBtnSearch().setTooltip(new Tooltip("Поиск"));
-        iconMenuController.getBtnSearch().setOnAction(e -> search(e, EMenuSource.ICON_MENU));
     }
 
     private void initViews() {
@@ -448,20 +349,12 @@ public class MainController extends AbstractFormController {
         });
 
         //Единицы измерения
-        mainMenuController.getRbmSeconds().setToggleGroup(MEASURE);
-        mainMenuController.getRbmSeconds().setUserData(SEC.name());
-        mainMenuController.getRbmMinutes().setToggleGroup(MEASURE);
-        mainMenuController.getRbmMinutes().setUserData(MIN.name());
-        mainMenuController.getRbmHours().setToggleGroup(MEASURE);
-        mainMenuController.getRbmHours().setUserData(HOUR.name());
-        mainMenuController.getRbmHours().setSelected(true);
-
+        mainMenuCreator.initMenuMeasures();
 
         recountMainOpData();
-
     }
 
-    private void importExcel(ActionEvent e, EMenuSource source) {
+    public void importExcel(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -609,7 +502,7 @@ public class MainController extends AbstractFormController {
     /**
      * ОТЧЕТ
      */
-    private void report(Event e, EMenuSource source) {
+    public void report(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -640,7 +533,7 @@ public class MainController extends AbstractFormController {
     /**
      * ДРЕВО
      */
-    private void productTree(Event e, EMenuSource source) {
+    public void productTree(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -671,7 +564,7 @@ public class MainController extends AbstractFormController {
     /**
      * НАСТРОЙКИ ИЗДЕЛИЯ
      */
-    private void colors(Event e, EMenuSource source) {
+    public void colors(Event e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -703,7 +596,7 @@ public class MainController extends AbstractFormController {
     /**
      * РАСЧЕТНЫЕ КОНСТАНТЫ
      */
-    private void constants(ActionEvent e, EMenuSource source) {
+    public void constants(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -726,7 +619,7 @@ public class MainController extends AbstractFormController {
     /**
      * Материалы
      */
-    private void materials(ActionEvent e, EMenuSource source) {
+    public void materials(ActionEvent e, EMenuSource source) {
         Stage owner = source.equals(EMenuSource.FORM_MENU) || source.equals(EMenuSource.MAIN_MENU) ?
                 (Stage) ((MenuItem) e.getSource()).getParentPopup().getOwnerWindow() :
                 (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -773,35 +666,10 @@ public class MainController extends AbstractFormController {
 
     @Override
     public MenuForm createMenu() {
-
-        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
-
-        menu.getItems().add(menu.createItemDetail());
-        menu.getItems().add(menu.createItemAssm());
-        menu.getItems().add(menu.createItemPack());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemPaintAssm());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemWeldLongSeam());
-        menu.getItems().addAll(menu.createItemWeldingDotted());
-        menu.getItems().addAll(menu.createItemWeldDifficulty());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemAssmNuts());
-        menu.getItems().addAll(menu.createItemAssmNutsMK());
-        menu.getItems().addAll(menu.createItemAssmCuttings());
-        menu.getItems().addAll(menu.createItemAssmNodes());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemLevelingSealer());
-        menu.getItems().add(menu.createItemThermoInsulation());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddFilePallet());
-        menu.getItems().add(menu.createItemSearchFilePallet());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createAllLocksmithOperations());
-
-        Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLING));
-        menu.getItems().add(simpleOperationsMenu);
-
+        FormMenus formMenus = new FormMenus(this);
+        menu = formMenus.create(USE_ELECTRICAL_MENUS ?
+                FormMenus.EMenuType.ELECTRICAL_TYPE :
+                FormMenus.EMenuType.MAIN_TYPE);
 
         linkMenuToButton();
 

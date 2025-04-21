@@ -8,6 +8,7 @@ import lombok.Getter;
 import ru.wert.normic.components.BtnDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
+import ru.wert.normic.controllers._forms.main.FormMenus;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -115,38 +116,15 @@ public class FormAssmController extends AbstractFormController {
 
     @Override
     public  MenuForm createMenu() {
-
-        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
-
-        menu.getItems().add(menu.createItemDetail());
-        menu.getItems().add(menu.createItemAssm());
-        menu.getItems().add(menu.createItemPack());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemPaintAssm());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemWeldLongSeam());
-        menu.getItems().add(menu.createItemWeldingDotted());
-        menu.getItems().add(menu.createItemWeldDifficulty());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAssmNuts());
-        menu.getItems().add(menu.createItemAssmNutsMK());
-        menu.getItems().add(menu.createItemAssmCuttings());
-        menu.getItems().add(menu.createItemAssmNodes());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemLevelingSealer());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemAddFilePallet());
-        menu.getItems().add(menu.createItemSearchFilePallet());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createAllLocksmithOperations());
-
-        Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLING));
-        menu.getItems().add(simpleOperationsMenu);
-
+        FormMenus formMenus = new FormMenus(this);
+        menu = formMenus.create(USE_ELECTRICAL_MENUS ?
+                FormMenus.EMenuType.ELECTRICAL_TYPE :
+                FormMenus.EMenuType.ASSM_TYPE);
 
         linkMenuToButton();
 
         return menu;
+
     }
 
 

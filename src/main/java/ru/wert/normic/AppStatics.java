@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import ru.wert.normic.controllers._forms.MainController;
+import ru.wert.normic.controllers._forms.main.MainController;
 import ru.wert.normic.controllers.intro.ConnectionParams;
 import ru.wert.normic.entities.db_connection.UserGroup.UserGroup;
 import ru.wert.normic.entities.db_connection.logs.AppLog;
@@ -44,6 +44,7 @@ public class AppStatics {
     public static int DEFAULT_BATCH = 1; //расчетная партия штук по умолчанию
     public static int CURRENT_BATCH = 1; //расчетная партия штук
 
+    public static boolean USE_ELECTRICAL_MENUS = false;
 
     //Ползователь
     public static User CURRENT_USER = null;

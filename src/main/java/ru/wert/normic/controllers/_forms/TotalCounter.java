@@ -21,6 +21,7 @@ public class TotalCounter {
         double tempPaintTime = 0.0;
         double tempAssmTime = 0.0;
         double tempPackTime = 0.0;
+        double tempElectricalTime = 0.0; //ЭЛЕКТРОМОНТАЖ
 
         //Для нашей ДЕТАЛИ или СБОРКИ получаем список оперций
         for (OpData op : opsData.getOperations()) {
@@ -35,6 +36,7 @@ public class TotalCounter {
                 tempPaintTime += op.getPaintTime() * op.getQuantity();
                 tempAssmTime += op.getAssmTime() * op.getQuantity();
                 tempPackTime += op.getPackTime() * op.getQuantity();
+                tempElectricalTime += op.getElectricalTime() * op.getQuantity(); //ЭЛЕКТРОМОНТАЖ
 
 
 
@@ -54,6 +56,7 @@ public class TotalCounter {
                 tempPaintTime += op.getPaintTime();
                 tempAssmTime += op.getAssmTime();
                 tempPackTime += op.getPackTime();
+                tempElectricalTime += op.getElectricalTime(); //ЭЛЕКТРОМОНТАЖ
             }
         }
 
@@ -61,6 +64,7 @@ public class TotalCounter {
         ((OpData) opsData).setPaintTime(tempPaintTime);
         ((OpData) opsData).setAssmTime(tempAssmTime);
         ((OpData) opsData).setPackTime(tempPackTime);
+        ((OpData) opsData).setElectricalTime(tempElectricalTime); //ЭЛЕКТРОМОНТАЖ
 
         //Заполняем окно нашей ДЕТАЛИ или СБОРКИ если оно отображается
         AbstractFormController formController = opsData.getFormController();

@@ -1,4 +1,4 @@
-package ru.wert.normic.menus;
+package ru.wert.normic.controllers._forms.main;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckMenuItem;
@@ -30,7 +30,8 @@ public class MainMenuController {
     @FXML @Getter
     private MenuItem
             mProductTree,
-            mTableView;
+            mTableView,
+            mOperationsType;
 
     //ПРАВКА ============================================
 

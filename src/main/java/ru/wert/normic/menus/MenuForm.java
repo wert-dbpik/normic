@@ -9,6 +9,9 @@ import ru.wert.normic.controllers.PlateEmptyController;
 import ru.wert.normic.controllers.PlateErrorController;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.controllers.assembling.*;
+import ru.wert.normic.controllers.electricalOperations.PlateMountOnDinController;
+import ru.wert.normic.controllers.electricalOperations.PlateMountOnScrewsNoDisAssmController;
+import ru.wert.normic.controllers.electricalOperations.PlateMountOnScrewsWithDisAssmController;
 import ru.wert.normic.controllers.listOperations.PlateBendController;
 import ru.wert.normic.controllers.listOperations.PlateCuttingController;
 import ru.wert.normic.controllers.locksmith.*;
@@ -29,6 +32,9 @@ import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
+import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -542,6 +548,36 @@ public class MenuForm extends ContextMenu {
         return item;
     }
 
+    //===========      ЭЛЕКТРОМОНТАЖ     =========================================
+
+    //МОНТАЖ НА ДИНРЕЙКУ
+    public MenuItem createItemMountOnDin(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN.getOpName());
+        item.setOnAction(event -> {
+            addMountOnDinPlate(new OpMountOnDin());
+        });
+        return item;
+    }
+
+    //МОНТАЖ НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
+    public MenuItem createItemMountOnScrewsNoDisAssm(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM.getOpName());
+        item.setOnAction(event -> {
+            addMountOnScrewsNoDisAssmPlate(new OpMountOnScrewsNoDisAssm());
+        });
+        return item;
+    }
+
+    //МОНТАЖ НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
+    public MenuItem createItemMountOnScrewsWithDisAssm(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM.getOpName());
+        item.setOnAction(event -> {
+            addMountOnScrewsWithDisAssmPlate(new OpMountOnScrewsWithDisAssm());
+        });
+        return item;
+    }
+
+
 //*****************************************************************************************************************
 //              МЕТОДЫ
 //*****************************************************************************************************************
@@ -681,6 +717,17 @@ public class MenuForm extends ContextMenu {
             case ERROR_OP_DATA:
                 addErrorPlate((OpErrorData) op);
                 break;
+            //ЭЛЕКТРОМОНТАЖ
+            case EL_MOUNT_ON_DIN:
+                addMountOnDinPlate((OpMountOnDin) op);
+                break;
+            case EL_MOUNT_ON_SCREWS_NO_DISASSM:
+                addMountOnScrewsNoDisAssmPlate((OpMountOnScrewsNoDisAssm) op);
+                break;
+            case EL_MOUNT_ON_SCREWS_WITH_DISASSM:
+                addMountOnScrewsWithDisAssmPlate((OpMountOnScrewsWithDisAssm) op);
+                break;
+
         }
     }
 
@@ -1332,6 +1379,56 @@ public class MenuForm extends ContextMenu {
     private void addVBox(VBox vBox) {
         int lastIndex = listViewTechOperations.getItems().size() == 0 ? 0 : listViewTechOperations.getItems().size() - 1;
         listViewTechOperations.getItems().add(lastIndex, vBox);
+    }
+
+    //=======================   ЭЛЕКТРОМОНТАЖ =========================================================================
+
+    /**
+     * УСТАНОВКА НА ДИНРЕЙКУ
+     */
+    public void addMountOnDinPlate(OpMountOnDin opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnDin.fxml"));
+            VBox vBox = loader.load();
+            PlateMountOnDinController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ДИРЕЙКУ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
+     */
+    public void addMountOnScrewsNoDisAssmPlate(OpMountOnScrewsNoDisAssm opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsNoDisAssm.fxml"));
+            VBox vBox = loader.load();
+            PlateMountOnScrewsNoDisAssmController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
+     */
+    public void addMountOnScrewsWithDisAssmPlate(OpMountOnScrewsWithDisAssm opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsWithDisAssm.fxml"));
+            VBox vBox = loader.load();
+            PlateMountOnScrewsWithDisAssmController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

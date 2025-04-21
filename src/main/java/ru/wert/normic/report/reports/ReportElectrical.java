@@ -12,7 +12,7 @@ public class ReportElectrical {
     private final StringBuilder textReport;
     private final OpAssm opAssm;
 
-    double electricalTtime = 0.0;
+    double electricalTime = 0.0;
 
     public ReportElectrical(StringBuilder textReport, OpAssm opAssm) {
         this.textReport = textReport;
@@ -26,7 +26,7 @@ public class ReportElectrical {
         textReport
                 .append("\n\n")
                 .append("ЭЛЕКТРОМОНТАЖ : T норм = ")
-                .append(electricalTtime * CURRENT_MEASURE.getRate())
+                .append(electricalTime * CURRENT_MEASURE.getRate())
                 .append(" ").append(CURRENT_MEASURE.getMeasure());
 
     }
@@ -37,7 +37,7 @@ public class ReportElectrical {
                 countElectricalTimes((IOpWithOperations) o, o.getQuantity() * quantity);
             } else {
                 if(o.getNormType().equals(ENormType.NORM_ELECTRICAL))
-                    electricalTtime += o.getElectricalTime() * quantity;
+                    electricalTime += o.getElectricalTime() * quantity;
             }
         }
     }

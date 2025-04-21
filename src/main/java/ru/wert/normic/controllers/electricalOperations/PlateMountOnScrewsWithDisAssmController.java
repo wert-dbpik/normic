@@ -12,8 +12,8 @@ import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_2_SCREWS_NO_DIASSM;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_4_SCREWS_NO_DIASSM;
+import static ru.wert.normic.settings.NormConstants.MOUNT_ON_2_SCREWS_NO_DISASSM;
+import static ru.wert.normic.settings.NormConstants.MOUNT_ON_4_SCREWS_NO_DISASSM;
 
 /**
  * ОТРУБАНИЕ НА ГЕКЕ
@@ -89,7 +89,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
                 "\tна 2 винта %s мин.\n" +
                 "\tна 4 винта %s мин.\n",
 
-                MOUNT_ON_2_SCREWS_NO_DIASSM, MOUNT_ON_4_SCREWS_NO_DIASSM);
+                MOUNT_ON_2_SCREWS_NO_DISASSM, MOUNT_ON_4_SCREWS_NO_DISASSM);
     }
 
     @Override

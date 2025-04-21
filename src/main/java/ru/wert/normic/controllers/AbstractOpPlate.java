@@ -200,6 +200,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
             case NORM_PAINTING: time = opData.getPaintTime(); break;
             case NORM_ASSEMBLING: time = opData.getAssmTime(); break;
             case NORM_PACKING: time = opData.getPackTime(); break;
+            case NORM_ELECTRICAL: time = opData.getElectricalTime(); break;
         }
 
 

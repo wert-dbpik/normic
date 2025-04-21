@@ -9,7 +9,6 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
-import ru.wert.normic.entities.ops.opAssembling.OpAssmNut;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -88,7 +87,7 @@ public class PlateMountOnDinController extends AbstractOpPlate {
                         "Установка на динрейку нагревателей, счетчиков.\n" +
                         "\tустанавливается за %s мин.\n",
 
-                MOUNT_ON_DIN_AVTOMATS, MOUNT_ON_DIN_HEATERS);
+                MOUNT_ON_DIN_AUTOMATS, MOUNT_ON_DIN_HEATERS);
     }
 
     @Override

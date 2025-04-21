@@ -128,13 +128,13 @@ public class NormConstants {
     public static double STRETCH_HAND_WINDING; //Скорость оборачивания стретч пленки, мин/м
 
     //---ЭЛЕКТРИКА
-    public static double MOUNT_ON_DIN_AVTOMATS = 0.3; //Скорость установки на динрейку автоматов, мин
+    public static double MOUNT_ON_DIN_AUTOMATS = 0.3; //Скорость установки на динрейку автоматов, мин
     public static double MOUNT_ON_DIN_HEATERS = 0.5; //Скорость установки на динрейку нагревателей, мин
-    public static double MOUNT_ON_2_SCREWS_NO_DIASSM = 1.2; //Скорость установки на 2 винта без разборки, мин
-    public static double MOUNT_ON_4_SCREWS_NO_DIASSM = 2.0; //Скорость установки на 4 винта без разборки, мин
+    public static double MOUNT_ON_2_SCREWS_NO_DISASSM = 1.2; //Скорость установки на 2 винта без разборки, мин
+    public static double MOUNT_ON_4_SCREWS_NO_DISASSM = 2.0; //Скорость установки на 4 винта без разборки, мин
 
-    public static double MOUNT_ON_2_SCREWS_WITH_DIASSM = 3.0; //Скорость установки на 2 винта с разборкой, мин
-    public static double MOUNT_ON_4_SCREWS_WITH_DIASSM = 5.0; //Скорость установки на 4 винта с разборкой, мин
+    public static double MOUNT_ON_2_SCREWS_WITH_DISASSM = 3.0; //Скорость установки на 2 винта с разборкой, мин
+    public static double MOUNT_ON_4_SCREWS_WITH_DISASSM = 5.0; //Скорость установки на 4 винта с разборкой, мин
 
 
     private NormConstants() {

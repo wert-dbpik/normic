@@ -88,7 +88,7 @@ public class PlateMountOnScrewsNoDisAssmController extends AbstractOpPlate {
                 "\tна 2 винта %s мин.\n" +
                 "\tна 4 винта %s мин.\n",
 
-                MOUNT_ON_2_SCREWS_NO_DIASSM, MOUNT_ON_4_SCREWS_NO_DIASSM);
+                MOUNT_ON_2_SCREWS_NO_DISASSM, MOUNT_ON_4_SCREWS_NO_DISASSM);
     }
 
     @Override

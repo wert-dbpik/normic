@@ -992,12 +992,14 @@ public abstract class AbstractFormController implements IForm {
         double paintingTime = opData.getPaintTime();
         double assemblingTime = opData.getAssmTime();
         double packingTime = opData.getPackTime();
+        double electricalTime = opData.getElectricalTime();
 
         //Пересчитываем нормы согласно единице измерения
         mechanicalTime = mechanicalTime * CURRENT_MEASURE.getRate();
         paintingTime = paintingTime * CURRENT_MEASURE.getRate();
         assemblingTime = assemblingTime * CURRENT_MEASURE.getRate();
         packingTime = packingTime * CURRENT_MEASURE.getRate();
+        electricalTime = electricalTime * CURRENT_MEASURE.getRate();
 
         String format = DOUBLE_FORMAT;
         if(CURRENT_MEASURE.equals(ETimeMeasurement.SEC)) format = INTEGER_FORMAT;
@@ -1007,11 +1009,11 @@ public abstract class AbstractFormController implements IForm {
             tfPaintingTime.setText(String.format(format, paintingTime).trim());
         }
         if(opData instanceof OpAssm) {
-            tfAssemblingTime.setText(String.format(format, assemblingTime).trim());
+            tfAssemblingTime.setText(String.format(format, assemblingTime + electricalTime).trim());
             tfPackingTime.setText(String.format(format, packingTime).trim());
         }
 
-        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime).trim());
+        tfTotalTime.setText(String.format(format, mechanicalTime + paintingTime + assemblingTime + packingTime + electricalTime).trim());
 
         lblTimeMeasure.setText(CURRENT_MEASURE.getMeasure());
     }

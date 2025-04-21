@@ -74,7 +74,13 @@ public class PlateSolderingController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Соединение элементов пайкой за %s мин/элемент,\n",
+        return String.format("Соединение элементов пайкой за %s мин/элемент,\n" +
+                        "\n" +
+                        "Окончательная формула учитывает время обслуживания Т обсл = 2,4,\n" +
+                        "время отдыха Т отд = 6 и подготовительно-заключительное время Т пз = 2.9\n" +
+                        "в формуле:\n" +
+                        "\n" +
+                        "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
                 SOLDERING_SPEED);
     }
 

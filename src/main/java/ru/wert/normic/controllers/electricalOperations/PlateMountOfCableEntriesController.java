@@ -75,7 +75,13 @@ public class PlateMountOfCableEntriesController extends AbstractOpPlate {
     @Override
     public String helpText() {
         return String.format("Установка кабельных вводов, гофрированных втулок, MG, PG " +
-                        "за %s мин/элемент,\n",
+                        "за %s мин/элемент,\n" +
+                        "\n" +
+                        "Окончательная формула учитывает время обслуживания Т обсл = 2,4,\n" +
+                        "время отдыха Т отд = 6 и подготовительно-заключительное время Т пз = 2.9\n" +
+                        "в формуле:\n" +
+                        "\n" +
+                        "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
                 MOUNT_OF_CABLE_ENTRIES);
     }
 

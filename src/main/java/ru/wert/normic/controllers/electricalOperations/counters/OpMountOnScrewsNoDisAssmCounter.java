@@ -4,6 +4,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
 import ru.wert.normic.interfaces.NormCounter;
 
+import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.settings.NormConstants.*;
 
@@ -19,8 +20,10 @@ public class OpMountOnScrewsNoDisAssmCounter implements NormCounter{
 
         //################################################################
 
-        double time =  twoScrews * MOUNT_ON_2_SCREWS_NO_DISASSM * k
+        double timeOp =  twoScrews * MOUNT_ON_2_SCREWS_NO_DISASSM * k
                 + fourScrews * MOUNT_ON_4_SCREWS_NO_DISASSM * k;   //мин
+
+        double time = timeOp + timeOp * 0.064 + timeOp * 0.029 / CURRENT_BATCH;
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

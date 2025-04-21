@@ -3,6 +3,9 @@ package ru.wert.normic.enums;
 import javafx.scene.image.Image;
 import lombok.Getter;
 import ru.wert.normic.controllers.assembling.countings.*;
+import ru.wert.normic.controllers.electricalOperations.counters.OpMountOnDinCounter;
+import ru.wert.normic.controllers.electricalOperations.counters.OpMountOnScrewsNoDisAssmCounter;
+import ru.wert.normic.controllers.electricalOperations.counters.OpMountOnScrewsWithDisAssmCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpBendingCounter;
 import ru.wert.normic.controllers.listOperations.counters.OpCuttingCounter;
 import ru.wert.normic.controllers.locksmith.counters.*;
@@ -16,6 +19,9 @@ import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDifficultyCounter;
 import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
 import ru.wert.normic.entities.ops.OpErrorData;
+import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -94,9 +100,13 @@ public enum EOpType {
     //ПРОЧИЕ ОПЕРАЦИИ
     SIMPLE_OPERATION            ("Прочие простые операции",         OpSimpleOperation.class,            new Image("/pics/opLogos/operations.png"),      new OpSimpleOperationsCounter()),     //ПРОЧИЕ ПРОСТЫЕ ОПЕРАЦИИ
 
-    ERROR_OP_DATA               ("Error",                           OpErrorData.class,                  new Image("/pics/opLogos/error.png"),null);
+    ERROR_OP_DATA               ("Error",                           OpErrorData.class,                  new Image("/pics/opLogos/error.png"),null),
 
-//===================================================================================================================================================================================================
+    //===================================================================================================================================================================================================
+    //ОПЕРАЦИИ ЭЛЕКТРОМОНТАЖА
+    EL_MOUNT_ON_DIN                     ("Установка на динрейку",               OpMountOnDin.class,               new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinCounter()),               //Установка на динрейку
+    EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,   new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),   //Установка на винты без разборки корпуса
+    EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class, new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()); //Установка на винты с разборкой корпуса
 
     @Getter String opName;
     @Getter Class<?> clazz;

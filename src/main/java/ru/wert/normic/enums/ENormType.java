@@ -8,6 +8,7 @@ public enum ENormType {
     NORM_PAINTING("Покрасочный"), //ППК
     NORM_ASSEMBLING("Сборочный"), //СБОРКА
     NORM_PACKING("Упаковка"), //УПАКОВКА
+    NORM_ELECTRICAL("Электромонтаж"), //ЭЛЕКТРОМОНТАЖ
 
     NORM_DETAIL("Деталь"), //Плашка из операций на деталь
     NORM_ASSEMBLE("Сборка"); //Плашка из операций на сборочную единицу
@@ -20,3 +21,4 @@ public enum ENormType {
     }
 
 }
+

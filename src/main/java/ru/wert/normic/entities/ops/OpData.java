@@ -29,6 +29,8 @@ public class OpData implements Serializable {
     private double paintTime; //ППК
     private double assmTime; //Сборка
     private double packTime; //Упаковка
+    private double electricalTime; //Электромонтаж
+
 
     private double totalTime; //Общее время
 

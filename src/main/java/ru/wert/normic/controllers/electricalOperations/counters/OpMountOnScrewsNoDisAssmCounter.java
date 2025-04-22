@@ -23,7 +23,7 @@ public class OpMountOnScrewsNoDisAssmCounter implements NormCounter{
         double timeOp =  twoScrews * MOUNT_ON_2_SCREWS_NO_DISASSM * k
                 + fourScrews * MOUNT_ON_4_SCREWS_NO_DISASSM * k;   //мин
 
-        double time = timeOp + timeOp * 0.064 + timeOp * 0.029 / CURRENT_BATCH;
+        double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

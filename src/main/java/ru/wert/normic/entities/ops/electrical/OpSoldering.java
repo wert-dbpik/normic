@@ -7,13 +7,13 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * ПАЙКА ЭЛЕКТРОПАЯЛЬНИКОМ
+ * ОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ ЭЛЕКТРОПАЯЛЬНИКОМ
  */
 @Getter
 @Setter
 public class OpSoldering extends OpData {
 
-    private int elements = 0;
+    private int elements = 1;
 
 
     public OpSoldering() {

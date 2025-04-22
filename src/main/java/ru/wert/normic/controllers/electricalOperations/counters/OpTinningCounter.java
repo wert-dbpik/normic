@@ -21,7 +21,7 @@ public class OpTinningCounter implements NormCounter{
 
         double timeOp =  pins * TINNING; //мин
 
-        double time = timeOp + timeOp * 0.064 + timeOp * 0.029 / CURRENT_BATCH;
+        double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

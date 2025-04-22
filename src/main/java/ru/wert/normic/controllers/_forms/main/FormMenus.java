@@ -129,7 +129,9 @@ public class FormMenus {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_Tinning());
         menu.getItems().add(menu.createItem_TinningInBathe());
-
+        menu.getItems().add(menu.createItem_MountTipOnCable());
+        menu.getItems().add(menu.createItem_MountTipOnPowerCable());
+        menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_Marking());
         menu.getItems().add(menu.createItem_MountOfSignalEquip());
         menu.getItems().add(menu.createItem_Soldering());

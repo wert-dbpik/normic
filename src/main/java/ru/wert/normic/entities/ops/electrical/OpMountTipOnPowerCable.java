@@ -7,22 +7,22 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * МАРКИРОВКА
+ * ОКОНЦОВКА СИЛОВОГО КАБЕЛЯ
  */
 @Getter
 @Setter
-public class OpMarking extends OpData {
+public class OpMountTipOnPowerCable extends OpData {
 
-    private int elements = 1;
+    private int tips = 1;
 
 
-    public OpMarking() {
+    public OpMountTipOnPowerCable() {
         super.normType = ENormType.NORM_ELECTRICAL;
-        super.opType = EOpType.EL_MARKING;
+        super.opType = EOpType.EL_MOUNT_TIP_ON_POWER_CABLE;
     }
 
     @Override
     public String toString() {
-        return String.format("элементов- %s", elements);
+        return String.format("Наконечников - %s", tips);
     }
 }

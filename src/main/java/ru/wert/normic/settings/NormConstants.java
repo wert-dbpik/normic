@@ -154,6 +154,9 @@ public class NormConstants {
     public static double TINNING_IN_BATHE = 0.071; //Лужение в ванночке, мин/наконечник
     public static double TINNING = 0.074; //Лужение электропаяльником, мин/наконечник
 
+    public static double MOUNT_TIP_ON_CABLE = 0.18; //Оконцовка провода наконечником, мин/наконечник
+    public static double MOUNT_TIP_ON_POWER_CABLE = 0.7; //Оконцовка силового кабеля наконечником, мин/наконечник
+
 
 
 

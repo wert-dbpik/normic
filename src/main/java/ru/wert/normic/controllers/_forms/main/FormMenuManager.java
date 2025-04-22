@@ -645,8 +645,23 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
+    //ОКОНЦОВКА ПРОВОДА
+    public MenuItem createItem_MountTipOnCable(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_TIP_ON_CABLE.getOpName());
+        item.setOnAction(event -> {
+            add_MountTipOnCable_Plate(new OpMountTipOnCable());
+        });
+        return item;
+    }
 
-
+    //ОКОНЦОВКА СИЛОВОГО КАБЕЛЯ
+    public MenuItem createItem_MountTipOnPowerCable(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_TIP_ON_POWER_CABLE.getOpName());
+        item.setOnAction(event -> {
+            add_MountTipOnPowerCable_Plate(new OpMountTipOnPowerCable());
+        });
+        return item;
+    }
 
     //МАРКИРОВКА
     public MenuItem createItem_Marking(){
@@ -868,9 +883,12 @@ public class FormMenuManager extends ContextMenu {
             case EL_TINNING:
                 add_Tinning_Plate((OpTinning) op);
                 break;
-
-
-
+            case EL_MOUNT_TIP_ON_CABLE:
+                add_MountTipOnCable_Plate((OpMountTipOnCable) op);
+                break;
+            case EL_MOUNT_TIP_ON_POWER_CABLE:
+                add_MountTipOnPowerCable_Plate((OpMountTipOnPowerCable) op);
+                break;
             case EL_MARKING:
                 add_Marking_Plate((OpMarking) op);
                 break;
@@ -1718,8 +1736,37 @@ public class FormMenuManager extends ContextMenu {
         }
     }
 
+    /**
+     *  ОКОНЦОВКА ПРОВОДА
+     */
+    public void add_MountTipOnCable_Plate(OpMountTipOnCable opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountTipOnCable.fxml"));
+            VBox vBox = loader.load();
+            Plate_MountTipOnCable_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ОКОНЦОВКА ПРОВОДА");
+            addVBox(vBox);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    /**
+     *  ОКОНЦОВКА СИЛОВОГО КАБЕЛЯ
+     */
+    public void add_MountTipOnPowerCable_Plate(OpMountTipOnPowerCable opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountTipOnPowerCable.fxml"));
+            VBox vBox = loader.load();
+            Plate_MountTipOnPowerCable_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ОКОНЦОВКА СИЛОВОГО КАБЕЛЯ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * МАРКИРОВКА

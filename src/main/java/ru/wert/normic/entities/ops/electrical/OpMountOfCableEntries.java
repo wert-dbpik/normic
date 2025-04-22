@@ -13,7 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpMountOfCableEntries extends OpData {
 
-    private int elements = 0;
+    private int elements = 1;
 
 
     public OpMountOfCableEntries() {

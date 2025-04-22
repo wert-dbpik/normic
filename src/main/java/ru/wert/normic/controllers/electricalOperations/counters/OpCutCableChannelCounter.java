@@ -21,7 +21,7 @@ public class OpCutCableChannelCounter implements NormCounter{
 
         double timeOp =  cuts * CUTTING_CABLE_CHANNEL; //мин
 
-        double time = timeOp + timeOp * 0.064 + timeOp * 0.029 / CURRENT_BATCH;
+        double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

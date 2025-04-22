@@ -23,7 +23,7 @@ public class OpMountOnDinCounter implements NormCounter{
         double timeOp =  avtomats * MOUNT_ON_DIN_AUTOMATS * k
                 + heaters * MOUNT_ON_DIN_HEATERS * k;   //мин
 
-        double time = timeOp + timeOp * 0.064 + timeOp * 0.029 / CURRENT_BATCH;
+        double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 
         opData.setElectricalTime(roundTo001(time));
         return opData;

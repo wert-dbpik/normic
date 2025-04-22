@@ -121,7 +121,10 @@ public enum EOpType {
     EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),          //Установка сигнальной аппаратуры
     EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                  new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                   //Соединение элементов пайкой
     EL_MOUNT_OF_CABLE_ENTRIES           ("Установка кабельных вводов",          OpMountOfCableEntries.class,        new Image("/pics/opLogos/lamp.png"),       new OpMountOfCableEntriesCounter()),         //Установка кабельных вводов
-    EL_FIX_OF_CABLES                    ("Укладка жгутов",                      OpFixOfCables.class,                new Image("/pics/opLogos/lamp.png"),       new OpFixOfCablesCounter());                 //Укладка жгутов
+    EL_FIX_OF_CABLES                    ("Укладка жгутов",                      OpFixOfCables.class,                new Image("/pics/opLogos/lamp.png"),       new OpFixOfCablesCounter()),                 //Укладка жгутов
+
+    EL_ISOLATE_WITH_THERM_TUBE10        ("Изоляция термотрубкой 2-10мм",        OpIsolateWithThermTube10.class,    new Image("/pics/opLogos/lamp.png"),       new OpIsolateWithThermotube10Counter()),     //Изоляция термотрубкой 2-10мм
+    EL_ISOLATE_WITH_THERM_TUBE30        ("Изоляция термотрубкой 10-30мм",       OpIsolateWithThermTube30.class,    new Image("/pics/opLogos/lamp.png"),       new OpIsolateWithThermotube30Counter());     //Изоляция термотрубкой 10-30мм
 
     @Getter String opName;
     @Getter Class<?> clazz;

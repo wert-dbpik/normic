@@ -157,10 +157,6 @@ public class NormConstants {
     public static double MOUNT_TIP_ON_CABLE = 0.18; //Оконцовка провода наконечником, мин/наконечник
     public static double MOUNT_TIP_ON_POWER_CABLE = 0.7; //Оконцовка силового кабеля наконечником, мин/наконечник
 
-
-
-
-
     public static double MARKING_SPEED = 0.3; //Скорость маркировки, мин/элемент
 
     public static double SOLDERING_SPEED = 0.2; //Скорость пайки, мин/элемент
@@ -170,6 +166,9 @@ public class NormConstants {
     public static double MOUNT_OF_CABLE_ENTRIES = 0.15; //Скорость установки кабельных вводов, мин/элемент
 
     public static double FIX_OF_CABLES_SPEED = 1.5; //Скорость укладки жгутов, мин/элемент (каждые 0,3 м)
+
+    public static double ISOLATE_WITH_THERM_TUBE_10 = 0.3; //Изоляция термоусадочной трубкой 2-10 мм, мин/элемент
+    public static double ISOLATE_WITH_THERM_TUBE_30 = 0.5; //Изоляция термоусадочной трубкой 10-30 мм, мин/элемент
 
 
     private NormConstants() {

@@ -186,8 +186,10 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpTinningInBathe.class);
             case "EL_TINNING":
                 return gson.fromJson(op.toString(), OpTinning.class);
-
-
+            case "EL_MOUNT_TIP_ON_CABLE":
+                return gson.fromJson(op.toString(), OpMountTipOnCable.class);
+            case "EL_MOUNT_TIP_ON_POWER_CABLE":
+                return gson.fromJson(op.toString(), OpMountTipOnPowerCable.class);
             case "EL_MARKING ":
                 return gson.fromJson(op.toString(), OpMarking.class);
             case "EL_MOUNT_OF_SIGNAL_EQUIP":
@@ -198,6 +200,10 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpMountOfCableEntries.class);
             case "EL_FIX_OF_CABLES":
                 return gson.fromJson(op.toString(), OpFixOfCables.class);
+            case "EL_ISOLATE_WITH_THERM_TUBE10":
+                return gson.fromJson(op.toString(), OpIsolateWithThermTube10.class);
+            case "EL_ISOLATE_WITH_THERM_TUBE30":
+                return gson.fromJson(op.toString(), OpIsolateWithThermTube30.class);
 
 
 

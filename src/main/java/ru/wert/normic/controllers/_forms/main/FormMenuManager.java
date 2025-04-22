@@ -708,6 +708,24 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
+    //ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 2-10 ММ
+    public MenuItem createItem_IsolateWithThermotube10(){
+        MenuItem item = new MenuItem(EOpType.EL_ISOLATE_WITH_THERM_TUBE10.getOpName());
+        item.setOnAction(event -> {
+            add_IsolateWithThermotube10_Plate(new OpIsolateWithThermTube10());
+        });
+        return item;
+    }
+
+    //ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 10-30 ММ
+    public MenuItem createItem_IsolateWithThermotube30(){
+        MenuItem item = new MenuItem(EOpType.EL_ISOLATE_WITH_THERM_TUBE30.getOpName());
+        item.setOnAction(event -> {
+            add_IsolateWithThermotube30_Plate(new OpIsolateWithThermTube30());
+        });
+        return item;
+    }
+
 
 //*****************************************************************************************************************
 //              МЕТОДЫ
@@ -903,6 +921,12 @@ public class FormMenuManager extends ContextMenu {
                 break;
             case EL_FIX_OF_CABLES:
                 add_FixOfCables_Plate((OpFixOfCables) op);
+                break;
+            case EL_ISOLATE_WITH_THERM_TUBE10:
+                add_IsolateWithThermotube10_Plate((OpIsolateWithThermTube10) op);
+                break;
+            case EL_ISOLATE_WITH_THERM_TUBE30:
+                add_IsolateWithThermotube30_Plate((OpIsolateWithThermTube30) op);
                 break;
 
         }
@@ -1841,6 +1865,38 @@ public class FormMenuManager extends ContextMenu {
             VBox vBox = loader.load();
             Plate_FixOfCables_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УКЛАДКА ЖГУТОВ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 2-10 ММ
+     */
+    public void add_IsolateWithThermotube10_Plate(OpIsolateWithThermTube10 opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateIsolateWithThermotube10.fxml"));
+            VBox vBox = loader.load();
+            Plate_IsolateWithThermotube10_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 2-10 ММ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 10-30 ММ
+     */
+    public void add_IsolateWithThermotube30_Plate(OpIsolateWithThermTube30 opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateIsolateWithThermotube30.fxml"));
+            VBox vBox = loader.load();
+            Plate_IsolateWithThermotube30_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 10-30 ММ");
             addVBox(vBox);
 
         } catch (IOException e) {

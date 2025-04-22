@@ -120,6 +120,7 @@ public class FormMenus {
         menu.getItems().add(menu.createItem_MountOnScrewsNoDisAssm());
         menu.getItems().add(menu.createItem_MountOnScrewsWithDisAssm());
         menu.getItems().add(menu.createItem_MountOnVSHG());
+        menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_ConnectingDevices());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_CutCableHandly());
@@ -129,14 +130,17 @@ public class FormMenus {
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_Tinning());
         menu.getItems().add(menu.createItem_TinningInBathe());
+        menu.getItems().add(menu.createItem_Soldering());
+        menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_MountTipOnCable());
         menu.getItems().add(menu.createItem_MountTipOnPowerCable());
+        menu.getItems().add(menu.createItem_IsolateWithThermotube10());
+        menu.getItems().add(menu.createItem_IsolateWithThermotube30());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItem_Marking());
         menu.getItems().add(menu.createItem_MountOfSignalEquip());
-        menu.getItems().add(menu.createItem_Soldering());
         menu.getItems().add(menu.createItem_MountOfCableEntries());
         menu.getItems().add(menu.createItem_FixOfCables());
+        menu.getItems().add(menu.createItem_Marking());
 
 
 

@@ -111,6 +111,9 @@ public enum EOpType {
     EL_CUT_METAL_SLEEVE                 ("Резка металлорукава",                 OpCutMetalSleeve.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutMetalSleeveCounter()),              //Резка металлорукава
     EL_CUT_CABLE_CHANNEL                ("Резка кабель-канала, динрейки",       OpCutCableChannel.class,            new Image("/pics/opLogos/lamp.png"),       new OpCutCableChannelCounter()),             //Резка кабельканала, динрейки
 
+    EL_TINNING_IN_BATHE                 ("Лужение в ванночке",                  OpTinningInBathe.class,             new Image("/pics/opLogos/lamp.png"),       new OpTinningInBatheCounter()),              //Лужение в ванночке
+    EL_TINNING                          ("Лужение электропаяльником",           OpTinning.class,                    new Image("/pics/opLogos/lamp.png"),       new OpTinningCounter()),                     //Лужение электропаяльником
+
     EL_MARKING                          ("Маркировка",                          OpMarking.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMarkingCounter()),                     //Маркировка
     EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),          //Установка сигнальной аппаратуры
     EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                  new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                   //Соединение элементов пайкой

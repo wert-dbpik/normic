@@ -182,6 +182,10 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpCutMetalSleeve.class);
             case "EL_CUT_CABLE_CHANNEL":
                 return gson.fromJson(op.toString(), OpCutCableChannel.class);
+            case "EL_TINNING_IN_BATHE":
+                return gson.fromJson(op.toString(), OpTinningInBathe.class);
+            case "EL_TINNING":
+                return gson.fromJson(op.toString(), OpTinning.class);
 
 
             case "EL_MARKING ":

@@ -618,11 +618,29 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
-    //РЕЗКА КАБЕЛЬКАНАЛА, ДИНРЕЙКИ
+    //РЕЗКА КАБЕЛЬ-КАНАЛА, ДИНРЕЙКИ
     public MenuItem createItem_CutCableChannel(){
         MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_CHANNEL.getOpName());
         item.setOnAction(event -> {
             add_CutCableChannel_Plate(new OpCutCableChannel());
+        });
+        return item;
+    }
+
+    //ЛУЖЕНИЕ В ВАННОЧКЕ
+    public MenuItem createItem_TinningInBathe(){
+        MenuItem item = new MenuItem(EOpType.EL_TINNING_IN_BATHE.getOpName());
+        item.setOnAction(event -> {
+            add_TinningInBathe_Plate(new OpTinningInBathe());
+        });
+        return item;
+    }
+
+    //ЛУЖЕНИЕ ЭЛЕКТРОПАЯЛЬНИКОМ
+    public MenuItem createItem_Tinning(){
+        MenuItem item = new MenuItem(EOpType.EL_TINNING.getOpName());
+        item.setOnAction(event -> {
+            add_Tinning_Plate(new OpTinning());
         });
         return item;
     }
@@ -843,6 +861,12 @@ public class FormMenuManager extends ContextMenu {
                 break;
             case EL_CUT_CABLE_CHANNEL:
                 add_CutCableChannel_Plate((OpCutCableChannel) op);
+                break;
+            case EL_TINNING_IN_BATHE:
+                add_TinningInBathe_Plate((OpTinningInBathe) op);
+                break;
+            case EL_TINNING:
+                add_Tinning_Plate((OpTinning) op);
                 break;
 
 
@@ -1655,6 +1679,38 @@ public class FormMenuManager extends ContextMenu {
             VBox vBox = loader.load();
             Plate_CutCableChannel_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЬКАНАЛА, ДИНРЕЙКИ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *  ЛУЖЕНИЕ В ВАННОЧКЕ
+     */
+    public void add_TinningInBathe_Plate(OpTinningInBathe opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateTinningInBathe.fxml"));
+            VBox vBox = loader.load();
+            Plate_TinningInBathe_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ЛУЖЕНИЕ В ВАННОЧКЕ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *  ЛУЖЕНИЕ ЭЛЕКТРОПАЯЛЬНИКОМ
+     */
+    public void add_Tinning_Plate(OpTinning opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateTinning.fxml"));
+            VBox vBox = loader.load();
+            Plate_Tinning_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ЛУЖЕНИЕ ЭЛЕКТРОПАЯЛЬНИКОМ");
             addVBox(vBox);
 
         } catch (IOException e) {

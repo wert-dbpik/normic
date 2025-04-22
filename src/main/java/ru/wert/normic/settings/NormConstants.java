@@ -151,6 +151,9 @@ public class NormConstants {
     public static double CUTTING_METAL_SLEEVE = 0.2; //Резка металлорукава, мин/рез
     public static double CUTTING_CABLE_CHANNEL = 0.15; //Резка кабель-канала, дин-рейки, мин/рез
 
+    public static double TINNING_IN_BATHE = 0.071; //Лужение в ванночке, мин/наконечник
+    public static double TINNING = 0.074; //Лужение электропаяльником, мин/наконечник
+
 
 
 

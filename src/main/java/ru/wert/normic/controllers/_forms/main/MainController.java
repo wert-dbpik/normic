@@ -33,7 +33,6 @@ import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
 import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.saves.SaveNormEntry;
-import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.operations.OperationsController;
 import ru.wert.normic.report.ReportController;
@@ -49,7 +48,6 @@ import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.excel.ImportExcelFileService;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuForm;
 import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.AppFiles;
 import ru.wert.normic.utils.NvrConverter;
@@ -57,7 +55,6 @@ import ru.wert.normic.utils.NvrConverter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.*;
@@ -65,7 +62,6 @@ import static ru.wert.normic.StartNormic.FIRST_PARAMS;
 import static ru.wert.normic.controllers.extra.SavesHistoryController.getCurrentTime;
 import static ru.wert.normic.decoration.DecorationStatic.*;
 import static ru.wert.normic.enums.EColor.*;
-import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**
  * ОСНОВНАЯ ФОРМА - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ ГЛАВНОЙ СБОРКИ
@@ -665,7 +661,7 @@ public class MainController extends AbstractFormController {
 
 
     @Override
-    public MenuForm createMenu() {
+    public FormMenuManager createMenu() {
         FormMenus formMenus = new FormMenus(this);
         menu = formMenus.create(USE_ELECTRICAL_MENUS ?
                 FormMenus.EMenuType.ELECTRICAL_TYPE :

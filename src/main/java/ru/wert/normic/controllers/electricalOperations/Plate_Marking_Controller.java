@@ -4,44 +4,44 @@ package ru.wert.normic.controllers.electricalOperations;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpFixOfCables;
-import ru.wert.normic.utils.DoubleParser;
+import ru.wert.normic.entities.ops.electrical.OpMarking;
+import ru.wert.normic.entities.ops.electrical.OpMountOnVSHG;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.FIX_OF_CABLES_SPEED;
+import static ru.wert.normic.settings.NormConstants.MARKING_SPEED;
+import static ru.wert.normic.settings.NormConstants.MOUNT_ON_VSHG;
 
 /**
  * МАРКИРОВКА
  */
-public class PlateFixOfCablesController extends AbstractOpPlate {
+public class Plate_Marking_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
 
     @FXML
-    private TextField tfLength;
+    private TextField tfElements;
 
-    private OpFixOfCables opData;
+    private OpMarking opData;
 
-    private double length; //Длина жгута
+    private int elements; //Количество элементов
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
-        new TFDoubleColored(tfLength, this);
+        new TFIntegerColored(tfElements, this);
 
     }
 
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        opData = (OpFixOfCables) data;
+        opData = (OpMarking) data;
 
         countInitialValues();
 
@@ -54,35 +54,34 @@ public class PlateFixOfCablesController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
-        length = DoubleParser.getValue(tfLength);
+        elements = IntegerParser.getValue(tfElements);
 
         collectOpData();
     }
 
     private void collectOpData(){
-        opData.setLength(length);
+        opData.setElements(elements);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpFixOfCables opData = (OpFixOfCables)data;
+        OpMarking opData = (OpMarking)data;
 
-        length = opData.getLength();
-        tfLength.setText(String.valueOf(length));
+        elements = opData.getElements();
+        tfElements.setText(String.valueOf(elements));
 
     }
 
     @Override
     public String helpText() {
-        return String.format("Укладка жгутов с помощью бандажа, стяжек каждые 0,3 м за V укл = %s мин/элемент.\n" +
-                        "\n\t\t\tT норм = L /0.3 * V укл, мин\n" +
+        return String.format("Маркировка одной единицы номенклатуры за %s мин/элемент,\n" +
                         "\n" +
                         "Окончательная формула учитывает время обслуживания Т обсл = 2,4%%,\n" +
                         "время отдыха Т отд = 6%% и подготовительно-заключительное время Т пз = 2.9%%\n" +
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                FIX_OF_CABLES_SPEED);
+                MARKING_SPEED);
     }
 
     @Override

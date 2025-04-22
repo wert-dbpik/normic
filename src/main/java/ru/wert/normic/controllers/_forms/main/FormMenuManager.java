@@ -1,4 +1,4 @@
-package ru.wert.normic.menus;
+package ru.wert.normic.controllers._forms.main;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -64,7 +64,7 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 /**
  * МЕНЮ ДОБАВЛЕНИЯ ОПЕРАЦИЙ
  */
-public class MenuForm extends ContextMenu {
+public class FormMenuManager extends ContextMenu {
 
     private final AbstractFormController formController;
     private final ListView<VBox> listViewTechOperations;
@@ -74,7 +74,7 @@ public class MenuForm extends ContextMenu {
     /**
      * Create a new ContextMenu
      */
-    public MenuForm(AbstractFormController formController, ListView<VBox> listViewTechOperations, IOpWithOperations opData) {
+    public FormMenuManager(AbstractFormController formController, ListView<VBox> listViewTechOperations, IOpWithOperations opData) {
         this.formController = formController;
         this.listViewTechOperations = listViewTechOperations;
         this.opData = opData;
@@ -547,82 +547,100 @@ public class MenuForm extends ContextMenu {
     //===========      ЭЛЕКТРОМОНТАЖ     =========================================
 
     //МОНТАЖ НА ДИНРЕЙКУ
-    public MenuItem createItemMountOnDin(){
+    public MenuItem createItem_MountOnDin(){
         MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN.getOpName());
         item.setOnAction(event -> {
-            addMountOnDinPlate(new OpMountOnDin());
+            add_MountOnDin_Plate(new OpMountOnDin());
         });
         return item;
     }
 
     //МОНТАЖ НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
-    public MenuItem createItemMountOnScrewsNoDisAssm(){
+    public MenuItem createItem_MountOnScrewsNoDisAssm(){
         MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM.getOpName());
         item.setOnAction(event -> {
-            addMountOnScrewsNoDisAssmPlate(new OpMountOnScrewsNoDisAssm());
+            add_MountOnScrewsNoDisAssm_Plate(new OpMountOnScrewsNoDisAssm());
         });
         return item;
     }
 
     //МОНТАЖ НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
-    public MenuItem createItemMountOnScrewsWithDisAssm(){
+    public MenuItem createItem_MountOnScrewsWithDisAssm(){
         MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM.getOpName());
         item.setOnAction(event -> {
-            addMountOnScrewsWithDisAssmPlate(new OpMountOnScrewsWithDisAssm());
+            add_MountOnScrewsWithDisAssm_Plate(new OpMountOnScrewsWithDisAssm());
         });
         return item;
     }
 
     //МОНТАЖ НА ВШГ(4 шт)
-    public MenuItem createItemMountOnVSHG(){
+    public MenuItem createItem_MountOnVSHG(){
         MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_VSHG.getOpName());
         item.setOnAction(event -> {
-            addMountOnVSHGPlate(new OpMountOnVSHG());
+            add_MountOnVSHG_Plate(new OpMountOnVSHG());
+        });
+        return item;
+    }
+
+    //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ
+    public MenuItem createItem_ConnectingDevices(){
+        MenuItem item = new MenuItem(EOpType.EL_CONNECTING_DEVICES.getOpName());
+        item.setOnAction(event -> {
+            add_ConnectingDevices_Plate(new OpConnectingDevices());
+        });
+        return item;
+    }
+
+    //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ
+    public MenuItem createItem_CutCableHandly(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY.getOpName());
+        item.setOnAction(event -> {
+            add_CutCableHandly_Plate(new OpCutCableHandly());
         });
         return item;
     }
 
     //МАРКИРОВКА
-    public MenuItem createItemMarking(){
+    public MenuItem createItem_Marking(){
         MenuItem item = new MenuItem(EOpType.EL_MARKING.getOpName());
         item.setOnAction(event -> {
-            addMarkingPlate(new OpMarking());
+            add_Marking_Plate(new OpMarking());
         });
         return item;
     }
 
     //УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ
-    public MenuItem createItemMountOfSignalEquip(){
+    public MenuItem createItem_MountOfSignalEquip(){
         MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_SIGNAL_EQUIP.getOpName());
         item.setOnAction(event -> {
-            addMountOfSignalEquipPlate(new OpMountOfSignalEquip());
+            add_MountOfSignalEquip_Plate(new OpMountOfSignalEquip());
         });
         return item;
     }
 
     //СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ
-    public MenuItem createItemSoldering(){
+    public MenuItem createItem_Soldering(){
         MenuItem item = new MenuItem(EOpType.EL_SOLDERING.getOpName());
         item.setOnAction(event -> {
-            addSolderingPlate(new OpSoldering());
+            add_Soldering_Plate(new OpSoldering());
         });
         return item;
     }
 
     //УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ
-    public MenuItem createItemMountOfCableEntries(){
+    public MenuItem createItem_MountOfCableEntries(){
         MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_CABLE_ENTRIES.getOpName());
         item.setOnAction(event -> {
-            addMountOfCableEntriesPlate(new OpMountOfCableEntries());
+            add_MountOfCableEntries_Plate(new OpMountOfCableEntries());
         });
         return item;
     }
 
     //УКЛАДКА ЖГУТОВ
-    public MenuItem createItemFixOfCables(){
+    public MenuItem createItem_FixOfCables(){
         MenuItem item = new MenuItem(EOpType.EL_FIX_OF_CABLES.getOpName());
         item.setOnAction(event -> {
-            addFixOfCablesPlate(new OpFixOfCables());
+            add_FixOfCables_Plate(new OpFixOfCables());
         });
         return item;
     }
@@ -769,31 +787,40 @@ public class MenuForm extends ContextMenu {
                 break;
             //ЭЛЕКТРОМОНТАЖ
             case EL_MOUNT_ON_DIN:
-                addMountOnDinPlate((OpMountOnDin) op);
+                add_MountOnDin_Plate((OpMountOnDin) op);
                 break;
             case EL_MOUNT_ON_SCREWS_NO_DISASSM:
-                addMountOnScrewsNoDisAssmPlate((OpMountOnScrewsNoDisAssm) op);
+                add_MountOnScrewsNoDisAssm_Plate((OpMountOnScrewsNoDisAssm) op);
                 break;
             case EL_MOUNT_ON_SCREWS_WITH_DISASSM:
-                addMountOnScrewsWithDisAssmPlate((OpMountOnScrewsWithDisAssm) op);
+                add_MountOnScrewsWithDisAssm_Plate((OpMountOnScrewsWithDisAssm) op);
                 break;
             case EL_MOUNT_ON_VSHG:
-                addMountOnVSHGPlate((OpMountOnVSHG) op);
+                add_MountOnVSHG_Plate((OpMountOnVSHG) op);
                 break;
+            case EL_CONNECTING_DEVICES:
+                add_ConnectingDevices_Plate((OpConnectingDevices) op);
+                break;
+            case EL_CUT_CABLE_HANDLY:
+                add_CutCableHandly_Plate((OpCutCableHandly) op);
+                break;
+
+
+
             case EL_MARKING:
-                addMarkingPlate((OpMarking) op);
+                add_Marking_Plate((OpMarking) op);
                 break;
             case EL_MOUNT_OF_SIGNAL_EQUIP:
-                addMountOfSignalEquipPlate((OpMountOfSignalEquip) op);
+                add_MountOfSignalEquip_Plate((OpMountOfSignalEquip) op);
                 break;
             case EL_SOLDERING:
-                addSolderingPlate((OpSoldering) op);
+                add_Soldering_Plate((OpSoldering) op);
                 break;
             case EL_MOUNT_OF_CABLE_ENTRIES:
-                addMountOfCableEntriesPlate((OpMountOfCableEntries) op);
+                add_MountOfCableEntries_Plate((OpMountOfCableEntries) op);
                 break;
             case EL_FIX_OF_CABLES:
-                addFixOfCablesPlate((OpFixOfCables) op);
+                add_FixOfCables_Plate((OpFixOfCables) op);
                 break;
 
         }
@@ -1454,11 +1481,11 @@ public class MenuForm extends ContextMenu {
     /**
      * УСТАНОВКА НА ДИНРЕЙКУ
      */
-    public void addMountOnDinPlate(OpMountOnDin opData) {
+    public void add_MountOnDin_Plate(OpMountOnDin opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnDin.fxml"));
             VBox vBox = loader.load();
-            PlateMountOnDinController controller = loader.getController();
+            Plate_MountOnDin_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ДИРЕЙКУ");
             addVBox(vBox);
 
@@ -1470,11 +1497,11 @@ public class MenuForm extends ContextMenu {
     /**
      * УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
      */
-    public void addMountOnScrewsNoDisAssmPlate(OpMountOnScrewsNoDisAssm opData) {
+    public void add_MountOnScrewsNoDisAssm_Plate(OpMountOnScrewsNoDisAssm opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsNoDisAssm.fxml"));
             VBox vBox = loader.load();
-            PlateMountOnScrewsNoDisAssmController controller = loader.getController();
+            Plate_MountOnScrewsNoDisAssm_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА");
             addVBox(vBox);
 
@@ -1486,11 +1513,11 @@ public class MenuForm extends ContextMenu {
     /**
      * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
      */
-    public void addMountOnScrewsWithDisAssmPlate(OpMountOnScrewsWithDisAssm opData) {
+    public void add_MountOnScrewsWithDisAssm_Plate(OpMountOnScrewsWithDisAssm opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsWithDisAssm.fxml"));
             VBox vBox = loader.load();
-            PlateMountOnScrewsWithDisAssmController controller = loader.getController();
+            Plate_MountOnScrewsWithDisAssm_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА");
             addVBox(vBox);
 
@@ -1500,14 +1527,46 @@ public class MenuForm extends ContextMenu {
     }
 
     /**
-     * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
+     * УСТАНОВКА НА ВШГ(4 шт)
      */
-    public void addMountOnVSHGPlate(OpMountOnVSHG opData) {
+    public void add_MountOnVSHG_Plate(OpMountOnVSHG opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnVSHG.fxml"));
             VBox vBox = loader.load();
-            PlateMountOnVSHGController controller = loader.getController();
+            Plate_MountOnVSHG_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВШГ(4 шт)");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ
+     */
+    public void add_ConnectingDevices_Plate(OpConnectingDevices opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateConnectingDevices.fxml"));
+            VBox vBox = loader.load();
+            Plate_ConnectingDevices_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ
+     */
+    public void add_CutCableHandly_Plate(OpCutCableHandly opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableHandly.fxml"));
+            VBox vBox = loader.load();
+            Plate_CutCableHandly_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ");
             addVBox(vBox);
 
         } catch (IOException e) {
@@ -1518,11 +1577,11 @@ public class MenuForm extends ContextMenu {
     /**
      * МАРКИРОВКА
      */
-    public void addMarkingPlate(OpMarking opData) {
+    public void add_Marking_Plate(OpMarking opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMarking.fxml"));
             VBox vBox = loader.load();
-            PlateMarkingController controller = loader.getController();
+            Plate_Marking_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "МАРКИРОВКА");
             addVBox(vBox);
 
@@ -1534,11 +1593,11 @@ public class MenuForm extends ContextMenu {
     /**
      * УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ
      */
-    public void addMountOfSignalEquipPlate(OpMountOfSignalEquip opData) {
+    public void add_MountOfSignalEquip_Plate(OpMountOfSignalEquip opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOfSignalEquip.fxml"));
             VBox vBox = loader.load();
-            PlateMountOfSignalEquipController controller = loader.getController();
+            Plate_MountOfSignalEquip_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ");
             addVBox(vBox);
 
@@ -1550,11 +1609,11 @@ public class MenuForm extends ContextMenu {
     /**
      * СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ
      */
-    public void addSolderingPlate(OpSoldering opData) {
+    public void add_Soldering_Plate(OpSoldering opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateSoldering.fxml"));
             VBox vBox = loader.load();
-            PlateSolderingController controller = loader.getController();
+            Plate_Soldering_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ");
             addVBox(vBox);
 
@@ -1566,11 +1625,11 @@ public class MenuForm extends ContextMenu {
     /**
      * УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ
      */
-    public void addMountOfCableEntriesPlate(OpMountOfCableEntries opData) {
+    public void add_MountOfCableEntries_Plate(OpMountOfCableEntries opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOfCableEntries.fxml"));
             VBox vBox = loader.load();
-            PlateMountOfCableEntriesController controller = loader.getController();
+            Plate_MountOfCableEntries_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ");
             addVBox(vBox);
 
@@ -1582,11 +1641,11 @@ public class MenuForm extends ContextMenu {
     /**
      * УКЛАДКА ЖГУТОВ
      */
-    public void addFixOfCablesPlate(OpFixOfCables opData) {
+    public void add_FixOfCables_Plate(OpFixOfCables opData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateFixOfCables.fxml"));
             VBox vBox = loader.load();
-            PlateFixOfCablesController controller = loader.getController();
+            Plate_FixOfCables_Controller controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "УКЛАДКА ЖГУТОВ");
             addVBox(vBox);
 

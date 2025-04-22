@@ -5,7 +5,6 @@ import javafx.scene.control.SeparatorMenuItem;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuForm;
 
 import java.util.Collections;
 import java.util.NoSuchElementException;
@@ -25,8 +24,8 @@ public class FormMenus {
         this.controller = controller;
     }
 
-    public MenuForm create(EMenuType type){
-        MenuForm menu = new MenuForm(controller, controller.getListViewTechOperations(), (IOpWithOperations) controller.getOpData());
+    public FormMenuManager create(EMenuType type){
+        FormMenuManager menu = new FormMenuManager(controller, controller.getListViewTechOperations(), (IOpWithOperations) controller.getOpData());
         switch(type){
             case MAIN_TYPE : return createMainTypeMenu(menu);
             case ASSM_TYPE : return createAssmTypeMenu(menu);
@@ -39,7 +38,7 @@ public class FormMenus {
     /**
      * МЕНЮ ГЛАВНОЙ ФОРМЫ (MAIN_TYPE)
      */
-    public MenuForm createMainTypeMenu(MenuForm menu){
+    public FormMenuManager createMainTypeMenu(FormMenuManager menu){
 
         menu.getItems().add(menu.createItemDetail());
         menu.getItems().add(menu.createItemAssm());
@@ -74,7 +73,7 @@ public class FormMenus {
     /**
      * МЕНЮ СБОРКИ (ASSM_TYPE)
      */
-    public MenuForm createAssmTypeMenu(MenuForm menu){
+    public FormMenuManager createAssmTypeMenu(FormMenuManager menu){
 
         menu.getItems().add(menu.createItemDetail());
         menu.getItems().add(menu.createItemAssm());
@@ -107,25 +106,29 @@ public class FormMenus {
     /**
      * МЕНЮ ДЕТАЛИ
      */
-    public MenuForm createDetailTypeMenu(MenuForm menu){
+    public FormMenuManager createDetailTypeMenu(FormMenuManager menu){
         return menu;
     }
 
     /**
      * МЕНЮ ЭЛЕКТРОМОНТАЖА (ELECTRICAL_TYPE)
      */
-    public MenuForm createElectricalTypeMenu(MenuForm menu){
+    public FormMenuManager createElectricalTypeMenu(FormMenuManager menu){
         menu.getItems().add(menu.createItemAssm());
         menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemMountOnDin());
-        menu.getItems().add(menu.createItemMountOnScrewsNoDisAssm());
-        menu.getItems().add(menu.createItemMountOnScrewsWithDisAssm());
-        menu.getItems().add(menu.createItemMountOnVSHG());
-        menu.getItems().add(menu.createItemMarking());
-        menu.getItems().add(menu.createItemMountOfSignalEquip());
-        menu.getItems().add(menu.createItemSoldering());
-        menu.getItems().add(menu.createItemMountOfCableEntries());
-        menu.getItems().add(menu.createItemFixOfCables());
+        menu.getItems().add(menu.createItem_MountOnDin());
+        menu.getItems().add(menu.createItem_MountOnScrewsNoDisAssm());
+        menu.getItems().add(menu.createItem_MountOnScrewsWithDisAssm());
+        menu.getItems().add(menu.createItem_MountOnVSHG());
+        menu.getItems().add(menu.createItem_ConnectingDevices());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createItem_CutCableHandly());
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createItem_Marking());
+        menu.getItems().add(menu.createItem_MountOfSignalEquip());
+        menu.getItems().add(menu.createItem_Soldering());
+        menu.getItems().add(menu.createItem_MountOfCableEntries());
+        menu.getItems().add(menu.createItem_FixOfCables());
 
 
 

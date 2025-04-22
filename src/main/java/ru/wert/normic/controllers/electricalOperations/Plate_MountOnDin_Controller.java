@@ -19,7 +19,7 @@ import static ru.wert.normic.settings.NormConstants.*;
 /**
  * УСТАНОВКА НА ДИНРЕЙКУ
  */
-public class PlateMountOnDinController extends AbstractOpPlate {
+public class Plate_MountOnDin_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;

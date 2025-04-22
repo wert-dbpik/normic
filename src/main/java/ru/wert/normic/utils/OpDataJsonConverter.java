@@ -8,10 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.OpErrorData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
-import ru.wert.normic.entities.ops.electrical.OpMountOnVSHG;
+import ru.wert.normic.entities.ops.electrical.*;
 import ru.wert.normic.entities.ops.opAssembling.*;
 import ru.wert.normic.entities.ops.opList.OpBending;
 import ru.wert.normic.entities.ops.opList.OpCutting;
@@ -175,6 +172,24 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpMountOnScrewsWithDisAssm.class);
             case "EL_MOUNT_ON_VSHG":
                 return gson.fromJson(op.toString(), OpMountOnVSHG.class);
+            case "EL_CONNECTING_DEVICES":
+                return gson.fromJson(op.toString(), OpConnectingDevices.class);
+            case "EL_CUT_CABLE_HANDLY":
+                return gson.fromJson(op.toString(), OpCutCableHandly.class);
+
+
+            case "EL_MARKING ":
+                return gson.fromJson(op.toString(), OpMarking.class);
+            case "EL_MOUNT_OF_SIGNAL_EQUIP":
+                return gson.fromJson(op.toString(), OpMountOfSignalEquip.class);
+            case "EL_SOLDERING":
+                return gson.fromJson(op.toString(), OpSoldering.class);
+            case "EL_MOUNT_OF_CABLE_ENTRIES":
+                return gson.fromJson(op.toString(), OpMountOfCableEntries.class);
+            case "EL_FIX_OF_CABLES":
+                return gson.fromJson(op.toString(), OpFixOfCables.class);
+
+
 
             default:
                 return new OpErrorData(opType);

@@ -7,7 +7,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УСТАНОВКА НА ДИНРЕЙКУ
+ * ПАЙКА ЭЛЕКТРОПАЯЛЬНИКОМ
  */
 @Getter
 @Setter

@@ -17,7 +17,7 @@ import static ru.wert.normic.settings.NormConstants.MOUNT_OF_SIGNAL_EQUIP_SPEED;
 /**
  * УСТАНОВКА И ПОДКЛЮЧЕНИЕ СИГНАЛЬНОЙ АППАРАТУРЫ
  */
-public class PlateMountOfSignalEquipController extends AbstractOpPlate {
+public class Plate_MountOfSignalEquip_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;

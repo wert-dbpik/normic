@@ -7,7 +7,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УСТАНОВКА НА ДИНРЕЙКУ
+ * УСТАНОВКА НА ВШГ (4 ШТ)
  */
 @Getter
 @Setter
@@ -24,6 +24,6 @@ public class OpMountOnVSHG extends OpData {
 
     @Override
     public String toString() {
-        return String.format("элементов- %s", elements);
+        return String.format("элементов- %s; Трудность доступа - %s", elements);
     }
 }

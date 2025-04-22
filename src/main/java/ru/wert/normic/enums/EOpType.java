@@ -104,6 +104,8 @@ public enum EOpType {
     EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,     new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),      //Установка на винты без разборки корпуса
     EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class,   new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()),    //Установка на винты с разборкой корпуса
     EL_MOUNT_ON_VSHG                    ("Установка на ВШГ(4шт)",               OpMountOnVSHG.class,                new Image("/pics/opLogos/lamp.png"),       new OpMountOnVSHGCounter()),                 //Установка на ВШГ (4шт)
+    EL_CONNECTING_DEVICES               ("Подключение электроустройств",        OpConnectingDevices.class,          new Image("/pics/opLogos/lamp.png"),       new OpConnectingDevicesCounter()),           //Подключение электроустройств
+    EL_CUT_CABLE_HANDLY                 ("Резка кабеля вручную",                OpCutCableHandly.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyCounter()),              //Резка кабеля вручную
     EL_MARKING                          ("Маркировка",                          OpMarking.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMarkingCounter()),                     //Маркировка
     EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),          //Установка сигнальной аппаратуры
     EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                  new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                   //Соединение элементов пайкой
@@ -130,19 +132,4 @@ public enum EOpType {
         throw new NoSuchElementException("No such type in EOpType found!");
     }
 
-//    public OpData jsonConverter(String stringType, String json){
-//        EOpType type = findOpTypeByName(stringType);
-//        return jsonConverter(type, json);
-//    }
-//
-//    public OpData jsonConverter(EOpType type, String json){
-//
-//        OpData newOpData;
-//
-//        switch (type) {
-//            case "DETAIL": newOpData = (OpDetail) OpDataJsonConverter.convert(json); break;
-//            case "ASSM"  : newOpData = (OpAssm) OpDataJsonConverter.convert(json); break;
-//            case "PACK"  : newOpData = (OpPack) OpDataJsonConverter.convert(json); break;
-//        }
-//    }
 }

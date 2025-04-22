@@ -1,13 +1,11 @@
 package ru.wert.normic.operations;
 
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -20,7 +18,6 @@ import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
 import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.ENormType;
-import ru.wert.normic.menus.MenuForm;
 
 
 import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;

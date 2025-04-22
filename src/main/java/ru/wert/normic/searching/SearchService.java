@@ -10,7 +10,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuForm;
+import ru.wert.normic.controllers._forms.main.FormMenuManager;
 import ru.wert.normic.utils.NvrConverter;
 
 import java.io.File;
@@ -31,7 +31,7 @@ public class SearchService extends Service<Void> {
     private final String searchText; //Искомый текст (номер или наименование)
     private final OpAssm opAssm; //Сюда добавляем найденные элементы
     private final SearchingFileController mainController; //Контроллер из которого запущен поиск
-    private final MenuForm menu; //Необходим длоя добавления найденных плашек
+    private final FormMenuManager menu; //Необходим длоя добавления найденных плашек
     private final boolean showEntries; //Показываеть входимости - т.е. изделия куда входит искомый узел
     private final List<OpData> addedOperations = new ArrayList<>(); //Перечень найденных плашек
 

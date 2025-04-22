@@ -10,17 +10,16 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_2_SCREWS_NO_DISASSM;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_4_SCREWS_NO_DISASSM;
+import static ru.wert.normic.settings.NormConstants.*;
 
 /**
- * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
+ * УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
  */
-public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
+public class Plate_MountOnScrewsNoDisAssm_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
@@ -34,7 +33,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
     @FXML
     private CheckBox chbDifficult;
 
-    private OpMountOnScrewsWithDisAssm opData;
+    private OpMountOnScrewsNoDisAssm opData;
 
     private int twoScrews; //Количество автоматов
     private int fourScrews; //Количество нагревателей
@@ -52,7 +51,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        opData = (OpMountOnScrewsWithDisAssm) data;
+        opData = (OpMountOnScrewsNoDisAssm) data;
 
         countInitialValues();
 
@@ -68,7 +67,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
         twoScrews = IntegerParser.getValue(tf2Screws);
         fourScrews = IntegerParser.getValue(tf4Screws);
         difficult = chbDifficult.isSelected();
-        
+
         collectOpData();
     }
 
@@ -80,7 +79,7 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpMountOnScrewsWithDisAssm opData = (OpMountOnScrewsWithDisAssm)data;
+        OpMountOnScrewsNoDisAssm opData = (OpMountOnScrewsNoDisAssm)data;
 
         twoScrews = opData.getTwoScrews();
         tf2Screws.setText(String.valueOf(twoScrews));
@@ -94,8 +93,8 @@ public class PlateMountOnScrewsWithDisAssmController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Установка розеток, извещателей пожарных и пр. изделий,\n" +
-                        "на винты, при установке которых требуется снятие крышки\n" +
+        return String.format("Установка различных изделий с отверстиями для установки\n" +
+                        "на монтажную панель на винты без разборки корпуса\n" +
                         "(прогонка резьбы учтена):" +
                         "\n" +
                         "\tна 2 винта %s мин/элемент.\n" +

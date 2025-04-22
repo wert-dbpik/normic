@@ -2,52 +2,46 @@ package ru.wert.normic.controllers.electricalOperations;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import ru.wert.normic.components.ChBox;
+import ru.wert.normic.components.TFDoubleColored;
 import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
-import ru.wert.normic.entities.ops.electrical.OpMountOnVSHG;
+import ru.wert.normic.entities.ops.electrical.OpFixOfCables;
+import ru.wert.normic.utils.DoubleParser;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.FIX_OF_CABLES_SPEED;
 
 /**
- * УСТАНОВКА НА ВШГ (4 шт)
+ * УКЛАДКА ЖГУТОВ
  */
-public class PlateMountOnVSHGController extends AbstractOpPlate {
+public class Plate_FixOfCables_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
 
     @FXML
-    private TextField tfElements;
+    private TextField tfLength;
 
-    @FXML
-    private CheckBox chbDifficult;
+    private OpFixOfCables opData;
 
-
-    private OpMountOnVSHG opData;
-
-    private int elements; //Количество элементов
-    private boolean difficult; //Сложность сборки
+    private double length; //Длина жгута
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
-        new TFIntegerColored(tfElements, this);
-        new ChBox(chbDifficult, this);
+        new TFDoubleColored(tfLength, this);
+
     }
 
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        opData = (OpMountOnVSHG) data;
+        opData = (OpFixOfCables) data;
 
         countInitialValues();
 
@@ -60,42 +54,35 @@ public class PlateMountOnVSHGController extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
-        elements = IntegerParser.getValue(tfElements);
-        difficult = chbDifficult.isSelected();
+        length = DoubleParser.getValue(tfLength);
 
         collectOpData();
     }
 
     private void collectOpData(){
-        opData.setElements(elements);
-        opData.setDifficult(difficult);
+        opData.setLength(length);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpMountOnVSHG opData = (OpMountOnVSHG)data;
+        OpFixOfCables opData = (OpFixOfCables)data;
 
-        elements = opData.getElements();
-        tfElements.setText(String.valueOf(elements));
+        length = opData.getLength();
+        tfLength.setText(String.valueOf(length));
 
-
-        difficult = opData.isDifficult();
-        chbDifficult.setSelected(difficult);
     }
 
     @Override
     public String helpText() {
-        return String.format("Установка на ВШГ(4 шт) изделий при установке на кронштейны,\n" +
-                        "монтажные панели за %s мин/элемент.\n" +
-                        "\n" +
-                        "Установка в стесненных условиях - коэффициент 1,3\n" +
+        return String.format("Укладка жгутов с помощью бандажа, стяжек каждые 0,3 м за V укл = %s мин/элемент.\n" +
+                        "\n\t\t\tT норм = L /0.3 * V укл, мин\n" +
                         "\n" +
                         "Окончательная формула учитывает время обслуживания Т обсл = 2,4%%,\n" +
                         "время отдыха Т отд = 6%% и подготовительно-заключительное время Т пз = 2.9%%\n" +
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                MOUNT_ON_VSHG);
+                FIX_OF_CABLES_SPEED);
     }
 
     @Override

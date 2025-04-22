@@ -9,17 +9,17 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpMarking;
-import ru.wert.normic.entities.ops.electrical.OpMountOfCableEntries;
+import ru.wert.normic.entities.ops.electrical.OpSoldering;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.MARKING_SPEED;
-import static ru.wert.normic.settings.NormConstants.MOUNT_OF_CABLE_ENTRIES;
+import static ru.wert.normic.settings.NormConstants.SOLDERING_SPEED;
 
 /**
- * МАРКИРОВКА
+ * ПАЙКА ЭЛЕКТРОПАЯЛЬНИКОМ
  */
-public class PlateMountOfCableEntriesController extends AbstractOpPlate {
+public class Plate_Soldering_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
@@ -27,7 +27,7 @@ public class PlateMountOfCableEntriesController extends AbstractOpPlate {
     @FXML
     private TextField tfElements;
 
-    private OpMountOfCableEntries opData;
+    private OpSoldering opData;
 
     private int elements; //Количество элементов
 
@@ -41,7 +41,7 @@ public class PlateMountOfCableEntriesController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        opData = (OpMountOfCableEntries) data;
+        opData = (OpSoldering) data;
 
         countInitialValues();
 
@@ -65,7 +65,7 @@ public class PlateMountOfCableEntriesController extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpMountOfCableEntries opData = (OpMountOfCableEntries)data;
+        OpSoldering opData = (OpSoldering)data;
 
         elements = opData.getElements();
         tfElements.setText(String.valueOf(elements));
@@ -74,15 +74,14 @@ public class PlateMountOfCableEntriesController extends AbstractOpPlate {
 
     @Override
     public String helpText() {
-        return String.format("Установка кабельных вводов, гофрированных втулок, MG, PG " +
-                        "за %s мин/элемент,\n" +
+        return String.format("Соединение элементов пайкой за %s мин/элемент,\n" +
                         "\n" +
                         "Окончательная формула учитывает время обслуживания Т обсл = 2,4%%,\n" +
                         "время отдыха Т отд = 6%% и подготовительно-заключительное время Т пз = 2.9%%\n" +
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                MOUNT_OF_CABLE_ENTRIES);
+                SOLDERING_SPEED);
     }
 
     @Override

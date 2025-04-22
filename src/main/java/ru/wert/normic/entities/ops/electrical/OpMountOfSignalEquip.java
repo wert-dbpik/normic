@@ -7,7 +7,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УСТАНОВКА НА ДИНРЕЙКУ
+ * УСТАНОВКА СИГНАЛЬНОГО ОБОРУДОВАНИЯ
  */
 @Getter
 @Setter

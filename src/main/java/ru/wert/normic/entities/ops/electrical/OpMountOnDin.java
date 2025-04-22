@@ -26,6 +26,6 @@ public class OpMountOnDin extends OpData {
 
     @Override
     public String toString() {
-        return String.format("автоматы - %s; нагреватели - %s", avtomats, heaters);
+        return String.format("автоматы - %s; нагреватели - %s; Трудность доступа - %s", avtomats, heaters);
     }
 }

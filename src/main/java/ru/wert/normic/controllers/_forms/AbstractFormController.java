@@ -46,7 +46,7 @@ import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.interfaces.Paintable;
-import ru.wert.normic.menus.MenuForm;
+import ru.wert.normic.controllers._forms.main.FormMenuManager;
 import ru.wert.normic.menus.MenuPlate;
 import ru.wert.normic.searching.SearchingFileController;
 import ru.wert.normic.settings.ProductSettings;
@@ -81,7 +81,7 @@ public abstract class AbstractFormController implements IForm {
     //------------------------
 
     @Getter
-    protected MenuForm menu;
+    protected FormMenuManager menu;
     @Getter
     protected OpData opData;
     @Getter
@@ -98,7 +98,7 @@ public abstract class AbstractFormController implements IForm {
     private final Image imageCut = new Image(String.valueOf(getClass().getResource("/pics/btns/cursor_cut.png")),
             32, 32, true, true);
 
-    public abstract MenuForm createMenu();
+    public abstract FormMenuManager createMenu();
 
     public abstract void fillOpData();
 
@@ -468,7 +468,7 @@ public abstract class AbstractFormController implements IForm {
     }
 
     /**
-     * ДОБАВИТЬ ОПЕРАЦИЮ (MenuForm)
+     * ДОБАВИТЬ ОПЕРАЦИЮ (FormMenuManager)
      * <p>
      * Метод добавляет данные "clipOpData" в targetOpData
      * В случае если targetOpData и opData формы совпадают, форма перерисовывается

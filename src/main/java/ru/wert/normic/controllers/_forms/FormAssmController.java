@@ -11,16 +11,10 @@ import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers._forms.main.FormMenus;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
-import ru.wert.normic.enums.ENormType;
-import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuForm;
-
-import java.util.Collections;
+import ru.wert.normic.controllers._forms.main.FormMenuManager;
 
 import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
 
 /**
  * СБОРКА - ФОРМА ДОБАВЛЕНИЯ ОПЕРАЦИЙ ДЛЯ СБОРКИ
@@ -115,7 +109,7 @@ public class FormAssmController extends AbstractFormController {
     }
 
     @Override
-    public  MenuForm createMenu() {
+    public FormMenuManager createMenu() {
         FormMenus formMenus = new FormMenus(this);
         menu = formMenus.create(USE_ELECTRICAL_MENUS ?
                 FormMenus.EMenuType.ELECTRICAL_TYPE :

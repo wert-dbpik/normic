@@ -22,7 +22,7 @@ import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuForm;
+import ru.wert.normic.controllers._forms.main.FormMenuManager;
 
 import java.io.File;
 
@@ -62,7 +62,7 @@ public class SearchingFileController extends AbstractFormController {
         createBtnShowNVRFiles();
 
         opData = new OpAssm();
-        menu = new MenuForm(this, listViewFoundOperations, (IOpWithOperations) opData);
+        menu = new FormMenuManager(this, listViewFoundOperations, (IOpWithOperations) opData);
 
         listViewFoundOperations.setStyle("-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: #6e4909;" );
 
@@ -198,7 +198,7 @@ public class SearchingFileController extends AbstractFormController {
 
 
     @Override
-    public MenuForm createMenu() {
+    public FormMenuManager createMenu() {
         return menu;
     }
 

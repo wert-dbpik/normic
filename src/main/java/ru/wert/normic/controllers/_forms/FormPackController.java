@@ -15,7 +15,7 @@ import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.menus.MenuForm;
+import ru.wert.normic.controllers._forms.main.FormMenuManager;
 import ru.wert.normic.utils.IntegerParser;
 
 import java.util.Collections;
@@ -141,8 +141,8 @@ public class FormPackController extends AbstractFormController {
     }
 
     @Override
-    public MenuForm createMenu(){
-        menu = new MenuForm(this, listViewTechOperations, (IOpWithOperations) opData);
+    public FormMenuManager createMenu(){
+        menu = new FormMenuManager(this, listViewTechOperations, (IOpWithOperations) opData);
 
         menu.getItems().add(menu.createItemPackInCartoonBox());
         menu.getItems().add(menu.createItemPackOnPalletizer());

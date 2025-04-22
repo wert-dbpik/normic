@@ -138,6 +138,19 @@ public class NormConstants {
 
     public static double MOUNT_ON_VSHG = 2.5; //Скорость установки на ВШГ (4 шт), мин
 
+    public static double CONNECTING_DEVICES_WITH_MORTISE_CONTACT = 0.12; //Подключение устр. на врезной контакт, мин/контакт
+    public static double CONNECTING_DEVICES_WITH_SPRING_CLAMP = 0.08; //Подключение устр. на пружинный зажим, мин/контакт
+    public static double CONNECTING_DEVICES_WITH_CLAMPING_SCREW = 0.3; //Подключение устр. на зажимной винт, мин/контакт
+    public static double CONNECTING_DEVICES_WITH_VSHG = 0.5; //Подключение устр. на ВШГ, мин/контакт
+
+    public static double CUTTING_MULTI_CORE_CABLE_6MM = 0.25; //Резка многожильного кабеля Дн = 6мм, мин/рез
+    public static double CUTTING_MULTI_CORE_CABLE_11MM = 0.4; //Резка многожильного кабеля Дн = 11..15мм, мин/рез
+    public static double CUTTING_SINGLE_CORE_CABLE = 0.15; //Резка одножильного кабеля, мин/рез
+
+
+
+
+
     public static double MARKING_SPEED = 0.3; //Скорость маркировки, мин/элемент
 
     public static double SOLDERING_SPEED = 0.2; //Скорость пайки, мин/элемент

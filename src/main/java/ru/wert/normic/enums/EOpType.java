@@ -106,6 +106,11 @@ public enum EOpType {
     EL_MOUNT_ON_VSHG                    ("Установка на ВШГ(4шт)",               OpMountOnVSHG.class,                new Image("/pics/opLogos/lamp.png"),       new OpMountOnVSHGCounter()),                 //Установка на ВШГ (4шт)
     EL_CONNECTING_DEVICES               ("Подключение электроустройств",        OpConnectingDevices.class,          new Image("/pics/opLogos/lamp.png"),       new OpConnectingDevicesCounter()),           //Подключение электроустройств
     EL_CUT_CABLE_HANDLY                 ("Резка кабеля вручную",                OpCutCableHandly.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyCounter()),              //Резка кабеля вручную
+
+    EL_CUT_CABLE_ON_MACHINE             ("Резка кабеля на автомате",            OpCutCableOnMachine.class,          new Image("/pics/opLogos/lamp.png"),       new OpCutCableOnMachineCounter()),           //Резка кабеля на автомате
+    EL_CUT_METAL_SLEEVE                 ("Резка металлорукава",                 OpCutMetalSleeve.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutMetalSleeveCounter()),              //Резка металлорукава
+    EL_CUT_CABLE_CHANNEL                ("Резка кабель-канала, динрейки",       OpCutCableChannel.class,            new Image("/pics/opLogos/lamp.png"),       new OpCutCableChannelCounter()),             //Резка кабельканала, динрейки
+
     EL_MARKING                          ("Маркировка",                          OpMarking.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMarkingCounter()),                     //Маркировка
     EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),          //Установка сигнальной аппаратуры
     EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                  new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                   //Соединение элементов пайкой

@@ -147,6 +147,10 @@ public class NormConstants {
     public static double CUTTING_MULTI_CORE_CABLE_11MM = 0.4; //Резка многожильного кабеля Дн = 11..15мм, мин/рез
     public static double CUTTING_SINGLE_CORE_CABLE = 0.15; //Резка одножильного кабеля, мин/рез
 
+    public static double CUTTING_CABLE_ON_MACHINE = 0.25; //Резка кабеля на автомате, мин/рез
+    public static double CUTTING_METAL_SLEEVE = 0.2; //Резка металлорукава, мин/рез
+    public static double CUTTING_CABLE_CHANNEL = 0.15; //Резка кабель-канала, дин-рейки, мин/рез
+
 
 
 

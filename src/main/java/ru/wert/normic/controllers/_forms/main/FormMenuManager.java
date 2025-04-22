@@ -600,6 +600,36 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
+    //РЕЗКА КАБЕЛЯ НА АВТОМАТЕ
+    public MenuItem createItem_CutCableOnMachine(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_ON_MACHINE.getOpName());
+        item.setOnAction(event -> {
+            add_CutCableOnMachine_Plate(new OpCutCableOnMachine());
+        });
+        return item;
+    }
+
+    //РЕЗКА МЕТАЛЛОРУКАВА
+    public MenuItem createItem_CutMetalSleeve(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_METAL_SLEEVE.getOpName());
+        item.setOnAction(event -> {
+            add_CutMetalSleeve_Plate(new OpCutMetalSleeve());
+        });
+        return item;
+    }
+
+    //РЕЗКА КАБЕЛЬКАНАЛА, ДИНРЕЙКИ
+    public MenuItem createItem_CutCableChannel(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_CHANNEL.getOpName());
+        item.setOnAction(event -> {
+            add_CutCableChannel_Plate(new OpCutCableChannel());
+        });
+        return item;
+    }
+
+
+
+
     //МАРКИРОВКА
     public MenuItem createItem_Marking(){
         MenuItem item = new MenuItem(EOpType.EL_MARKING.getOpName());
@@ -785,7 +815,8 @@ public class FormMenuManager extends ContextMenu {
             case ERROR_OP_DATA:
                 addErrorPlate((OpErrorData) op);
                 break;
-            //ЭЛЕКТРОМОНТАЖ
+
+            //ЭЛЕКТРОМОНТАЖ =============================================================
             case EL_MOUNT_ON_DIN:
                 add_MountOnDin_Plate((OpMountOnDin) op);
                 break;
@@ -803,6 +834,15 @@ public class FormMenuManager extends ContextMenu {
                 break;
             case EL_CUT_CABLE_HANDLY:
                 add_CutCableHandly_Plate((OpCutCableHandly) op);
+                break;
+            case EL_CUT_CABLE_ON_MACHINE:
+                add_CutCableOnMachine_Plate((OpCutCableOnMachine) op);
+                break;
+            case EL_CUT_METAL_SLEEVE:
+                add_CutMetalSleeve_Plate((OpCutMetalSleeve) op);
+                break;
+            case EL_CUT_CABLE_CHANNEL:
+                add_CutCableChannel_Plate((OpCutCableChannel) op);
                 break;
 
 
@@ -1573,6 +1613,57 @@ public class FormMenuManager extends ContextMenu {
             e.printStackTrace();
         }
     }
+
+    /**
+     * РЕЗКА КАБЕЛЯ НА АВТОМАТЕ
+     */
+    public void add_CutCableOnMachine_Plate(OpCutCableOnMachine opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableOnMachine.fxml"));
+            VBox vBox = loader.load();
+            Plate_CutCableOnMachine_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЯ НА АВТОМАТЕ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *  РЕЗКА МЕТАЛЛОРУКАВА
+     */
+    public void add_CutMetalSleeve_Plate(OpCutMetalSleeve opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutMetalSleeve.fxml"));
+            VBox vBox = loader.load();
+            Plate_CutMetalSleeve_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА МЕТАЛЛОРУКАВА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *  РЕЗКА КАБЕЛЬКАНАЛА, ДИНРЕЙКИ
+     */
+    public void add_CutCableChannel_Plate(OpCutCableChannel opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableChannel.fxml"));
+            VBox vBox = loader.load();
+            Plate_CutCableChannel_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЬКАНАЛА, ДИНРЕЙКИ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     /**
      * МАРКИРОВКА

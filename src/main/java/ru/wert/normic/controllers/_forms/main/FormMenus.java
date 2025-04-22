@@ -123,7 +123,11 @@ public class FormMenus {
         menu.getItems().add(menu.createItem_ConnectingDevices());
         menu.getItems().add(new SeparatorMenuItem());
         menu.getItems().add(menu.createItem_CutCableHandly());
+        menu.getItems().add(menu.createItem_CutCableOnMachine());
+        menu.getItems().add(menu.createItem_CutMetalSleeve());
+        menu.getItems().add(menu.createItem_CutCableChannel());
         menu.getItems().add(new SeparatorMenuItem());
+
         menu.getItems().add(menu.createItem_Marking());
         menu.getItems().add(menu.createItem_MountOfSignalEquip());
         menu.getItems().add(menu.createItem_Soldering());

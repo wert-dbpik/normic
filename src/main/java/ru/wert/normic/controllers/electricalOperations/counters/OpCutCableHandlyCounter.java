@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpConnectingDevices;
 import ru.wert.normic.entities.ops.electrical.OpCutCableHandly;
 import ru.wert.normic.interfaces.NormCounter;
 

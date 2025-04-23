@@ -10,7 +10,6 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpConnectingDevices;
 import ru.wert.normic.entities.ops.electrical.OpCutCableHandly;
 import ru.wert.normic.utils.IntegerParser;
 

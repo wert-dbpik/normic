@@ -172,8 +172,14 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpMountOnScrewsWithDisAssm.class);
             case "EL_MOUNT_ON_VSHG":
                 return gson.fromJson(op.toString(), OpMountOnVSHG.class);
-            case "EL_CONNECTING_DEVICES":
-                return gson.fromJson(op.toString(), OpConnectingDevices.class);
+            case "EL_CONNECT_DEVICE_MORTISE_CONTACT":
+                return gson.fromJson(op.toString(), OpConnectDeviceMortiseContact.class);
+            case "EL_CONNECT_DEVICE_SPRING_CLAMP":
+                return gson.fromJson(op.toString(), OpConnectDeviceSpringClamp.class);
+            case "EL_CONNECT_DEVICE_CLAMPING_SCREW":
+                return gson.fromJson(op.toString(), OpConnectDeviceClampingScrew.class);
+            case "EL_CONNECT_DEVICE_VSHG":
+                return gson.fromJson(op.toString(), OpConnectDeviceVSHG.class);
             case "EL_CUT_CABLE_HANDLY":
                 return gson.fromJson(op.toString(), OpCutCableHandly.class);
             case "EL_CUT_CABLE_ON_MACHINE":

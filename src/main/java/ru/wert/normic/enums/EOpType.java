@@ -100,11 +100,17 @@ public enum EOpType {
 
     //===================================================================================================================================================================================================
     //ОПЕРАЦИИ ЭЛЕКТРОМОНТАЖА
-    EL_MOUNT_ON_DIN                     ("Установка на динрейку",               OpMountOnDin.class,                 new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinCounter()),                  //Установка на динрейку
-    EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,     new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),      //Установка на винты без разборки корпуса
-    EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class,   new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()),    //Установка на винты с разборкой корпуса
-    EL_MOUNT_ON_VSHG                    ("Установка на ВШГ(4шт)",               OpMountOnVSHG.class,                new Image("/pics/opLogos/lamp.png"),       new OpMountOnVSHGCounter()),                 //Установка на ВШГ (4шт)
-    EL_CONNECTING_DEVICES               ("Подключение электроустройств",        OpConnectingDevices.class,          new Image("/pics/opLogos/lamp.png"),       new OpConnectingDevicesCounter()),           //Подключение электроустройств
+    EL_MOUNT_ON_DIN                     ("Установка на динрейку",               OpMountOnDin.class,                     new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinCounter()),                      //Установка на динрейку
+    EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),          //Установка на винты без разборки корпуса
+    EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class,       new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()),        //Установка на винты с разборкой корпуса
+    EL_MOUNT_ON_VSHG                    ("Установка на ВШГ(4шт)",               OpMountOnVSHG.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMountOnVSHGCounter()),                     //Установка на ВШГ (4шт)
+
+    EL_CONNECT_DEVICE_MORTISE_CONTACT   ("На врезной контакт",                  OpConnectDeviceMortiseContact.class,    new Image("/pics/opLogos/lamp.png"),       new OpConnectDeviceMortiseContactCounter()),     //Подключение электроустройств на врезной контакт
+    EL_CONNECT_DEVICE_SPRING_CLAMP      ("На пружинный зажим",                  OpConnectDeviceSpringClamp.class,       new Image("/pics/opLogos/lamp.png"),       new OpConnectDeviceSpringClampCounter()),        //Подключение электроустройств на пружинный зажим
+    EL_CONNECT_DEVICE_CLAMPING_SCREW    ("На зажимной винт",                    OpConnectDeviceClampingScrew.class,     new Image("/pics/opLogos/lamp.png"),       new OpConnectDeviceClampingScrewCounter()),     //Подключение электроустройств на зажимной винт
+    EL_CONNECT_DEVICE_VSHG              ("На ВШГ (наконечник кольцо)",          OpConnectDeviceVSHG.class,              new Image("/pics/opLogos/lamp.png"),       new OpConnectDeviceVSHGCounter()),               //Подключение электроустройств на ВШГ
+
+
     EL_CUT_CABLE_HANDLY                 ("Резка кабеля вручную",                OpCutCableHandly.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyCounter()),              //Резка кабеля вручную
 
     EL_CUT_CABLE_ON_MACHINE             ("Резка кабеля на автомате",            OpCutCableOnMachine.class,          new Image("/pics/opLogos/lamp.png"),       new OpCutCableOnMachineCounter()),           //Резка кабеля на автомате

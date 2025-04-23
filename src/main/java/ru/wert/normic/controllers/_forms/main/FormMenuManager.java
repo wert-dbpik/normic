@@ -582,11 +582,38 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
-    //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ
-    public MenuItem createItem_ConnectingDevices(){
-        MenuItem item = new MenuItem(EOpType.EL_CONNECTING_DEVICES.getOpName());
+    //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВРЕЗНОЙ КОНТАКТ
+    public MenuItem createItem_ConnectDeviceMortiseContact(){
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_MORTISE_CONTACT.getOpName());
         item.setOnAction(event -> {
-            add_ConnectingDevices_Plate(new OpConnectingDevices());
+            add_ConnectDeviceMortiseContact_Plate(new OpConnectDeviceMortiseContact());
+        });
+        return item;
+    }
+
+    //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ПРУЖИННЫЙ ЗАЖИМ
+    public MenuItem createItem_ConnectDeviceSpringClamp(){
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_SPRING_CLAMP.getOpName());
+        item.setOnAction(event -> {
+            add_ConnectDeviceSpringClamp_Plate(new OpConnectDeviceSpringClamp());
+        });
+        return item;
+    }
+
+    //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ЗАЖИМНОЙ ВИНТ
+    public MenuItem createItem_ConnectDeviceClampingScrew(){
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_CLAMPING_SCREW.getOpName());
+        item.setOnAction(event -> {
+            add_ConnectDeviceClampingScrew_Plate(new OpConnectDeviceClampingScrew());
+        });
+        return item;
+    }
+
+    //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВШГ
+    public MenuItem createItem_ConnectDeviceVSHG(){
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_VSHG.getOpName());
+        item.setOnAction(event -> {
+            add_ConnectDeviceVSHG_Plate(new OpConnectDeviceVSHG());
         });
         return item;
     }
@@ -880,8 +907,17 @@ public class FormMenuManager extends ContextMenu {
             case EL_MOUNT_ON_VSHG:
                 add_MountOnVSHG_Plate((OpMountOnVSHG) op);
                 break;
-            case EL_CONNECTING_DEVICES:
-                add_ConnectingDevices_Plate((OpConnectingDevices) op);
+            case EL_CONNECT_DEVICE_MORTISE_CONTACT:
+                add_ConnectDeviceMortiseContact_Plate((OpConnectDeviceMortiseContact) op);
+                break;
+            case EL_CONNECT_DEVICE_SPRING_CLAMP:
+                add_ConnectDeviceSpringClamp_Plate((OpConnectDeviceSpringClamp) op);
+                break;
+            case EL_CONNECT_DEVICE_CLAMPING_SCREW:
+                add_ConnectDeviceClampingScrew_Plate((OpConnectDeviceClampingScrew) op);
+                break;
+            case EL_CONNECT_DEVICE_VSHG :
+                add_ConnectDeviceVSHG_Plate((OpConnectDeviceVSHG) op);
                 break;
             case EL_CUT_CABLE_HANDLY:
                 add_CutCableHandly_Plate((OpCutCableHandly) op);
@@ -1649,14 +1685,62 @@ public class FormMenuManager extends ContextMenu {
     }
 
     /**
-     * ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ
+     * ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВРЕЗНОЙ КОНТАКТ
      */
-    public void add_ConnectingDevices_Plate(OpConnectingDevices opData) {
+    public void add_ConnectDeviceMortiseContact_Plate(OpConnectDeviceMortiseContact opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateConnectingDevices.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateConnectDeviceMortiseContact.fxml"));
             VBox vBox = loader.load();
-            Plate_ConnectingDevices_Controller controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size(), "ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ");
+            Plate_ConnectDeviceMortiseContact_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), " ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВРЕЗНОЙ КОНТАКТ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ПРУЖИННЫЙ ЗАЖИМ
+     */
+    public void add_ConnectDeviceSpringClamp_Plate(OpConnectDeviceSpringClamp opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateConnectDeviceSpringClamp.fxml"));
+            VBox vBox = loader.load();
+            Plate_ConnectDeviceSpringClamp_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ПРУЖИННЫЙ ЗАЖИМ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ЗАЖИМНОЙ ВИНТ
+     */
+    public void add_ConnectDeviceClampingScrew_Plate(OpConnectDeviceClampingScrew opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateConnectDeviceClampingScrew.fxml"));
+            VBox vBox = loader.load();
+            Plate_ConnectDeviceClampingScrew_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ЗАЖИМНОЙ ВИНТ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВШГ
+     */
+    public void add_ConnectDeviceVSHG_Plate(OpConnectDeviceVSHG opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateConnectDeviceVSHG.fxml"));
+            VBox vBox = loader.load();
+            Plate_ConnectDeviceVSHG_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВШГ");
             addVBox(vBox);
 
         } catch (IOException e) {

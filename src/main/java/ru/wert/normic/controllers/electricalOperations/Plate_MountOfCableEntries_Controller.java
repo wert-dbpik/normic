@@ -25,10 +25,14 @@ public class Plate_MountOfCableEntries_Controller extends AbstractOpPlate {
     private TextField tfNormTime;
 
     @FXML
+    private TextField tfName;
+
+    @FXML
     private TextField tfElements;
 
     private OpMountOfCableEntries opData;
 
+    private String name; //Наименование
     private int elements; //Количество элементов
 
     @Override //AbstractOpPlate
@@ -54,18 +58,23 @@ public class Plate_MountOfCableEntries_Controller extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
+        name = tfName.getText().trim();
         elements = IntegerParser.getValue(tfElements);
 
         collectOpData();
     }
 
     private void collectOpData(){
+        opData.setName(name);
         opData.setElements(elements);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpMountOfCableEntries opData = (OpMountOfCableEntries)data;
+
+        name = opData.getName();
+        tfName.setText(String.valueOf(name));
 
         elements = opData.getElements();
         tfElements.setText(String.valueOf(elements));

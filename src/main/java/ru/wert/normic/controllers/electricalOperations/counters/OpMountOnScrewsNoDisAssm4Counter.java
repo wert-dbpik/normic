@@ -1,27 +1,27 @@
 package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm2;
+import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsNoDisAssm4;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.settings.NormConstants.*;
+import static ru.wert.normic.settings.NormConstants.MOUNT_ON_2_SCREWS_NO_DISASSM;
+import static ru.wert.normic.settings.NormConstants.MOUNT_ON_4_SCREWS_NO_DISASSM;
 
-public class OpMountOnScrewsWithDisAssmCounter implements NormCounter{
+public class OpMountOnScrewsNoDisAssm4Counter implements NormCounter{
 
     public OpData count(OpData data){
-        OpMountOnScrewsWithDisAssm opData = (OpMountOnScrewsWithDisAssm)data;
+        OpMountOnScrewsNoDisAssm4 opData = (OpMountOnScrewsNoDisAssm4)data;
 
-        int twoScrews = opData.getTwoScrews(); //Количество креплений на 2 винта
         int fourScrews = opData.getFourScrews(); //Количество креплений на 4 винта
         boolean difficult = opData.isDifficult(); // Сложно устанавливать
         double k = difficult ? 1.3 : 1.0; //Коэффициент сложности
 
         //################################################################
 
-        double timeOp =  twoScrews * MOUNT_ON_2_SCREWS_WITH_DISASSM * k
-                + fourScrews * MOUNT_ON_4_SCREWS_WITH_DISASSM * k;   //мин
+        double timeOp =  fourScrews * MOUNT_ON_4_SCREWS_NO_DISASSM * k;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

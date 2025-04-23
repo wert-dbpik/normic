@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" prefWidth="441.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.electricalOperations.Plate_MountOnScrewsWithDisAssm_Controller">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" prefWidth="441.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.electricalOperations.Plate_MountOnScrewsNoDisAssm4_Controller">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/opLogos/nuts.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="УСТАНОВКА НА 4 ВИНТА БЕЗ РАЗБОРКИ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -43,47 +43,44 @@
             </HBox>
          </children>
       </HBox>
-      <GridPane>
+      <VBox>
+         <children>
+            <Label text="РАЗЛИЧНЫЕ ИЗДЕЛИЯ С ОТВЕРСТИЯМИ ДЛЯ УСТАНОВКИ НА МОНТАЖНУЮ" />
+            <Label text="ПАНЕЛЬ C ПРОГОНКОЙ РЕЗЬБЫ" />
+         </children>
+      </VBox>
+      <GridPane prefHeight="63.0" prefWidth="431.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.0" minWidth="10.0" prefWidth="274.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="58.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="102.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.0" minWidth="10.0" prefWidth="115.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="328.0" minWidth="10.0" prefWidth="316.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints />
-            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="19.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox GridPane.rowIndex="1">
+            <Label text="Устройств" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label text="РОЗЕТКИ, ИЗВЕЩАТЕЛИ ПОЖАРНЫЕ И ПР. " />
-                  <Label text="ПРИ УСТАНОВКЕ КОТОРЫХ ТРЕБУЕТСЯ СНЯТИЕ" />
-                  <Label text="КРЫШКИ C ПРОГОНКОЙ РЕЗЬБЫ" />
+                  <TextField fx:id="tf4Screws" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="chbDifficult" mnemonicParsing="false" text="СТЕСНЕННЫЕ УСЛОВИЯ" />
                </children>
-            </VBox>
-            <VBox spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <TextField fx:id="tf2Screws" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="2" />
-                  <TextField fx:id="tf4Screws" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Label text="2 винта" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label text="4 винта">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <Label text="СТЕСНЕННЫЕ УСЛОВИЯ" GridPane.rowIndex="2" />
-            <CheckBox fx:id="chbDifficult" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            </HBox>
+            <Label text="ПРИМЕЧАНИЕ " GridPane.rowIndex="1" />
+            <TextField fx:id="tfName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">

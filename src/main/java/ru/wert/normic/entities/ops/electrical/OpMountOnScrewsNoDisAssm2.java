@@ -7,24 +7,24 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УСТАНОВКА НА ДИНРЕЙКУ АВТОМАТОВ
+ * УСТАНОВКА НА 2 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
  */
 @Getter
 @Setter
-public class OpMountOnDinAutomats extends OpData {
+public class OpMountOnScrewsNoDisAssm2 extends OpData {
 
     private String name = "";
-    private int avtomats = 0;
+    private int twoScrews = 0;
     private boolean difficult = false;
 
 
-    public OpMountOnDinAutomats() {
+    public OpMountOnScrewsNoDisAssm2() {
         super.normType = ENormType.NORM_ELECTRICAL;
-        super.opType = EOpType.EL_MOUNT_ON_DIN_AUTOMATS;
+        super.opType = EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_2;
     }
 
     @Override
     public String toString() {
-        return String.format("Примечание - %s; \nавтоматы - %s; трудность доступа - %s", name, avtomats, difficult);
+        return String.format("Примечание - %s; \n;2 винта - %s; трудность доступа - %s", name, twoScrews, difficult);
     }
 }

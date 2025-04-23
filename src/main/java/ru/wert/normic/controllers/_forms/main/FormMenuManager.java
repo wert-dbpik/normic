@@ -564,20 +564,38 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
-    //МОНТАЖ НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
-    public MenuItem createItem_MountOnScrewsNoDisAssm(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM.getOpName());
+    //МОНТАЖ НА 2 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
+    public MenuItem createItem_MountOnScrewsNoDisAssm2(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_2.getOpName());
         item.setOnAction(event -> {
-            add_MountOnScrewsNoDisAssm_Plate(new OpMountOnScrewsNoDisAssm());
+            add_MountOnScrewsNoDisAssm2_Plate(new OpMountOnScrewsNoDisAssm2());
         });
         return item;
     }
 
-    //МОНТАЖ НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
-    public MenuItem createItem_MountOnScrewsWithDisAssm(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM.getOpName());
+    //МОНТАЖ НА 4 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
+    public MenuItem createItem_MountOnScrewsNoDisAssm4(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_4.getOpName());
         item.setOnAction(event -> {
-            add_MountOnScrewsWithDisAssm_Plate(new OpMountOnScrewsWithDisAssm());
+            add_MountOnScrewsNoDisAssm4_Plate(new OpMountOnScrewsNoDisAssm4());
+        });
+        return item;
+    }
+
+    //МОНТАЖ НА 2 ВИНТА С РАЗБОРКОЙ КОРПУСА
+    public MenuItem createItem_MountOnScrewsWithDisAssm2(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM_2.getOpName());
+        item.setOnAction(event -> {
+            add_MountOnScrewsWithDisAssm2_Plate(new OpMountOnScrewsWithDisAssm2());
+        });
+        return item;
+    }
+
+    //МОНТАЖ НА 4 ВИНТА С РАЗБОРКОЙ КОРПУСА
+    public MenuItem createItem_MountOnScrewsWithDisAssm4(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM_4.getOpName());
+        item.setOnAction(event -> {
+            add_MountOnScrewsWithDisAssm4_Plate(new OpMountOnScrewsWithDisAssm4());
         });
         return item;
     }
@@ -910,11 +928,17 @@ public class FormMenuManager extends ContextMenu {
             case EL_MOUNT_ON_DIN_HEATERS:
                 add_MountOnDinHeaters_Plate((OpMountOnDinHeaters) op);
                 break;
-            case EL_MOUNT_ON_SCREWS_NO_DISASSM:
-                add_MountOnScrewsNoDisAssm_Plate((OpMountOnScrewsNoDisAssm) op);
+            case EL_MOUNT_ON_SCREWS_NO_DISASSM_2:
+                add_MountOnScrewsNoDisAssm2_Plate((OpMountOnScrewsNoDisAssm2) op);
                 break;
-            case EL_MOUNT_ON_SCREWS_WITH_DISASSM:
-                add_MountOnScrewsWithDisAssm_Plate((OpMountOnScrewsWithDisAssm) op);
+            case EL_MOUNT_ON_SCREWS_NO_DISASSM_4:
+                add_MountOnScrewsNoDisAssm4_Plate((OpMountOnScrewsNoDisAssm4) op);
+                break;
+            case EL_MOUNT_ON_SCREWS_WITH_DISASSM_2:
+                add_MountOnScrewsWithDisAssm2_Plate((OpMountOnScrewsWithDisAssm2) op);
+                break;
+            case EL_MOUNT_ON_SCREWS_WITH_DISASSM_4:
+                add_MountOnScrewsWithDisAssm4_Plate((OpMountOnScrewsWithDisAssm4) op);
                 break;
             case EL_MOUNT_ON_VSHG:
                 add_MountOnVSHG_Plate((OpMountOnVSHG) op);
@@ -1665,14 +1689,14 @@ public class FormMenuManager extends ContextMenu {
     }
 
     /**
-     * УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА
+     * УСТАНОВКА НА 2 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
      */
-    public void add_MountOnScrewsNoDisAssm_Plate(OpMountOnScrewsNoDisAssm opData) {
+    public void add_MountOnScrewsNoDisAssm2_Plate(OpMountOnScrewsNoDisAssm2 opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsNoDisAssm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsNoDisAssm2.fxml"));
             VBox vBox = loader.load();
-            Plate_MountOnScrewsNoDisAssm_Controller controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ БЕЗ РАЗБОРКИ КОРПУСА");
+            Plate_MountOnScrewsNoDisAssm2_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА 2 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА");
             addVBox(vBox);
 
         } catch (IOException e) {
@@ -1681,14 +1705,46 @@ public class FormMenuManager extends ContextMenu {
     }
 
     /**
-     * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
+     * УСТАНОВКА НА 4 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
      */
-    public void add_MountOnScrewsWithDisAssm_Plate(OpMountOnScrewsWithDisAssm opData) {
+    public void add_MountOnScrewsNoDisAssm4_Plate(OpMountOnScrewsNoDisAssm4 opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsWithDisAssm.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsNoDisAssm4.fxml"));
             VBox vBox = loader.load();
-            Plate_MountOnScrewsWithDisAssm_Controller controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА");
+            Plate_MountOnScrewsNoDisAssm4_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА 4 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА НА 2 ВИНТА С РАЗБОРКОЙ КОРПУСА
+     */
+    public void add_MountOnScrewsWithDisAssm2_Plate(OpMountOnScrewsWithDisAssm2 opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsWithDisAssm2.fxml"));
+            VBox vBox = loader.load();
+            Plate_MountOnScrewsWithDisAssm2_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА 2 ВИНТА С РАЗБОРКОЙ КОРПУСА");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА НА 4 ВИНТА С РАЗБОРКОЙ КОРПУСА
+     */
+    public void add_MountOnScrewsWithDisAssm4_Plate(OpMountOnScrewsWithDisAssm4 opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnScrewsWithDisAssm4.fxml"));
+            VBox vBox = loader.load();
+            Plate_MountOnScrewsWithDisAssm4_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА 4 ВИНТА С РАЗБОРКОЙ КОРПУСА");
             addVBox(vBox);
 
         } catch (IOException e) {

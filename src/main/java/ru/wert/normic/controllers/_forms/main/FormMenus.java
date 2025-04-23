@@ -117,19 +117,26 @@ public class FormMenus {
         menu.getItems().add(menu.createItemAssm());
 
         menu.getItems().add(new SeparatorMenuItem());
-        //==============================================================================
+        //--------------------------------------------------------------------------------
         Menu mountOnDinMenu = new Menu("Установка на динрейку");
         mountOnDinMenu.getItems().add(menu.createItem_MountOnDinAutomats());
         mountOnDinMenu.getItems().add(menu.createItem_MountOnDinHeaters());
         menu.getItems().add(mountOnDinMenu);
-        //===============================================================================
-        menu.getItems().add(menu.createItem_MountOnScrewsNoDisAssm());
-        menu.getItems().add(menu.createItem_MountOnScrewsWithDisAssm());
+        //--------------------------------------------------------------------------------
+        Menu mountOnScrewsNoDisAssmMenu = new Menu("Установка на винты без разборки корпуса");
+        mountOnScrewsNoDisAssmMenu.getItems().add(menu.createItem_MountOnScrewsNoDisAssm2());
+        mountOnScrewsNoDisAssmMenu.getItems().add(menu.createItem_MountOnScrewsNoDisAssm4());
+        menu.getItems().add(mountOnScrewsNoDisAssmMenu);
+        //--------------------------------------------------------------------------------
+        Menu mountOnScrewsWithDisAssmMenu = new Menu("Установка на винты c разборкой корпуса");
+        mountOnScrewsWithDisAssmMenu.getItems().add(menu.createItem_MountOnScrewsWithDisAssm2());
+        mountOnScrewsWithDisAssmMenu.getItems().add(menu.createItem_MountOnScrewsWithDisAssm4());
+        menu.getItems().add(mountOnScrewsWithDisAssmMenu);
+        //--------------------------------------------------------------------------------
         menu.getItems().add(menu.createItem_MountOnVSHG());
-
         menu.getItems().add(new SeparatorMenuItem());
         //================================================================================
-        Menu connectDeviceMenu = new Menu("Подключение эелектроустройства");
+        Menu connectDeviceMenu = new Menu("Подключение эелектроустройств");
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceMortiseContact());
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceSpringClamp());
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceClampingScrew());
@@ -137,7 +144,7 @@ public class FormMenus {
         menu.getItems().add(connectDeviceMenu);
         //=============================================================================
         menu.getItems().add(new SeparatorMenuItem());
-
+        //=============================================================================
         menu.getItems().add(menu.createItem_CutCableHandly());
         menu.getItems().add(menu.createItem_CutCableOnMachine());
         menu.getItems().add(menu.createItem_CutMetalSleeve());

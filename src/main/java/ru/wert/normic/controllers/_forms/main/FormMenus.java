@@ -117,21 +117,25 @@ public class FormMenus {
         menu.getItems().add(menu.createItemAssm());
 
         menu.getItems().add(new SeparatorMenuItem());
-
-        menu.getItems().add(menu.createItem_MountOnDin());
+        //==============================================================================
+        Menu mountOnDinMenu = new Menu("Установка на динрейку");
+        mountOnDinMenu.getItems().add(menu.createItem_MountOnDinAutomats());
+        mountOnDinMenu.getItems().add(menu.createItem_MountOnDinHeaters());
+        menu.getItems().add(mountOnDinMenu);
+        //===============================================================================
         menu.getItems().add(menu.createItem_MountOnScrewsNoDisAssm());
         menu.getItems().add(menu.createItem_MountOnScrewsWithDisAssm());
         menu.getItems().add(menu.createItem_MountOnVSHG());
 
         menu.getItems().add(new SeparatorMenuItem());
-
+        //================================================================================
         Menu connectDeviceMenu = new Menu("Подключение эелектроустройства");
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceMortiseContact());
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceSpringClamp());
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceClampingScrew());
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceVSHG());
         menu.getItems().add(connectDeviceMenu);
-
+        //=============================================================================
         menu.getItems().add(new SeparatorMenuItem());
 
         menu.getItems().add(menu.createItem_CutCableHandly());

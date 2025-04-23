@@ -3,29 +3,28 @@ package ru.wert.normic.entities.ops.electrical;
 import lombok.Getter;
 import lombok.Setter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
 /**
- * УСТАНОВКА НА ДИНРЕЙКУ
+ * УСТАНОВКА НА ДИНРЕЙКУ FDNJVFNJD
  */
 @Getter
 @Setter
-public class OpMountOnDin extends OpData {
+public class OpMountOnDinAutomats extends OpData {
 
+    private String name = "";
     private int avtomats = 0;
-    private int heaters = 0;
     private boolean difficult = false;
 
 
-    public OpMountOnDin() {
+    public OpMountOnDinAutomats() {
         super.normType = ENormType.NORM_ELECTRICAL;
-        super.opType = EOpType.EL_MOUNT_ON_DIN;
+        super.opType = EOpType.EL_MOUNT_ON_DIN_AUTOMATS;
     }
 
     @Override
     public String toString() {
-        return String.format("автоматы - %s; нагреватели - %s; Трудность доступа - %s", avtomats, heaters);
+        return String.format("Примечание - %s; \nавтоматы - %s; трудность доступа - %s", name, avtomats, difficult);
     }
 }

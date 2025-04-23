@@ -165,7 +165,7 @@ public class OpDataJsonConverter {
 
             //ЭЛЕКТРОМОНТАЖ
             case "EL_MOUNT_ON_DIN":
-                return gson.fromJson(op.toString(), OpMountOnDin.class);
+                return gson.fromJson(op.toString(), OpMountOnDinAutomats.class);
             case "EL_MOUNT_ON_SCREWS_NO_DISASSM":
                 return gson.fromJson(op.toString(), OpMountOnScrewsNoDisAssm.class);
             case "EL_MOUNT_ON_SCREWS_WITH_DISASSM":

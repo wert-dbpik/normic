@@ -25,7 +25,7 @@ public class OpConnectDeviceMortiseContact extends OpData {
 
     @Override
     public String toString() {
-        return String.format("Наименование - %s; Врезной контакт - %s; Трудный доступ - %s",
+        return String.format("Примечание - %s; \nврезной контакт - %s; трудный доступ - %s",
                 name, mortiseContact, difficult );
     }
 }

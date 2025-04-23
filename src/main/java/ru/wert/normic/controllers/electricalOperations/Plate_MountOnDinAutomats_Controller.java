@@ -10,40 +10,39 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnDin;
+import ru.wert.normic.entities.ops.electrical.OpMountOnDinAutomats;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
- * УСТАНОВКА НА ДИНРЕЙКУ
+ * УСТАНОВКА НА ДИНРЕЙКУ АВТОМАТОВ
  */
-public class Plate_MountOnDin_Controller extends AbstractOpPlate {
+public class Plate_MountOnDinAutomats_Controller extends AbstractOpPlate {
 
     @FXML
     private TextField tfNormTime;
 
     @FXML
-    private TextField tfAvtomats;
+    private TextField tfName;
 
     @FXML
-    private TextField tfHeaters;
+    private TextField tfAvtomats;
 
     @FXML
     private CheckBox chbDifficult;
 
-    private OpMountOnDin opData;
+    private OpMountOnDinAutomats opData;
 
+    private String name; //Примечание
     private int avtomats; //Количество автоматов
-    private int heaters; //Количество нагревателей
     private boolean difficult; //Сложность сборки
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
         new TFIntegerColored(tfAvtomats, this);
-        new TFIntegerColored(tfHeaters, this);
         new ChBox(chbDifficult, this);
 
     }
@@ -51,7 +50,7 @@ public class Plate_MountOnDin_Controller extends AbstractOpPlate {
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-        opData = (OpMountOnDin) data;
+        opData = (OpMountOnDinAutomats) data;
 
         countInitialValues();
 
@@ -64,7 +63,7 @@ public class Plate_MountOnDin_Controller extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
-        heaters = IntegerParser.getValue(tfHeaters);
+        name = tfName.getText().trim();
         avtomats = IntegerParser.getValue(tfAvtomats);
         difficult = chbDifficult.isSelected();
 
@@ -72,20 +71,20 @@ public class Plate_MountOnDin_Controller extends AbstractOpPlate {
     }
 
     private void collectOpData(){
-        opData.setHeaters(heaters);
+        opData.setName(name);
         opData.setAvtomats(avtomats);
         opData.setDifficult(difficult);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpMountOnDin opData = (OpMountOnDin)data;
+        OpMountOnDinAutomats opData = (OpMountOnDinAutomats)data;
+
+        name = opData.getName();
+        tfName.setText(String.valueOf(name));
 
         avtomats = opData.getAvtomats();
         tfAvtomats.setText(String.valueOf(avtomats));
-
-        heaters = opData.getHeaters();
-        tfHeaters.setText(String.valueOf(heaters));
 
         difficult = opData.isDifficult();
         chbDifficult.setSelected(difficult);
@@ -94,10 +93,7 @@ public class Plate_MountOnDin_Controller extends AbstractOpPlate {
     @Override
     public String helpText() {
         return String.format("Установка на динрейку автоматов, термостатов, УЗО,\n" +
-                        "\tкоммутаторов, зажимов и т.п устанавливается за %s мин/элемент.\n" +
-                        "\n" +
-                        "Установка на динрейку нагревателей, счетчиков.\n" +
-                        "\tустанавливается за %s мин/элемент.\n" +
+                        "коммутаторов, зажимов и т.п устанавливается за %s мин/элемент.\n" +
                         "\n" +
                         "Установка в стесненных условиях - коэффициент 1,3\n" +
                         "\n" +
@@ -108,7 +104,7 @@ public class Plate_MountOnDin_Controller extends AbstractOpPlate {
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
 
-                MOUNT_ON_DIN_AUTOMATS, MOUNT_ON_DIN_HEATERS);
+                MOUNT_ON_DIN_AUTOMATS);
     }
 
     @Override

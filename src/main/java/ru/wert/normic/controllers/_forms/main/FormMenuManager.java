@@ -546,11 +546,20 @@ public class FormMenuManager extends ContextMenu {
 
     //===========      ЭЛЕКТРОМОНТАЖ     =========================================
 
-    //МОНТАЖ НА ДИНРЕЙКУ
-    public MenuItem createItem_MountOnDin(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN.getOpName());
+    //МОНТАЖ НА ДИНРЕЙКУ АВТОМАТОВ
+    public MenuItem createItem_MountOnDinAutomats(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN_AUTOMATS.getOpName());
         item.setOnAction(event -> {
-            add_MountOnDin_Plate(new OpMountOnDin());
+            add_MountOnDinAutomats_Plate(new OpMountOnDinAutomats());
+        });
+        return item;
+    }
+
+    //МОНТАЖ НА ДИНРЕЙКУ НАГРЕВАТЕЛЕЙ
+    public MenuItem createItem_MountOnDinHeaters(){
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN_HEATERS.getOpName());
+        item.setOnAction(event -> {
+            add_MountOnDinHeaters_Plate(new OpMountOnDinHeaters());
         });
         return item;
     }
@@ -895,8 +904,11 @@ public class FormMenuManager extends ContextMenu {
                 break;
 
             //ЭЛЕКТРОМОНТАЖ =============================================================
-            case EL_MOUNT_ON_DIN:
-                add_MountOnDin_Plate((OpMountOnDin) op);
+            case EL_MOUNT_ON_DIN_AUTOMATS:
+                add_MountOnDinAutomats_Plate((OpMountOnDinAutomats) op);
+                break;
+            case EL_MOUNT_ON_DIN_HEATERS:
+                add_MountOnDinHeaters_Plate((OpMountOnDinHeaters) op);
                 break;
             case EL_MOUNT_ON_SCREWS_NO_DISASSM:
                 add_MountOnScrewsNoDisAssm_Plate((OpMountOnScrewsNoDisAssm) op);
@@ -1621,14 +1633,30 @@ public class FormMenuManager extends ContextMenu {
     //=======================   ЭЛЕКТРОМОНТАЖ =========================================================================
 
     /**
-     * УСТАНОВКА НА ДИНРЕЙКУ
+     * УСТАНОВКА НА ДИНРЕЙКУ АВТОМАТОВ
      */
-    public void add_MountOnDin_Plate(OpMountOnDin opData) {
+    public void add_MountOnDinAutomats_Plate(OpMountOnDinAutomats opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnDin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnDinAutomats.fxml"));
             VBox vBox = loader.load();
-            Plate_MountOnDin_Controller controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ДИРЕЙКУ");
+            Plate_MountOnDinAutomats_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ДИНРЕЙКУ АВТОМАТОВ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * УСТАНОВКА НА ДИНРЕЙКУ НАГРЕВАТЕЛЕЙ
+     */
+    public void add_MountOnDinHeaters_Plate(OpMountOnDinHeaters opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateMountOnDinHeaters.fxml"));
+            VBox vBox = loader.load();
+            Plate_MountOnDinHeaters_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "УСТАНОВКА НА ДИНРЕЙКУ НАГРЕВАТЕЛЕЙ");
             addVBox(vBox);
 
         } catch (IOException e) {

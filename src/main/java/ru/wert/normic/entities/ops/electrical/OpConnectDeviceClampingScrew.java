@@ -25,7 +25,7 @@ public class OpConnectDeviceClampingScrew extends OpData {
 
     @Override
     public String toString() {
-        return String.format("Наименование - %s; Зажимной винт - %s; Трудный доступ - %s",
+        return String.format("Примечание - %s; \nзажимной винт - %s; трудный доступ - %s",
                 name, clampingScrew, difficult );
     }
 }

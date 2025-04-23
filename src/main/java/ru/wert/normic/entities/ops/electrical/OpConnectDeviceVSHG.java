@@ -25,7 +25,7 @@ public class OpConnectDeviceVSHG extends OpData {
 
     @Override
     public String toString() {
-        return String.format("Наименование - %s; ВШГ(наконечник кольцо) - %s; Трудный доступ - %s",
+        return String.format("Примечание - %s; \nВШГ(наконечник кольцо) - %s; трудный доступ - %s",
                 name, vshg, difficult );
     }
 }

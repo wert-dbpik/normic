@@ -100,7 +100,9 @@ public enum EOpType {
 
     //===================================================================================================================================================================================================
     //ОПЕРАЦИИ ЭЛЕКТРОМОНТАЖА
-    EL_MOUNT_ON_DIN                     ("Установка на динрейку",               OpMountOnDin.class,                     new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinCounter()),                      //Установка на динрейку
+    EL_MOUNT_ON_DIN_AUTOMATS            ("Автоматы, УЗО, коммутаторы и т.д.",   OpMountOnDinAutomats.class,             new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinAutomatsCounter()),              //Установка на динрейку атоматов и т.д.
+    EL_MOUNT_ON_DIN_HEATERS             ("Нагреватели, счетчики и т.д.",        OpMountOnDinHeaters.class,              new Image("/pics/opLogos/lamp.png"),      new OpMountOnDinHeatersCounter()),               //Установка на динрейку нагревателей и т.д.
+
     EL_MOUNT_ON_SCREWS_NO_DISASSM       ("Установка на винты без разборки",     OpMountOnScrewsNoDisAssm.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssmCounter()),          //Установка на винты без разборки корпуса
     EL_MOUNT_ON_SCREWS_WITH_DISASSM     ("Установка на винты c разборкой",      OpMountOnScrewsWithDisAssm.class,       new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsWithDisAssmCounter()),        //Установка на винты с разборкой корпуса
     EL_MOUNT_ON_VSHG                    ("Установка на ВШГ(4шт)",               OpMountOnVSHG.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMountOnVSHGCounter()),                     //Установка на ВШГ (4шт)

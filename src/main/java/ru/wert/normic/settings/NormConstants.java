@@ -127,7 +127,7 @@ public class NormConstants {
     public static double BUBBLE_HAND_WINDING; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
     public static double STRETCH_HAND_WINDING; //Скорость оборачивания стретч пленки, мин/м
 
-    //---ЭЛЕКТРИКА
+    //---ЭЛЕКТРОМОНТАЖ
     public static double MOUNT_ON_DIN_AUTOMATS = 0.3; //Скорость установки на динрейку автоматов, мин
     public static double MOUNT_ON_DIN_HEATERS = 0.5; //Скорость установки на динрейку нагревателей, мин
     public static double MOUNT_ON_2_SCREWS_NO_DISASSM = 1.2; //Скорость установки на 2 винта без разборки, мин
@@ -147,7 +147,7 @@ public class NormConstants {
     public static double CUTTING_MULTI_CORE_CABLE_11MM = 0.4; //Резка многожильного кабеля Дн = 11..15мм, мин/рез
     public static double CUTTING_SINGLE_CORE_CABLE = 0.15; //Резка одножильного кабеля, мин/рез
 
-    public static double CUTTING_CABLE_ON_MACHINE = 0.25; //Резка кабеля на автомате, мин/рез
+    public static double CUTTING_CABLE_ON_MACHINE = 0.025; //Резка кабеля на автомате, мин/рез
     public static double CUTTING_METAL_SLEEVE = 0.2; //Резка металлорукава, мин/рез
     public static double CUTTING_CABLE_CHANNEL = 0.15; //Резка кабель-канала, дин-рейки, мин/рез
 

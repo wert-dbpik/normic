@@ -121,20 +121,122 @@ public class ConstantsController {
     @FXML private TextField tfBUBBLE_HAND_WINDING; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
     @FXML private TextField tfSTRETCH_HAND_WINDING; //Скорость оборачивания стретч пленки, мин/м
 
+    //---ЭЛЕКТРОМОНТАЖ ПОЛЯ
+
+    @FXML private TextField tfEL_MOUNT_ON_DIN_AUTOMATS; //Установка на динрейку автоматов и т.д.
+    @FXML private TextField tfEL_MOUNT_ON_DIN_HEATERS; //Установка на динрейку нагревателей и т.д.
+    @FXML private TextField tfEL_MOUNT_ON_SCREWS_NO_DISASSM_2; //Установка на 2 винта без разборки корпуса
+    @FXML private TextField tfEL_MOUNT_ON_SCREWS_NO_DISASSM_4; //Установка на 4 винта без разборки корпуса
+    @FXML private TextField tfEL_MOUNT_ON_SCREWS_WITH_DISASSM_2; //Установка на 2 винта с разборкой корпуса
+    @FXML private TextField tfEL_MOUNT_ON_SCREWS_WITH_DISASSM_4; //Установка на 4 винта с разборкой корпуса
+    @FXML private TextField tfEL_MOUNT_ON_VSHG; //Установка на ВШГ (4шт)
+    @FXML private TextField tfEL_CONNECT_DEVICE_MORTISE_CONTACT; //Подключение на врезной контакт
+    @FXML private TextField tfEL_CONNECT_DEVICE_SPRING_CLAMP; //Подключение на пружинный зажим
+    @FXML private TextField tfEL_CONNECT_DEVICE_CLAMPING_SCREW; //Подключение на зажимной винт
+    @FXML private TextField tfEL_CONNECT_DEVICE_VSHG; //Подключение на ВШГ
+    @FXML private TextField tfEL_CUT_CABLE_HANDLY_MC6; //Резка кабеля вручную Многожильный 6 мм
+    @FXML private TextField tfEL_CUT_CABLE_HANDLY_MC15; //Резка кабеля вручную Многожильный 11-15 мм
+    @FXML private TextField tfEL_CUT_CABLE_HANDLY_SC; //Резка кабеля вручную Одножильный
+    @FXML private TextField tfEL_CUT_CABLE_ON_MACHINE; //Резка кабеля на автомате
+    @FXML private TextField tfEL_CUT_METAL_SLEEVE; //Резка металлорукава
+    @FXML private TextField tfEL_CUT_CABLE_CHANNEL; //Резка кабель-канала, динрейки
+    @FXML private TextField tfEL_TINNING_IN_BATHE; //Лужение в ванночке
+    @FXML private TextField tfEL_TINNING; //Лужение электропаяльником
+    @FXML private TextField tfEL_MOUNT_TIP_ON_CABLE; //Оконцовка провода
+    @FXML private TextField tfEL_MOUNT_TIP_ON_POWER_CABLE; //Оконцовка силового кабеля
+    @FXML private TextField tfEL_MARKING; //Маркировка
+    @FXML private TextField tfEL_MOUNT_OF_SIGNAL_EQUIP; //Установка сигнальной аппаратуры
+    @FXML private TextField tfEL_SOLDERING; //Соединение элементов пайкой
+    @FXML private TextField tfEL_MOUNT_OF_CABLE_ENTRIES; //Установка кабельных вводов
+    @FXML private TextField tfEL_FIX_OF_CABLES; //Укладка жгутов
+    @FXML private TextField tfEL_ISOLATE_WITH_THERM_TUBE10; //Изоляция термотрубкой 2-10мм
+    @FXML private TextField tfEL_ISOLATE_WITH_THERM_TUBE30; //Изоляция термотрубкой 10-30мм
 
     @FXML
     void initialize() {
 
         pairs = Stream.of(new Object[][]{
-                {tfCUTTING_SPEED, "CUTTING_SPEED"}, {tfREVOLVER_SPEED, "REVOLVER_SPEED"}, {tfPERFORATION_SPEED, "PERFORATION_SPEED"}, {tfCUTTING_SERVICE_RATIO, "CUTTING_SERVICE_RATIO"}, {tfSTRIPING_SPEED, "STRIPING_SPEED"},
-                {tfBENDING_SPEED, "BENDING_SPEED"}, {tfBENDING_SERVICE_RATIO, "BENDING_SERVICE_RATIO"}, {tfCHOP_SPEED, "CHOP_SPEED"}, {tfRIVETS_SPEED, "RIVETS_SPEED"}, {tfCOUNTERSINKING_SPEED, "COUNTERSINKING_SPEED"}, {tfTHREADING_SPEED, "THREADING_SPEED"},
-                {tfSMALL_SAWING_SPEED, "SMALL_SAWING_SPEED"}, {tfBIG_SAWING_SPEED, "BIG_SAWING_SPEED"}, {tfDETAIL_DELTA, "DETAIL_DELTA"}, {tfWASHING, "WASHING"}, {tfWINDING, "WINDING"}, {tfBAKING, "BAKING"}, {tfDRYING, "DRYING"}, {tfASSM_DELTA, "ASSM_DELTA"},
-                {tfHANGING_TIME, "HANGING_TIME"}, {tfWINDING_MOVING_SPEED, "WINDING_MOVING_SPEED"}, {tfSOLID_BOX_SPEED, "SOLID_BOX_SPEED"}, {tfFRAME_SPEED, "FRAME_SPEED"}, {tfWELDING_SPEED, "WELDING_SPEED"}, {tfWELDING_PARTS_SPEED, "WELDING_PARTS_SPEED"}, {tfWELDING_DOTTED_SPEED, "WELDING_DOTTED_SPEED"},
-                {tfWELDING_DROP_SPEED, "WELDING_DROP_SPEED"}, {tfPREPARED_TIME, "PREPARED_TIME"}, {tfLEVELING_SPEED, "LEVELING_SPEED"}, {tfSCREWS_SPEED, "SCREWS_SPEED"}, {tfVSHGS_SPEED, "VSHGS_SPEED"}, {tfRIVET_NUTS_SPEED, "RIVET_NUTS_SPEED"},
-                {tfGROUND_SETS_SPEED, "GROUND_SETS_SPEED"}, {tfOTHERS_SPEED, "OTHERS_SPEED"}, {tfPOST_LOCKS_SPEED, "POST_LOCKS_SPEED"}, {tfDOUBLE_LOCKS_SPEED, "DOUBLE_LOCKS_SPEED"}, {tfGLASS_SPEED, "GLASS_SPEED"}, {tfDETECTORS_SPEED, "DETECTORS_SPEED"},
-                {tfCONNECTION_BOXES_SPEED, "CONNECTION_BOXES_SPEED"}, {tfSEALER_SPEED, "SEALER_SPEED"}, {tfSELF_ADH_SEALER_SPEED, "SELF_ADH_SEALER_SPEED"}, {tfINSULATION_SPEED, "INSULATION_SPEED"},{tfSCOTCH_SPEED, "SCOTCH_SPEED"},
-                {tfCARTOON_BOX_PREPARED_TIME, "CARTOON_BOX_PREPARED_TIME"}, {tfCARTOON_BOX_SPEED, "CARTOON_BOX_SPEED"}, {tfSTRETCH_MACHINE_WINDING, "STRETCH_MACHINE_WINDING"}, {tfCARTOON_BOX_AND_ANGLES_SPEED, "CARTOON_BOX_AND_ANGLES_SPEED"},
-                {tfPACK_IN_CARTOON_BOX_SPEED, "PACK_IN_CARTOON_BOX_SPEED"}, {tfDUCT_TAPE_LENGTH, "DUCT_TAPE_LENGTH"}, {tfBUBBLE_CUT_AND_DUCT, "BUBBLE_CUT_AND_DUCT"}, {tfBUBBLE_HAND_WINDING, "BUBBLE_HAND_WINDING"}, {tfSTRETCH_HAND_WINDING, "STRETCH_HAND_WINDING"},
+                {tfCUTTING_SPEED, "CUTTING_SPEED"},
+                {tfREVOLVER_SPEED, "REVOLVER_SPEED"},
+                {tfPERFORATION_SPEED, "PERFORATION_SPEED"},
+                {tfCUTTING_SERVICE_RATIO, "CUTTING_SERVICE_RATIO"},
+                {tfSTRIPING_SPEED, "STRIPING_SPEED"},
+                {tfBENDING_SPEED, "BENDING_SPEED"},
+                {tfBENDING_SERVICE_RATIO, "BENDING_SERVICE_RATIO"},
+                {tfCHOP_SPEED, "CHOP_SPEED"},
+                {tfRIVETS_SPEED, "RIVETS_SPEED"},
+                {tfCOUNTERSINKING_SPEED, "COUNTERSINKING_SPEED"},
+                {tfTHREADING_SPEED, "THREADING_SPEED"},
+                {tfSMALL_SAWING_SPEED, "SMALL_SAWING_SPEED"},
+                {tfBIG_SAWING_SPEED, "BIG_SAWING_SPEED"},
+                {tfDETAIL_DELTA, "DETAIL_DELTA"},
+                {tfWASHING, "WASHING"},
+                {tfWINDING, "WINDING"},
+                {tfBAKING, "BAKING"},
+                {tfDRYING, "DRYING"},
+                {tfASSM_DELTA, "ASSM_DELTA"},
+                {tfHANGING_TIME, "HANGING_TIME"},
+                {tfWINDING_MOVING_SPEED, "WINDING_MOVING_SPEED"},
+                {tfSOLID_BOX_SPEED, "SOLID_BOX_SPEED"},
+                {tfFRAME_SPEED, "FRAME_SPEED"},
+                {tfWELDING_SPEED, "WELDING_SPEED"},
+                {tfWELDING_PARTS_SPEED, "WELDING_PARTS_SPEED"},
+                {tfWELDING_DOTTED_SPEED, "WELDING_DOTTED_SPEED"},
+                {tfWELDING_DROP_SPEED, "WELDING_DROP_SPEED"},
+                {tfPREPARED_TIME, "PREPARED_TIME"},
+                {tfLEVELING_SPEED, "LEVELING_SPEED"},
+                {tfSCREWS_SPEED, "SCREWS_SPEED"},
+                {tfVSHGS_SPEED, "VSHGS_SPEED"},
+                {tfRIVET_NUTS_SPEED, "RIVET_NUTS_SPEED"},
+                {tfGROUND_SETS_SPEED, "GROUND_SETS_SPEED"},
+                {tfOTHERS_SPEED, "OTHERS_SPEED"},
+                {tfPOST_LOCKS_SPEED, "POST_LOCKS_SPEED"},
+                {tfDOUBLE_LOCKS_SPEED, "DOUBLE_LOCKS_SPEED"},
+                {tfGLASS_SPEED, "GLASS_SPEED"},
+                {tfDETECTORS_SPEED, "DETECTORS_SPEED"},
+                {tfCONNECTION_BOXES_SPEED, "CONNECTION_BOXES_SPEED"},
+                {tfSEALER_SPEED, "SEALER_SPEED"},
+                {tfSELF_ADH_SEALER_SPEED, "SELF_ADH_SEALER_SPEED"},
+                {tfINSULATION_SPEED, "INSULATION_SPEED"},
+                {tfSCOTCH_SPEED, "SCOTCH_SPEED"},
+                {tfCARTOON_BOX_PREPARED_TIME, "CARTOON_BOX_PREPARED_TIME"},
+                {tfCARTOON_BOX_SPEED, "CARTOON_BOX_SPEED"},
+                {tfSTRETCH_MACHINE_WINDING, "STRETCH_MACHINE_WINDING"},
+                {tfCARTOON_BOX_AND_ANGLES_SPEED, "CARTOON_BOX_AND_ANGLES_SPEED"},
+                {tfPACK_IN_CARTOON_BOX_SPEED, "PACK_IN_CARTOON_BOX_SPEED"},
+                {tfDUCT_TAPE_LENGTH, "DUCT_TAPE_LENGTH"},
+                {tfBUBBLE_CUT_AND_DUCT, "BUBBLE_CUT_AND_DUCT"},
+                {tfBUBBLE_HAND_WINDING, "BUBBLE_HAND_WINDING"},
+                {tfSTRETCH_HAND_WINDING, "STRETCH_HAND_WINDING"},
+                {tfEL_MOUNT_ON_DIN_AUTOMATS, "EL_MOUNT_ON_DIN_AUTOMATS"},
+                {tfEL_MOUNT_ON_DIN_HEATERS, "EL_MOUNT_ON_DIN_HEATERS"},
+                {tfEL_MOUNT_ON_SCREWS_NO_DISASSM_2, "EL_MOUNT_ON_SCREWS_NO_DISASSM_2"},
+                {tfEL_MOUNT_ON_SCREWS_NO_DISASSM_4, "EL_MOUNT_ON_SCREWS_NO_DISASSM_4"},
+                {tfEL_MOUNT_ON_SCREWS_WITH_DISASSM_2, "EL_MOUNT_ON_SCREWS_WITH_DISASSM_2"},
+                {tfEL_MOUNT_ON_SCREWS_WITH_DISASSM_4, "EL_MOUNT_ON_SCREWS_WITH_DISASSM_4"},
+                {tfEL_MOUNT_ON_VSHG, "EL_MOUNT_ON_VSHG"},
+                {tfEL_CONNECT_DEVICE_MORTISE_CONTACT, "EL_CONNECT_DEVICE_MORTISE_CONTACT"},
+                {tfEL_CONNECT_DEVICE_SPRING_CLAMP, "EL_CONNECT_DEVICE_SPRING_CLAMP"},
+                {tfEL_CONNECT_DEVICE_CLAMPING_SCREW, "EL_CONNECT_DEVICE_CLAMPING_SCREW"},
+                {tfEL_CONNECT_DEVICE_VSHG, "EL_CONNECT_DEVICE_VSHG"},
+                {tfEL_CUT_CABLE_HANDLY_MC6, "EL_CUT_CABLE_HANDLY_MC6"},
+                {tfEL_CUT_CABLE_HANDLY_MC15, "EL_CUT_CABLE_HANDLY_MC15"},
+                {tfEL_CUT_CABLE_HANDLY_SC, "EL_CUT_CABLE_HANDLY_SC"},
+                {tfEL_CUT_CABLE_ON_MACHINE, "EL_CUT_CABLE_ON_MACHINE"},
+                {tfEL_CUT_METAL_SLEEVE, "EL_CUT_METAL_SLEEVE"},
+                {tfEL_CUT_CABLE_CHANNEL, "EL_CUT_CABLE_CHANNEL"},
+                {tfEL_TINNING_IN_BATHE, "EL_TINNING_IN_BATHE"},
+                {tfEL_TINNING, "EL_TINNING"},
+                {tfEL_MOUNT_TIP_ON_CABLE, "EL_MOUNT_TIP_ON_CABLE"},
+                {tfEL_MOUNT_TIP_ON_POWER_CABLE, "EL_MOUNT_TIP_ON_POWER_CABLE"},
+                {tfEL_MARKING, "EL_MARKING"},
+                {tfEL_MOUNT_OF_SIGNAL_EQUIP, "EL_MOUNT_OF_SIGNAL_EQUIP"},
+                {tfEL_SOLDERING, "EL_SOLDERING"},
+                {tfEL_MOUNT_OF_CABLE_ENTRIES, "EL_MOUNT_OF_CABLE_ENTRIES"},
+                {tfEL_FIX_OF_CABLES, "EL_FIX_OF_CABLES"},
+                {tfEL_ISOLATE_WITH_THERM_TUBE10, "EL_ISOLATE_WITH_THERM_TUBE10"},
+                {tfEL_ISOLATE_WITH_THERM_TUBE30, "EL_ISOLATE_WITH_THERM_TUBE30"}
+
         }).collect(Collectors.toMap(data -> (TextField) data[0], data -> (String) data[1]));
 
         textFields = new ArrayList<>(pairs.keySet());
@@ -263,6 +365,38 @@ public class ConstantsController {
         tfBUBBLE_CUT_AND_DUCT.setText(DECIMAL_FORMAT.format(BUBBLE_CUT_AND_DUCT).trim());
         tfBUBBLE_HAND_WINDING.setText(DECIMAL_FORMAT.format(BUBBLE_HAND_WINDING).trim());
         tfSTRETCH_HAND_WINDING.setText(DECIMAL_FORMAT.format(STRETCH_HAND_WINDING).trim());
+
+        //---ЭЛЕКТРОМОНТАЖ
+
+        tfEL_MOUNT_ON_DIN_AUTOMATS.setText(DECIMAL_FORMAT.format(MOUNT_ON_DIN_AUTOMATS).trim());
+        tfEL_MOUNT_ON_DIN_HEATERS.setText(DECIMAL_FORMAT.format(MOUNT_ON_DIN_HEATERS).trim());
+        tfEL_MOUNT_ON_SCREWS_NO_DISASSM_2.setText(DECIMAL_FORMAT.format(MOUNT_ON_2_SCREWS_NO_DISASSM).trim());
+        tfEL_MOUNT_ON_SCREWS_NO_DISASSM_4.setText(DECIMAL_FORMAT.format(MOUNT_ON_4_SCREWS_NO_DISASSM).trim());
+        tfEL_MOUNT_ON_SCREWS_WITH_DISASSM_2.setText(DECIMAL_FORMAT.format(MOUNT_ON_2_SCREWS_WITH_DISASSM).trim());
+        tfEL_MOUNT_ON_SCREWS_WITH_DISASSM_4.setText(DECIMAL_FORMAT.format(MOUNT_ON_4_SCREWS_WITH_DISASSM).trim());
+        tfEL_MOUNT_ON_VSHG.setText(DECIMAL_FORMAT.format(MOUNT_ON_VSHG).trim());
+        tfEL_CONNECT_DEVICE_MORTISE_CONTACT.setText(DECIMAL_FORMAT.format(CONNECTING_DEVICES_WITH_MORTISE_CONTACT).trim());
+        tfEL_CONNECT_DEVICE_SPRING_CLAMP.setText(DECIMAL_FORMAT.format(CONNECTING_DEVICES_WITH_SPRING_CLAMP).trim());
+        tfEL_CONNECT_DEVICE_CLAMPING_SCREW.setText(DECIMAL_FORMAT.format(CONNECTING_DEVICES_WITH_CLAMPING_SCREW).trim());
+        tfEL_CONNECT_DEVICE_VSHG.setText(DECIMAL_FORMAT.format(CONNECTING_DEVICES_WITH_VSHG).trim());
+        tfEL_CUT_CABLE_HANDLY_MC6.setText(DECIMAL_FORMAT.format(CUTTING_MULTI_CORE_CABLE_6MM).trim());
+        tfEL_CUT_CABLE_HANDLY_MC15.setText(DECIMAL_FORMAT.format(CUTTING_MULTI_CORE_CABLE_11MM).trim());
+        tfEL_CUT_CABLE_HANDLY_SC.setText(DECIMAL_FORMAT.format(CUTTING_SINGLE_CORE_CABLE).trim());
+        tfEL_CUT_CABLE_ON_MACHINE.setText(DECIMAL_FORMAT.format(CUTTING_CABLE_ON_MACHINE).trim());
+        tfEL_CUT_METAL_SLEEVE.setText(DECIMAL_FORMAT.format(CUTTING_METAL_SLEEVE).trim());
+        tfEL_CUT_CABLE_CHANNEL.setText(DECIMAL_FORMAT.format(CUTTING_CABLE_CHANNEL).trim());
+        tfEL_TINNING_IN_BATHE.setText(DECIMAL_FORMAT.format(TINNING_IN_BATHE).trim());
+        tfEL_TINNING.setText(DECIMAL_FORMAT.format(TINNING).trim());
+        tfEL_MOUNT_TIP_ON_CABLE.setText(DECIMAL_FORMAT.format(MOUNT_TIP_ON_CABLE).trim());
+        tfEL_MOUNT_TIP_ON_POWER_CABLE.setText(DECIMAL_FORMAT.format(MOUNT_TIP_ON_POWER_CABLE).trim());
+        tfEL_MARKING.setText(DECIMAL_FORMAT.format(MARKING_SPEED).trim());
+        tfEL_MOUNT_OF_SIGNAL_EQUIP.setText(DECIMAL_FORMAT.format(MOUNT_OF_SIGNAL_EQUIP_SPEED).trim());
+        tfEL_SOLDERING.setText(DECIMAL_FORMAT.format(SOLDERING_SPEED).trim());
+        tfEL_MOUNT_OF_CABLE_ENTRIES.setText(DECIMAL_FORMAT.format(MOUNT_OF_CABLE_ENTRIES).trim());
+        tfEL_FIX_OF_CABLES.setText(DECIMAL_FORMAT.format(FIX_OF_CABLES_SPEED).trim());
+        tfEL_ISOLATE_WITH_THERM_TUBE10.setText(DECIMAL_FORMAT.format(ISOLATE_WITH_THERM_TUBE_10).trim());
+        tfEL_ISOLATE_WITH_THERM_TUBE30.setText(DECIMAL_FORMAT.format(ISOLATE_WITH_THERM_TUBE_30).trim());
+
 
         log.debug("Установлены последние значания констант");
     }

@@ -24,6 +24,6 @@ public class OpMountOfSignalEquip extends OpData {
 
     @Override
     public String toString() {
-        return String.format("элементов- %s", elements);
+        return String.format("Примечание - %s; \nэлементов- %s", name, elements);
     }
 }

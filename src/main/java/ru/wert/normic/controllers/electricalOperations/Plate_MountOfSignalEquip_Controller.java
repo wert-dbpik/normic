@@ -23,10 +23,14 @@ public class Plate_MountOfSignalEquip_Controller extends AbstractOpPlate {
     private TextField tfNormTime;
 
     @FXML
+    private TextField tfName;
+
+    @FXML
     private TextField tfElements;
 
     private OpMountOfSignalEquip opData;
 
+    private String name; //Наименование
     private int elements; //Количество элементов
 
     @Override //AbstractOpPlate
@@ -52,18 +56,23 @@ public class Plate_MountOfSignalEquip_Controller extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
+        name = tfName.getText().trim();
         elements = IntegerParser.getValue(tfElements);
 
         collectOpData();
     }
 
     private void collectOpData(){
+        opData.setName(name);
         opData.setElements(elements);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpMountOfSignalEquip opData = (OpMountOfSignalEquip)data;
+
+        name = opData.getName();
+        tfName.setText(String.valueOf(name));
 
         elements = opData.getElements();
         tfElements.setText(String.valueOf(elements));

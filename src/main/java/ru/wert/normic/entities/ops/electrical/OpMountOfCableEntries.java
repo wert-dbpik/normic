@@ -24,6 +24,6 @@ public class OpMountOfCableEntries extends OpData {
 
     @Override
     public String toString() {
-        return String.format("Примечание - %s; элементов- %s", elements);
+        return String.format("Примечание - %s; элементов- %s", name, elements);
     }
 }

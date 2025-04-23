@@ -43,17 +43,17 @@
             </HBox>
          </children>
       </HBox>
-      <GridPane alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="431.0">
+      <GridPane alignment="CENTER_LEFT" prefWidth="431.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="264.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="64.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="190.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="241.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox>
+            <VBox GridPane.rowIndex="1">
                <children>
                   <Label text="СИГНАЛЬНЫЕ ЛАМПЫ, " />
                   <Label text="КНОПКИ С НАКИДНОЙ ГАЙКОЙ" />
@@ -62,12 +62,13 @@
                   <Insets top="5.0" />
                </GridPane.margin>
             </VBox>
-            <Label text="N элем" GridPane.columnIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfElements" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="2" />
+            <TextField fx:id="tfElements" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="ПРИМЕЧАНИЕ " />
+            <TextField fx:id="tfName" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">

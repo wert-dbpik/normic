@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" prefWidth="441.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.electricalOperations.Plate_CutCableHandly_Controller">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" prefWidth="441.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.electricalOperations.Plate_CutCableHandlyMC6_Controller">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/opLogos/nuts.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="РЕЗКА МНОГОЖИЛЬНОГО КАБЕЛЯ 6 ММ" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -43,42 +43,31 @@
             </HBox>
          </children>
       </HBox>
-      <GridPane prefHeight="140.0" prefWidth="431.0">
+      <GridPane prefHeight="0.0" prefWidth="431.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="266.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="62.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="163.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="268.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="34.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="35.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="МНОГОЖИЛЬНЫЙ ПРОВОД (Дн = 11..15 ММ)" GridPane.rowIndex="1" />
-            <Label text="N элем" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfMultiCoreCable11mm" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="МНОГОЖИЛЬНЫЙ ПРОВОД (Дн = 6 ММ)" />
-            <Label text="N элем" GridPane.columnIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfMultiCoreCable6mm" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="2" />
-            <CheckBox fx:id="chbDifficult" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label text="СТЕСНЕННЫЕ УСЛОВИЯ" GridPane.rowIndex="3" />
-            <Label text="ОДНОЖИЛЬНЫЙ ПРОВОД" GridPane.rowIndex="2" />
-            <Label text="N элем" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="tfSingleCoreCable" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <VBox>
+               <children>
+                  <Label text="МНОГОЖИЛЬНЫЙ ПРОВОД" />
+                  <Label text="(Дн = 6 ММ)" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1">
+               <children>
+                  <TextField fx:id="tfMultiCoreCable6mm" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" promptText="резов" GridPane.columnIndex="1">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="chbDifficult" mnemonicParsing="false" text="СТЕСНЕННЫЕ УСЛОВИЯ" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">

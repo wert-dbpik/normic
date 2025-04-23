@@ -645,11 +645,29 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
-    //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ
-    public MenuItem createItem_CutCableHandly(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY.getOpName());
+    //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 6 ММ
+    public MenuItem createItem_CutCableHandlyMC6(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_MC6.getOpName());
         item.setOnAction(event -> {
-            add_CutCableHandly_Plate(new OpCutCableHandly());
+            add_CutCableHandlyMC6_Plate(new OpCutCableHandlyMC6());
+        });
+        return item;
+    }
+
+    //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 11-15 ММ
+    public MenuItem createItem_CutCableHandlyMC15(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_MC15.getOpName());
+        item.setOnAction(event -> {
+            add_CutCableHandlyMC15_Plate(new OpCutCableHandlyMC15());
+        });
+        return item;
+    }
+
+    //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ ОДНОЖИЛЬНЫЙ
+    public MenuItem createItem_CutCableHandlySC(){
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_SC.getOpName());
+        item.setOnAction(event -> {
+            add_CutCableHandlySC_Plate(new OpCutCableHandlySC());
         });
         return item;
     }
@@ -955,8 +973,14 @@ public class FormMenuManager extends ContextMenu {
             case EL_CONNECT_DEVICE_VSHG :
                 add_ConnectDeviceVSHG_Plate((OpConnectDeviceVSHG) op);
                 break;
-            case EL_CUT_CABLE_HANDLY:
-                add_CutCableHandly_Plate((OpCutCableHandly) op);
+            case EL_CUT_CABLE_HANDLY_MC6:
+                add_CutCableHandlyMC6_Plate((OpCutCableHandlyMC6) op);
+                break;
+            case EL_CUT_CABLE_HANDLY_MC15:
+                add_CutCableHandlyMC15_Plate((OpCutCableHandlyMC15) op);
+                break;
+            case EL_CUT_CABLE_HANDLY_SC:
+                add_CutCableHandlySC_Plate((OpCutCableHandlySC) op);
                 break;
             case EL_CUT_CABLE_ON_MACHINE:
                 add_CutCableOnMachine_Plate((OpCutCableOnMachine) op);
@@ -1833,20 +1857,55 @@ public class FormMenuManager extends ContextMenu {
     }
 
     /**
-     * РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ
+     * РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 6 ММ
      */
-    public void add_CutCableHandly_Plate(OpCutCableHandly opData) {
+    public void add_CutCableHandlyMC6_Plate(OpCutCableHandlyMC6 opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableHandly.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableHandlyMC6.fxml"));
             VBox vBox = loader.load();
-            Plate_CutCableHandly_Controller controller = loader.getController();
-            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ");
+            Plate_CutCableHandlyMC6_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 6 ММ");
             addVBox(vBox);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 11-15 ММ
+     */
+    public void add_CutCableHandlyMC15_Plate(OpCutCableHandlyMC15 opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableHandlyMC15.fxml"));
+            VBox vBox = loader.load();
+            Plate_CutCableHandlyMC15_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 11-15 ММ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ ОДНОЖИЛЬНЫЙ
+     */
+    public void add_CutCableHandlySC_Plate(OpCutCableHandlySC opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/electrical/plateCutCableHandlySC.fxml"));
+            VBox vBox = loader.load();
+            Plate_CutCableHandlySC_Controller controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ ОДНОЖИЛЬНЫЙ");
+            addVBox(vBox);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     /**
      * РЕЗКА КАБЕЛЯ НА АВТОМАТЕ

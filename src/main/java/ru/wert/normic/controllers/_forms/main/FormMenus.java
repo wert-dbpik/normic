@@ -145,7 +145,12 @@ public class FormMenus {
         //=============================================================================
         menu.getItems().add(new SeparatorMenuItem());
         //=============================================================================
-        menu.getItems().add(menu.createItem_CutCableHandly());
+        Menu cutCableHandly = new Menu("Резка кабеля вручную");
+        cutCableHandly.getItems().add(menu.createItem_CutCableHandlyMC6()); //Многожильный 6мм
+        cutCableHandly.getItems().add(menu.createItem_CutCableHandlyMC15());//Многожильный 11-15мм
+        cutCableHandly.getItems().add(menu.createItem_CutCableHandlySC()); //Одножильный
+        menu.getItems().add(cutCableHandly);
+        //--------------------------------------------------------------------------------
         menu.getItems().add(menu.createItem_CutCableOnMachine());
         menu.getItems().add(menu.createItem_CutMetalSleeve());
         menu.getItems().add(menu.createItem_CutCableChannel());

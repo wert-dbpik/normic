@@ -115,7 +115,9 @@ public enum EOpType {
     EL_CONNECT_DEVICE_VSHG              ("На ВШГ (наконечник кольцо)",          OpConnectDeviceVSHG.class,              new Image("/pics/opLogos/lamp.png"),       new OpConnectDeviceVSHGCounter()),               //Подключение электроустройств на ВШГ
 
 
-    EL_CUT_CABLE_HANDLY                 ("Резка кабеля вручную",                OpCutCableHandly.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyCounter()),              //Резка кабеля вручную
+    EL_CUT_CABLE_HANDLY_MC6             ("Многожильный 6 мм",                   OpCutCableHandlyMC6.class,              new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyMC6Counter()),              //Резка кабеля вручную Многожильный 6 мм
+    EL_CUT_CABLE_HANDLY_MC15            ("Многожильный 11-15 мм",               OpCutCableHandlyMC15.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyMC15Counter()),              //Резка кабеля вручную Многожильный 11-15 мм
+    EL_CUT_CABLE_HANDLY_SC              ("Одножильный",                         OpCutCableHandlySC.class,               new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlySCCounter()),              //Резка кабеля вручную Одножильный
 
     EL_CUT_CABLE_ON_MACHINE             ("Резка кабеля на автомате",            OpCutCableOnMachine.class,          new Image("/pics/opLogos/lamp.png"),       new OpCutCableOnMachineCounter()),           //Резка кабеля на автомате
     EL_CUT_METAL_SLEEVE                 ("Резка металлорукава",                 OpCutMetalSleeve.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutMetalSleeveCounter()),              //Резка металлорукава

@@ -13,6 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpCutMetalSleeve extends OpData {
 
+    private String name = "";
     private int cuts = 1;
 
 

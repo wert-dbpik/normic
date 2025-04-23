@@ -13,6 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpMountTipOnPowerCable extends OpData {
 
+    private String name = "";
     private int tips = 1;
 
 

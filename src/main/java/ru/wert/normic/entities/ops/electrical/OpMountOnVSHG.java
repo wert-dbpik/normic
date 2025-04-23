@@ -13,6 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpMountOnVSHG extends OpData {
 
+    private String name = "";
     private int elements = 0;
     private boolean difficult = false;
 
@@ -24,6 +25,6 @@ public class OpMountOnVSHG extends OpData {
 
     @Override
     public String toString() {
-        return String.format("элементов- %s; Трудность доступа - %s", elements);
+        return String.format("Примечание - %s; \nэлементов- %s; Трудность доступа - %s", name, elements, difficult);
     }
 }

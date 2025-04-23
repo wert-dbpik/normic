@@ -24,6 +24,10 @@ public class Plate_MountOnVSHG_Controller extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
+
+    @FXML
+    private TextField tfName;
+
     @FXML
     private TextField tfElements;
 
@@ -33,6 +37,7 @@ public class Plate_MountOnVSHG_Controller extends AbstractOpPlate {
 
     private OpMountOnVSHG opData;
 
+    private String name; //Наименование
     private int elements; //Количество элементов
     private boolean difficult; //Сложность сборки
 
@@ -59,6 +64,7 @@ public class Plate_MountOnVSHG_Controller extends AbstractOpPlate {
      */
     @Override //AbstractOpPlate
     public void countInitialValues() {
+        name = tfName.getText().trim();
         elements = IntegerParser.getValue(tfElements);
         difficult = chbDifficult.isSelected();
 
@@ -66,6 +72,7 @@ public class Plate_MountOnVSHG_Controller extends AbstractOpPlate {
     }
 
     private void collectOpData(){
+        opData.setName(name);
         opData.setElements(elements);
         opData.setDifficult(difficult);
     }
@@ -73,6 +80,9 @@ public class Plate_MountOnVSHG_Controller extends AbstractOpPlate {
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
         OpMountOnVSHG opData = (OpMountOnVSHG)data;
+
+        name = opData.getName();
+        tfName.setText(String.valueOf(name));
 
         elements = opData.getElements();
         tfElements.setText(String.valueOf(elements));

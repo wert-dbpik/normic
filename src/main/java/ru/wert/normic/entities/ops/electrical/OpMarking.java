@@ -13,6 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpMarking extends OpData {
 
+    private String name = "";
     private int elements = 1;
 
 

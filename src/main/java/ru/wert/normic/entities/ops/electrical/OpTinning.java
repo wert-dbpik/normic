@@ -13,6 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpTinning extends OpData {
 
+    private String name = "";
     private int pins = 0;
 
 

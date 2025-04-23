@@ -13,6 +13,7 @@ import ru.wert.normic.enums.EOpType;
 @Setter
 public class OpFixOfCables extends OpData {
 
+    private String name = "";
     private double length = 0.0;
 
 

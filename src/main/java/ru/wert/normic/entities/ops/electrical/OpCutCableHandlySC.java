@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpCutCableHandlySC extends OpData {
 
     private String name = "";
-    private int singleCoreCable = 0; //Одножильный провод
+    private int singleCoreCable = 1; //Одножильный провод
     private boolean difficult = false; // Резка проводов по месту, К = 1,2
 
 

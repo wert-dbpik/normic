@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpConnectDeviceVSHG extends OpData {
 
     private String name = ""; //Наименование
-    private int vshg = 0; //ВШГ, наконечник кольцо
+    private int vshg = 1; //ВШГ, наконечник кольцо
     private boolean difficult = false; //Трудный доступ
 
 

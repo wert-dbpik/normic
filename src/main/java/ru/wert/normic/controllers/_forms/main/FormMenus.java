@@ -156,18 +156,24 @@ public class FormMenus {
         menu.getItems().add(menu.createItem_CutCableChannel());
 
         menu.getItems().add(new SeparatorMenuItem());
-
-        menu.getItems().add(menu.createItem_Tinning());
-        menu.getItems().add(menu.createItem_TinningInBathe());
+        //----------------------------------------------------------------------
+        Menu tinning = new Menu("Лужение проводника");
+        tinning.getItems().add(menu.createItem_Tinning());
+        tinning.getItems().add(menu.createItem_TinningInBathe());
+        menu.getItems().add(tinning);
+        //----------------------------------------------------------------------
         menu.getItems().add(menu.createItem_Soldering());
-
+        //======================================================================
         menu.getItems().add(new SeparatorMenuItem());
-
+        //======================================================================
         menu.getItems().add(menu.createItem_MountTipOnCable());
         menu.getItems().add(menu.createItem_MountTipOnPowerCable());
-        menu.getItems().add(menu.createItem_IsolateWithThermotube10());
-        menu.getItems().add(menu.createItem_IsolateWithThermotube30());
-
+        //----------------------------------------------------------------------
+        Menu isolateWithThermotube = new Menu("Изоляция термоусадочной трубкой");
+        isolateWithThermotube.getItems().add(menu.createItem_IsolateWithThermotube10());
+        isolateWithThermotube.getItems().add(menu.createItem_IsolateWithThermotube30());
+        menu.getItems().add(isolateWithThermotube);
+        //----------------------------------------------------------------------
         menu.getItems().add(new SeparatorMenuItem());
 
         menu.getItems().add(menu.createItem_MountOfSignalEquip());

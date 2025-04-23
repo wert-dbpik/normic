@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpMountOnDinHeaters extends OpData {
 
     private String name = "";
-    private int heaters = 0;
+    private int heaters = 1;
     private boolean difficult = false;
 
 

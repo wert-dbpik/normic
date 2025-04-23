@@ -99,9 +99,10 @@ public enum EOpType {
     ERROR_OP_DATA               ("Error",                           OpErrorData.class,                  new Image("/pics/opLogos/error.png"),null),
 
     //===================================================================================================================================================================================================
-    //ОПЕРАЦИИ ЭЛЕКТРОМОНТАЖА
-    EL_MOUNT_ON_DIN_AUTOMATS            ("Автоматы, УЗО, коммутаторы и т.д.",   OpMountOnDinAutomats.class,             new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinAutomatsCounter()),              //Установка на динрейку атоматов и т.д.
-    EL_MOUNT_ON_DIN_HEATERS             ("Нагреватели, счетчики и т.д.",        OpMountOnDinHeaters.class,              new Image("/pics/opLogos/lamp.png"),        new OpMountOnDinHeatersCounter()),               //Установка на динрейку нагревателей и т.д.
+    //                                                                                  ОПЕРАЦИИ ЭЛЕКТРОМОНТАЖА
+
+    EL_MOUNT_ON_DIN_AUTOMATS            ("Автоматы, УЗО, коммутаторы и т.д.",   OpMountOnDinAutomats.class,             new Image("/pics/opLogos/lamp.png"),       new OpMountOnDinAutomatsCounter()),             //Установка на динрейку атоматов и т.д.
+    EL_MOUNT_ON_DIN_HEATERS             ("Нагреватели, счетчики и т.д.",        OpMountOnDinHeaters.class,              new Image("/pics/opLogos/lamp.png"),        new OpMountOnDinHeatersCounter()),             //Установка на динрейку нагревателей и т.д.
 
     EL_MOUNT_ON_SCREWS_NO_DISASSM_2     ("На 2 винта",                          OpMountOnScrewsNoDisAssm2.class,        new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssm2Counter()),        //Установка на 2 винта без разборки корпуса
     EL_MOUNT_ON_SCREWS_NO_DISASSM_4     ("На 4 винта",                          OpMountOnScrewsNoDisAssm4.class,        new Image("/pics/opLogos/lamp.png"),       new OpMountOnScrewsNoDisAssm4Counter()),        //Установка на 4 винта без разборки корпуса
@@ -117,26 +118,26 @@ public enum EOpType {
 
     EL_CUT_CABLE_HANDLY_MC6             ("Многожильный 6 мм",                   OpCutCableHandlyMC6.class,              new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyMC6Counter()),              //Резка кабеля вручную Многожильный 6 мм
     EL_CUT_CABLE_HANDLY_MC15            ("Многожильный 11-15 мм",               OpCutCableHandlyMC15.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlyMC15Counter()),              //Резка кабеля вручную Многожильный 11-15 мм
-    EL_CUT_CABLE_HANDLY_SC              ("Одножильный",                         OpCutCableHandlySC.class,               new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlySCCounter()),              //Резка кабеля вручную Одножильный
+    EL_CUT_CABLE_HANDLY_SC              ("Одножильный",                         OpCutCableHandlySC.class,               new Image("/pics/opLogos/lamp.png"),       new OpCutCableHandlySCCounter()),                //Резка кабеля вручную Одножильный
 
-    EL_CUT_CABLE_ON_MACHINE             ("Резка кабеля на автомате",            OpCutCableOnMachine.class,          new Image("/pics/opLogos/lamp.png"),       new OpCutCableOnMachineCounter()),           //Резка кабеля на автомате
-    EL_CUT_METAL_SLEEVE                 ("Резка металлорукава",                 OpCutMetalSleeve.class,             new Image("/pics/opLogos/lamp.png"),       new OpCutMetalSleeveCounter()),              //Резка металлорукава
-    EL_CUT_CABLE_CHANNEL                ("Резка кабель-канала, динрейки",       OpCutCableChannel.class,            new Image("/pics/opLogos/lamp.png"),       new OpCutCableChannelCounter()),             //Резка кабельканала, динрейки
+    EL_CUT_CABLE_ON_MACHINE             ("Резка кабеля на автомате",            OpCutCableOnMachine.class,              new Image("/pics/opLogos/lamp.png"),       new OpCutCableOnMachineCounter()),               //Резка кабеля на автомате
+    EL_CUT_METAL_SLEEVE                 ("Резка металлорукава",                 OpCutMetalSleeve.class,                 new Image("/pics/opLogos/lamp.png"),       new OpCutMetalSleeveCounter()),                  //Резка металлорукава
+    EL_CUT_CABLE_CHANNEL                ("Резка кабель-канала, динрейки",       OpCutCableChannel.class,                new Image("/pics/opLogos/lamp.png"),       new OpCutCableChannelCounter()),                 //Резка кабельканала, динрейки
 
-    EL_TINNING_IN_BATHE                 ("Лужение в ванночке",                  OpTinningInBathe.class,             new Image("/pics/opLogos/lamp.png"),       new OpTinningInBatheCounter()),              //Лужение в ванночке
-    EL_TINNING                          ("Лужение электропаяльником",           OpTinning.class,                    new Image("/pics/opLogos/lamp.png"),       new OpTinningCounter()),                     //Лужение электропаяльником
+    EL_TINNING_IN_BATHE                 ("В ванночке",                          OpTinningInBathe.class,                 new Image("/pics/opLogos/lamp.png"),       new OpTinningInBatheCounter()),                  //Лужение в ванночке
+    EL_TINNING                          ("Электропаяльником",                   OpTinning.class,                        new Image("/pics/opLogos/lamp.png"),       new OpTinningCounter()),                         //Лужение электропаяльником
 
-    EL_MOUNT_TIP_ON_CABLE               ("Оконцовка провода",                   OpMountTipOnCable.class,            new Image("/pics/opLogos/lamp.png"),       new OpMountTipOnCableCounter()),             //Оконцовка провода наконечником
-    EL_MOUNT_TIP_ON_POWER_CABLE         ("Оконцовка силового кабеля",           OpMountTipOnPowerCable.class,            new Image("/pics/opLogos/lamp.png"),  new OpMountTipOnPowerCableCounter()),        //Оконцовка силового кабеля наконечником
+    EL_MOUNT_TIP_ON_CABLE               ("Оконцовка провода",                   OpMountTipOnCable.class,                new Image("/pics/opLogos/lamp.png"),       new OpMountTipOnCableCounter()),                 //Оконцовка провода наконечником
+    EL_MOUNT_TIP_ON_POWER_CABLE         ("Оконцовка силового кабеля",           OpMountTipOnPowerCable.class,           new Image("/pics/opLogos/lamp.png"),       new OpMountTipOnPowerCableCounter()),            //Оконцовка силового кабеля наконечником
 
-    EL_MARKING                          ("Маркировка",                          OpMarking.class,                    new Image("/pics/opLogos/lamp.png"),       new OpMarkingCounter()),                     //Маркировка
-    EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,         new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),          //Установка сигнальной аппаратуры
-    EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                  new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                   //Соединение элементов пайкой
-    EL_MOUNT_OF_CABLE_ENTRIES           ("Установка кабельных вводов",          OpMountOfCableEntries.class,        new Image("/pics/opLogos/lamp.png"),       new OpMountOfCableEntriesCounter()),         //Установка кабельных вводов
-    EL_FIX_OF_CABLES                    ("Укладка жгутов",                      OpFixOfCables.class,                new Image("/pics/opLogos/lamp.png"),       new OpFixOfCablesCounter()),                 //Укладка жгутов
+    EL_MARKING                          ("Маркировка",                          OpMarking.class,                        new Image("/pics/opLogos/lamp.png"),       new OpMarkingCounter()),                         //Маркировка
+    EL_MOUNT_OF_SIGNAL_EQUIP            ("Установка сигнальной аппаратуры",     OpMountOfSignalEquip.class,             new Image("/pics/opLogos/lamp.png"),       new OpMountOfSignalEquipCounter()),              //Установка сигнальной аппаратуры
+    EL_SOLDERING                        ("Соединение элементов пайкой",         OpSoldering.class,                      new Image("/pics/opLogos/lamp.png"),       new OpSolderingCounter()),                       //Соединение элементов пайкой
+    EL_MOUNT_OF_CABLE_ENTRIES           ("Установка кабельных вводов",          OpMountOfCableEntries.class,            new Image("/pics/opLogos/lamp.png"),       new OpMountOfCableEntriesCounter()),             //Установка кабельных вводов
+    EL_FIX_OF_CABLES                    ("Укладка жгутов",                      OpFixOfCables.class,                    new Image("/pics/opLogos/lamp.png"),       new OpFixOfCablesCounter()),                     //Укладка жгутов
 
-    EL_ISOLATE_WITH_THERM_TUBE10        ("Изоляция термотрубкой 2-10мм",        OpIsolateWithThermTube10.class,    new Image("/pics/opLogos/lamp.png"),       new OpIsolateWithThermotube10Counter()),     //Изоляция термотрубкой 2-10мм
-    EL_ISOLATE_WITH_THERM_TUBE30        ("Изоляция термотрубкой 10-30мм",       OpIsolateWithThermTube30.class,    new Image("/pics/opLogos/lamp.png"),       new OpIsolateWithThermotube30Counter());     //Изоляция термотрубкой 10-30мм
+    EL_ISOLATE_WITH_THERM_TUBE10        ("2-10мм",                              OpIsolateWithThermTube10.class,         new Image("/pics/opLogos/lamp.png"),       new OpIsolateWithThermotube10Counter()),         //Изоляция термотрубкой 2-10мм
+    EL_ISOLATE_WITH_THERM_TUBE30        ("10-30мм",                             OpIsolateWithThermTube30.class,         new Image("/pics/opLogos/lamp.png"),       new OpIsolateWithThermotube30Counter());         //Изоляция термотрубкой 10-30мм
 
     @Getter String opName;
     @Getter Class<?> clazz;

@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpMountOnDinAutomats extends OpData {
 
     private String name = "";
-    private int avtomats = 0;
+    private int avtomats = 1;
     private boolean difficult = false;
 
 

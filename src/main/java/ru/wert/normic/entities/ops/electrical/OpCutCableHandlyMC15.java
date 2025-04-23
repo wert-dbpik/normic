@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpCutCableHandlyMC15 extends OpData {
 
     private String name = "";
-    private int multiCoreCable11mm = 0; //Многожильный провод Дн=11..15 мм
+    private int multiCoreCable11mm = 1; //Многожильный провод Дн=11..15 мм
     private boolean difficult = false; // Резка проводов по месту, К = 1,2
 
 

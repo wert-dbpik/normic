@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpIsolateWithThermTube30 extends OpData {
 
     private String name = "";
-    private int pins = 0;
+    private int pins = 1;
 
 
     public OpIsolateWithThermTube30() {

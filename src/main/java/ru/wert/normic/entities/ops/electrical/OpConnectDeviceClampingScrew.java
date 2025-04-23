@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpConnectDeviceClampingScrew extends OpData {
 
     private String name = ""; //Наименование
-    private int clampingScrew = 0; //Зажимной винт
+    private int clampingScrew = 1; //Зажимной винт
     private boolean difficult = false; //Трудный доступ
 
 

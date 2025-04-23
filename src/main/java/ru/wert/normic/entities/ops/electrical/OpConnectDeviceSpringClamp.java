@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpConnectDeviceSpringClamp extends OpData {
 
     private String name = ""; //Наименование
-    private int springClamp = 0; //Пружинный зажим
+    private int springClamp = 1; //Пружинный зажим
     private boolean difficult = false; //Трудный доступ
 
 

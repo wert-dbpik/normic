@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpConnectDeviceMortiseContact extends OpData {
 
     private String name = ""; //Примечание, наименование устройства
-    private int mortiseContact = 0; //Врезной контакт (без снятия изоляции)
+    private int mortiseContact = 1; //Врезной контакт (без снятия изоляции)
     private boolean difficult = false; //Трудный доступ
 
 

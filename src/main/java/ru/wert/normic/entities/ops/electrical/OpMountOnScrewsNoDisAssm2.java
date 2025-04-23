@@ -14,7 +14,7 @@ import ru.wert.normic.enums.EOpType;
 public class OpMountOnScrewsNoDisAssm2 extends OpData {
 
     private String name = "";
-    private int twoScrews = 0;
+    private int twoScrews =1;
     private boolean difficult = false;
 
 

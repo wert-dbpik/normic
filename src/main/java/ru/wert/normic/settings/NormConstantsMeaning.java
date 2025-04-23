@@ -81,4 +81,47 @@ public class NormConstantsMeaning implements Serializable {
     private double bubbleCutAndDuct = 0.7; //ПЗ время пузырьковой пленки, мин
     private double bubbleHandWinding = 0.2; //Скорость оборачивания пузырьковой пленки, мин/м.кв.
     private double stretchHandWinding = 0.2; //Скорость оборачивания стретч пленки, мин/м
+    
+    //--- ЭЛЕКТРОМОНТАЖ
+    private double mountOnDinAutomats = 0.3; //Скорость установки на динрейку автоматов, мин
+    private double mountOnDinHeaters = 0.5; //Скорость установки на динрейку нагревателей, мин
+    private double mountOn2ScrewsNoDisassm = 1.2; //Скорость установки на 2 винта без разборки, мин
+    private double mountOn4ScrewsNoDisassm = 2.0; //Скорость установки на 4 винта без разборки, мин
+
+    private double mountOn2ScrewsWithDisassm = 3.0; //Скорость установки на 2 винта с разборкой, мин
+    private double mountOn4ScrewsWithDisassm = 5.0; //Скорость установки на 4 винта с разборкой, мин
+
+    private double mountOnVshg = 2.5; //Скорость установки на ВШГ (4 шт), мин
+
+    private double connectDeviceMortiseContact = 0.12; //Подключение устр. на врезной контакт, мин/контакт
+    private double connectDeviceSpringClamp = 0.08; //Подключение устр. на пружинный зажим, мин/контакт
+    private double connectDeviceClampingScrew = 0.3; //Подключение устр. на зажимной винт, мин/контакт
+    private double connectDeviceVshg = 0.5; //Подключение устр. на ВШГ, мин/контакт
+
+    private double cutCableHandlyMc6 = 0.25; //Резка многожильного кабеля Дн = 6мм, мин/рез
+    private double cutCableHandlyMc15 = 0.4; //Резка многожильного кабеля Дн = 11..15мм, мин/рез
+    private double cutCableHandlySc = 0.15; //Резка одножильного кабеля, мин/рез
+
+    private double cutCableOnMachine = 0.025; //Резка кабеля на автомате, мин/рез
+    private double cutMetalSleeve = 0.2; //Резка металлорукава, мин/рез
+    private double cutCableChannel = 0.15; //Резка кабель-канала, дин-рейки, мин/рез
+
+    private double tinningInBathe = 0.071; //Лужение в ванночке, мин/наконечник
+    private double tinning = 0.074; //Лужение электропаяльником, мин/наконечник
+
+    private double mountTipOnCable = 0.18; //Оконцовка провода наконечником, мин/наконечник
+    private double mountTipOnPowerCable = 0.7; //Оконцовка силового кабеля наконечником, мин/наконечник
+
+    private double marking = 0.3; //Скорость маркировки, мин/элемент
+
+    private double soldering = 0.2; //Скорость пайки, мин/элемент
+
+    private double mountOfSignalEquip = 1.3; //Скорость установки сигнальной аппаратуры, мин/элемент
+
+    private double mountOfCableEntries = 0.15; //Скорость установки кабельных вводов, мин/элемент
+
+    private double fixOfCables = 1.5; //Скорость укладки жгутов, мин/элемент (каждые 0,3 м)
+
+    private double isolateWithThermTube10 = 0.3; //Изоляция термоусадочной трубкой 2-10 мм, мин/элемент
+    private double isolateWithThermTube30 = 0.5; //Изоляция термоусадочной трубкой 10-30 мм, мин/элемент
 }

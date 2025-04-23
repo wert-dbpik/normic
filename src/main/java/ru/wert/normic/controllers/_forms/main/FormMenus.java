@@ -142,6 +142,9 @@ public class FormMenus {
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceClampingScrew());
         connectDeviceMenu.getItems().add(menu.createItem_ConnectDeviceVSHG());
         menu.getItems().add(connectDeviceMenu);
+        //---------------------------------------------------------------------------------
+        menu.getItems().add(menu.createItem_MountOfSignalEquip());
+        menu.getItems().add(menu.createItem_MountOfCableEntries());
         //=============================================================================
         menu.getItems().add(new SeparatorMenuItem());
         //=============================================================================
@@ -176,8 +179,6 @@ public class FormMenus {
         //----------------------------------------------------------------------
         menu.getItems().add(new SeparatorMenuItem());
 
-        menu.getItems().add(menu.createItem_MountOfSignalEquip());
-        menu.getItems().add(menu.createItem_MountOfCableEntries());
         menu.getItems().add(menu.createItem_FixOfCables());
         menu.getItems().add(menu.createItem_Marking());
 

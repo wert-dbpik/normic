@@ -106,7 +106,7 @@ public class Plate_MountOnScrewsNoDisAssm2_Controller extends AbstractOpPlate {
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                MOUNT_ON_2_SCREWS_NO_DISASSM);
+                MOUNT_ON_SCREWS_NO_DISASSM_2);
     }
 
     @Override

@@ -11,7 +11,6 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpCutCableHandlyMC15;
-import ru.wert.normic.entities.ops.electrical.OpCutCableHandlyMC6;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -98,7 +97,7 @@ public class Plate_CutCableHandlyMC15_Controller extends AbstractOpPlate {
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                CUTTING_MULTI_CORE_CABLE_11MM);
+                CUT_CABLE_HANDLY_MC15);
     }
 
     @Override

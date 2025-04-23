@@ -2,13 +2,11 @@ package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpMarking;
-import ru.wert.normic.entities.ops.electrical.OpMountOnVSHG;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.settings.NormConstants.MARKING_SPEED;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_VSHG;
+import static ru.wert.normic.settings.NormConstants.MARKING;
 
 public class OpMarkingCounter implements NormCounter{
 
@@ -19,7 +17,7 @@ public class OpMarkingCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  elements * MARKING_SPEED;//мин
+        double timeOp =  elements * MARKING;//мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

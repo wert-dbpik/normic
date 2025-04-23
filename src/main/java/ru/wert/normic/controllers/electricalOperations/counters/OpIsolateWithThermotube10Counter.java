@@ -6,7 +6,7 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.settings.NormConstants.ISOLATE_WITH_THERM_TUBE_10;
+import static ru.wert.normic.settings.NormConstants.ISOLATE_WITH_THERM_TUBE10;
 
 public class OpIsolateWithThermotube10Counter implements NormCounter{
 
@@ -17,7 +17,7 @@ public class OpIsolateWithThermotube10Counter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  pins * ISOLATE_WITH_THERM_TUBE_10; //мин
+        double timeOp =  pins * ISOLATE_WITH_THERM_TUBE10; //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

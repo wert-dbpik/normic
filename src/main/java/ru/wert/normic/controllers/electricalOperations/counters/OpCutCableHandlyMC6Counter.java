@@ -20,7 +20,7 @@ public class OpCutCableHandlyMC6Counter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  multiCoreCable6mm * CUTTING_MULTI_CORE_CABLE_6MM* k
+        double timeOp =  multiCoreCable6mm * CUT_CABLE_HANDLY_MC6 * k
                 ;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;

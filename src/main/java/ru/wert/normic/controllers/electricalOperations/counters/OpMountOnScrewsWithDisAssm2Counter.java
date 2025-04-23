@@ -19,7 +19,7 @@ public class OpMountOnScrewsWithDisAssm2Counter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  twoScrews * MOUNT_ON_2_SCREWS_WITH_DISASSM * k;   //мин
+        double timeOp =  twoScrews * MOUNT_ON_SCREWS_WITH_DISASSM_2 * k;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

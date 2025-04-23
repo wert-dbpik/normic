@@ -130,26 +130,26 @@ public class NormConstants {
     //---ЭЛЕКТРОМОНТАЖ
     public static double MOUNT_ON_DIN_AUTOMATS = 0.3; //Скорость установки на динрейку автоматов, мин
     public static double MOUNT_ON_DIN_HEATERS = 0.5; //Скорость установки на динрейку нагревателей, мин
-    public static double MOUNT_ON_2_SCREWS_NO_DISASSM = 1.2; //Скорость установки на 2 винта без разборки, мин
-    public static double MOUNT_ON_4_SCREWS_NO_DISASSM = 2.0; //Скорость установки на 4 винта без разборки, мин
+    public static double MOUNT_ON_SCREWS_NO_DISASSM_2 = 1.2; //Скорость установки на 2 винта без разборки, мин
+    public static double MOUNT_ON_SCREWS_NO_DISASSM_4 = 2.0; //Скорость установки на 4 винта без разборки, мин
 
-    public static double MOUNT_ON_2_SCREWS_WITH_DISASSM = 3.0; //Скорость установки на 2 винта с разборкой, мин
-    public static double MOUNT_ON_4_SCREWS_WITH_DISASSM = 5.0; //Скорость установки на 4 винта с разборкой, мин
+    public static double MOUNT_ON_SCREWS_WITH_DISASSM_2 = 3.0; //Скорость установки на 2 винта с разборкой, мин
+    public static double MOUNT_ON_SCREWS_WITH_DISASSM_4 = 5.0; //Скорость установки на 4 винта с разборкой, мин
 
     public static double MOUNT_ON_VSHG = 2.5; //Скорость установки на ВШГ (4 шт), мин
 
-    public static double CONNECTING_DEVICES_WITH_MORTISE_CONTACT = 0.12; //Подключение устр. на врезной контакт, мин/контакт
-    public static double CONNECTING_DEVICES_WITH_SPRING_CLAMP = 0.08; //Подключение устр. на пружинный зажим, мин/контакт
-    public static double CONNECTING_DEVICES_WITH_CLAMPING_SCREW = 0.3; //Подключение устр. на зажимной винт, мин/контакт
-    public static double CONNECTING_DEVICES_WITH_VSHG = 0.5; //Подключение устр. на ВШГ, мин/контакт
+    public static double CONNECT_DEVICE_MORTISE_CONTACT = 0.12; //Подключение устр. на врезной контакт, мин/контакт
+    public static double CONNECT_DEVICE_SPRING_CLAMP = 0.08; //Подключение устр. на пружинный зажим, мин/контакт
+    public static double CONNECT_DEVICE_CLAMPING_SCREW = 0.3; //Подключение устр. на зажимной винт, мин/контакт
+    public static double CONNECT_DEVICE_VSHG = 0.5; //Подключение устр. на ВШГ, мин/контакт
 
-    public static double CUTTING_MULTI_CORE_CABLE_6MM = 0.25; //Резка многожильного кабеля Дн = 6мм, мин/рез
-    public static double CUTTING_MULTI_CORE_CABLE_11MM = 0.4; //Резка многожильного кабеля Дн = 11..15мм, мин/рез
-    public static double CUTTING_SINGLE_CORE_CABLE = 0.15; //Резка одножильного кабеля, мин/рез
+    public static double CUT_CABLE_HANDLY_MC6 = 0.25; //Резка многожильного кабеля Дн = 6мм, мин/рез
+    public static double CUT_CABLE_HANDLY_MC15 = 0.4; //Резка многожильного кабеля Дн = 11..15мм, мин/рез
+    public static double CUT_CABLE_HANDLY_SC = 0.15; //Резка одножильного кабеля, мин/рез
 
-    public static double CUTTING_CABLE_ON_MACHINE = 0.025; //Резка кабеля на автомате, мин/рез
-    public static double CUTTING_METAL_SLEEVE = 0.2; //Резка металлорукава, мин/рез
-    public static double CUTTING_CABLE_CHANNEL = 0.15; //Резка кабель-канала, дин-рейки, мин/рез
+    public static double CUT_CABLE_ON_MACHINE = 0.025; //Резка кабеля на автомате, мин/рез
+    public static double CUT_METAL_SLEEVE = 0.2; //Резка металлорукава, мин/рез
+    public static double CUT_CABLE_CHANNEL = 0.15; //Резка кабель-канала, дин-рейки, мин/рез
 
     public static double TINNING_IN_BATHE = 0.071; //Лужение в ванночке, мин/наконечник
     public static double TINNING = 0.074; //Лужение электропаяльником, мин/наконечник
@@ -157,18 +157,18 @@ public class NormConstants {
     public static double MOUNT_TIP_ON_CABLE = 0.18; //Оконцовка провода наконечником, мин/наконечник
     public static double MOUNT_TIP_ON_POWER_CABLE = 0.7; //Оконцовка силового кабеля наконечником, мин/наконечник
 
-    public static double MARKING_SPEED = 0.3; //Скорость маркировки, мин/элемент
+    public static double MARKING = 0.3; //Скорость маркировки, мин/элемент
 
-    public static double SOLDERING_SPEED = 0.2; //Скорость пайки, мин/элемент
+    public static double SOLDERING = 0.2; //Скорость пайки, мин/элемент
 
-    public static double MOUNT_OF_SIGNAL_EQUIP_SPEED = 1.3; //Скорость установки сигнальной аппаратуры, мин/элемент
+    public static double MOUNT_OF_SIGNAL_EQUIP = 1.3; //Скорость установки сигнальной аппаратуры, мин/элемент
 
     public static double MOUNT_OF_CABLE_ENTRIES = 0.15; //Скорость установки кабельных вводов, мин/элемент
 
-    public static double FIX_OF_CABLES_SPEED = 1.5; //Скорость укладки жгутов, мин/элемент (каждые 0,3 м)
+    public static double FIX_OF_CABLES = 1.5; //Скорость укладки жгутов, мин/элемент (каждые 0,3 м)
 
-    public static double ISOLATE_WITH_THERM_TUBE_10 = 0.3; //Изоляция термоусадочной трубкой 2-10 мм, мин/элемент
-    public static double ISOLATE_WITH_THERM_TUBE_30 = 0.5; //Изоляция термоусадочной трубкой 10-30 мм, мин/элемент
+    public static double ISOLATE_WITH_THERM_TUBE10 = 0.3; //Изоляция термоусадочной трубкой 2-10 мм, мин/элемент
+    public static double ISOLATE_WITH_THERM_TUBE30 = 0.5; //Изоляция термоусадочной трубкой 10-30 мм, мин/элемент
 
 
     private NormConstants() {

@@ -12,7 +12,7 @@ import ru.wert.normic.entities.ops.electrical.OpMountOfSignalEquip;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.MOUNT_OF_SIGNAL_EQUIP_SPEED;
+import static ru.wert.normic.settings.NormConstants.MOUNT_OF_SIGNAL_EQUIP;
 
 /**
  * УСТАНОВКА И ПОДКЛЮЧЕНИЕ СИГНАЛЬНОЙ АППАРАТУРЫ
@@ -89,7 +89,7 @@ public class Plate_MountOfSignalEquip_Controller extends AbstractOpPlate {
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                MOUNT_OF_SIGNAL_EQUIP_SPEED);
+                MOUNT_OF_SIGNAL_EQUIP);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpConnectDeviceMortiseContact;
 import ru.wert.normic.entities.ops.electrical.OpConnectDeviceSpringClamp;
 import ru.wert.normic.interfaces.NormCounter;
 
@@ -21,7 +20,7 @@ public class OpConnectDeviceSpringClampCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  springClamp * CONNECTING_DEVICES_WITH_SPRING_CLAMP * k
+        double timeOp =  springClamp * CONNECT_DEVICE_SPRING_CLAMP * k
                 ;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;

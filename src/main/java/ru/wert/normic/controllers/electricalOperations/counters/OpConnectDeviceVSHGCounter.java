@@ -1,7 +1,6 @@
 package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpConnectDeviceMortiseContact;
 import ru.wert.normic.entities.ops.electrical.OpConnectDeviceVSHG;
 import ru.wert.normic.interfaces.NormCounter;
 
@@ -21,7 +20,7 @@ public class OpConnectDeviceVSHGCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  vshg * CONNECTING_DEVICES_WITH_VSHG * k
+        double timeOp =  vshg * CONNECT_DEVICE_VSHG * k
                 ;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;

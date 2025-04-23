@@ -10,7 +10,6 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpConnectDeviceMortiseContact;
 import ru.wert.normic.entities.ops.electrical.OpConnectDeviceSpringClamp;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -105,7 +104,7 @@ public class Plate_ConnectDeviceSpringClamp_Controller extends AbstractOpPlate {
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                CONNECTING_DEVICES_WITH_SPRING_CLAMP);
+                CONNECT_DEVICE_SPRING_CLAMP);
     }
 
     @Override

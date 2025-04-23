@@ -11,7 +11,6 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpConnectDeviceClampingScrew;
-import ru.wert.normic.entities.ops.electrical.OpConnectDeviceMortiseContact;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -103,7 +102,7 @@ public class Plate_ConnectDeviceClampingScrew_Controller extends AbstractOpPlate
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                CONNECTING_DEVICES_WITH_CLAMPING_SCREW);
+                CONNECT_DEVICE_CLAMPING_SCREW);
     }
 
     @Override

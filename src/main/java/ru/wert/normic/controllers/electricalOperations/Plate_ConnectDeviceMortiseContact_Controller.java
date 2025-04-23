@@ -104,7 +104,7 @@ public class Plate_ConnectDeviceMortiseContact_Controller extends AbstractOpPlat
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                CONNECTING_DEVICES_WITH_MORTISE_CONTACT);
+                CONNECT_DEVICE_MORTISE_CONTACT);
     }
 
     @Override

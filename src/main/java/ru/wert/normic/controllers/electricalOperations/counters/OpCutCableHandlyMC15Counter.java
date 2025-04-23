@@ -2,7 +2,6 @@ package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpCutCableHandlyMC15;
-import ru.wert.normic.entities.ops.electrical.OpCutCableHandlyMC6;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
@@ -21,7 +20,7 @@ public class OpCutCableHandlyMC15Counter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  multiCoreCable11mm * CUTTING_MULTI_CORE_CABLE_11MM * k;   //мин
+        double timeOp =  multiCoreCable11mm * CUT_CABLE_HANDLY_MC15 * k;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

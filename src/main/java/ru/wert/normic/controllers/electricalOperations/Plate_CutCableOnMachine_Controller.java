@@ -12,8 +12,7 @@ import ru.wert.normic.entities.ops.electrical.OpCutCableOnMachine;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.CUTTING_CABLE_ON_MACHINE;
-import static ru.wert.normic.settings.NormConstants.SOLDERING_SPEED;
+import static ru.wert.normic.settings.NormConstants.CUT_CABLE_ON_MACHINE;
 
 /**
  * ПАЙКА ЭЛЕКТРОПАЯЛЬНИКОМ
@@ -80,7 +79,7 @@ public class Plate_CutCableOnMachine_Controller extends AbstractOpPlate {
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                CUTTING_CABLE_ON_MACHINE);
+                CUT_CABLE_ON_MACHINE);
     }
 
     @Override

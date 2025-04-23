@@ -10,13 +10,11 @@ import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm2;
 import ru.wert.normic.entities.ops.electrical.OpMountOnScrewsWithDisAssm4;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_2_SCREWS_NO_DISASSM;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_4_SCREWS_NO_DISASSM;
+import static ru.wert.normic.settings.NormConstants.MOUNT_ON_SCREWS_NO_DISASSM_4;
 
 /**
  * УСТАНОВКА НА ВИНТЫ С РАЗБОРКОЙ КОРПУСА
@@ -108,7 +106,7 @@ public class Plate_MountOnScrewsWithDisAssm4_Controller extends AbstractOpPlate 
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                MOUNT_ON_4_SCREWS_NO_DISASSM);
+                MOUNT_ON_SCREWS_NO_DISASSM_4);
     }
 
     @Override

@@ -97,7 +97,7 @@ public class Plate_CutCableHandlyMC6_Controller extends AbstractOpPlate {
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
 
-                CUTTING_MULTI_CORE_CABLE_6MM);
+                CUT_CABLE_HANDLY_MC6);
     }
 
     @Override

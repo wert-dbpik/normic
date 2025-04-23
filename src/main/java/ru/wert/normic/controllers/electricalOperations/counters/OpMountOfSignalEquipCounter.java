@@ -6,7 +6,7 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.settings.NormConstants.MOUNT_OF_SIGNAL_EQUIP_SPEED;
+import static ru.wert.normic.settings.NormConstants.MOUNT_OF_SIGNAL_EQUIP;
 
 public class OpMountOfSignalEquipCounter implements NormCounter{
 
@@ -17,7 +17,7 @@ public class OpMountOfSignalEquipCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  elements * MOUNT_OF_SIGNAL_EQUIP_SPEED;//мин
+        double timeOp =  elements * MOUNT_OF_SIGNAL_EQUIP;//мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

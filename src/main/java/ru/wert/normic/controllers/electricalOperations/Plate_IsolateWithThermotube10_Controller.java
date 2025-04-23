@@ -12,7 +12,7 @@ import ru.wert.normic.entities.ops.electrical.OpIsolateWithThermTube10;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.ISOLATE_WITH_THERM_TUBE_10;
+import static ru.wert.normic.settings.NormConstants.ISOLATE_WITH_THERM_TUBE10;
 
 /**
  * ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 2-10 ММ
@@ -79,7 +79,7 @@ public class Plate_IsolateWithThermotube10_Controller extends AbstractOpPlate {
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                ISOLATE_WITH_THERM_TUBE_10);
+                ISOLATE_WITH_THERM_TUBE10);
     }
 
     @Override

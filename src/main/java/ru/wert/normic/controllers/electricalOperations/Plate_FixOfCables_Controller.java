@@ -5,16 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.TFDoubleColored;
-import ru.wert.normic.components.TFIntegerColored;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpFixOfCables;
 import ru.wert.normic.utils.DoubleParser;
-import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.FIX_OF_CABLES_SPEED;
+import static ru.wert.normic.settings.NormConstants.FIX_OF_CABLES;
 
 /**
  * УКЛАДКА ЖГУТОВ
@@ -82,7 +80,7 @@ public class Plate_FixOfCables_Controller extends AbstractOpPlate {
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                FIX_OF_CABLES_SPEED);
+                FIX_OF_CABLES);
     }
 
     @Override

@@ -1,14 +1,12 @@
 package ru.wert.normic.controllers.electricalOperations.counters;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.electrical.OpMarking;
 import ru.wert.normic.entities.ops.electrical.OpSoldering;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.settings.NormConstants.MARKING_SPEED;
-import static ru.wert.normic.settings.NormConstants.SOLDERING_SPEED;
+import static ru.wert.normic.settings.NormConstants.SOLDERING;
 
 public class OpSolderingCounter implements NormCounter{
 
@@ -19,7 +17,7 @@ public class OpSolderingCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  elements * SOLDERING_SPEED; //мин
+        double timeOp =  elements * SOLDERING; //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

@@ -9,12 +9,10 @@ import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpMarking;
-import ru.wert.normic.entities.ops.electrical.OpMountOnVSHG;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
-import static ru.wert.normic.settings.NormConstants.MARKING_SPEED;
-import static ru.wert.normic.settings.NormConstants.MOUNT_ON_VSHG;
+import static ru.wert.normic.settings.NormConstants.MARKING;
 
 /**
  * МАРКИРОВКА
@@ -81,7 +79,7 @@ public class Plate_Marking_Controller extends AbstractOpPlate {
                         "в формуле:\n" +
                         "\n" +
                         "\t\tТ монт = Т оп + Т оп * (0,024 + 0.06) + Т оп * 0,029 / партия",
-                MARKING_SPEED);
+                MARKING);
     }
 
     @Override

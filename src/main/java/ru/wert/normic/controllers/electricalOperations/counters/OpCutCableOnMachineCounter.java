@@ -6,7 +6,7 @@ import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.settings.NormConstants.CUTTING_CABLE_ON_MACHINE;
+import static ru.wert.normic.settings.NormConstants.CUT_CABLE_ON_MACHINE;
 
 public class OpCutCableOnMachineCounter implements NormCounter{
 
@@ -17,7 +17,7 @@ public class OpCutCableOnMachineCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  cuts * CUTTING_CABLE_ON_MACHINE; //мин
+        double timeOp =  cuts * CUT_CABLE_ON_MACHINE; //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;
 

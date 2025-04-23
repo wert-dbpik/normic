@@ -20,7 +20,7 @@ public class OpConnectDeviceMortiseContactCounter implements NormCounter{
 
         //################################################################
 
-        double timeOp =  mortiseContact * CONNECTING_DEVICES_WITH_MORTISE_CONTACT * k
+        double timeOp =  mortiseContact * CONNECT_DEVICE_MORTISE_CONTACT * k
                 ;   //мин
 
         double time = timeOp + timeOp * 0.084 + timeOp * 0.029 / CURRENT_BATCH;

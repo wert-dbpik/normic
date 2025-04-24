@@ -63,15 +63,6 @@ public class MainMenuCreator {
                         ? "Расчет электромонтажа"
                         : "Общий расчет";
 
-        menuController.getMOperationsType().setText(getLabel.apply(USE_ELECTRICAL_MENUS));
-        menuController.getMOperationsType().setOnAction(e->{
-            USE_ELECTRICAL_MENUS = !USE_ELECTRICAL_MENUS;
-            AppProperties.getInstance().setUseElectrical(String.valueOf(USE_ELECTRICAL_MENUS));
-            MAIN_CONTROLLER.getImgLamp().setVisible(USE_ELECTRICAL_MENUS);
-            menuController.getMOperationsType().setText(getLabel.apply(USE_ELECTRICAL_MENUS));
-            controller.createMenu();
-        });
-
         controller.showIconMenuProperty.addListener((observable, oldValue, newValue) -> {
             if (controller.showIconMenuProperty.get()) {
                 menuController.getMIconMenu().setText("Скрыть панель управления");

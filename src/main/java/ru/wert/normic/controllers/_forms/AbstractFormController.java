@@ -28,6 +28,7 @@ import org.apache.commons.lang3.SerializationUtils;
 import org.json.JSONException;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._forms.main.FormMenus;
 import ru.wert.normic.controllers._forms.main.MainController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
@@ -452,9 +453,16 @@ public abstract class AbstractFormController implements IForm {
         return true;
     }
 
+    Image btnAddImage = new Image("/pics/btns/add.png", 44, 44, true, true);
+    Image btnAddElectricalImage = new Image("/pics/btns/electricalAdd.png", 44, 44, true, true);
+
     protected void linkMenuToButton() {
-        getBtnAddOperation().setGraphic(new ImageView(new Image(String.valueOf(getClass().getResource("/pics/btns/add.png")),
-                44, 44, true, true)));
+        Button button = getBtnAddOperation();
+        if(USE_ELECTRICAL_MENUS)
+            button.setGraphic(new ImageView(btnAddElectricalImage));
+        else
+            button.setGraphic(new ImageView(btnAddImage));
+
         getBtnAddOperation().setTooltip(new Tooltip("Добавить операцию"));
         getBtnAddOperation().setOnMouseClicked(e -> {
             if (e.getButton().equals(MouseButton.PRIMARY)) {
@@ -463,6 +471,37 @@ public abstract class AbstractFormController implements IForm {
                         Side.LEFT,
                         0.0,
                         32.0);
+            }
+            else if (e.getButton().equals(MouseButton.SECONDARY)){
+                ContextMenu contextMenu = new ContextMenu();
+                ToggleGroup toggleGroup = new ToggleGroup();
+
+                RadioMenuItem commonWorks = new RadioMenuItem("Общие работы");
+                commonWorks.setToggleGroup(toggleGroup);
+                commonWorks.setSelected(!USE_ELECTRICAL_MENUS);
+
+                RadioMenuItem electricalWorks = new RadioMenuItem("Электромонтажные работы");
+                electricalWorks.setToggleGroup(toggleGroup);
+                electricalWorks.setSelected(USE_ELECTRICAL_MENUS);
+
+                contextMenu.getItems().addAll(commonWorks, electricalWorks);
+
+                // Обработчики выбора пунктов меню
+                commonWorks.setOnAction(ev -> {
+                    USE_ELECTRICAL_MENUS = false;
+                    AppProperties.getInstance().setUseElectrical(String.valueOf(USE_ELECTRICAL_MENUS));
+                    button.setGraphic(new ImageView(btnAddImage));
+                    createMenu();
+                });
+
+                electricalWorks.setOnAction(ev -> {
+                    USE_ELECTRICAL_MENUS = true;
+                    AppProperties.getInstance().setUseElectrical(String.valueOf(USE_ELECTRICAL_MENUS));
+                    button.setGraphic(new ImageView(btnAddElectricalImage));
+                    createMenu();
+                });
+
+                contextMenu.show(button, e.getScreenX(), e.getScreenY());
             }
         });
     }

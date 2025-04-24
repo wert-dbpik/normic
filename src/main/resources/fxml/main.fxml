@@ -21,7 +21,6 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imgLamp" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
             <HBox alignment="TOP_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">

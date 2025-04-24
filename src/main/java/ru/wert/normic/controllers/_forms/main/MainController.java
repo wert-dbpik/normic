@@ -144,15 +144,6 @@ public class MainController extends AbstractFormController {
 
         AppStatics.MEASURE = new ToggleGroup();
 
-        imgLamp.setImage(lamp);
-        if(USE_ELECTRICAL_MENUS){
-            imgLamp.setVisible(true);
-        } else {
-            imgLamp.setVisible(false);
-        }
-        MAIN_CONTROLLER.getImgLamp().setImage(lamp);
-
-
         new TFBatch(tfBatch, this);
 
         ((IOpWithOperations) opData).setName("Новое изделие");

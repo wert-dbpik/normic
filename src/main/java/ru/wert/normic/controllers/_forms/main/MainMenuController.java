@@ -30,8 +30,7 @@ public class MainMenuController {
     @FXML @Getter
     private MenuItem
             mProductTree,
-            mTableView,
-            mOperationsType;
+            mTableView;
 
     //ПРАВКА ============================================
 

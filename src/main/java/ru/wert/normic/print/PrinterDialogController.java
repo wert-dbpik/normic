@@ -110,14 +110,17 @@ public class PrinterDialogController {
         // Устанавливаем размеры области предпросмотра
         previewContainer.setPrefSize(printableWidth, printableHeight);
 
-        // Настраиваем TreeView для предпросмотра
-        treeView.setPrefWidth(printableWidth);
-        treeView.setPrefHeight(calculateContentHeight(treeView));
+        // Настраиваем TreeView
+        treeView.setPrefSize(printableWidth, calculateContentHeight());
+        scrollPane.setContent(treeView);
 
-        // Обновляем скролл
+        // Обновляем скроллбар после отрисовки
         Platform.runLater(() -> {
-            scrollPane.setVvalue(0); // Сбрасываем скролл в начало
-            scrollPane.requestLayout();
+            ScrollBar verticalScrollBar = (ScrollBar) scrollPane.lookup(".scroll-bar:vertical");
+            if (verticalScrollBar != null) {
+                verticalScrollBar.setUnitIncrement(20);
+                verticalScrollBar.setBlockIncrement(100);
+            }
         });
     }
 
@@ -134,57 +137,49 @@ public class PrinterDialogController {
         PrinterJob job = PrinterJob.createPrinterJob(currentPrinter);
         if (job == null) return;
 
-        // 1. Создаем копию TreeView без скроллбаров для печати
-        TreeView<OpData> printTreeView = createPrintTreeView();
-
         PageLayout pageLayout = getCurrentPageLayout();
         double pagePrintableHeight = pageLayout.getPrintableHeight();
 
-        // 2. Рассчитываем полную высоту содержимого
-        double totalHeight = calculateContentHeight(printTreeView);
+        // Рассчитываем полную высоту содержимого
+        double totalHeight = calculateContentHeight();
         int totalPages = (int) Math.ceil(totalHeight / pagePrintableHeight);
 
-        // 3. Масштабируем по ширине страницы
-        double scaleX = pageLayout.getPrintableWidth() / printTreeView.getBoundsInParent().getWidth();
-        printTreeView.getTransforms().add(new Scale(scaleX, 1.0));
+        // Сохраняем текущие трансформации
+        List<Transform> originalTransforms = FXCollections.observableArrayList(treeView.getTransforms());
 
-        // 4. Добавляем трансформацию для постраничной печати
-        Translate pageTransform = new Translate();
-        printTreeView.getTransforms().add(pageTransform);
+        try {
+            // Масштабируем по ширине страницы
+            double scaleX = pageLayout.getPrintableWidth() / treeView.getBoundsInParent().getWidth();
+            treeView.getTransforms().add(new Scale(scaleX, 1.0));
 
-        // 5. Печатаем все страницы
-        boolean success = true;
-        for (int i = 0; i < totalPages; i++) {
-            pageTransform.setY(-i * pagePrintableHeight);
-            success = success && job.printPage(pageLayout, printTreeView);
-        }
+            // Устанавливаем высоту TreeView для корректного расчета страниц
+            treeView.setPrefHeight(totalHeight);
 
-        if (success) {
-            job.endJob();
+            // Добавляем трансформацию для постраничной печати
+            Translate pageTransform = new Translate();
+            treeView.getTransforms().add(pageTransform);
+
+            boolean success = true;
+            for (int i = 0; i < totalPages; i++) {
+                pageTransform.setY(-i * pagePrintableHeight);
+                success = success && job.printPage(pageLayout, treeView);
+            }
+
+            if (success) {
+                job.endJob();
+            }
+        } finally {
+            // Восстанавливаем исходные трансформации
+            treeView.getTransforms().setAll(originalTransforms);
+            treeView.setPrefHeight(-1); // Сбрасываем фиксированную высоту
         }
     }
 
-    private TreeView<OpData> createPrintTreeView() {
-        // Создаем копию TreeView для печати
-        TreeView<OpData> printTreeView = new TreeView<>();
-        printTreeView.setRoot(treeView.getRoot());
-        printTreeView.setCellFactory(treeView.getCellFactory());
-
-        // Копируем все стили
-        printTreeView.getStyleClass().addAll(treeView.getStyleClass());
-        printTreeView.setStyle(treeView.getStyle());
-
-        // Устанавливаем фиксированную высоту
-        printTreeView.setPrefHeight(calculateContentHeight(treeView));
-        printTreeView.setPrefWidth(treeView.getBoundsInParent().getWidth());
-
-        return printTreeView;
-    }
-
-    private double calculateContentHeight(TreeView<?> tree) {
-        int rowCount = tree.getExpandedItemCount();
-        double rowHeight = tree.getFixedCellSize() > 0 ?
-                tree.getFixedCellSize() : 24;
+    private double calculateContentHeight() {
+        // Более точный расчет высоты содержимого
+        int rowCount = treeView.getExpandedItemCount();
+        double rowHeight = treeView.getFixedCellSize() > 0 ?
+                treeView.getFixedCellSize() : 24;
         return rowCount * rowHeight;
     }
 }

@@ -2,6 +2,7 @@ package ru.wert.normic.controllers._forms.main;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
 
@@ -65,6 +66,7 @@ public class MainMenuCreator {
         menuController.getMOperationsType().setText(getLabel.apply(USE_ELECTRICAL_MENUS));
         menuController.getMOperationsType().setOnAction(e->{
             USE_ELECTRICAL_MENUS = !USE_ELECTRICAL_MENUS;
+            AppProperties.getInstance().setUseElectrical(String.valueOf(USE_ELECTRICAL_MENUS));
             MAIN_CONTROLLER.getImgLamp().setVisible(USE_ELECTRICAL_MENUS);
             menuController.getMOperationsType().setText(getLabel.apply(USE_ELECTRICAL_MENUS));
             controller.createMenu();

@@ -13,8 +13,7 @@ import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.db_connection.user.User;
 import ru.wert.normic.entities.db_connection.user.UserService;
 
-import static ru.wert.normic.AppStatics.CURRENT_USER;
-import static ru.wert.normic.AppStatics.CURRENT_USER_GROUP;
+import static ru.wert.normic.AppStatics.*;
 
 public class LoginController {
 
@@ -36,8 +35,9 @@ public class LoginController {
             String pass = passwordField.getText();
 
             if (user.getPassword().equals(pass)) {
-                if(!CURRENT_USER.equals(user))
+                if(!CURRENT_USER.equals(user)){
                     AppStatics.createLog(true, CURRENT_USER.getName() + " вошел в программу NormIC");
+                }
 
                 CURRENT_USER = user;
                 CURRENT_USER_GROUP = CURRENT_USER.getUserGroup();
@@ -66,6 +66,5 @@ public class LoginController {
         Platform.runLater(()->passwordField.requestFocus());
 
     }
-
 
 }

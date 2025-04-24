@@ -13,14 +13,12 @@ import static ru.wert.normic.AppStatics.*;
 @Slf4j
 public class AppProperties {
 
-
     static AppProperties instance;
 
-    public static AppProperties getInstance(){
-        if(instance == null)
-            return new AppProperties();
-        else
-            return instance;
+    public static AppProperties getInstance() {
+        if (instance == null)
+            instance = new AppProperties();
+        return instance;
     }
 
     private int attempt = 0;
@@ -80,6 +78,7 @@ public class AppProperties {
             writer.write("IMPORT_DIR=C:/\n");
             writer.write("SEARCH_DIR=C:/\n");
             writer.write("USER=1\n");
+            writer.write("USE_ELECTRICAL=false\n");
             writer.close();
         } catch (IOException e) {
             if(++attempt < 3) new AppProperties();
@@ -126,6 +125,11 @@ public class AppProperties {
     public String getUser(){
         log.debug("USER returns... {}", connectionProps.getProperty("USER"));
         return connectionProps.getProperty("USER");
+    }
+
+    public String getUseElectrical(){
+        log.debug("USE_ELECTRICAL returns... {}", connectionProps.getProperty("USE_ELECTRICAL"));
+        return connectionProps.getProperty("USE_ELECTRICAL");
     }
 
     public void setIpAddress(final String ip){
@@ -182,6 +186,16 @@ public class AppProperties {
         try {
             FileOutputStream fos = new FileOutputStream(appConfigPath);
             connectionProps.setProperty("USER", user);
+            connectionProps.store(fos, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setUseElectrical(final String useElectrical){
+        try {
+            FileOutputStream fos = new FileOutputStream(appConfigPath);
+            connectionProps.setProperty("USE_ELECTRICAL", useElectrical);
             connectionProps.store(fos, null);
         } catch (IOException e) {
             e.printStackTrace();

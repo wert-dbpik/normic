@@ -128,6 +128,8 @@ public class MainController extends AbstractFormController {
     void initialize() {
         MAIN_CONTROLLER = this;
 
+        loadUserSettings();
+
         opData = new OpAssm();
 
         ((IOpWithOperations)opData).setFormController(MAIN_CONTROLLER);
@@ -190,6 +192,11 @@ public class MainController extends AbstractFormController {
         });
 
     }
+
+    private void loadUserSettings() {
+        USE_ELECTRICAL_MENUS = Boolean.parseBoolean(AppProperties.getInstance().getUseElectrical());
+    }
+
 
     @Override //AbstractFormController
     public void fillOpData() {

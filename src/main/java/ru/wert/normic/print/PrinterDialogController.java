@@ -23,6 +23,7 @@ public class PrinterDialogController {
     @FXML private ComboBox<Printer> cmbxPrinters;
     @FXML private ComboBox<Paper> cmbxPapers;
     @FXML private ComboBox<PageOrientation> cmbxOrientations;
+    @FXML private Slider scaleSlider;
     @FXML private Button btnPrint;
 
     private Printer currentPrinter;

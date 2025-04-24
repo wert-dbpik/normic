@@ -458,21 +458,23 @@ public abstract class AbstractFormController implements IForm {
 
     protected void linkMenuToButton() {
         Button button = getBtnAddOperation();
-        if(USE_ELECTRICAL_MENUS)
+        if(USE_ELECTRICAL_MENUS && !(this instanceof FormDetailController || this instanceof FormPackController))
             button.setGraphic(new ImageView(btnAddElectricalImage));
         else
             button.setGraphic(new ImageView(btnAddImage));
 
-        getBtnAddOperation().setTooltip(new Tooltip("Добавить операцию"));
-        getBtnAddOperation().setOnMouseClicked(e -> {
+        button.setTooltip(new Tooltip("Добавить операцию"));
+        button.setOnMouseClicked(e -> {
             if (e.getButton().equals(MouseButton.PRIMARY)) {
                 menu.show(
-                        getBtnAddOperation(),
+                        button,
                         Side.LEFT,
                         0.0,
                         32.0);
             }
-            else if (e.getButton().equals(MouseButton.SECONDARY)){
+            else if (e.getButton().equals(MouseButton.SECONDARY) &&
+                    !(this instanceof FormDetailController || this instanceof FormPackController)
+            ){
                 ContextMenu contextMenu = new ContextMenu();
                 ToggleGroup toggleGroup = new ToggleGroup();
 

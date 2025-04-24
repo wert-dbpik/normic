@@ -6,6 +6,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
+import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class ReportElectrical {
 
@@ -22,13 +23,13 @@ public class ReportElectrical {
     public void create() {
 
         countElectricalTimes(opAssm, 1);
-
-        textReport
-                .append("\n\n")
-                .append("ЭЛЕКТРОМОНТАЖ : T норм = ")
-                .append(electricalTime * CURRENT_MEASURE.getRate())
-                .append(" ").append(CURRENT_MEASURE.getMeasure());
-
+        if(electricalTime != 0.0) {
+            textReport
+                    .append("\n\n")
+                    .append("ЭЛЕКТРОМОНТАЖ : T норм = ")
+                    .append(DECIMAL_FORMAT.format(electricalTime * CURRENT_MEASURE.getRate()))
+                    .append(" ").append(CURRENT_MEASURE.getMeasure());
+        }
     }
 
     private void countElectricalTimes(IOpWithOperations op, int quantity) {

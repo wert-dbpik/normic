@@ -79,6 +79,7 @@ public class AppProperties {
             writer.write("SEARCH_DIR=C:/\n");
             writer.write("USER=1\n");
             writer.write("USE_ELECTRICAL=false\n");
+            writer.write("CURRENT_MEASURE=HOUR\n");
             writer.close();
         } catch (IOException e) {
             if(++attempt < 3) new AppProperties();
@@ -128,8 +129,13 @@ public class AppProperties {
     }
 
     public String getUseElectrical(){
-        log.debug("USE_ELECTRICAL returns... {}", connectionProps.getProperty("USE_ELECTRICAL"));
-        return connectionProps.getProperty("USE_ELECTRICAL");
+        log.debug("USE_ELECTRICAL returns... {}", connectionProps.getProperty("USE_ELECTRICAL", "TRUE"));
+        return connectionProps.getProperty("USE_ELECTRICAL", "TRUE");
+    }
+
+    public String getCurrentMeasure(){
+        log.debug("CURRENT_MEASURE returns... {}", connectionProps.getProperty("CURRENT_MEASURE", "HOUR"));
+        return connectionProps.getProperty("CURRENT_MEASURE", "HOUR");
     }
 
     public void setIpAddress(final String ip){
@@ -201,5 +207,13 @@ public class AppProperties {
             e.printStackTrace();
         }
     }
-
+    public void setCurrentMeasure(final String currentMeasure){
+        try {
+            FileOutputStream fos = new FileOutputStream(appConfigPath);
+            connectionProps.setProperty("CURRENT_MEASURE", currentMeasure);
+            connectionProps.store(fos, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

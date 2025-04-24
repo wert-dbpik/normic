@@ -33,6 +33,7 @@ import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
 import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.saves.SaveNormEntry;
+import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.operations.OperationsController;
 import ru.wert.normic.report.ReportController;
@@ -195,6 +196,7 @@ public class MainController extends AbstractFormController {
 
     private void loadUserSettings() {
         USE_ELECTRICAL_MENUS = Boolean.parseBoolean(AppProperties.getInstance().getUseElectrical());
+        CURRENT_MEASURE = ETimeMeasurement.valueOf(AppProperties.getInstance().getCurrentMeasure());
     }
 
 

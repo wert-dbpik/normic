@@ -87,11 +87,31 @@ public class MainMenuCreator {
     public void initMenuMeasures(){
         menuController.getRbmSeconds().setToggleGroup(MEASURE);
         menuController.getRbmSeconds().setUserData(ETimeMeasurement.SEC.name());
+        menuController.getRbmSeconds().setSelected(CURRENT_MEASURE.name().equals("SEC"));
+        menuController.getRbmSeconds().selectedProperty().addListener(e->{
+            if(menuController.getRbmSeconds().isSelected())
+                AppProperties.getInstance().setCurrentMeasure("SEC");
+        });
+
+
         menuController.getRbmMinutes().setToggleGroup(MEASURE);
         menuController.getRbmMinutes().setUserData(ETimeMeasurement.MIN.name());
+        menuController.getRbmMinutes().setSelected(CURRENT_MEASURE.name().equals("MIN"));
+        menuController.getRbmMinutes().selectedProperty().addListener(e->{
+            if(menuController.getRbmMinutes().isSelected())
+            AppProperties.getInstance().setCurrentMeasure("MIN");
+        });
+
         menuController.getRbmHours().setToggleGroup(MEASURE);
         menuController.getRbmHours().setUserData(ETimeMeasurement.HOUR.name());
-        menuController.getRbmHours().setSelected(true);
+        menuController.getRbmHours().setSelected(CURRENT_MEASURE.name().equals("HOUR"));
+        menuController.getRbmHours().selectedProperty().addListener(e->{
+            if(menuController.getRbmHours().isSelected())
+            AppProperties.getInstance().setCurrentMeasure("HOUR");
+        });
+
+
+
     }
 
 }

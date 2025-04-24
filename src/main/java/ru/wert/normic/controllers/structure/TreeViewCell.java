@@ -237,8 +237,9 @@ public class TreeViewCell extends TreeCell<OpData> {
         Norm paintTime = new Norm("ППК", opData.getPaintTime() * k);
         Norm assmTime = new Norm("СБ", opData.getAssmTime() * k);
         Norm packTime = new Norm("УП", opData.getPackTime() * k);
+        Norm electricalTime = new Norm("ЭЛ", opData.getElectricalTime() * k);
 
-        Norm [] norms = new Norm[]{mechTime, paintTime, assmTime, packTime};
+        Norm [] norms = new Norm[]{mechTime, paintTime, assmTime, packTime, electricalTime};
 
         StringBuilder str = new StringBuilder();
         for (Norm n : norms)

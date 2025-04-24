@@ -1,98 +1,94 @@
 package ru.wert.normic.print;
 
-import com.sun.javafx.scene.control.skin.ScrollBarSkin;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.print.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
+import javafx.scene.transform.Transform;
 import javafx.scene.transform.Translate;
 import ru.wert.normic.controllers.structure.StructureTreeView;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 
+import java.util.List;
+
 public class PrinterDialogController {
-
-    private Printer currentPrinter;
-
-    private double paperWidth;
-    private double paperHeight;
-
-    private double topMargin;
-    private double rightMargin;
-    private double bottomMargin;
-    private double leftMargin;
-
-    private double printableWidth;
-    private double printableHeight;
 
     @FXML private AnchorPane apPaper;
     @FXML private ComboBox<Printer> cmbxPrinters;
+    @FXML private ComboBox<Paper> cmbxPapers;
+    @FXML private ComboBox<PageOrientation> cmbxOrientations;
+    @FXML private Button btnPrint;
 
-    private ScrollBar verticalBar;
-    private ScrollBar horizontalBar;
-
-    private VBox vBox;
-
+    private Printer currentPrinter;
     private TreeView<OpData> treeView = new TreeView<>();
+    private StackPane previewContainer;
+    private ScrollPane scrollPane;
+    private VBox contentContainer;
+
+    @FXML
+    public void initialize() {
+        setupPrinterComboBox();
+        setupPaperComboBox();
+        setupOrientationComboBox();
+        setupPreviewArea();
+    }
 
     public void init(OpAssm opRoot) {
         currentPrinter = Printer.getDefaultPrinter();
-        cmbxPrinters.setItems(FXCollections.observableArrayList(Printer.getAllPrinters()));
-        cmbxPrinters.setValue(currentPrinter);
-
-
-
-        //--------------------------
-
-        paperWidth = currentPrinter.getDefaultPageLayout().getPaper().getWidth();
-        paperHeight = currentPrinter.getDefaultPageLayout().getPaper().getHeight();
-
-        topMargin = currentPrinter.getDefaultPageLayout().getTopMargin();
-        rightMargin = currentPrinter.getDefaultPageLayout().getRightMargin();
-        bottomMargin = currentPrinter.getDefaultPageLayout().getBottomMargin();
-        leftMargin = currentPrinter.getDefaultPageLayout().getLeftMargin();
-
-        printableHeight = paperHeight - rightMargin - leftMargin;
-        printableWidth = paperWidth - topMargin - bottomMargin;
-
-        StackPane printableRegion = new StackPane();
-        printableRegion.setStyle("-fx-border-style: dashed;");
-        printableRegion.setPrefSize(printableWidth, printableHeight);
-
-        AnchorPane.setTopAnchor(printableRegion, topMargin);
-        AnchorPane.setRightAnchor(printableRegion, rightMargin);
-        AnchorPane.setBottomAnchor(printableRegion, bottomMargin);
-        AnchorPane.setLeftAnchor(printableRegion, leftMargin);
-
         buildTreeView(opRoot);
+        updatePreview();
+    }
 
-
-
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        VBox vBox = new VBox(treeView);
-        scrollPane.setContent(vBox);
-
-        printableRegion.getChildren().add(scrollPane);
-
-
-        apPaper.getChildren().add(printableRegion);
-
-        Platform.runLater(()->{
-            verticalBar = (ScrollBar) printableRegion.lookup(".scroll-bar:vertical");
-            horizontalBar = (ScrollBar) printableRegion.lookup(".scroll-bar:horizontal");
-
-            int pages = (int) Math.ceil(countTreeViewHeight() / printableHeight);
-            vBox.resize(printableWidth, pages * printableHeight);
-            verticalBar.setDisable(true);
-            horizontalBar.setDisable(true);
+    private void setupPrinterComboBox() {
+        ObservableList<Printer> printers = FXCollections.observableArrayList(Printer.getAllPrinters());
+        cmbxPrinters.setItems(printers);
+        cmbxPrinters.getSelectionModel().select(Printer.getDefaultPrinter());
+        cmbxPrinters.valueProperty().addListener((observable, oldValue, newValue) -> {
+            currentPrinter = newValue;
+            updatePreview();
         });
+    }
+
+    private void setupPaperComboBox() {
+        ObservableList<Paper> papers = FXCollections.observableArrayList(
+                Paper.A4, Paper.A3, Paper.NA_LETTER);
+        cmbxPapers.setItems(papers);
+        cmbxPapers.getSelectionModel().select(Paper.A4);
+        cmbxPapers.valueProperty().addListener((observable, oldValue, newValue) -> updatePreview());
+    }
+
+    private void setupOrientationComboBox() {
+        ObservableList<PageOrientation> orientations = FXCollections.observableArrayList(
+                PageOrientation.PORTRAIT, PageOrientation.LANDSCAPE);
+        cmbxOrientations.setItems(orientations);
+        cmbxOrientations.getSelectionModel().select(PageOrientation.PORTRAIT);
+        cmbxOrientations.valueProperty().addListener((observable, oldValue, newValue) -> updatePreview());
+    }
+
+    private void setupPreviewArea() {
+        previewContainer = new StackPane();
+        previewContainer.setStyle("-fx-background-color: white; -fx-border-color: #ccc; -fx-border-width: 1;");
+
+        scrollPane = new ScrollPane();
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setStyle("-fx-background: white; -fx-border-color: transparent;");
+
+        previewContainer.getChildren().add(scrollPane);
+        apPaper.getChildren().add(previewContainer);
+
+        AnchorPane.setTopAnchor(previewContainer, 10.0);
+        AnchorPane.setRightAnchor(previewContainer, 10.0);
+        AnchorPane.setBottomAnchor(previewContainer, 10.0);
+        AnchorPane.setLeftAnchor(previewContainer, 10.0);
     }
 
     private void buildTreeView(OpAssm opRoot) {
@@ -104,68 +100,91 @@ public class PrinterDialogController {
         treeView.setRoot(root);
     }
 
-    /**
-     * Определяет фактическую высоту treeView
-     */
-    private double countTreeViewHeight(){
-        double thumb = ((ScrollBarSkin) verticalBar.getSkin()).getThumb().getBoundsInParent().getHeight();
-        double track = ((ScrollBarSkin) verticalBar.getSkin()).getTrack().getBoundsInParent().getHeight();
-        double treeViewActualHeight = track * paperHeight / thumb;
-        return Math.max(treeViewActualHeight, printableHeight);
+    private void updatePreview() {
+        if (currentPrinter == null) return;
+
+        PageLayout pageLayout = getCurrentPageLayout();
+        double printableWidth = pageLayout.getPrintableWidth();
+        double printableHeight = pageLayout.getPrintableHeight();
+
+        // Устанавливаем размеры области предпросмотра
+        previewContainer.setPrefSize(printableWidth, printableHeight);
+
+        // Настраиваем TreeView для предпросмотра
+        treeView.setPrefWidth(printableWidth);
+        treeView.setPrefHeight(calculateContentHeight(treeView));
+
+        // Обновляем скролл
+        Platform.runLater(() -> {
+            scrollPane.setVvalue(0); // Сбрасываем скролл в начало
+            scrollPane.requestLayout();
+        });
+    }
+
+    private PageLayout getCurrentPageLayout() {
+        Paper paper = cmbxPapers.getValue();
+        PageOrientation orientation = cmbxOrientations.getValue();
+        return currentPrinter.createPageLayout(paper, orientation, Printer.MarginType.DEFAULT);
     }
 
     @FXML
-    void print(Event event) {
+    private void handlePrint(ActionEvent event) {
+        if (currentPrinter == null) return;
 
+        PrinterJob job = PrinterJob.createPrinterJob(currentPrinter);
+        if (job == null) return;
 
-        Printer chosenPrinter = cmbxPrinters.getValue();
-        PageLayout pageLayout = chosenPrinter.createPageLayout(Paper.NA_LETTER, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT); //create a pagelayout.  I used Paper.NA_LETTER for a standard 8.5 x 11 in page.
-        PrinterJob job = PrinterJob.createPrinterJob();//create a printer job
-        job.setPrinter(chosenPrinter);
+        // 1. Создаем копию TreeView без скроллбаров для печати
+        TreeView<OpData> printTreeView = createPrintTreeView();
 
-//        if (job.showPrintDialog(MAIN_STAGE))// this is very useful it allows you to save the file as a pdf instead using all of your printer's paper. A dialog box pops up, allowing you to change the "name" option from your default printer to Adobe pdf.
-        if(true)
-            {
-            double pagePrintableWidth = pageLayout.getPrintableWidth(); //this should be 8.5 inches for this page layout.
-            double pagePrintableHeight = pageLayout.getPrintableHeight();// this should be 11 inches for this page layout.
+        PageLayout pageLayout = getCurrentPageLayout();
+        double pagePrintableHeight = pageLayout.getPrintableHeight();
 
+        // 2. Рассчитываем полную высоту содержимого
+        double totalHeight = calculateContentHeight(printTreeView);
+        int totalPages = (int) Math.ceil(totalHeight / pagePrintableHeight);
 
-//                        treeView.prefHeightProperty().bind(Bindings.size(treeView.get).multiply(35));// If your cells' rows are variable size you add the .multiply and play with the input value until your output is close to what you want. If your cells' rows are the same height, I think you can use .multiply(1). This changes the height of your tableView to show all rows in the table.
-            treeView.prefHeightProperty().set(countTreeViewHeight());// If your cells' rows are variable size you add the .multiply and play with the input value until your output is close to what you want. If your cells' rows are the same height, I think you can use .multiply(1). This changes the height of your tableView to show all rows in the table.
-            treeView.minHeightProperty().bind(treeView.prefHeightProperty());//You can probably play with this to see if it's really needed.  Comment it out to find out.
-            treeView.maxHeightProperty().bind(treeView.prefHeightProperty());//You can probably play with this to see if it' really needed.  Comment it out to find out.
+        // 3. Масштабируем по ширине страницы
+        double scaleX = pageLayout.getPrintableWidth() / printTreeView.getBoundsInParent().getWidth();
+        printTreeView.getTransforms().add(new Scale(scaleX, 1.0));
 
-//            double scaleX = pagePrintableWidth / treeView.getBoundsInParent().getWidth();//scaling down so that the printing width fits within the paper's width bound.
-//            double scaleY = scaleX; //scaling the height using the same scale as the width. This allows the writing and the images to maintain their scale, or not look skewed.
-//            double localScale = scaleX; //not really needed since everything is scaled down at the same ratio. scaleX is used thoughout the program to scale the print out.
+        // 4. Добавляем трансформацию для постраничной печати
+        Translate pageTransform = new Translate();
+        printTreeView.getTransforms().add(pageTransform);
 
-            double localScale = 1.0;
-            double scaleX = 1.0;
-            double scaleY = 1.0;
-
-            double numberOfPages = Math.ceil((treeView.getPrefHeight() * localScale) / pagePrintableHeight);//used to figure out the number of pages that will be printed.
-
-
-            //System.out.println("pref Height: " + tblvMain.getPrefHeight());
-            //System.out.println("number of pages: " + numberOfPages);
-
-
-            treeView.getTransforms().add(new Scale(scaleX, (scaleY)));//scales the printing. Allowing the width to say within the papers width, and scales the height to do away with skewed letters and images.
-            treeView.getTransforms().add(new Translate(0, 0));// starts the first print at the top left corner of the image that needs to be printed
-
-            //Since the height of what needs to be printed is longer than the paper's heights we use gridTransfrom to only select the part to be printed for a given page.
-            Translate gridTransform = new Translate();
-            treeView.getTransforms().add(gridTransform);
-
-            //now we loop though the image that needs to be printed and we only print a subimage of the full image.
-            //for example: In the first loop we only pint the printable image from the top down to the height of a standard piece of paper. Then we print starting from were the last printed page ended down to the height of the next page. This happens until all of the pages are printed.
-            // first page prints from 0 height to -11 inches height, Second page prints from -11 inches height to -22 inches height, etc.
-            for (int i = 0; i < numberOfPages; i++) {
-                gridTransform.setY(-i * (pagePrintableHeight / localScale));
-                job.printPage(pageLayout, treeView);
-            }
-
-            job.endJob();//finally end the printing job.
+        // 5. Печатаем все страницы
+        boolean success = true;
+        for (int i = 0; i < totalPages; i++) {
+            pageTransform.setY(-i * pagePrintableHeight);
+            success = success && job.printPage(pageLayout, printTreeView);
         }
+
+        if (success) {
+            job.endJob();
+        }
+    }
+
+    private TreeView<OpData> createPrintTreeView() {
+        // Создаем копию TreeView для печати
+        TreeView<OpData> printTreeView = new TreeView<>();
+        printTreeView.setRoot(treeView.getRoot());
+        printTreeView.setCellFactory(treeView.getCellFactory());
+
+        // Копируем все стили
+        printTreeView.getStyleClass().addAll(treeView.getStyleClass());
+        printTreeView.setStyle(treeView.getStyle());
+
+        // Устанавливаем фиксированную высоту
+        printTreeView.setPrefHeight(calculateContentHeight(treeView));
+        printTreeView.setPrefWidth(treeView.getBoundsInParent().getWidth());
+
+        return printTreeView;
+    }
+
+    private double calculateContentHeight(TreeView<?> tree) {
+        int rowCount = tree.getExpandedItemCount();
+        double rowHeight = tree.getFixedCellSize() > 0 ?
+                tree.getFixedCellSize() : 24;
+        return rowCount * rowHeight;
     }
 }

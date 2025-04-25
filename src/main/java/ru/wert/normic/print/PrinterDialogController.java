@@ -55,30 +55,32 @@ public class PrinterDialogController {
         scaleSlider.setBlockIncrement(0.1);
 
         scaleSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            double scaleValue = newVal.doubleValue();
-            applyScaleToTreeView(scaleValue);
+            applyScaleToTreeView(newVal.doubleValue());
         });
     }
 
     private void applyScaleToTreeView(double scaleValue) {
-        StackPane scaleContainer = (StackPane) scrollPane.getContent();
+        Pane contentWrapper = (Pane) scrollPane.getContent();
 
-        // Удаляем предыдущие трансформации масштабирования
-        scaleContainer.getTransforms().removeIf(t -> t instanceof Scale);
+        // Удаляем предыдущие трансформации
+        contentWrapper.getTransforms().clear();
 
-        // Применяем новую трансформацию масштабирования
+        // Применяем масштабирование к содержимому
         Scale scale = new Scale(scaleValue, scaleValue);
-        scale.setPivotX(0);
-        scale.setPivotY(0);
-        scaleContainer.getTransforms().add(scale);
+        contentWrapper.getTransforms().add(scale);
 
-        // Обновляем размеры TreeView
-        PageLayout pageLayout = getCurrentPageLayout();
-        double printableWidth = pageLayout.getPrintableWidth();
-        double contentHeight = calculateContentHeight();
+        // Корректируем размеры содержимого
+        treeView.setScaleX(1.0);
+        treeView.setScaleY(1.0);
+        treeView.setPrefSize(
+                scrollPane.getWidth() / scaleValue,
+                calculateContentHeight() / scaleValue
+        );
 
-        treeView.setPrefSize(printableWidth, contentHeight);
-        scaleContainer.setPrefSize(printableWidth * scaleValue, contentHeight * scaleValue);
+        contentWrapper.setPrefSize(
+                scrollPane.getWidth() / scaleValue,
+                calculateContentHeight() / scaleValue
+        );
     }
 
     private void setupPrinterComboBox() {
@@ -118,21 +120,20 @@ public class PrinterDialogController {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setStyle("-fx-background: white; -fx-border-color: transparent;");
 
-        // Создаем контейнер для масштабирования
-        StackPane scaleContainer = new StackPane();
-        scaleContainer.getChildren().add(treeView);
+        // Контейнер для масштабирования содержимого
+        Pane contentWrapper = new Pane();
+        contentWrapper.getChildren().add(treeView);
 
-        scrollPane.setContent(scaleContainer);
+        scrollPane.setContent(contentWrapper);
         previewContainer.getChildren().add(scrollPane);
         apPaper.getChildren().add(previewContainer);
 
-        // Растягиваем previewContainer на весь apPaper
+        // Фиксируем размеры ScrollPane
         AnchorPane.setTopAnchor(previewContainer, 0.0);
         AnchorPane.setRightAnchor(previewContainer, 0.0);
         AnchorPane.setBottomAnchor(previewContainer, 0.0);
         AnchorPane.setLeftAnchor(previewContainer, 0.0);
 
-        // Настраиваем масштабирование
         setupScaleSlider();
     }
 
@@ -150,19 +151,14 @@ public class PrinterDialogController {
 
         PageLayout pageLayout = getCurrentPageLayout();
         double printableWidth = pageLayout.getPrintableWidth();
-        double printableHeight = pageLayout.getPrintableHeight();
+        double contentHeight = calculateContentHeight();
 
-        // Устанавливаем размеры области предпросмотра
-        previewContainer.setPrefSize(apPaper.getWidth(), apPaper.getHeight());
+        // Фиксируем размеры ScrollPane
         scrollPane.setPrefSize(apPaper.getWidth(), apPaper.getHeight());
-
-        // Настраиваем TreeView
-        treeView.setPrefSize(printableWidth, calculateContentHeight());
 
         // Обновляем масштаб
         applyScaleToTreeView(scaleSlider.getValue());
 
-        // Обновляем скроллбар после отрисовки
         Platform.runLater(() -> {
             ScrollBar verticalScrollBar = (ScrollBar) scrollPane.lookup(".scroll-bar:vertical");
             if (verticalScrollBar != null) {

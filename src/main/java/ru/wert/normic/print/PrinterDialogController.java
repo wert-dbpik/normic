@@ -32,6 +32,8 @@ public class PrinterDialogController {
     private ScrollPane scrollPane;
     private VBox contentContainer;
 
+    private VBox treeViewContainer; // Контейнер для TreeView
+
     @FXML
     public void initialize() {
         setupPrinterComboBox();
@@ -44,6 +46,39 @@ public class PrinterDialogController {
         currentPrinter = Printer.getDefaultPrinter();
         buildTreeView(opRoot);
         updatePreview();
+    }
+
+    private void setupScaleSlider() {
+        scaleSlider.setMin(0.5);
+        scaleSlider.setMax(2.0);
+        scaleSlider.setValue(1.0);
+        scaleSlider.setBlockIncrement(0.1);
+
+        scaleSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            double scaleValue = newVal.doubleValue();
+            applyScaleToTreeView(scaleValue);
+        });
+    }
+
+    private void applyScaleToTreeView(double scaleValue) {
+        StackPane scaleContainer = (StackPane) scrollPane.getContent();
+
+        // Удаляем предыдущие трансформации масштабирования
+        scaleContainer.getTransforms().removeIf(t -> t instanceof Scale);
+
+        // Применяем новую трансформацию масштабирования
+        Scale scale = new Scale(scaleValue, scaleValue);
+        scale.setPivotX(0);
+        scale.setPivotY(0);
+        scaleContainer.getTransforms().add(scale);
+
+        // Обновляем размеры TreeView
+        PageLayout pageLayout = getCurrentPageLayout();
+        double printableWidth = pageLayout.getPrintableWidth();
+        double contentHeight = calculateContentHeight();
+
+        treeView.setPrefSize(printableWidth, contentHeight);
+        scaleContainer.setPrefSize(printableWidth * scaleValue, contentHeight * scaleValue);
     }
 
     private void setupPrinterComboBox() {
@@ -83,13 +118,22 @@ public class PrinterDialogController {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setStyle("-fx-background: white; -fx-border-color: transparent;");
 
+        // Создаем контейнер для масштабирования
+        StackPane scaleContainer = new StackPane();
+        scaleContainer.getChildren().add(treeView);
+
+        scrollPane.setContent(scaleContainer);
         previewContainer.getChildren().add(scrollPane);
         apPaper.getChildren().add(previewContainer);
 
-        AnchorPane.setTopAnchor(previewContainer, 10.0);
-        AnchorPane.setRightAnchor(previewContainer, 10.0);
-        AnchorPane.setBottomAnchor(previewContainer, 10.0);
-        AnchorPane.setLeftAnchor(previewContainer, 10.0);
+        // Растягиваем previewContainer на весь apPaper
+        AnchorPane.setTopAnchor(previewContainer, 0.0);
+        AnchorPane.setRightAnchor(previewContainer, 0.0);
+        AnchorPane.setBottomAnchor(previewContainer, 0.0);
+        AnchorPane.setLeftAnchor(previewContainer, 0.0);
+
+        // Настраиваем масштабирование
+        setupScaleSlider();
     }
 
     private void buildTreeView(OpAssm opRoot) {
@@ -109,11 +153,14 @@ public class PrinterDialogController {
         double printableHeight = pageLayout.getPrintableHeight();
 
         // Устанавливаем размеры области предпросмотра
-        previewContainer.setPrefSize(printableWidth, printableHeight);
+        previewContainer.setPrefSize(apPaper.getWidth(), apPaper.getHeight());
+        scrollPane.setPrefSize(apPaper.getWidth(), apPaper.getHeight());
 
         // Настраиваем TreeView
         treeView.setPrefSize(printableWidth, calculateContentHeight());
-        scrollPane.setContent(treeView);
+
+        // Обновляем масштаб
+        applyScaleToTreeView(scaleSlider.getValue());
 
         // Обновляем скроллбар после отрисовки
         Platform.runLater(() -> {

@@ -5,14 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.print.*;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.*;
-import javafx.scene.transform.Scale;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.transform.Transform;
-import javafx.scene.transform.Translate;
 import javafx.stage.FileChooser;
 import lombok.Getter;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -26,8 +26,6 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 public class PrintDialogController {
@@ -99,7 +97,9 @@ public class PrintDialogController {
         try {
             // Делаем снимок ScrollPane
             ScrollPane scrollPane = previewer.getScrollPane();
-            WritableImage image = scrollPane.snapshot(new SnapshotParameters(), null);
+            SnapshotParameters params = new SnapshotParameters();
+            params.setTransform(Transform.scale(2, 2)); // 2x DPI
+            WritableImage image = scrollPane.snapshot(params, null);
 
             // Конвертируем изображение в PDF (используя Apache PDFBox)
             PDDocument document = new PDDocument();

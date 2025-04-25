@@ -47,7 +47,7 @@ public class PrinterDialogController {
 
     private void setupScaleSlider() {
         scaleSlider.setMin(0.5);
-        scaleSlider.setMax(2.0);
+        scaleSlider.setMax(1.5);
         scaleSlider.setValue(1.0);
         scaleSlider.setBlockIncrement(0.1);
 
@@ -112,8 +112,8 @@ public class PrinterDialogController {
         scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setStyle("-fx-background: white; -fx-border-color: transparent;");
 
         // Контейнер для масштабирования содержимого
@@ -163,13 +163,6 @@ public class PrinterDialogController {
         // Обновляем масштаб
         applyScaleToTreeView(scaleSlider.getValue());
 
-        Platform.runLater(() -> {
-            ScrollBar verticalScrollBar = (ScrollBar) scrollPane.lookup(".scroll-bar:vertical");
-            if (verticalScrollBar != null) {
-                verticalScrollBar.setUnitIncrement(20);
-                verticalScrollBar.setBlockIncrement(100);
-            }
-        });
     }
 
     private PageLayout getCurrentPageLayout() {

@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PrinterDialogController {
 
-    @FXML private AnchorPane apPaper;
+    @FXML private AnchorPane apPaper; //Width = 592, height = 842
     @FXML private ComboBox<Printer> cmbxPrinters;
     @FXML private ComboBox<Paper> cmbxPapers;
     @FXML private ComboBox<PageOrientation> cmbxOrientations;
@@ -70,16 +70,15 @@ public class PrinterDialogController {
         contentWrapper.getTransforms().add(scale);
 
         // Корректируем размеры содержимого
-        treeView.setScaleX(1.0);
-        treeView.setScaleY(1.0);
+        double contentHeight = calculateContentHeight();
         treeView.setPrefSize(
-                scrollPane.getWidth() / scaleValue,
-                calculateContentHeight() / scaleValue
+                apPaper.getPrefWidth() / scaleValue,
+                Math.max(contentHeight, apPaper.getPrefHeight()) / scaleValue
         );
 
         contentWrapper.setPrefSize(
-                scrollPane.getWidth() / scaleValue,
-                calculateContentHeight() / scaleValue
+                apPaper.getPrefWidth() / scaleValue,
+                Math.max(contentHeight, apPaper.getPrefHeight()) / scaleValue
         );
     }
 
@@ -124,15 +123,23 @@ public class PrinterDialogController {
         Pane contentWrapper = new Pane();
         contentWrapper.getChildren().add(treeView);
 
+        // Устанавливаем размеры контейнера
+        contentWrapper.setMinSize(apPaper.getPrefWidth(), apPaper.getPrefHeight());
+        contentWrapper.setPrefSize(apPaper.getPrefWidth(), apPaper.getPrefHeight());
+
         scrollPane.setContent(contentWrapper);
         previewContainer.getChildren().add(scrollPane);
         apPaper.getChildren().add(previewContainer);
 
-        // Фиксируем размеры ScrollPane
+        // Фиксируем размеры ScrollPane и previewContainer
         AnchorPane.setTopAnchor(previewContainer, 0.0);
         AnchorPane.setRightAnchor(previewContainer, 0.0);
         AnchorPane.setBottomAnchor(previewContainer, 0.0);
         AnchorPane.setLeftAnchor(previewContainer, 0.0);
+
+        // Устанавливаем размеры ScrollPane
+        scrollPane.setMinSize(apPaper.getPrefWidth(), apPaper.getPrefHeight());
+        scrollPane.setPrefSize(apPaper.getPrefWidth(), apPaper.getPrefHeight());
 
         setupScaleSlider();
     }
@@ -150,11 +157,10 @@ public class PrinterDialogController {
         if (currentPrinter == null) return;
 
         PageLayout pageLayout = getCurrentPageLayout();
-        double printableWidth = pageLayout.getPrintableWidth();
-        double contentHeight = calculateContentHeight();
 
-        // Фиксируем размеры ScrollPane
-        scrollPane.setPrefSize(apPaper.getWidth(), apPaper.getHeight());
+        // Обновляем размеры контейнера
+        Pane contentWrapper = (Pane) scrollPane.getContent();
+        contentWrapper.setPrefSize(apPaper.getPrefWidth(), apPaper.getPrefHeight());
 
         // Обновляем масштаб
         applyScaleToTreeView(scaleSlider.getValue());

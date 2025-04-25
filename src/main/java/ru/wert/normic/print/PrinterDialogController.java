@@ -30,9 +30,6 @@ public class PrinterDialogController {
     private TreeView<OpData> treeView = new TreeView<>();
     private StackPane previewContainer;
     private ScrollPane scrollPane;
-    private VBox contentContainer;
-
-    private VBox treeViewContainer; // Контейнер для TreeView
 
     @FXML
     public void initialize() {
@@ -151,6 +148,7 @@ public class PrinterDialogController {
         root.setExpanded(true);
         StructureTreeView.expandTree(treeView, root);
         treeView.setRoot(root);
+        treeView.setId("print-tree-view");
     }
 
     private void updatePreview() {

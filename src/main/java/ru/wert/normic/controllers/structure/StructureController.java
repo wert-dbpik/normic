@@ -26,7 +26,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.print.PrinterDialogController;
+import ru.wert.normic.print.PrintDialogController;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -148,7 +148,7 @@ public class StructureController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/printer/printerDialog.fxml"));
                 Parent parent = loader.load();
-                PrinterDialogController controller = loader.getController();
+                PrintDialogController controller = loader.getController();
                 controller.init(opRoot);
 
                 Decoration decoration = new Decoration("ПЕЧАТЬ",

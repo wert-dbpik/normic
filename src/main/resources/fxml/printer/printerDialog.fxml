@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="800.0" styleClass="hbPrinter" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.print.PrinterDialogController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="800.0" styleClass="hbPrinter" stylesheets="@../../css/calculator-sandy.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.print.PrintDialogController">
    <children>
       <AnchorPane fx:id="apPaper" prefHeight="842.0" prefWidth="592.0" styleClass="apPaper" />
       <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0" styleClass="vbPrinter" HBox.hgrow="ALWAYS">

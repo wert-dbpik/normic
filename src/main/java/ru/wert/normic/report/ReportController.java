@@ -5,6 +5,8 @@ import javafx.scene.control.TextArea;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.report.reports.*;
 
+import static ru.wert.normic.AppStatics.CURRENT_BATCH;
+
 /**
  * ОТЧЕТ
  */
@@ -19,7 +21,8 @@ public class ReportController {
 
         //Наименование изделия
         String name = opAssm.getName();
-        textReport.append("ИЗДЕЛИЕ : ").append(name == null? "< без наименования >" : name);
+        textReport.append("ИЗДЕЛИЕ : ").append(name == null? "< без наименования >" : name)
+        .append("\nПартия: ").append(CURRENT_BATCH).append(" шт.");
 
         //###########################################################################################################
 

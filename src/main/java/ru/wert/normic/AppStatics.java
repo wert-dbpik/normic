@@ -17,6 +17,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.saves.SaveNormEntry;
+import ru.wert.normic.enums.ELaserMachine;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
@@ -46,7 +47,7 @@ public class AppStatics {
 
     public static boolean USE_ELECTRICAL_MENUS = false;
 
-    //Ползователь
+    //Пользователь
     public static User CURRENT_USER = null;
     //Группа
     public static UserGroup CURRENT_USER_GROUP = null;
@@ -61,6 +62,8 @@ public class AppStatics {
     public static final String TEST_SERVER_IP = "192.168.2.175";
     public static final String SERVER_IP = "192.168.2.132";
     public static final String SERVER_PORT = "8080";
+
+    public static final ELaserMachine LASER_MACHINE = ELaserMachine.AMADA;
 
     public static ConnectionParams CURRENT_CONNECTION_PARAMS;
 

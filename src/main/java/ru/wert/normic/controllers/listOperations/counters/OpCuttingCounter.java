@@ -31,11 +31,11 @@ public class OpCuttingCounter implements NormCounter {
 
         double speed;
         //Скорость резания, м/мин
-        if (t < 1.5) speed = LASER_MACHINE == ELaserMachine.AMADA ? 5.5 : 22.0;
-        else if (t >= 1.5 && t < 2) speed = LASER_MACHINE == ELaserMachine.AMADA ? 5.0 : 20.0 ;
-        else if (t >= 2 && t < 2.5 ) speed = LASER_MACHINE == ELaserMachine.AMADA ? 4.0 : 12.0 ;
-        else if (t >= 2.5 && t < 3.0) speed = LASER_MACHINE == ELaserMachine.AMADA ? 3.0 : 7.0;
-        else speed = LASER_MACHINE == ELaserMachine.AMADA ? 1.9 : 3.8;
+        if (t < 1.5) speed = CURRENT_LASER_MACHINE == ELaserMachine.AMADA ? 5.5 : 22.0;
+        else if (t >= 1.5 && t < 2) speed = CURRENT_LASER_MACHINE == ELaserMachine.AMADA ? 5.0 : 20.0 ;
+        else if (t >= 2 && t < 2.5 ) speed = CURRENT_LASER_MACHINE == ELaserMachine.AMADA ? 4.0 : 12.0 ;
+        else if (t >= 2.5 && t < 3.0) speed = CURRENT_LASER_MACHINE == ELaserMachine.AMADA ? 3.0 : 7.0;
+        else speed = CURRENT_LASER_MACHINE == ELaserMachine.AMADA ? 1.9 : 3.8;
 
         //Время зачистки
         double strippingTime; //мин

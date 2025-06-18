@@ -58,6 +58,11 @@ public class MainMenuController {
             rbmMinutes,
             rbmHours;
 
+    @FXML@Getter
+    private RadioMenuItem
+            rbmPrima,
+            rbmAmada;
+
     //ОТЧЕТЫ============================================
 
     @FXML@Getter

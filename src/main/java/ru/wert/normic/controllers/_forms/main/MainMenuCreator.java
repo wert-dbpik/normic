@@ -3,6 +3,7 @@ package ru.wert.normic.controllers._forms.main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.enums.ELaserMachine;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
 
@@ -100,9 +101,25 @@ public class MainMenuCreator {
             if(menuController.getRbmHours().isSelected())
             AppProperties.getInstance().setCurrentMeasure("HOUR");
         });
+    }
+
+    public void initLaserMachine(){
+        menuController.getRbmPrima().setToggleGroup(LASER_MACHINE);
+        menuController.getRbmPrima().setUserData(ELaserMachine.PRIMA);
+        menuController.getRbmPrima().setSelected(CURRENT_LASER_MACHINE.equals(ELaserMachine.PRIMA));
+        menuController.getRbmPrima().selectedProperty().addListener(e->{
+            if(menuController.getRbmPrima().isSelected())
+                AppProperties.getInstance().setCurrentLaserMachine("PRIMA");
+        });
 
 
-
+        menuController.getRbmAmada().setToggleGroup(LASER_MACHINE);
+        menuController.getRbmAmada().setUserData(ELaserMachine.AMADA);
+        menuController.getRbmAmada().setSelected(CURRENT_LASER_MACHINE.equals(ELaserMachine.AMADA));
+        menuController.getRbmAmada().selectedProperty().addListener(e->{
+            if(menuController.getRbmAmada().isSelected())
+                AppProperties.getInstance().setCurrentLaserMachine("AMADA");
+        });
     }
 
 }

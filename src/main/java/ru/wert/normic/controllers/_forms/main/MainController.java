@@ -33,6 +33,7 @@ import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
 import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.saves.SaveNormEntry;
+import ru.wert.normic.enums.ELaserMachine;
 import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.operations.OperationsController;
@@ -143,6 +144,7 @@ public class MainController extends AbstractFormController {
         Platform.runLater(this::createButtonInterceptor);
 
         AppStatics.MEASURE = new ToggleGroup();
+        AppStatics.LASER_MACHINE = new ToggleGroup();
 
         new TFBatch(tfBatch, this);
 
@@ -188,6 +190,7 @@ public class MainController extends AbstractFormController {
     private void loadUserSettings() {
         USE_ELECTRICAL_MENUS = Boolean.parseBoolean(AppProperties.getInstance().getUseElectrical());
         CURRENT_MEASURE = ETimeMeasurement.valueOf(AppProperties.getInstance().getCurrentMeasure());
+        CURRENT_LASER_MACHINE = ELaserMachine.valueOf(AppProperties.getInstance().getCurrentLaserMachine());
     }
 
 
@@ -344,8 +347,24 @@ public class MainController extends AbstractFormController {
             recountMainOpData();
         });
 
+        LASER_MACHINE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
+
+            CURRENT_LASER_MACHINE = ELaserMachine.valueOf(AppStatics.LASER_MACHINE.getSelectedToggle().getUserData().toString());
+            //Очистить все
+            addedPlates.clear();
+            addedOperations.clear();
+            getListViewTechOperations().getItems().clear();
+            PlateDetailController.nameIndex = 0;
+            PlateAssmController.nameIndex = 0;
+
+            fillOpData();
+            recountMainOpData();
+        });
+
         //Единицы измерения
         mainMenuCreator.initMenuMeasures();
+        mainMenuCreator.initLaserMachine();
 
         recountMainOpData();
     }
@@ -469,6 +488,7 @@ public class MainController extends AbstractFormController {
         ProductSettings settings = new ProductSettings();
         settings.setBatchness(BATCHNESS.get());
         settings.setBatch(CURRENT_BATCH);
+        settings.setLaserMachine(CURRENT_LASER_MACHINE);
         settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
         settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));
         settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));

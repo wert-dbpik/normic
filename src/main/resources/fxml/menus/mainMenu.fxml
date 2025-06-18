@@ -48,6 +48,13 @@
                   <RadioMenuItem fx:id="rbmHours" mnemonicParsing="false" text="Часы" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Скорость резания">
+               <items>
+                  <RadioMenuItem fx:id="rbmPrima" mnemonicParsing="false" text="PRIMA (быстрая резка)" />
+                  <RadioMenuItem fx:id="rbmAmada" mnemonicParsing="false" text="AMADA (медленная резка)" />
+               </items>
+            </Menu>
+            <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="mIconMenu" mnemonicParsing="false" text="Скрыть панель управления" />
          </items>
       </Menu>

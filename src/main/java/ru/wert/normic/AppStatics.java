@@ -63,7 +63,7 @@ public class AppStatics {
     public static final String SERVER_IP = "192.168.2.132";
     public static final String SERVER_PORT = "8080";
 
-    public static final ELaserMachine LASER_MACHINE = ELaserMachine.AMADA;
+
 
     public static ConnectionParams CURRENT_CONNECTION_PARAMS;
 
@@ -82,6 +82,11 @@ public class AppStatics {
     //Комбобокс, где переключается единица измерения (мин, сек)
     public static ToggleGroup MEASURE;
     public static ETimeMeasurement CURRENT_MEASURE;
+
+    //Комбобокс, где переключается тип лазера
+    public static ToggleGroup LASER_MACHINE;
+    public static ELaserMachine DEFAULT_LASER_MACHINE = ELaserMachine.AMADA;
+    public static ELaserMachine CURRENT_LASER_MACHINE;
 
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";

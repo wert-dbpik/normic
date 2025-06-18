@@ -40,6 +40,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
+import ru.wert.normic.enums.ELaserMachine;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.enums.ETimeMeasurement;
@@ -982,6 +983,14 @@ public abstract class AbstractFormController implements IForm {
 
         CURRENT_BATCH = settings.getBatch() == null ? DEFAULT_BATCH : settings.getBatch();
         MAIN_CONTROLLER.getTfBatch().setText(String.valueOf(CURRENT_BATCH));
+
+        CURRENT_LASER_MACHINE = settings.getLaserMachine() == null ? DEFAULT_LASER_MACHINE : settings.getLaserMachine();
+        // Находим и выделяем соответствующий Toggle в группе LASER_MACHINE
+        LASER_MACHINE.getToggles().stream()
+                .filter(toggle -> toggle.getUserData() != null &&
+                        toggle.getUserData().toString().equals(CURRENT_LASER_MACHINE.name()))
+                .findFirst()
+                .ifPresent(LASER_MACHINE::selectToggle);
 
         COLOR_I.setRal(settings.getColor1().getRal());
         COLOR_II.setRal(settings.getColor2().getRal());

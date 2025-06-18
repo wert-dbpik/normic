@@ -6,6 +6,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.report.reports.*;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
+import static ru.wert.normic.AppStatics.CURRENT_LASER_MACHINE;
 
 /**
  * ОТЧЕТ
@@ -21,8 +22,9 @@ public class ReportController {
 
         //Наименование изделия
         String name = opAssm.getName();
-        textReport.append("ИЗДЕЛИЕ : ").append(name == null? "< без наименования >" : name)
-        .append("\nПартия: ").append(CURRENT_BATCH).append(" шт.");
+        textReport.append("ИЗДЕЛИЕ : ").append(name == null ? "< без наименования >" : name)
+                .append("\nСкорость резания: ").append(CURRENT_LASER_MACHINE)
+                .append("\nПартия: ").append(CURRENT_BATCH).append(" шт.");
 
         //###########################################################################################################
 

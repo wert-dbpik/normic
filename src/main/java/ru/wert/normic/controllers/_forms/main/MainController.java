@@ -190,7 +190,7 @@ public class MainController extends AbstractFormController {
     private void loadUserSettings() {
         USE_ELECTRICAL_MENUS = Boolean.parseBoolean(AppProperties.getInstance().getUseElectrical());
         CURRENT_MEASURE = ETimeMeasurement.valueOf(AppProperties.getInstance().getCurrentMeasure());
-        CURRENT_LASER_MACHINE = ELaserMachine.valueOf(AppProperties.getInstance().getCurrentLaserMachine());
+        CURRENT_LASER_MACHINE = DEFAULT_LASER_MACHINE;
     }
 
 

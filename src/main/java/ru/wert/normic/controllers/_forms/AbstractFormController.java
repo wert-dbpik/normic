@@ -955,6 +955,9 @@ public abstract class AbstractFormController implements IForm {
      * ОЧИСТИТЬ ВСЕ
      */
     public void clearAll(Event e, boolean changeTitle, boolean clearSavesHistory) {
+        CURRENT_LASER_MACHINE = DEFAULT_LASER_MACHINE;
+
+
         blockUndoListFlag = true;
         ((IOpWithOperations) opData).getOperations().clear();
         addedPlates.clear();
@@ -986,11 +989,13 @@ public abstract class AbstractFormController implements IForm {
 
         CURRENT_LASER_MACHINE = settings.getLaserMachine() == null ? DEFAULT_LASER_MACHINE : settings.getLaserMachine();
         // Находим и выделяем соответствующий Toggle в группе LASER_MACHINE
-        LASER_MACHINE.getToggles().stream()
-                .filter(toggle -> toggle.getUserData() != null &&
-                        toggle.getUserData().toString().equals(CURRENT_LASER_MACHINE.name()))
-                .findFirst()
-                .ifPresent(LASER_MACHINE::selectToggle);
+        Platform.runLater(() -> {
+            LASER_MACHINE.getToggles().stream()
+                    .filter(toggle -> toggle.getUserData() != null &&
+                            toggle.getUserData().equals(CURRENT_LASER_MACHINE))
+                    .findFirst()
+                    .ifPresent(LASER_MACHINE::selectToggle);
+        });
 
         COLOR_I.setRal(settings.getColor1().getRal());
         COLOR_II.setRal(settings.getColor2().getRal());

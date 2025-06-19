@@ -1,7 +1,9 @@
 package ru.wert.normic;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -83,10 +85,13 @@ public class AppStatics {
     public static ToggleGroup MEASURE;
     public static ETimeMeasurement CURRENT_MEASURE;
 
+
     //Комбобокс, где переключается тип лазера
     public static ToggleGroup LASER_MACHINE;
     public static ELaserMachine DEFAULT_LASER_MACHINE = ELaserMachine.AMADA;
-    public static ELaserMachine CURRENT_LASER_MACHINE;
+    private final ObjectProperty<ELaserMachine> CURRENT_LASER_MACHINE =
+            new SimpleObjectProperty<>(DEFAULT_LASER_MACHINE);
+//    public static ELaserMachine CURRENT_LASER_MACHINE;
 
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";

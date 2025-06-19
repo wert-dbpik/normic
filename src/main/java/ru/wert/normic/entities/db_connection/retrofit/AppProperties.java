@@ -80,7 +80,6 @@ public class AppProperties {
             writer.write("USER=1\n");
             writer.write("USE_ELECTRICAL=false\n");
             writer.write("CURRENT_MEASURE=HOUR\n");
-            writer.write("CURRENT_LASER_MACHINE=AMADA\n");
             writer.close();
         } catch (IOException e) {
             if(++attempt < 3) new AppProperties();
@@ -137,11 +136,6 @@ public class AppProperties {
     public String getCurrentMeasure(){
         log.debug("CURRENT_MEASURE returns... {}", connectionProps.getProperty("CURRENT_MEASURE", "HOUR"));
         return connectionProps.getProperty("CURRENT_MEASURE", "HOUR");
-    }
-
-    public String getCurrentLaserMachine(){
-        log.debug("CURRENT_LASER_MACHINE returns... {}", connectionProps.getProperty("CURRENT_LASER_MACHINE", "AMADA"));
-        return connectionProps.getProperty("CURRENT_LASER_MACHINE", "AMADA");
     }
 
     public void setIpAddress(final String ip){

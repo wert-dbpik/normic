@@ -106,19 +106,19 @@ public class MainMenuCreator {
     public void initLaserMachine(){
         menuController.getRbmPrima().setToggleGroup(LASER_MACHINE);
         menuController.getRbmPrima().setUserData(ELaserMachine.PRIMA);
-        menuController.getRbmPrima().setSelected(CURRENT_LASER_MACHINE.equals(ELaserMachine.PRIMA));
+        menuController.getRbmPrima().setSelected(CURRENT_LASER_MACHINE.get().equals(ELaserMachine.PRIMA));
         menuController.getRbmPrima().selectedProperty().addListener(e->{
             if(menuController.getRbmPrima().isSelected())
-                AppProperties.getInstance().setCurrentLaserMachine("PRIMA");
+                CURRENT_LASER_MACHINE.set(ELaserMachine.PRIMA);
         });
 
 
         menuController.getRbmAmada().setToggleGroup(LASER_MACHINE);
         menuController.getRbmAmada().setUserData(ELaserMachine.AMADA);
-        menuController.getRbmAmada().setSelected(CURRENT_LASER_MACHINE.equals(ELaserMachine.AMADA));
+        menuController.getRbmAmada().setSelected(CURRENT_LASER_MACHINE.get().equals(ELaserMachine.AMADA));
         menuController.getRbmAmada().selectedProperty().addListener(e->{
             if(menuController.getRbmAmada().isSelected())
-                AppProperties.getInstance().setCurrentLaserMachine("AMADA");
+                CURRENT_LASER_MACHINE.set(ELaserMachine.AMADA);
         });
     }
 

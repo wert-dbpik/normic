@@ -217,13 +217,4 @@ public class AppProperties {
         }
     }
 
-    public void setCurrentLaserMachine(final String currentLaserMachine){
-        try {
-            FileOutputStream fos = new FileOutputStream(appConfigPath);
-            connectionProps.setProperty("CURRENT_LASER_MACHINE", currentLaserMachine);
-            connectionProps.store(fos, null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

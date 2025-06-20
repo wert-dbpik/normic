@@ -89,9 +89,7 @@ public class AppStatics {
     //Комбобокс, где переключается тип лазера
     public static ToggleGroup LASER_MACHINE;
     public static ELaserMachine DEFAULT_LASER_MACHINE = ELaserMachine.AMADA;
-    private final ObjectProperty<ELaserMachine> CURRENT_LASER_MACHINE =
-            new SimpleObjectProperty<>(DEFAULT_LASER_MACHINE);
-//    public static ELaserMachine CURRENT_LASER_MACHINE;
+    public static ObjectProperty<ELaserMachine> CURRENT_LASER_MACHINE;
 
     //Используемая схема CSS
     public static String THEME_STYLE = "/css/calculator-sandy.css";

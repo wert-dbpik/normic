@@ -23,7 +23,7 @@ public class ReportController {
         //Наименование изделия
         String name = opAssm.getName();
         textReport.append("ИЗДЕЛИЕ : ").append(name == null ? "< без наименования >" : name)
-                .append("\nСкорость резания: ").append(CURRENT_LASER_MACHINE)
+                .append("\nСкорость резания: ").append(CURRENT_LASER_MACHINE.get().name())
                 .append("\nПартия: ").append(CURRENT_BATCH).append(" шт.");
 
         //###########################################################################################################

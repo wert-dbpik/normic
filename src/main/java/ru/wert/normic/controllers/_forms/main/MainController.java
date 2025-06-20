@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -34,7 +35,6 @@ import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.saves.SaveNormEntry;
 import ru.wert.normic.enums.ELaserMachine;
-import ru.wert.normic.enums.EMeasure;
 import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.operations.OperationsController;
 import ru.wert.normic.report.ReportController;
@@ -144,7 +144,6 @@ public class MainController extends AbstractFormController {
         Platform.runLater(this::createButtonInterceptor);
 
         AppStatics.MEASURE = new ToggleGroup();
-        AppStatics.LASER_MACHINE = new ToggleGroup();
 
         new TFBatch(tfBatch, this);
 
@@ -153,14 +152,18 @@ public class MainController extends AbstractFormController {
         //Создаем меню
         createMenu();
 
+        AppStatics.LASER_MACHINE = new ToggleGroup();
+        CURRENT_LASER_MACHINE = new SimpleObjectProperty<>(DEFAULT_LASER_MACHINE);
+
         //Создаем главное меню
         mainMenuCreator = new MainMenuCreator(this);
 
         //Создаем меню иконок
         iconMenuCreator = new IconMenuCreator(this);
 
-
         initViews();
+
+        CURRENT_LASER_MACHINE.set(DEFAULT_LASER_MACHINE);
 
         setDragAndDropCellFactory();
 
@@ -187,10 +190,25 @@ public class MainController extends AbstractFormController {
 
     }
 
+    private void initLaserMachineListener() {
+        // Слушатель для CURRENT_LASER_MACHINE
+
+
+        // Обратный слушатель: если Toggle изменился вручную, обновляем CURRENT_LASER_MACHINE
+//        LASER_MACHINE.selectedToggleProperty().addListener((observable, oldToggle, newToggle) -> {
+//            if (newToggle != null && newToggle.getUserData() != null) {
+//                ELaserMachine selectedMachine = ELaserMachine.valueOf(newToggle.getUserData().toString());
+//                if (!selectedMachine.equals(getCurrentLaserMachine())) {
+//                    setCurrentLaserMachine(selectedMachine);
+//                }
+//            }
+//        });
+    }
+
     private void loadUserSettings() {
         USE_ELECTRICAL_MENUS = Boolean.parseBoolean(AppProperties.getInstance().getUseElectrical());
         CURRENT_MEASURE = ETimeMeasurement.valueOf(AppProperties.getInstance().getCurrentMeasure());
-        CURRENT_LASER_MACHINE = DEFAULT_LASER_MACHINE;
+//        CURRENT_LASER_MACHINE.set(DEFAULT_LASER_MACHINE);
     }
 
 
@@ -330,6 +348,37 @@ public class MainController extends AbstractFormController {
 
     private void initViews() {
 
+        LASER_MACHINE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
+
+            CURRENT_LASER_MACHINE.set(ELaserMachine.valueOf(AppStatics.LASER_MACHINE.getSelectedToggle().getUserData().toString()));
+            //Очистить все
+            addedPlates.clear();
+            addedOperations.clear();
+            getListViewTechOperations().getItems().clear();
+            PlateDetailController.nameIndex = 0;
+            PlateAssmController.nameIndex = 0;
+
+            fillOpData();
+            recountMainOpData();
+        });
+
+        CURRENT_LASER_MACHINE.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Platform.runLater(()->{
+                    LASER_MACHINE.getToggles().stream()
+                            .filter(toggle -> newValue.name().equals(toggle.getUserData().toString()))
+                            .findFirst()
+                            .ifPresent(toggle -> {
+                                if (!toggle.isSelected()) {
+                                    LASER_MACHINE.selectToggle(toggle);
+                                }
+                            });
+                });
+
+            }
+        });
+
         MEASURE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
 
             ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
@@ -347,20 +396,8 @@ public class MainController extends AbstractFormController {
             recountMainOpData();
         });
 
-        LASER_MACHINE.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            ((IOpWithOperations) opData).setOperations(new ArrayList<>(addedOperations));
 
-            CURRENT_LASER_MACHINE = ELaserMachine.valueOf(AppStatics.LASER_MACHINE.getSelectedToggle().getUserData().toString());
-            //Очистить все
-            addedPlates.clear();
-            addedOperations.clear();
-            getListViewTechOperations().getItems().clear();
-            PlateDetailController.nameIndex = 0;
-            PlateAssmController.nameIndex = 0;
 
-            fillOpData();
-            recountMainOpData();
-        });
 
         //Единицы измерения
         mainMenuCreator.initMenuMeasures();
@@ -488,7 +525,7 @@ public class MainController extends AbstractFormController {
         ProductSettings settings = new ProductSettings();
         settings.setBatchness(BATCHNESS.get());
         settings.setBatch(CURRENT_BATCH);
-        settings.setLaserMachine(CURRENT_LASER_MACHINE);
+        settings.setLaserMachine(CURRENT_LASER_MACHINE.get());
         settings.setColor1(new AppColor(COLOR_I.getName(), COLOR_I.getRal(), COLOR_I.getConsumption()));
         settings.setColor2(new AppColor(COLOR_II.getName(), COLOR_II.getRal(), COLOR_II.getConsumption()));
         settings.setColor3(new AppColor(COLOR_III.getName(), COLOR_III.getRal(), COLOR_III.getConsumption()));

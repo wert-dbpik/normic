@@ -44,6 +44,7 @@ public class OpPaintAssmCounter implements NormCounter {
         EColor color = opData.getColor(); //Цвет краски
         int along = opData.getAlong(); //Параметр А вдоль штанги
         int across = opData.getAcross(); //Параметр B поперек штанги
+        int verticalCount = opData.getVerticalCount(); //Количество дет по высоте
         double area = opData.getArea(); //Площадь покрытия введенная вручную
         double pantingSpeed = opData.getAssmType().getSpeed();// Скорость нанесения покрытия
         boolean twoSides = opData.isTwoSides(); //Красить с двух сторон
@@ -89,7 +90,7 @@ public class OpPaintAssmCounter implements NormCounter {
         time = HANGING_TIME//Время навешивания
                 + finalPaintedArea * WINDING_MOVING_SPEED //Время подготовки к окрашиванию
                 + finalPaintedArea * pantingSpeed //Время нанесения покрытия
-                + 40.0 / bakeBars / partsOnBar;  //Время полимеризации
+                + 40.0 / bakeBars / partsOnBar / verticalCount;  //Время полимеризации
         if (finalPaintedArea == 0.0) time = 0.0;
 
         opData.setCountedArea(roundTo001(countedArea));

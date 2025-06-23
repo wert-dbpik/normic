@@ -50,8 +50,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Скорость резания">
                <items>
-                  <RadioMenuItem fx:id="rbmPrima" mnemonicParsing="false" text="PRIMA (быстрая резка)" />
                   <RadioMenuItem fx:id="rbmAmada" mnemonicParsing="false" text="AMADA (медленная резка)" />
+                  <RadioMenuItem fx:id="rbmPrima" mnemonicParsing="false" text="PRIMA (быстрая резка)" />
                </items>
             </Menu>
             <SeparatorMenuItem mnemonicParsing="false" />

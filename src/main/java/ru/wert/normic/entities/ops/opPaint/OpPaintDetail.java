@@ -29,6 +29,7 @@ public class OpPaintDetail extends OpData {
     private Integer along = 0; //длина сборки вдоль штанги
     private Integer across = 0; //длина сборки поперек штанги
     private EAssemblingType assmType = EAssemblingType.SOLID; //Тип сборочной единицы
+    private int verticalCount = 1; //Количество деталей на штанге по высоте
 
     public OpPaintDetail() {
         super.normType = ENormType.NORM_PAINTING;
@@ -43,6 +44,7 @@ public class OpPaintDetail extends OpData {
                 ",\nS покр. = " + DECIMAL_FORMAT.format(countedArea) + " мм.кв." +
                 ", А(вдоль) = " + along + " мм." +
                 ", В(поперек) = " + across + " мм." +
+                ", H(кол по высоте) = " + verticalCount + " шт." +
                 ", \nтип сборочной единицы = " + assmType.getName();
     }
 }

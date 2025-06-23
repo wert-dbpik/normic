@@ -53,6 +53,9 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     @FXML
     private TextField tfAcross;
 
+    @FXML
+    private TextField tfVerticalCount;
+
     @FXML@Getter
     private ImageView ivHelp;
 
@@ -66,6 +69,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
     private double dyeWeight; //Вес краски
     private int along; //Параметр А вдоль штанги
     private int across; //Параметр B поперек штанги
+    private int verticalCount; //Количество по высоте (шт)
     private double area; //Площадь покрытия введенная вручную
     private double pantingSpeed;// Скорость нанесения покрытия
     private boolean twoSides; //Красить с двух сторон
@@ -93,6 +97,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         new TFNormTime(tfNormTime, prevFormController);
         new TFIntegerColored(tfAlong, this);
         new TFIntegerColored(tfAcross, this);
+        new TFIntegerColored(tfVerticalCount, this);
         new CmBx(cmbxAssemblingType, this);
 
         countNorm(opData);
@@ -119,6 +124,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
 
         along = IntegerParser.getValue(tfAlong);
         across = IntegerParser.getValue(tfAcross);
+        verticalCount = IntegerParser.getValue(tfVerticalCount);
 
         assm = (OpAssm) prevFormController.getOpData();
         assm.setOperations(prevFormController.getAddedOperations());
@@ -135,6 +141,7 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         opData.setArea(DoubleParser.getValue(tfManualArea));
         opData.setAlong(along);
         opData.setAcross(across);
+        opData.setVerticalCount(verticalCount);
         opData.setAssmType(cmbxAssemblingType.getValue());
 
     }
@@ -165,6 +172,9 @@ public class PlatePaintAssmController extends AbstractOpPlate {
         across = opData.getAcross();
         tfAcross.setText(String.valueOf(across));
 
+        verticalCount = opData.getVerticalCount();
+        tfVerticalCount.setText(String.valueOf(verticalCount));
+
         pantingSpeed = opData.getAssmType().getSpeed();
         cmbxAssemblingType.setValue(opData.getAssmType());
     }
@@ -177,13 +187,15 @@ public class PlatePaintAssmController extends AbstractOpPlate {
                         "Цвет - палитра цвета и норма расхода устанавливаются в отдельном окне «палитра»;\n" +
                         "А(вдоль) - размер навешенной сборки вдоль штанги, мм;\n" +
                         "В(поперек) - размер навешенной сборки поперек штанги, мм;\n" +
+                        "Н дет - количество навешиваемых деталей по высоте, шт;\n" +
+                        "\t\t (не путать с высотой детали!)\n" +
                         "С 2х сторон - по умолчанию, окрашивание с одной стороны - \n" +
                         "\t\tэто редкий случай для корпусной детали из нержавейки;\n" +
                         "Тип сборки - влияет на скорость окрашивания;\n" +
                         "\n" +
                         "Время операции окрашивания вычисляется по формуле:\n\n" +
                         "\t\t\tТокр = Т навеш + S изд х Т продув + S покр х V окр + \n" +
-                        "\t\t\t\t\t+ Т печь / N п.штанг/ N п.дет;\n" +
+                        "\t\t\t\t\t+ Т печь / N п.штанг/ N п.дет / H дет;\n" +
                         "где \n" +
                         "\tТ навеш = %s - время навешивания до и после полимеризации, мин ;\n" +
                         "\tS покр - площадь изделия суммируется исходя из площади входящих деталей\n " +

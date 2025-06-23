@@ -47,7 +47,7 @@ public class OpPaintAssm extends OpData {
                 ",\nS покр. = " + DECIMAL_FORMAT.format(area) + " мм.кв." +
                 ", А(вдоль) = " + along + " мм." +
                 ", В(поперек) = " + across + " мм." +
-                ", H(кол по высоте) = " + verticalCount + " шт." +
+                ", H дет = " + verticalCount + " шт." +
                 ", \nтип сборочной единицы = " + assmType.getName();
     }
 }

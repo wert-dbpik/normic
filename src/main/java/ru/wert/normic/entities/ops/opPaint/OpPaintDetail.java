@@ -44,7 +44,7 @@ public class OpPaintDetail extends OpData {
                 ",\nS покр. = " + DECIMAL_FORMAT.format(countedArea) + " мм.кв." +
                 ", А(вдоль) = " + along + " мм." +
                 ", В(поперек) = " + across + " мм." +
-                ", H(кол по высоте) = " + verticalCount + " шт." +
+                ", H дет = " + verticalCount + " шт." +
                 ", \nтип сборочной единицы = " + assmType.getName();
     }
 }

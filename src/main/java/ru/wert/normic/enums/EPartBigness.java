@@ -4,8 +4,8 @@ import lombok.Getter;
 
 public enum EPartBigness {
 
-    SMALL("Мелкая", 5.0),
-    BIG("Крупная", 6.0);
+    SMALL("Мелкая", 0.833), // 5/6 = 0.833
+    BIG("Крупная", 1.0);    // 6/6 = 1.0
 
 
     @Getter String name;

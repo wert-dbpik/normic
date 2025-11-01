@@ -77,18 +77,14 @@
                   <TextField fx:id="tfMen" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
-            <VBox spacing="5.0">
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
                <children>
-                  <Label text="Зачистка">
+                  <Label text="N сб.дет">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <CheckBox fx:id="chbxStripping" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </CheckBox>
+                  <TextField fx:id="tfNumOfDetails" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="61.0" />
                </children>
             </VBox>
          </children>
@@ -125,6 +121,20 @@
                      </font>
                   </Label>
                   <TextField fx:id="tfStep" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Зачистка">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="chbxStripping" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
                </children>
             </VBox>
          </children>

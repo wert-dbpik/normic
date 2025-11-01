@@ -21,6 +21,7 @@ public class OpWeldContinuousCounter implements NormCounter {
         int connectionLength = opData.getConnectionLength();
         int seamLength = opData.getSeamLength();
         int men = opData.getMen();
+        int numOfDetails = opData.getNumOfDetails();
 
         if (!preEnterSeams && step == 0) {//Деление на ноль
             opData.setMechTime(0.0);
@@ -45,7 +46,7 @@ public class OpWeldContinuousCounter implements NormCounter {
 
 
         double time;
-        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED + assemblingTime) + strippingTime;   //мин
+        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED + assemblingTime * numOfDetails) + strippingTime;   //мин
         if(sumWeldLength == 0.0) time = 0.0;
 
         opData.setMechTime(roundTo001(time));

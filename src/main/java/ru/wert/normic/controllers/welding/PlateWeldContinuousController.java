@@ -33,6 +33,9 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private TextField tfSeamLength;
 
     @FXML
+    private TextField tfNumOfDetails;
+
+    @FXML
     private CheckBox chbxStripping;
 
     @FXML
@@ -65,6 +68,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private boolean stripping; //Использовать зачистку
     private int connectionLength; //Длина сединения на которую расчитывается количество точек
     private int step; //шаг точек
+    private int numOfDetails; // Число привариваемых деталей
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
@@ -85,6 +89,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         new ChBox(chbxPreEnterSeams, this);
         new ChBox(chbxStripping, this);
         new CmBx(cmbxPartBigness, this);
+        new TFIntegerColored(tfNumOfDetails, this);
 
     }
 
@@ -113,6 +118,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         connectionLength = IntegerParser.getValue(tfConnectionLength);
         step = IntegerParser.getValue(tfStep);
         stripping = chbxStripping.isSelected();
+        numOfDetails = IntegerParser.getValue(tfNumOfDetails);
 
         collectOpData();
     }
@@ -128,6 +134,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         opData.setSeams(seams);
         opData.setConnectionLength(connectionLength);
         opData.setStep(step);
+        opData.setNumOfDetails(numOfDetails);
     }
 
     @Override//AbstractOpPlate
@@ -159,6 +166,9 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         step = opData.getStep();
         tfStep.setText(String.valueOf(step));
 
+        numOfDetails = opData.getNumOfDetails();
+        tfNumOfDetails.setText(String.valueOf(numOfDetails));
+
     }
 
     @Override
@@ -171,15 +181,19 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
                         "\tL соед - длина соединенения с прерывным швом, мм;\n" +
                         "\tL шаг - шаг прерывистого шва, мм.\n\n" +
                         "Остальные поля:\n" +
-                        "Габаритность сборки - от нее зависит ПЗ время;\n" +
+                        "Габаритность сборки - от нее зависит время на сборку;\n" +
                         "N человек - количество работников, задействованных в операции,\n" +
                         "\tне забываем о слесаре - подержать, помочь перевернуть - это к нему.\n" +
+                        "N сб.дет - число свариваемых деталей, 0 деталей - подходит для проварки углов,\n" +
+                        "\tесли сварка двух деталей происходит двумя разными швами, то для первого шва\n " +
+                        "\tнужно указать число деталей 2, а для остальных швов 0;\n" +
                         "Зачистка - для видовых швов обычно применяется зачистка.\n\n" +
                         "Норма времени вычисляется по формуле:\n\n" +
-                        "\t\t\tT св.непр.= N человек x L sum x V св + T зачистки, мин\n" +
+                        "\t\t\tT св.непр.= N человек x (L sum x V св + Vсб x N сб.дет) + T зачистки, мин\n" +
                         "где\n\n" +
                         "\tL sum - сумма длин всех швов, м;\n" +
                         "\tV св = %s - скорость сварки, мин/м;\n" +
+                        "\tV сб = %s - скорость сборки (зависит от габаритности сборки: 0.833/1.0), мин;\n" +
                         "\tT зачистки - время зачистки дискретно зависит от L sum.:\n" +
                         "\t\tL sum < 0.1        ->  T зачистки = 0.5 мин; \n" +
                         "\t\t0.1 <= L sum < 0.5 ->  T зачистки = 1.8 мин; \n" +

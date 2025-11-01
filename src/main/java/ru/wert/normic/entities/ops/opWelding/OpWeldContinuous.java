@@ -28,6 +28,7 @@ public class OpWeldContinuous extends OpData implements LocksmithOperation {
     private Integer connectionLength = 0; //Длина сединения на которую расчитывается количество точек
     private Integer step = 0; //шаг точек
     private double locksmithTime = 0.0; //Время зачистки
+    private Integer numOfDetails = 1; //Количество привариваемых деталей
 
     public OpWeldContinuous() {
         super.normType = ENormType.NORM_MECHANICAL;
@@ -45,6 +46,7 @@ public class OpWeldContinuous extends OpData implements LocksmithOperation {
                 (stripping ? format(",\nвремя зачистки = %f.3", locksmithTime) : "") +
                 ", N швов = " + seams +
                 ", L соед = " + connectionLength + " мм." +
-                ", шаг = " + step + " мм.";
+                ", шаг = " + step + " мм." +
+                "деталей = " + numOfDetails;
     }
 }

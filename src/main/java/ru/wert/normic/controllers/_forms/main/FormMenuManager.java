@@ -22,9 +22,7 @@ import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
 import ru.wert.normic.controllers.singlePlates.PlatePackController;
 import ru.wert.normic.controllers.turning.*;
-import ru.wert.normic.controllers.welding.PlateWeldContinuousController;
-import ru.wert.normic.controllers.welding.PlateWeldDifficultyController;
-import ru.wert.normic.controllers.welding.PlateWeldDottedController;
+import ru.wert.normic.controllers.welding.*;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
@@ -40,9 +38,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.entities.ops.opTurning.*;
-import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
-import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
-import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.opWelding.*;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -386,11 +382,20 @@ public class FormMenuManager extends ContextMenu {
 
     //===========      СВАРОЧНЫЕ ОПЕРАЦИИ     =========================================
 
-    //СВАРКА НЕПРЕРЫВНАЯ
-    public MenuItem createItemWeldLongSeam(){
+    //СВАРКА НЕПРЕРЫВНАЯ СТАРАЯ
+    public MenuItem createItemWeldContinuousOld(){
         MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS.getOpName());
         item.setOnAction(event -> {
-            addWeldContinuousPlate(new OpWeldContinuous());
+            addWeldContinuousPlate(new OpWeldContinuousOld());
+        });
+        return item;
+    }
+
+    //СВАРКА НЕПРЕРЫВНАЯ НОВАЯ
+    public MenuItem createItemWeldContinuousNew(){
+        MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS_NEW.getOpName());
+        item.setOnAction(event -> {
+            addWeldContinuousPlateNew(new OpWeldContinuousNew());
         });
         return item;
     }
@@ -414,13 +419,24 @@ public class FormMenuManager extends ContextMenu {
         return item;
     }
 
+    //СБОРКА СВАРОЧНОЙ КОНСТРУКЦИИ
+    public MenuItem createItemWeldAssm(){
+        MenuItem item = new MenuItem(EOpType.WELD_ASSM.getOpName());
+        item.setOnAction(event -> {
+            if(isDuplicate(EOpType.WELD_ASSM)) return ;
+            addWeldAssmPlate(new OpWeldAssm());
+        });
+        return item;
+    }
+
     /**
      * ВСЕ СВАРОЧНЫЕ ОПЕРАЦИИ
      */
     public Menu createAllWeldingOperations(){
         Menu menu = new Menu("МК: сварочные операции");
-        menu.getItems().add(createItemWeldLongSeam());
+        menu.getItems().add(createItemWeldContinuousNew());
         menu.getItems().add(createItemWeldingDotted());
+        menu.getItems().add(createItemWeldAssm());
 
         return menu;
     }
@@ -888,13 +904,19 @@ public class FormMenuManager extends ContextMenu {
                 addPaintAssmPlate((OpPaintAssm) op);
                 break;
             case WELD_CONTINUOUS:
-                addWeldContinuousPlate((OpWeldContinuous) op);
+                addWeldContinuousPlate((OpWeldContinuousOld) op);
+                break;
+            case WELD_CONTINUOUS_NEW:
+                addWeldContinuousPlateNew((OpWeldContinuousNew) op);
                 break;
             case WELD_DIFFICULTY:
                 addWeldDifficultyPlate((OpWeldDifficulty) op);
                 break;
             case WELD_DOTTED:
                 addWeldDottedPlate((OpWeldDotted) op);
+                break;
+            case WELD_ASSM:
+                addWeldAssmPlate((OpWeldAssm) op);
                 break;
             case ASSM_CUTTINGS:
                 addAssmCuttingsPlate((OpAssmCutting) op);
@@ -1363,16 +1385,32 @@ public class FormMenuManager extends ContextMenu {
     //==================================================================================================================
 
     /**
-     * СВАРКА НЕПРЕРЫВНАЯ
+     * СВАРКА НЕПРЕРЫВНАЯ СТАРАЯ
      */
-    public void addWeldContinuousPlate(OpWeldContinuous opData) {
+    public void addWeldContinuousPlate(OpWeldContinuousOld opData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldContinuous.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldContinuousOld.fxml"));
             VBox vBox = loader.load();
-            PlateWeldContinuousController controller = loader.getController();
+            PlateWeldContinuousControllerOld controller = loader.getController();
             controller.init(formController, opData, addedOperations.size(), "СВАРКА НЕПРЕРЫВНАЯ");
             addVBox(vBox);
             
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * СВАРКА НЕПРЕРЫВНАЯ НОВАЯ
+     */
+    public void addWeldContinuousPlateNew(OpWeldContinuousNew opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldContinuousNew.fxml"));
+            VBox vBox = loader.load();
+            PlateWeldContinuousControllerNew controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "СВАРКА НЕПРЕРЫВНАЯ");
+            addVBox(vBox);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -1405,6 +1443,22 @@ public class FormMenuManager extends ContextMenu {
             controller.init(formController, opData, addedOperations.size(), "СВАРКА ТОЧЕЧНАЯ");
             addVBox(vBox);
             
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * СБОРКА СВАРОЧНОЙ КОНСТРУКЦИИ
+     */
+    public void addWeldAssmPlate(OpWeldAssm opData) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/plates/welding/plateWeldAssm.fxml"));
+            VBox vBox = loader.load();
+            PlateWeldAssmController controller = loader.getController();
+            controller.init(formController, opData, addedOperations.size(), "СБОРКА СВ.КОНСТРУКЦИИ>");
+            addVBox(vBox);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

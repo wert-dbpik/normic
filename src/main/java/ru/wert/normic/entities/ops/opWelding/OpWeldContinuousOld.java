@@ -16,7 +16,7 @@ import static java.lang.String.format;
  */
 @Getter
 @Setter
-public class OpWeldContinuous extends OpData implements LocksmithOperation {
+public class OpWeldContinuousOld extends OpData implements LocksmithOperation {
 
     private String name = "";
     private Integer seamLength = 0; //Длина шва
@@ -30,7 +30,7 @@ public class OpWeldContinuous extends OpData implements LocksmithOperation {
     private double locksmithTime = 0.0; //Время зачистки
     private Integer numOfDetails = 1; //Количество привариваемых деталей
 
-    public OpWeldContinuous() {
+    public OpWeldContinuousOld() {
         super.normType = ENormType.NORM_MECHANICAL;
         super.jobType = EJobType.JOB_WELDING;
         super.opType = EOpType.WELD_CONTINUOUS;

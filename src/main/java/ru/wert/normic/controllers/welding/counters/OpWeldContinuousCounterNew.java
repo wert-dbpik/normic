@@ -1,19 +1,19 @@
 package ru.wert.normic.controllers.welding.counters;
 
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
+import ru.wert.normic.entities.ops.opWelding.OpWeldContinuousNew;
+import ru.wert.normic.entities.ops.opWelding.OpWeldContinuousOld;
 import ru.wert.normic.interfaces.NormCounter;
 
 import static ru.wert.normic.AppStatics.roundTo001;
 import static ru.wert.normic.controllers.AbstractOpPlate.MM_TO_M;
 import static ru.wert.normic.settings.NormConstants.WELDING_SPEED;
 
-public class OpWeldContinuousCounter implements NormCounter {
+public class OpWeldContinuousCounterNew implements NormCounter {
 
     public OpData count(OpData data){
-        OpWeldContinuous opData = (OpWeldContinuous)data;
+        OpWeldContinuousNew opData = (OpWeldContinuousNew)data;
 
-        double assemblingTime = opData.getPartBigness().getTime(); //Время сборки свариваемого узла
         boolean preEnterSeams = opData.isPreEnterSeams();
         boolean stripping = opData.isStripping();
         int step = opData.getStep();
@@ -21,7 +21,6 @@ public class OpWeldContinuousCounter implements NormCounter {
         int connectionLength = opData.getConnectionLength();
         int seamLength = opData.getSeamLength();
         int men = opData.getMen();
-        int numOfDetails = opData.getNumOfDetails();
 
         if (!preEnterSeams && step == 0) {//Деление на ноль
             opData.setMechTime(0.0);
@@ -46,7 +45,7 @@ public class OpWeldContinuousCounter implements NormCounter {
 
 
         double time;
-        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED + assemblingTime * numOfDetails) + strippingTime;   //мин
+        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED) + strippingTime;   //мин
         if(sumWeldLength == 0.0) time = 0.0;
 
         opData.setMechTime(roundTo001(time));

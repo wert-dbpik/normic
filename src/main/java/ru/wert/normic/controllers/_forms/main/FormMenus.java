@@ -43,21 +43,22 @@ public class FormMenus {
         menu.getItems().add(menu.createItemDetail());
         menu.getItems().add(menu.createItemAssm());
         menu.getItems().add(menu.createItemPack());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().addAll(menu.createItemPaintAssm());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().addAll(menu.createItemWeldLongSeam());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
+        menu.getItems().add(menu.createItemWeldAssm());
+        menu.getItems().addAll(menu.createItemWeldContinuousNew());
         menu.getItems().addAll(menu.createItemWeldingDotted());
         menu.getItems().addAll(menu.createItemWeldDifficulty());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().addAll(menu.createItemAssmNuts());
         menu.getItems().addAll(menu.createItemAssmNutsMK());
         menu.getItems().addAll(menu.createItemAssmCuttings());
         menu.getItems().addAll(menu.createItemAssmNodes());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().add(menu.createItemLevelingSealer());
         menu.getItems().add(menu.createItemThermoInsulation());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
 
@@ -78,23 +79,24 @@ public class FormMenus {
         menu.getItems().add(menu.createItemDetail());
         menu.getItems().add(menu.createItemAssm());
         menu.getItems().add(menu.createItemPack());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().add(menu.createItemPaintAssm());
-        menu.getItems().add(new SeparatorMenuItem());
-        menu.getItems().add(menu.createItemWeldLongSeam());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
+        menu.getItems().add(menu.createItemWeldAssm());
+        menu.getItems().add(menu.createItemWeldContinuousNew());
         menu.getItems().add(menu.createItemWeldingDotted());
         menu.getItems().add(menu.createItemWeldDifficulty());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().add(menu.createItemAssmNuts());
         menu.getItems().add(menu.createItemAssmNutsMK());
         menu.getItems().add(menu.createItemAssmCuttings());
         menu.getItems().add(menu.createItemAssmNodes());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().add(menu.createItemLevelingSealer());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
         menu.getItems().add(menu.createItemAddFilePallet());
         menu.getItems().add(menu.createItemSearchFilePallet());
-        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(new SeparatorMenuItem());//-----------------
 
         Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_ASSEMBLING));
         if(simpleOperationsMenu != null)

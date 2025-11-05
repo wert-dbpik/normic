@@ -11,7 +11,7 @@ import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
-import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
+import ru.wert.normic.entities.ops.opWelding.OpWeldContinuousOld;
 import ru.wert.normic.enums.EPartBigness;
 import ru.wert.normic.utils.IntegerParser;
 
@@ -19,9 +19,9 @@ import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.settings.NormConstants.WELDING_SPEED;
 
 /**
- * СВАРКА ТЕПРЕРЫВНЫМ ШВОМ
+ * СВАРКА НЕПРЕРЫВНЫМ ШВОМ (old)
  */
-public class PlateWeldContinuousController extends AbstractOpPlate {
+public class PlateWeldContinuousControllerOld extends AbstractOpPlate {
 
     @FXML
     private Label lblOperationName;
@@ -31,9 +31,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
     @FXML
     private TextField tfSeamLength;
-
-    @FXML
-    private TextField tfNumOfDetails;
 
     @FXML
     private CheckBox chbxStripping;
@@ -59,7 +56,7 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     @FXML
     private TextField tfNormTime;
 
-    private OpWeldContinuous opData;
+    private OpWeldContinuousOld opData;
 
     private String name; //наименование
     private int seamLength; //Длина шва
@@ -68,11 +65,10 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
     private boolean stripping; //Использовать зачистку
     private int connectionLength; //Длина сединения на которую расчитывается количество точек
     private int step; //шаг точек
-    private int numOfDetails; // Число привариваемых деталей
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpWeldContinuous opData = (OpWeldContinuous)data;
+        OpWeldContinuousOld opData = (OpWeldContinuousOld)data;
 
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
@@ -89,17 +85,15 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         new ChBox(chbxPreEnterSeams, this);
         new ChBox(chbxStripping, this);
         new CmBx(cmbxPartBigness, this);
-        new TFIntegerColored(tfNumOfDetails, this);
-
     }
 
     @Override//AbstractOpPlate
     public void countNorm(OpData data){
-       opData = (OpWeldContinuous)data;
+       opData = (OpWeldContinuousOld)data;
 
         countInitialValues();
 
-        opData = (OpWeldContinuous) opData.getOpType().getNormCounter().count(data);
+        opData = (OpWeldContinuousOld) opData.getOpType().getNormCounter().count(data);
         currentNormTime = opData.getMechTime();//результат в минутах
 
         new TotalCounter().recountNormTimes(MAIN_OP_DATA, 1);
@@ -118,7 +112,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         connectionLength = IntegerParser.getValue(tfConnectionLength);
         step = IntegerParser.getValue(tfStep);
         stripping = chbxStripping.isSelected();
-        numOfDetails = IntegerParser.getValue(tfNumOfDetails);
 
         collectOpData();
     }
@@ -134,12 +127,11 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
         opData.setSeams(seams);
         opData.setConnectionLength(connectionLength);
         opData.setStep(step);
-        opData.setNumOfDetails(numOfDetails);
     }
 
     @Override//AbstractOpPlate
     public void fillOpData(OpData data){
-        OpWeldContinuous opData = (OpWeldContinuous)data;
+        OpWeldContinuousOld opData = (OpWeldContinuousOld)data;
 
         name = opData.getName();
         tfName.setText(name);
@@ -165,9 +157,6 @@ public class PlateWeldContinuousController extends AbstractOpPlate {
 
         step = opData.getStep();
         tfStep.setText(String.valueOf(step));
-
-        numOfDetails = opData.getNumOfDetails();
-        tfNumOfDetails.setText(String.valueOf(numOfDetails));
 
     }
 

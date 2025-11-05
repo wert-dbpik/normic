@@ -13,9 +13,7 @@ import ru.wert.normic.controllers.packing.counters.*;
 import ru.wert.normic.controllers.paint.counters.OpPaintAssmCounter;
 import ru.wert.normic.controllers.paint.counters.OpPaintOldCounter;
 import ru.wert.normic.controllers.turning.counters.*;
-import ru.wert.normic.controllers.welding.counters.OpWeldContinuousCounter;
-import ru.wert.normic.controllers.welding.counters.OpWeldDifficultyCounter;
-import ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter;
+import ru.wert.normic.controllers.welding.counters.*;
 import ru.wert.normic.entities.ops.OpErrorData;
 import ru.wert.normic.entities.ops.electrical.*;
 import ru.wert.normic.entities.ops.opAssembling.*;
@@ -27,9 +25,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.entities.ops.opTurning.*;
-import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
-import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
-import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.opWelding.*;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -82,9 +78,11 @@ public enum EOpType {
     LATHE_CUT_OFF               ("Отрезание резцом",                       OpLatheCutOff.class,                new Image("/pics/opLogos/lathe.png"),           new OpLatheCutOffCounter()),         //ОТРЕЗАНИЕ НА ТОКАРНОМ СТАНКЕ
 
     //СВАРОЧНЫЕ ОПЕРАЦИИ
-    WELD_CONTINUOUS             ("Сварка непрерывная",              OpWeldContinuous.class,             new Image("/pics/opLogos/weld.png"),            new OpWeldContinuousCounter()),      //СВАРКА НЕПРЕРЫВНЫМ ШВОМ
+    WELD_CONTINUOUS             ("Сварка непрерывная (old)",        OpWeldContinuousOld.class,          new Image("/pics/opLogos/weld.png"),            new OpWeldContinuousCounterOld()),   //СВАРКА НЕПРЕРЫВНЫМ ШВОМ СТАРАЯ
+    WELD_CONTINUOUS_NEW         ("Сварка непрерывная",              OpWeldContinuousNew.class,          new Image("/pics/opLogos/weld.png"),            new OpWeldContinuousCounterNew()),      //СВАРКА НЕПРЕРЫВНЫМ ШВОМ
     WELD_DOTTED                 ("Сварка точечная",                 OpWeldDotted.class,                 new Image("/pics/opLogos/weld.png"),            new OpWeldDottedCounter()),          //СВАРКА ТОЧЕЧНАЯ И ПРИХВАТКАМИ
     WELD_DIFFICULTY             ("Сложность сварки",                OpWeldDifficulty.class,             new Image("/pics/opLogos/weld.png"),            new OpWeldDifficultyCounter()),      //СЛОЖНОСТЬ (Тпз) СВАРКИ
+    WELD_ASSM                   ("Сборка свариваемой конструкции",  OpWeldAssm.class,                   new Image("/pics/opLogos/weld.png"),            new OpWeldAssmCounter()),            //СБОРКА СВ. КОНСТРУКЦИИ
 
     //УПАКОВКА
     PACK_ON_PALLET              ("Монтаж на поддон",                OpPackOnPallet.class,               new Image("/pics/opLogos/pallet.png"),          new OpPackOnPalletCounter()),        //УПАКОВКА НА ПАЛЛЕТ (Установка и закрепление)

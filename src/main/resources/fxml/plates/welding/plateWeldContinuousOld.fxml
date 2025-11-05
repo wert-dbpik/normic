@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.welding.PlateWeldContinuousController">
+<VBox fx:id="vbOperation" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.wert.normic.controllers.welding.PlateWeldContinuousControllerOld">
    <children>
       <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../../../pics/opLogos/weld.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblOperationName" text="СВАРКА НЕПРЕРЫВНАЯ" textFill="#2f23d0">
+            <Label fx:id="lblOperationName" text="СВАРКА НЕПРЕРЫВНАЯ (old)" textFill="#2f23d0">
                <font>
                   <Font name="System Bold Italic" size="14.0" />
                </font>
@@ -75,16 +75,6 @@
                      </font>
                   </Label>
                   <TextField fx:id="tfMen" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <Label text="N сб.дет">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfNumOfDetails" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="61.0" />
                </children>
             </VBox>
          </children>

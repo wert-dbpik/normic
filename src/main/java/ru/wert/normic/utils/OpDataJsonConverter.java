@@ -18,9 +18,7 @@ import ru.wert.normic.entities.ops.opPaint.OpPaintOld;
 import ru.wert.normic.entities.ops.opPaint.OpPaintAssm;
 import ru.wert.normic.entities.ops.opPaint.OpPaintDetail;
 import ru.wert.normic.entities.ops.opTurning.*;
-import ru.wert.normic.entities.ops.opWelding.OpWeldContinuous;
-import ru.wert.normic.entities.ops.opWelding.OpWeldDifficulty;
-import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
+import ru.wert.normic.entities.ops.opWelding.*;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -138,11 +136,15 @@ public class OpDataJsonConverter {
             //СВАРОЧНЫЕ ОПЕРАЦИИ
 
             case "WELD_CONTINUOUS":
-                return gson.fromJson(op.toString(), OpWeldContinuous.class);
+                return gson.fromJson(op.toString(), OpWeldContinuousOld.class);
+            case "WELD_CONTINUOUS_NEW":
+                return gson.fromJson(op.toString(), OpWeldContinuousNew.class);
             case "WELD_DIFFICULTY":
                 return gson.fromJson(op.toString(), OpWeldDifficulty.class);
             case "WELD_DOTTED":
                 return gson.fromJson(op.toString(), OpWeldDotted.class);
+            case "WELD_ASSM":
+                return gson.fromJson(op.toString(), OpWeldAssm.class);
 
             //УПАКОВКА
 

@@ -45,26 +45,59 @@
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="10.0" />
+      <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
          <children>
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
+            <CheckBox fx:id="chbxPreEnterSeams" mnemonicParsing="false" />
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="66.0" spacing="5.0">
                <children>
                   <Label text="L шва, мм">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfSeamLength" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <TextField fx:id="tfSeamLength" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="64.0" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="52.0" spacing="5.0">
                <children>
-                  <Label text="N человек">
+                  <Label fx:id="lblNumOfSeams" text="N швов">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="tfMen" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
+                  <TextField fx:id="tfSeams" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="51.0" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" />
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="72.0" spacing="5.0">
+               <children>
+                  <Label fx:id="lblConnectionLength" text="L соед., мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfConnectionLength" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="72.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="63.0" spacing="5.0">
+               <children>
+                  <Label fx:id="lblStep" text="L шаг, мм">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfStep" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="62.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="41.0" spacing="5.0">
+               <children>
+                  <Label text="N чел">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfMen" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="40.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
@@ -79,42 +112,6 @@
                         <Font size="14.0" />
                      </font>
                   </CheckBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
-         <children>
-            <CheckBox fx:id="chbxPreEnterSeams" mnemonicParsing="false" />
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <Label fx:id="lblNumOfSeams" text="N швов">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfSeams" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-               </children>
-            </VBox>
-            <Separator orientation="VERTICAL" />
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <Label fx:id="lblConnectionLength" text="L соед., мм">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfConnectionLength" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" spacing="5.0">
-               <children>
-                  <Label fx:id="lblStep" text="L шаг, мм">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfStep" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
                </children>
             </VBox>
          </children>

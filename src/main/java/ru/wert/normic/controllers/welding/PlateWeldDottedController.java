@@ -14,6 +14,7 @@ import ru.wert.normic.entities.ops.opWelding.OpWeldDotted;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
+import static ru.wert.normic.controllers.welding.counters.OpWeldDottedCounter.*;
 import static ru.wert.normic.settings.NormConstants.*;
 
 /**
@@ -102,9 +103,14 @@ public class PlateWeldDottedController extends AbstractOpPlate {
                         "\tОдна точка выполняется за %s мин.\n" +
                         "\n" +
                         "СВАРКА НА ПРИХВАТКИ - приварка элементов конструкции на прихватки.\n" +
-                        "\tОдна прихватка выполняется за %s мин.\n",
+                        "\tОдна прихватка выполняется за %s мин.\n" +
+                        "\n" +
+                        "Т конд.пз = %s мин - подготовительно-заключительное время \n\t\tна всю сборку для конденсаторную сварку.\n",
+                        "Т конт.пз = %s мин - подготовительно-заключительное время \n\t\tна всю сборку для контактной сварки.\n",
+                        "Т прихв.пз = %s мин - подготовительно-заключительное время \n\t\tна всю сборку для сварки на прихватки.\n",
 
-                WELDING_PARTS_SPEED, WELDING_DOTTED_SPEED, WELDING_DROP_SPEED);
+                WELDING_CAPACITOR_SPEED, WELDING_DOTTED_SPEED, WELDING_DROP_SPEED,
+                WELD_CAPACITOR_TPZ, WELD_DOTTED_TPZ, WELD_DROPS_TPZ);
     }
 
     @Override

@@ -88,7 +88,7 @@ public class NormConstants {
     public static double WELDING_SPEED; //Скорость сваркм, мин/м
 
     //--- СВАРКА ТОЧЕЧНАЯ
-    public static double WELDING_PARTS_SPEED; //Скорость онденсаторной сварки точкой, мин/элемент
+    public static double WELDING_CAPACITOR_SPEED; //Скорость конденсаторной сварки точкой, мин/элемент
     public static double WELDING_DOTTED_SPEED; //Скорость контактной сварки, мин/точку
     public static double WELDING_DROP_SPEED; //Скорость сварки прихватками, мин/прихватку
 
@@ -245,7 +245,7 @@ public class NormConstants {
         WELDING_SPEED = Double.parseDouble(constantsProps.getProperty("WELDING_SPEED"));
 
         //--- СВАРКА ТОЧЕЧНАЯ
-        WELDING_PARTS_SPEED = Double.parseDouble(constantsProps.getProperty("WELDING_PARTS_SPEED"));
+        WELDING_CAPACITOR_SPEED = Double.parseDouble(constantsProps.getProperty("WELDING_PARTS_SPEED"));
         WELDING_DOTTED_SPEED = Double.parseDouble(constantsProps.getProperty("WELDING_DOTTED_SPEED"));
         WELDING_DROP_SPEED = Double.parseDouble(constantsProps.getProperty("WELDING_DROP_SPEED"));
 

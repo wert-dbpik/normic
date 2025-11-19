@@ -321,7 +321,7 @@ public class ConstantsController {
 
         //--- СВАРКА ТОЧЕЧНАЯ
 
-        tfWELDING_PARTS_SPEED.setText(DECIMAL_FORMAT.format(WELDING_PARTS_SPEED).trim());
+        tfWELDING_PARTS_SPEED.setText(DECIMAL_FORMAT.format(WELDING_CAPACITOR_SPEED).trim());
         tfWELDING_DOTTED_SPEED.setText(DECIMAL_FORMAT.format(WELDING_DOTTED_SPEED).trim());
         tfWELDING_DROP_SPEED.setText(DECIMAL_FORMAT.format(WELDING_DROP_SPEED).trim());
 

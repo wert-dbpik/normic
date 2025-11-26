@@ -70,6 +70,8 @@ public class PlateWeldContinuousControllerOld extends AbstractOpPlate {
     public void initViews(OpData data){
         OpWeldContinuousOld opData = (OpWeldContinuousOld)data;
 
+        lblOperationName.setStyle("-fx-text-fill: crimson");
+
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());
         tfStep.disableProperty().bind(chbxPreEnterSeams.selectedProperty());

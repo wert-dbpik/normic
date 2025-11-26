@@ -59,8 +59,8 @@
         </rowConstraints>
          <children>
             <Label text="ВИНТ-ШАЙБА-ГАЙКА" GridPane.rowIndex="1" />
-            <Label text="ВЫТЯЖНЫЕ ЗАКЛЕПКИ" GridPane.rowIndex="2" />
-            <Label text="ЗАКЛЕПОЧНЫЕ ГАЙКИ" GridPane.rowIndex="3" />
+            <Label text="ЗАКЛЕПКИ ВЫТЯЖНЫЕ " GridPane.rowIndex="2" />
+            <Label text="ГАЙКИ ЗАКЛЕПОЧНЫЕ" GridPane.rowIndex="3" />
             <Label text="N закл.гаек" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />

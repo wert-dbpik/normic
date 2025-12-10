@@ -46,12 +46,12 @@
         <columns>
             <TableColumn fx:id="tcName" editable="false" minWidth="200.0" prefWidth="75.0" text="Наименование" />
           <TableColumn fx:id="tcMaterial" editable="false" minWidth="150.0" prefWidth="75.0" text="Материал" />
-            <TableColumn fx:id="tcWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Вес, кг" />
-            <TableColumn fx:id="tcQuantity" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Кол." />
-            <TableColumn fx:id="tcSumWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Сумм.вес, кг" />
             <TableColumn fx:id="tcParamA" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="А" />
             <TableColumn fx:id="tcParamB" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="B" />
             <TableColumn fx:id="tcParamC" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="C" />
+            <TableColumn fx:id="tcWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Вес, кг" />
+            <TableColumn fx:id="tcQuantity" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" text="Кол." />
+            <TableColumn fx:id="tcSumWeight" editable="false" maxWidth="80.0" minWidth="80.0" resizable="false" sortable="false" text="Сумм.вес, кг" />
         </columns>
       </TableView>
    </children>

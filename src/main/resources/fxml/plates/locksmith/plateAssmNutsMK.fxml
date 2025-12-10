@@ -55,8 +55,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="ВЫТЯЖНЫЕ ЗАКЛЕПКИ" />
-            <Label text="ЗАКЛЕПОЧНЫЕ ГАЙКИ" GridPane.rowIndex="1" />
+            <Label text="ЗАКЛЕПКИ ВЫТЯЖНЫЕ " />
+            <Label text="ГАЙКИ ЗАКЛЕПОЧНЫЕ" GridPane.rowIndex="1" />
             <Label text="N закл.гаек" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />

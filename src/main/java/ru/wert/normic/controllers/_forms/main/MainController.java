@@ -637,6 +637,7 @@ public class MainController extends AbstractFormController {
 
             decoration.getImgCloseWindow().setOnMousePressed(ev -> {
                 controller.saveSettings();
+                recountPaintingMainOpData();
             });
 
         } catch (IOException ex) {

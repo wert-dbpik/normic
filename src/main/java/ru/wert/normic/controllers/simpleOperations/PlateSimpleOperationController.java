@@ -99,7 +99,7 @@ public class PlateSimpleOperationController extends AbstractOpPlate {
 
         //Материал
         if(opData.getOperationPrototype().isCountMaterial()){
-            new BXMaterial().create(bxMaterial, true, opData.getMaterial());
+            new BXMaterial(true).create(bxMaterial, true, opData.getMaterial());
             bxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {
                 countInitialValues();
             });

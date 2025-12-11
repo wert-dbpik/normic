@@ -91,7 +91,7 @@ public class FormDetailController extends AbstractFormController {
 
     private void initCommon() {
         //Инициализируем комбобоксы
-        new BXMaterial().create(cmbxMaterial, false, QUICK_MATERIALS.findByName("лист 1"));
+        new BXMaterial(true).create(cmbxMaterial, false, QUICK_MATERIALS.findByName("лист 1"));
         if(((OpDetail)opData).getMaterial() != null)
             cmbxMaterial.setValue(((OpDetail)opData).getMaterial());
         cmbxMaterial.valueProperty().addListener((observable, oldValue, newValue) -> {

@@ -39,54 +39,7 @@ public class BtnAddMaterial{
                         false);
 
                 decoration.getWindow().setOnHiding(r->{
-                    Material chosenMaterial = cmbxMaterial.getValue();
-
-                    // Получаем обновленный список материалов из БД
-                    ObservableList<Material> materials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
-                    materials.sort(Comparator.comparing(Material::getName));
-
-                    // Сохраняем специальные элементы (если есть)
-                    ObservableList<Material> currentItems = cmbxMaterial.getItems();
-
-                    // Проверяем, содержит ли текущий список NO_MATERIAL
-                    boolean hasNoMaterial = !currentItems.isEmpty() && currentItems.get(0).equals(NO_MATERIAL);
-
-                    // Создаем новый список для обновления
-                    ObservableList<Material> newItems = FXCollections.observableArrayList(materials);
-
-                    // Добавляем NO_MATERIAL в начало, если нужно
-                    if (chosenMaterial != null && chosenMaterial.equals(NO_MATERIAL) || hasNoMaterial) {
-                        if (!newItems.contains(NO_MATERIAL)) {
-                            newItems.add(0, NO_MATERIAL);
-                        }
-                    }
-
-                    // ОБНОВЛЯЕМ БАЗОВЫЙ СПИСОК в FilteredList
-                    // Получаем оригинальный список из FilteredList
-                    if (cmbxMaterial.getItems() instanceof javafx.collections.transformation.FilteredList) {
-                        javafx.collections.transformation.FilteredList<Material> filteredList =
-                                (javafx.collections.transformation.FilteredList<Material>) cmbxMaterial.getItems();
-                        // Обновляем оригинальный список (source)
-                        ObservableList<Material> sourceList = (ObservableList<Material>) filteredList.getSource();
-                        if (!(sourceList instanceof javafx.beans.property.Property)) {
-                            // Используем setAll для обновления
-                            sourceList.setAll(newItems);
-                        }
-                    } else {
-                        // Если это не FilteredList, просто обновляем
-                        cmbxMaterial.setItems(newItems);
-                    }
-
-                    // Восстанавливаем выбранный элемент
-                    if (chosenMaterial != null && newItems.contains(chosenMaterial)) {
-                        cmbxMaterial.getSelectionModel().select(chosenMaterial);
-                    } else if (!newItems.isEmpty()) {
-                        cmbxMaterial.getSelectionModel().select(0);
-                    }
-
-                    // Сбрасываем фильтр быстрого поиска (если он есть)
-                    // Это можно сделать через рефлексию или добавить метод в BXQuickSearch
-                    resetQuickSearchFilter(cmbxMaterial);
+                    updateMaterialComboBox(cmbxMaterial);
                 });
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -95,28 +48,135 @@ public class BtnAddMaterial{
     }
 
     /**
-     * Сбрасывает фильтр быстрого поиска в комбобоксе
-     * @param cmbx комбобокс с возможным быстрым поиском
+     * Обновляет комбобокс с материалами после закрытия окна редактора материалов
+     * @param cmbxMaterial комбобокс для обновления
+     */
+    private void updateMaterialComboBox(ComboBox<Material> cmbxMaterial) {
+        // Сохраняем текущий выбранный материал
+        Material chosenMaterial = cmbxMaterial.getValue();
+
+        // Загружаем обновленный список материалов из БД
+        ObservableList<Material> newMaterials = FXCollections.observableArrayList(QUICK_MATERIALS.findAll());
+        newMaterials.sort(Comparator.comparing(Material::getName));
+
+        // Всегда добавляем NO_MATERIAL в начало (если его нет)
+        if (!newMaterials.contains(NO_MATERIAL)) {
+            newMaterials.add(0, NO_MATERIAL);
+        }
+
+        // Обновляем список в комбобоксе
+        updateComboBoxItems(cmbxMaterial, newMaterials);
+
+        // Восстанавливаем выбор материала
+        restoreSelectedMaterial(cmbxMaterial, chosenMaterial, newMaterials);
+
+        // Сбрасываем фильтр быстрого поиска если он есть
+        resetQuickSearchFilter(cmbxMaterial);
+    }
+
+    /**
+     * Безопасно обновляет элементы комбобокса с учетом FilteredList
+     */
+    private void updateComboBoxItems(ComboBox<Material> cmbx, ObservableList<Material> newItems) {
+        try {
+            // Проверяем, является ли список FilteredList
+            if (cmbx.getItems() instanceof javafx.collections.transformation.FilteredList) {
+                javafx.collections.transformation.FilteredList<Material> filteredList =
+                        (javafx.collections.transformation.FilteredList<Material>) cmbx.getItems();
+
+                // Получаем исходный список (source)
+                ObservableList<Material> sourceList = (ObservableList<Material>) filteredList.getSource();
+
+                // Безопасно обновляем исходный список
+                if (!sourceList.equals(newItems)) {
+                    sourceList.setAll(newItems);
+                }
+            } else {
+                // Просто обновляем обычный список
+                cmbx.setItems(newItems);
+            }
+        } catch (Exception e) {
+            // В случае ошибки используем простой способ
+            System.err.println("Ошибка при обновлении списка комбобокса: " + e.getMessage());
+            cmbx.setItems(newItems);
+        }
+    }
+
+    /**
+     * Восстанавливает выбранный материал в комбобоксе
+     */
+    private void restoreSelectedMaterial(ComboBox<Material> cmbx, Material chosenMaterial, ObservableList<Material> items) {
+        if (chosenMaterial != null && items.contains(chosenMaterial)) {
+            cmbx.getSelectionModel().select(chosenMaterial);
+        } else {
+            // Если ранее выбранный материал не найден, выбираем первый
+            cmbx.getSelectionModel().select(0);
+        }
+    }
+
+    /**
+     * Пытается сбросить фильтр быстрого поиска в комбобоксе
      */
     private void resetQuickSearchFilter(ComboBox<Material> cmbx) {
         try {
-            // Пытаемся найти поле quickSearch через рефлексию
+            // Ищем поле с быстрым поиском через рефлексию
+            java.lang.reflect.Field quickSearchField = findQuickSearchField(cmbx);
+            if (quickSearchField != null) {
+                Object quickSearch = quickSearchField.get(cmbx);
+                invokeResetFilterMethod(quickSearch);
+            }
+        } catch (Exception e) {
+            // Не критично, если не удалось сбросить фильтр
+            System.err.println("Не удалось сбросить фильтр быстрого поиска: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Ищет поле с типом, содержащим "QuickSearch"
+     */
+    private java.lang.reflect.Field findQuickSearchField(ComboBox<Material> cmbx) {
+        try {
             java.lang.reflect.Field[] fields = cmbx.getClass().getDeclaredFields();
             for (java.lang.reflect.Field field : fields) {
                 if (field.getType().getName().contains("QuickSearch")) {
                     field.setAccessible(true);
-                    Object quickSearch = field.get(cmbx);
-                    if (quickSearch != null) {
-                        // Вызываем метод сброса фильтра
-                        java.lang.reflect.Method resetMethod = quickSearch.getClass().getMethod("resetFilter");
-                        resetMethod.invoke(quickSearch);
-                        break;
-                    }
+                    return field;
                 }
             }
         } catch (Exception e) {
-            // Если не удалось сбросить фильтр - это не критично
-            System.err.println("Не удалось сбросить фильтр быстрого поиска: " + e.getMessage());
+            // Игнорируем ошибки при поиске поля
+        }
+        return null;
+    }
+
+    /**
+     * Вызывает метод resetFilter() у объекта быстрого поиска
+     */
+    private void invokeResetFilterMethod(Object quickSearch) {
+        try {
+            java.lang.reflect.Method resetMethod = quickSearch.getClass().getMethod("resetFilter");
+            resetMethod.invoke(quickSearch);
+        } catch (NoSuchMethodException e) {
+            // Пробуем альтернативные имена методов
+            tryAlternativeResetMethods(quickSearch);
+        } catch (Exception e) {
+            // Игнорируем другие ошибки
+        }
+    }
+
+    /**
+     * Пробует альтернативные методы сброса фильтра
+     */
+    private void tryAlternativeResetMethods(Object quickSearch) {
+        String[] methodNames = {"reset", "clearFilter", "clearSearch"};
+        for (String methodName : methodNames) {
+            try {
+                java.lang.reflect.Method method = quickSearch.getClass().getMethod(methodName);
+                method.invoke(quickSearch);
+                break;
+            } catch (Exception e) {
+                // Продолжаем пробовать другие методы
+            }
         }
     }
 }

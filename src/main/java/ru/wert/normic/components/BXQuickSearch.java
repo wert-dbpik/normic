@@ -20,7 +20,7 @@ import java.util.function.Predicate;
  * @param <T> тип элементов в комбобоксе
  */
 @Slf4j
-public class BXQuickSearch<T> {
+public class BXQuickSearch<T>{
 
     /** Ссылка на комбобокс */
     protected ComboBox<T> cmbx;

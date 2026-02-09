@@ -434,9 +434,9 @@ public class FormMenuManager extends ContextMenu {
      */
     public Menu createAllWeldingOperations(){
         Menu menu = new Menu("МК: сварочные операции");
+        menu.getItems().add(createItemWeldAssm());
         menu.getItems().add(createItemWeldContinuousNew());
         menu.getItems().add(createItemWeldingDotted());
-        menu.getItems().add(createItemWeldAssm());
 
         return menu;
     }

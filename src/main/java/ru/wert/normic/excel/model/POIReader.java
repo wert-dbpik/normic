@@ -1,23 +1,25 @@
 package ru.wert.normic.excel.model;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import lombok.Getter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import ru.wert.normic.excel.model.enums.EColName;
 import ru.wert.normic.excel.model.enums.EColor;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
-import static java.lang.String.format;
 import static ru.wert.normic.excel.model.enums.EColName.*;
-
 
 @Slf4j
 @Getter
@@ -27,60 +29,213 @@ public class POIReader {
     private final File file;
     private final Workbook book;
     private final Sheet sheet;
-    private final List<String> colNamesList; //Список сформированный из enum класса
-    private final int headRowIndex;          // Номер строки заголовков таблицы
-    private final int firstRowIndex;         // Номер первой строки с данными таблицы
-    private int lastRowIndex;          // Номер последней строки с данными таблицы
+    private final List<String> colNamesList;
+    private final int headRowIndex;
+    private final int firstRowIndex;
+    private int lastRowIndex;
 
-    private HashMap<Integer, String> hashMapHeader; // Map содержащий пары [индекс колонки + заголовок]
+    private HashMap<Integer, String> hashMapHeader;
     private final Set<Integer> setOfColIndexes;
     private List<String> setOfColNames;
-    private boolean colLaсquerExist; // Есть ли в таблице стобец Лак
-    private boolean colZpcExist;// Есть ли в таблице стобец ЦСГ
-    private boolean colAmountPerAssembleExist; // Есть ли в таблице стобец (кол)
+    private boolean colLaсquerExist;
+    private boolean colZpcExist;
+    private boolean colAmountPerAssembleExist;
     private HashMap<Integer, Integer> executions;
-    private HashMap<String, Integer> modelColNames; // Map содержащий пары [название столбца + индекс столбца] без Кол и (кол)
+    private HashMap<String, Integer> modelColNames;
     private List<List<String>> data;
 
+    // Окно для вывода этапов парсинга
+    private Stage logStage;
+    private TextArea logArea;
+    private StringBuilder logBuffer = new StringBuilder();
 
     public POIReader(File file) throws IOException {
         this.file = file;
-        this.book = WorkbookFactory.create(file);
-        this.sheet = book.getSheetAt(0);
-        this.headRowIndex = findHeadRowIndex(sheet);
-        this.firstRowIndex = headRowIndex +1;
-        this.lastRowIndex = findLastRowInTable();
-        this.colNamesList = EColName.getColNamesList();
-        this.hashMapHeader = findHashMapHeader();
-        this.setOfColIndexes = hashMapHeader.keySet();
-        this.setOfColNames = findSetOfColNames();
 
-        this.colLaсquerExist = setOfColNames.contains(LACQUER.toString());
-        this.colZpcExist = setOfColNames.contains(ZCP.toString());
-        this.colAmountPerAssembleExist = setOfColNames.contains(AMOUNT.toString());
+        createLogWindowSync();
 
-        this.modelColNames = findModelColNames();
-        this.executions = findExecutions();
-        this.data = findData();
+        logInfo("==========================================");
+        logInfo("НАЧАЛО ПАРСИНГА ФАЙЛА: " + file.getName());
+        logInfo("==========================================");
+
+        try {
+            logInfo("[ЭТАП 1] Открытие Excel файла...");
+            this.book = WorkbookFactory.create(file);
+            logInfo("  ✓ Файл успешно открыт");
+
+            logInfo("[ЭТАП 2] Получение первого листа...");
+            this.sheet = book.getSheetAt(0);
+            logInfo("  ✓ Лист получен, название: " + sheet.getSheetName());
+
+            logInfo("[ЭТАП 3] Поиск строки заголовков...");
+            this.headRowIndex = findHeadRowIndex(sheet);
+            if (headRowIndex == -1) {
+                throw new IOException("Строка заголовков не найдена");
+            }
+            logInfo("  ✓ Строка заголовков найдена, индекс: " + headRowIndex);
+
+            this.firstRowIndex = headRowIndex + 1;
+            logInfo("[ЭТАП 4] Первая строка с данными: " + firstRowIndex);
+
+            logInfo("[ЭТАП 5] Поиск последней строки таблицы...");
+            this.lastRowIndex = findLastRowInTable();
+            logInfo("  ✓ Последняя строка таблицы: " + lastRowIndex);
+            logInfo("  → Всего строк с данными: " + (lastRowIndex - firstRowIndex));
+
+            this.colNamesList = EColName.getColNamesList();
+            logInfo("[ЭТАП 6] Загружено " + colNamesList.size() + " допустимых имен колонок");
+
+            logInfo("[ЭТАП 7] Поиск колонок в заголовке...");
+            this.hashMapHeader = findHashMapHeader();
+            logInfo("  ✓ Найдено колонок: " + hashMapHeader.size());
+            this.setOfColIndexes = hashMapHeader.keySet();
+
+            logInfo("[ЭТАП 8] Формирование списка имен колонок...");
+            this.setOfColNames = findSetOfColNames();
+            logInfo("  ✓ Список колонок: " + String.join(", ", setOfColNames));
+
+            logInfo("[ЭТАП 9] Проверка наличия специальных колонок...");
+            this.colLaсquerExist = setOfColNames.contains(LACQUER.toString());
+            logInfo("  - Колонка 'Лак': " + (colLaсquerExist ? "ЕСТЬ" : "ОТСУТСТВУЕТ"));
+            this.colZpcExist = setOfColNames.contains(ZCP.toString());
+            logInfo("  - Колонка 'ЦСГ': " + (colZpcExist ? "ЕСТЬ" : "ОТСУТСТВУЕТ"));
+            this.colAmountPerAssembleExist = setOfColNames.contains(AMOUNT.toString());
+            logInfo("  - Колонка '(кол)': " + (colAmountPerAssembleExist ? "ЕСТЬ" : "ОТСУТСТВУЕТ"));
+
+            logInfo("[ЭТАП 10] Формирование карты колонок модели...");
+            this.modelColNames = findModelColNames();
+            logInfo("  ✓ Карта колонок сформирована");
+
+            logInfo("[ЭТАП 11] Поиск колонок исполнений...");
+            this.executions = findExecutions();
+            logInfo("  ✓ Найдено исполнений: " + executions.size());
+
+            logInfo("[ЭТАП 12] Чтение данных таблицы...");
+            this.data = findData();
+            logInfo("  ✓ Прочитано строк данных: " + data.size());
+
+            logInfo("==========================================");
+            logInfo("ПАРСИНГ УСПЕШНО ЗАВЕРШЕН!");
+            logInfo("==========================================");
+
+        } catch (Exception e) {
+            logError("!!! ОШИБКА ПРИ ПАРСИНГЕ !!!");
+            logError("Тип ошибки: " + e.getClass().getSimpleName());
+            logError("Сообщение: " + e.getMessage());
+            logError("Стек вызовов:");
+            for (StackTraceElement element : e.getStackTrace()) {
+                logError("  at " + element.toString());
+            }
+            throw e;
+        }
     }
 
-    /**
-     * Метод определяет тип ячейки таблицы и после выдает ее строковое значение
-     */
-    private String getDataFromCell(int rowIndex, int cellIndex){
-        Cell cell = this.sheet.getRow(rowIndex).getCell(cellIndex);
-        if(cell.getCellType().equals(CellType.NUMERIC)) {
-            return String.valueOf(cell.getNumericCellValue());
-        }
-        else {
-            return cell.getStringCellValue();
+    private void createLogWindowSync() {
+        if (Platform.isFxApplicationThread()) {
+            createLogWindow();
+        } else {
+            CountDownLatch latch = new CountDownLatch(1);
+            Platform.runLater(() -> {
+                try {
+                    createLogWindow();
+                } finally {
+                    latch.countDown();
+                }
+            });
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    /**
-     * Создаем строку заголовков таблицы. Добавляем первый столбец со статусом строки.
-     * @return setOfColNames
-     */
+    private void createLogWindow() {
+        logStage = new Stage();
+        logStage.setTitle("Процесс парсинга Excel - " + file.getName());
+        logStage.setWidth(600);
+        logStage.setHeight(600);
+
+        logArea = new TextArea();
+        logArea.setEditable(false);
+        logArea.setWrapText(true);
+        logArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
+
+        if (logBuffer.length() > 0) {
+            logArea.appendText(logBuffer.toString());
+            logBuffer.setLength(0);
+        }
+
+        StackPane root = new StackPane(logArea);
+        Scene scene = new Scene(root);
+        logStage.setScene(scene);
+        logStage.show();
+    }
+
+    private void logInfo(String message) {
+        String logMessage = message + "\n";
+        System.out.print(logMessage);
+
+        if (logArea != null) {
+            if (Platform.isFxApplicationThread()) {
+                logArea.appendText(logMessage);
+            } else {
+                Platform.runLater(() -> {
+                    if (logArea != null) {
+                        logArea.appendText(logMessage);
+                    }
+                });
+            }
+        } else {
+            logBuffer.append(logMessage);
+        }
+    }
+
+    private void logError(String message) {
+        String logMessage = "❌ " + message + "\n";
+        System.err.print(logMessage);
+
+        if (logArea != null) {
+            if (Platform.isFxApplicationThread()) {
+                logArea.appendText(logMessage);
+            } else {
+                Platform.runLater(() -> {
+                    if (logArea != null) {
+                        logArea.appendText(logMessage);
+                    }
+                });
+            }
+        } else {
+            logBuffer.append(logMessage);
+        }
+    }
+
+    private String getDataFromCell(int rowIndex, int cellIndex) {
+        try {
+            Row row = sheet.getRow(rowIndex);
+            if (row == null) {
+                return "";
+            }
+
+            Cell cell = row.getCell(cellIndex);
+            if (cell == null) {
+                return "";
+            }
+
+            if (cell.getCellType().equals(CellType.NUMERIC)) {
+                double numericValue = cell.getNumericCellValue();
+                if (numericValue == Math.floor(numericValue)) {
+                    return String.valueOf((int) numericValue);
+                }
+                return String.valueOf(numericValue);
+            } else {
+                return cell.getStringCellValue();
+            }
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     private List<String> findSetOfColNames() {
         setOfColNames = new ArrayList<>();
         setOfColNames.add("Цвет");
@@ -88,219 +243,378 @@ public class POIReader {
         return setOfColNames;
     }
 
-    /**
-     * Находим номер строки заголовков headRow
-     * @param sheet
-     * @return headRowIndex
-     */
     private Integer findHeadRowIndex(Sheet sheet) {
         Integer num = null;
         for (int i = 0; i < MAX_LINES; i++) {
-            if (getDataFromCell(i, 0).equals(ROW_NUM.toString()) ||
-                    getDataFromCell(i, 1).equals(KRP.toString())) {
-                num = sheet.getRow(i).getRowNum();
-                log.info(format("Header has been found at row #%s", num));
-                break;
+            try {
+                Row row = sheet.getRow(i);
+                if (row == null) continue;
+
+                String cellValue1 = "";
+                String cellValue2 = "";
+
+                Cell cell1 = row.getCell(0);
+                if (cell1 != null) {
+                    cellValue1 = cell1.getStringCellValue();
+                }
+
+                Cell cell2 = row.getCell(1);
+                if (cell2 != null) {
+                    cellValue2 = cell2.getStringCellValue();
+                }
+
+                if (ROW_NUM.toString().equals(cellValue1) ||
+                        KRP.toString().equals(cellValue2)) {
+                    num = row.getRowNum();
+                    break;
+                }
+            } catch (Exception e) {
+                // Пропускаем ошибки при поиске
             }
         }
-        if (num == null)
-            log.error("Header has not been found!");
+        if (num == null) {
+            logError("НЕ НАЙДЕНА СТРОКА ЗАГОЛОВКОВ!");
+            return -1;
+        }
         return num;
     }
 
-    /**
-     * Находим индекс последней строки в таблице
-     * @return lastRowIndex
-     */
-    private int findLastRowInTable(){
-        for(lastRowIndex = headRowIndex;  ; lastRowIndex++){
-            Row row = sheet.getRow(lastRowIndex);
-            if(row == null)
-                return lastRowIndex;
-            else{
+    private int findLastRowInTable() {
+        int lastRow = headRowIndex;
+        for (; lastRow < MAX_LINES; lastRow++) {
+            try {
+                Row row = sheet.getRow(lastRow);
+                if (row == null) {
+                    return lastRow;
+                }
+
                 Cell cell = row.getCell(0);
-                if (cell == null || cell.getCellType() == CellType.BLANK)
-                    return lastRowIndex;
+                if (cell == null || cell.getCellType() == CellType.BLANK) {
+                    return lastRow;
+                }
+
+                if (cell.getCellType() == CellType.STRING &&
+                        cell.getStringCellValue().trim().isEmpty()) {
+                    return lastRow;
+                }
+
+            } catch (Exception e) {
+                return lastRow;
             }
         }
+        return lastRow;
     }
 
-    /**
-     * Находим HashMap строки заголовков
-     * [ключ = индекс столбца, значение = имя столбца]
-     * @return hashMapHeader
-     */
-    private HashMap<Integer, String> findHashMapHeader(){
+    private HashMap<Integer, String> findHashMapHeader() {
         hashMapHeader = new HashMap<>();
-        for(int colNum = 0; ; colNum++){
-                Cell cell = sheet.getRow(headRowIndex).getCell(colNum);
-                if(cell == null) return hashMapHeader;
-                if(colNamesList.contains(cell.getStringCellValue()))
-                    hashMapHeader.put(cell.getColumnIndex(), cell.getStringCellValue());
+
+        if (headRowIndex == -1) {
+            return hashMapHeader;
         }
+
+        Row headerRow = sheet.getRow(headRowIndex);
+
+        if (headerRow == null) {
+            logError("Строка заголовков пуста!");
+            return hashMapHeader;
+        }
+
+        for (int colNum = 0; colNum < 100; colNum++) {
+            try {
+                Cell cell = headerRow.getCell(colNum);
+                if (cell == null) {
+                    break;
+                }
+
+                String cellValue = cell.getStringCellValue();
+                if (cellValue != null && !cellValue.trim().isEmpty()) {
+                    if (colNamesList.contains(cellValue.trim())) {
+                        hashMapHeader.put(cell.getColumnIndex(), cellValue.trim());
+                        logInfo("  → Найдена колонка '" + cellValue.trim() + "' в позиции " + cell.getColumnIndex());
+                    }
+                }
+            } catch (Exception e) {
+                break;
+            }
+        }
+
+        if (hashMapHeader.isEmpty()) {
+            logError("НЕ НАЙДЕНО НИ ОДНОЙ КОЛОНКИ ИЗ СПИСКА ДОПУСТИМЫХ!");
+        }
+
+        return hashMapHeader;
     }
 
-    /**
-     * Готовим массив массивов STRING для искомой таблицы.
-     * Добавляем нулевой столбец со статусом строки.
-     */
-    private List<List<String>> findData(){
+    private List<List<String>> findData() {
         data = FXCollections.observableArrayList();
-        for(int rowNum = firstRowIndex; rowNum < lastRowIndex; rowNum++){
-            Iterator<Integer> it = setOfColIndexes.iterator();
-            List<String> oneRowData = new ArrayList<>();
+        int processedRows = 0;
+        int errorRows = 0;
 
-            String color = findRowStatus(rowNum);
-            oneRowData.add(color);
+        logInfo("[ЧТЕНИЕ ДАННЫХ] Начинаем чтение " + (lastRowIndex - firstRowIndex) + " строк...");
 
-            while (it.hasNext()){
-                oneRowData.add(getDataFromCell(rowNum, it.next()));
+        for (int rowNum = firstRowIndex; rowNum < lastRowIndex; rowNum++) {
+            try {
+                Row row = sheet.getRow(rowNum);
+                if (row == null) {
+                    errorRows++;
+                    continue;
+                }
+
+                Iterator<Integer> it = setOfColIndexes.iterator();
+                List<String> oneRowData = new ArrayList<>();
+
+                String color = findRowStatus(rowNum);
+                oneRowData.add(color);
+
+                while (it.hasNext()) {
+                    oneRowData.add(getDataFromCell(rowNum, it.next()));
+                }
+
+                data.add(oneRowData);
+                processedRows++;
+
+                if (processedRows % 20 == 0 || processedRows == 1) {
+                    logInfo("  Прочитано строк: " + processedRows + " / " + (lastRowIndex - firstRowIndex));
+                }
+
+            } catch (Exception e) {
+                errorRows++;
+                logError("Ошибка чтения строки Excel " + rowNum + ": " + e.getMessage());
             }
-            data.add(oneRowData);
         }
+
+        logInfo("  ✓ Чтение данных завершено. Успешно: " + processedRows + ", ошибок: " + errorRows);
         return data;
     }
 
-    /**
-     * Определим цвет строки по переданному индексу строки
-     * @param rowNum
-     * @return цвет строки
-     */
     private String findRowStatus(int rowNum) {
-        Cell cell = sheet.getRow(rowNum).getCell(3);
-        XSSFColor color = (XSSFColor) cell.getCellStyle().getFillForegroundColorColor();
+        try {
+            Row row = sheet.getRow(rowNum);
+            if (row == null) {
+                return "WHITE";
+            }
 
-        if (color == null || EColor.byHEX(color.getARGBHex()) == null)
+            Cell cell = row.getCell(3);
+            if (cell == null) {
+                return "WHITE";
+            }
+
+            CellStyle style = cell.getCellStyle();
+            if (style == null) {
+                return "WHITE";
+            }
+
+            Color color = style.getFillForegroundColorColor();
+            if (color instanceof XSSFColor) {
+                XSSFColor xssfColor = (XSSFColor) color;
+                String hexColor = xssfColor.getARGBHex();
+
+                if (hexColor == null || EColor.byHEX(hexColor) == null) {
+                    return "WHITE";
+                } else {
+                    return EColor.byHEX(hexColor).toString();
+                }
+            } else {
+                return "WHITE";
+            }
+
+        } catch (Exception e) {
             return "WHITE";
-        else
-            return EColor.byHEX(color.getARGBHex()).toString();
+        }
     }
 
-    /**
-     * Возвращает HashMap с координатами именного столбца. Столбцы Кол и (кол) не учитываются.
-     * @return
-     */
     private HashMap<String, Integer> findModelColNames() {
         modelColNames = new HashMap<>();
 
-        for(int i = 0; i < setOfColNames.size(); i++){
+        for (int i = 0; i < setOfColNames.size(); i++) {
             modelColNames.put(setOfColNames.get(i), i);
         }
 
         return modelColNames;
     }
 
-    /**
-     * Возвращает HashMap [порядковый номер испонения + индекс столбца равный ключу hashMapHeader]
-     * @return
-     */
     private HashMap<Integer, Integer> findExecutions() {
         executions = new HashMap<>();
-        int ex = 0;//порядковый номер исполнения
+        int ex = 0;
         for (int i = 0; i < setOfColNames.size(); i++) {
             if (setOfColNames.get(i).equals(TOTAL_AMOUNT.toString())) {
                 executions.put(ex, i);
                 ex++;
             }
         }
-
         return executions;
     }
 
-    /**
-     * Возвращает массив данных из таблицы. Числовые данные усекаются до общего формата без .0
-     */
-    public ObservableList<EditorRow> findModelData(){
+    public ObservableList<EditorRow> findModelData() {
+        logInfo("==========================================");
+        logInfo("ФОРМИРОВАНИЕ МОДЕЛИ ДАННЫХ");
+        logInfo("==========================================");
+
         ObservableList<EditorRow> editorRowData = FXCollections.observableArrayList();
-        for(int i = 0; i < data.size(); i ++){
-            List<String> row = new ArrayList<>(data.get(i));
-            EditorRow editorRow = new EditorRow();
-            editorRow.setColor(row.get(0));
-            editorRow.setRowNumber(splitDotZero(row.get(modelColNames.get(ROW_NUM.toString()))));
-            editorRow.setKrp(row.get(modelColNames.get(KRP.toString())));
-            editorRow.setDecNumber(row.get(modelColNames.get(DEC_NUM.toString())));
-            editorRow.setName(row.get(modelColNames.get(NAME.toString())));
-            if (colLaсquerExist)
-                editorRow.setLacquer(row.get(modelColNames.get(LACQUER.toString())));
-            editorRow.setCoat(row.get(modelColNames.get(COAT.toString())));
-            if(colZpcExist)
-                editorRow.setZcp(row.get(modelColNames.get(ZCP.toString())));
+        int processedRows = 0;
+        int errorRows = 0;
 
-            //Прописываем количество элементов для всех исполнений таблицы
-            ArrayList<EditorRow.Execution> exs = new ArrayList<>();
-            for(Integer ex : executions.keySet()){
-//                String exName = (ex == 0) ? "-" : ((ex < 10) ? ("0" + ex) : String.valueOf(ex));
-                String am = splitDotZero(row.get(executions.get(ex))); //Кол
-                String amAs = ""; //(кол)
-                if(colAmountPerAssembleExist) amAs = row.get(executions.get(ex) + 1);
-                String exId = "ex" + ex;
-                EditorRow.Execution exx = new EditorRow.Execution(exId, am, amAs);
-                exs.add(exx);
+        logInfo("[ОБРАБОТКА] Начинаем формирование " + data.size() + " строк модели...");
+        logInfo("------------------------------------------");
+
+        for (int i = 0; i < data.size(); i++) {
+            try {
+                List<String> row = new ArrayList<>(data.get(i));
+                EditorRow editorRow = new EditorRow();
+
+                String excelRowNum = String.valueOf(firstRowIndex + i);
+
+                editorRow.setColor(row.get(0));
+                editorRow.setRowNumber(splitDotZero(row.get(modelColNames.get(ROW_NUM.toString()))));
+                editorRow.setKrp(row.get(modelColNames.get(KRP.toString())));
+                editorRow.setDecNumber(row.get(modelColNames.get(DEC_NUM.toString())));
+                editorRow.setName(row.get(modelColNames.get(NAME.toString())));
+
+                if (colLaсquerExist && modelColNames.containsKey(LACQUER.toString()))
+                    editorRow.setLacquer(row.get(modelColNames.get(LACQUER.toString())));
+
+                editorRow.setCoat(row.get(modelColNames.get(COAT.toString())));
+
+                if (colZpcExist && modelColNames.containsKey(ZCP.toString()))
+                    editorRow.setZcp(row.get(modelColNames.get(ZCP.toString())));
+
+                ArrayList<EditorRow.Execution> exs = new ArrayList<>();
+                for (Integer ex : executions.keySet()) {
+                    String am = splitDotZero(row.get(executions.get(ex)));
+                    String amAs = "";
+                    if (colAmountPerAssembleExist) {
+                        int amAsIndex = executions.get(ex) + 1;
+                        if (amAsIndex < row.size()) {
+                            amAs = row.get(amAsIndex);
+                        }
+                    }
+                    String exId = "ex" + ex;
+                    EditorRow.Execution exx = new EditorRow.Execution(exId, am, amAs);
+                    exs.add(exx);
+                }
+                editorRow.setExecutions(exs);
+
+                editorRow.setFolder(row.get(modelColNames.get(FOLDER.toString())));
+                editorRow.setMaterial(row.get(modelColNames.get(MATERIAL.toString())));
+                editorRow.setParamA(splitDotZero(row.get(modelColNames.get(A.toString()))));
+                editorRow.setParamB(splitDotZero(row.get(modelColNames.get(B.toString()))));
+
+                editorRowData.add(editorRow);
+                processedRows++;
+
+                String rowInfo = String.format("  Строка Excel %4s: %s",
+                        excelRowNum,
+                        truncateString(editorRow.getName(), 50));
+                logInfo(rowInfo);
+
+            } catch (Exception e) {
+                errorRows++;
+                logError("Ошибка формирования строки Excel " + (firstRowIndex + i) + ": " + e.getMessage());
             }
-            editorRow.setExecutions(exs);
-
-            editorRow.setFolder(row.get(modelColNames.get(FOLDER.toString())));
-            editorRow.setMaterial(row.get(modelColNames.get(MATERIAL.toString())));
-            editorRow.setParamA(splitDotZero(row.get(modelColNames.get(A.toString()))));
-            editorRow.setParamB(splitDotZero(row.get(modelColNames.get(B.toString()))));
-
-            editorRowData.add(editorRow);
         }
 
+        logInfo("------------------------------------------");
+        logInfo("  ✓ Модель данных сформирована. Строк: " + processedRows + ", ошибок: " + errorRows);
+        logInfo("==========================================");
 
         return editorRowData;
     }
 
-    /**
-     * Метод усекает числовую строку до нормального вида без .0
-     * @param initStr
-     * @return
-     */
-    private String splitDotZero(String initStr){
-        String val = Arrays.asList(initStr.split("\\.")).get(0);
-        return val;
+    private String truncateString(String str, int maxLength) {
+        if (str == null) return "";
+        if (str.length() <= maxLength) return str;
+        return str.substring(0, maxLength) + "...";
     }
 
-    /**
-     * Метод возвращает наименование исполнения: -, 01, 02 и т.д.
-     * Наименование исполнения не всегда совпадает с его порядковым номер
-     */
-    public String getExecutionName(int ex) {
-        String exName = "";
-        int rowExName = 0; //Строка с именем исполнения
-
-        //Если сторока заголовков следует сразу за заголовком таблицы, то строки с исполнениями не существует
-        if (headRowIndex == 1) return "";
-        //В прочих случаях эта строка всегда первая
-        if (headRowIndex > 1) rowExName = 1;
-
-        return getDataFromCell(rowExName, executions.get(ex));
-
-    }
-
-    /**
-     * Метод возвращает описание исполнения - это несколько обозначений в отдельной строке
-     */
-    public String getExecutionDescription(int ex) {
-        int rowExDesc = 0; //Строка с описанием
-
-        //Если сторока заголовков следует сразу за заголовком таблицы либо сразу после строки с исполнениями,
-        // то строки с описанием не существует
-        if (headRowIndex == 1 || headRowIndex == 2) return "";
-
-        //В прочих случаях эта строка следует за строкой с исполнением и может состоять из двух строк
-        if (headRowIndex == 3) {
-            rowExDesc = 2;
-            return getDataFromCell(rowExDesc, executions.get(ex));
-        } else {
-            rowExDesc = 2;
-            String desc = "";
-            return getDataFromCell(rowExDesc, executions.get(ex)) +
-                    getDataFromCell(rowExDesc + 1, executions.get(ex));
+    private String splitDotZero(String initStr) {
+        if (initStr == null || initStr.isEmpty()) {
+            return "";
         }
 
+        if (initStr.contains(".")) {
+            String[] parts = initStr.split("\\.");
+            if (parts.length > 0) {
+                return parts[0];
+            }
+        }
+        return initStr;
     }
 
+    public String getExecutionName(int ex) {
+        try {
+            if (headRowIndex == 1) return "";
 
+            int rowExName = 1;
+            Integer colIndex = executions.get(ex);
 
+            if (colIndex != null) {
+                Row row = sheet.getRow(rowExName);
+                if (row != null) {
+                    Cell cell = row.getCell(colIndex);
+                    if (cell != null) {
+                        return cell.getStringCellValue();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logError("Ошибка получения имени исполнения " + ex);
+        }
+        return "";
+    }
+
+    public String getExecutionDescription(int ex) {
+        try {
+            if (headRowIndex == 1 || headRowIndex == 2) return "";
+
+            Integer colIndex = executions.get(ex);
+            if (colIndex == null) return "";
+
+            if (headRowIndex == 3) {
+                int rowExDesc = 2;
+                Row row = sheet.getRow(rowExDesc);
+                if (row != null) {
+                    Cell cell = row.getCell(colIndex);
+                    if (cell != null) {
+                        return cell.getStringCellValue();
+                    }
+                }
+            } else {
+                int rowExDesc = 2;
+                Row row1 = sheet.getRow(rowExDesc);
+                Row row2 = sheet.getRow(rowExDesc + 1);
+
+                String desc1 = "";
+                String desc2 = "";
+
+                if (row1 != null) {
+                    Cell cell1 = row1.getCell(colIndex);
+                    if (cell1 != null) desc1 = cell1.getStringCellValue();
+                }
+
+                if (row2 != null) {
+                    Cell cell2 = row2.getCell(colIndex);
+                    if (cell2 != null) desc2 = cell2.getStringCellValue();
+                }
+
+                return desc1 + desc2;
+            }
+        } catch (Exception e) {
+            logError("Ошибка получения описания исполнения " + ex);
+        }
+        return "";
+    }
+
+    public void closeLogWindow() {
+        if (logStage != null) {
+            if (Platform.isFxApplicationThread()) {
+                logStage.close();
+            } else {
+                Platform.runLater(() -> {
+                    if (logStage != null) {
+                        logStage.close();
+                    }
+                });
+            }
+        }
+    }
 }

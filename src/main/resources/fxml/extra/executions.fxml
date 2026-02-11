@@ -17,7 +17,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cmbxExecutions" prefHeight="25.0" prefWidth="82.0">
+            <ComboBox fx:id="cmbxExecutions" prefHeight="25.0" prefWidth="120.0">
                <HBox.margin>
                   <Insets left="10.0" />
                </HBox.margin>

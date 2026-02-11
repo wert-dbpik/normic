@@ -75,7 +75,7 @@ public class PlateLatheThreadingController extends AbstractOpPlate {
 
         paramA = ((FormDetailController) prevFormController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfLength);
-        if(length > paramA)
+        if(length > paramA + 5.0)
             tfLength.setStyle("-fx-border-color: #FF5555");
         else
             tfLength.setStyle(initStyle);

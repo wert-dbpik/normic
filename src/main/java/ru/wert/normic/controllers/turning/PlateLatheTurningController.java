@@ -76,7 +76,7 @@ public class PlateLatheTurningController extends AbstractOpPlate {
 
         paramA = ((FormDetailController) prevFormController).getMatPatchController().getParamA();
         length = IntegerParser.getValue(tfTurningLength);
-        if(length > paramA)
+        if(length > paramA + 5.0)
             tfTurningLength.setStyle("-fx-border-color: #FF5555");
         else
             tfTurningLength.setStyle(initStyle);

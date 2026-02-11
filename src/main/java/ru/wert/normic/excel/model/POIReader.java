@@ -3,6 +3,8 @@ package ru.wert.normic.excel.model;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
@@ -11,6 +13,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.excel.model.enums.EColName;
 import ru.wert.normic.excel.model.enums.EColor;
 
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
+import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 import static ru.wert.normic.excel.model.enums.EColName.*;
 
 @Slf4j
@@ -48,10 +52,13 @@ public class POIReader {
     private Stage logStage;
     private TextArea logArea;
     private StringBuilder logBuffer = new StringBuilder();
+    private final Stage ownerStage;
 
     public POIReader(File file) throws IOException {
         this.file = file;
+        this.ownerStage = MAIN_STAGE;
 
+        // Создаем окно логирования через Decoration
         createLogWindowSync();
 
         logInfo("==========================================");
@@ -130,6 +137,9 @@ public class POIReader {
         }
     }
 
+    /**
+     * Создание окна для вывода логов через Decoration
+     */
     private void createLogWindowSync() {
         if (Platform.isFxApplicationThread()) {
             createLogWindow();
@@ -150,7 +160,51 @@ public class POIReader {
         }
     }
 
+    /**
+     * Фактическое создание окна через Decoration
+     */
     private void createLogWindow() {
+        try {
+            // Создаем TextArea для логов
+            logArea = new TextArea();
+            logArea.setEditable(false);
+            logArea.setWrapText(true);
+            logArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
+
+            // Оборачиваем в StackPane для правильного растягивания
+            StackPane rootPane = new StackPane(logArea);
+            rootPane.setPrefSize(600.0, 600.0);
+
+            // Создаем окно через Decoration
+            Decoration decoration = new Decoration(
+                    "ОТЧЕТ О ПАРСИНГЕ",
+                    rootPane,
+                    true,  // resizable - можно изменять размер
+                    ownerStage,
+                    "decoration-settings",
+                    false, // shift
+                    false  // waiting - не ждем, окно показывается сразу
+            );
+
+            logStage = decoration.getWindow();
+
+            // Добавляем накопленный буфер логов
+            if (logBuffer.length() > 0) {
+                logArea.appendText(logBuffer.toString());
+                logBuffer.setLength(0);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Если не удалось создать окно через Decoration, создаем простое окно
+            createSimpleLogWindow();
+        }
+    }
+
+    /**
+     * Запасной вариант создания простого окна
+     */
+    private void createSimpleLogWindow() {
         logStage = new Stage();
         logStage.setTitle("Процесс парсинга Excel - " + file.getName());
         logStage.setWidth(600);
@@ -172,6 +226,9 @@ public class POIReader {
         logStage.show();
     }
 
+    /**
+     * Добавление информационного сообщения в лог
+     */
     private void logInfo(String message) {
         String logMessage = message + "\n";
         System.out.print(logMessage);
@@ -191,6 +248,9 @@ public class POIReader {
         }
     }
 
+    /**
+     * Добавление сообщения об ошибке в лог
+     */
     private void logError(String message) {
         String logMessage = "❌ " + message + "\n";
         System.err.print(logMessage);
@@ -210,6 +270,9 @@ public class POIReader {
         }
     }
 
+    /**
+     * Метод определяет тип ячейки таблицы и после выдает ее строковое значение
+     */
     private String getDataFromCell(int rowIndex, int cellIndex) {
         try {
             Row row = sheet.getRow(rowIndex);
@@ -236,6 +299,9 @@ public class POIReader {
         }
     }
 
+    /**
+     * Создаем строку заголовков таблицы. Добавляем первый столбец со статусом строки.
+     */
     private List<String> findSetOfColNames() {
         setOfColNames = new ArrayList<>();
         setOfColNames.add("Цвет");
@@ -243,6 +309,9 @@ public class POIReader {
         return setOfColNames;
     }
 
+    /**
+     * Находим номер строки заголовков headRow
+     */
     private Integer findHeadRowIndex(Sheet sheet) {
         Integer num = null;
         for (int i = 0; i < MAX_LINES; i++) {
@@ -279,6 +348,9 @@ public class POIReader {
         return num;
     }
 
+    /**
+     * Находим индекс последней строки в таблице
+     */
     private int findLastRowInTable() {
         int lastRow = headRowIndex;
         for (; lastRow < MAX_LINES; lastRow++) {
@@ -305,6 +377,9 @@ public class POIReader {
         return lastRow;
     }
 
+    /**
+     * Находим HashMap строки заголовков
+     */
     private HashMap<Integer, String> findHashMapHeader() {
         hashMapHeader = new HashMap<>();
 
@@ -345,6 +420,9 @@ public class POIReader {
         return hashMapHeader;
     }
 
+    /**
+     * Готовим массив массивов STRING для искомой таблицы
+     */
     private List<List<String>> findData() {
         data = FXCollections.observableArrayList();
         int processedRows = 0;
@@ -387,6 +465,9 @@ public class POIReader {
         return data;
     }
 
+    /**
+     * Определим цвет строки по переданному индексу строки
+     */
     private String findRowStatus(int rowNum) {
         try {
             Row row = sheet.getRow(rowNum);
@@ -423,6 +504,9 @@ public class POIReader {
         }
     }
 
+    /**
+     * Возвращает HashMap с координатами именного столбца
+     */
     private HashMap<String, Integer> findModelColNames() {
         modelColNames = new HashMap<>();
 
@@ -433,6 +517,9 @@ public class POIReader {
         return modelColNames;
     }
 
+    /**
+     * Возвращает HashMap [порядковый номер испонения + индекс столбца]
+     */
     private HashMap<Integer, Integer> findExecutions() {
         executions = new HashMap<>();
         int ex = 0;
@@ -445,6 +532,9 @@ public class POIReader {
         return executions;
     }
 
+    /**
+     * Возвращает массив данных из таблицы
+     */
     public ObservableList<EditorRow> findModelData() {
         logInfo("==========================================");
         logInfo("ФОРМИРОВАНИЕ МОДЕЛИ ДАННЫХ");
@@ -520,12 +610,18 @@ public class POIReader {
         return editorRowData;
     }
 
+    /**
+     * Усечение длинной строки для логирования
+     */
     private String truncateString(String str, int maxLength) {
         if (str == null) return "";
         if (str.length() <= maxLength) return str;
         return str.substring(0, maxLength) + "...";
     }
 
+    /**
+     * Метод усекает числовую строку до нормального вида без .0
+     */
     private String splitDotZero(String initStr) {
         if (initStr == null || initStr.isEmpty()) {
             return "";
@@ -540,6 +636,9 @@ public class POIReader {
         return initStr;
     }
 
+    /**
+     * Метод возвращает наименование исполнения
+     */
     public String getExecutionName(int ex) {
         try {
             if (headRowIndex == 1) return "";
@@ -562,6 +661,9 @@ public class POIReader {
         return "";
     }
 
+    /**
+     * Метод возвращает описание исполнения
+     */
     public String getExecutionDescription(int ex) {
         try {
             if (headRowIndex == 1 || headRowIndex == 2) return "";
@@ -604,6 +706,9 @@ public class POIReader {
         return "";
     }
 
+    /**
+     * Закрытие окна логирования
+     */
     public void closeLogWindow() {
         if (logStage != null) {
             if (Platform.isFxApplicationThread()) {

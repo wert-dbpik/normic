@@ -90,10 +90,13 @@ public class OperationsACCController {
             SimpleOperation newSimpleOperation = creatNewSimpleOperation();
             if(!isDuplicated(newSimpleOperation, null)){
                 selectedSimpleOperation = SimpleOperationServiceImpl.getInstance().save(newSimpleOperation);
-                if(selectedSimpleOperation == null)
+                if(selectedSimpleOperation == null) {
                     Warning1.create(event, "Ошибка!",
                             "Не удалось сохранить операцию!",
                             "Возможно, сервер не доступен");
+                    return;
+                }
+                closeACCWindow(event, selectedSimpleOperation);
             }
 
             else Warning1.create(event, "Ошибка!",
@@ -111,16 +114,23 @@ public class OperationsACCController {
                     Warning1.create(event, "Ошибка!",
                             "Не удалось сохранить материал!",
                             "Возможно, сервер не доступен");
+                else {
+                    closeACCWindow(event, selectedSimpleOperation);
+                }
             }
-            else Warning1.create(event, "Ошибка!",
-                    "Такой материал уже существует!",
-                    "Материал должен быть уникальным");
+            else {
+                Warning1.create(event, "Ошибка!",
+                        "Такой материал уже существует!",
+                        "Материал должен быть уникальным");
+            }
 
         }
-        SimpleOperation finalSelectedSimpleOperation = selectedSimpleOperation;
 
-        //Добавление операции возможно и без открытия таблицы
-        //Если окно с таблицей создано, то его нужно обновить
+    }
+
+    private void closeACCWindow(Event event, SimpleOperation selectedSimpleOperation) {
+
+        SimpleOperation finalSelectedSimpleOperation = selectedSimpleOperation;
         tableViewController.updateTableView(finalSelectedSimpleOperation);
         ((Node) event.getSource()).getScene().getWindow().hide();
     }

@@ -166,8 +166,10 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpSimpleOperation.class);
 
             //ЭЛЕКТРОМОНТАЖ
-            case "EL_MOUNT_ON_DIN":
+            case "EL_MOUNT_ON_DIN_AUTOMATS":
                 return gson.fromJson(op.toString(), OpMountOnDinAutomats.class);
+            case "EL_MOUNT_ON_DIN_HEATERS":
+                return gson.fromJson(op.toString(), OpMountOnDinHeaters.class);
             case "EL_MOUNT_ON_SCREWS_NO_DISASSM_2":
                 return gson.fromJson(op.toString(), OpMountOnScrewsNoDisAssm2.class);
             case "EL_MOUNT_ON_SCREWS_NO_DISASSM_4":
@@ -220,6 +222,8 @@ public class OpDataJsonConverter {
                 return gson.fromJson(op.toString(), OpIsolateWithThermTube10.class);
             case "EL_ISOLATE_WITH_THERM_TUBE30":
                 return gson.fromJson(op.toString(), OpIsolateWithThermTube30.class);
+            case "EL_MARKING":
+                return gson.fromJson(op.toString(), OpMarking.class);
 
 
 

@@ -180,11 +180,12 @@ public class FormMenus {
         menu.getItems().add(isolateWithThermotube);
         //----------------------------------------------------------------------
         menu.getItems().add(new SeparatorMenuItem());
-
         menu.getItems().add(menu.createItem_FixOfCables());
         menu.getItems().add(menu.createItem_Marking());
-
-
+        //----------------------------------------------------------------------
+        menu.getItems().add(new SeparatorMenuItem());
+        menu.getItems().add(menu.createItemAddFilePallet());
+        menu.getItems().add(menu.createItemSearchFilePallet());
 
         return menu;
     }

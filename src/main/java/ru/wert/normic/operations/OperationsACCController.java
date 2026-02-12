@@ -131,7 +131,9 @@ public class OperationsACCController {
         else if(bxNormType.getValue().equals(ENormType.NORM_MECHANICAL) && bxJobType.getValue() == null) return false;
         else if(bxMeasurement.getValue() == null) return false;
         else if(tfNormTime.getText().isEmpty()) return false;
-        else if(tfTpz.getText().isEmpty()) return false;
+        else if(tfTpz.getText().isEmpty()) {
+            tfTpz.setText("0.0");
+        };
         return true;
     }
 

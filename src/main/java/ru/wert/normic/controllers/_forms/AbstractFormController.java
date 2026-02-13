@@ -467,6 +467,7 @@ public abstract class AbstractFormController implements IForm {
         button.setTooltip(new Tooltip("Добавить операцию"));
         button.setOnMouseClicked(e -> {
             if (e.getButton().equals(MouseButton.PRIMARY)) {
+                createMenu();
                 menu.show(
                         button,
                         Side.LEFT,

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import ru.wert.normic.components.*;
+import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
@@ -58,12 +59,14 @@ public class OperationsACCController {
     private SimpleOperation oldSimpleOperation;
     private OperationsController tableViewController;
     private ECommands command;
+    private AbstractFormController form;
 
-
-    public void init(ENormType normType, OperationsController tableViewController, SimpleOperation oldSimpleOperation, ECommands command){
+    public void init(ENormType normType, OperationsController tableViewController, SimpleOperation oldSimpleOperation, ECommands command, AbstractFormController form){
         this.tableViewController = tableViewController;
         this.oldSimpleOperation = oldSimpleOperation;
         this.command = command;
+        this.form = form;
+
 
         new BXNormType().create(bxNormType, normType);
         new BXJobType().create(bxJobType);
@@ -123,13 +126,13 @@ public class OperationsACCController {
                         "Такой материал уже существует!",
                         "Материал должен быть уникальным");
             }
-
         }
-
     }
 
     private void closeACCWindow(Event event, SimpleOperation selectedSimpleOperation) {
+        if(form == null){
 
+        } else form.createMenu();
         SimpleOperation finalSelectedSimpleOperation = selectedSimpleOperation;
         tableViewController.updateTableView(finalSelectedSimpleOperation);
         ((Node) event.getSource()).getScene().getWindow().hide();

@@ -99,11 +99,9 @@ public class OperationsACCController {
                 }
                 closeACCWindow(event, selectedSimpleOperation);
             }
-
             else Warning1.create(event, "Ошибка!",
                     "Такая операция уже существует!",
                     "Операция должна быть уникальной");
-
         }
         else if(command.equals(ECommands.CHANGE) ){
             if(!checkData()) return;
@@ -113,16 +111,17 @@ public class OperationsACCController {
                 boolean res = SimpleOperationServiceImpl.getInstance().update(oldSimpleOperation);
                 if(!res)
                     Warning1.create(event, "Ошибка!",
-                            "Не удалось сохранить материал!",
+                            "Не удалось сохранить операцию!",
                             "Возможно, сервер не доступен");
                 else {
-                    closeACCWindow(event, selectedSimpleOperation);
+                    // Передаем измененную операцию для выделения
+                    closeACCWindow(event, oldSimpleOperation);
                 }
             }
             else {
                 Warning1.create(event, "Ошибка!",
-                        "Такой материал уже существует!",
-                        "Материал должен быть уникальным");
+                        "Такая операция уже существует!",
+                        "Операция должна быть уникальной");
             }
         }
     }
@@ -132,9 +131,6 @@ public class OperationsACCController {
         if (tableViewController.getTableView() != null) {
             // Обновляем таблицу
             tableViewController.updateTableView(selectedSimpleOperation);
-
-            // Выделяем добавленную/измененную операцию и прокручиваем к ней
-            tableViewController.selectAndScrollTo(selectedSimpleOperation);
         }
 
         // Закрываем окно

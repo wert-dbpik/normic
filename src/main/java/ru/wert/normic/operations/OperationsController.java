@@ -60,23 +60,12 @@ public class OperationsController {
         initializeColumns();
 
         ObservableList<SimpleOperation> ops = FXCollections.observableArrayList(SimpleOperationServiceImpl.getInstance().findAll());
+
+        // Сортируем по имени (в алфавитном порядке)
+        ops.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
         tableView.getItems().addAll(ops);
 
-    }
-
-    public void selectAndScrollTo(SimpleOperation operation) {
-        if (operation == null) return;
-
-        // Находим индекс элемента в таблице
-        int index = tableView.getItems().indexOf(operation);
-        if (index >= 0) {
-            // Выделяем строку
-            tableView.getSelectionModel().select(index);
-            // Прокручиваем к выделенной строке
-            tableView.scrollTo(index);
-            // Устанавливаем фокус на таблицу (опционально)
-            tableView.requestFocus();
-        }
     }
 
     private void initializeColumns() {
@@ -138,6 +127,10 @@ public class OperationsController {
         tableView.refresh();
 
         ObservableList<SimpleOperation> items = FXCollections.observableArrayList(SimpleOperationServiceImpl.getInstance().findAll());
+
+        // Сортируем по имени (в алфавитном порядке)
+        items.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
         Platform.runLater(()->{
             tableView.setItems(FXCollections.observableArrayList(items));
             if(selectedSimpleOperation != null) {
@@ -189,6 +182,10 @@ public class OperationsController {
                 // После обновления таблицы выделяем предыдущую операцию
                 Platform.runLater(() -> {
                     ObservableList<SimpleOperation> items = tableView.getItems();
+
+                    // Сортируем по имени (в алфавитном порядке)
+                    items.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
                     if (!items.isEmpty()) {
                         int newIndex = Math.min(deletedIndex, items.size() - 1);
                         if (newIndex >= 0) {

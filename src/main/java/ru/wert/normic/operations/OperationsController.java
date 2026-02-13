@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.decoration.warnings.Warning2;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
@@ -28,7 +29,7 @@ public class OperationsController {
     @FXML
     private VBox vbMainContainer;
 
-    @FXML
+    @FXML@Getter
     private TableView<SimpleOperation> tableView;
 
     @FXML
@@ -61,6 +62,21 @@ public class OperationsController {
         ObservableList<SimpleOperation> ops = FXCollections.observableArrayList(SimpleOperationServiceImpl.getInstance().findAll());
         tableView.getItems().addAll(ops);
 
+    }
+
+    public void selectAndScrollTo(SimpleOperation operation) {
+        if (operation == null) return;
+
+        // Находим индекс элемента в таблице
+        int index = tableView.getItems().indexOf(operation);
+        if (index >= 0) {
+            // Выделяем строку
+            tableView.getSelectionModel().select(index);
+            // Прокручиваем к выделенной строке
+            tableView.scrollTo(index);
+            // Устанавливаем фокус на таблицу (опционально)
+            tableView.requestFocus();
+        }
     }
 
     private void initializeColumns() {

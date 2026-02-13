@@ -128,9 +128,16 @@ public class OperationsACCController {
     }
 
     private void closeACCWindow(Event event, SimpleOperation selectedSimpleOperation) {
-        SimpleOperation finalSelectedSimpleOperation = selectedSimpleOperation;
-        tableViewController.updateTableView(finalSelectedSimpleOperation);
-        ((Node) event.getSource()).getScene().getWindow().hide();
+
+        if (tableViewController.getTableView() != null) {
+            // Обновляем таблицу
+            tableViewController.updateTableView(selectedSimpleOperation);
+
+            // Выделяем добавленную/измененную операцию и прокручиваем к ней
+            tableViewController.selectAndScrollTo(selectedSimpleOperation);
+        } else
+            // Закрываем окно
+            ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     private boolean checkData(){

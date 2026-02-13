@@ -173,16 +173,34 @@ public class OperationsController {
                 String.format( "Вы уверены, что нужно удалить '%s'?", deletedSimpleOperation.getName()),
                 "Восстановить будет невозможно!");
         if(ans){
+            // Запоминаем индекс удаляемой строки
+            int deletedIndex = tableView.getItems().indexOf(deletedSimpleOperation);
+
             boolean res = SimpleOperationServiceImpl.getInstance().delete(deletedSimpleOperation);
-            if(!res)
+            if(!res) {
                 Warning1.create(e, "Ошибка!",
                         "Удалить '%s' не получилось!",
-                        "Материал используется или сервер не дотупен");
-            else
+                        "Материал используется или сервер не доступен");
+            }
+            else {
+                // Обновляем таблицу без выделения
                 updateTableView(null);
+
+                // После обновления таблицы выделяем предыдущую операцию
+                Platform.runLater(() -> {
+                    ObservableList<SimpleOperation> items = tableView.getItems();
+                    if (!items.isEmpty()) {
+                        int newIndex = Math.min(deletedIndex, items.size() - 1);
+                        if (newIndex >= 0) {
+                            SimpleOperation operationToSelect = items.get(newIndex);
+                            tableView.getSelectionModel().select(newIndex);
+                            tableView.scrollTo(newIndex);
+                            tableView.requestFocus();
+                        }
+                    }
+                });
+            }
         }
-
-
     }
 
 

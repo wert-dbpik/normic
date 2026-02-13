@@ -135,9 +135,10 @@ public class OperationsACCController {
 
             // Выделяем добавленную/измененную операцию и прокручиваем к ней
             tableViewController.selectAndScrollTo(selectedSimpleOperation);
-        } else
-            // Закрываем окно
-            ((Node) event.getSource()).getScene().getWindow().hide();
+        }
+
+        // Закрываем окно
+        ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     private boolean checkData(){

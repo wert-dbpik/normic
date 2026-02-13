@@ -134,19 +134,19 @@ public class OperationsController {
     public void addSimpleOperation(Event event){
         final OperationsACCLoader operationACCLoader = new OperationsACCLoader(ECommands.ADD, tableView, null);
         final OperationsACCController mainController = operationACCLoader.getMainController();
-        mainController.init(ENormType.NORM_ASSEMBLING, this, null, ECommands.ADD, whereFromController);
+        mainController.init(ENormType.NORM_ASSEMBLING, this, null, ECommands.ADD);
     }
 
     public void copySimpleOperation(TableRow<SimpleOperation> tableRow){
         final OperationsACCLoader operationACCLoader = new OperationsACCLoader(ECommands.COPY, tableView, tableRow);
         final OperationsACCController mainController = operationACCLoader.getMainController();
-        mainController.init(ENormType.NORM_ASSEMBLING, this, tableRow.getItem(), ECommands.COPY, whereFromController);
+        mainController.init(ENormType.NORM_ASSEMBLING, this, tableRow.getItem(), ECommands.COPY);
     }
 
     public void changeSimpleOperation(TableRow<SimpleOperation> tableRow){
         final OperationsACCLoader operationACCLoader = new OperationsACCLoader(ECommands.CHANGE, tableView, tableRow);
         final OperationsACCController mainController = operationACCLoader.getMainController();
-        mainController.init(ENormType.NORM_ASSEMBLING, this, tableRow.getItem(), ECommands.CHANGE, whereFromController);
+        mainController.init(ENormType.NORM_ASSEMBLING, this, tableRow.getItem(), ECommands.CHANGE);
     }
 
     public void deleteSimpleOperation(Event e, TableRow<SimpleOperation> tableRow){

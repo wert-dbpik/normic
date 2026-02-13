@@ -59,13 +59,11 @@ public class OperationsACCController {
     private SimpleOperation oldSimpleOperation;
     private OperationsController tableViewController;
     private ECommands command;
-    private AbstractFormController form;
 
-    public void init(ENormType normType, OperationsController tableViewController, SimpleOperation oldSimpleOperation, ECommands command, AbstractFormController form){
+    public void init(ENormType normType, OperationsController tableViewController, SimpleOperation oldSimpleOperation, ECommands command){
         this.tableViewController = tableViewController;
         this.oldSimpleOperation = oldSimpleOperation;
         this.command = command;
-        this.form = form;
 
 
         new BXNormType().create(bxNormType, normType);
@@ -130,9 +128,6 @@ public class OperationsACCController {
     }
 
     private void closeACCWindow(Event event, SimpleOperation selectedSimpleOperation) {
-        if(form == null){
-
-        } else form.createMenu();
         SimpleOperation finalSelectedSimpleOperation = selectedSimpleOperation;
         tableViewController.updateTableView(finalSelectedSimpleOperation);
         ((Node) event.getSource()).getScene().getWindow().hide();

@@ -521,7 +521,7 @@ public class FormMenuManager extends ContextMenu {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/operations/operationsACC.fxml"));
                 Parent parent = loader.load();
                 OperationsACCController controller = loader.getController();
-                controller.init(normTypes.get(0), new OperationsController(), null, ECommands.ADD, formController);
+                controller.init(normTypes.get(0), new OperationsController(), null, ECommands.ADD);
 
                 new Decoration("ДОБАВИТЬ ОПЕРАЦИЮ",
                         parent,

@@ -10,19 +10,16 @@ import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.*;
 import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.AppStatics;
+import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
+import ru.wert.normic.controllers.menus.formMenus.DetailMenuFactory;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EMatType;
-import ru.wert.normic.enums.ENormType;
-import ru.wert.normic.enums.EOpType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.materials.matlPatches.AbstractMatPatchController;
-import ru.wert.normic.controllers._forms.main.FormMenuManager;
 import ru.wert.normic.entities.db_connection.material.Material;
 
 import java.io.IOException;
-import java.util.*;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
@@ -223,111 +220,10 @@ public class FormDetailController extends AbstractFormController {
 
     @Override
     public FormMenuManager createMenu(){
-        menu = new FormMenuManager(this, listViewTechOperations, (IOpWithOperations) opData);
-        EMatType type = EMatType.getTypeByName(cmbxMaterial.getValue().getMatType().getName());
-
-        if(type.equals(EMatType.LIST)){ //ЛИСТЫ
-            menu.getItems().add(menu.createItemCutting());
-            menu.getItems().add(menu.createItemBending());
-            menu.getItems().add(menu.createItemDrillingByMarking());
-            menu.getItems().add(menu.createItemLocksmith());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPaintDetail());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemWeldAssm());
-            menu.getItems().add(menu.createItemWeldContinuousNew());
-            menu.getItems().add(menu.createItemWeldingDotted());
-
-            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
-            if(simpleOperationsMenu != null) {
-                menu.getItems().add(new SeparatorMenuItem());
-                menu.getItems().add(simpleOperationsMenu);
-            }
-
-            deleteImproperOperations(AppStatics.LIST_OPERATIONS);
-
-        } else if (type.equals(EMatType.ROUND)){ //КРУГИ
-            menu.getItems().add(menu.createItemMountDismount());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemTurning());
-            menu.getItems().add(menu.createItemDrilling());
-            menu.getItems().add(menu.createItemCutGroove());
-            menu.getItems().add(menu.createItemThreading());
-            menu.getItems().add(menu.createItemRolling());
-            menu.getItems().add(menu.createItemCutOff());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemBending());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPaintingOld());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createAllLocksmithOperations());
-
-            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
-            menu.getItems().add(simpleOperationsMenu);
-
-            deleteImproperOperations(AppStatics.ROUND_OPERATIONS);
-
-        } else if (type.equals(EMatType.PROFILE)){ //ПРОФИЛИ
-            menu.getItems().add(menu.createItemCutOffOnTheSaw());
-            menu.getItems().add(menu.createItemChopOff());
-            menu.getItems().add(menu.createItemDrillingByMarking());
-            menu.getItems().add(menu.createItemLocksmith());
-            menu.getItems().add(menu.createItemBending());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPaintingOld());
-
-            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
-            if(simpleOperationsMenu != null) {
-                menu.getItems().add(new SeparatorMenuItem());
-                menu.getItems().add(simpleOperationsMenu);
-            }
-
-            deleteImproperOperations(AppStatics.PROFILE_OPERATIONS);
-        } else { //ШТУЧНЫЕ
-            menu.getItems().add(menu.createItemBending());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createItemPaintingOld());
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(menu.createAllLatheOperations());
-            menu.getItems().add(menu.createAllLocksmithOperations());
-            menu.getItems().add(menu.createAllWeldingOperations());
-            menu.getItems().add(menu.createAllAssmOperations());
-
-            Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
-            if(simpleOperationsMenu != null) {
-                menu.getItems().add(new SeparatorMenuItem());
-                menu.getItems().add(simpleOperationsMenu);
-            }
-        }
-
+        menu = new DetailMenuFactory().createMenu(this);
         linkMenuToButton();
-
         return menu;
     }
-
-    /**
-     * Метод удаляет операции не подходящие под операцию
-     */
-    private void deleteImproperOperations(List<EOpType> properOperations) {
-        //Корректируем список операции, удаляем несовместимые
-        List<OpData> operations = new ArrayList<>(getAddedOperations());
-        if(getListViewTechOperations() == null || getListViewTechOperations().getItems().isEmpty()
-        ) return;
-
-        for (OpData op : operations) {
-            if (!properOperations.contains(op.getOpType())) {
-                int index = getAddedOperations().indexOf(op);
-
-                getListViewTechOperations().getItems().remove(index);
-                addedPlates.remove(index);
-                getAddedOperations().remove(index);
-            }
-        }
-
-        MAIN_CONTROLLER.recountMainOpData();
-    }
-
-
 
     @Override //AbstractFormController
     public void fillOpData(){
@@ -338,7 +234,5 @@ public class FormDetailController extends AbstractFormController {
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.addListOfOperations();
     }
-
-
 
 }

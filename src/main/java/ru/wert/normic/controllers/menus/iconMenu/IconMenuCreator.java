@@ -1,10 +1,11 @@
-package ru.wert.normic.controllers._forms.main;
+package ru.wert.normic.controllers.menus.iconMenu;
 
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.enums.EMenuSource;
 
 import java.io.IOException;

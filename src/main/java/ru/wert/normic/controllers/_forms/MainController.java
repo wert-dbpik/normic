@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers._forms.main;
+package ru.wert.normic.controllers._forms;
 
 
 import com.google.gson.Gson;
@@ -26,30 +26,33 @@ import lombok.extern.slf4j.Slf4j;
 import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFBatch;
-import ru.wert.normic.controllers._forms.AbstractFormController;
-import ru.wert.normic.controllers._forms.TotalCounter;
+import ru.wert.normic.controllers.menus.formMenus.ElectricalMenuFactory;
+import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
+import ru.wert.normic.controllers.menus.formMenus.MainMenuFactory;
+import ru.wert.normic.controllers.menus.iconMenu.IconMenuCreator;
+import ru.wert.normic.controllers.menus.mainMenu.MainMenuCreator;
 import ru.wert.normic.controllers.extra.ColorsController;
 import ru.wert.normic.controllers.intro.NoConnection;
 import ru.wert.normic.controllers.normsTableView.NormsTableViewController;
-import ru.wert.normic.controllers.structure.StructureController;
-import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
-import ru.wert.normic.entities.saves.SaveNormEntry;
-import ru.wert.normic.enums.ELaserMachine;
-import ru.wert.normic.history.HistoryFile;
-import ru.wert.normic.operations.OperationsController;
-import ru.wert.normic.report.ReportController;
 import ru.wert.normic.controllers.singlePlates.PlateAssmController;
 import ru.wert.normic.controllers.singlePlates.PlateDetailController;
+import ru.wert.normic.controllers.structure.StructureController;
 import ru.wert.normic.decoration.Decoration;
 import ru.wert.normic.decoration.warnings.Warning0;
+import ru.wert.normic.entities.colors.AppColor;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
+import ru.wert.normic.entities.db_connection.retrofit.RetrofitClient;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.colors.AppColor;
+import ru.wert.normic.entities.saves.SaveNormEntry;
+import ru.wert.normic.enums.ELaserMachine;
 import ru.wert.normic.enums.EMenuSource;
 import ru.wert.normic.enums.ETimeMeasurement;
 import ru.wert.normic.excel.ImportExcelFileService;
+import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.interfaces.IOpWithOperations;
+import ru.wert.normic.operations.OperationsController;
+import ru.wert.normic.report.ReportController;
 import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.AppFiles;
 import ru.wert.normic.utils.NvrConverter;
@@ -720,15 +723,14 @@ public class MainController extends AbstractFormController {
 
     @Override
     public FormMenuManager createMenu() {
-        FormMenus formMenus = new FormMenus(this);
-        menu = formMenus.create(USE_ELECTRICAL_MENUS ?
-                FormMenus.EMenuType.ELECTRICAL_TYPE :
-                FormMenus.EMenuType.MAIN_TYPE);
+        if (USE_ELECTRICAL_MENUS) {
+            menu = new ElectricalMenuFactory().createMenu(this);
+        } else {
+            menu = new MainMenuFactory().createMenu(this);
+        }
 
         linkMenuToButton();
-
         return menu;
-
     }
 
 

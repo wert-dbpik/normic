@@ -1,7 +1,8 @@
-package ru.wert.normic.controllers._forms.main;
+package ru.wert.normic.controllers.menus.mainMenu;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import ru.wert.normic.controllers._forms.MainController;
 import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.enums.ELaserMachine;
 import ru.wert.normic.enums.EMenuSource;

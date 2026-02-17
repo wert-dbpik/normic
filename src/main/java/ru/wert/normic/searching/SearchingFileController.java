@@ -22,7 +22,7 @@ import ru.wert.normic.entities.db_connection.retrofit.AppProperties;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.controllers._forms.main.FormMenuManager;
+import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
 
 import java.io.File;
 

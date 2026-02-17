@@ -1,6 +1,5 @@
 package ru.wert.normic.controllers._forms;
 
-
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,14 +10,12 @@ import ru.wert.normic.components.BtnDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
 import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
+import ru.wert.normic.controllers.menus.formMenus.PackMenuFactory;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpPack;
-import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.controllers._forms.main.FormMenuManager;
 import ru.wert.normic.utils.IntegerParser;
-
-import java.util.Collections;
 
 import static ru.wert.normic.AppStatics.*;
 import static ru.wert.normic.controllers.AbstractOpPlate.*;
@@ -142,23 +139,8 @@ public class FormPackController extends AbstractFormController {
 
     @Override
     public FormMenuManager createMenu(){
-        menu = new FormMenuManager(this, listViewTechOperations, (IOpWithOperations) opData);
-
-        menu.getItems().add(menu.createItemPackInCartoonBox());
-        menu.getItems().add(menu.createItemPackOnPalletizer());
-        menu.getItems().add(menu.createItemPackInHandStretchWrap());
-        menu.getItems().add(menu.createItemPackInBubbleWrap());
-        menu.getItems().add(menu.createItemPackOnPallet());
-
-        Menu simpleOperationsMenu = menu.createAllSimpleOperations(Collections.singletonList(ENormType.NORM_PACKING));
-        if(simpleOperationsMenu != null) {
-            menu.getItems().add(new SeparatorMenuItem());
-            menu.getItems().add(simpleOperationsMenu);
-        }
-
-
+        menu = new PackMenuFactory().createMenu(this);
         linkMenuToButton();
-
         return menu;
     }
 
@@ -208,7 +190,5 @@ public class FormPackController extends AbstractFormController {
         if(!((IOpWithOperations)opData).getOperations().isEmpty())
             menu.addListOfOperations();
     }
-
-
 
 }

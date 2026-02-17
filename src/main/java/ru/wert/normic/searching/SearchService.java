@@ -10,7 +10,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.controllers._forms.main.FormMenuManager;
+import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
 import ru.wert.normic.utils.NvrConverter;
 
 import java.io.File;

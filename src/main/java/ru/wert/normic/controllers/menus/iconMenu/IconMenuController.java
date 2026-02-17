@@ -1,4 +1,4 @@
-package ru.wert.normic.controllers._forms.main;
+package ru.wert.normic.controllers.menus.iconMenu;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

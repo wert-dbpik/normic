@@ -1,21 +1,18 @@
 package ru.wert.normic.controllers._forms;
 
-
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.BtnDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
-import ru.wert.normic.controllers._forms.main.FormMenus;
+import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
+import ru.wert.normic.controllers.menus.formMenus.AssmMenuFactory;
+import ru.wert.normic.controllers.menus.formMenus.ElectricalMenuFactory;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.interfaces.IOpWithOperations;
-import ru.wert.normic.controllers._forms.main.FormMenuManager;
 
 import static ru.wert.normic.AppStatics.*;
 
@@ -113,15 +110,14 @@ public class FormAssmController extends AbstractFormController {
 
     @Override
     public FormMenuManager createMenu() {
-        FormMenus formMenus = new FormMenus(this);
-        menu = formMenus.create(USE_ELECTRICAL_MENUS ?
-                FormMenus.EMenuType.ELECTRICAL_TYPE :
-                FormMenus.EMenuType.ASSM_TYPE);
+        if (USE_ELECTRICAL_MENUS) {
+            menu = new ElectricalMenuFactory().createMenu(this);
+        } else {
+            menu = new AssmMenuFactory().createMenu(this);
+        }
 
         linkMenuToButton();
-
         return menu;
-
     }
 
 

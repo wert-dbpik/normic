@@ -1,7 +1,7 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.controllers._forms.main.MainController;
+import ru.wert.normic.controllers._forms.MainController;
 
 import static ru.wert.normic.AppStatics.CURRENT_BATCH;
 

@@ -4,8 +4,8 @@ import lombok.Getter;
 
 import java.util.NoSuchElementException;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.MIN_TO_HOUR;
-import static ru.wert.normic.controllers.AbstractOpPlate.MIN_TO_SEC;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.MIN_TO_HOUR;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.MIN_TO_SEC;
 
 public enum ETimeMeasurement {
 

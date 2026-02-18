@@ -1,6 +1,6 @@
 package ru.wert.normic.interfaces;
 
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.ops.OpData;
 

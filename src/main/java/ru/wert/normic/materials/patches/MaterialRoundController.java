@@ -8,7 +8,7 @@ import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.materials.MatTypeController;
 import ru.wert.normic.utils.DoubleParser;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class MaterialRoundController implements MatTypeController {
 

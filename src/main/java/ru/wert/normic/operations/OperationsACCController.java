@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import ru.wert.normic.components.*;
-import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.decoration.warnings.Warning1;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperation;
 import ru.wert.normic.entities.db_connection.simpleOperations.SimpleOperationServiceImpl;
@@ -19,7 +18,7 @@ import ru.wert.normic.utils.DoubleParser;
 import java.util.List;
 
 import static java.lang.String.format;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class OperationsACCController {
 

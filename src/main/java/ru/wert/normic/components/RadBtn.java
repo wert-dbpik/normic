@@ -1,8 +1,7 @@
 package ru.wert.normic.components;
 
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 
 public class RadBtn {
 

@@ -6,7 +6,7 @@ import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.enums.*;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 /**
  * ОКРАШИВАНИЕ ЛИСТОВОЙ ДЕТАЛИ

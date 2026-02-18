@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.Getter;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.FormDetailController;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.single.OpDetail;
@@ -13,7 +13,7 @@ import ru.wert.normic.enums.EPieceMeasurement;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.*;
 
 /**
  * Класс описывающий поведение панели листового материала

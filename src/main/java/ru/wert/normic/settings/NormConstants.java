@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 
 @Slf4j

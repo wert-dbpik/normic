@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 import ru.wert.normic.components.*;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
 import ru.wert.normic.controllers.menus.formMenus.DetailMenuFactory;
 import ru.wert.normic.entities.ops.OpData;

@@ -2,8 +2,6 @@ package ru.wert.normic.entities.ops.opPaint;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.controllers.paint.PlatePaintAssmController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
 import ru.wert.normic.enums.EAssemblingType;
@@ -11,7 +9,7 @@ import ru.wert.normic.enums.EColor;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 /**
  * ОКРАШИВАНИЕ СБОРОЧНОЙ ЕДИНИЦЫ

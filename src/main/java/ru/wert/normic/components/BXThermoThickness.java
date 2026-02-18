@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.util.StringConverter;
-import ru.wert.normic.controllers.AbstractOpPlate;
-import ru.wert.normic.enums.EMatType;
-import ru.wert.normic.enums.EMaterialMeasurement;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 
 import java.util.Arrays;
 

@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 import static ru.wert.normic.AppStatics.CURRENT_USER;
 import static ru.wert.normic.AppStatics.CURRENT_USER_GROUP;
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 import static ru.wert.normic.settings.NormConstants.*;
 
 @Slf4j

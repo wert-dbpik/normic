@@ -8,7 +8,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.*;
 
 public class ReportNormsByJobTypes {
 

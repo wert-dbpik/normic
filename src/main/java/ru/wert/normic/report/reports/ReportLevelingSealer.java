@@ -6,7 +6,7 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 
 import java.util.List;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class ReportLevelingSealer {
 

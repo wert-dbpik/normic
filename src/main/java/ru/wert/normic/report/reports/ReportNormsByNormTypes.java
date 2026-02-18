@@ -3,8 +3,8 @@ package ru.wert.normic.report.reports;
 import ru.wert.normic.entities.ops.single.OpAssm;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.*;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class ReportNormsByNormTypes {
 

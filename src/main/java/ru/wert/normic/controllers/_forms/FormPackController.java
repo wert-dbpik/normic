@@ -9,7 +9,7 @@ import ru.wert.normic.AppStatics;
 import ru.wert.normic.components.BtnDone;
 import ru.wert.normic.components.ImgDouble;
 import ru.wert.normic.components.TFInteger;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers.menus.formMenus.FormMenuManager;
 import ru.wert.normic.controllers.menus.formMenus.PackMenuFactory;
 import ru.wert.normic.entities.ops.OpData;
@@ -18,7 +18,7 @@ import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.*;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.*;
 import static ru.wert.normic.enums.ETimeMeasurement.*;
 
 /**

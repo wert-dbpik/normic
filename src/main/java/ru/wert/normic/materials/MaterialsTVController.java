@@ -24,7 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class MaterialsTVController {
 

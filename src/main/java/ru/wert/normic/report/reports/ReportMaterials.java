@@ -1,6 +1,5 @@
 package ru.wert.normic.report.reports;
 
-import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.single.OpAssm;
@@ -10,9 +9,8 @@ import ru.wert.normic.enums.EPieceMeasurement;
 
 import java.util.*;
 
-import static ru.wert.normic.NormicServices.DENSITIES;
 import static ru.wert.normic.NormicServices.QUICK_MATERIALS;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class ReportMaterials {
 

@@ -2,7 +2,6 @@ package ru.wert.normic.controllers.normsTableView;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +24,6 @@ import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.enums.EMatType;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +32,7 @@ import static java.lang.String.format;
 import static ru.wert.normic.AppStatics.MAIN_CONTROLLER;
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
 import static ru.wert.normic.NormicServices.MATERIALS;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DOUBLE_FORMAT;
 import static ru.wert.normic.decoration.DecorationStatic.MAIN_STAGE;
 
 public class NormsTableViewController {

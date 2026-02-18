@@ -1,7 +1,6 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.controllers.AbstractOpPlate;
 
 /**
  * Поле допускает ввод [0-9]

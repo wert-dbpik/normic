@@ -5,8 +5,8 @@ import javafx.scene.control.TextField;
 import lombok.Getter;
 
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.controllers.AbstractOpPlate.*;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.*;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class ProfileMatPatchController extends AbstractMatPatchController {
 

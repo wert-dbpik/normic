@@ -5,7 +5,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.AbstractFormController;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.db_connection.material.Material;
@@ -19,7 +19,7 @@ import ru.wert.normic.interfaces.Paintable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 /**
  * ДОБАВЛЕНИЕ ДЕТАЛИ

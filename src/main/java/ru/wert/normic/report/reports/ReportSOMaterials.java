@@ -1,20 +1,17 @@
 package ru.wert.normic.report.reports;
 
-import ru.wert.normic.entities.db_connection.density.Density;
 import ru.wert.normic.entities.db_connection.material.Material;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.simpleOperations.OpSimpleOperation;
 import ru.wert.normic.entities.ops.single.OpAssm;
-import ru.wert.normic.entities.ops.single.OpDetail;
 import ru.wert.normic.entities.ops.single.OpPack;
 import ru.wert.normic.enums.EMatType;
-import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EPieceMeasurement;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import java.util.*;
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DOUBLE_FORMAT;
 
 public class ReportSOMaterials {
 

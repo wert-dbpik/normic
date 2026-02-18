@@ -5,8 +5,8 @@ import javafx.scene.control.TextField;
 import lombok.Getter;
 
 import static ru.wert.normic.AppStatics.roundTo001;
-import static ru.wert.normic.controllers.AbstractOpPlate.DOUBLE_FORMAT;
-import static ru.wert.normic.controllers.AbstractOpPlate.MM2_TO_M2;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DOUBLE_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.MM2_TO_M2;
 
 /**
  * Класс описывающий поведение панели листового материала

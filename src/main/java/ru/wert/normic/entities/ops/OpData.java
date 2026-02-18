@@ -2,7 +2,7 @@ package ru.wert.normic.entities.ops;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.enums.EJobType;
 import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.enums.EOpType;

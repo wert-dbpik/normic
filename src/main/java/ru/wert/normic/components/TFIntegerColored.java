@@ -1,7 +1,7 @@
 package ru.wert.normic.components;
 
 import javafx.scene.control.TextField;
-import ru.wert.normic.controllers.AbstractOpPlate;
+import ru.wert.normic.controllers._plates.AbstractOpPlate;
 
 public class TFIntegerColored {
 

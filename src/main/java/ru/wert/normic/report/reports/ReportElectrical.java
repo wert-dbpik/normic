@@ -6,7 +6,7 @@ import ru.wert.normic.enums.ENormType;
 import ru.wert.normic.interfaces.IOpWithOperations;
 
 import static ru.wert.normic.AppStatics.CURRENT_MEASURE;
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class ReportElectrical {
 

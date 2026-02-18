@@ -21,8 +21,7 @@ import ru.wert.normic.enums.ECommands;
 import ru.wert.normic.enums.ENormType;
 
 
-import static ru.wert.normic.controllers.AbstractOpPlate.DECIMAL_FORMAT;
-import static ru.wert.normic.controllers.AbstractOpPlate.whereFromController;
+import static ru.wert.normic.controllers._plates.AbstractOpPlate.DECIMAL_FORMAT;
 
 public class OperationsController {
 

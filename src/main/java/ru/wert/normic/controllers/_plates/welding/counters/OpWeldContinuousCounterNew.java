@@ -35,16 +35,16 @@ public class OpWeldContinuousCounterNew implements NormCounter {
         double strippingTime;
         if(stripping) {
             //Время на зачистку, мин
-            if (sumWeldLength < 100) strippingTime = 0.5;
-            else if (sumWeldLength >= 100 && sumWeldLength < 500) strippingTime = 1.8;
-            else if (sumWeldLength >= 500 && sumWeldLength < 1000) strippingTime = 3.22;
-            else strippingTime = sumWeldLength * MM_TO_M * 3.22;
+            if (seamLength < 100) strippingTime = 0.5;
+            else if (seamLength >= 100 && seamLength < 500) strippingTime = 1.8;
+            else if (seamLength >= 500 && seamLength < 1000) strippingTime = 3.22;
+            else strippingTime = seamLength * MM_TO_M * 3.22;
         } else
             strippingTime = 0.0;
 
 
         double time;
-        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED) + strippingTime;   //мин
+        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED) + strippingTime * seams;   //мин
         if(sumWeldLength == 0.0) time = 0.0;
 
         opData.setMechTime(roundTo001(time));

@@ -53,6 +53,7 @@ import ru.wert.normic.operations.OperationsACCController;
 import ru.wert.normic.operations.OperationsController;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -507,11 +508,15 @@ public class FormMenuManager extends ContextMenu {
         Menu menu = new Menu("Дополнительные операции");
         List<SimpleOperation> ops = SimpleOperationServiceImpl.getInstance().findAll();
         if(ops == null) return null;
+        //Сортируем список по имени
+        ops.sort(Comparator.comparing(SimpleOperation::getName));
         for(SimpleOperation op : ops){
             for(ENormType nt : normTypes)
                 if(op.getNormType().equals(nt))
                     menu.getItems().add(createItemSimpleOperation(op));
         }
+
+
         MenuItem itemCreateNew = new MenuItem("Создать операцию");
         itemCreateNew.setOnAction(e->{
 

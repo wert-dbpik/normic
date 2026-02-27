@@ -63,7 +63,6 @@ public class PlateWeldContinuousControllerNew extends AbstractOpPlate {
 
     @Override //AbstractOpPlate
     public void initViews(OpData data){
-        OpWeldContinuousNew opData = (OpWeldContinuousNew)data;
 
         tfSeams.disableProperty().bind(chbxPreEnterSeams.selectedProperty().not());
         tfConnectionLength.disableProperty().bind(chbxPreEnterSeams.selectedProperty());

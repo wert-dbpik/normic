@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.TfString;
 import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
@@ -36,6 +37,7 @@ public class Plate_MountOfCableEntries_Controller extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
+        new TfString(tfName, this);
         new TFIntegerColored(tfElements, this);
 
     }

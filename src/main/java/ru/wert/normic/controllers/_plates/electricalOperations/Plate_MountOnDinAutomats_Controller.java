@@ -7,10 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import ru.wert.normic.components.ChBox;
 import ru.wert.normic.components.TFIntegerColored;
+import ru.wert.normic.components.TfString;
 import ru.wert.normic.controllers._plates.AbstractOpPlate;
 import ru.wert.normic.controllers._forms.TotalCounter;
 import ru.wert.normic.entities.ops.OpData;
 import ru.wert.normic.entities.ops.electrical.OpMountOnDinAutomats;
+import ru.wert.normic.entities.ops.opWelding.OpWeldContinuousNew;
 import ru.wert.normic.utils.IntegerParser;
 
 import static ru.wert.normic.AppStatics.MAIN_OP_DATA;
@@ -25,13 +27,13 @@ public class Plate_MountOnDinAutomats_Controller extends AbstractOpPlate {
     private TextField tfNormTime;
 
     @FXML
-    private TextField tfName;
+    private TextField tfName; //Примечание
 
     @FXML
-    private TextField tfAvtomats;
+    private TextField tfAvtomats; //Число элементов
 
     @FXML
-    private CheckBox chbDifficult;
+    private CheckBox chbDifficult; //стесненные условия
 
     private OpMountOnDinAutomats opData;
 
@@ -42,6 +44,7 @@ public class Plate_MountOnDinAutomats_Controller extends AbstractOpPlate {
     @Override //AbstractOpPlate
     public void initViews(OpData data){
 
+        new TfString(tfName, this);
         new TFIntegerColored(tfAvtomats, this);
         new ChBox(chbDifficult, this);
 
@@ -81,7 +84,7 @@ public class Plate_MountOnDinAutomats_Controller extends AbstractOpPlate {
         OpMountOnDinAutomats opData = (OpMountOnDinAutomats)data;
 
         name = opData.getName();
-        tfName.setText(String.valueOf(name));
+        tfName.setText(name);
 
         avtomats = opData.getAvtomats();
         tfAvtomats.setText(String.valueOf(avtomats));

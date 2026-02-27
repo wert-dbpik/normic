@@ -47,7 +47,7 @@ import ru.wert.normic.history.HistoryFile;
 import ru.wert.normic.interfaces.IForm;
 import ru.wert.normic.interfaces.IOpWithOperations;
 import ru.wert.normic.interfaces.Paintable;
-import ru.wert.normic.menus.MenuPlate;
+import ru.wert.normic.controllers.menus.plateMenu.PlateMenu;
 import ru.wert.normic.searching.SearchingFileController;
 import ru.wert.normic.settings.ProductSettings;
 import ru.wert.normic.utils.NvrConverter;
@@ -401,7 +401,7 @@ public abstract class AbstractFormController implements IForm {
                             else selectedOpData = addedOperations.get(cell.getIndex());
                         }
 
-                        new MenuPlate().create(getThisController(), selectedOpData, cellIsEmpty).show(
+                        new PlateMenu().create(getThisController(), selectedOpData, cellIsEmpty).show(
                                 ((Node) e.getSource()).getScene().getWindow(),
                                 e.getScreenX(),
                                 e.getScreenY());
@@ -421,7 +421,7 @@ public abstract class AbstractFormController implements IForm {
         //Вызывеает меню при пустом списке операций, когда не срабатывает слушатель на пустой ячейке
         getListViewTechOperations().setOnMouseClicked(e -> {
             if (e.getButton().equals(MouseButton.SECONDARY))
-                new MenuPlate().create(getThisController(), null, true).show(
+                new PlateMenu().create(getThisController(), null, true).show(
                         ((Node) e.getSource()).getScene().getWindow(),
                         e.getScreenX(),
                         e.getScreenY());
@@ -691,7 +691,7 @@ public abstract class AbstractFormController implements IForm {
     }
 
     /**
-     * КОПИРОВАТЬ (MenuPlate)
+     * КОПИРОВАТЬ (PlateMenu)
      */
     public void copyOperation(Event e) {
         copyToClipboard();
@@ -699,7 +699,7 @@ public abstract class AbstractFormController implements IForm {
     }
 
     /**
-     * ВСТАВИТЬ (MenuPlate)
+     * ВСТАВИТЬ (PlateMenu)
      */
     public void pasteOperation(boolean cellIsEmpty) {
 

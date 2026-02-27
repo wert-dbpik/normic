@@ -1,4 +1,4 @@
-package ru.wert.normic.menus;
+package ru.wert.normic.controllers.menus.plateMenu;
 
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * МЕНЮ УДАЛЕНИЯ, КОПИРОВАНИЯ И ПЕРЕНОСА ОПЕРАЦИЙ
  */
-public class MenuPlate {
+public class PlateMenu {
 
     boolean showDone = false;
     boolean showCopy = true;

@@ -109,7 +109,7 @@ public abstract class AbstractOpPlate implements IOpPlate {
 
         ivOperation.setImage(opData.getOpType().getLogo());
 
-        lblOperationName.setText(opData.getOpType().getOpName().toUpperCase());
+        lblOperationName.setText(opData.getOpType().getPlateName().toUpperCase());
         lblOperationName.setStyle("-fx-text-fill: darkblue");
 
         ivHelp.setOnMouseClicked(e->{

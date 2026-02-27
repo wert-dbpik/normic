@@ -23,7 +23,7 @@ public class PlateErrorController extends AbstractOpPlate {
 
         lblOperationName.setStyle("-fx-text-fill: #ef1515");
 
-        lbErrorOpData.setText(EOpType.findOpTypeByName(opData.getErrorOpData()).getOpName());
+        lbErrorOpData.setText(EOpType.findOpTypeByName(opData.getErrorOpData()).getMenuName());
         lbErrorOpData.setStyle("-fx-text-fill: #ef1515");
 
     }

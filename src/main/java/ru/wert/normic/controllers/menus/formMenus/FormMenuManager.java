@@ -82,7 +82,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ДОБАВИТЬ ДЕТАЛЬ
     public MenuItem createItemDetail(){
-        MenuItem addDetail = new MenuItem(EOpType.DETAIL.getOpName());
+        MenuItem addDetail = new MenuItem(EOpType.DETAIL.getMenuName());
         addDetail.setOnAction(event -> {
             OpDetail opDetail = new OpDetail();
             addDetailPlate(opDetail);
@@ -92,7 +92,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ДОБАВИТЬ СБОРКУ
     public MenuItem createItemAssm(){
-        MenuItem addAssm = new MenuItem(EOpType.ASSM.getOpName());
+        MenuItem addAssm = new MenuItem(EOpType.ASSM.getMenuName());
         addAssm.setOnAction(event -> {
             OpAssm opAssm = new OpAssm();
             addAssmPlate(opAssm);
@@ -102,7 +102,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ДОБАВИТЬ УПАКОВКУ
     public MenuItem createItemPack(){
-        MenuItem addPack = new MenuItem(EOpType.PACK.getOpName());
+        MenuItem addPack = new MenuItem(EOpType.PACK.getMenuName());
         addPack.setOnAction(event -> {
             OpPack opPack = new OpPack();
             addPackPlate(opPack);
@@ -114,7 +114,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РАСКРОЙ И ЗАЧИСТКА
     public MenuItem createItemCutting(){
-        MenuItem addCutting = new MenuItem(EOpType.CUTTING.getOpName());
+        MenuItem addCutting = new MenuItem(EOpType.CUTTING.getMenuName());
         addCutting.setOnAction(event -> {
             if(isDuplicate(EOpType.CUTTING)) return ;
             addCattingPlate(new OpCutting());
@@ -124,7 +124,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ГИБКА
     public MenuItem createItemBending(){
-        MenuItem addBending = new MenuItem(EOpType.BENDING.getOpName());
+        MenuItem addBending = new MenuItem(EOpType.BENDING.getMenuName());
         addBending.setOnAction(event -> {
             if(isDuplicate(EOpType.BENDING)) return ;
             addBendingPlate(new OpBending());
@@ -136,7 +136,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОКРАСКА СТАРАЯ
     public MenuItem createItemPaintingOld(){
-        MenuItem item = new MenuItem(EOpType.PAINTING.getOpName());
+        MenuItem item = new MenuItem(EOpType.PAINTING.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINTING)) return ;
             addPaintOldPlate(new OpPaintOld());
@@ -146,7 +146,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОКРАСКА ДЕТАЛИ
     public MenuItem createItemPaintDetail(){
-        MenuItem item = new MenuItem(EOpType.PAINT_DETAIL.getOpName());
+        MenuItem item = new MenuItem(EOpType.PAINT_DETAIL.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINT_DETAIL)) return ;
             addPaintDetailPlate(new OpPaintDetail());
@@ -156,7 +156,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОКРАСКА СБОРОЧНОЙ ЕДИНИЦЫ
     public MenuItem createItemPaintAssm(){
-        MenuItem item = new MenuItem(EOpType.PAINT_ASSM.getOpName());
+        MenuItem item = new MenuItem(EOpType.PAINT_ASSM.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.PAINT_ASSM)) return ;
             addPaintAssmPlate(new OpPaintAssm());
@@ -168,7 +168,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СБОРКА - РАСКРОЙНЫЙ МАТЕРИАЛ
     public MenuItem createItemAssmCuttings(){
-        MenuItem item = new MenuItem(EOpType.ASSM_CUTTINGS.getOpName());
+        MenuItem item = new MenuItem(EOpType.ASSM_CUTTINGS.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_CUTTINGS)) return ;
             addAssmCuttingsPlate(new OpAssmCutting());
@@ -178,7 +178,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СБОРКА СТАНДАРТНЫХ УЗЛОВ
     public MenuItem createItemAssmNodes(){
-        MenuItem item = new MenuItem(EOpType.ASSM_NODES.getOpName());
+        MenuItem item = new MenuItem(EOpType.ASSM_NODES.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_NODES)) return ;
             addAssmNodesPlate(new OpAssmNode());
@@ -188,7 +188,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СБОРКА - КРЕПЕЖ
     public MenuItem createItemAssmNuts(){
-        MenuItem item = new MenuItem(EOpType.ASSM_NUTS.getOpName());
+        MenuItem item = new MenuItem(EOpType.ASSM_NUTS.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_NUTS)) return ;
             addAssmNutsPlate(new OpAssmNut());
@@ -199,7 +199,7 @@ public class FormMenuManager extends ContextMenu {
 
     //НАНЕСЕНИЕ НАЛИВНОГО УПЛОТНИТЕЛЯ
     public MenuItem createItemLevelingSealer(){
-        MenuItem item = new MenuItem(EOpType.LEVELING_SEALER.getOpName());
+        MenuItem item = new MenuItem(EOpType.LEVELING_SEALER.getMenuName());
         item.setOnAction(event -> {
             addLevelingSealerPlate(new OpLevelingSealer());
         });
@@ -208,7 +208,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ ТЕРМОИЗОЛЯЦИИ
     public MenuItem createItemThermoInsulation(){
-        MenuItem item = new MenuItem(EOpType.THERMO_INSULATION.getOpName());
+        MenuItem item = new MenuItem(EOpType.THERMO_INSULATION.getMenuName());
         item.setOnAction(event -> {
             addThermoInsulationPlate(new OpThermoInsulation());
         });
@@ -217,7 +217,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ОТРУБАНИЕ
     public MenuItem createItemAssmChopOff(){
-        MenuItem item = new MenuItem(EOpType.ASSM_CHOP_OFF.getOpName());
+        MenuItem item = new MenuItem(EOpType.ASSM_CHOP_OFF.getMenuName());
         item.setOnAction(event -> {
             addAssmChopOffPlate(new OpAssmChopOff());
         });
@@ -238,7 +238,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СЛЕСАРНЫЕ РАБОТЫ
     public MenuItem createItemLocksmith(){
-        MenuItem addLocksmith = new MenuItem(EOpType.LOCKSMITH.getOpName());
+        MenuItem addLocksmith = new MenuItem(EOpType.LOCKSMITH.getMenuName());
         addLocksmith.setOnAction(event -> {
             if(isDuplicate(EOpType.LOCKSMITH)) return ;
             addLocksmithPlate(new OpLocksmith());
@@ -249,7 +249,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СБОРКА - КРЕПЕЖ МК
     public MenuItem createItemAssmNutsMK(){
-        MenuItem item = new MenuItem(EOpType.ASSM_NUTS_MK.getOpName());
+        MenuItem item = new MenuItem(EOpType.ASSM_NUTS_MK.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.ASSM_NUTS_MK)) return ;
             addAssmNutsMKPlate(new OpAssmNutMK());
@@ -259,7 +259,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ОТРУБАНИЕ
     public MenuItem createItemChopOff(){
-        MenuItem item = new MenuItem(EOpType.CHOP_OFF.getOpName());
+        MenuItem item = new MenuItem(EOpType.CHOP_OFF.getMenuName());
         item.setOnAction(event -> {
             addChopOffPlate(new OpChopOff());
         });
@@ -268,7 +268,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СВЕРЛЕНИЕ ОТВЕРСТИЯ ПО РАЗМЕТКЕ (многократное добавление)
     public MenuItem createItemDrillingByMarking(){
-        MenuItem item = new MenuItem(EOpType.DRILLING_BY_MARKING.getOpName());
+        MenuItem item = new MenuItem(EOpType.DRILLING_BY_MARKING.getMenuName());
         item.setOnAction(event -> {
             addDrillingByMarkingPlate(new OpDrillingByMarking());
         });
@@ -277,7 +277,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ОТРЕЗАНИЕ НА ПИЛЕ
     public MenuItem createItemCutOffOnTheSaw(){
-        MenuItem item = new MenuItem(EOpType.CUT_OFF_ON_SAW.getOpName());
+        MenuItem item = new MenuItem(EOpType.CUT_OFF_ON_SAW.getMenuName());
         item.setOnAction(event -> {
             addCutOffOnTheSawPlate(new OpCutOffOnTheSaw());
         });
@@ -303,7 +303,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УСТАНОВКА / СНЯТИЕ детали
     public MenuItem createItemMountDismount(){
-        MenuItem item = new MenuItem(EOpType.LATHE_MOUNT_DISMOUNT.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_MOUNT_DISMOUNT.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.LATHE_CUT_OFF)) return ;
             addMountDismountPlate(new OpLatheMountDismount());
@@ -313,7 +313,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ТОЧЕНИЕ / РАСТАЧИВАНИЕ (многократное добавление)
     public MenuItem createItemTurning(){
-        MenuItem item = new MenuItem(EOpType.LATHE_TURNING.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_TURNING.getMenuName());
         item.setOnAction(event -> {
             addTurningPlate(new OpLatheTurning());
         });
@@ -322,7 +322,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПРОРЕЗАНИЕ ПАЗА (многократное добавление)
     public MenuItem createItemCutGroove(){
-        MenuItem item = new MenuItem(EOpType.LATHE_CUT_GROOVE.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_CUT_GROOVE.getMenuName());
         item.setOnAction(event -> {
             addCutGroovePlate(new OpLatheCutGroove());
         });
@@ -331,7 +331,7 @@ public class FormMenuManager extends ContextMenu {
 
     //НАРЕЗАНИЕ РЕЗЬБЫ (многократное добавление)
     public MenuItem createItemThreading(){
-        MenuItem item = new MenuItem(EOpType.LATHE_THREADING.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_THREADING.getMenuName());
         item.setOnAction(event -> {
             addThreadingPlate(new OpLatheThreading());
         });
@@ -340,7 +340,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СВЕРЛЕНИЕ ОТВЕРСТИЯ (многократное добавление)
     public MenuItem createItemDrilling(){
-        MenuItem item = new MenuItem(EOpType.LATHE_DRILLING.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_DRILLING.getMenuName());
         item.setOnAction(event -> {
             addDrillingPlate(new OpLatheDrilling());
         });
@@ -349,7 +349,7 @@ public class FormMenuManager extends ContextMenu {
 
     //НАКАТЫВАНИЕ РИФЛЕНИЯ (многократное добавление)
     public MenuItem createItemRolling(){
-        MenuItem item = new MenuItem(EOpType.LATHE_ROLLING.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_ROLLING.getMenuName());
         item.setOnAction(event -> {
             addRollingPlate(new OpLatheRolling());
         });
@@ -358,7 +358,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ОТРЕЗАНИЕ
     public MenuItem createItemCutOff(){
-        MenuItem item = new MenuItem(EOpType.LATHE_CUT_OFF.getOpName());
+        MenuItem item = new MenuItem(EOpType.LATHE_CUT_OFF.getMenuName());
         item.setOnAction(event -> {
             addCutOffPlate(new OpLatheCutOff());
         });
@@ -385,7 +385,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СВАРКА НЕПРЕРЫВНАЯ СТАРАЯ
     public MenuItem createItemWeldContinuousOld(){
-        MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS.getOpName());
+        MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS.getMenuName());
         item.setOnAction(event -> {
             addWeldContinuousPlate(new OpWeldContinuousOld());
         });
@@ -394,7 +394,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СВАРКА НЕПРЕРЫВНАЯ НОВАЯ
     public MenuItem createItemWeldContinuousNew(){
-        MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS_NEW.getOpName());
+        MenuItem item = new MenuItem(EOpType.WELD_CONTINUOUS_NEW.getMenuName());
         item.setOnAction(event -> {
             addWeldContinuousPlateNew(new OpWeldContinuousNew());
         });
@@ -403,7 +403,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СЛОЖНОСТЬ НЕПРЕРЫВНОЙ СВАРКИ
     public MenuItem createItemWeldDifficulty(){
-        MenuItem item = new MenuItem(EOpType.WELD_DIFFICULTY.getOpName());
+        MenuItem item = new MenuItem(EOpType.WELD_DIFFICULTY.getMenuName());
         item.setOnAction(event -> {
             addWeldDifficultyPlate(new OpWeldDifficulty());
         });
@@ -412,7 +412,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СВАРКА ТОЧЕЧНАЯ
     public MenuItem createItemWeldingDotted(){
-        MenuItem item = new MenuItem(EOpType.WELD_DOTTED.getOpName());
+        MenuItem item = new MenuItem(EOpType.WELD_DOTTED.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.WELD_DOTTED)) return ;
             addWeldDottedPlate(new OpWeldDotted());
@@ -422,7 +422,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СБОРКА СВАРОЧНОЙ КОНСТРУКЦИИ
     public MenuItem createItemWeldAssm(){
-        MenuItem item = new MenuItem(EOpType.WELD_ASSM.getOpName());
+        MenuItem item = new MenuItem(EOpType.WELD_ASSM.getMenuName());
         item.setOnAction(event -> {
             if(isDuplicate(EOpType.WELD_ASSM)) return ;
             addWeldAssmPlate(new OpWeldAssm());
@@ -446,7 +446,7 @@ public class FormMenuManager extends ContextMenu {
 
     //КРЕПЛЕНИЕ К ПОДДОНУ
     public MenuItem createItemPackOnPallet(){
-        MenuItem item = new MenuItem(EOpType.PACK_ON_PALLET.getOpName());
+        MenuItem item = new MenuItem(EOpType.PACK_ON_PALLET.getMenuName());
         item.setOnAction(event -> {
             addPackOnPalletPlate(new OpPackOnPallet());
         });
@@ -455,7 +455,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УПАКОВКА В МАШИННУЮ СТРЕЙЧ-ПЛЕНКУ
     public MenuItem createItemPackOnPalletizer(){
-        MenuItem item = new MenuItem(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getOpName());
+        MenuItem item = new MenuItem(EOpType.PACK_IN_MACHINE_STRETCH_WRAP.getMenuName());
         item.setOnAction(event -> {
             addPackInMachineStretchWrapPlate(new OpPackInMachineStretchWrap());
         });
@@ -464,7 +464,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УПАКОВКА В РУЧНУЮ СТРЕЙЧ-ПЛЕНКУ
     public MenuItem createItemPackInHandStretchWrap(){
-        MenuItem item = new MenuItem(EOpType.PACK_IN_HAND_STRETCH_WRAP.getOpName());
+        MenuItem item = new MenuItem(EOpType.PACK_IN_HAND_STRETCH_WRAP.getMenuName());
         item.setOnAction(event -> {
             addPackInHandStretchWrapPlate(new OpPackInHandStretchWrap());
         });
@@ -473,7 +473,7 @@ public class FormMenuManager extends ContextMenu {
 
     //КРЕПЛЕНИЕ В КАРТОННУЮ КОРОБКУ
     public MenuItem createItemPackInCartoonBox(){
-        MenuItem item = new MenuItem(EOpType.PACK_IN_CARTOON_BOX.getOpName());
+        MenuItem item = new MenuItem(EOpType.PACK_IN_CARTOON_BOX.getMenuName());
         item.setOnAction(event -> {
             addPackInCartoonBoxPlate(new OpPackInCartoonBox());
         });
@@ -482,7 +482,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УПАКОВКА В ПУЗЫРЬКОВУЮ ПЛЕНКУ
     public MenuItem createItemPackInBubbleWrap(){
-        MenuItem item = new MenuItem(EOpType.PACK_IN_BUBBLE_WRAP.getOpName());
+        MenuItem item = new MenuItem(EOpType.PACK_IN_BUBBLE_WRAP.getMenuName());
         item.setOnAction(event -> {
             addPackInBubbleWrapPlate(new OpPackInBubbleWrap());
         });
@@ -569,7 +569,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА ДИНРЕЙКУ АВТОМАТОВ
     public MenuItem createItem_MountOnDinAutomats(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN_AUTOMATS.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN_AUTOMATS.getMenuName());
         item.setOnAction(event -> {
             add_MountOnDinAutomats_Plate(new OpMountOnDinAutomats());
         });
@@ -578,7 +578,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА ДИНРЕЙКУ НАГРЕВАТЕЛЕЙ
     public MenuItem createItem_MountOnDinHeaters(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN_HEATERS.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_DIN_HEATERS.getMenuName());
         item.setOnAction(event -> {
             add_MountOnDinHeaters_Plate(new OpMountOnDinHeaters());
         });
@@ -587,7 +587,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА 2 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
     public MenuItem createItem_MountOnScrewsNoDisAssm2(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_2.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_2.getMenuName());
         item.setOnAction(event -> {
             add_MountOnScrewsNoDisAssm2_Plate(new OpMountOnScrewsNoDisAssm2());
         });
@@ -596,7 +596,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА 4 ВИНТА БЕЗ РАЗБОРКИ КОРПУСА
     public MenuItem createItem_MountOnScrewsNoDisAssm4(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_4.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_NO_DISASSM_4.getMenuName());
         item.setOnAction(event -> {
             add_MountOnScrewsNoDisAssm4_Plate(new OpMountOnScrewsNoDisAssm4());
         });
@@ -605,7 +605,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА 2 ВИНТА С РАЗБОРКОЙ КОРПУСА
     public MenuItem createItem_MountOnScrewsWithDisAssm2(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM_2.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM_2.getMenuName());
         item.setOnAction(event -> {
             add_MountOnScrewsWithDisAssm2_Plate(new OpMountOnScrewsWithDisAssm2());
         });
@@ -614,7 +614,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА 4 ВИНТА С РАЗБОРКОЙ КОРПУСА
     public MenuItem createItem_MountOnScrewsWithDisAssm4(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM_4.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_SCREWS_WITH_DISASSM_4.getMenuName());
         item.setOnAction(event -> {
             add_MountOnScrewsWithDisAssm4_Plate(new OpMountOnScrewsWithDisAssm4());
         });
@@ -623,7 +623,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МОНТАЖ НА ВШГ(4 шт)
     public MenuItem createItem_MountOnVSHG(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_VSHG.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_ON_VSHG.getMenuName());
         item.setOnAction(event -> {
             add_MountOnVSHG_Plate(new OpMountOnVSHG());
         });
@@ -632,7 +632,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВРЕЗНОЙ КОНТАКТ
     public MenuItem createItem_ConnectDeviceMortiseContact(){
-        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_MORTISE_CONTACT.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_MORTISE_CONTACT.getMenuName());
         item.setOnAction(event -> {
             add_ConnectDeviceMortiseContact_Plate(new OpConnectDeviceMortiseContact());
         });
@@ -641,7 +641,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ПРУЖИННЫЙ ЗАЖИМ
     public MenuItem createItem_ConnectDeviceSpringClamp(){
-        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_SPRING_CLAMP.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_SPRING_CLAMP.getMenuName());
         item.setOnAction(event -> {
             add_ConnectDeviceSpringClamp_Plate(new OpConnectDeviceSpringClamp());
         });
@@ -650,7 +650,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ЗАЖИМНОЙ ВИНТ
     public MenuItem createItem_ConnectDeviceClampingScrew(){
-        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_CLAMPING_SCREW.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_CLAMPING_SCREW.getMenuName());
         item.setOnAction(event -> {
             add_ConnectDeviceClampingScrew_Plate(new OpConnectDeviceClampingScrew());
         });
@@ -659,7 +659,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ПОДКЛЮЧЕНИЕ ЭЛЕКТРОУСТРОЙСТВ НА ВШГ
     public MenuItem createItem_ConnectDeviceVSHG(){
-        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_VSHG.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CONNECT_DEVICE_VSHG.getMenuName());
         item.setOnAction(event -> {
             add_ConnectDeviceVSHG_Plate(new OpConnectDeviceVSHG());
         });
@@ -668,7 +668,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 6 ММ
     public MenuItem createItem_CutCableHandlyMC6(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_MC6.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_MC6.getMenuName());
         item.setOnAction(event -> {
             add_CutCableHandlyMC6_Plate(new OpCutCableHandlyMC6());
         });
@@ -677,7 +677,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ МНОГОЖИЛЬНЫЙ 11-15 ММ
     public MenuItem createItem_CutCableHandlyMC15(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_MC15.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_MC15.getMenuName());
         item.setOnAction(event -> {
             add_CutCableHandlyMC15_Plate(new OpCutCableHandlyMC15());
         });
@@ -686,7 +686,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РЕЗКА КАБЕЛЯ И СНЯТИЕ ИЗОЛЯЦИИ ВРУЧНУЮ ОДНОЖИЛЬНЫЙ
     public MenuItem createItem_CutCableHandlySC(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_SC.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_HANDLY_SC.getMenuName());
         item.setOnAction(event -> {
             add_CutCableHandlySC_Plate(new OpCutCableHandlySC());
         });
@@ -695,7 +695,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РЕЗКА КАБЕЛЯ НА АВТОМАТЕ
     public MenuItem createItem_CutCableOnMachine(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_ON_MACHINE.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_ON_MACHINE.getMenuName());
         item.setOnAction(event -> {
             add_CutCableOnMachine_Plate(new OpCutCableOnMachine());
         });
@@ -704,7 +704,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РЕЗКА МЕТАЛЛОРУКАВА
     public MenuItem createItem_CutMetalSleeve(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_METAL_SLEEVE.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CUT_METAL_SLEEVE.getMenuName());
         item.setOnAction(event -> {
             add_CutMetalSleeve_Plate(new OpCutMetalSleeve());
         });
@@ -713,7 +713,7 @@ public class FormMenuManager extends ContextMenu {
 
     //РЕЗКА КАБЕЛЬ-КАНАЛА, ДИНРЕЙКИ
     public MenuItem createItem_CutCableChannel(){
-        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_CHANNEL.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_CUT_CABLE_CHANNEL.getMenuName());
         item.setOnAction(event -> {
             add_CutCableChannel_Plate(new OpCutCableChannel());
         });
@@ -722,7 +722,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ЛУЖЕНИЕ В ВАННОЧКЕ
     public MenuItem createItem_TinningInBathe(){
-        MenuItem item = new MenuItem(EOpType.EL_TINNING_IN_BATHE.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_TINNING_IN_BATHE.getMenuName());
         item.setOnAction(event -> {
             add_TinningInBathe_Plate(new OpTinningInBathe());
         });
@@ -731,7 +731,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ЛУЖЕНИЕ ЭЛЕКТРОПАЯЛЬНИКОМ
     public MenuItem createItem_Tinning(){
-        MenuItem item = new MenuItem(EOpType.EL_TINNING.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_TINNING.getMenuName());
         item.setOnAction(event -> {
             add_Tinning_Plate(new OpTinning());
         });
@@ -740,7 +740,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ОКОНЦОВКА ПРОВОДА
     public MenuItem createItem_MountTipOnCable(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_TIP_ON_CABLE.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_TIP_ON_CABLE.getMenuName());
         item.setOnAction(event -> {
             add_MountTipOnCable_Plate(new OpMountTipOnCable());
         });
@@ -749,7 +749,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ОКОНЦОВКА СИЛОВОГО КАБЕЛЯ
     public MenuItem createItem_MountTipOnPowerCable(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_TIP_ON_POWER_CABLE.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_TIP_ON_POWER_CABLE.getMenuName());
         item.setOnAction(event -> {
             add_MountTipOnPowerCable_Plate(new OpMountTipOnPowerCable());
         });
@@ -758,7 +758,7 @@ public class FormMenuManager extends ContextMenu {
 
     //МАРКИРОВКА
     public MenuItem createItem_Marking(){
-        MenuItem item = new MenuItem(EOpType.EL_MARKING.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MARKING.getMenuName());
         item.setOnAction(event -> {
             add_Marking_Plate(new OpMarking());
         });
@@ -767,7 +767,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УСТАНОВКА СИГНАЛЬНОЙ АППАРАТУРЫ
     public MenuItem createItem_MountOfSignalEquip(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_SIGNAL_EQUIP.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_SIGNAL_EQUIP.getMenuName());
         item.setOnAction(event -> {
             add_MountOfSignalEquip_Plate(new OpMountOfSignalEquip());
         });
@@ -776,7 +776,7 @@ public class FormMenuManager extends ContextMenu {
 
     //СОЕДИНЕНИЕ ЭЛЕМЕНТОВ ПАЙКОЙ
     public MenuItem createItem_Soldering(){
-        MenuItem item = new MenuItem(EOpType.EL_SOLDERING.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_SOLDERING.getMenuName());
         item.setOnAction(event -> {
             add_Soldering_Plate(new OpSoldering());
         });
@@ -785,7 +785,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УСТАНОВКА КАБЕЛЬНЫХ ВВОДОВ
     public MenuItem createItem_MountOfCableEntries(){
-        MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_CABLE_ENTRIES.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_MOUNT_OF_CABLE_ENTRIES.getMenuName());
         item.setOnAction(event -> {
             add_MountOfCableEntries_Plate(new OpMountOfCableEntries());
         });
@@ -794,7 +794,7 @@ public class FormMenuManager extends ContextMenu {
 
     //УКЛАДКА ЖГУТОВ
     public MenuItem createItem_FixOfCables(){
-        MenuItem item = new MenuItem(EOpType.EL_FIX_OF_CABLES.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_FIX_OF_CABLES.getMenuName());
         item.setOnAction(event -> {
             add_FixOfCables_Plate(new OpFixOfCables());
         });
@@ -803,7 +803,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 2-10 ММ
     public MenuItem createItem_IsolateWithThermotube10(){
-        MenuItem item = new MenuItem(EOpType.EL_ISOLATE_WITH_THERM_TUBE10.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_ISOLATE_WITH_THERM_TUBE10.getMenuName());
         item.setOnAction(event -> {
             add_IsolateWithThermotube10_Plate(new OpIsolateWithThermTube10());
         });
@@ -812,7 +812,7 @@ public class FormMenuManager extends ContextMenu {
 
     //ИЗОЛЯЦИЯ ПРОВОДОВ ТЕРМОУСАДОЧНОЙ ТРУБКОЙ 10-30 ММ
     public MenuItem createItem_IsolateWithThermotube30(){
-        MenuItem item = new MenuItem(EOpType.EL_ISOLATE_WITH_THERM_TUBE30.getOpName());
+        MenuItem item = new MenuItem(EOpType.EL_ISOLATE_WITH_THERM_TUBE30.getMenuName());
         item.setOnAction(event -> {
             add_IsolateWithThermotube30_Plate(new OpIsolateWithThermTube30());
         });

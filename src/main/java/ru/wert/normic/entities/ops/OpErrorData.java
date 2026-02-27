@@ -32,6 +32,6 @@ public class OpErrorData extends OpData {
 
     @Override
     public String toString() {
-        return "ошибка конвертации операции : " + findOpTypeByName(errorOpData).getOpName();
+        return "ошибка конвертации операции : " + findOpTypeByName(errorOpData).getMenuName();
     }
 }

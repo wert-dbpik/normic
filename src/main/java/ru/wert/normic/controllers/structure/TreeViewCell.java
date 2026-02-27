@@ -208,7 +208,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 
     private void formOperationBlock(VBox vbItemBlock, OpData op) {
         //НИМЕНОВАНИЕ ОПЕРАЦИИ
-        String opName = op.getOpType().getOpName();
+        String opName = op.getOpType().getMenuName();
         Text textOpName = new Text("\t \u25CF " + opName + ": ");
         textOpName.setId("operationName");
         Label textOpDescription = new Label(op.toString());

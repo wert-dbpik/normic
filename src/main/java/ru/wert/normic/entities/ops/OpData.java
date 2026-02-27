@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class OpData implements Serializable {
+public class OpData implements Serializable, Cloneable {
 
     transient protected int total = 1; //Общее количество в изделии
     transient protected AbstractOpPlate plateController; //
@@ -33,5 +33,25 @@ public class OpData implements Serializable {
 
 
     private double totalTime; //Общее время
+
+    @Override
+    public OpData clone() {
+        try {
+            OpData clone = (OpData) super.clone();
+
+            // plateController не клонируем, так как это transient и
+            // ссылка на контроллер должна быть установлена заново при необходимости
+            clone.plateController = null;
+
+            // Клонируем enum поля (они immutable, но глубокое копирование не требуется)
+            // normType, jobType, opType - enum, они копируются автоматически
+
+            // quantity и времена копируются автоматически при поверхностном копировании
+
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("OpData должен поддерживать Cloneable", e);
+        }
+    }
 
 }

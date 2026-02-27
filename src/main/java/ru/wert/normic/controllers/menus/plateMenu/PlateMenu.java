@@ -19,85 +19,124 @@ import java.util.List;
  */
 public class PlateMenu {
 
-    boolean showDone = false;
-    boolean showCopy = true;
-    boolean showCut = true;
-    boolean showPaste = true;
-    boolean showDelete = true;
-    boolean showSave = true;
+    private static final int ICON_SIZE = 24;
 
-    public ContextMenu create(AbstractFormController formController, OpData opData, boolean cellIsEmpty){
+    private ImageView createIcon(String resourcePath) {
+        return new ImageView(new Image(
+                getClass().getResource(resourcePath).toString(),
+                ICON_SIZE, ICON_SIZE, true, true
+        ));
+    }
 
+    public ContextMenu create(AbstractFormController formController, OpData opData, boolean cellIsEmpty) {
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.setId("contextMenu");
 
-        MenuItem done = new MenuItem();
-        if(opData instanceof IOpWithOperations && !cellIsEmpty){
-            showDone = true;
-            if(!((IOpWithOperations) opData).isDone()){
-                done.setText("Готово");
-                done.setOnAction(e->((IOpWithOperations) opData).setDone(true));
-                done.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/done.png").toString(), 24, 24, true, true)));
-            } else {
-                done.setText("НЕ готово");
-                done.setOnAction(e->((IOpWithOperations) opData).setDone(false));
-                done.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/edit2.png").toString(), 24, 24, true, true)));
-            }
-        }
+        // Определяем состояние
+        boolean isOpWithOps = opData instanceof IOpWithOperations && !cellIsEmpty;
+        boolean isPastePossible = !AbstractFormController.clipOpDataList.isEmpty() &&
+                formController.isPastePossible(cellIsEmpty);
 
-        MenuItem copy = new MenuItem("Копировать");
-        copy.setOnAction(formController::copyOperation);
-        copy.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/copy.png").toString(), 24, 24, true, true)));
+        List<VBox> selectedItems = formController.getListViewTechOperations()
+                .getSelectionModel().getSelectedItems();
+        boolean isSingleSelection = selectedItems.size() == 1;
 
-        MenuItem cut = new MenuItem("Вырезать");
-        cut.setOnAction(formController::cutOperation);
-        cut.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/cut.png").toString(), 24, 24, true, true)));
-
-        MenuItem paste = new MenuItem("Вставить");
-        paste.setOnAction(e->formController.pasteOperation(cellIsEmpty));
-        paste.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/paste.png").toString(), 24, 24, true, true)));
-
-        MenuItem delete = new MenuItem("Удалить");
-        delete.setOnAction(formController::deleteSelectedOperation);
-        delete.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/close.png").toString(), 24, 24, true, true)));
-
-        MenuItem save = new MenuItem("Сохранить");
-        if(!cellIsEmpty && opData instanceof IOpWithOperations) {
-            List<OpData> addedOperations = ((IOpWithOperations) opData).getOperations();
-            String initialName = ((IOpWithOperations) opData).getName();
-            opData.setQuantity(1); //Количество меняем на 1
-            save.setOnAction(e -> MainController.saveAs(opData, addedOperations, initialName, e, EMenuSource.FORM_MENU));
-            save.setGraphic(new ImageView(new Image(getClass().getResource("/pics/btns/save.png").toString(), 24, 24, true, true)));
-        } else
-            showSave = false;
-
-        List<VBox> selectedItems = formController.getListViewTechOperations().getSelectionModel().getSelectedItems();
-        //Если буфер обмена пустой или вставка невозможна
-        if(AbstractFormController.clipOpDataList.isEmpty() ||
-                !formController.isPastePossible(cellIsEmpty))
-            showPaste = false;
-        if(cellIsEmpty){
-            showCopy = false;
-            showCut = false;
-            showDelete = false;
-        } else {
-            //Если выделенных элементов не 1
-            if(selectedItems.size() != 1) showPaste = false;
-        }
-
-        if (showDone) contextMenu.getItems().add(done);
-        if (showDone) contextMenu.getItems().add(new SeparatorMenuItem());
-        if (showCopy) contextMenu.getItems().add(copy);
-        if (showCut) contextMenu.getItems().add(cut);
-        if (showPaste) contextMenu.getItems().add(paste);
-        if (showDelete) contextMenu.getItems().add(delete);
-        if (showSave && (showCopy || showCut || showPaste || showDelete))
+        // Создаем пункты меню только при необходимости
+        if (isOpWithOps) {
+            MenuItem done = createDoneMenuItem((IOpWithOperations) opData);
+            contextMenu.getItems().add(done);
             contextMenu.getItems().add(new SeparatorMenuItem());
+        }
 
-        if (showSave) contextMenu.getItems().add(save);
+        if (!cellIsEmpty) {
+            if (isSingleSelection) {
+                contextMenu.getItems().add(createCopyMenuItem(formController));
+                contextMenu.getItems().add(createCutMenuItem(formController));
+            }
 
+            if (isPastePossible && isSingleSelection) {
+                contextMenu.getItems().add(createPasteMenuItem(formController, cellIsEmpty));
+            }
+
+            contextMenu.getItems().add(createDeleteMenuItem(formController));
+        }
+
+        // Сохранение (создаем копию данных)
+        if (isOpWithOps) {
+            boolean hasOtherItems = !contextMenu.getItems().isEmpty();
+            if (hasOtherItems) {
+                contextMenu.getItems().add(new SeparatorMenuItem());
+            }
+            contextMenu.getItems().add(createSaveMenuItem((IOpWithOperations) opData));
+        }
 
         return contextMenu;
     }
 
+    private MenuItem createDoneMenuItem(IOpWithOperations opData) {
+        MenuItem done = new MenuItem();
+        if (!opData.isDone()) {
+            done.setText("Готово");
+            done.setOnAction(e -> opData.setDone(true));
+            done.setGraphic(createIcon("/pics/btns/done.png"));
+        } else {
+            done.setText("НЕ готово");
+            done.setOnAction(e -> opData.setDone(false));
+            done.setGraphic(createIcon("/pics/btns/edit2.png"));
+        }
+        return done;
+    }
+
+    private MenuItem createCopyMenuItem(AbstractFormController formController) {
+        MenuItem copy = new MenuItem("Копировать");
+        copy.setOnAction(formController::copyOperation);
+        copy.setGraphic(createIcon("/pics/btns/copy.png"));
+        return copy;
+    }
+
+    private MenuItem createCutMenuItem(AbstractFormController formController) {
+        MenuItem cut = new MenuItem("Вырезать");
+        cut.setOnAction(formController::cutOperation);
+        cut.setGraphic(createIcon("/pics/btns/cut.png"));
+        return cut;
+    }
+
+    private MenuItem createPasteMenuItem(AbstractFormController formController, boolean cellIsEmpty) {
+        MenuItem paste = new MenuItem("Вставить");
+        paste.setOnAction(e -> formController.pasteOperation(cellIsEmpty));
+        paste.setGraphic(createIcon("/pics/btns/paste.png"));
+        return paste;
+    }
+
+    private MenuItem createDeleteMenuItem(AbstractFormController formController) {
+        MenuItem delete = new MenuItem("Удалить");
+        delete.setOnAction(formController::deleteSelectedOperation);
+        delete.setGraphic(createIcon("/pics/btns/close.png"));
+        return delete;
+    }
+
+    private MenuItem createSaveMenuItem(IOpWithOperations opData) {
+        MenuItem save = new MenuItem("Сохранить");
+        List<OpData> addedOperations = opData.getOperations();
+        String initialName = opData.getName();
+
+        //Создаем копию данных для сохранения, не изменяя оригинал
+        save.setOnAction(e -> {
+            OpData copyForSave = createCopyForSave(opData);
+            MainController.saveAs(copyForSave, addedOperations, initialName, e, EMenuSource.FORM_MENU);
+        });
+
+        save.setGraphic(createIcon("/pics/btns/save.png"));
+        return save;
+    }
+
+    /**
+     * Создает копию операции для сохранения, чтобы не изменять оригинал
+     */
+    private OpData createCopyForSave(IOpWithOperations original) {
+        OpData originalOp = (OpData) original;
+        OpData copy = originalOp.clone();
+        copy.setQuantity(1);
+        return copy;
+    }
 }

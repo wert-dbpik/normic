@@ -32,23 +32,26 @@ public class OpWeldContinuousCounterNew implements NormCounter {
                 seams * seamLength :
                 connectionLength / step * seamLength;
 
-        double strippingTime;
+        double stripOneSeamTime; //Время зачистки одного шва
         if(stripping) {
             //Время на зачистку, мин
-            if (seamLength < 100) strippingTime = 0.5;
-            else if (seamLength >= 100 && seamLength < 500) strippingTime = 1.8;
-            else if (seamLength >= 500 && seamLength < 1000) strippingTime = 3.22;
-            else strippingTime = seamLength * MM_TO_M * 3.22;
+            if (seamLength < 100) stripOneSeamTime = 0.5;
+            else if (seamLength >= 100 && seamLength < 500) stripOneSeamTime = 1.8;
+            else if (seamLength >= 500 && seamLength < 1000) stripOneSeamTime = 3.22;
+            else stripOneSeamTime = seamLength * MM_TO_M * 3.22;
         } else
-            strippingTime = 0.0;
+            stripOneSeamTime = 0.0;
 
 
         double time;
-        time =  men * (sumWeldLength * MM_TO_M * WELDING_SPEED) + strippingTime * seams;   //мин
+        double weldingTime = men * (sumWeldLength * MM_TO_M * WELDING_SPEED);
+        double strippingTime = stripOneSeamTime * seams;
+        time =  weldingTime + strippingTime;   //мин
         if(sumWeldLength == 0.0) time = 0.0;
 
         opData.setMechTime(roundTo001(time));
         opData.setLocksmithTime(roundTo001(strippingTime));
+
         return opData;
     }
 }

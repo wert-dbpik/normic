@@ -28,7 +28,7 @@ public class ReportController {
 
         //###########################################################################################################
 
-        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ
+        //НОРМЫ ВРЕМЕНИ ПО ВИДАМ РАБОТ (резка, гибка, сварка, слесарка, мех)
         new ReportNormsByJobTypes(textReport, opAssm).create();
 
         //НОРМЫ ВРЕМЕНИ ПО ЦЕХАМ (МК, ППК, СБОРКА и УПАКОВКА)
@@ -40,9 +40,6 @@ public class ReportController {
         //ДОПОЛНИТЕЛЬНЫЕ МАТЕРИАЛЫ
         new ReportSOMaterials(textReport, opAssm).create();
 
-        //НАЛИВНОЙ УПЛОТНИТЕЛЬ
-        new ReportLevelingSealer(textReport, opAssm).create();
-
         //ТЕРМОИОЛЯЦИЯ
         new ReportInsulation(textReport, opAssm).create();
 
@@ -52,7 +49,10 @@ public class ReportController {
         //УПАКОВКА
         new ReportPacking(textReport, opAssm).create();
 
-        //УПАКОВКА
+        //НАЛИВНОЙ УПЛОТНИТЕЛЬ
+        new ReportLevelingSealer(textReport, opAssm).create();
+
+        //ЭЛЕКТРИКА
         new ReportElectrical(textReport, opAssm).create();
 
         taReport.setText(textReport.toString());

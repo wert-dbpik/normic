@@ -572,7 +572,7 @@ public class MainController extends AbstractFormController {
             controller.init((OpAssm) opData);
 
             new Decoration(
-                    "ОТЧЕТ",
+                    "ОТЧЕТ 1С",
                     report,
                     true,
                     owner,

@@ -105,7 +105,8 @@ public class AppStatics {
                     LATHE_MOUNT_DISMOUNT, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING, LOCKSMITH, LATHE_CUT_OFF, CHOP_OFF,
                     ASSM_CHOP_OFF,
-                    PAINTING, PAINT_DETAIL
+                    PAINTING, PAINT_DETAIL,
+                    SIMPLE_OPERATION
                    );
 
     //Перечень операций, которые можно добавить в Сборку
@@ -123,14 +124,16 @@ public class AppStatics {
                     EL_TINNING_IN_BATHE, EL_TINNING,
                     EL_MOUNT_TIP_ON_CABLE, EL_MOUNT_TIP_ON_POWER_CABLE,
                     EL_MARKING, EL_MOUNT_OF_SIGNAL_EQUIP, EL_SOLDERING, EL_MOUNT_OF_CABLE_ENTRIES, EL_FIX_OF_CABLES,
-                    EL_ISOLATE_WITH_THERM_TUBE10, EL_ISOLATE_WITH_THERM_TUBE30
+                    EL_ISOLATE_WITH_THERM_TUBE10, EL_ISOLATE_WITH_THERM_TUBE30,
+                    SIMPLE_OPERATION
                     );
 
     //Перечень операций, которые можно добавить в УПАКОВКУ
     public static final List<EOpType> PACK_OPERATIONS =
             Arrays.asList(
                     PACK_ON_PALLET, PACK_IN_MACHINE_STRETCH_WRAP, PACK_IN_HAND_STRETCH_WRAP,
-                    PACK_IN_CARTOON_BOX, PACK_IN_BUBBLE_WRAP
+                    PACK_IN_CARTOON_BOX, PACK_IN_BUBBLE_WRAP,
+                    SIMPLE_OPERATION
             );
 
     //Перечень операций, которые м.б. продублированны
@@ -138,19 +141,22 @@ public class AppStatics {
             Arrays.asList(DETAIL, ASSM, WELD_CONTINUOUS, LEVELING_SEALER,
                     LATHE_MOUNT_DISMOUNT, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING, THERMO_INSULATION,
-                    PACK, PACK_ON_PALLET);
+                    PACK, PACK_ON_PALLET, SIMPLE_OPERATION);
 
     //Перечень допустимых операций по типу материала
     public static List<EOpType> LIST_OPERATIONS = Arrays.asList(CUTTING, BENDING,
             LOCKSMITH, DRILLING_BY_MARKING,
             PAINTING, PAINT_DETAIL,
-            WELD_CONTINUOUS, WELD_DOTTED);//Листовой
+            WELD_CONTINUOUS, WELD_DOTTED,
+            SIMPLE_OPERATION);//Листовой
     public static List<EOpType> ROUND_OPERATIONS = Arrays.asList(LATHE_MOUNT_DISMOUNT,
             PAINTING, PAINT_DETAIL, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
-            LATHE_CUT_OFF, CHOP_OFF); //Круглый
+            LATHE_CUT_OFF, CHOP_OFF,
+            SIMPLE_OPERATION); //Круглый
     public static List<EOpType> PROFILE_OPERATIONS = Arrays.asList(PAINTING,
             LOCKSMITH, DRILLING_BY_MARKING,
-            CHOP_OFF, CUT_OFF_ON_SAW); //Профильный
+            CHOP_OFF, CUT_OFF_ON_SAW,
+            SIMPLE_OPERATION); //Профильный
 
     /**
      * Метод создает запись лога в базе данных

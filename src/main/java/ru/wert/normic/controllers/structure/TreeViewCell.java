@@ -56,18 +56,16 @@ public class TreeViewCell extends TreeCell<OpData> {
             int quantity = opData.getQuantity();
             EOpType type = opData.getOpType();
 
-
             HBox hbTitle = new HBox();
             hbTitle.setSpacing(5.0);
             initTitleStyle = hbTitle.getStyle();
-
-
 
             //Лого
             Image logo = getLogo(opData, type);
             ImageView imageViewLogo = new ImageView(logo);
             imageViewLogo.setFitWidth(16);
             imageViewLogo.setFitHeight(16);
+
             //Номер с наименованием
             tfName = new TextField();
             Text txtName = new Text();
@@ -208,7 +206,7 @@ public class TreeViewCell extends TreeCell<OpData> {
 
     private void formOperationBlock(VBox vbItemBlock, OpData op) {
         //НИМЕНОВАНИЕ ОПЕРАЦИИ
-        String opName = op.getOpType().getMenuName();
+        String opName = op.getOpType().getPlateName();
         Text textOpName = new Text("\t \u25CF " + opName + ": ");
         textOpName.setId("operationName");
         Label textOpDescription = new Label(op.toString());

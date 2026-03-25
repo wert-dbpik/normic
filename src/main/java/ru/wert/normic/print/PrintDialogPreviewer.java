@@ -17,9 +17,9 @@ import ru.wert.normic.entities.ops.single.OpAssm;
 public class PrintDialogPreviewer {
 
     private PrintDialogController controller;
-    private TreeView<OpData> treeView;
+    @Getter private TreeView<OpData> treeView;
     private AnchorPane apPaper;
-    private Slider scaleSlider;
+    @Getter private Slider scaleSlider;
     private ComboBox<Paper> cmbxPapers;
     private ComboBox<PageOrientation> cmbxOrientations;
 
@@ -39,7 +39,7 @@ public class PrintDialogPreviewer {
     }
 
     private void setupScaleSlider() {
-        Slider scaleSlider = controller.getScaleSlider();
+        scaleSlider = controller.getScaleSlider();
         scaleSlider.setMin(0.5);
         scaleSlider.setMax(1.5);
         scaleSlider.setValue(1.0);

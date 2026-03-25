@@ -104,6 +104,7 @@ public class AppStatics {
             Arrays.asList(CUTTING, BENDING, WELD_CONTINUOUS, WELD_DOTTED,
                     LATHE_MOUNT_DISMOUNT, LATHE_TURNING, LATHE_CUT_GROOVE, LATHE_THREADING, LATHE_DRILLING, LATHE_ROLLING,
                     DRILLING_BY_MARKING, LOCKSMITH, LATHE_CUT_OFF, CHOP_OFF,
+                    WELD_ASSM, WELD_CONTINUOUS_NEW, WELD_CONTINUOUS, WELD_DIFFICULTY, WELD_DOTTED,
                     ASSM_CHOP_OFF,
                     PAINTING, PAINT_DETAIL,
                     SIMPLE_OPERATION
@@ -113,7 +114,7 @@ public class AppStatics {
     public static final List<EOpType> ASSM_OPERATIONS =
             Arrays.asList(DETAIL, ASSM, PACK,
                     PAINT_ASSM,
-                    WELD_CONTINUOUS, WELD_DOTTED,
+                    WELD_ASSM, WELD_CONTINUOUS_NEW, WELD_CONTINUOUS, WELD_DIFFICULTY, WELD_DOTTED,
                     ASSM_CUTTINGS, ASSM_NUTS, ASSM_NODES,
                     LEVELING_SEALER, THERMO_INSULATION,
                     EL_MOUNT_ON_DIN_AUTOMATS, EL_MOUNT_ON_DIN_HEATERS,

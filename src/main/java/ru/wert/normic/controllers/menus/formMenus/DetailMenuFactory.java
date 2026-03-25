@@ -50,7 +50,7 @@ public class DetailMenuFactory implements MenuFactory {
                 menu.getItems().add(simpleOperationsMenu);
             }
 
-            deleteImproperOperations(detailController, AppStatics.LIST_OPERATIONS);
+//            deleteImproperOperations(detailController, AppStatics.LIST_OPERATIONS);
 
         } else if (type.equals(EMatType.ROUND)) { //КРУГИ
             menu.getItems().add(menu.createItemMountDismount());
@@ -71,7 +71,7 @@ public class DetailMenuFactory implements MenuFactory {
             Menu simpleOperationsMenu = menu.createAllSimpleOperations(Arrays.asList(ENormType.NORM_MECHANICAL, ENormType.NORM_ASSEMBLING));
             menu.getItems().add(simpleOperationsMenu);
 
-            deleteImproperOperations(detailController, AppStatics.ROUND_OPERATIONS);
+//            deleteImproperOperations(detailController, AppStatics.ROUND_OPERATIONS);
 
         } else if (type.equals(EMatType.PROFILE)) { //ПРОФИЛИ
             menu.getItems().add(menu.createItemCutOffOnTheSaw());
@@ -88,7 +88,7 @@ public class DetailMenuFactory implements MenuFactory {
                 menu.getItems().add(simpleOperationsMenu);
             }
 
-            deleteImproperOperations(detailController, AppStatics.PROFILE_OPERATIONS);
+//            deleteImproperOperations(detailController, AppStatics.PROFILE_OPERATIONS);
         } else { //ШТУЧНЫЕ
             menu.getItems().add(menu.createItemBending());
             menu.getItems().add(new SeparatorMenuItem());
